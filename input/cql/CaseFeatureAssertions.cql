@@ -12,11 +12,12 @@ context Patient
 define "Most Recent Asserted BMI":
     Common.MostRecent(
         Elements."BMI Observations"
+            union Elements."Most Recent BMI Observations"
     )
 
 define "Most Recent BMI":
     Common.CaseFeatureObservation(
-        Concepts."BMI Assertion", 
+        "Most Recent Asserted BMI".code, 
         convert("Most Recent Asserted BMI".value as Quantity) to 'kg/m2',
         "Most Recent Asserted BMI".effective as dateTime, 
         'http://canonical-base/StructureDefinition/MostRecentBMI'
