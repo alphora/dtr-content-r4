@@ -18,7 +18,7 @@ define "BMI Assertion":
         coding: {
             Coding {
                 system: uri { value: 'http://cds.com/cpg/fhir/CodeSystem/CaseFeatures' },
-                code: code { value: 'MostRecentBMI' },
+                code: code { value: "MostRecentBMI" },
                 display: string { value: 'The Most Recent BMI Case Feature' }
             },
             Coding {
@@ -34,7 +34,7 @@ define "BMI Inference":
         coding: {
             Coding {
                 system: uri { value: 'http://cds.com/cpg/fhir/CodeSystem/CaseFeatures' },
-                code: code { value: 'CalculatedBMI' },
+                code: code { value: "CalculatedBMI" },
                 display: string { value: 'The BMI calculated from weight and height asserted data' }
             },
             Coding {
