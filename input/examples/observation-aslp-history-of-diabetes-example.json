@@ -1,0 +1,25 @@
+{
+  "resourceType": "Observation",
+  "id": "aslp-history-of-diabetes-example",
+  "meta": {
+    "profile": [ "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-history-of-diabetes" ]
+  },
+  "status": "final",
+  "code": {
+    "coding": [ {
+      "system": "http://example.org/fhir/CodeSystem/example-codes",
+      "code": "example",
+      "display": "Could not resolve binding valueset null"
+    } ]
+  },
+  "subject": {
+    "reference": "Patient/ASLP-patient-example"
+  },
+  "encounter": {
+    "reference": "Encounter/ASLP-encounter-example"
+  },
+  "performer": [ {
+    "reference": "PractitionerRole/ASLP-practitionerrole-example"
+  } ],
+  "valueBoolean": true
+}

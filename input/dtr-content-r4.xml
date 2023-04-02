@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ImplementationGuide xmlns="http://hl7.org/fhir">
-    <id value="acme.fhir.dtr"/>
-    <url value="http://example.com/acme/fhir/dtr/ImplementationGuide/acme.fhir.dtr"/>
+    <id value="sdh.dtr.aslp"/>
+    <url value="http://example.org/sdh/dtr/aslp/ImplementationGuide/sdh.dtr.aslp"/>
     <version value="2022"/>
-    <name value="ACMEFHIRDTR"/>
-    <title value="ACME FHIR DTR"/>
+    <name value="SDHDTRASLP"/>
+    <title value="SDH DTR ASLP"/>
     <status value="draft"/>
     <experimental value="false"/>
     <date value="2021-05-24"/>
@@ -16,17 +16,24 @@
       </telecom>
     </contact>
     <description value="Draft Documentation Templates and Rules content for demonstrating and establishing best practices for the development of prior authorization content"/>
-    <packageId value="acme.fhir.dtr"/>
+    <packageId value="sdh.dtr.aslp"/>
     <!-- TODO: Identify the license for this content -->
     <license value="CC0-1.0"/>
 	  <fhirVersion value="4.0.1"/>
-    <dependsOn ig="CQF">
+    <dependsOn id="CQF">
       <uri value="http://fhir.org/guides/cqf/common/ImplementationGuide/fhir.cqf.common"/>
       <packageId value="fhir.cqf.common"/>
+      <version value="4.0.1"/>
     </dependsOn>
-    <dependsOn ig="SDC">
-      <uri value="http://hl7.org/fhir/uv/sdc/ImplementationGuide/hl7.fhir.sdc"/>
-      <packageId value="hl7.fhir.sdc"/>
+    <dependsOn id="SDC">
+      <uri value="http://hl7.org/fhir/uv/sdc/ImplementationGuide/hl7.fhir.uv.sdc"/>
+      <packageId value="hl7.fhir.uv.sdc"/>
+      <version value="3.0.0"/>
+    </dependsOn>
+    <dependsOn id="QICore">
+      <uri value="http://hl7.org/fhir/us/qicore/ImplementationGuide/hl7.fhir.us.qicore"/>
+      <packageId value="hl7.fhir.us.qicore"/>
+      <version value="4.1.1"/>
     </dependsOn>
     <definition>
         <page>

@@ -1,32 +1,29 @@
 <ul xmlns="http://www.w3.org/1999/xhtml" class="nav navbar-nav">
   <li><a href="index.html">Home</a></li>
   <li><a href="toc.html">Table of Contents</a></li>
-  <li><a href="libraries.html">Libraries</a></li>
-  <li><a href="measures.html">Measures</a></li>
   <li><a href="artifacts.html">Artifact Index</a></li>
-  <li><a href="patterns.html">Patterns</a></li>
   <li class="dropdown">
     <a data-toggle="dropdown" href="#" class="dropdown-toggle">Support<b class="caret">
       </b>
     </a>
     <ul class="dropdown-menu">
       <li>
-        <a target="_blank" href="{{site.data.fhir.path}}index.html">FHIR Spec</a>
+        <a target="_blank" href="{{site.data.fhir.path}}index.html">FHIR Specification</a>
       </li>
       <li>
-        <a target="_blank" href="http://cql.hl7.org">CQL Spec</a>
+        <a target="_blank" href="http://cql.hl7.org">Clinical Quality Language (CQL)</a>
       </li>
       <li>
-        <a target="_blank" href="http://hl7.org/fhir/us/cqfmeasures">Quality Measure IG</a>
+        <a target="_blank" href="http://hl7.org/fhir/uv/cpg">Clinical Guidelines IG (CPG-on-FHIR)</a>
       </li>
       <li>
-        <a target="_blank" href="https://ecqi.healthit.gov/">eCQI RC</a>
+        <a target="_blank" href="http://fhir.org/guides/cqf/common">CQF Common</a>
       </li>
       <li>
-        <a target="_blank" href="http://build.fhir.org/ig/HL7/fhir-qi-core/index.html">QI-Core</a>
+        <a target="_blank" href="http://hl7.org/fhir/uv/sdc">Structured Data Capture (SDC)</a>
       </li>
       <li>
-        <a target="_blank" href="https://build.fhir.org/ig/HL7/davinci-deqm/index.html">DEQM</a>
+        <a target="_blank" href="http://hl7.org/fhir/us/qicore/STU4.1.1">US Quality Improvement Core Profiles (QI Core)</a>
       </li>
       <li>
         <a href="downloads.html">Downloads</a>

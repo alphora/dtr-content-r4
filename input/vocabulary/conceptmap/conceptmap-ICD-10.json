@@ -1,0 +1,23 @@
+{
+  "resourceType": "ConceptMap",
+  "id": "ICD-10",
+  "url": "http://example.org/sdh/dtr/aslp/ConceptMap/ICD-10",
+  "name": "ICD-10",
+  "title": "ICD-10",
+  "status": "draft",
+  "experimental": false,
+  "description": "Concept mapping from content extended codes to ICD-10",
+  "group": [ {
+    "source": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes",
+    "target": "http://hl7.org/fhir/sid/icd-10",
+    "element": [ {
+      "code": "ASLP.A1.DE17",
+      "display": "Obstructive sleep apnea (OSA)",
+      "target": [ {
+        "code": "G47.33",
+        "display": "Obstructive sleep apnea (OSA)",
+        "equivalence": "equivalent"
+      } ]
+    } ]
+  } ]
+}

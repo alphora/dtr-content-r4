@@ -1,0 +1,28 @@
+{
+  "resourceType": "Observation",
+  "id": "aslp-weight-example",
+  "meta": {
+    "profile": [ "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-weight" ]
+  },
+  "status": "final",
+  "code": {
+    "coding": [ {
+      "system": "http://example.org/fhir/CodeSystem/example-codes",
+      "code": "example",
+      "display": "Could not resolve binding valueset null"
+    } ]
+  },
+  "subject": {
+    "reference": "Patient/ASLP-patient-example"
+  },
+  "encounter": {
+    "reference": "Encounter/ASLP-encounter-example"
+  },
+  "performer": [ {
+    "reference": "PractitionerRole/ASLP-practitionerrole-example"
+  } ],
+  "valueQuantity": {
+    "value": 12.5,
+    "unit": "g"
+  }
+}
