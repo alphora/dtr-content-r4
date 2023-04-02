@@ -1,0 +1,90 @@
+{
+    "resourceType": "Questionnaire",
+    "id": "DemoSleepStudiesAdult",
+    "meta": {
+        "versionId": "1",
+        "profile": [
+            "http://hl7.org/fhir/us/davinci-dtr/StructureDefinition/dtr-questionnaire-r4",
+            "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-shareablequestionnaire"
+        ]
+    },
+    "extension": [
+        {
+            "url": "http://hl7.org/fhir/StructureDefinition/cqf-library",
+            "valueCanonical": "http://smilecdr.com/fhir/uv/dtr-content-r4/Library/DemoSleepStudiesAdult"
+        },
+        {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+            "valueCode": "shareable"
+        },
+        {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+            "valueCode": "publishable"
+        },
+        {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+            "valueCode": "narrative"
+        },
+        {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+            "valueCode": "computable"
+        },
+        {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+            "valueCode": "structured"
+        },
+        {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+            "valueCode": "executable"
+        },
+        {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+            "valueCode": "executable"
+        }
+    ],
+    "name": "DemoSleepStudiesAdult",
+    "title": "Sleep Studies Demo DTR Rule",
+    "version": "0.0.1",
+    "status": "active",
+    "experimental": true,
+    "subjectType": [
+        "Patient",
+        "Organization",
+        "Claim"
+    ],
+    "description": "A questionnaire to use for demoing the Prior Auth DTR application.",
+    "jurisdiction": [
+        {
+            "coding": [
+                {
+                    "system": "urn:iso:std:iso:3166",
+                    "code": "US"
+                }
+            ]
+        }
+    ],
+    "item": [
+        {
+            "linkId": "1",
+            "text": "Clinical Information (pertinent to the request)",
+            "type": "group",
+            "item": [
+                {
+                    "extension": [
+                        {
+                            "url": "http://hl7.org/fhir/StructureDefinition/cqf-expression",
+                            "valueExpression": {
+                                "language": "text/cql.identifier",
+                                "expression": "BMI"
+                            }
+                        }
+                    ],
+                    "linkId": "1.1",
+                    "text": "BMI",
+                    "type": "string",
+                    "required": true
+                }
+            ]
+        }
+    ]
+}
