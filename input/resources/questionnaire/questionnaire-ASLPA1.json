@@ -13,6 +13,9 @@
   }, {
     "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
     "valueCode": "structured"
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-library",
+    "valueCanonical": "http://example.org/sdh/dtr/aslp/Library/CaseFeatures"
   } ],
   "url": "http://example.org/sdh/dtr/aslp/Questionnaire/ASLPA1",
   "name": "ASLPA1",
@@ -35,17 +38,30 @@
     }
   } ],
   "item": [ {
-    "linkId": "1",
-    "definition": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-sleep-study-order#ServiceRequest.code",
+    "extension": [ {
+      "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-candidateExpression",
+      "valueExpression": {
+        "language": "text/cql-expression",
+        "expression": "Sleep Study Order"
+      }
+    } ],
+    "linkId": "0",
     "text": "A sleep study procedure being ordered",
-    "type": "choice",
-    "answerValueSet": "http://example.org/sdh/dtr/aslp/ValueSet/aslp-a1-de1-codes-grouper"
-  }, {
-    "linkId": "2",
-    "definition": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-sleep-study-order#ServiceRequest.occurrence[x]",
-    "text": "Date of the procedure",
-    "type": "dateTime"
-  }, {
+    "type": "group",
+    "repeats": true,
+    "item": [ {
+      "linkId": "1",
+      "definition": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-sleep-study-order#ServiceRequest.code",
+      "text": "A sleep study procedure being ordered",
+      "type": "choice",
+      "answerValueSet": "http://example.org/sdh/dtr/aslp/ValueSet/aslp-a1-de1-codes-grouper"
+    }, {
+      "linkId": "2",
+      "definition": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-sleep-study-order#ServiceRequest.occurrence[x]",
+      "text": "Date of the procedure",
+      "type": "dateTime"
+  } ]
+  } , {
     "linkId": "3",
     "definition": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-diagnosis-of-obstructive-sleep-apnea#Condition.code",
     "text": "Diagnosis of Obstructive Sleep Apnea",
