@@ -2,7 +2,7 @@ library CaseFeatures version '0.0.001'
 
 using FHIR version '4.0.1'
 
-include FHIRHelpers version '4.1.001' called FHIRHelpers
+include FHIRHelpers version '4.1.000' called FHIRHelpers
 include Common version '0.0.001' called Common
 include CaseFeatureAssertions version '0.0.001' called Assertions
 include CaseFeatureInferences version '0.0.001' called Inferences

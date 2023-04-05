@@ -2,12 +2,11 @@ library ASLPContactDataElements
 
 using FHIR version '4.0.1'
 
-include FHIRHelpers version '4.0.1'
+include FHIRHelpers version '4.1.000'
 include FHIRCommon called FC
 
-include NACHCCommon called NC
-include ASLPCommon called AC
-include ASLPConcepts called Cx
+include SDHCommon called SC
+include ASLPConcepts called Cs
 
 context Encounter
 
@@ -17,8 +16,8 @@ context Encounter
   @description: Body mass index (BMI)
 */
 define "BMI":
-  WC.MostRecent(
-  [Observation: Cx."BMI"] O
+  SC.MostRecent(
+  [Observation: Cs."BMI"] O
     where O.status in { 'final', 'amended', 'corrected' }
       and Last(Split(O.encounter.reference, '/')) = Encounter.id
   ).value as FHIR.Quantity
@@ -30,7 +29,7 @@ define "BMI":
   @description: Diagnosis of Obstructive Sleep Apnea
 */
 define "Diagnosis of Obstructive Sleep Apnea":
-  [Condition: Cx."Diagnosis of Obstructive Sleep Apnea Codes"] C
+  [Condition: Cs."Diagnosis of Obstructive Sleep Apnea Codes"] C
     where C.clinicalStatus in FC."Active Condition"
       and C.verificationStatus ~ FC."confirmed"
       and Last(Split(C.encounter.reference, '/')) = Encounter.id
@@ -42,8 +41,8 @@ define "Diagnosis of Obstructive Sleep Apnea":
   @description: Height (in inches)
 */
 define "Height":
-  WC.MostRecent(
-  [Observation: Cx."Height"] O
+  SC.MostRecent(
+  [Observation: Cs."Height"] O
     where O.status in { 'final', 'amended', 'corrected' }
       and Last(Split(O.encounter.reference, '/')) = Encounter.id
   ).value as FHIR.Quantity
@@ -55,11 +54,11 @@ define "Height":
   @description: History of Diabetes
 */
 define "History of Diabetes":
-  WC.MostRecent(
-  [Observation: Cx."History of Diabetes"] O
+  SC.MostRecent(
+  [Observation: Cs."History of Diabetes"] O
     where O.status in { 'final', 'amended', 'corrected' }
       and Last(Split(O.encounter.reference, '/')) = Encounter.id
-  ).value as FHIR.Boolean
+  ).value as FHIR.boolean
 
 
 /*
@@ -68,11 +67,11 @@ define "History of Diabetes":
   @description: History of Hypertension
 */
 define "History of Hypertension":
-  WC.MostRecent(
-  [Observation: Cx."History of Hypertension"] O
+  SC.MostRecent(
+  [Observation: Cs."History of Hypertension"] O
     where O.status in { 'final', 'amended', 'corrected' }
       and Last(Split(O.encounter.reference, '/')) = Encounter.id
-  ).value as FHIR.Boolean
+  ).value as FHIR.boolean
 
 
 /*
@@ -81,8 +80,8 @@ define "History of Hypertension":
   @description: Neck circumference (in inches)
 */
 define "Neck Circumference":
-  WC.MostRecent(
-  [Observation: Cx."Neck Circumference"] O
+  SC.MostRecent(
+  [Observation: Cs."Neck Circumference"] O
     where O.status in { 'final', 'amended', 'corrected' }
       and Last(Split(O.encounter.reference, '/')) = Encounter.id
   ).value as FHIR.Quantity
@@ -94,12 +93,10 @@ define "Neck Circumference":
   @description: A sleep study procedure being ordered
 */
 define "Sleep Study":
-  WC.Any(
-  [ServiceRequest: Cx."Sleep Study Codes Grouper"] SR
+  [ServiceRequest: Cs."Sleep Study Codes Grouper"] SR
     where SR.status in { 'draft', 'active', 'on-hold', 'completed' }
       and SR.doNotPerform is not true
       and Last(Split(SR.encounter.reference, '/')) = Encounter.id
-  ).code
 
 
 /*
@@ -108,12 +105,10 @@ define "Sleep Study":
   @description: Date of the procedure
 */
 define "Sleep Study Date":
-  WC.Any(
-  [ServiceRequest] SR
+  [ServiceRequest: Cs."Sleep Study Codes Grouper"] SR
     where SR.status in { 'draft', 'active', 'on-hold', 'completed' }
       and SR.doNotPerform is not true
       and Last(Split(SR.encounter.reference, '/')) = Encounter.id
-  ).occurrence as FHIR.dateTime
 
 
 /*
@@ -122,8 +117,8 @@ define "Sleep Study Date":
   @description: Weight (in pounds)
 */
 define "Weight":
-  WC.MostRecent(
-  [Observation: Cx."Weight"] O
+  SC.MostRecent(
+  [Observation: Cs."Weight"] O
     where O.status in { 'final', 'amended', 'corrected' }
       and Last(Split(O.encounter.reference, '/')) = Encounter.id
   ).value as FHIR.Quantity

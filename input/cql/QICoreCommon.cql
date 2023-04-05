@@ -1,104 +1,42 @@
 /*
 @author: Bryn Rhodes
-@description: This library defines common terminology and functions
+@description: This library defines functions to expose extensions defined
+in QICore as functions in CQL, as well as common terminology and functions
 used in writing CQL with FHIR and QICore profiles.
+
+NOTE: The source for this is the QICoreCommon library published as part of QICore 4.1.1
+That library specified these functions as fluent functions, whereas the functions
+specified here are non-fluent versions.
+
+@update: Refactored to use FHIRCommon
 */
-library QICoreCommon version '1.3.000'
+library QICoreCommon version '1.0.000'
 
-using QICore version '4.1.1'
+using FHIR version '4.0.1'
 
-include FHIRHelpers version '4.1.000'
+include FHIRHelpers version '4.1.000' called FHIRHelpers
+include FHIRCommon version '1.1.000' called FHIRCommon
 
-codesystem "LOINC": 'http://loinc.org'
-codesystem "SNOMEDCT": 'http://snomed.info/sct'
-codesystem "ActCode": 'http://terminology.hl7.org/CodeSystem/v3-ActCode'
-codesystem "RoleCode": 'http://terminology.hl7.org/CodeSystem/v3-RoleCode'
-codesystem "Diagnosis Role": 'http://terminology.hl7.org/CodeSystem/diagnosis-role'
-codesystem "RequestIntent": 'http://hl7.org/fhir/request-intent'
-codesystem "MedicationRequestCategory": 'http://terminology.hl7.org/CodeSystem/medicationrequest-category'
-codesystem "ConditionClinicalStatusCodes": 'http://terminology.hl7.org/CodeSystem/condition-clinical'
-codesystem "ConditionVerificationStatusCodes": 'http://terminology.hl7.org/CodeSystem/condition-ver-status'
-codesystem "AllergyIntoleranceClinicalStatusCodes": 'http://terminology.hl7.org/CodeSystem/allergyintolerance-clinical'
-codesystem "AllergyIntoleranceVerificationStatusCodes": 'http://terminology.hl7.org/CodeSystem/allergyintolerance-verification'
-codesystem "ObservationCategoryCodes": 'http://terminology.hl7.org/CodeSystem/observation-category'
-codesystem "USCoreObservationCategory": 'http://hl7.org/fhir/us/core/CodeSystem/us-core-observation-category'
-codesystem "ConditionCategory": 'http://terminology.hl7.org/CodeSystem/condition-category'
 codesystem "USCoreConditionCategory": 'http://hl7.org/fhir/us/core/CodeSystem/condition-category'
-
-code "Birthdate": '21112-8' from "LOINC" display 'Birth date'
-code "Dead": '419099009' from "SNOMEDCT" display 'Dead'
-code "ER": 'ER' from "RoleCode" display 'Emergency room'
-code "ICU": 'ICU' from "RoleCode" display 'Intensive care unit'
-code "Billing": 'billing' from "Diagnosis Role" display 'Billing'
-
-// Encounter Class Codes
-code "ambulatory": 'AMB' from ActCode display 'ambulatory'
-code "emergency": 'EMER' from ActCode display 'emergency'
-code "field": 'FLD' from ActCode display 'field'
-code "home health": 'HH' from ActCode display 'home health'
-code "inpatient encounter": 'IMP' from ActCode display 'inpatient encounter'
-code "inpatient acute": 'ACUTE' from ActCode display 'inpatient acute'
-code "inpatient non-acute": 'NONAC' from ActCode display 'inpatient non-acute'
-code "observation encounter": 'OBSENC' from ActCode display 'observation encounter'
-code "pre-admission": 'PRENC' from ActCode display 'pre-admission'
-code "short stay": 'SS' from ActCode display 'short stay'
-code "virtual": 'VR' from ActCode display 'VR'
+// NOTE: Introduced in USCore 5
+codesystem "USCoreObservationCategory": 'http://hl7.org/fhir/us/core/CodeSystem/us-core-observation-category'
 
 // Condition Category Codes
-code "problem-list-item": 'problem-list-item' from "ConditionCategory" display 'Problem List Item'
-code "encounter-diagnosis": 'encounter-diagnosis' from "ConditionCategory" display 'Encounter Diagnosis'
+code "problem-list-item": 'problem-list-item' from FHIRCommon."ConditionCategoryCodes" display 'Problem List Item'
+code "encounter-diagnosis": 'encounter-diagnosis' from FHIRCommon."ConditionCategoryCodes" display 'Encounter Diagnosis'
 code "health-concern": 'health-concern' from "USCoreConditionCategory" display 'Health Concern'
 
-// Condition Clinical Status Codes - Consider value sets for these
-code "active": 'active' from "ConditionClinicalStatusCodes"
-code "recurrence": 'recurrence' from "ConditionClinicalStatusCodes"
-code "relapse": 'relapse' from "ConditionClinicalStatusCodes"
-code "inactive": 'inactive' from "ConditionClinicalStatusCodes"
-code "remission": 'remission' from "ConditionClinicalStatusCodes"
-code "resolved": 'resolved' from "ConditionClinicalStatusCodes"
-
-// Condition Verification Status Codes - Consider value sets for these
-code "unconfirmed": 'unconfirmed' from ConditionVerificationStatusCodes
-code "provisional": 'provisional' from ConditionVerificationStatusCodes
-code "differential": 'differential' from ConditionVerificationStatusCodes
-code "confirmed": 'confirmed' from ConditionVerificationStatusCodes
-code "refuted": 'refuted' from ConditionVerificationStatusCodes
-code "entered-in-error": 'entered-in-error' from ConditionVerificationStatusCodes
-
-code "allergy-active": 'active' from "AllergyIntoleranceClinicalStatusCodes"
-code "allergy-inactive": 'inactive' from "AllergyIntoleranceClinicalStatusCodes"
-code "allergy-resolved": 'resolved' from "AllergyIntoleranceClinicalStatusCodes"
-
-// Allergy/Intolerance Verification Status Codes - Consider value sets for these
-code "allergy-unconfirmed": 'unconfirmed' from AllergyIntoleranceVerificationStatusCodes
-code "allergy-confirmed": 'confirmed' from AllergyIntoleranceVerificationStatusCodes
-code "allergy-refuted": 'refuted' from AllergyIntoleranceVerificationStatusCodes
-
-// MedicationRequest Category Codes
-code "Inpatient": 'inpatient' from "MedicationRequestCategory" display 'Inpatient'
-code "Outpatient": 'outpatient' from "MedicationRequestCategory" display 'Outpatient'
-code "Community": 'community' from "MedicationRequestCategory" display 'Community'
-code "Discharge": 'discharge' from "MedicationRequestCategory" display 'Discharge'
-
-// Diagnosis Role Codes
-code "AD": 'AD' from "Diagnosis Role" display 'Admission diagnosis'
-code "DD": 'DD' from "Diagnosis Role" display 'Discharge diagnosis'
-code "CC": 'CC' from "Diagnosis Role" display 'Chief complaint'
-code "CM": 'CM' from "Diagnosis Role" display 'Comorbidity diagnosis'
-code "pre-op": 'pre-op' from "Diagnosis Role" display 'pre-op diagnosis'
-code "post-op": 'post-op' from "Diagnosis Role" display 'post-op diagnosis'
-code "billing": 'billing' from "Diagnosis Role" display 'billing diagnosis'
-
 // Observation Category Codes
-code "social-history": 'social-history' from "ObservationCategoryCodes" display 'Social History'
-code "vital-signs": 'vital-signs' from "ObservationCategoryCodes" display 'Vital Signs'
-code "imaging": 'imaging' from "ObservationCategoryCodes" display 'Imaging'
-code "laboratory": 'laboratory' from "ObservationCategoryCodes" display 'Laboratory'
-code "procedure": 'procedure' from "ObservationCategoryCodes" display 'Procedure'
-code "survey": 'survey' from "ObservationCategoryCodes" display 'Survey'
-code "exam": 'exam' from "ObservationCategoryCodes" display 'Exam'
-code "therapy": 'therapy' from "ObservationCategoryCodes" display 'Therapy'
-code "activity": 'activity' from "ObservationCategoryCodes" display 'Activity'
+code "social-history": 'social-history' from FHIRCommon."ObservationCategoryCodes" display 'Social History'
+code "vital-signs": 'vital-signs' from FHIRCommon."ObservationCategoryCodes" display 'Vital Signs'
+code "imaging": 'imaging' from FHIRCommon."ObservationCategoryCodes" display 'Imaging'
+code "laboratory": 'laboratory' from FHIRCommon."ObservationCategoryCodes" display 'Laboratory'
+code "procedure": 'procedure' from FHIRCommon."ObservationCategoryCodes" display 'Procedure'
+code "survey": 'survey' from FHIRCommon."ObservationCategoryCodes" display 'Survey'
+code "exam": 'exam' from FHIRCommon."ObservationCategoryCodes" display 'Exam'
+code "therapy": 'therapy' from FHIRCommon."ObservationCategoryCodes" display 'Therapy'
+code "activity": 'activity' from FHIRCommon."ObservationCategoryCodes" display 'Activity'
+// NOTE: Introduced in USCore 5
 code "clinical-test": 'clinical-test' from "USCoreObservationCategory" display 'Clinical Test'
 
 context Patient
@@ -106,129 +44,122 @@ context Patient
 /* Candidates for FHIRCommon */
 
 /*
-@description: Returns true if the given condition has a clinical status of active, recurrence, or relapse
+@description: returns true if the given condition has the given category
 */
-define fluent function isActive(condition Condition):
-  condition.clinicalStatus ~ "active"
-    or condition.clinicalStatus ~ "recurrence"
-    or condition.clinicalStatus ~ "relapse"
-
-/*
-@description: Returns true if the given condition has the given category
-*/
-define fluent function hasCategory(condition Condition, category Code):
+define function HasCategory(condition Condition, category Code):
   exists (condition.category C
     where C ~ category
   )
 
 /*
-@description: Returns true if the given condition is a problem list item.
+@description: returns true if the given condition is a problem list item
 */
-define fluent function isProblemListItem(condition Condition):
+define function IsProblemListItem(condition Condition):
   exists (condition.category C
     where C ~ "problem-list-item"
   )
 
 /*
-@description: Returns true if the given condition is an encounter diagnosis
+@description: returns true if the given condition is an encounter diagnosis
 */
-define fluent function isEncounterDiagnosis(condition Condition):
+define function IsEncounterDiagnosis(condition Condition):
   exists (condition.category C
     where C ~ "encounter-diagnosis"
   )
 
 /*
-@description: Returns true if the given condition is a health concern
+@description: returns true if the given condition is a health concern
 */
-define fluent function isHealthConcern(condition Condition):
+define function IsHealthConcern(condition Condition):
   exists (condition.category C
     where C ~ "health-concern"
   )
 
 /*
-@description: Returns true if the given observation has the given category
+@description: returns true if the given observation has the given category
 */
-define fluent function hasCategory(observation Observation, category Code):
+define function HasCategory(observation Observation, category Code):
   exists (observation.category C
     where C ~ category
   )
 
 /*
-@description: Returns true if the given observation is a social history observation
+@description: returns true if the given observation is a social history
 */
-define fluent function isSocialHistory(observation Observation):
+define function IsSocialHistory(observation Observation):
   exists (observation.category C
     where C ~ "social-history"
   )
 
 /*
-@description: Returns true if the given observation is a vital sign
+@description: returns true if the given observation is a vital-sign
 */
-define fluent function isVitalSign(observation Observation):
+define function IsVitalSign(observation Observation):
   exists (observation.category C
     where C ~ "vital-signs"
   )
 
 /*
-@description: Returns true if the given observation is an imaging observation
+@description: returns true if the given observation is an imaging observation
 */
-define fluent function isImaging(observation Observation):
+define function IsImaging(observation Observation):
   exists (observation.category C
     where C ~ "imaging"
   )
 
 /*
-@description: Returns true if the given observation is a laboratory observation
+@description: returns true if the given observation is a laboratory observation
 */
-define fluent function isLaboratory(observation Observation):
+define function IsLaboratory(observation Observation):
   exists (observation.category C
     where C ~ "laboratory"
   )
 
 /*
-@description: REturns true if the given observation is a procedure observation
+@description: returns true if the given observation is a procedure observation
 */
-define fluent function isProcedure(observation Observation):
+define function IsProcedure(observation Observation):
   exists (observation.category C
     where C ~ "procedure"
   )
 
 /*
-@description: Returns true if the given observation is a survey observation
+@description: returns true if the given observation is a survey observation
 */
-define fluent function isSurvey(observation Observation):
+define function IsSurvey(observation Observation):
   exists (observation.category C
     where C ~ "survey"
   )
 
 /*
-@description: Returns true if the given observation is an exam observation
+@description: returns true if the given observation is an exam observation
 */
-define fluent function isExam(observation Observation):
+define function IsExam(observation Observation):
   exists (observation.category C
     where C ~ "exam"
   )
 
 /*
-@description: Returns true if the given observation is a therapy observation
+@description: returns true if the given observation is a therapy observation
 */
-define fluent function isTherapy(observation Observation):
+define function IsTherapy(observation Observation):
   exists (observation.category C
     where C ~ "therapy"
   )
 
 /*
-@description: Returns true if the given observation is an activity observation
+@description: returns true if the given observation is an activity observation
 */
-define fluent function isActivity(observation Observation):
+define function IsActivity(observation Observation):
   exists (observation.category C
     where C ~ "activity"
   )
 
 /*
-@description: Returns true if the given observation is a clinical test result
+@description: returns true if the given observation is a clinical test
+@comment: Introduced in USCore 5
 */
-define fluent function isClinicalTest(observation Observation):
+define function IsClinicalTest(observation Observation):
   exists (observation.category C
     where C ~ "clinical-test"
   )
@@ -236,337 +167,291 @@ define fluent function isClinicalTest(observation Observation):
 /*
 @description: Returns true if the given MedicationRequest has a category of Community
 */
-define fluent function isCommunity(medicationRequest MedicationRequest):
+define function IsCommunity(medicationRequest MedicationRequest):
   exists (medicationRequest.category C
-    where C ~ Community
-  )
-
-/*
-@description: Returns true if the given MedicationRequest has a category of Community
-*/
-define fluent function isCommunity(medicationRequest MedicationNotRequested):
-  exists (medicationRequest.category C
-    where C ~ Community
+    where C ~ FHIRCommon.Community
   )
 
 /*
 @description: Returns true if the given MedicationRequest has a category of Discharge
 */
-define fluent function isDischarge(medicationRequest MedicationRequest):
+define function IsDischarge(medicationRequest MedicationRequest):
   exists (medicationRequest.category C
-    where C ~ Discharge
+    where C ~ FHIRCommon.Discharge
   )
 
 /*
-@description: Returns true if the given MedicationRequest has a category of Discharge
+@description: Surfaces the [resolutionAge](http://hl7.org/fhir/StructureDefinition/allergyintolerance-resolutionAge)
+extension defined in FHIR.
+@comment: This function returns the value of the extension as an Age.
+@extension: http://hl7.org/fhir/StructureDefinition/allergyintolerance-resolutionAge
 */
-define fluent function isDischarge(medicationRequest MedicationNotRequested):
-  exists (medicationRequest.category C
-    where C ~ Discharge
-  )
+define function ResolutionAge(allergyIntolerance AllergyIntolerance):
+  FHIRCommon.Extension(allergyIntolerance, 'http://hl7.org/fhir/StructureDefinition/allergyintolerance-resolutionAge').value as Age
 
 /*
-@description: Returns true if the given DeviceRequest is a negation (i.e. do not perform this order)
+@description: Surfaces the [reasonRefuted](http://hl7.org/fhir/StructureDefinition/allergyintolerance-reasonRefuted)
+extension defined in FHIR.
+@comment: This function returns the value of the extension as a CodeableConcept.
+@extension: http://hl7.org/fhir/StructureDefinition/allergyintolerance-reasonRefuted
 */
-define fluent function doNotPerform(deviceRequest DeviceRequest):
-  singleton from (
-    deviceRequest.modifierExtension E
-      where E.url = 'http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-doNotPerform'
-      return E.value as Boolean
-  )
+define function ReasonRefuted(allergyIntolerance AllergyIntolerance):
+  FHIRCommon.Extension(allergyIntolerance, 'http://hl7.org/fhir/StructureDefinition/allergyintolerance-reasonRefuted').value as CodeableConcept
 
 /*
-@description: Normalizes a value that is a choice of timing-valued types to an equivalent interval
-@comment: Normalizes a choice type of DateTime, Quanitty, Interval<DateTime>, or Interval<Quantity> types
-to an equivalent interval. This selection of choice types is a superset of the majority of choice types that are used as possible
-representations for timing-valued elements in QICore, allowing this function to be used across any resource.
-The input can be provided as a DateTime, Quantity, Interval<DateTime> or Interval<Quantity>.
-The intent of this function is to provide a clear and concise mechanism to treat single
-elements that have multiple possible representations as intervals so that logic doesn't have to account
-for the variability. More complex calculations (such as medication request period or dispense period
-calculation) need specific guidance and consideration. That guidance may make use of this function, but
-the focus of this function is on single element calculations where the semantics are unambiguous.
-If the input is a DateTime, the result a DateTime Interval beginning and ending on that DateTime.
-If the input is a Quantity, the quantity is expected to be a calendar-duration interpreted as an Age,
-and the result is a DateTime Interval beginning on the Date the patient turned that age and ending immediately before one year later.
-If the input is a DateTime Interval, the result is the input.
-If the input is a Quantity Interval, the quantities are expected to be calendar-durations interpreted as an Age, and the result
-is a DateTime Interval beginning on the date the patient turned the age given as the start of the quantity interval, and ending
-immediately before one year later than the date the patient turned the age given as the end of the quantity interval.
-Any other input will reslt in a null DateTime Interval
-@deprecated: This function is deprecated. Use the fluent function `toInterval()` instead
+@description: Surfaces the [duration](http://hl7.org/fhir/StructureDefinition/allergyintolerance-duration)
+extension defined in FHIR.
+@comment: This function returns the value of the extension as a Duration.
+@extension: http://hl7.org/fhir/StructureDefinition/allergyintolerance-duration
 */
-define function ToInterval(choice Choice<DateTime, Quantity, Interval<DateTime>, Interval<Quantity>>):
-  case
-	  when choice is DateTime then
-    	Interval[choice as DateTime, choice as DateTime]
-		when choice is Interval<DateTime> then
-  		choice as Interval<DateTime>
-		when choice is Quantity then
-		  Interval[Patient.birthDate + (choice as Quantity),
-			  Patient.birthDate + (choice as Quantity) + 1 year)
-		when choice is Interval<Quantity> then
-		  Interval[Patient.birthDate + (choice.low as Quantity),
-			  Patient.birthDate + (choice.high as Quantity) + 1 year)
-		else
-			null as Interval<DateTime>
-	end
+define function Duration(allergyIntolerance BackboneElement):
+  FHIRCommon.Extension(allergyIntolerance, 'http://hl7.org/fhir/StructureDefinition/allergyintolerance-duration').value as Duration
 
 /*
-@description: Normalizes a value that is a choice of timing-valued types to an equivalent interval
-@comment: Normalizes a choice type of DateTime, Quanitty, Interval<DateTime>, or Interval<Quantity> types
-to an equivalent interval. This selection of choice types is a superset of the majority of choice types that are used as possible
-representations for timing-valued elements in QICore, allowing this function to be used across any resource.
-The input can be provided as a DateTime, Quantity, Interval<DateTime> or Interval<Quantity>.
-The intent of this function is to provide a clear and concise mechanism to treat single
-elements that have multiple possible representations as intervals so that logic doesn't have to account
-for the variability. More complex calculations (such as medication request period or dispense period
-calculation) need specific guidance and consideration. That guidance may make use of this function, but
-the focus of this function is on single element calculations where the semantics are unambiguous.
-If the input is a DateTime, the result a DateTime Interval beginning and ending on that DateTime.
-If the input is a Quantity, the quantity is expected to be a calendar-duration interpreted as an Age,
-and the result is a DateTime Interval beginning on the Date the patient turned that age and ending immediately before one year later.
-If the input is a DateTime Interval, the result is the input.
-If the input is a Quantity Interval, the quantities are expected to be calendar-durations interpreted as an Age, and the result
-is a DateTime Interval beginning on the date the patient turned the age given as the start of the quantity interval, and ending
-immediately before one year later than the date the patient turned the age given as the end of the quantity interval.
-Any other input will reslt in a null DateTime Interval
+@description: Surfaces the [dueTo](http://hl7.org/fhir/StructureDefinition/condition-dueTo)
+extension defined in FHIR.
+@comment: This function returns the value of the extension as a choice of CodeableConcept or Reference.
+@extension: http://hl7.org/fhir/StructureDefinition/condition-dueTo
 */
-define fluent function toInterval(choice Choice<DateTime, Quantity, Interval<DateTime>, Interval<Quantity>>):
-  case
-	  when choice is DateTime then
-    	Interval[choice as DateTime, choice as DateTime]
-		when choice is Interval<DateTime> then
-  		choice as Interval<DateTime>
-		when choice is Quantity then
-		  Interval[Patient.birthDate + (choice as Quantity),
-			  Patient.birthDate + (choice as Quantity) + 1 year)
-		when choice is Interval<Quantity> then
-		  Interval[Patient.birthDate + (choice.low as Quantity),
-			  Patient.birthDate + (choice.high as Quantity) + 1 year)
-		else
-			null as Interval<DateTime>
-	end
+define function DueTo(condition Condition):
+  FHIRCommon.Extension(condition, 'http://hl7.org/fhir/StructureDefinition/condition-dueTo').value as Choice<CodeableConcept, Reference>
 
 /*
-@description: Returns an interval representing the normalized abatement of a given Condition.
-@comment: If the abatement element of the Condition is represented as a DateTime, the result
-is an interval beginning and ending on that DateTime.
-If the abatement is represented as a Quantity, the quantity is expected to be a calendar-duration and is interpreted as the age of the patient. The
-result is an interval from the date the patient turned that age to immediately before one year later.
-If the abatement is represented as a Quantity Interval, the quantities are expected to be calendar-durations and are interpreted as an age range during
-which the abatement occurred. The result is an interval from the date the patient turned the starting age of the quantity interval, and ending immediately
-before one year later than the date the patient turned the ending age of the quantity interval.
-@deprecated: This function is deprecated. Use the fluent function `abatementInterval()` instead.
+@description: Surfaces the [occurredFollowing](http://hl7.org/fhir/StructureDefinition/condition-occurredFollowing)
+extension defined in FHIR.
+@comment: This function returns the value of the extension as a choice of CodeableConcept or Reference
+@extension: http://hl7.org/fhir/StructureDefinition/condition-occurredFollowing
 */
-define function ToAbatementInterval(condition Condition):
-	if condition.abatement is DateTime then
-	  Interval[condition.abatement as DateTime, condition.abatement as DateTime]
-	else if condition.abatement is Quantity then
-		Interval[Patient.birthDate + (condition.abatement as Quantity),
-			Patient.birthDate + (condition.abatement as Quantity) + 1 year)
-	else if condition.abatement is Interval<Quantity> then
-	  Interval[Patient.birthDate + (condition.abatement.low as Quantity),
-		  Patient.birthDate + (condition.abatement.high as Quantity) + 1 year)
-	else if condition.abatement is Interval<DateTime> then
-	  Interval[condition.abatement.low, condition.abatement.high)
-	else null as Interval<DateTime>
+define function OccurredFollowing(condition Condition):
+  FHIRCommon.Extension(condition, 'http://hl7.org/fhir/StructureDefinition/condition-occurredFollowing').value as Choice<CodeableConcept, Reference>
 
 /*
-@description: Returns an interval representing the normalized abatement of a given Condition.
-@comment: If the abatement element of the Condition is represented as a DateTime, the result
-is an interval beginning and ending on that DateTime.
-If the abatement is represented as a Quantity, the quantity is expected to be a calendar-duration and is interpreted as the age of the patient. The
-result is an interval from the date the patient turned that age to immediately before one year later.
-If the abatement is represented as a Quantity Interval, the quantities are expected to be calendar-durations and are interpreted as an age range during
-which the abatement occurred. The result is an interval from the date the patient turned the starting age of the quantity interval, and ending immediately
-before one year later than the date the patient turned the ending age of the quantity interval.
+@description: Surfaces the [doNotPerform](http://hl7.org/fhir/5.0/StructureDefinition/extension-DeviceRequest.doNotPerform)
+modifier extension defined in FHIR.
+@comment: This function returns the value of the modifier extension as a boolean
+@extension: http://hl7.org/fhir/StructureDefinition/request-doNotPerform
 */
-define fluent function abatementInterval(condition Condition):
-	if condition.abatement is DateTime then
-	  Interval[condition.abatement as DateTime, condition.abatement as DateTime]
-	else if condition.abatement is Quantity then
-		Interval[Patient.birthDate + (condition.abatement as Quantity),
-			Patient.birthDate + (condition.abatement as Quantity) + 1 year)
-	else if condition.abatement is Interval<Quantity> then
-	  Interval[Patient.birthDate + (condition.abatement.low as Quantity),
-		  Patient.birthDate + (condition.abatement.high as Quantity) + 1 year)
-	else if condition.abatement is Interval<DateTime> then
-	  Interval[condition.abatement.low, condition.abatement.high)
-	else null as Interval<DateTime>
+define function DoNotPerform(requestResource DomainResource):
+  FHIRCommon.ModifierExtension(requestResource, 'http://hl7.org/fhir/5.0/StructureDefinition/extension-DeviceRequest.doNotPerform').value as boolean
 
 /*
-@description: Returns an interval representing the normalized prevalence period of a given Condition.
-@comment: Uses the ToInterval and ToAbatementInterval functions to determine the widest potential interval from
-onset to abatement as specified in the given Condition. If the condition is active, the resulting interval will have
-a closed ending boundary. If the condition is not active, the resulting interval will have an open ending boundary.
-@deprecated: This function is deprecated. Use the `prevalenceInterval()` fluent function instead
+@description: Surfaces the [statusReason](http://hl7.org/fhir/StructureDefinition/request-statusReason)
+extension defined in FHIR.
+@comment: This function returns the value of the extension as a CodeableConcept
+@extension: http://hl7.org/fhir/StructureDefinition/request-statusReason
 */
-define function ToPrevalenceInterval(condition Condition):
-if condition.clinicalStatus ~ "active"
-  or condition.clinicalStatus ~ "recurrence"
-  or condition.clinicalStatus ~ "relapse" then
-  Interval[start of ToInterval(condition.onset), end of ToAbatementInterval(condition)]
-else
-  Interval[start of ToInterval(condition.onset), end of ToAbatementInterval(condition))
+define function StatusReason(requestResource DomainResource):
+  FHIRCommon.Extension(requestResource, 'http://hl7.org/fhir/StructureDefinition/request-statusReason').value as CodeableConcept
 
 /*
-@description: Returns an interval representing the normalized prevalence period of a given Condition.
-@comment: Uses the ToInterval and ToAbatementInterval functions to determine the widest potential interval from
-onset to abatement as specified in the given Condition. If the condition is active, the resulting interval will have
-a closed ending boundary. If the condition is not active, the resulting interval will have an open ending boundary.
+@description: Surfaces the [locationPerformed](http://hl7.org/fhir/StructureDefinition/diagnosticReport-locationPerformed)
+extension defined in FHIR.
+@comment: This function returns the value of the extension as a Reference
+@extension: http://hl7.org/fhir/StructureDefinition/diagnosticReport-locationPerformed
 */
-define fluent function prevalenceInterval(condition Condition):
-if condition.clinicalStatus ~ "active"
-  or condition.clinicalStatus ~ "recurrence"
-  or condition.clinicalStatus ~ "relapse" then
-  Interval[start of condition.onset.toInterval(), end of condition.abatementInterval()]
-else
-  Interval[start of condition.onset.toInterval(), end of condition.abatementInterval())
+define function LocationPerformed(diagnosticReport DiagnosticReport):
+  FHIRCommon.Extension(diagnosticReport, 'http://hl7.org/fhir/StructureDefinition/diagnosticReport-locationPerformed').value as Reference
 
 /*
-@description: Returns the tail of the given uri (i.e. everything after the last slash in the URI).
-@comment: This function can be used to determine the logical id of a given resource. It can be used in
-a single-server environment to trace references. However, this function does not attempt to resolve
-or distinguish the base of the given url, and so cannot be used safely in multi-server environments.
-@deprecated: This function is deprecated. Use the fluent function `getId()` instead
+@description: Surfaces the [abatement](http://hl7.org/fhir/StructureDefinition/familymemberhistory-abatement)
+extension defined in FHIR.
+@comment: This function returns the value of the extension as a choice of date, Age, or boolean
+@extension: http://hl7.org/fhir/StructureDefinition/familymemberhistory-abatement
 */
-define function GetId(uri String ):
-  Last(Split(uri, '/'))
+define function Abatement(familyMemberHistory FamilyMemberHistory):
+  FHIRCommon.Extension(familyMemberHistory, 'http://hl7.org/fhir/StructureDefinition/familymemberhistory-abatement').value as Choice<date, Age, boolean>
 
 /*
-@description: Returns the tail of the given uri (i.e. everything after the last slash in the URI).
-@comment: This function can be used to determine the logical id of a given resource. It can be used in
-a single-server environment to trace references. However, this function does not attempt to resolve
-or distinguish the base of the given url, and so cannot be used safely in multi-server environments.
+@description: Surfaces the [severity](http://hl7.org/fhir/StructureDefinition/familymemberhistory-severity)
+extension defined in FHIR.
+@comment: This function returns the value of the extension as a CodeableConcept
+@extension: http://hl7.org/fhir/StructureDefinition/familymemberhistory-severity
 */
-define fluent function getId(uri String):
-  Last(Split(uri, '/'))
+define function Severity(familyMemberHistory FamilyMemberHistory):
+  FHIRCommon.Extension(familyMemberHistory, 'http://hl7.org/fhir/StructureDefinition/familymemberhistory-severity').value as CodeableConcept
 
 /*
-@description: Given an interval, return true if the interval has a starting boundary specified
-(i.e. the start of the interval is not null and not the minimum DateTime value)
-@deprecated: This function is deprecated. Uee the fluent function `hasStart()` instead
+@description: Surfaces the [reasonRejected](http://hl7.org/fhir/StructureDefinition/goal-reasonRejected)
+extension defined in FHIR.
+@comment: This function returns the value of the extension as a CodeableConcept
+@extension: http://hl7.org/fhir/StructureDefinition/goal-reasonRejected
 */
-define function "HasStart"(period Interval<DateTime> ):
-  not ( start of period is null
-      or start of period = minimum DateTime
-  )
+define function ReasonRejected(goal Goal):
+  FHIRCommon.Extension(goal, 'http://hl7.org/fhir/StructureDefinition/goal-reasonRejected').value as CodeableConcept
 
 /*
-@description: Given an interval, return true if the interval has a starting boundary specified
-(i.e. the start of the interval is not null and not the minimum DateTime value)
+@description: Surfaces the [bodyPosition](http://hl7.org/fhir/StructureDefinition/observation-bodyPosition)
+extension defined in FHIR.
+@comment: This function returns the value of the extension as a CodeableConcept
+@extension: http://hl7.org/fhir/StructureDefinition/observation-bodyPosition
 */
-define fluent function hasStart(period Interval<DateTime> ):
-  not ( start of period is null
-      or start of period = minimum DateTime
-  )
+define function BodyPosition(observation Observation):
+  FHIRCommon.Extension(observation, 'http://hl7.org/fhir/StructureDefinition/observation-bodyPosition').value as CodeableConcept
 
 /*
-@description: Given an interval, returns true if the interval has an ending boundary specified
-(i.e. the end of the interval is not null and not the maximum DateTime value)
-@deprecated: This function is deprecated. Use the fluent function `hasEnd()` instead
+@description: Surfaces the [delta](http://hl7.org/fhir/StructureDefinition/observation-delta)
+extension defined in FHIR.
+@comment: This function returns the value of the extension as a CodeableConcept
+@extension: http://hl7.org/fhir/StructureDefinition/observation-delta
 */
-define function "HasEnd"(period Interval<DateTime> ):
-  not (
-    end of period is null
-      or end of period = maximum DateTime
-  )
+define function Delta(observation Observation):
+  FHIRCommon.Extension(observation, 'http://hl7.org/fhir/StructureDefinition/observation-delta').value as CodeableConcept
 
 /*
-@description: Given an interval, returns true if the interval has an ending boundary specified
-(i.e. the end of the interval is not null and not the maximum DateTime value)
+@description: Surfaces the [preferred](http://hl7.org/fhir/StructureDefinition/iso21090-preferred) extension defined in USCore.
+@comment: This function returns the value of the direct extension as a boolean
+@extension: http://hl7.org/fhir/StructureDefinition/iso21090-preferred
 */
-define fluent function hasEnd(period Interval<DateTime> ):
-  not (
-    end of period is null
-      or end of period = maximum DateTime
-  )
+define function Preferred(contactPoint ContactPoint):
+  FHIRCommon.Extension(contactPoint, 'http://hl7.org/fhir/StructureDefinition/iso21090-preferred').value as boolean
 
 /*
-@description: Given an interval, returns the ending point if the interval has an ending boundary specified,
-otherwise, returns the starting point
-@deprecated: This function is deprecated. Use the fluent function `latest()` instead
+@description: Surfaces the [approachBodyStructure](http://hl7.org/fhir/StructureDefinition/procedure-approachBodyStructure)
+extension defined in FHIR.
+@comment: This function returns the value of the extension as a Reference
+@extension: http://hl7.org/fhir/StructureDefinition/procedure-approachBodyStructure
 */
-define function "Latest"(choice Choice<DateTime, Quantity, Interval<DateTime>, Interval<Quantity>> ):
-  (choice.toInterval()) period
+define function ApproachBodyStructure(procedure Procedure):
+  FHIRCommon.Extension(procedure, 'http://hl7.org/fhir/StructureDefinition/procedure-approachBodyStructure').value as Reference
+
+/*
+@description: Surfaces the [incisionDateTime](http://hl7.org/fhir/StructureDefinition/procedure-incisionDateTime)
+extension defined in FHIR.
+@comment: This function returns the value of the extension as a dateTime
+@extension: http://hl7.org/fhir/StructureDefinition/procedure-incisionDateTime
+*/
+define function IncisionDateTime(procedure Procedure):
+  FHIRCommon.Extension(procedure, 'http://hl7.org/fhir/StructureDefinition/procedure-incisionDateTime').value as dateTime
+
+/* USCore Extensions */
+/*
+@description: Surfaces the [ethnicity](http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity)
+extension defined in USCore.
+@comment: This function returns a tuple with elements for each subextension (ombCategory, detailed, and text).
+@extension: http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity
+*/
+define function Ethnicity(patient Patient):
+  patient P
+    let ethnicityEx: FHIRCommon.Extension(P, 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity')
     return
-      if (HasEnd(period)) then end of period
-      else start of period
+      {
+        ombCategory: FHIRCommon.Extension(ethnicityEx, 'ombCategory').value as Coding,
+        detailed:
+          (FHIRCommon.Extensions(ethnicityEx, 'detailed')) E
+            return E.value as Coding,
+        text: FHIRCommon.Extension(ethnicityEx, 'text').value as string
+      }
 
 /*
-@description: Given an interval, returns the ending point if the interval has an ending boundary specified,
-otherwise, returns the starting point
+@description: Surfaces the [race](http://hl7.org/fhir/us/core/StructureDefinition/us-core-race) extension defined in USCore.
+@comment: This function returns a tuple with elements for each subextension (ombCategory, detailed, and text).
+@extension: http://hl7.org/fhir/us/core/StructureDefinition/us-core-race
 */
-define fluent function latest(choice Choice<DateTime, Quantity, Interval<DateTime>, Interval<Quantity>> ):
-  (choice.toInterval()) period
+define function Race(patient Patient):
+  patient P
+    let raceEx: FHIRCommon.Extension(P, 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-race')
     return
-      if (HasEnd(period)) then end of period
-      else start of period
+      {
+        ombCategory:
+          (FHIRCommon.Extensions(raceEx, 'ombCategory')) E
+            return E.value as Coding,
+        detailed:
+          (FHIRCommon.Extensions(raceEx, 'detailed')) E
+            return E.value as Coding,
+        text: FHIRCommon.Extension(raceEx, 'text').value as string
+      }
 
 /*
-@description: Given an interval, return the starting point if the interval has a starting boundary specified,
-otherwise, return the ending point
-@deprecated: This function is deprecated. Use the fluent function `earliest()` instead
+@description: Surfaces the [birthsex](http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex) extension defined in USCore.
+@comment: This function returns the value of the birthsex extension as a code
+@extension: http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex
 */
-define function "Earliest"(choice Choice<DateTime, Quantity, Interval<DateTime>, Interval<Quantity>> ):
-  (choice.toInterval()) period
-    return
-      if (HasStart(period)) then start of period
-      else end of period
+define function Birthsex(patient Patient):
+  FHIRCommon.Extension(patient, 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex').value as code
 
 /*
-@description: Given an interval, return the starting point if the interval has a starting boundary specified,
-otherwise, return the ending point
+@description: Surfaces the [direct](http://hl7.org/fhir/us/core/StructureDefinition/us-core-direct) extension defined in USCore.
+@comment: This function returns the value of the direct extension as a boolean
+@extension: http://hl7.org/fhir/us/core/StructureDefinition/us-core-direct
 */
-define fluent function earliest(choice Choice<DateTime, Quantity, Interval<DateTime>, Interval<Quantity>> ):
-  (choice.toInterval()) period
-    return
-      if (HasStart(period)) then start of period
-      else end of period
+define function Direct(contactPoint ContactPoint):
+  FHIRCommon.Extension(contactPoint, 'http://hl7.org/fhir/us/core/StructureDefinition/us-core-direct').value as boolean
+
+/* QICore Extensions */
 
 /*
-@description: Creates a list of integers from 1 to how many days are in the interval. Note, this wont create an index for
-the final day if it is less than 24 hours. This also includes the first 24 hour period.
-@deprecated: This function is deprecated. Use the fluent function `toDayNumbers()` instead
+@description: Surfaces the [isElective](http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-isElective)
+modifier extension defined in QICore.
+@comment: This function returns the value of the isElective modifier extension as a boolean.
+@extension: http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-isElective
 */
-define function "Interval To Day Numbers"(Period Interval<DateTime>):
-  ( expand { Interval[1, duration in days between start of Period and end of Period]} ) DayNumber
-    return end of DayNumber
+define function IsElective(serviceRequest ServiceRequest):
+  FHIRCommon.ModifierExtension(serviceRequest, 'http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-isElective').value as boolean
 
 /*
-@description: Creates a list of integers from 1 to how many days are in the interval. Note, this wont create an index for
-the final day if it is less than 24 hours. This also includes the first 24 hour period.
+@description: Surfaces the [procedure](http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter-procedure)
+extension defined in QICore.
+@comment: This function returns a tuple with elements for each subextension (type, rank, and procedure).
+@extension: http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter-procedure
 */
-define fluent function toDayNumbers(Period Interval<DateTime>):
-  ( expand { Interval[1, duration in days between start of Period and end of Period]} ) DayNumber
-    return end of DayNumber
-
-/*
-@description: Creates a list of 24 hour long intervals in an interval paired with the index (1 indexed) to which 24 hour interval it is.
-Note that the result will include intervals that are closed at the beginning and open at the end
-@deprecated: This function is deprecated. Use the fluent function `daysInPeriod()` instead
-*/
-define function "Days In Period"(Period Interval<DateTime>):
-  ( "Interval To Day Numbers"(Period)) DayIndex
-    let startPeriod: start of Period + (24 hours * (DayIndex - 1)),
-    endPeriod: if (hours between startPeriod and end of Period < 24) then startPeriod
-      else start of Period + (24 hours * DayIndex)
-    return Tuple {
-      dayIndex: DayIndex,
-      dayPeriod: Interval[startPeriod, endPeriod)
+define function Procedure(encounter Encounter):
+  (FHIRCommon.Extensions(encounter, 'http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter-procedure')) E
+    return {
+      type: FHIRCommon.Extension(E, 'type').value as CodeableConcept,
+      rank: FHIRCommon.Extension(E, 'rank').value as positiveInt,
+      procedure: FHIRCommon.Extension(E, 'procedure').value as Reference
     }
 
 /*
-@description: Creates a list of 24 hour long intervals in an interval paired with the index (1 indexed) to which 24 hour interval it is.
-Note that the result will include intervals that are closed at the beginning and open at the end
+@description: Surfaces the [doNotPerform](http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-doNotPerformReason)
+extension defined in QICore.
+@comment: This function returns the value of the extension as a CodeableConcept
+@extension: http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-doNotPerformReason
 */
-define fluent function daysInPeriod(Period Interval<DateTime>):
-  ( "Interval To Day Numbers"(Period)) DayIndex
-    let startPeriod: start of Period + (24 hours * (DayIndex - 1)),
-    endPeriod: if (hours between startPeriod and end of Period < 24) then startPeriod
-      else start of Period + (24 hours * DayIndex)
-    return Tuple {
-      dayIndex: DayIndex,
-      dayPeriod: Interval[startPeriod, endPeriod)
-    }
+define function DoNotPerformReason(requestResource DomainResource):
+  FHIRCommon.Extension(requestResource, 'http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-doNotPerformReason').value as CodeableConcept
+
+/*
+@description: Surfaces the [recorded](http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-recorded)
+extension defined in QICore.
+@comment: This function returns the value of the extension as a dateTime
+@extension: http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-recorded
+*/
+define function Recorded(domainResource DomainResource):
+  FHIRCommon.Extension(domainResource, 'http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-recorded').value as dateTime
+
+/*
+@description: Surfaces the [notDone](http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-notDone)
+modifier extension defined in QICore.
+@comment: This function returns the value of the modifier extension as a boolean
+@extension: http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-notDone
+*/
+define function NotDone(eventResource DomainResource):
+  FHIRCommon.ModifierExtension(eventResource, 'http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-notDone').value as boolean
+
+/*
+@description: Surfaces the [notDoneReason](http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-notDoneReason)
+extension defined in QICore.
+@comment: This function returns the value of the extension as a CodeableConcept
+@extension: http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-notDoneReason
+*/
+define function NotDoneReason(eventResource DomainResource):
+  FHIRCommon.Extension(eventResource, 'http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-notDoneReason').value as CodeableConcept
+
+/*
+@description: Surfaces the [notDoneValueSet](http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-notDoneValueSet)
+extension defined in QICore.
+@comment: This function returns the value of the extension as a canonical
+@extension: http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-notDoneValueSet
+*/
+define function NotDoneValueSet(concept CodeableConcept):
+  FHIRCommon.Extension(concept, 'http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-notDoneValueSet').value as canonical
+
+/*
+@description: Surfaces the [presentOnAdmission](http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter-diagnosisPresentOnAdmission)
+extension defined in QICore.
+@comment: This function returns the value of the extension as a CodeableConcept
+@extension: http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter-diagnosisPresentOnAdmission
+*/
+define function PresentOnAdmission(element Element):
+  FHIRCommon.Extension(element, 'http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter-diagnosisPresentOnAdmission').value as CodeableConcept

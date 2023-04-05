@@ -18,7 +18,7 @@
   "encounter": {
     "reference": "Encounter/ASLP-encounter-example"
   },
-  "occurrenceDateTime": "2023-04-01T23:42:21-06:00",
+  "occurrenceDateTime": "2023-04-05T09:05:02-06:00",
   "locationReference": [ {
     "reference": "Location/ASLP-location-example"
   } ]
