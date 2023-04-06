@@ -24,3 +24,5 @@
 - Manually added ValueSet `active-condition`
 
 - Consider this: [https://trifolia-fhir.lantanagroup.com/igs/lantana_hapi_r4/MCC-IG/index.html]
+
+- `conceptmap-ICD-10.json` and `codesystem-aslp-codes.json` error when posted to CQFRuler
