@@ -1,8 +1,9 @@
 {
     "resourceType" : "Condition",
-    "id" : "HSAT",
+    "id" : "SleepApnea",
     "meta" : {
       "profile" : [
+        "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition",
         "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition-encounter-diagnosis"
       ]
     },
@@ -37,8 +38,8 @@
       "coding" : [
         {
           "system" : "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes",
-          "code": "ASLP.A1.DE2",
-          "display": "Home sleep apnea testing (HSAT)"
+          "code": "ASLP.A1.DE17",
+          "display": "Obstructive sleep apnea (OSA)"
         }
       ]
     },

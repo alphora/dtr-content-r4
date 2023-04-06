@@ -1,9 +1,9 @@
 {
     "resourceType": "Observation",
-    "id": "Height",
+    "id": "Weight",
     "meta": {
       "profile": [
-        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-height",
+        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-weight",
         "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-observation"
       ]
     },
@@ -23,26 +23,26 @@
     "code": {
       "coding": [
         {
-          "system": "http://loinc.org",
-          "code": "8302-2",
-          "display": "Body height"
+          "system" : "http://loinc.org",
+          "code" : "29463-7",
+          "display" : "Body Weight"
         },
         {
           "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes",
-          "code": "ASLP.A1.DE20",
-          "display": "Body height"
+          "code": "ASLP.A1.DE21",
+          "display": "Body weight"
         }
       ],
-      "text": "height"
+      "text": "weight"
     },
     "subject": {
       "reference": "Patient/positive"
     },
     "effectiveDateTime": "2023-04-04",
-    "valueQuantity": {
-      "value": 69,
-      "unit": "in",
-      "system": "http://unitsofmeasure.org",
-      "code": "[in_i]"
+    "valueQuantity" : {
+      "value" : 185,
+      "unit" : "[lb_av]",
+      "system" : "http://unitsofmeasure.org",
+      "code" : "[lb_av]"
     }
   }

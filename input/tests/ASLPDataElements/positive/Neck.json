@@ -1,9 +1,8 @@
 {
     "resourceType": "Observation",
-    "id": "Height",
+    "id": "Neck",
     "meta": {
       "profile": [
-        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-height",
         "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-observation"
       ]
     },
@@ -13,34 +12,29 @@
         "coding": [
           {
             "system": "http://terminology.hl7.org/CodeSystem/observation-category",
-            "code": "vital-signs",
-            "display": "Vital Signs"
+            "code": "exam",
+            "display": "Exam"
           }
         ],
-        "text": "Vital Signs"
+        "text": "Exam"
       }
     ],
     "code": {
       "coding": [
         {
-          "system": "http://loinc.org",
-          "code": "8302-2",
-          "display": "Body height"
-        },
-        {
           "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes",
-          "code": "ASLP.A1.DE20",
-          "display": "Body height"
+          "code": "ASLP.A1.DE23",
+          "display": "Neck Circumference"
         }
       ],
-      "text": "height"
+      "text": "Neck Circumference"
     },
     "subject": {
       "reference": "Patient/positive"
     },
     "effectiveDateTime": "2023-04-04",
     "valueQuantity": {
-      "value": 69,
+      "value": 16,
       "unit": "in",
       "system": "http://unitsofmeasure.org",
       "code": "[in_i]"

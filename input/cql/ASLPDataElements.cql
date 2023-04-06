@@ -32,7 +32,7 @@ define "BMI":
 */
 define "Diagnosis of Obstructive Sleep Apnea":
   SC.MostRecent(
-  [Condition] C
+  [Condition: Cs."Diagnosis of Obstructive Sleep Apnea Codes"] C
     where C.clinicalStatus in FC."Active Condition"
       and C.verificationStatus ~ FC."confirmed"
   ).code
@@ -58,9 +58,17 @@ define "Height":
   @description: History of Diabetes
 */
 define "History of Diabetes":
-  SC.Has(
+  Coalesce(
+    SC.Has(
+    [Condition: Cs."History of Diabetes"] C
+      where C.clinicalStatus in FC."Active Condition"
+        and C.verificationStatus ~ FC."confirmed"
+    ),
+    SC.Has(
     [Observation: Cs."History of Diabetes"] O
       where O.status in { 'final', 'amended', 'corrected' }
+      and (convert(O.value as System.Quantity) to 'mmol/L').value > 7.5
+    )
   )
 
 
@@ -71,8 +79,9 @@ define "History of Diabetes":
 */
 define "History of Hypertension":
   SC.Has(
-    [Observation: Cs."History of Hypertension"] O
-      where O.status in { 'final', 'amended', 'corrected' }
+    [Condition: Cs."History of Hypertension"] C
+      where C.clinicalStatus in FC."Active Condition"
+        and C.verificationStatus ~ FC."confirmed"
   )
 
 
