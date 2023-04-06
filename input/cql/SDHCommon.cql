@@ -1,6 +1,6 @@
 library SDHCommon
 
-using QICore version '4.1.1'
+using QICore version '4.1.0'
 
 include FHIRHelpers version '4.1.000'
 
