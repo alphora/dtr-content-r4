@@ -1,6 +1,6 @@
 {
     "resourceType" : "Condition",
-    "id" : "ASLP-positive",
+    "id" : "HSAT",
     "meta" : {
       "profile" : [
         "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition-encounter-diagnosis"

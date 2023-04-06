@@ -27,3 +27,5 @@
 - `define "Diagnosis of Obstructive Sleep Apnea"` returns a null
 
 - Get the following error when `using QICore version '4.1.1'`: Error: Could not load model information for model QICore, version 4.1.1 because version 4.1.0 is already loaded.
+
+- Running `_refresh` creates bundles in the test directory that then get picked up by `CQL Evaluation`, which causes a duplicate Patient error.
