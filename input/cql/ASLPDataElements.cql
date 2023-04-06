@@ -101,15 +101,17 @@ define "Sleep Study":
       and SR.doNotPerform is not true
 
 
+define "Sleep Study Code":
+  ("Sleep Study").code
+
+
 /*
   @dataElement: ALSP.A1.DE15 Sleep Study Date
   @activity: ASLP.A1 Adult Sleep Studies
   @description: Date of the procedure
 */
 define "Sleep Study Date":
-  [ServiceRequest: code in Cs."Sleep Study Codes Grouper"] SR
-    where SR.status in { 'draft', 'active', 'on-hold', 'completed' }
-      and SR.doNotPerform is not true
+  ("Sleep Study").occurrence
 
 
 /*
