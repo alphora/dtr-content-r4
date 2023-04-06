@@ -24,7 +24,7 @@ valueset "Diagnosis of Obstructive Sleep Apnea Codes": 'http://example.org/sdh/d
 // Codes
 code "History of Hypertension": 'ASLP.A1.DE18' from "ASLP Codes" display 'History of Hypertension'
 code "History of Diabetes": 'ASLP.A1.DE19' from "ASLP Codes" display 'History of Diabetes'
-code "Neck Circumference": 'ASLP.A1.DE20' from "ASLP Codes" display 'Neck Circumference'
-code "Height": 'ASLP.A1.DE20' from "ASLP Codes" display 'Height'
+code "Neck Circumference": 'ASLP.A1.DE23' from "ASLP Codes" display 'Neck Circumference'
+code "Height": 'ASLP.A1.DE20' from "ASLP Codes" display 'Body height'
 code "Weight": 'ASLP.A1.DE21' from "ASLP Codes" display 'Weight'
 code "BMI": 'ASLP.A1.DE22' from "ASLP Codes" display 'BMI'
