@@ -3,6 +3,7 @@
     "id": "Weight",
     "meta": {
       "profile": [
+        "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-weight",
         "http://hl7.org/fhir/us/core/StructureDefinition/us-core-body-weight",
         "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-observation"
       ]
