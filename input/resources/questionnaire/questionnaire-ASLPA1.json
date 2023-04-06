@@ -49,21 +49,21 @@
   ],
   "item": [
     {
-      "extension": [
-        {
-          "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
-          "valueExpression": {
-            "language": "text/cql",
-            "expression": "Sleep Study"
-          }
-        }
-      ],
       "linkId": "0",
       "text": "A sleep study procedure being ordered",
       "type": "group",
       "repeats": true,
       "item": [
         {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/cql-identifier",
+                "expression": "Sleep Study Code"
+              }
+            }
+          ],
           "linkId": "1",
           "definition": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-sleep-study-order#ServiceRequest.code",
           "text": "A sleep study procedure being ordered",
@@ -71,6 +71,15 @@
           "answerValueSet": "http://example.org/sdh/dtr/aslp/ValueSet/aslp-a1-de1-codes-grouper"
         },
         {
+          "extension": [
+            {
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
+              "valueExpression": {
+                "language": "text/cql-identifier",
+                "expression": "Sleep Study Occurrence"
+              }
+            }
+          ],
           "linkId": "2",
           "definition": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-sleep-study-order#ServiceRequest.occurrence[x]",
           "text": "Date of the procedure",
@@ -83,7 +92,7 @@
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
           "valueExpression": {
-            "language": "text/cql",
+            "language": "text/cql-identifier",
             "expression": "Diagnosis of Obstructive Sleep Apnea"
           }
         }
@@ -99,7 +108,7 @@
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
           "valueExpression": {
-            "language": "text/cql",
+            "language": "text/cql-identifier",
             "expression": "History of Hypertension"
           }
         }
@@ -114,7 +123,7 @@
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
           "valueExpression": {
-            "language": "text/cql",
+            "language": "text/cql-identifier",
             "expression": "History of Diabetes"
           }
         }
@@ -129,7 +138,7 @@
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
           "valueExpression": {
-            "language": "text/cql",
+            "language": "text/cql-identifier",
             "expression": "Neck Circumference"
           }
         }
@@ -144,7 +153,7 @@
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
           "valueExpression": {
-            "language": "text/cql",
+            "language": "text/cql-identifier",
             "expression": "Height"
           }
         }
@@ -159,7 +168,7 @@
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
           "valueExpression": {
-            "language": "text/cql",
+            "language": "text/cql-identifier",
             "expression": "Weight"
           }
         }
@@ -174,7 +183,7 @@
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
           "valueExpression": {
-            "language": "text/cql",
+            "language": "text/cql-identifier",
             "expression": "BMI"
           }
         }
