@@ -3,7 +3,7 @@
     "meta": {
         "profile": [
             "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-sleep-study-order",
-            "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-servicerequest"
+            "http://hl7.org/fhir/us/davinci-crd/StructureDefinition/profile-servicerequest"
         ]
     },
     "id": "SleepStudy2",
@@ -28,5 +28,8 @@
             "reference": "Condition/SleepApnea"
         }
     ],
-    "occurrenceDateTime": "2023-04-15"
+    "occurrenceDateTime": "2023-04-15",
+    "requester": {
+        "reference": "Practitioner/positive-Practitioner"
+    }
 }

@@ -1,13 +1,23 @@
 library ASLPDataElements
 
-using QICore version '4.1.0'
+using FHIR version '4.0.1'
 
 include FHIRHelpers version '4.1.000'
 include FHIRCommon version '1.1.000' called FC
-include QICoreCommon called QC
 
 include SDHCommon called SC
 include ASLPConcepts called Cs
+
+parameter "Device Request" List<FHIR.DeviceRequest>
+parameter "Device Request Id" List<System.String>
+parameter "Medication Request" List<FHIR.MedicationRequest>
+parameter "Medication Request Id" List<System.String>
+parameter "Nutrition Order" List<FHIR.NutritionOrder>
+parameter "Nutrition Order Id" List<System.String>
+parameter "Service Request" List<FHIR.ServiceRequest>
+parameter "Service Request Id" List<System.String> 
+  default { 'SleepStudy', 'SleepStudy2' }
+parameter "Coverage Id" List<System.String>
 
 context Patient
 
@@ -21,7 +31,7 @@ define "BMI":
     SC.MostRecent(
       [Observation: Cs."BMI"] O
         where O.status in { 'final', 'amended', 'corrected' }
-    ).value as System.Quantity
+    ).value as FHIR.Quantity
   ) to 'kg/m2' 
 
 
@@ -48,7 +58,7 @@ define "Height":
     SC.MostRecent(
       [Observation: Cs."Height"] O
         where O.status in { 'final', 'amended', 'corrected' }
-    ).value as System.Quantity
+    ).value as FHIR.Quantity
   ) to '[in_i]'
 
 
@@ -67,7 +77,7 @@ define "History of Diabetes":
     SC.Has(
     [Observation: Cs."History of Diabetes"] O
       where O.status in { 'final', 'amended', 'corrected' }
-      and (convert(O.value as System.Quantity) to 'mmol/L').value > 7.5
+      and (convert(O.value as FHIR.Quantity) to 'mmol/L').value > 7.5
     )
   )
 
@@ -95,7 +105,7 @@ define "Neck Circumference":
     SC.MostRecent(
       [Observation: Cs."Neck Circumference"] O
         where O.status in { 'final', 'amended', 'corrected' }
-    ).value as System.Quantity
+    ).value as FHIR.Quantity
   ) to '[in_i]'   
 
 
@@ -105,9 +115,12 @@ define "Neck Circumference":
   @description: A sleep study procedure being ordered
 */
 define "Sleep Study":
-  [ServiceRequest: code in Cs."Sleep Study Codes Grouper"] SR
-    where SR.status in { 'draft', 'active', 'on-hold', 'completed' }
-      and SR.doNotPerform is not true
+  Coalesce(
+    [ServiceRequest] SR
+      where SR.id in "Service Request Id",
+    { null as FHIR.ServiceRequest }
+  )
+    union Coalesce("Service Request", { null as FHIR.ServiceRequest })
 
 
 define "Sleep Study Code":
@@ -133,7 +146,7 @@ define "Weight":
     SC.MostRecent(
       [Observation: Cs."Weight"] O
         where O.status in { 'final', 'amended', 'corrected' }
-    ).value as System.Quantity
+    ).value as FHIR.Quantity
   ) to '[lb_av]'
 
 
