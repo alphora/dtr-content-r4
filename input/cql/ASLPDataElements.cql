@@ -15,8 +15,7 @@ parameter "Medication Request Id" List<System.String>
 parameter "Nutrition Order" List<FHIR.NutritionOrder>
 parameter "Nutrition Order Id" List<System.String>
 parameter "Service Request" List<FHIR.ServiceRequest>
-parameter "Service Request Id" List<System.String> 
-  default { 'SleepStudy', 'SleepStudy2' }
+parameter "Service Request Id" List<System.String> default { 'SleepStudy', 'SleepStudy2' }
 parameter "Coverage Id" List<System.String>
 
 context Patient
@@ -74,9 +73,12 @@ define "Neck Circumference":
   ) to '[in_i]'   
 
 define "Sleep Study":
-  [ServiceRequest: code in Cs."Sleep Study Codes Grouper"] SR
-    where SR.status in { 'draft', 'active', 'on-hold', 'completed' }
-      and SR.doNotPerform is not true
+  Coalesce(
+    [ServiceRequest] SR
+      where SR.id in "Service Request Id",
+    { null as FHIR.ServiceRequest }
+  )
+    union Coalesce("Service Request", { null as FHIR.ServiceRequest })
 
 define "Sleep Study Code":
   ("Sleep Study").code
