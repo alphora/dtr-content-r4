@@ -1,6 +1,5 @@
 library ASLPConcepts
 
-// Code Systems
 codesystem "ICD-10": 'http://hl7.org/fhir/sid/icd-10'
 codesystem "SNOMED-CT": 'http://snomed.info/sct'
 codesystem "LOINC": 'http://loinc.org'
@@ -15,13 +14,11 @@ codesystem "NDC": 'http://hl7.org/fhir/sid/ndc'
 codesystem "NIDA": 'https://cde.drugabuse.gov'
 codesystem "ASLP Codes": 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes'
 
-// Value Sets
 valueset "Home Based Testing Sleep Studies Codes": 'http://example.org/sdh/dtr/aslp/ValueSet/aslp-a1-de2'
 valueset "Facility Based Testing Sleep Studies Codes": 'http://example.org/sdh/dtr/aslp/ValueSet/aslp-a1-de9'
 valueset "Sleep Study Codes Grouper": 'http://example.org/sdh/dtr/aslp/ValueSet/aslp-a1-de1-codes-grouper'
 valueset "Diagnosis of Obstructive Sleep Apnea Codes": 'http://example.org/sdh/dtr/aslp/ValueSet/aslp-a1-de17'
 
-// Codes
 code "History of Hypertension": 'ASLP.A1.DE18' from "ASLP Codes" display 'History of Hypertension'
 code "History of Diabetes": 'ASLP.A1.DE19' from "ASLP Codes" display 'History of Diabetes'
 code "Neck Circumference": 'ASLP.A1.DE23' from "ASLP Codes" display 'Neck Circumference'
