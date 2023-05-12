@@ -57,4 +57,4 @@ define function Has(value List<System.Any>):
   if exists value then
     true
   else
-    null
+    false
