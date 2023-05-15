@@ -1,18 +1,13 @@
-{
-    "client": "Thunder Client",
-    "environmentName": "(Local Env)",
-    "dateExported": "2023-05-15T15:46:14.749Z",
-    "version": "1.0",
+[
+  {
+    "_id": "7f9cb06b-1224-4a37-a60b-705dd7f26b24",
+    "name": "(Local Env)",
+    "default": false,
     "global": true,
     "local": true,
-    "variables": [
-        {
-            "name": "fhirServerUrl",
-            "value": "http://localhost:8080/fhir"
-        },
-        {
-            "name": "cdsHooksUrl",
-            "value": "http://localhost:8080"
-        }
-    ]
-}
+    "sortNum": -1,
+    "created": "2023-05-15T16:02:25.354Z",
+    "modified": "2023-05-15T16:02:25.354Z",
+    "data": []
+  }
+]
