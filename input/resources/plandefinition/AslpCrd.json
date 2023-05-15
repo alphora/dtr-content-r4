@@ -10,7 +10,7 @@
   "identifier": [
     {
       "use": "official",
-      "value": "generate-questionnaire-sample"
+      "value": "generate-crd-example"
     }
   ],
   "version": "1.0.0",
@@ -73,9 +73,6 @@
         "type": "named-event",
         "value": "order-sign"
       },
-      "extension": [],
-      "title": "Does order require PriorAuth?",
-      "description": "",
       "condition": [
         {
           "kind": "applicability",
@@ -93,7 +90,7 @@
           ]
         }
       ],
-      "dynamicValues": [
+      "dynamicValue": [
         {
           "path": "action.description",
           "expression": {
@@ -102,18 +99,27 @@
           }
         },
         {
-          "path": "action.description",
+          "path": "action.title",
           "expression": {
             "language": "text/cql-identifier",
             "expression": "Get Card Summary"
           }
         },
         {
-          "path": "action.extension",
+          "path": "activity.extension",
           "expression": {
             "language": "text/cql-identifier",
             "expression": "Get Card Indicator"
           }
+        }
+      ],
+      "action" : [
+        {
+          "description": "Document - Document Prior Auth Requirements"
+        }, {
+          "description": "Snooze - Prior author will be done manually"
+        }, {
+          "description": "Remove - Will remove trigger sleep order"
         }
       ]
     }
