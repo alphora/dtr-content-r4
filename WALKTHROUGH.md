@@ -121,7 +121,7 @@ Perform the following steps to walkthrough an example addition:
       - Binding or Custom Value Set Name or Reference: Agreement Degree
       - Scope: ASLP
       - FHIR Code System: http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes
-    - Option Two
+    - Option Two (note only the `Data element ID` and `Data element Label` columns vary between options so consider copy/paste/updating the existing option row)
       - Activity ID: ASLP.A1 Adult Sleep Studies
       - Data element ID: ASLP.AE.DE3
       - Data element label: Strongly Disagree (Never)
