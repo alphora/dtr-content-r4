@@ -37,9 +37,7 @@ The Accelerator Kit is the combination of a JAVA Command Line tool and a Data Di
 
 CQF Tooling CLI is deployed to Maven as a JAVA jar file named tooling-x.y.z-SNAPSHOT-jar-with-dependencies.jar.  A script named `_updateCQFTooling` has been included in the root this repository to download the jar file for local use.  There are Windows (.bat) and non-Windows (.sh) versions of the script.  Run the appicable script to copy the CQF Tooling locally.
 
-NOTE: Due to breaking changes in this project's Data Dictionary file a specific version of the CQF Tooling has temporarily been included directly in the repository.  Until this issue is resolved you do not need to run the script to download it locally.
-
-### Data Dictionary
+NOTE: Due to breaking changes in this project's Data Dictionary file a specific version of the CQF Tooling must be used.  Until this issue is resolved download [this](https://drive.google.com/file/d/1RSmztNdifWgqwMyeuFjnJTcOpiN0VjDe/view?usp=sharing) file locally and copy it to the local [input-cache](input-cache) directory (you may need to create the `input-cache` folder).
 
 The Data Dictionary is a specifically formatted Excel spreadsheet.  The Data Dictionary for this project has been included directly in the repository at [input/l2/DTR.xlsx](input/l2/DTR.xlsx).  To view the contents, open the file using Microsoft Excel or equivalent.
 
@@ -59,7 +57,7 @@ JAVA -jar "input-cache/<tooling-x.y.z-SNAPSHOT-jar-with-dependencies.jar>" -Proc
 NOTE: Due to breaking changes in this project's Data Dictionary file a specific version of the CQF Tooling has temporarily been included directly in the repository.  Until this issue is resolved run the following instead:
 
 ```
-JAVA -jar "bin/tooling-1.3.2-SNAPSHOT-jar-with-dependencies.jar" -ProcessAcceleratorKit -s=ASLP -pts=input/l2/DTR.xlsx -op=./ -dep="ASLP.A1 Adult Sleep Studies"
+JAVA -jar "input-cache/tooling-1.3.2-SNAPSHOT-jar-with-dependencies.jar" -ProcessAcceleratorKit -s=ASLP -pts=input/l2/DTR.xlsx -op=./ -dep="ASLP.A1 Adult Sleep Studies"
 ```
 
 NOTE: Due to errors in the CQF Tooling running the Accelerator Kit will result in changes to local files.  These changes should not be commited to the repository.  Instead the bugs in the CQF Tooling should be fixed so that running the Accelerator Kit produces the files currently in this IG.  
@@ -81,6 +79,17 @@ Non-Windows:
 ``` 
 rm input/cql/ASLPContactDataElements.cql
 ```
+
+### Viewing the results
+
+Running the Accelerator Kit results in newly created and/or updated files matching the Data Elements as specified in the DTR Data Dictionary.
+
+New and/or updated files are output to the following directories:
+
+- [input/cql](input/cql)
+- [input/examples](input/examples)
+- [input/resources/questionnaire](input/resources/questionnaire)
+- [input/resources/vocabulary/valueset](input/resources/vocabulary/valueset)
 
 <!-- 
 ## USPSTF Recommendation on Colorectal Cancer Screening
