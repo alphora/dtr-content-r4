@@ -37,7 +37,7 @@ The Accelerator Kit is the combination of a JAVA Command Line tool and a Data Di
 
 CQF Tooling CLI is deployed to Maven as a JAVA jar file named `tooling-x.y.z-SNAPSHOT-jar-with-dependencies.jar`.  A script named `_updateCQFTooling` has been included in the root this repository to download the jar file for local use.  There are Windows (.bat) and non-Windows (.sh) versions of the script.  Run the appicable script to copy the CQF Tooling locally.
 
-NOTE: Due to breaking changes in this project's Data Dictionary file a specific version of the CQF Tooling must be used.  Until this issue is resolved download [this](https://drive.google.com/file/d/1RSmztNdifWgqwMyeuFjnJTcOpiN0VjDe/view?usp=sharing) file locally and copy it to the local [input-cache](input-cache) directory (you may need to create the `input-cache` folder).
+NOTE: Due to breaking changes in this project's Data Dictionary file a specific version of the CQF Tooling must be used.  Until this issue is resolved download [this](https://drive.google.com/file/d/1RSmztNdifWgqwMyeuFjnJTcOpiN0VjDe/view?usp=sharing) file locally and copy it to the local [input-cache](input-cache) directory (you may need to create the `input-cache` folder).  NOTE TO MAINTAINERS: once the issue is fixed delete the [file](https://drive.google.com/file/d/1RSmztNdifWgqwMyeuFjnJTcOpiN0VjDe/view?usp=sharing). 
 
 The Data Dictionary is a specifically formatted Excel spreadsheet.  The Data Dictionary for this project has been included directly in the repository at [input/l2/DTR.xlsx](input/l2/DTR.xlsx).  To view the contents, open the file using Microsoft Excel or equivalent.
 
@@ -50,6 +50,7 @@ The JAVA CLI command can be used in a terminal to run the Accelerator Kit, using
 - open a terminal (in VS Code: Terminal/New Terminal)
 - in the terminal, run:
 
+SEE NOTE BELOW:
 ```
 JAVA -jar "input-cache/<tooling-x.y.z-SNAPSHOT-jar-with-dependencies.jar>" -ProcessAcceleratorKit -s=ASLP -pts=input/l2/DTR.xlsx -op=./ -dep="ASLP.A1 Adult Sleep Studies"
 ```
