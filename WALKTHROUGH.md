@@ -84,6 +84,7 @@ Perform the following steps to walkthrough an example addition:
 - open the DTR Data Dictionary located in the `input/l2` folder using Excel (or equivalent)
 - note that the DTR Data Dictionary does not include entries for the last box on the Questionnaire "Check appropriate boxes"
 - add a new row to the DTR Data Dictionary for the "Patient snores in his/her sleep" question:
+   - note: the row specified below is similar to the existing row 3 so consider copy/paste/editing row 3 to create this new row
    - Activity ID: ASLP.A1 Adult Sleep Studies
    - Data element ID: ASLP.AE.DE1
    - Data element label: Snores in Sleep
@@ -100,10 +101,12 @@ Perform the following steps to walkthrough an example addition:
    - HL7 FHIR R4 - Version Number: 4.0.1
    - Custom Profile ID: ASLP Snores in Sleep
    - Scope: ASLP
+   - Context: <blank> (Don't enter "<blank>", just leave it blank.  This is noted in case you copied row 3.  In that case you need to delete the copied value.)
    - Selector: MostRecent
    - FHIR Code System: http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes
  - add six new rows to the DTR Data Dictionary for the six answer options for the "Patient snores in his/her sleep" question:
     - Option One
+      - note: the row specified below is similar to the existing row 4 so consider copy/paste/editing row 4 to create this new row
       - Activity ID: ASLP.A1 Adult Sleep Studies
       - Data element ID: ASLP.AE.DE2
       - Data element label: Not Known or N/A
@@ -134,6 +137,8 @@ Perform the following steps to walkthrough an example addition:
       - Validation Condition: None
       - Editable: Yes
       - Required O
+      - HL7 FHIR R4 – Resource: <blank> (Don't enter "<blank>", just leave it blank.  This is noted in case you copied Option One.  In that case you need to delete the copied value.)
+      - HL7 FHIR R4 - Resource Type: <blank> (Don't enter "<blank>", just leave it blank.  This is noted in case you copied Option One.  In that case you need to delete the copied value.)
       - Binding or Custom Value Set Name or Reference: Agreement Degree
       - Scope: ASLP
       - FHIR Code System: http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes
@@ -201,6 +206,8 @@ Perform the following steps to walkthrough an example addition:
       - Binding or Custom Value Set Name or Reference: Agreement Degree
       - Scope: ASLP
       - FHIR Code System: http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes
+   - your Data Dictionary should include new rows that look something like this (not all columns shown):
+     ![image](https://github.com/alphora/dtr-content-r4/assets/13257640/4f5d0a6e-16d5-4578-91d2-80729517f599)
 - save and close the Data Dictionary
 - run the Accelerator Kit [Running the Accelerator Kit](#running-the-accelerator-kit)
 - note:
