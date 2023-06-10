@@ -35,7 +35,7 @@ The Accelerator Kit is the combination of a JAVA Command Line tool and a Data Di
 
 ### CQF Tooling CLI
 
-CQF Tooling CLI is deployed to Maven as a JAVA jar file named tooling-x.y.z-SNAPSHOT-jar-with-dependencies.jar.  A script named `_updateCQFTooling` has been included in the root this repository to download the jar file for local use.  There are Windows (.bat) and non-Windows (.sh) versions of the script.  Run the appicable script to copy the CQF Tooling locally.
+CQF Tooling CLI is deployed to Maven as a JAVA jar file named `tooling-x.y.z-SNAPSHOT-jar-with-dependencies.jar`.  A script named `_updateCQFTooling` has been included in the root this repository to download the jar file for local use.  There are Windows (.bat) and non-Windows (.sh) versions of the script.  Run the appicable script to copy the CQF Tooling locally.
 
 NOTE: Due to breaking changes in this project's Data Dictionary file a specific version of the CQF Tooling must be used.  Until this issue is resolved download [this](https://drive.google.com/file/d/1RSmztNdifWgqwMyeuFjnJTcOpiN0VjDe/view?usp=sharing) file locally and copy it to the local [input-cache](input-cache) directory (you may need to create the `input-cache` folder).
 
@@ -45,7 +45,7 @@ The Data Dictionary is a specifically formatted Excel spreadsheet.  The Data Dic
 
 The JAVA CLI command can be used in a terminal to run the Accelerator Kit, using the following steps:
 
-- ensure the JAVA CLI is installed
+- ensure the JAVA CLI is installed: https://www.java.com/en/download/help/download_options.html
 - ensure the CQF Tooling has been copied locally [CQF Tooling CLI](#cqf-tooling-cli)
 - open a terminal (in VS Code: Terminal/New Terminal)
 - in the terminal, run:
