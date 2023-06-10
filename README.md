@@ -3,7 +3,7 @@
 
 ## Walkthrough
 
-For a complete walkthrough of building, and modifying this artifact library, refer to the [wiki/Walkthrough](WALKTHROUGH.md) page.
+For a complete walkthrough of building, and modifying this artifact library, refer to the [Walkthrough](wiki/WALKTHROUGH.md) page.
 
 > TIP: To open the Walkthrough in Preview mode for easier viewing and navigation, right-click on the WALKTHROUGH.md file in the explorer pane to the left and select `Open Preview`.
 
