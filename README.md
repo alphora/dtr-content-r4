@@ -1,5 +1,12 @@
 # dtr-content-r4
 
+
+## Walkthrough
+
+For a complete walkthrough of building, and modifying this artifact library, refer to the [Walkthrough](WALKTHROUGH.md) page.
+
+> TIP: To open the Walkthrough in Preview mode for easier viewing and navigation, right-click on the WALKTHROUGH.md file in the explorer pane to the left and select `Open Preview`.
+
 ## Repository Structure
 It is setup like any HL7 FHIR IG project but also includes the CQL files and test data which means the file structure will be as follows:
 
