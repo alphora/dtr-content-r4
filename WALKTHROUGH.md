@@ -31,7 +31,17 @@ Specifically, because the knowledge artifacts in this Artifact Library are FHIR 
 
 ## Accelerator Kit
   
-  Familiarity
+The Accelerator Kit is the combination of a JAVA Command Line tool and a Data Dictionary that generates the FHIR/CQL resources for the data elements defined in the Data Dictionary.  The Data Dictionary is in the form of a spreadsheet with a specific format.  More details can be found in the [CQF Tooling](https://github.com/cqframework/cqf-tooling) repository.
+
+### JAVA Command Line tool
+
+The JAVA Command Line tool is deployed to Maven as a JAVA jar file named tooling-x.y.z-SNAPSHOT-jar-with-dependencies.jar.  A script named `_updateCQFTooling` has been included in the root this repository to download the jar file for local use.  There are Windows (.bat) and non-Windows (.sh) versions of the script.  Run the appicable script to copy the CQF Tooling Command Line tool locally.
+
+NOTE: Due to breaking changes in this project's Data Dictionary file a specific version of the CQF Tooling Command Line tool has temporarily beein included directly in the repository.  Until this issue is resolved you do not need to run the script to download it locally.
+
+### Data Dictionary
+
+The Data Dictionary is a specifically formatted Excel spreadsheet.  The Data Dictionary for this project has been included directly in the repository at [l2/DTR.xlsx](l2/DTR.xlsx).
   
 <!-- 
 ## USPSTF Recommendation on Colorectal Cancer Screening
