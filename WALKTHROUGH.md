@@ -46,8 +46,8 @@ The Data Dictionary is a specifically formatted Excel spreadsheet.  The Data Dic
 The JAVA CLI command can be used in a terminal to run the Accelerator Kit, using the following steps:
 
 - ensure the JAVA CLI is installed
-- open a terminal (in VS Code: Terminal/New Terminal)
 - ensure the CQF Tooling has been copied locally [CQF Tooling CLI](#cqf-tooling-cli)
+- open a terminal (in VS Code: Terminal/New Terminal)
 - in the terminal, run:
 
 ```
