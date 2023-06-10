@@ -50,7 +50,7 @@ The JAVA CLI command can be used in a terminal to run the Accelerator Kit, using
 - open a terminal (in VS Code: Terminal/New Terminal)
 - in the terminal, run:
 
-SEE NOTE BELOW:
+SEE NOTE BELOW BEFORE RUNNING:
 ```
 JAVA -jar "input-cache/<tooling-x.y.z-SNAPSHOT-jar-with-dependencies.jar>" -ProcessAcceleratorKit -s=ASLP -pts=input/l2/DTR.xlsx -op=./ -dep="ASLP.A1 Adult Sleep Studies"
 ```
