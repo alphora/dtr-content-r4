@@ -41,7 +41,7 @@ NOTE: Due to breaking changes in this project's Data Dictionary file a specific 
 
 ### Data Dictionary
 
-The Data Dictionary is a specifically formatted Excel spreadsheet.  The Data Dictionary for this project has been included directly in the repository at [l2/DTR.xlsx](l2/DTR.xlsx).
+The Data Dictionary is a specifically formatted Excel spreadsheet.  The Data Dictionary for this project has been included directly in the repository at [input/l2/DTR.xlsx](input/l2/DTR.xlsx).
   
 <!-- 
 ## USPSTF Recommendation on Colorectal Cancer Screening
