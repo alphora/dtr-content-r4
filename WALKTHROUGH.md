@@ -31,13 +31,13 @@ Specifically, because the knowledge artifacts in this Artifact Library are FHIR 
 
 ## Accelerator Kit
   
-The Accelerator Kit is the combination of a JAVA Command Line tool and a Data Dictionary that generates the FHIR/CQL resources for the data elements defined in the Data Dictionary.  The Data Dictionary is in the form of a spreadsheet with a specific format.  More details can be found in the [CQF Tooling](https://github.com/cqframework/cqf-tooling) repository.
+The Accelerator Kit is the combination of a JAVA Command Line tool and a Data Dictionary that generates the FHIR/CQL resources for the data elements defined in the Data Dictionary.  The JAVA command Line tool is in the form of a JAVA jar file named CQF Tooling. The Data Dictionary is in the form of a spreadsheet with a specific format.  More details can be found in the [CQF Tooling](https://github.com/cqframework/cqf-tooling) repository.
 
-### JAVA Command Line tool
+### CQF Tooling CLI
 
-The JAVA Command Line tool is deployed to Maven as a JAVA jar file named tooling-x.y.z-SNAPSHOT-jar-with-dependencies.jar.  A script named `_updateCQFTooling` has been included in the root this repository to download the jar file for local use.  There are Windows (.bat) and non-Windows (.sh) versions of the script.  Run the appicable script to copy the CQF Tooling Command Line tool locally.
+CQF Tooling CLI is deployed to Maven as a JAVA jar file named tooling-x.y.z-SNAPSHOT-jar-with-dependencies.jar.  A script named `_updateCQFTooling` has been included in the root this repository to download the jar file for local use.  There are Windows (.bat) and non-Windows (.sh) versions of the script.  Run the appicable script to copy the CQF Tooling locally.
 
-NOTE: Due to breaking changes in this project's Data Dictionary file a specific version of the CQF Tooling Command Line tool has temporarily been included directly in the repository.  Until this issue is resolved you do not need to run the script to download it locally.
+NOTE: Due to breaking changes in this project's Data Dictionary file a specific version of the CQF Tooling has temporarily been included directly in the repository.  Until this issue is resolved you do not need to run the script to download it locally.
 
 ### Data Dictionary
 
@@ -49,8 +49,7 @@ The JAVA CLI command can be used in a terminal to run the Accelerator Kit, using
 
 - ensure the JAVA CLI is installed
 - open a terminal (in VS Code: Terminal/New Terminal)
-- delete any preexisting Accelerator Kit results (src\main\resources\org\opencds\cqf\tooling\acceleratorkit\output)
-- ensure the CQF Tooling has been copied locally (#java-command-line-tool)
+- ensure the CQF Tooling has been copied locally [CQF Tooling CLI](#cqf-tooling-cli)
 - in the terminal, run:
 
 ```
