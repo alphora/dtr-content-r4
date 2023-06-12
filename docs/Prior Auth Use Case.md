@@ -35,3 +35,7 @@ Payer Rules: the set of artifacts used in DTR.  Synonymous with Questionnaire / 
 ## Step 3 - PAS
 
 ![PAS  Actor Use Case](<PAS Actor Use Case.png>)
+
+## Alternate (Sequence Diagram) View
+
+![Prior Auth Sequence](PA Sequence.png)
