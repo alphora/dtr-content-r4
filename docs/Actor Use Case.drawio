@@ -1,4 +1,4 @@
-<mxfile host="Electron" modified="2023-06-12T01:50:51.753Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="G4sEudptq24KwHEx2izo" version="21.2.8" type="device">
+<mxfile host="Electron" modified="2023-06-12T02:20:36.484Z" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.2.8 Chrome/112.0.5615.165 Electron/24.2.0 Safari/537.36" etag="ErV2wCdZHtbUgJNheDLL" version="21.2.8" type="device">
   <diagram name="Page-1" id="SOqGkkcfoG1m2xs4eLnT">
     <mxGraphModel dx="1098" dy="779" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -145,7 +145,7 @@
         <mxCell id="slQ0p0RlZzj3LKLuBi1Q-79" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="slQ0p0RlZzj3LKLuBi1Q-54" target="slQ0p0RlZzj3LKLuBi1Q-78">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-80" value="Submit PA Request" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-80" value="Submit Smile DTR SoF App" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
           <mxGeometry x="280" y="1720" width="80" height="80" as="geometry" />
         </mxCell>
         <mxCell id="slQ0p0RlZzj3LKLuBi1Q-81" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="slQ0p0RlZzj3LKLuBi1Q-54" target="slQ0p0RlZzj3LKLuBi1Q-80">
@@ -161,6 +161,79 @@
         </mxCell>
         <mxCell id="slQ0p0RlZzj3LKLuBi1Q-86" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="slQ0p0RlZzj3LKLuBi1Q-84" target="slQ0p0RlZzj3LKLuBi1Q-82">
           <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-89" value="Request Prior Auth" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="280" y="2040" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-90" value="Provider PAS Environment" style="swimlane;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="1">
+          <mxGeometry x="40" y="2000" width="200" height="880" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-91" value="EHR PAS Client" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#fff2cc;strokeColor=#d6b656;" vertex="1" parent="slQ0p0RlZzj3LKLuBi1Q-90">
+          <mxGeometry x="85" y="170" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-92" value="Clinician" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="slQ0p0RlZzj3LKLuBi1Q-90">
+          <mxGeometry x="85" y="50" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-93" value="Clinician" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#dae8fc;strokeColor=#6c8ebf;" vertex="1" parent="slQ0p0RlZzj3LKLuBi1Q-90">
+          <mxGeometry x="85" y="770" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-95" value="Payer PAS Environment" style="swimlane;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="1">
+          <mxGeometry x="400" y="2000" width="200" height="880" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-96" value="Smile PAS Service" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="slQ0p0RlZzj3LKLuBi1Q-95">
+          <mxGeometry x="80" y="290" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-97" value="Smile PAS Service" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#d5e8d4;strokeColor=#82b366;" vertex="1" parent="slQ0p0RlZzj3LKLuBi1Q-95">
+          <mxGeometry x="85" y="530" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-115" value="Black Box Service&lt;br&gt;(Smile CR TBD)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fillColor=#f8cecc;strokeColor=#b85450;" vertex="1" parent="slQ0p0RlZzj3LKLuBi1Q-95">
+          <mxGeometry x="80" y="410" width="30" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-98" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="slQ0p0RlZzj3LKLuBi1Q-92" target="slQ0p0RlZzj3LKLuBi1Q-89">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-99" value="Send PA Request (with completed Questionaire)" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="280" y="2160" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-100" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="slQ0p0RlZzj3LKLuBi1Q-91" target="slQ0p0RlZzj3LKLuBi1Q-99">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-101" value="Request PA Determination" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="280" y="2280" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-102" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="slQ0p0RlZzj3LKLuBi1Q-96" target="slQ0p0RlZzj3LKLuBi1Q-101">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-103" value="Determine Approval / Denial&lt;br&gt;(Adjudication)" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="280" y="2400" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-104" value="Return PA Determination" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="280" y="2520" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-105" value="Display PA Determination" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="280" y="2640" width="80" height="80" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-106" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="slQ0p0RlZzj3LKLuBi1Q-97" target="slQ0p0RlZzj3LKLuBi1Q-104">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-108" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="slQ0p0RlZzj3LKLuBi1Q-91" target="slQ0p0RlZzj3LKLuBi1Q-105">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="200" y="2200" />
+              <mxPoint x="200" y="2680" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-110" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="slQ0p0RlZzj3LKLuBi1Q-93">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="2800" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-116" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" edge="1" parent="1" source="slQ0p0RlZzj3LKLuBi1Q-115" target="slQ0p0RlZzj3LKLuBi1Q-103">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="slQ0p0RlZzj3LKLuBi1Q-117" value="Notify Patient" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+          <mxGeometry x="280" y="2760" width="80" height="80" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

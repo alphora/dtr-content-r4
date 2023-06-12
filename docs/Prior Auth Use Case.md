@@ -38,4 +38,4 @@ Payer Rules: the set of artifacts used in DTR.  Synonymous with Questionnaire / 
 
 ## Alternate (Sequence Diagram) View
 
-![Prior Auth Sequence](PA Sequence.png)
+![Prior Auth Sequence](<PA Sequence.png>)
