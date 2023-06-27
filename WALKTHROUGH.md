@@ -35,9 +35,13 @@ The Accelerator Kit is the combination of a JAVA Command Line tool named CQF Too
 
 ### CQF Tooling CLI
 
-CQF Tooling CLI is deployed to Maven as a JAVA jar file using the following convention: `tooling-x.y.z-SNAPSHOT-jar-with-dependencies.jar`.  A script `_updateCQFTooling` has been included in the root of this repository to download the jar file for local use.  There are Windows (.bat) and non-Windows (.sh) versions of the script.  Run the appicable script to copy the CQF Tooling locally.
+The version of the CQF Tooling CLI currently needed to run this IG is not currently accessible via the standard method.  Temporarily use the following instructions instead:
 
-NOTE: Due to breaking changes in this project's Data Dictionary file a specific version of the CQF Tooling must be used.  Until this issue is resolved download [this](https://drive.google.com/file/d/1RSmztNdifWgqwMyeuFjnJTcOpiN0VjDe/view?usp=sharing) file locally and copy it to the local [input-cache](input-cache) directory (you may need to create the `input-cache` folder).  NOTE TO MAINTAINERS: once the issue is fixed delete the [file](https://drive.google.com/file/d/1RSmztNdifWgqwMyeuFjnJTcOpiN0VjDe/view?usp=sharing). 
+TEMPORARY INSTRUCTIONS: Due to breaking changes in this project's Data Dictionary file a specific version of the CQF Tooling must be used.  Until this issue is resolved download this [pre-built file](https://drive.google.com/file/d/1RSmztNdifWgqwMyeuFjnJTcOpiN0VjDe/view?usp=sharing) locally and copy it to the local [input-cache](input-cache) directory (you may need to create the `input-cache` folder).
+NOTE TO MAINTAINERS: once the issue is fixed delete the [pre-built file](https://drive.google.com/file/d/1RSmztNdifWgqwMyeuFjnJTcOpiN0VjDe/view?usp=sharing). 
+
+TEMPORARILY NOT-IN-USE INSTRUCTIONS
+~~CQF Tooling CLI is deployed to Maven as a JAVA jar file using the following convention: `tooling-x.y.z-SNAPSHOT-jar-with-dependencies.jar`.  A script `_updateCQFTooling` has been included in the root of this repository to download the jar file for local use.  There are Windows (.bat) and non-Windows (.sh) versions of the script.  Run the appicable script to copy the CQF Tooling locally.~~
 
 The Data Dictionary is a specifically formatted Excel spreadsheet.  The Data Dictionary for this project has been included directly in the repository at [input/l2/DTR.xlsx](input/l2/DTR.xlsx).  To view the contents, open the file using Microsoft Excel or equivalent.
 
@@ -50,18 +54,19 @@ The `JAVA command can be used in a terminal to run the Accelerator Kit, using th
 - open a terminal (in VS Code: Terminal/New Terminal)
 - in the terminal, run:
 
-SEE NOTE BELOW BEFORE RUNNING:
-```
-JAVA -jar "input-cache/<tooling-x.y.z-SNAPSHOT-jar-with-dependencies.jar>" -ProcessAcceleratorKit -s=ASLP -pts=input/l2/DTR.xlsx -op=./ -dep="ASLP.A1 Adult Sleep Studies"
-```
+The version of the CQF Tooling CLI currently needed to run this IG is not currently accessible via the standard method.  Temporarily use the following instructions instead:
 
-NOTE: Due to breaking changes in this project's Data Dictionary file a specific version of the CQF Tooling has temporarily been included directly in the repository.  Until this issue is resolved run the following instead:
-
+TEMPORARY INSTRUCTIONS: 
 ```
 JAVA -jar "input-cache/tooling-1.3.2-SNAPSHOT-jar-with-dependencies.jar" -ProcessAcceleratorKit -s=ASLP -pts=input/l2/DTR.xlsx -op=./ -dep="ASLP.A1 Adult Sleep Studies"
 ```
 
-NOTE: Due to errors in the CQF Tooling running the Accelerator Kit will result in changes to local files.  These changes should not be commited to the repository.  Instead the bugs in the CQF Tooling should be fixed so that running the Accelerator Kit produces the files currently in this IG.  Until this issue is resolved run [Resetting Local Files](#resetting-local-files) to remove the unwanted local file changes.
+TEMPORARILY NOT-IN-USE INSTRUCTIONS
+```
+JAVA -jar "input-cache/<tooling-x.y.z-SNAPSHOT-jar-with-dependencies.jar>" -ProcessAcceleratorKit -s=ASLP -pts=input/l2/DTR.xlsx -op=./ -dep="ASLP.A1 Adult Sleep Studies"
+```
+
+NOTE: Due to errors in the CQF Tooling running the Accelerator Kit will result in changes to local files.  These changes should not be commited to the repository.   Separate from this walkthrough, the bugs in the CQF Tooling should be fixed so that running the Accelerator Kit produces the files currently in this IG.  Until this issue is resolved run [Resetting Local Files](#resetting-local-files) to remove the unwanted local file changes.
 
 ### Viewing the results
 
