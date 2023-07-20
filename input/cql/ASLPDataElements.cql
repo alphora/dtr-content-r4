@@ -1,9 +1,10 @@
 library ASLPDataElements
 
+using USCore version '3.1.1'
 using FHIR version '4.0.1'
 
 include FHIRHelpers version '4.1.000'
-include FHIRCommon version '1.1.000' called FC
+include USCoreCommon called UC
 
 include SDHCommon called SC
 include ASLPConcepts called Cs
@@ -22,36 +23,39 @@ context Patient
 
 define "BMI":
   convert(
-    SC.MostRecent(
-      [Observation: Cs."BMI"] O
-        where O.status in { 'final', 'amended', 'corrected' }
-    ).value as FHIR.Quantity
+    Last(
+      [USCore."observation-bmi"] B
+        where B.status in { 'final', 'amended', 'corrected' }
+        sort by issued
+    ).value
   ) to 'kg/m2' 
 
 define "Diagnosis of Obstructive Sleep Apnea":
-  SC.MostRecent(
-  [Condition: Cs."Diagnosis of Obstructive Sleep Apnea Codes"] C
-    where C.clinicalStatus in FC."Active Condition"
-      and C.verificationStatus ~ FC."confirmed"
+  Last(
+  [USCore.Condition: Cs."Diagnosis of Obstructive Sleep Apnea Codes"] C 
+    where C.isActive()
+    and C.isConfirmed()
   ).code
 
 define "Height":
   convert(
-    SC.MostRecent(
-      [Observation: Cs."Height"] O
-        where O.status in { 'final', 'amended', 'corrected' }
-    ).value as FHIR.Quantity
+    Last(
+      [USCore."observation-bodyheight"] BH
+        where BH.status in { 'final', 'amended', 'corrected' }
+        sort by issued
+    ).value 
   ) to '[in_i]'
 
 define "History of Diabetes":
   Coalesce(
     SC.Has(
-    [Condition: Cs."History of Diabetes"] C
-      where C.clinicalStatus in FC."Active Condition"
-        and C.verificationStatus ~ FC."confirmed"
+    [USCore.Condition: Cs."History of Diabetes"] C
+      where C.isActive()
+      and C.isConfirmed()
     ),
     SC.Has(
-    [Observation: Cs."History of Diabetes"] O
+      //TODO no general Observation type in USCore modelinfo
+    [FHIR.Observation: Cs."History of Diabetes"] O
       where O.status in { 'final', 'amended', 'corrected' }
       and (convert(O.value as FHIR.Quantity) to 'mmol/L').value > 7.5
     )
@@ -59,22 +63,25 @@ define "History of Diabetes":
 
 define "History of Hypertension":
   SC.Has(
-    [Condition: Cs."History of Hypertension"] C
-      where C.clinicalStatus in FC."Active Condition"
-        and C.verificationStatus ~ FC."confirmed"
+    [USCore.Condition: Cs."History of Hypertension"] C
+      where C.isActive()
+      and C.isConfirmed()
   )
 
 define "Neck Circumference":
   convert(
     SC.MostRecent(
-      [Observation: Cs."Neck Circumference"] O
+      //TODO no general Observation type in USCore modelinfo
+      [FHIR.Observation: Cs."Neck Circumference"] O
         where O.status in { 'final', 'amended', 'corrected' }
     ).value as FHIR.Quantity
   ) to '[in_i]'   
 
 define "Sleep Study":
   Coalesce(
-    [ServiceRequest] SR
+    //TODO no ServiceRequest in USCore modelinfo
+    //https://build.fhir.org/ig/HL7/US-Core/StructureDefinition-us-core-servicerequest.html
+    [FHIR.ServiceRequest] SR
       where SR.id in "Service Request Id",
     { null as FHIR.ServiceRequest }
   )
@@ -88,8 +95,9 @@ define "Sleep Study Date":
 
 define "Weight":
   convert(
-    SC.MostRecent(
-      [Observation: Cs."Weight"] O
-        where O.status in { 'final', 'amended', 'corrected' }
-    ).value as FHIR.Quantity
+   Last(
+      [USCore."observation-bodyweight"] W
+        where W.status in { 'final', 'amended', 'corrected' }
+        sort by issued
+    ).value 
   ) to '[lb_av]'
