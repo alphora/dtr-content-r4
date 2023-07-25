@@ -11,7 +11,7 @@ include ASLPConcepts called Cs
 
 parameter "Device Request" List<FHIR.DeviceRequest>
 parameter "Device Request Id" List<System.String>
-parameter "Medication Request" List<FHIR.MedicationRequest>
+parameter "Medication Request" List<USCore.MedicationRequestProfile>
 parameter "Medication Request Id" List<System.String>
 parameter "Nutrition Order" List<FHIR.NutritionOrder>
 parameter "Nutrition Order Id" List<System.String>
@@ -23,33 +23,31 @@ context Patient
 
 define "BMI":
   convert(
-    Last(
+    UC.MostRecent(
       [USCore."observation-bmi"] B
         where B.status in { 'final', 'amended', 'corrected' }
-        sort by issued
     ).value
   ) to 'kg/m2' 
 
 define "Diagnosis of Obstructive Sleep Apnea":
-  Last(
-  [USCore.Condition: Cs."Diagnosis of Obstructive Sleep Apnea Codes"] C 
+  UC.MostRecent(
+  [USCore."Condition": Cs."Diagnosis of Obstructive Sleep Apnea Codes"] C 
     where C.isActive()
     and C.isConfirmed()
   ).code
 
 define "Height":
   convert(
-    Last(
+    UC.MostRecent(
       [USCore."observation-bodyheight"] BH
         where BH.status in { 'final', 'amended', 'corrected' }
-        sort by issued
     ).value 
   ) to '[in_i]'
 
 define "History of Diabetes":
   Coalesce(
     SC.Has(
-    [USCore.Condition: Cs."History of Diabetes"] C
+    [USCore."Condition": Cs."History of Diabetes"] C
       where C.isActive()
       and C.isConfirmed()
     ),
@@ -63,7 +61,7 @@ define "History of Diabetes":
 
 define "History of Hypertension":
   SC.Has(
-    [USCore.Condition: Cs."History of Hypertension"] C
+    [USCore."Condition": Cs."History of Hypertension"] C
       where C.isActive()
       and C.isConfirmed()
   )
@@ -71,7 +69,6 @@ define "History of Hypertension":
 define "Neck Circumference":
   convert(
     SC.MostRecent(
-      //TODO no general Observation type in USCore modelinfo
       [FHIR.Observation: Cs."Neck Circumference"] O
         where O.status in { 'final', 'amended', 'corrected' }
     ).value as FHIR.Quantity
@@ -79,8 +76,6 @@ define "Neck Circumference":
 
 define "Sleep Study":
   Coalesce(
-    //TODO no ServiceRequest in USCore modelinfo
-    //https://build.fhir.org/ig/HL7/US-Core/StructureDefinition-us-core-servicerequest.html
     [FHIR.ServiceRequest] SR
       where SR.id in "Service Request Id",
     { null as FHIR.ServiceRequest }
@@ -95,9 +90,8 @@ define "Sleep Study Date":
 
 define "Weight":
   convert(
-   Last(
+    UC.MostRecent(
       [USCore."observation-bodyweight"] W
         where W.status in { 'final', 'amended', 'corrected' }
-        sort by issued
     ).value 
   ) to '[lb_av]'
