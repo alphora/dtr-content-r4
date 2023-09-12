@@ -117,7 +117,7 @@
         {
           "description": "Document - Document Prior Auth Requirements"
         }, {
-          "description": "Snooze - Prior author will be done manually"
+          "description": "Snooze - Prior authorization will be done manually"
         }, {
           "description": "Remove - Will remove trigger sleep order"
         }
