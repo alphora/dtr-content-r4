@@ -6,7 +6,7 @@
       "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-recommendationdefinition"
     ]
   },
-  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPA1",
+  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd",
   "identifier": [
     {
       "use": "official",

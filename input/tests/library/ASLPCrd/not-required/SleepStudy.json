@@ -25,7 +25,7 @@
     "authoredOn": "2023-04-06",
     "reasonReference": [
         {
-            "reference": "Condition/SleepApnea"
+            "reference": "Condition/not-required-SleepApnea"
         }
     ],
     "occurrenceDateTime": "2023-04-10"

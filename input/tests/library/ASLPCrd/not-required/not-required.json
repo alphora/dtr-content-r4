@@ -1,6 +1,6 @@
 {
     "resourceType": "Patient",
-    "id": "not-required-not-required",
+    "id": "not-required",
     "meta": {
       "profile": [
         "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient"
