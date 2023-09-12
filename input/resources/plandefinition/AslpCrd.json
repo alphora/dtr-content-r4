@@ -115,7 +115,7 @@
       ],
       "action" : [
         {
-          "description": "Document - Document Prior Auth Requirements"
+          "description": "Document - Document prior authorization requirements"
         }, {
           "description": "Snooze - Prior authorization will be done manually"
         }, {
