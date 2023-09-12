@@ -1,0 +1,33 @@
+{
+  "resourceType": "PlanDefinition",
+  "id": "ASLPPas",
+  "version": "1.0.0",
+  "name": "ASLPPas",
+  "title": "ASLP.A1 Adult Sleep Studies Adjudication",
+  "status": "draft",
+  "experimental": true,
+  "action": [
+    {
+      "title": "Bundle Includes Signed Sleep Study",
+      "description": "",
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/fhirpath",
+            "expression": "%pasBundle.entry(where type = servicerequest code= sleep study extension = whatever .exists()"
+          }
+        }
+      ],
+      "input": [
+        {
+          "type": "Bundle",
+          "name": "%pasBundle"
+        }
+      ],
+      "dynamicValue": [
+        "approved"
+      ]
+    }
+  ]
+}
