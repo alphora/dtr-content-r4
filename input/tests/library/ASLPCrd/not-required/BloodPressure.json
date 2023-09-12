@@ -1,6 +1,6 @@
 {
     "resourceType": "Observation",
-    "id": "BloodPressure",
+    "id": "not-required-BloodPressure",
     "meta": {
         "profile": [
             "http://hl7.org/fhir/us/core/StructureDefinition/us-core-blood-pressure",

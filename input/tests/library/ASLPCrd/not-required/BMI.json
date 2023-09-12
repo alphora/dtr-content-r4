@@ -1,6 +1,6 @@
 {
   "resourceType" : "Observation",
-  "id" : "BMI",
+  "id": "not-required-BMI",
   "meta" : {
     "profile" : [
       "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-bmi",
