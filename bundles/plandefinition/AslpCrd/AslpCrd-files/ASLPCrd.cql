@@ -19,7 +19,7 @@ define "Is Sleep Study Service Request":
 
 define "Get Card Summary":
   if "Is Prior Auth Required" then
-    'Patient requires prior authoriztion for a sleep study'
+    'Patient requires prior authorization for a sleep study'
   else
     'Patient does not require prior authorization for a sleep study'
 
