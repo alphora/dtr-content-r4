@@ -1,18 +1,9 @@
 {
   "resourceType": "PlanDefinition",
-  "id": "ASLPCrdMemberEligible",
+  "id": "ASLPCrd-CdsHook",
   "meta": {
     "profile": [
-      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-recommendationdefinition"
-    ]
-  },
-  "type": {
-    "coding": [
-      {
-        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type",
-        "code": "eca-rule",
-        "display": "ECA Rule"
-      }
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-computableplandefinition"
     ]
   },
   "extension": [
@@ -62,17 +53,31 @@
     }
   ],
   "usage": "This is to be used in conjunction with a patient-facing FHIR application.",
-  "name": "ASLPCrdMemberEligible",
-  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrdMemberEligible",
-  "purpose": "Purpose for ASLPCrdMemberEligible",
-  "description": "Description for ASLPCrdMemberEligible",
+  "name": "ASLPCrd-CdsHook",
+  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-CdsHook",
+  "purpose": "The purpose of this is to test the system to make sure we have complete end-to-end functionality",
+  "description": "Test the system to make sure we have complete end-to-end functionality",
+  "type": {
+    "coding": [
+      {
+        "code": "eca-rule",
+        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type",
+        "display": "ECA Rule"
+      }
+    ]
+  },
   "library": [
     "http://example.org/sdh/dtr/aslp/Library/ASLPCrd"
   ],
   "action": [
     {
-      "title": "TODO 2",
-      "description": "TODO 2"
+      "trigger": [
+        {
+          "type": "named-event",
+          "name": "order-sign"
+        }
+      ],
+      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-MemberEligible"
     }
   ]
 }

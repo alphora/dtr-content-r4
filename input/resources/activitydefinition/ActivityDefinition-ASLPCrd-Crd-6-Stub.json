@@ -1,9 +1,9 @@
 {
-  "resourceType": "PlanDefinition",
-  "id": "ASLPCrdCdsHook",
+  "resourceType": "ActivityDefinition",
+  "id": "ASLPCrd-Crd-6-Stub",
   "meta": {
     "profile": [
-      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-computableplandefinition"
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-computableactivity"
     ]
   },
   "extension": [
@@ -19,15 +19,6 @@
     }
   ],
   "version": "1.0.0",
-  "type": {
-    "coding": [
-      {
-        "code": "eca-rule",
-        "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type",
-        "display": "ECA Rule"
-      }
-    ]
-  },
   "status": "draft",
   "experimental": true,
   "useContext": [
@@ -62,22 +53,9 @@
     }
   ],
   "usage": "This is to be used in conjunction with a patient-facing FHIR application.",
-  "name": "ASLPCrdCdsHook",
-  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrdCdsHook",
-  "purpose": "The purpose of this is to test the system to make sure we have complete end-to-end functionality",
-  "description": "Test the system to make sure we have complete end-to-end functionality",
-  "action": [
-    {
-      "trigger": [
-        {
-          "type": "named-event",
-          "name": "order-sign"
-        }
-      ],
-      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrdMemberEligible"
-    }
-  ],
-  "library": [
-    "http://example.org/sdh/dtr/aslp/Library/ASLPCrd"
-  ]
+  "name": "ASLPCrd-Crd-6-Stub",
+  "url": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCrd-Crd-6-Stub",
+  "purpose": "Purpose for ASLPCrd-Crd-6-Stub",
+  "description": "Code not found please contact the payer for further information.\nReference ID\nSession exits",
+  "kind": "CommunicationRequest"
 }
