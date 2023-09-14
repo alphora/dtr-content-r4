@@ -94,9 +94,6 @@ Usage: #example
 
 * kind = #CommunicationRequest
 * profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
-* dynamicValue[+]
-  * path = "payload.contentString"
-  * insert ExpressionCql("'The member cannot be found.'")
 * description = """
   The member cannot be found.
   PA is required.
@@ -113,6 +110,7 @@ Usage: #example
 * insert CpgIdentifier(ASLPCrd-Crd-3-1-Stub)
 
 * kind = #CommunicationRequest
+* profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
 * description = """
   Provider is not in the network.
   PA is required.
@@ -129,6 +127,7 @@ Usage: #example
 * insert CpgIdentifier(ASLPCrd-Crd-3-2-Stub)
 
 * kind = #CommunicationRequest
+* profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
 * description = """
   Additional requirements disclosure (if any).
   PA is required.
@@ -144,6 +143,7 @@ Usage: #example
 * insert CpgIdentifier(ASLPCrd-Crd-4-Stub)
 
 * kind = #CommunicationRequest
+* profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
 * description = """
   Provider is Gold Card.
   PA is not required for this service.
@@ -158,6 +158,7 @@ Usage: #example
 * insert CpgIdentifier(ASLPCrd-Crd-7-Stub)
 
 * kind = #CommunicationRequest
+* profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
 * description = """
   Routine service code.
   PA is not required for this service.
@@ -171,6 +172,7 @@ Usage: #example
 * insert CpgIdentifier(ASLPCrd-Crd-6-Stub)
 
 * kind = #CommunicationRequest
+* profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
 * description = """
   Code not found please contact the payer for further information.
   Reference ID
@@ -184,6 +186,7 @@ Usage: #example
 * insert CpgIdentifier(ASLPCrd-Crd-5-Stub)
 
 * kind = #CommunicationRequest
+* profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
 * description = """
   Prior authorization is required.
   [Additional requiremets/disclaimer.]

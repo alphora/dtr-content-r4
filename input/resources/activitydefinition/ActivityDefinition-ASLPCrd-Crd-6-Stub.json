@@ -57,5 +57,6 @@
   "url": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCrd-Crd-6-Stub",
   "purpose": "Purpose for ASLPCrd-Crd-6-Stub",
   "description": "Code not found please contact the payer for further information.\nReference ID\nSession exits",
-  "kind": "CommunicationRequest"
+  "kind": "CommunicationRequest",
+  "profile": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
 }

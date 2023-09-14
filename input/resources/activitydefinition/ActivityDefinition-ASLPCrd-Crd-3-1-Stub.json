@@ -57,5 +57,6 @@
   "url": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCrd-Crd-3-1-Stub",
   "purpose": "Purpose for ASLPCrd-Crd-3-1-Stub",
   "description": "Provider is not in the network.\nPA is required.\nYou can submit a PA request as an exception.\nCRD link to the form\nReference ID\nSession exits",
-  "kind": "CommunicationRequest"
+  "kind": "CommunicationRequest",
+  "profile": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
 }

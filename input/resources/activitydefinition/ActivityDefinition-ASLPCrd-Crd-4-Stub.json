@@ -57,5 +57,6 @@
   "url": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCrd-Crd-4-Stub",
   "purpose": "Purpose for ASLPCrd-Crd-4-Stub",
   "description": "Provider is Gold Card.\nPA is not required for this service.\nReference ID\nSession exits",
-  "kind": "CommunicationRequest"
+  "kind": "CommunicationRequest",
+  "profile": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
 }

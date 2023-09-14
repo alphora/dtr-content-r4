@@ -57,5 +57,6 @@
   "url": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCrd-Crd-7-Stub",
   "purpose": "Purpose for ASLPCrd-Crd-7-Stub",
   "description": "Routine service code.\nPA is not required for this service.\nBypass to order, scheduling, or referral",
-  "kind": "CommunicationRequest"
+  "kind": "CommunicationRequest",
+  "profile": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
 }
