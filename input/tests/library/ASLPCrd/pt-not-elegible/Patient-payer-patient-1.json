@@ -1,0 +1,130 @@
+{
+  "resourceType": "Patient",
+  "id": "payer-patient-1",
+  "meta": {
+    "tag": [
+      {
+        "code": "pay",
+        "system": "http://terminology.hl7.org/CodeSystem/organization-type"
+      }
+    ],
+    "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+    ]
+  },
+  "identifier": [
+    {
+      "system": "https://prior-auth.org/fhir/memberidentifier",
+      "value": "N0000017"
+    },
+    {
+      "type": {
+        "coding": [
+          {
+            "code": "MR",
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "display": "Medical Record Number"
+          }
+        ],
+        "text": "Medical Record Number"
+      },
+      "system": "http://hospital.smarthealthit.org",
+      "value": "7d91ca3c-9fa8-63c5-94af-3894d1b023b6"
+    },
+    {
+      "type": {
+        "coding": [
+          {
+            "code": "SS",
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "display": "Social Security Number"
+          }
+        ],
+        "text": "Social Security Number"
+      },
+      "system": "http://hl7.org/fhir/sid/us-ssn",
+      "value": "999-70-4335"
+    },
+    {
+      "type": {
+        "coding": [
+          {
+            "code": "DL",
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "display": "Driver's License"
+          }
+        ],
+        "text": "Driver's License"
+      },
+      "system": "urn:oid:2.16.840.1.113883.4.3.25",
+      "value": "S99927507"
+    },
+    {
+      "type": {
+        "coding": [
+          {
+            "code": "PPN",
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "display": "Passport Number"
+          }
+        ],
+        "text": "Passport Number"
+      },
+      "system": "http://standardhealthrecord.org/fhir/StructureDefinition/passportNumber",
+      "value": "X68615393X"
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "555-203-6945",
+      "use": "home"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "Donald",
+      "family": "Trump",
+      "given": [
+        "Donald"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1938-04-30",
+  "address": [
+    {
+      "line": [
+        "375 VonRueden Underpass Apt 19"
+      ],
+      "city": "Carver",
+      "state": "MA",
+      "postalCode": "00000",
+      "country": "US"
+    }
+  ],
+  "maritalStatus": {
+    "coding": [
+      {
+        "code": "S",
+        "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus",
+        "display": "Never Married"
+      }
+    ]
+  },
+  "communication": [
+    {
+      "language": {
+        "coding": [
+          {
+            "code": "en-US",
+            "system": "urn:ietf:bcp:47",
+            "display": "English"
+          }
+        ]
+      }
+    }
+  ]
+}

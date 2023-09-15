@@ -1,0 +1,84 @@
+{
+  "resourceType": "Patient",
+  "id": "provider-patient-1",
+  "meta": {
+    "tag": [
+      {
+        "code": "prov",
+        "system": "http://terminology.hl7.org/CodeSystem/organization-type"
+      }
+    ],
+    "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+    ]
+  },
+  "identifier": [
+    {
+      "system": "https://p2p.org/fhir/memberidentifier",
+      "value": "N0000024"
+    },
+    {
+      "system": "https://prior-auth.org/fhir/memberidentifier",
+      "value": "N0000015"
+    },
+    {
+      "system": "http://p2p.org/fhir/CodeSystem/sid/us-medicaid",
+      "value": "N0000024A"
+    },
+    {
+      "system": "http://p2p.org/fhir/sid/us-medicard",
+      "value": "N0000024B"
+    },
+    {
+      "system": "http://p2p.org/fhir/CodeSystem/sid/us-legacy-medicare",
+      "value": "N0000024C"
+    },
+    {
+      "system": "http://p2p.org/fhir/CodeSystem/sid/diamond-id",
+      "value": "N0000024D"
+    },
+    {
+      "system": "http://hl7.org/fhir/sid/us-ssn",
+      "value": "N0000024D"
+    },
+    {
+      "type": {
+        "coding": [
+          {
+            "code": "MR",
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "display": "Medical Record Number"
+          }
+        ],
+        "text": "Medical Record Number"
+      },
+      "system": "http://hospital.smarthealthit.org",
+      "value": "N000002002"
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "text": "The Donald",
+      "family": "Trump",
+      "given": [
+        "Donald"
+      ]
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1946-06-14",
+  "address": [
+    {
+      "type": "physical",
+      "line": [
+        "123 FAKE ST"
+      ],
+      "city": "STERLING",
+      "state": "VA",
+      "postalCode": "20165",
+      "country": "US"
+    }
+  ]
+}
