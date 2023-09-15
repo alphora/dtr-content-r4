@@ -10,3 +10,4 @@ input/tests/*/*/*-bundle.json
 .idea/
 /input/tests/results
 *.bkp
+fsh-generated/
