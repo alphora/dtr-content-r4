@@ -46,6 +46,18 @@ returns System.Boolean:
 
 // need a architecture design question on how to solve longer term
 
+define "Provider":
+  {
+    "Patient": "Provider Patient",
+    "Coverages": "Provider Coverages"
+  }
+
+define "Payor":
+  {
+    "Patient": "Payor Patient",
+    "Coverages": "Payor Coverages"
+  }
+
 
 define "Provider Patients":
   [Patient]
@@ -70,10 +82,10 @@ define "Payor Patient":
       where IsPayorResource(P)
   )
 
-define "Payor and Provider Patient Name Match":
-  exists("Payor Patient".name.family intersect "Provider Patient".name.family)
+define "Payor Coverages":
+  [Coverage] C
+    where IsPayorResource(C)
 
-define "Payor and Provider Patient DOB Match":
-  IsTrue(
-    (days between "Payor Patient".birthDate and "Provider Patient".birthDate) = 0
-  )
+define "Provider Coverages":
+  [Coverage] C
+    where not IsPayorResource(C)
