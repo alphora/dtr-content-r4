@@ -49,7 +49,8 @@ define function GetContext(isPayor System.Boolean):
     "Patient": if isPayor then "Payor Patient" else "Provider Patient",
     "Coverages": [Coverage] item where IsPayorResource(item) = isPayor,
     "Practitioners": [Practitioner] item where IsPayorResource(item) = isPayor,
-    "PractitionerRoles": [PractitionerRole] item where IsPayorResource(item) = isPayor
+    "PractitionerRoles": [PractitionerRole] item where IsPayorResource(item) = isPayor,
+    "Organizations": [Organization] item where IsPayorResource(item) = isPayor
   }
 
 // Option 1 (not feasible short-term): Use related context retrieve
@@ -99,3 +100,11 @@ define "Payor Patient":
       )
       and IsPayorResource(RP)
   )
+
+define "Payor References by Coverage":
+  flatten("Provider"."Coverages" C return C.payor.reference.value)
+
+define "Provider Payor Organizations by Coverage":
+  "Provider"."Organizations" O
+    with "Payor References by Coverage" Reference
+    such that EndsWith(Reference, O.id.value)

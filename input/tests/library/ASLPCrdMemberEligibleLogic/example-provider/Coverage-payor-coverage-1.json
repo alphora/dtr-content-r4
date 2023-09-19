@@ -21,7 +21,7 @@
   },
   "payor": [
     {
-      "reference": "Organization/NYS-Medicaid"
+      "reference": "Organization/payor-NYS-Medicaid"
     }
   ]
 }
