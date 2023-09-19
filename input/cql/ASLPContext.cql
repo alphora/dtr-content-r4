@@ -49,24 +49,22 @@ returns System.Boolean:
 define "Provider":
   {
     "Patient": "Provider Patient",
-    "Coverages": "Provider Coverages"
+    "Coverages": "Provider Coverages",
+    "Practitioners": "Provider Practitioners"
   }
 
 define "Payor":
   {
     "Patient": "Payor Patient",
-    "Coverages": "Payor Coverages"
+    "Coverages": "Payor Coverages",
+    "Practitioners": "Payor Practitioners"
   }
 
-
 define "Provider Patients":
-  [Patient]
+  [Patient] P where not IsPayorResource(P)
 
 define "Provider Patient":
-  First(
-    "Provider Patients" P
-      where not IsPayorResource(P)
-  )
+  First("Provider Patients")
 
 define "Payor Patients":
   [RelatedPerson] RP
@@ -75,17 +73,19 @@ define "Payor Patients":
         where C.system.value ~ "Relationship Self Code".system
           and C.code.value ~ "Relationship Self Code".code
     )
+    and IsPayorResource(RP)
 
 define "Payor Patient":
-  First(
-    "Payor Patients" P
-      where IsPayorResource(P)
-  )
+  First("Payor Patients")
 
 define "Payor Coverages":
-  [Coverage] C
-    where IsPayorResource(C)
+  [Coverage] C where IsPayorResource(C)
 
 define "Provider Coverages":
-  [Coverage] C
-    where not IsPayorResource(C)
+  [Coverage] C where not IsPayorResource(C)
+
+define "Payor Practitioners":
+  [Practitioner] P where IsPayorResource(P)
+
+define "Provider Practitioners":
+  [Practitioner] P where not IsPayorResource(P)
