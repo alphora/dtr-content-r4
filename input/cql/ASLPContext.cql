@@ -10,6 +10,11 @@ codesystem "Payor Identifier CodeSystem": 'http://terminology.hl7.org/CodeSystem
 code "Payor Code": 'pay' from "Payor Identifier CodeSystem" display 'Payor'
 code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
 
+parameter "Service Request" List<FHIR.ServiceRequest>
+parameter "Service Request Id" List<System.String> 
+  // TODO: remove defaults for production use
+  default { 'required-SleepStudy', 'not-required-SleepStudy', 'SleepStudy', 'SleepStudy2' }
+
 context Patient
 
 define function TagExists(resource Resource, value System.Code)
@@ -29,6 +34,24 @@ define function IsPayorResource(resource Resource)
 returns System.Boolean:
   TagExists(resource, "Payor Code")
 
+define function GetNPI(practitioner Practitioner)
+returns System.String:
+  // TODO: rework this to use USCore identifier slice for NPI
+  singleton from
+  (
+    practitioner.identifier I
+      where I.system.value ~ 'http://hl7.org/fhir/sid/us-npi'
+      return I.value.value
+  )
+
+define function GetContext(isPayor System.Boolean):
+  {
+    "Patient": if isPayor then "Payor Patient" else "Provider Patient",
+    "Coverages": [Coverage] item where IsPayorResource(item) = isPayor,
+    "Practitioners": [Practitioner] item where IsPayorResource(item) = isPayor,
+    "PractitionerRoles": [PractitionerRole] item where IsPayorResource(item) = isPayor
+  }
+
 // Option 1 (not feasible short-term): Use related context retrieve
 // give me the patient that is the beneficiary of this coverage
 // even then you'd still have to get to the coverage
@@ -46,18 +69,22 @@ returns System.Boolean:
 
 // need a architecture design question on how to solve longer term
 
+define "Service Request Item":
+  First(
+    Coalesce(
+      // TODO: require an exact match instead of an EndsWith match?
+      //[FHIR.ServiceRequest] SR where exists("Service Request Id" id where SR.id ~ id),
+      [FHIR.ServiceRequest] SR where exists("Service Request Id" id where EndsWith(SR.id, id)),
+      "Service Request",
+      { null as FHIR.ServiceRequest }
+    )
+  )
+
 define "Provider":
   GetContext(false)
 
 define "Payor":
   GetContext(true)
-
-define function GetContext(isPayor System.Boolean):
-  {
-    "Patient": if isPayor then "Payor Patient" else "Provider Patient",
-    "Coverages": [Coverage] item where IsPayorResource(item) = isPayor,
-    "Practitioners": [Practitioner] item where IsPayorResource(item) = isPayor
-  }
 
 define "Provider Patient":
   First([Patient] P where not IsPayorResource(P))
