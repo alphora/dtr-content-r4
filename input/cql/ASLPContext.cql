@@ -47,45 +47,28 @@ returns System.Boolean:
 // need a architecture design question on how to solve longer term
 
 define "Provider":
-  {
-    "Patient": "Provider Patient",
-    "Coverages": "Provider Coverages",
-    "Practitioners": "Provider Practitioners"
-  }
+  GetContext(false)
 
 define "Payor":
+  GetContext(true)
+
+define function GetContext(isPayor System.Boolean):
   {
-    "Patient": "Payor Patient",
-    "Coverages": "Payor Coverages",
-    "Practitioners": "Payor Practitioners"
+    "Patient": if isPayor then "Payor Patient" else "Provider Patient",
+    "Coverages": [Coverage] item where IsPayorResource(item) = isPayor,
+    "Practitioners": [Practitioner] item where IsPayorResource(item) = isPayor
   }
 
-define "Provider Patients":
-  [Patient] P where not IsPayorResource(P)
-
 define "Provider Patient":
-  First("Provider Patients")
-
-define "Payor Patients":
-  [RelatedPerson] RP
-    where exists(
-      RP.relationship.coding C 
-        where C.system.value ~ "Relationship Self Code".system
-          and C.code.value ~ "Relationship Self Code".code
-    )
-    and IsPayorResource(RP)
+  First([Patient] P where not IsPayorResource(P))
 
 define "Payor Patient":
-  First("Payor Patients")
-
-define "Payor Coverages":
-  [Coverage] C where IsPayorResource(C)
-
-define "Provider Coverages":
-  [Coverage] C where not IsPayorResource(C)
-
-define "Payor Practitioners":
-  [Practitioner] P where IsPayorResource(P)
-
-define "Provider Practitioners":
-  [Practitioner] P where not IsPayorResource(P)
+  First(
+    [RelatedPerson] RP
+      where exists(
+        RP.relationship.coding C 
+          where C.system.value ~ "Relationship Self Code".system
+            and C.code.value ~ "Relationship Self Code".code
+      )
+      and IsPayorResource(RP)
+  )
