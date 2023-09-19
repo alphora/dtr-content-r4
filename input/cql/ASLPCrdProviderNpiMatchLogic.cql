@@ -12,7 +12,8 @@ define "Is ProviderNpiMatch":
     and "Performing Practitioners NPIs Match"
 
 define "Requesting Practitioners NPIs Match":
-  "Requesting Practitioners NPIs" included in "Payor Practitioners NPIs"
+  exists("Requesting Practitioners NPIs")
+    and "Requesting Practitioners NPIs" included in "Payor Practitioners NPIs"
 
 define "Performing Practitioners NPIs Match":
   "Performing Practitioners NPIs" included in "Payor Practitioners NPIs"
