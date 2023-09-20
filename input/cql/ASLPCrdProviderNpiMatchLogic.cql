@@ -1,6 +1,8 @@
 library ASLPCrdProviderNpiMatchLogic
 
 using FHIR version '4.0.1'
+// TODO: update to use USCore directly
+//using USCore version '3.1.1'
 
 include ASLPContext called Ctx
 include FHIRHelpers version '4.1.000'
@@ -29,6 +31,7 @@ define "Payor Practitioners NPIs":
 define "Requesting Practitioners":
   Ctx."Provider"."Practitioners" Practitioner
     with Ctx."Service Request Item".requester RequesterPractitioner
+    // TODO: use common function for ID matching
     such that EndsWith(RequesterPractitioner.reference, Practitioner.id.value)
 
 define "Requesting Practitioners NPIs":
@@ -39,6 +42,7 @@ define "Requesting Practitioners NPIs":
 define "Performing Practitioners":
   Ctx."Provider"."Practitioners" Practitioner
     with Ctx."Service Request Item".performer PractitionerPerformer
+    // TODO: use common function for ID matching
     such that EndsWith(PractitionerPerformer.reference, Practitioner.id.value)
 
 define "Performing Practitioners NPIs":

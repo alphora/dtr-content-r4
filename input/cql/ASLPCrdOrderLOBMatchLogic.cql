@@ -1,6 +1,8 @@
 library ASLPCrdOrderLOBMatchLogic
 
 using FHIR version '4.0.1'
+// TODO: update to use USCore directly
+//using USCore version '3.1.1'
 
 include ASLPContext called Ctx
 include FHIRHelpers version '4.1.000'
@@ -13,21 +15,31 @@ define "Is OrderLOBMatch":
 define "Not OrderLOBMatch":
   not ("Is OrderLOBMatch")
 
-define "Payor References by Coverage":
+define "Provider References by Coverage.payor":
   flatten(Ctx."Provider"."Coverages" C return C.payor.reference.value)
 
-define "Provider Payor Organizations by Coverage":
+define "Provider Organizations by Coverage.payor":
   Ctx."Provider"."Organizations" O
-    with "Payor References by Coverage" Reference
+    with "Provider References by Coverage.payor" Reference
+    // TODO: use common function for ID matching
     such that EndsWith(Reference, O.id.value)
 
-define "Payor Organizations":
-  Ctx."Payor".Organizations
+define "Payor References by Coverage.payor":
+  flatten(Ctx."Payor"."Coverages" C return C.payor.reference.value)
+
+define "Payor Organizations by Coverage.payor":
+  Ctx."Payor"."Organizations" O
+    with "Payor References by Coverage.payor" Reference
+    // TODO: use common function for ID matching
+    such that EndsWith(Reference, O.id.value)
 
 define "Matching Organizations by Name":
-  "Provider Payor Organizations by Coverage" ProviderPayorOrg
-    with "Payor Organizations" PayorOrg
+  "Provider Organizations by Coverage.payor" ProviderPayorOrg
+    with "Payor Organizations by Coverage.payor" PayorOrg
     such that ProviderPayorOrg.name ~ PayorOrg.name
       // TODO: validate this with Andre
       or ProviderPayorOrg.name in PayorOrg.alias
+      // TODO: validate this with Andre
       or PayorOrg.name in ProviderPayorOrg.alias
+      // TODO: validate this with Andre
+      or exists(PayorOrg.alias intersect ProviderPayorOrg.alias)
