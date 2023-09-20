@@ -57,5 +57,6 @@
   "url": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCrd-Crd-5-Stub",
   "purpose": "Purpose for ASLPCrd-Crd-5-Stub",
   "description": "Prior authorization is required.\n[Additional requiremets/disclaimer.]\nCRD link to the form\nReference ID\nSession exits",
-  "kind": "CommunicationRequest"
+  "kind": "CommunicationRequest",
+  "profile": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
 }
