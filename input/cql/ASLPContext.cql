@@ -4,6 +4,7 @@ using FHIR version '4.0.1'
 // TODO: update to use USCore directly
 //using USCore version '3.1.1'
 
+include USCoreCommon version '0.1.0'
 include FHIRHelpers version '4.1.000'
 
 codesystem "Relationship Role": 'http://terminology.hl7.org/CodeSystem/v3-RoleCode'
@@ -77,7 +78,6 @@ define "Service Request Item":
     Coalesce(
       // TODO: require an exact match instead of an EndsWith match?
       //[FHIR.ServiceRequest] SR where exists("Service Request Id" id where SR.id ~ id),
-      // TODO: use common function for ID matching
       [FHIR.ServiceRequest] SR where exists("Service Request Id" id where EndsWith(SR.id, id)),
       "Service Request",
       { null as FHIR.ServiceRequest }

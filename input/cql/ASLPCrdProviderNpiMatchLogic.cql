@@ -5,6 +5,7 @@ using FHIR version '4.0.1'
 //using USCore version '3.1.1'
 
 include ASLPContext called Ctx
+include USCoreCommon version '0.1.0'
 include FHIRHelpers version '4.1.000'
 
 context Patient
@@ -30,9 +31,8 @@ define "Payor Practitioners NPIs":
 // TODO: update this to include ServiceRequest.requester -> PractitionerRole -> Practitioner?
 define "Requesting Practitioners":
   Ctx."Provider"."Practitioners" Practitioner
-    with Ctx."Service Request Item".requester RequesterPractitioner
-    // TODO: use common function for ID matching
-    such that EndsWith(RequesterPractitioner.reference, Practitioner.id.value)
+    with ({ Ctx."Service Request Item".requester }) RequesterPractitioner
+    such that RequesterPractitioner.reference.getId() ~ Practitioner.id.value
 
 define "Requesting Practitioners NPIs":
   "Requesting Practitioners" RP
@@ -42,8 +42,7 @@ define "Requesting Practitioners NPIs":
 define "Performing Practitioners":
   Ctx."Provider"."Practitioners" Practitioner
     with Ctx."Service Request Item".performer PractitionerPerformer
-    // TODO: use common function for ID matching
-    such that EndsWith(PractitionerPerformer.reference, Practitioner.id.value)
+    such that PractitionerPerformer.reference.getId() ~ Practitioner.id.value
 
 define "Performing Practitioners NPIs":
   "Performing Practitioners" RP
