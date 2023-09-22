@@ -1,0 +1,24 @@
+{
+  "resourceType": "Coverage",
+  "id": "crd-3-1-req-npi-missing-provider-coverage-1",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/davinci-crd/StructureDefinition/profile-coverage"
+    ]
+  },
+  "identifier": [
+    {
+      "system": "http://acme.org/fhir-ns/payor-coverage-identifier-system",
+      "value": "12345"
+    }
+  ],
+  "status": "active",
+  "beneficiary": {
+    "reference": "Patient/crd-3-1-req-npi-missing"
+  },
+  "payor": [
+    {
+      "reference": "Organization/crd-3-1-req-npi-missing-provider-NYS-Medicaid"
+    }
+  ]
+}

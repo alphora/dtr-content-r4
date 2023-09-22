@@ -1,0 +1,33 @@
+{
+    "resourceType": "ServiceRequest",
+    "meta": {
+        "profile": [
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-sleep-study-order",
+            "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-servicerequest"
+        ]
+    },
+    "id": "crd-6-prior-auth-code-not-found-SleepStudy",
+    "status": "draft",
+    "intent": "order",
+    "code": {
+        "coding": [
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "96125",
+                "display": "Cognitive test by HC pro"
+            }
+        ],
+        "text": "Cognitive test by HC pro"
+    },
+    "subject": {
+        "reference": "Patient/crd-6-prior-auth-code-not-found"
+    },
+    "requester": {
+        "reference": "Practitioner/crd-6-prior-auth-code-not-found-provider-Practitioner-1"
+    },
+    "performer": [{
+        "reference": "Practitioner/crd-6-prior-auth-code-not-found-provider-Practitioner-2"
+    }],
+    "authoredOn": "2023-04-06",
+    "occurrenceDateTime": "2023-04-10"
+}

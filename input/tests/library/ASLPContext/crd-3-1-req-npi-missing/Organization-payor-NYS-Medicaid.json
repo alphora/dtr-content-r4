@@ -1,0 +1,93 @@
+{
+  "resourceType": "Organization",
+  "id": "crd-3-1-req-npi-missing-payor-NYS-Medicaid",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/davinci-pct/StructureDefinition/davinci-pct-organization"
+    ],
+    "tag": [
+      { "system": "http://terminology.hl7.org/CodeSystem/organization-type", "code": "pay" }
+    ]
+  },
+  "identifier": [
+    {
+      "type": {
+        "coding": [
+          {
+            "code": "ETIN",
+            "system": "http://hl7.org/fhir/us/davinci-pct/CodeSystem/PCTOrgIdentifierTypeCS",
+            "display": "Electronic Transmitter Identification Number"
+          }
+        ]
+      },
+      "value": "ETIN-3200002"
+    },
+    {
+      "type": {
+        "coding": [
+          {
+            "code": "payerid",
+            "system": "http://hl7.org/fhir/us/davinci-pct/CodeSystem/PCTOrgIdentifierTypeCS",
+            "display": "Payer ID"
+          }
+        ]
+      },
+      "value": "MCDNY"
+    },
+    {
+      "type": {
+        "coding": [
+          {
+            "code": "IIN",
+            "system": "http://hl7.org/fhir/us/davinci-pct/CodeSystem/PCTOrgIdentifierTypeCS",
+            "display": "Issuer Identification Number "
+          }
+        ]
+      },
+      "value": "004740"
+    }
+  ],
+  "active": true,
+  "name": "New York State Department of Health (NYSDOH)",
+  "alias": [
+    "eMedNY"
+  ],
+  "type": [
+    {
+      "coding": [
+        {
+          "code": "pay",
+          "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+          "display": "Payer"
+        }
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "(+1) 800-343-9000"
+    }
+  ],
+  "address": [
+    {
+      "extension": [
+        {
+          "url": "http://hl7.org/fhir/us/davinci-pct/StructureDefinition/countrySubdivisionCode",
+          "valueCoding": {
+            "code": "US-NY",
+            "system": "urn:iso:std:iso:3166:-2"
+          }
+        }
+      ],
+      "use": "billing",
+      "line": [
+        "PO Box 4610"
+      ],
+      "city": "Rensselaer",
+      "state": "NY",
+      "postalCode": "12144-4610",
+      "country": "USA"
+    }
+  ]
+}

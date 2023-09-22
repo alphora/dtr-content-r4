@@ -18,6 +18,12 @@ define "Requesting Practitioners NPIs Match":
   exists("Requesting Practitioners NPIs")
     and "Requesting Practitioners NPIs" included in "Payor Practitioners NPIs"
 
+define "Included In":
+  "Requesting Practitioners NPIs" included in "Payor Practitioners NPIs"
+
+define "Count Intersect Match":
+  Count("Requesting Practitioners NPIs" intersect "Payor Practitioners NPIs") = Count("Requesting Practitioners NPIs")
+
 define "Performing Practitioners NPIs Match":
   "Performing Practitioners NPIs" included in "Payor Practitioners NPIs"
 
