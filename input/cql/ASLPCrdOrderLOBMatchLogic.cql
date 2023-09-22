@@ -35,7 +35,8 @@ define "Payor Organizations by Coverage.payor":
 define "Matching Organizations by Name":
   "Provider Organizations by Coverage.payor" ProviderPayorOrg
     with "Payor Organizations by Coverage.payor" PayorOrg
-    such that ProviderPayorOrg.name ~ PayorOrg.name
+    such that 
+      ProviderPayorOrg.name ~ PayorOrg.name
       // TODO: validate this with Andre
       or ProviderPayorOrg.name in PayorOrg.alias
       // TODO: validate this with Andre
