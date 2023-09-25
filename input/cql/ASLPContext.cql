@@ -37,19 +37,28 @@ define function IsPayorResource(resource Resource)
 returns System.Boolean:
   TagExists(resource, "Payor Code")
 
-define function GetIdentifier(practitioner Practitioner, url System.String)
+define function GetIdentifier(item Choice<Practitioner, Organization>, url System.String)
 returns System.String:
   singleton from
   (
-    practitioner.identifier I
+    item.identifier I
       where I.system.value ~ url
       return I.value.value
   )
 
-define function GetNPI(practitioner Practitioner)
+define fluent function npi(items List<Choice<Practitioner, Organization>>)
+returns List<System.String>:
+  items I
+    return GetIdentifier(I, 'http://hl7.org/fhir/sid/us-npi')
+
+define fluent function getNpi(item Choice<Practitioner, Organization>)
 returns System.String:
-  // TODO: rework this to use USCore identifier slice for NPI?
-  GetIdentifier(practitioner, 'http://hl7.org/fhir/sid/us-npi')
+  GetIdentifier(item, 'http://hl7.org/fhir/sid/us-npi')
+
+// define function GetNPI(practitioner Choice<Practitioner, Organization>)
+// returns System.String:
+//   // TODO: rework this to use USCore identifier slice for NPI?
+//   GetIdentifier(practitioner, 'http://hl7.org/fhir/sid/us-npi')
 
 define function GetContext(isPayor System.Boolean):
   {

@@ -16,10 +16,12 @@ define "Is MemberEligible":
 define "Not MemberEligible":
   not ("Is MemberEligible")
 
-// TODO: ensure that only one matching last name is required
 // Compares the two lists of Family Name strings, and returns true if at least one Family Name matches
 define "Last Name Match":
+  // New logic - Any last name intersection 
   exists(Ctx."Payor"."Patient".name.family intersect Ctx."Provider"."Patient".name.family)
+  // Current logic, for reference only - CRD250
+  // Ctx."Provider"."Patient".name[0].family ~ Ctx."Payor"."Patient".name[0].family
 
 define "DOB Match":
   IsTrue(
