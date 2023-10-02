@@ -16,6 +16,9 @@ define "Is MemberEligible":
 define "Not MemberEligible":
   not ("Is MemberEligible")
 
+define "CoverageExtension":
+  Ctx."ExtensionPriorAuthNotNeeded"(First(Ctx."Provider"."Coverages").id)
+
 // Compares the two lists of Family Name strings, and returns true if at least one Family Name matches
 define "Last Name Match":
   // New logic - Any last name intersection 

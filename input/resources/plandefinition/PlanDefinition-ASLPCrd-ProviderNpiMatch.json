@@ -96,7 +96,15 @@
       ],
       "title": "Not Provider Npi Match",
       "description": "Not Provider Npi Match",
-      "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCrd-Crd-3-1-Stub"
+      "dynamicValue": [
+        {
+          "path": "extension",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "CoverageExtension"
+          }
+        }
+      ]
     }
   ]
 }

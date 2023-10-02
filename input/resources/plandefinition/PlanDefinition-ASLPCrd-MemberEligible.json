@@ -96,7 +96,15 @@
       ],
       "title": "Not Member Eligible",
       "description": "Not Member Eligible",
-      "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCrd-Crd-2-Stub"
+      "dynamicValue": [
+        {
+          "path": "extension",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "CoverageExtension"
+          }
+        }
+      ]
     }
   ]
 }

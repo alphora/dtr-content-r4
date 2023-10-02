@@ -10,6 +10,9 @@ include FHIRHelpers version '4.1.000'
 
 context Patient
 
+define "CoverageExtension":
+  Ctx."ExtensionPriorAuthNeeded"(First(Ctx."Provider"."Coverages").id)
+
 define "Is ProviderNpiMatch":
   "Requesting NPIs Match"
     and "Performing NPIs Match"

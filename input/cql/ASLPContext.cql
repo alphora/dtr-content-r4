@@ -20,6 +20,88 @@ parameter "Service Request Id" List<System.String>
 
 context Patient
 
+define function ExtensionPriorAuthNotNeeded(coverageId System.String)
+returns FHIR.Extension:
+  FHIR.Extension {
+    "url": FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information' },
+    "extension": { 
+      FHIR.Extension {
+        "url": FHIR.uri { "value": 'coverageInfo' },
+        "value": FHIR.Coding {
+          system: FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp' },
+          code: FHIR.code { "value": 'covered' },
+          display: FHIR.string { "value": 'Covered' }
+        }
+      },
+      FHIR.Extension {
+        "url": FHIR.uri { "value": 'coverage' },
+        "value": FHIR.Reference {
+          "reference": FHIR.string { "value": 'Coverage/' + coverageId }
+        }
+      },
+      FHIR.Extension {
+          "url": FHIR.uri { "value": 'date' },
+          "value": FHIR.date { "value": @2023-07-13 }
+      }
+    }
+  }
+
+define function ExtensionPriorAuthNeeded(coverageId System.String)
+returns FHIR.Extension:
+  FHIR.Extension {
+    "url": FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information' },
+    "extension": { 
+      FHIR.Extension {
+        "url": FHIR.uri { "value": 'coverageInfo' },
+        "value": FHIR.Coding {
+          system: FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp' },
+          code: FHIR.code { "value": 'clinical' },
+          display: FHIR.string { "value": 'Clinical' }
+        }
+      },
+      FHIR.Extension {
+        "url": FHIR.uri { "value": 'coverage' },
+        "value": FHIR.Reference {
+          "reference": FHIR.string { "value": 'Coverage/' + coverageId }
+        }
+      },
+      FHIR.Extension {
+          "url": FHIR.uri { "value": 'date' },
+          "value": FHIR.date { "value": @2022-06-12 }
+      },
+      FHIR.Extension {
+          "url": FHIR.uri { "value": 'questionnaire' },
+          "value": FHIR.canonical { "value": 'http://example.org/sdh/dtr/asip/Questionnaire/ASLPA1' }
+      },
+      FHIR.Extension {
+        "url": FHIR.uri { "value": 'detail' },
+        "extension": {
+          FHIR.Extension {
+            "url": FHIR.uri { "value": 'code' },
+            "value": FHIR.CodeableConcept { 
+              "coding": {
+                FHIR.Coding {
+                  system: FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp' },
+                  code: FHIR.code { "value": 'to-endpoint' },
+                  display: FHIR.string { "value": 'Send information to endpoint' }
+                }
+              },
+              "text": FHIR.string { "value": 'Send information to endpoint' }
+            }
+          },
+          FHIR.Extension {
+            "url": FHIR.uri { "value": 'value' },
+            "value": FHIR.string { "value": 'Warning' }
+          },
+          FHIR.Extension {
+            "url": FHIR.uri { "value": 'qualification' },
+            "value": FHIR.string { "value": 'Prior auth is required for: inpatient non-acute' }
+          }
+        }
+      }
+    }
+  }
+
 define function TagExists(resource Resource, value System.Code)
 returns System.Boolean:
   if (exists(resource.meta.tag.system)) then

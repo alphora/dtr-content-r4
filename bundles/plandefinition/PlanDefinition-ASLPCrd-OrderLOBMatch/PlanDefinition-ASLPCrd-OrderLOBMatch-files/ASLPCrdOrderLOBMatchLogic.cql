@@ -37,9 +37,10 @@ define "Matching Organizations by Name":
     with "Payor Organizations by Coverage.payor" PayorOrg
     such that 
       ProviderPayorOrg.name ~ PayorOrg.name
-      // TODO: validate this with Andre
-      or ProviderPayorOrg.name in PayorOrg.alias
-      // TODO: validate this with Andre
-      or PayorOrg.name in ProviderPayorOrg.alias
-      // TODO: validate this with Andre
-      or exists(PayorOrg.alias intersect ProviderPayorOrg.alias)
+      // NOTE: Do not allow matching on Organization.alias
+      // NOTE: Could refine more when we have a Payor integration
+      /*
+        or ProviderPayorOrg.name in PayorOrg.alias
+        or PayorOrg.name in ProviderPayorOrg.alias
+        or exists(PayorOrg.alias intersect ProviderPayorOrg.alias)
+      */

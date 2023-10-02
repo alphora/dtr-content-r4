@@ -231,7 +231,26 @@ Usage: #example
   * insert ActionConditionCql("Not MemberEligible")
   * title = "Not Member Eligible"
   * description = "Not Member Eligible"
-  * definitionCanonical = Canonical(ASLPCrd-Crd-2-Stub)
+  //* definitionCanonical = Canonical(ASLPCrd-Crd-2-Stub)
+  * dynamicValue[+]
+    * path = "extension"
+    * insert ExpressionCql("CoverageExtension")
+
+/*
+  // no prior auth needed
+  * extension[+]
+    * url = "http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information"
+    * extension[+]
+      * url = "date"
+      * valueDate = "2023-07-13"
+    * extension[+]
+      * url = "coverage"
+      // TODO: Need to make this dynamic in CQL
+      * valueReference = Reference(Coverage/crd-2-dob-mismatch-provider-coverage-1)
+    * extension[+]
+      * url = "coverageInfo"
+      * valueCoding = http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp#covered "Covered"
+*/
 
 Instance: ASLPCrd-ProviderNpiMatch
 InstanceOf: CPGComputablePlanDefinition
@@ -251,7 +270,40 @@ Usage: #example
   * insert ActionConditionCql("Not ProviderNpiMatch")
   * title = "Not Provider Npi Match"
   * description = "Not Provider Npi Match"
-  * definitionCanonical = Canonical(ASLPCrd-Crd-3-1-Stub)
+  * dynamicValue[+]
+    * path = "extension"
+    * insert ExpressionCql("CoverageExtension")
+
+/*
+  // prior auth needed
+  * extension[+]
+    * url = "http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information"
+    * extension[+]
+      * url = "coverageInfo"
+      * valueCoding = http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp#clinical "Clinical"
+    * extension[+]
+      * url = "coverage"
+      // TODO: Need to make this dynamic in CQL
+      * valueReference = Reference(Coverage/crd-3-1-req-npi-missing-provider-coverage-1)
+    * extension[+]
+      * url = "date"
+      * valueDate = "2022-06-12"
+    * extension[+]
+      * url = "questionnaire"
+      * valueCanonical = "http://example.org/sdh/dtr/asip/Questionnaire/ASLPA1"
+    * extension[+]
+      * url = "detail"
+      * extension[+]
+        * url = "code"
+        * valueCodeableConcept = http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp#to-endpoint "Send information to endpoint"
+          * text = "Send information to endpoint"
+      * extension[+]
+        * url = "value"
+        * valueString = "Warning"
+      * extension[+]
+        * url = "qualification"
+        * valueString = "Prior auth is required for: inpatient non-acute"
+*/
 
 Instance: ASLPCrd-OrderLOBMatch
 InstanceOf: CPGComputablePlanDefinition
