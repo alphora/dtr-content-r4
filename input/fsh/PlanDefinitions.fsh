@@ -226,7 +226,7 @@ Usage: #example
   * insert ActionConditionCql("Is MemberEligible")
   * title = "Member Eligible"
   * description = "Member Eligible"
-  * definitionCanonical = Canonical(ASLPCrd-ProviderNpiMatch)
+  * definitionCanonical = Canonical(ASLPCrd-OrderLOBMatch)
 * action[+]
   * insert ActionConditionCql("Not MemberEligible")
   * title = "Not Member Eligible"
@@ -265,7 +265,7 @@ Usage: #example
   * insert ActionConditionCql("Is ProviderNpiMatch")
   * title = "Provider Npi Match"
   * description = "Provider Npi Match"
-  * definitionCanonical = Canonical(ASLPCrd-OrderLOBMatch)
+  * definitionCanonical = Canonical(ASLPCrd-OrderGoldStatus)
 * action[+]
   * insert ActionConditionCql("Not ProviderNpiMatch")
   * title = "Not Provider Npi Match"
@@ -318,7 +318,7 @@ Usage: #example
   * insert ActionConditionCql("Is OrderLOBMatch")
   * title = "Order LOB Match"
   * description = "Order LOB Match"
-  * definitionCanonical = Canonical(ASLPCrd-OrderGoldStatus)
+  * definitionCanonical = Canonical(ASLPCrd-ProviderNpiMatch)
 * action[+]
   * insert ActionConditionCql("Not OrderLOBMatch")
   * title = "Not Order LOB Match"
