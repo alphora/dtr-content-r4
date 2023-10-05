@@ -82,7 +82,29 @@
       ],
       "title": "On Prior Auth List",
       "description": "On Prior Auth List",
-      "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCrd-Crd-5-Stub"
+      "dynamicValue": [
+        {
+          "path": "title",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Title"
+          }
+        },
+        {
+          "path": "description",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Description"
+          }
+        },
+        {
+          "path": "extension",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "CoverageExtension"
+          }
+        }
+      ]
     },
     {
       "condition": [
@@ -96,7 +118,29 @@
       ],
       "title": "Not On Prior Auth List",
       "description": "Not On Prior Auth List",
-      "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCrd-Crd-6-Stub"
+      "dynamicValue": [
+        {
+          "path": "title",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Title-NotFound"
+          }
+        },
+        {
+          "path": "description",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Description-NotFound"
+          }
+        },
+        {
+          "path": "extension",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "CoverageExtension-NotFound"
+          }
+        }
+      ]
     }
   ]
 }

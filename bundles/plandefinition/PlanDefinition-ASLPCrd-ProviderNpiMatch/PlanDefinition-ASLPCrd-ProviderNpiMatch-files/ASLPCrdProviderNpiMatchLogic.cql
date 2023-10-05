@@ -10,8 +10,18 @@ include FHIRHelpers version '4.1.000'
 
 context Patient
 
+// CRD-3.1
+define "Title":
+  'Provider Not in Network'
+
+// CRD-3.1
+define "Description":
+  '- Provider is not in the network.' + Ctx."NewLine" +
+  '- You can submit a PA request as an exception.'
+
+// CRD-3.1
 define "CoverageExtension":
-  Ctx."ExtensionPriorAuthNeeded"(First(Ctx."Provider"."Coverages").id)
+  Ctx."ExtensionPriorAuthNeeded"('conditional', "Title")
 
 define "Is ProviderNpiMatch":
   "Requesting NPIs Match"
@@ -92,12 +102,19 @@ define "Performing Organizations":
     with Ctx."Service Request Item".performer PractitionerOrganization
     such that PractitionerOrganization.reference.getId() ~ Organization.id.value
 
+// TODO: ensure this is correct
+define "Performing Organizations associated with PractitionerRoles":
+  Ctx."Provider"."Organizations" Organization
+    with "Performing PractitionerRoles" PractitionerRole
+    such that PractitionerRole.organization.reference.getId() ~ Organization.id.value
+
 define "Performing Practitioners NPIs":
   "Performing Practitioners".npi() 
     union "Performing Practitioners via PracitionerRoles".npi()
 
 define "Performing Organizations NPIs":
   "Performing Organizations".npi()
+    union "Performing Organizations associated with PractitionerRoles".npi()
 
 define "Performing NPIs":
   (

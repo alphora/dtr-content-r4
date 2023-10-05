@@ -10,6 +10,20 @@ include FHIRHelpers version '4.1.000'
 
 context Patient
 
+// CRD-4
+define "Title":
+  'Provider is Gold Carded'
+
+// CRD-4
+define "Description":
+  '- Ordering Provider has Gold Card status for this service.' + Ctx."NewLine" +
+  '- Provider Order [' + Ctx."Service Request Item Code".code + ']' + Ctx.NewLine +
+  '- Prior Auth is Not Required.'
+
+// CRD-4
+define "CoverageExtension":
+  Ctx."ExtensionPriorAuthNotNeeded"('covered', "Title")
+
 define "Is OrderGoldStatus":
   false
 

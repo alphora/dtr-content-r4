@@ -10,6 +10,19 @@ include FHIRHelpers version '4.1.000'
 
 context Patient
 
+// CRD-3.2
+define "Title":
+  'Line Of Business Mismatch'
+
+// CRD-3.2
+define "Description":
+  '- Line of Business MisMatch' + Ctx."NewLine" +
+  '- Prior authorization submission is required.'
+
+// CRD-3.2
+define "CoverageExtension":
+  Ctx."ExtensionPriorAuthNeeded"('conditional', "Title")
+
 define "Is OrderLOBMatch":
   exists("Matching Organizations by Name")
 

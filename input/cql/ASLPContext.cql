@@ -6,6 +6,7 @@ using FHIR version '4.0.1'
 
 include USCoreCommon version '0.1.0'
 include FHIRHelpers version '4.1.000'
+include CrdExtendedCoverageInfo version '0.1.0' called ECI
 
 codesystem "Relationship Role": 'http://terminology.hl7.org/CodeSystem/v3-RoleCode'
 codesystem "Payor Identifier CodeSystem": 'http://terminology.hl7.org/CodeSystem/organization-type'
@@ -20,87 +21,41 @@ parameter "Service Request Id" List<System.String>
 
 context Patient
 
-define function ExtensionPriorAuthNotNeeded(coverageId System.String)
-returns FHIR.Extension:
-  FHIR.Extension {
-    "url": FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information' },
-    "extension": { 
-      FHIR.Extension {
-        "url": FHIR.uri { "value": 'coverageInfo' },
-        "value": FHIR.Coding {
-          system: FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp' },
-          code: FHIR.code { "value": 'covered' },
-          display: FHIR.string { "value": 'Covered' }
-        }
-      },
-      FHIR.Extension {
-        "url": FHIR.uri { "value": 'coverage' },
-        "value": FHIR.Reference {
-          "reference": FHIR.string { "value": 'Coverage/' + coverageId }
-        }
-      },
-      FHIR.Extension {
-          "url": FHIR.uri { "value": 'date' },
-          "value": FHIR.date { "value": @2023-07-13 }
-      }
-    }
-  }
+define "NewLine":
+  '\r\n'
 
-define function ExtensionPriorAuthNeeded(coverageId System.String)
+define "Payor Coverage":
+  // TODO: ensure the Coverage is the relevant coverage instead of just the first matching coverage
+  First(
+    "Payor"."Coverages" PayorCoverage
+      with "Provider"."Coverages" ProviderCoverage
+      such that exists(PayorCoverage.identifier.id intersect ProviderCoverage.identifier.id)
+  )
+
+define "Service Request Item Code":
+  FHIRHelpers.ToCode(singleton from "Service Request Item".code.coding)
+
+define "Service Request Item ID":
+  GetResourceType("Service Request Item") + '/' + "Service Request Item".id.value
+
+define function "GetResourceType"(resource Resource)
+returns System.String:
+  if (resource is FHIR.ServiceRequest) then
+    'ServiceRequest'
+  else
+    'Resource'
+
+define "System Generated Id":
+  // TODO: where should this come from?
+  'system-generated-id'
+
+define function ExtensionPriorAuthNotNeeded(covered System.String, qualification System.String)
 returns FHIR.Extension:
-  FHIR.Extension {
-    "url": FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information' },
-    "extension": { 
-      FHIR.Extension {
-        "url": FHIR.uri { "value": 'coverageInfo' },
-        "value": FHIR.Coding {
-          system: FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp' },
-          code: FHIR.code { "value": 'clinical' },
-          display: FHIR.string { "value": 'Clinical' }
-        }
-      },
-      FHIR.Extension {
-        "url": FHIR.uri { "value": 'coverage' },
-        "value": FHIR.Reference {
-          "reference": FHIR.string { "value": 'Coverage/' + coverageId }
-        }
-      },
-      FHIR.Extension {
-          "url": FHIR.uri { "value": 'date' },
-          "value": FHIR.date { "value": @2022-06-12 }
-      },
-      FHIR.Extension {
-          "url": FHIR.uri { "value": 'questionnaire' },
-          "value": FHIR.canonical { "value": 'http://example.org/sdh/dtr/asip/Questionnaire/ASLPA1' }
-      },
-      FHIR.Extension {
-        "url": FHIR.uri { "value": 'detail' },
-        "extension": {
-          FHIR.Extension {
-            "url": FHIR.uri { "value": 'code' },
-            "value": FHIR.CodeableConcept { 
-              "coding": {
-                FHIR.Coding {
-                  system: FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp' },
-                  code: FHIR.code { "value": 'to-endpoint' },
-                  display: FHIR.string { "value": 'Send information to endpoint' }
-                }
-              },
-              "text": FHIR.string { "value": 'Send information to endpoint' }
-            }
-          },
-          FHIR.Extension {
-            "url": FHIR.uri { "value": 'value' },
-            "value": FHIR.string { "value": 'Warning' }
-          },
-          FHIR.Extension {
-            "url": FHIR.uri { "value": 'qualification' },
-            "value": FHIR.string { "value": 'Prior auth is required for: inpatient non-acute' }
-          }
-        }
-      }
-    }
-  }
+  ECI.ExtensionPriorAuthNotNeeded("Payor Coverage".id.value, covered, "System Generated Id", "Service Request Item ID", qualification)
+
+define function ExtensionPriorAuthNeeded(covered System.String, qualification System.String)
+returns FHIR.Extension:
+  ECI.ExtensionPriorAuthNeeded("Payor Coverage".id.value, covered, "System Generated Id", "Service Request Item ID", "Service Request Item Code", qualification)
 
 define function TagExists(resource Resource, value System.Code)
 returns System.Boolean:
@@ -143,6 +98,7 @@ returns System.String:
 //   GetIdentifier(practitioner, 'http://hl7.org/fhir/sid/us-npi')
 
 define function GetContext(isPayor System.Boolean):
+// TODO: optimize retrieves
   {
     "Patient": if isPayor then "Payor Patient" else "Provider Patient",
     "Coverages": [Coverage] item where IsPayorResource(item) = isPayor,
@@ -180,10 +136,10 @@ define "Service Request Item":
   )
 
 define "Provider":
-  GetContext(false)
+  GetContext(false) // false = not payor
 
 define "Payor":
-  GetContext(true)
+  GetContext(true) // true = payor
 
 define "Provider Patient":
   First([Patient] P where not IsPayorResource(P))

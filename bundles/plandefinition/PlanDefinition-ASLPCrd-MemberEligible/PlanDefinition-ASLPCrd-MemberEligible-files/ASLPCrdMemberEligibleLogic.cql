@@ -10,14 +10,24 @@ include FHIRHelpers version '4.1.000'
 
 context Patient
 
+// CRD-2
+define "Title":
+  'Member Not Found'
+
+// CRD-2
+define "Description":
+  '- The member cannot be found.' + Ctx."NewLine" +
+  '- You can submit a PA request as an exception.'
+
+// CRD-2
+define "CoverageExtension":
+  Ctx."ExtensionPriorAuthNeeded"('conditional', "Title")
+
 define "Is MemberEligible":
   "Last Name Match" and "DOB Match"
 
 define "Not MemberEligible":
   not ("Is MemberEligible")
-
-define "CoverageExtension":
-  Ctx."ExtensionPriorAuthNotNeeded"(First(Ctx."Provider"."Coverages").id)
 
 // Compares the two lists of Family Name strings, and returns true if at least one Family Name matches
 define "Last Name Match":

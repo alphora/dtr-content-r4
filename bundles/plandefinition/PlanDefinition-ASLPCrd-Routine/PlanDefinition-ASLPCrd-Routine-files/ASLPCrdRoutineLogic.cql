@@ -12,6 +12,19 @@ valueset "Routine Procedure Valueset": 'http://terminology.smilecdr.com/cs/routi
 
 context Patient
 
+// CRD-7
+define "Title":
+  'Prior Authorization Not Required'
+
+// CRD-7
+define "Description":
+  '- Order is covered.' + Ctx."NewLine" +
+  '- No prior auth is required for: [' + Ctx."Service Request Item Code".code + '].'
+
+// CRD-7
+define "CoverageExtension":
+  Ctx."ExtensionPriorAuthNeeded"('covered', "Title")
+
 define "Is Routine":
   exists("Routine Service Requests")
 

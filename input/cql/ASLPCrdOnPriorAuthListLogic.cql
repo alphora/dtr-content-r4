@@ -12,6 +12,33 @@ valueset "Prior Auth Required for Procedure Valueset": 'http://terminology.smile
 
 context Patient
 
+// CRD-6
+define "Title-NotFound":
+  'Code not found'
+
+// CRD-6
+define "Description-NotFound":
+  '[' + Ctx."Service Request Item Code".code + '] is not a recognized procedure electronically.' + Ctx."NewLine" +
+  '- Please contact the payer for further information.'
+
+// CRD-6
+define "CoverageExtension-NotFound":
+  Ctx."ExtensionPriorAuthNotNeeded"('not-covered', "Title")
+
+// CRD-5
+define "Title":
+  'Prior Authorization Required'
+
+// CRD-5
+define "Description":
+  '- Prior authorization is required for [' + Ctx."Service Request Item Code".code + '].' + Ctx."NewLine" +
+  // TODO: To discuss this option:
+  '- To discuss this option: Prior authorization is required for Provider Order [' + Ctx."Service Request Item Code".code + ']'
+
+// CRD-5
+define "CoverageExtension":
+  Ctx."ExtensionPriorAuthNeeded"('conditional', "Title")
+
 define "Is OnPriorAuthList":
   exists("Prior Auth Required Service Requests")
 
