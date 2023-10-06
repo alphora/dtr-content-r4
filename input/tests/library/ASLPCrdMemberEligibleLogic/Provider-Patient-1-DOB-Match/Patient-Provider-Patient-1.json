@@ -1,0 +1,80 @@
+{
+  "resourceType": "Patient",
+  "id": "Provider-Patient-1-DOB-Match",
+  "identifier": [
+    {
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "code": "MR",
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "display": "Medical Record Number"
+          }
+        ]
+      },
+      "system": "urn:oid:1.2.36.146.595.217.0.1",
+      "value": "12345678",
+      "period": {
+        "start": "2000-05-06"
+      },
+      "assigner": {
+        "display": "Acme Healthcare"
+      }
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "family": "James",
+      "given": [
+        "Eleanor"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "415 890 6253",
+      "use": "mobile"
+    }
+  ],
+  "address": [
+    {
+      "use": "home",
+      "type": "both",
+      "line": [
+        "534 Welcome St"
+      ],
+      "city": "PleasantVille",
+      "district": "Sunny",
+      "state": "CA",
+      "postalCode": "90210",
+      "period": {
+        "start": "1974-12-25"
+      }
+    }
+  ],
+  "birthDate": "1936-12-25",
+  "maritalStatus": {
+    "coding": [
+      {
+        "code": "M",
+        "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus"
+      }
+    ]
+  },
+  "deceasedBoolean": false,
+  "managingOrganization": {
+    "reference": "Organization/Provider-Insurance-Example-DOB-Match"
+  },
+  "_gender": {
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+        "valueCode": "f"
+      }
+    ]
+  }
+}
