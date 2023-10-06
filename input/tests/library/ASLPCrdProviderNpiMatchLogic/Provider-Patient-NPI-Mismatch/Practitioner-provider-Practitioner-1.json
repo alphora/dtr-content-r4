@@ -1,0 +1,58 @@
+{
+  "resourceType": "Practitioner",
+  "id": "Provider-Practitioner-NPI-Mismatch-1",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/Practitioner"
+    ]
+  },
+  "identifier": [
+    {
+      "system": "http://hl7.org/fhir/sid/us-npi",
+      "value": "1234557890"
+    }
+  ],
+  "name": [
+    {
+      "family": "George",
+      "_family": {
+        "extension": [
+          {
+            "url": "http://hl7.org/fhir/NameUse",
+            "valueString": "OR"
+          }
+        ]
+      },
+      "given": [
+        "Curious"
+      ],
+      "suffix": [
+        "DR."
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "+33 (237) 998327"
+    }
+  ],
+  "address": [
+    {
+      "use": "work",
+      "type": "both",
+      "line": [
+        "17 Central Park Av"
+      ],
+      "city": "New York",
+      "state": "NY",
+      "postalCode": "10019",
+      "period": {
+        "start": "2010-10-10"
+      }
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1989-08-17",
+  "active": true
+}
