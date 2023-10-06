@@ -10,6 +10,9 @@ include FHIRHelpers version '4.1.000'
 
 context Patient
 
+define test:
+  Ctx."Payor Coverage"
+
 // CRD-2
 define "Title":
   'Member Not Found'
