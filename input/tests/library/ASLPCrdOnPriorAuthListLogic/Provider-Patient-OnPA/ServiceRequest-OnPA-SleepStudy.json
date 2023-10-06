@@ -1,0 +1,34 @@
+{
+  "resourceType": "ServiceRequest",
+  "id": "OnPA-SleepStudy",
+  "status": "draft",
+  "intent": "order",
+  "code": {
+    "coding": [
+        {
+            "system": "urn:oid:2.16.840.1.113883.6.285",
+            "code": "G0122",
+            "display": "Colorectal cancer screening; barium enema"
+        }
+    ],
+    "text": "Colorectal cancer screening; barium enema"
+  },
+  "subject": {
+    "reference": "Patient/Provider-Patient-OnPA"
+  },
+  "authoredOn": "2023-03-23",
+  "reasonReference": [
+    {
+      "reference": "Condition/Sleep-Apnea-P5"
+    }
+  ],
+  "requester": {
+    "reference": "Practitioner/Provider-Practitioner-OnPA"
+  },
+  "performer": [
+    {
+      "reference": "Practitioner/Payor-Practitioner-OnPA"
+    }
+  ],
+  "occurrenceDateTime": "2023-08-12T10:10:10-01:00"
+}
