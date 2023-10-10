@@ -1,6 +1,6 @@
 {
   "resourceType": "Organization",
-  "id": "Payor-Insurance-Example-NPI-Mismatch",
+  "id": "Payor-Insurance-Example-NPI-Match",
   "meta": {
     "tag": [
       {
@@ -13,7 +13,7 @@
   "active": true,
   "identifier": [
     {
-      "system": "http://hl7.org.fhir/sid/us-npi",
+      "system": "http://hl7.org/fhir/sid/us-npi",
       "value": "5556667777"
     }
   ],

@@ -1,6 +1,6 @@
 {
   "resourceType": "Patient",
-  "id": "Provider-Patient-LN-Mismatch",
+  "id": "Provider-Patient-LN-Match",
   "identifier": [
     {
       "use": "usual",
@@ -109,14 +109,6 @@
       }
     }
   ],
-  "generalPractitioner": [
-    {
-      "reference": "Practitioner/Provider-Practitioner-LN-Mismatch"
-    }
-  ],
-  "managingOrganization": {
-    "reference": "Organization/Provider-Insurance-Example-LN-Mismatch"
-  },
   "_gender": {
     "extension": [
       {

@@ -1,9 +1,9 @@
 {
   "resourceType": "Practitioner",
-  "id": "Payor-Practitioner-NPI-Mismatch-1",
+  "id": "Payor-Practitioner-OrgName-Mismatch-2",
   "meta": {
     "profile": [
-      "http://hl7.org/fhir/us/core/StructureDefinition/Practitioner"
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
     ],
     "tag": [
       {
@@ -16,24 +16,16 @@
   "identifier": [
     {
       "system": "http://hl7.org/fhir/sid/us-npi",
-      "value": "1234567890"
+      "value": "0987654321"
     }
   ],
   "name": [
     {
-      "family": "George",
-      "_family": {
-        "extension": [
-          {
-            "url": "http://hl7.org/fhir/NameUse",
-            "valueString": "OR"
-          }
-        ]
-      },
+      "family": "Pine",
       "given": [
-        "Curious"
+        "Chris"
       ],
-      "suffix": [
+      "prefix": [
         "DR."
       ]
     }
@@ -41,25 +33,24 @@
   "telecom": [
     {
       "system": "phone",
-      "value": "+33 (237) 998327"
+      "value": "415-830-2461"
     }
   ],
   "address": [
     {
       "use": "work",
-      "type": "both",
       "line": [
-        "17 Central Park Av"
+        "10 Health av"
       ],
-      "city": "New York",
-      "state": "NY",
-      "postalCode": "10019",
+      "city": "San Francisco",
+      "state": "CA",
+      "postalCode": "94118",
       "period": {
-        "start": "2010-10-10"
+        "start": "2009-09-09"
       }
     }
   ],
   "gender": "male",
-  "birthDate": "1989-08-17",
+  "birthDate": "1972-08-24",
   "active": true
 }

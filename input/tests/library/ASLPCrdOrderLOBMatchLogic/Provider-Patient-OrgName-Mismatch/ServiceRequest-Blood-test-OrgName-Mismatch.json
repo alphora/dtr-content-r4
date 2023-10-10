@@ -33,7 +33,7 @@
   },
   "performer": [
     {
-      "reference": "Practitioner/Payor-Practitioner-OrgName-Mismatch-1"
+      "reference": "Practitioner/Provider-Practitioner-OrgName-Mismatch-1"
     }
   ]
 }
