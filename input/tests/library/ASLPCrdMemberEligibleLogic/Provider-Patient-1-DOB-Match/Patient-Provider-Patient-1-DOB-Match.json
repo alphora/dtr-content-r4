@@ -1,6 +1,6 @@
 {
   "resourceType": "Patient",
-  "id": "Provider-Patient-1-DOB-Mismatch",
+  "id": "Provider-Patient-1-DOB-Match",
   "identifier": [
     {
       "use": "usual",
@@ -66,9 +66,6 @@
     ]
   },
   "deceasedBoolean": false,
-  "managingOrganization": {
-    "reference": "Organization/Provider-Insurance-Example-DOB-Mismatch"
-  },
   "_gender": {
     "extension": [
       {

@@ -1,6 +1,6 @@
 {
   "resourceType": "Practitioner",
-  "id": "Provider-Practitioner-NPI-Match-2",
+  "id": "Provider-Practitioner-OrgName-Mismatch-2",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
@@ -15,15 +15,15 @@
   },
   "identifier": [
     {
-      "system": "http://hl7.org.fhir/sid/us-npi",
-      "value": "9876123450"
+      "system": "http://hl7.org/fhir/sid/us-npi",
+      "value": "0987654321"
     }
   ],
   "name": [
     {
-      "family": "Grey",
+      "family": "Pine",
       "given": [
-        "Meredith"
+        "Chris"
       ],
       "prefix": [
         "DR."
@@ -33,24 +33,24 @@
   "telecom": [
     {
       "system": "phone",
-      "value": "385-490-1112"
+      "value": "415-830-2461"
     }
   ],
   "address": [
     {
       "use": "work",
       "line": [
-        "579 Healthy st"
+        "10 Health av"
       ],
-      "city": "Salt Lake City",
-      "state": "UT",
-      "postalCode": "84050",
+      "city": "San Francisco",
+      "state": "CA",
+      "postalCode": "94118",
       "period": {
-        "start": "2010-06-01"
+        "start": "2009-09-09"
       }
     }
   ],
-  "gender": "female",
-  "birthDate": "1982-08-24",
+  "gender": "male",
+  "birthDate": "1972-08-24",
   "active": true
 }

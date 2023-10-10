@@ -1,6 +1,6 @@
 {
   "resourceType": "Coverage",
-  "id": "Provider-Coverage-P1-DOB-Match",
+  "id": "Payor-Coverage-NPI-Match",
   "meta": {
     "tag": [
       {
@@ -24,9 +24,9 @@
         ]
       },
       "system": "http://example.org/fhir/memberidentifier",
-      "value": "12345678",
+      "value": "5432167890",
       "period": {
-        "start": "2000-05-06"
+        "start": "2011-05-06"
       },
       "assigner": {
         "display": "Acme Healthcare"
@@ -35,16 +35,16 @@
   ],
   "payor": [
     {
-      "reference": "Organization/Provider-Insurance-Example-DOB-Match"
+      "reference": "Organization/Payor-Insurance-Example-NPI-Match"
     }
   ],
   "beneficiary": {
-    "reference": "Patient/Provider-Patient-1-DOB-Match"
+    "reference": "Patient/Provider-Patient-NPI-Match"
   },
   "subscriber": {
-    "reference": "Patient/Provider-Patient-1-DOB-Match"
+    "reference": "RelatedPerson/Payor-Patient-NPI-Match"
   },
-  "subscriberId": "Patient-Patient-1-DOB-Match",
+  "subscriberId": "Provider-Patient-NPI-Match",
   "relationship": {
     "coding": [
       {

@@ -1,6 +1,6 @@
 {
   "resourceType": "ServiceRequest",
-  "id": "DOB-MisMatch-SleepStudy",
+  "id": "DOB-Mismatch-SleepStudy",
   "status": "draft",
   "intent": "order",
   "code": {
@@ -22,7 +22,7 @@
   },
   "performer": [
     {
-      "reference": "Practitioner/Payor-Practitioner-1-DOB-Mismatch"
+      "reference": "Practitioner/Provider-Practitioner-1-DOB-Mismatch"
     }
   ],
   "occurrenceDateTime": "2023-03-23T15:35:01+01:00"

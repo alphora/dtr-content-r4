@@ -1,6 +1,6 @@
 {
   "resourceType": "ServiceRequest",
-  "id": "DOB-Match-SleepStudy",
+  "id": "LN-Match-SleepStudy",
   "status": "draft",
   "intent": "order",
   "code": {
@@ -14,15 +14,20 @@
   "text": "Home sleep apnea testing (HSAT)"
   },
   "subject": {
-    "reference": "Patient/Provider-Patient-1-DOB-Match"
+    "reference": "Patient/Provider-Patient-LN-Match"
   },
   "authoredOn": "2023-03-23",
+  "reasonReference": [
+    {
+      "reference": "Condition/Sleep-Apnea-P2-LN-Match"
+    }
+  ],
   "requester": {
-    "reference": "Practitioner/Provider-Practitioner-1-DOB-Match"
+    "reference": "Practitioner/Provider-Practitioner-LN-Match"
   },
   "performer": [
     {
-      "reference": "Practitioner/Payor-Practitioner-1-DOB-Match"
+      "reference": "Practitioner/Provider-Practitioner-LN-Match"
     }
   ],
   "occurrenceDateTime": "2023-03-23T15:35:01+01:00"

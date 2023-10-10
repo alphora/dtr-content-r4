@@ -26,7 +26,7 @@
   },
   "performer": [
     {
-      "reference": "Practitioner/Payor-Practitioner-NotOnPA"
+      "reference": "Practitioner/Provider-Practitioner-NotOnPA"
     }
   ],
   "occurrenceDateTime": "2023-08-12T10:10:10-01:00"

@@ -1,6 +1,6 @@
 {
   "resourceType": "ServiceRequest",
-  "id": "LN-Match-SleepStudy",
+  "id": "LN-Mismatch-SleepStudy",
   "status": "draft",
   "intent": "order",
   "code": {
@@ -14,20 +14,20 @@
   "text": "Home sleep apnea testing (HSAT)"
   },
   "subject": {
-    "reference": "Patient/Provider-Patient-LN-Match"
+    "reference": "Patient/Provider-Patient-LN-Mismatch"
   },
   "authoredOn": "2023-03-23",
   "reasonReference": [
     {
-      "reference": "Condition/Sleep-Apnea-P2-LN-Match"
+      "reference": "Condition/Sleep-Apnea-LN-Mismatch"
     }
   ],
   "requester": {
-    "reference": "Practitioner/Payor-Practitioner-LN-Match"
+    "reference": "Practitioner/Provider-Practitioner-LN-Mismatch"
   },
   "performer": [
     {
-      "reference": "Practitioner/Provider-Practitioner-LN-Match"
+      "reference": "Practitioner/Provider-Practitioner-LN-Mismatch"
     }
   ],
   "occurrenceDateTime": "2023-03-23T15:35:01+01:00"
