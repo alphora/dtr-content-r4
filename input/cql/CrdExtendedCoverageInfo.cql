@@ -9,11 +9,11 @@ include FHIRHelpers version '4.1.000'
 
 context Patient
 
-define function ExtensionPriorAuthNotNeeded(coverageId System.String, covered System.String, coverageAssertionId System.String, serviceRequestId System.String, qualification System.String)
+define function ExtensionPriorAuthNotNeeded(coverageId System.String, covered System.String, coverageAssertionId System.String, requestReferenceString System.String, qualification System.String)
 returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information' },
-    "extension": { 
+    "extension": ({ 
       // payer coverage
       "CoverageExtension"(coverageId),
 
@@ -28,15 +28,15 @@ returns FHIR.Extension:
       "TodaysDateExtension"(),
 
       // service request id
-      "DependencyExtension"(serviceRequestId)
-    }
+      "DependencyExtension"(requestReferenceString)
+    }) Extension where not IsNull(Extension)
   }
 
-define function ExtensionPriorAuthNeeded(coverageId System.String, covered System.String, coverageAssertionId System.String, serviceRequestId System.String, serviceRequestCode System.Code, qualification System.String)
+define function ExtensionPriorAuthNeeded(coverageId System.String, covered System.String, coverageAssertionId System.String, requestReferenceString System.String, serviceRequestCode System.Code, qualification System.String)
 returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information' },
-    "extension": { 
+    "extension": ({ 
       // payer coverage
       "CoverageExtension"(coverageId),
 
@@ -57,8 +57,8 @@ returns FHIR.Extension:
       "DetailExtension"(qualification),
 
       // service request id
-      "DependencyExtension"(serviceRequestId)
-    }
+      "DependencyExtension"(requestReferenceString)
+    }) Extension where not IsNull(Extension)
   }
 
 define function "CoverageExtension"(coverageId System.String)
@@ -142,11 +142,11 @@ returns FHIR.Extension:
     }
   }
 
-define function "DependencyExtension"(serviceRequestId System.String)
+define function "DependencyExtension"(requestReferenceString System.String)
 returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'dependency' },
     "value": FHIR.Reference {
-      "reference": FHIR.code { "value": 'ServiceRequest/' + serviceRequestId }
+      "reference": FHIR.code { "value": requestReferenceString }
     }
   }

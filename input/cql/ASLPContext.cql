@@ -27,7 +27,8 @@ define "NewLine":
 define "Payor Coverage":
   // TODO: ensure the Coverage is the relevant coverage instead of just the first matching coverage
   First(
-    "Payor"."Coverages" PayorCoverage
+    "Payor"."Coverages" 
+      PayorCoverage
       with "Provider"."Coverages" ProviderCoverage
       such that exists(PayorCoverage.identifier.id intersect ProviderCoverage.identifier.id)
   )
