@@ -76,6 +76,11 @@ define "Requesting Organizations":
     with ({ Ctx."Service Request Item".requester }) RequesterOrganization
     such that RequesterOrganization.reference.getId() ~ Organization.id.value
 
+define "Requesting Organizations associated with a PracitionerRole":
+  Ctx."Provider"."Organizations" Organization
+  with "Requesting PractitionerRoles" PractitionerRole
+  such that PractitionerRole.organization.reference.getId() ~ Organization.id.value
+
 define "Requesting Practitioners NPIs":
   "Requesting Practitioners".npi()
     union "Requesting Practitioners via PracitionerRoles".npi()
@@ -109,22 +114,38 @@ define "Performing Organizations":
     with Ctx."Service Request Item".performer PractitionerOrganization
     such that PractitionerOrganization.reference.getId() ~ Organization.id.value
 
-// TODO: ensure this is correct
-define "Performing Organizations associated with PractitionerRoles":
+define "Performing Organizations associated with a PracitionerRole":
   Ctx."Provider"."Organizations" Organization
-    with "Performing PractitionerRoles" PractitionerRole
-    such that PractitionerRole.organization.reference.getId() ~ Organization.id.value
-
+  with "Performing PractitionerRoles" PractitionerRole
+  such that PractitionerRole.organization.reference.getId() ~ Organization.id.value
+  
 define "Performing Practitioners NPIs":
   "Performing Practitioners".npi() 
     union "Performing Practitioners via PracitionerRoles".npi()
 
 define "Performing Organizations NPIs":
   "Performing Organizations".npi()
-    union "Performing Organizations associated with PractitionerRoles".npi()
+  union "Performing Organizations associated with a PracitionerRole".npi()
 
 define "Performing NPIs":
   (
     "Performing Practitioners NPIs"
       union "Performing Organizations NPIs"
   ) NPI where not IsNull(NPI)
+
+define "Organization Provider":
+  Ctx."Provider"."Organizations"
+
+define "Payor References by Coverage.payor":
+  flatten(Ctx."Payor"."Coverages" C return C.payor.reference.value)
+
+define "Organization from Coverage for Patient":
+  Ctx."Payor"."Organizations" O
+    with "Payor References by Coverage.payor" R
+    such that R.getId() = O.id.value
+
+define "Matching Organizations by Name":
+  "Organization Provider" ProviderPayorOrg
+    with "Organization from Coverage for Patient" PayorOrg
+    such that 
+      ProviderPayorOrg.name ~ PayorOrg.name
