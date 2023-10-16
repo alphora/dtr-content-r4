@@ -8,6 +8,7 @@
     }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/Library/ASLPCrd",
+  "version": "0.1.0",
   "name": "ASLPCrd",
   "relatedArtifact": [ {
     "type": "depends-on",

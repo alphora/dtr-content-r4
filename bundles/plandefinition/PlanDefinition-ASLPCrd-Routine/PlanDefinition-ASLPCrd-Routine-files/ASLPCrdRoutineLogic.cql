@@ -5,7 +5,7 @@ using FHIR version '4.0.1'
 //using USCore version '3.1.1'
 
 include ASLPContext called Ctx
-include USCoreCommon version '0.1.0'
+include USCoreCommon
 include FHIRHelpers version '4.1.000'
 
 valueset "Routine Procedure Valueset": 'http://terminology.smilecdr.com/cs/routine'
@@ -19,11 +19,15 @@ define "Title":
 // CRD-7
 define "Description":
   '- Order is covered.' + Ctx."NewLine" +
-  '- No prior auth is required for: [' + Ctx."Service Request Item Code".code + '].'
+  '- No prior auth is required for: ' + Ctx."Service Request Item Code".code + '.'
+
+// CRD-7
+define "Qualification":
+  'Prior auth is not required for: ' + Ctx."Service Request Item ID"
 
 // CRD-7
 define "CoverageExtension":
-  Ctx."ExtensionPriorAuthNeeded"('covered', "Title")
+  Ctx."ExtensionPriorAuthNeeded"('covered', 'no-auth', 'no-auth', "Qualification", 'info')
 
 define "Is Routine":
   exists("Routine Service Requests")

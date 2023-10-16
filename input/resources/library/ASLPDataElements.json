@@ -8,6 +8,7 @@
     }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/Library/ASLPDataElements",
+  "version": "0.1.0",
   "name": "ASLPDataElements",
   "relatedArtifact": [ {
     "type": "depends-on",

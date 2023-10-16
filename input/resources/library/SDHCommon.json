@@ -8,6 +8,7 @@
     }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/Library/SDHCommon",
+  "version": "0.1.0",
   "name": "SDHCommon",
   "relatedArtifact": [ {
     "type": "depends-on",
