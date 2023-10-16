@@ -5,7 +5,7 @@ using FHIR version '4.0.1'
 //using USCore version '3.1.1'
 
 include ASLPContext called Ctx
-include USCoreCommon version '0.1.0'
+include USCoreCommon
 include FHIRHelpers version '4.1.000'
 
 context Patient
@@ -17,15 +17,20 @@ define "Title":
 // CRD-4
 define "Description":
   '- Ordering Provider has Gold Card status for this service.' + Ctx."NewLine" +
-  '- Provider Order [' + Ctx."Service Request Item Code".code + ']' + Ctx.NewLine +
+  '- Provider Order ' + Ctx."Service Request Item ID" + '.' + Ctx.NewLine +
   '- Prior Auth is Not Required.'
 
 // CRD-4
+define "Qualification":
+  'Ordering Practitioner has been granted \'gold card\' status with this payer/coverage type.'
+
+// CRD-4
 define "CoverageExtension":
-  Ctx."ExtensionPriorAuthNotNeeded"('covered', "Title")
+  Ctx."ExtensionPriorAuthNeeded"('covered', 'no-auth', 'gold-card', "Qualification", 'info')
 
 define "Is OrderGoldStatus":
-  false
+  // TODO: Remove this in production environment
+  Ctx."Provider"."Patient".id.value ~ 'crd-4-gold-card'
 
 define "Not OrderGoldStatus":
   not ("Is OrderGoldStatus")

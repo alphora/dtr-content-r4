@@ -1,15 +1,15 @@
-library CrdExtendedCoverageInfo version '0.1.0'
+library CrdExtendedCoverageInfo
 
 using FHIR version '4.0.1'
 // TODO: update to use USCore directly
 //using USCore version '3.1.1'
 
-include USCoreCommon version '0.1.0'
+include USCoreCommon
 include FHIRHelpers version '4.1.000'
 
 context Patient
 
-define function ExtensionPriorAuthNotNeeded(coverageId System.String, covered System.String, coverageAssertionId System.String, requestReferenceString System.String, qualification System.String)
+define function ExtensionPriorAuthNotNeeded(coverageId System.String, covered System.String, priorAuthRequired System.String, coverageAssertionId System.String, requestReferenceString System.String, serviceRequestCode System.Code, codeValue System.String, qualification System.String, warningOrInfo System.String)
 returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information' },
@@ -20,19 +20,24 @@ returns FHIR.Extension:
       // 'covered', 'not-covered', or 'conditional' (https://build.fhir.org/ig/HL7/davinci-crd/ValueSet-coverageInfo.html)
       "CoveredExtension"(covered),
 
+      // 'auth-needed', 'no-auth', or 'conditional' (https://build.fhir.org/ig/HL7/davinci-crd/ValueSet-coveragePaDetail.html)
+      "PriorAuthNeededExtension"(priorAuthRequired),
+
       // system generated id
-      // TODO: figure out where this is coming from, or where generated
       "CoverageAssertionIdExtension"(coverageAssertionId),
 
       // today's date
       "TodaysDateExtension"(),
 
       // service request id
-      "DependencyExtension"(requestReferenceString)
+      "DependencyExtension"(requestReferenceString),
+
+      // detail code, warning or info, and qualification
+      "DetailExtension"(codeValue, qualification, warningOrInfo)
     }) Extension where not IsNull(Extension)
   }
 
-define function ExtensionPriorAuthNeeded(coverageId System.String, covered System.String, coverageAssertionId System.String, requestReferenceString System.String, serviceRequestCode System.Code, qualification System.String)
+define function ExtensionPriorAuthNeeded(coverageId System.String, covered System.String, priorAuthRequired System.String, coverageAssertionId System.String, requestReferenceString System.String, serviceRequestCode System.Code, codeValue System.String, qualification System.String, warningOrInfo System.String)
 returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information' },
@@ -43,21 +48,23 @@ returns FHIR.Extension:
       // 'covered', 'not-covered', or 'conditional' (https://build.fhir.org/ig/HL7/davinci-crd/ValueSet-coverageInfo.html)
       "CoveredExtension"(covered),
 
+      // 'auth-needed', 'no-auth', or 'conditional' (https://build.fhir.org/ig/HL7/davinci-crd/ValueSet-coveragePaDetail.html)
+      "PriorAuthNeededExtension"(priorAuthRequired),
+
       // system generated id
-      // TODO: figure out where this is coming from, or where generated
       "CoverageAssertionIdExtension"(coverageAssertionId),
 
       // today's date
       "TodaysDateExtension"(),
 
-      // TODO: need to figure this out
+      // TODO: need to figure out how to make this dynamic
       "QuestionnaireExtension"(serviceRequestCode),
 
-      // TODO: update once Prior Auth team ready
-      "DetailExtension"(qualification),
-
       // service request id
-      "DependencyExtension"(requestReferenceString)
+      "DependencyExtension"(requestReferenceString),
+
+      // detail code, warning or info, and qualification
+      "DetailExtension"(codeValue, qualification, warningOrInfo)
     }) Extension where not IsNull(Extension)
   }
 
@@ -77,9 +84,14 @@ define function "CoveredExtension"(covered System.String)
 returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'covered' },
-    "value": FHIR.Reference {
-      "reference": FHIR.code { "value": covered }
-    }
+    "value": FHIR.code { "value": covered }
+  }
+
+define function "PriorAuthNeededExtension"(priorAuthRequired System.String)
+returns FHIR.Extension:
+  FHIR.Extension {
+    "url": FHIR.uri { "value": 'pa-needed' },
+    "value": FHIR.code { "value": priorAuthRequired }
   }
 
 define function "CoverageAssertionIdExtension"(coverageAssertionId System.String)
@@ -113,27 +125,21 @@ returns FHIR.Extension:
     "value": FHIR.canonical { "value": 'http://example.org/sdh/dtr/aslp/Questionnaire/ASLPA1' } 
   }
 
-define function "DetailExtension"(qualification System.String)
+// code = auth-needed|no-auth|gold-card|not-covered, warningOrInfo = Warning|info, qualification = {open text entry}
+define function "DetailExtension"(codeValue System.String, qualification System.String, warningOrInfo System.String)
 returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'detail' },
     "extension": {
-      FHIR.Extension {
-        "url": FHIR.uri { "value": 'code' },
-        "value": FHIR.CodeableConcept { 
-          "coding": {
-            FHIR.Coding {
-              system: FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp' },
-              code: FHIR.code { "value": 'to-endpoint' },
-              display: FHIR.string { "value": 'Send information to endpoint' }
-            }
-          },
-          "text": FHIR.string { "value": 'Send information to endpoint' }
-        }
-      },
+      if (codeValue = 'auth-needed') then "DetailCodeAuthRequired"()
+      else if (codeValue = 'no-auth') then "DetailCodeAuthNotRequired"()
+      else if (codeValue = 'gold-card') then "DetailCodeGoldCard"()
+      else if (codeValue = 'not-covered') then "DetailCodeNoCoverage"()
+      else "DetailCode"(codeValue, codeValue, codeValue),
+
       FHIR.Extension {
         "url": FHIR.uri { "value": 'value' },
-        "value": FHIR.string { "value": 'Warning' }
+        "value": FHIR.string { "value": warningOrInfo }
       },
       FHIR.Extension {
         "url": FHIR.uri { "value": 'qualification' },
@@ -142,11 +148,43 @@ returns FHIR.Extension:
     }
   }
 
+define function "DetailCode"(system System.String, value System.String, displayText System.String)
+returns FHIR.Extension:
+  FHIR.Extension {
+    "url": FHIR.uri { "value": 'code' },
+    "value": FHIR.CodeableConcept { 
+      "coding": {
+        FHIR.Coding {
+          system: FHIR.uri { "value": system },
+          code: FHIR.code { "value": value },
+          display: FHIR.string { "value": displayText }
+        }
+      },
+      "text": FHIR.string { "value": displayText }
+    }
+  }
+
+define function "DetailCodeAuthRequired"()
+returns FHIR.Extension:
+  "DetailCode"('http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp', 'auth-needed', 'Prior Authorization Needed')
+
+define function "DetailCodeAuthNotRequired"()
+returns FHIR.Extension:
+  "DetailCode"('http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp', 'no-auth', 'No Prior Authorization')
+
+define function "DetailCodeGoldCard"()
+returns FHIR.Extension:
+  "DetailCode"('http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp', 'gold-card', 'Gold Card')
+
+define function "DetailCodeNoCoverage"()
+returns FHIR.Extension:
+  "DetailCode"('http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp', 'not-covered', 'Not covered')
+
 define function "DependencyExtension"(requestReferenceString System.String)
 returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'dependency' },
     "value": FHIR.Reference {
-      "reference": FHIR.code { "value": requestReferenceString }
+      "reference": FHIR.string { "value": requestReferenceString }
     }
   }

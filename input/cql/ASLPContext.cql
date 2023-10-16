@@ -1,12 +1,12 @@
-library ASLPContext version '0.1.0'
+library ASLPContext
 
 using FHIR version '4.0.1'
 // TODO: update to use USCore directly
 //using USCore version '3.1.1'
 
-include USCoreCommon version '0.1.0'
+include USCoreCommon
 include FHIRHelpers version '4.1.000'
-include CrdExtendedCoverageInfo version '0.1.0' called ECI
+include CrdExtendedCoverageInfo called ECI
 
 codesystem "Relationship Role": 'http://terminology.hl7.org/CodeSystem/v3-RoleCode'
 codesystem "Payor Identifier CodeSystem": 'http://terminology.hl7.org/CodeSystem/organization-type'
@@ -14,10 +14,15 @@ codesystem "Payor Identifier CodeSystem": 'http://terminology.hl7.org/CodeSystem
 code "Payor Code": 'pay' from "Payor Identifier CodeSystem" display 'Payor'
 code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
 
-parameter "Service Request" List<FHIR.ServiceRequest>
-parameter "Service Request Id" List<System.String> 
+parameter "Service Request" FHIR.ServiceRequest
+parameter "Service Request Id" System.String
   // TODO: remove defaults for production use
-  default { 'required-SleepStudy', 'not-required-SleepStudy', 'SleepStudy', 'SleepStudy2' }
+  default 'SleepStudy'
+  //default { 'required-SleepStudy', 'not-required-SleepStudy', 'SleepStudy', 'SleepStudy2' }
+  
+parameter "Request Id" System.String
+  // TODO: remove defaults for production use
+  default 'generated-id-default-value'
 
 context Patient
 
@@ -28,9 +33,18 @@ define "Payor Coverage":
   // TODO: ensure the Coverage is the relevant coverage instead of just the first matching coverage
   First(
     "Payor"."Coverages" 
-      PayorCoverage
-      with "Provider"."Coverages" ProviderCoverage
-      such that exists(PayorCoverage.identifier.id intersect ProviderCoverage.identifier.id)
+      // PayorCoverage
+      // with "Provider"."Coverages" ProviderCoverage
+      // such that exists(PayorCoverage.identifier.id intersect ProviderCoverage.identifier.id)
+  )
+
+define "Provider Coverage":
+  // TODO: ensure the Coverage is the relevant coverage instead of just the first matching coverage
+  First(
+    "Provider"."Coverages" 
+      // PayorCoverage
+      // with "Provider"."Coverages" ProviderCoverage
+      // such that exists(PayorCoverage.identifier.id intersect ProviderCoverage.identifier.id)
   )
 
 define "Service Request Item Code":
@@ -47,16 +61,15 @@ returns System.String:
     'Resource'
 
 define "System Generated Id":
-  // TODO: where should this come from?
-  'system-generated-id'
+  "Request Id"
 
-define function ExtensionPriorAuthNotNeeded(covered System.String, qualification System.String)
+define function ExtensionPriorAuthNotNeeded(covered System.String, priorAuthRequired System.String, codeValue System.String, qualification System.String, warningOrInfo System.String)
 returns FHIR.Extension:
-  ECI.ExtensionPriorAuthNotNeeded("Payor Coverage".id.value, covered, "System Generated Id", "Service Request Item ID", qualification)
+  ECI.ExtensionPriorAuthNotNeeded("Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id", "Service Request Item ID", "Service Request Item Code", codeValue, qualification, warningOrInfo)
 
-define function ExtensionPriorAuthNeeded(covered System.String, qualification System.String)
+define function ExtensionPriorAuthNeeded(covered System.String, priorAuthRequired System.String, codeValue System.String, qualification System.String, warningOrInfo System.String)
 returns FHIR.Extension:
-  ECI.ExtensionPriorAuthNeeded("Payor Coverage".id.value, covered, "System Generated Id", "Service Request Item ID", "Service Request Item Code", qualification)
+  ECI.ExtensionPriorAuthNeeded("Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id", "Service Request Item ID", "Service Request Item Code", codeValue, qualification, warningOrInfo)
 
 define function TagExists(resource Resource, value System.Code)
 returns System.Boolean:
@@ -126,14 +139,12 @@ define function GetContext(isPayor System.Boolean):
 // need a architecture design question on how to solve longer term
 
 define "Service Request Item":
-  First(
-    Coalesce(
-      // TODO: require an exact match instead of an EndsWith match?
-      //[FHIR.ServiceRequest] SR where exists("Service Request Id" id where SR.id ~ id),
-      [FHIR.ServiceRequest] SR where exists("Service Request Id" id where EndsWith(SR.id, id)),
-      "Service Request",
-      { null as FHIR.ServiceRequest }
-    )
+  Coalesce(
+    First([FHIR.ServiceRequest] SR where SR.id ~ "Service Request Id"),
+    "Service Request",
+    // TODO: Remove for production use, this is only for testing
+    First([FHIR.ServiceRequest] SR where EndsWith(SR.id, "Service Request Id")),
+    null as FHIR.ServiceRequest
   )
 
 define "Provider":

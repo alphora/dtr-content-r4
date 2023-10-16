@@ -5,13 +5,10 @@ using FHIR version '4.0.1'
 //using USCore version '3.1.1'
 
 include ASLPContext called Ctx
-include USCoreCommon version '0.1.0'
+include USCoreCommon
 include FHIRHelpers version '4.1.000'
 
 context Patient
-
-define test:
-  Ctx."Payor Coverage"
 
 // CRD-2
 define "Title":
@@ -23,8 +20,12 @@ define "Description":
   '- You can submit a PA request as an exception.'
 
 // CRD-2
+define "Qualification":
+  'Prior auth is required for: ' + Ctx."Service Request Item ID"
+
+// CRD-2
 define "CoverageExtension":
-  Ctx."ExtensionPriorAuthNeeded"('conditional', "Title")
+  Ctx."ExtensionPriorAuthNeeded"('conditional', 'auth-needed', 'auth-needed', "Qualification", 'Warning')
 
 define "Is MemberEligible":
   "Last Name Match" and "DOB Match"
