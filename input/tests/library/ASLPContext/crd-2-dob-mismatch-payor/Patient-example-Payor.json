@@ -1,22 +1,11 @@
 {
-  "resourceType": "RelatedPerson",
+  "resourceType": "Patient",
   "id": "crd-2-dob-mismatch-example-payor",
   "meta": {
     "tag": [
       { "system": "http://terminology.hl7.org/CodeSystem/organization-type", "code": "pay" }
     ]
   },
-  "patient": { "reference": "Patient/crd-2-dob-mismatch" },
-  "relationship": [
-    {
-      "coding": [
-        {
-          "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
-          "code": "ONESELF"
-        }
-      ]
-    }
-  ],
   "name": [
     {
       "use": "official",

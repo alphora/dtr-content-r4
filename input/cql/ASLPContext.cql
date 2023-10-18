@@ -14,6 +14,10 @@ codesystem "Payor Identifier CodeSystem": 'http://terminology.hl7.org/CodeSystem
 code "Payor Code": 'pay' from "Payor Identifier CodeSystem" display 'Payor'
 code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
 
+// MedicationRequest, NutritionOrder, ServiceRequest, VisionPrescription with /draft/ status
+parameter "draftOrders" List<Choice<FHIR.MedicationRequest, FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.VisionPrescription>>
+//parameter "draftOrders" List<FHIR.ServiceRequest>
+
 parameter "Service Request" FHIR.ServiceRequest
 parameter "Service Request Id" System.String
   // TODO: remove defaults for production use
@@ -23,6 +27,25 @@ parameter "Service Request Id" System.String
 parameter "Request Id" System.String
   // TODO: remove defaults for production use
   default 'generated-id-default-value'
+
+parameter "Payor Context" FHIR.Bundle
+  /*
+  default FHIR.Bundle {
+    "id": FHIR.id { "value": 'abc' },
+    "entry": {
+      FHIR.Bundle.Entry {
+        "resource": FHIR.Patient {
+          "name": {
+            FHIR.HumanName {
+              "family": FHIR.string { "value": 'Chalmers' }
+            }
+          },
+          "birthDate": FHIR.date { "value": @1974-12-25 }
+        }
+      }
+    }
+  }
+  */
 
 context Patient
 
@@ -113,13 +136,22 @@ returns System.String:
 
 define function GetContext(isPayor System.Boolean):
 // TODO: optimize retrieves
-  {
-    "Patient": if isPayor then "Payor Patient" else "Provider Patient",
-    "Coverages": [Coverage] item where IsPayorResource(item) = isPayor,
-    "Practitioners": [Practitioner] item where IsPayorResource(item) = isPayor,
-    "PractitionerRoles": [PractitionerRole] item where IsPayorResource(item) = isPayor,
-    "Organizations": [Organization] item where IsPayorResource(item) = isPayor
-  }
+  if (isPayor and Count("Payor Context".entry) >= 1) then 
+    {
+      "Patient": First(("Payor Context".entry.resource PayorResource return if (PayorResource is Patient) then PayorResource as FHIR.Patient else null as FHIR.Patient) I where I is not null),
+      "Coverages": ("Payor Context".entry.resource PayorResource return if (PayorResource is Coverage) then PayorResource as FHIR.Coverage else null as FHIR.Coverage) I where I is not null,
+      "Practitioners": ("Payor Context".entry.resource PayorResource return if (PayorResource is Practitioner) then PayorResource as FHIR.Practitioner else null as FHIR.Practitioner) I where I is not null,
+      "PractitionerRoles": ("Payor Context".entry.resource PayorResource return if (PayorResource is PractitionerRole) then PayorResource as FHIR.PractitionerRole else null as FHIR.PractitionerRole) I where I is not null,
+      "Organizations": ("Payor Context".entry.resource PayorResource return if (PayorResource is Organization) then PayorResource as FHIR.Organization else null as FHIR.Organization) I where I is not null
+    }
+  else
+    {
+      "Patient": if isPayor then "Payor Patient" else "Provider Patient",
+      "Coverages": [Coverage] item where IsPayorResource(item) = isPayor,
+      "Practitioners": [Practitioner] item where IsPayorResource(item) = isPayor,
+      "PractitionerRoles": [PractitionerRole] item where IsPayorResource(item) = isPayor,
+      "Organizations": [Organization] item where IsPayorResource(item) = isPayor
+    }
 
 // Option 1 (not feasible short-term): Use related context retrieve
 // give me the patient that is the beneficiary of this coverage
@@ -140,12 +172,12 @@ define function GetContext(isPayor System.Boolean):
 
 define "Service Request Item":
   Coalesce(
-    First([FHIR.ServiceRequest] SR where SR.id ~ "Service Request Id"),
     "Service Request",
+    First([FHIR.ServiceRequest] SR where SR.id ~ "Service Request Id"),
     // TODO: Remove for production use, this is only for testing
     First([FHIR.ServiceRequest] SR where EndsWith(SR.id, "Service Request Id")),
     null as FHIR.ServiceRequest
-  )
+  ) as FHIR.ServiceRequest
 
 define "Provider":
   GetContext(false) // false = not payor
