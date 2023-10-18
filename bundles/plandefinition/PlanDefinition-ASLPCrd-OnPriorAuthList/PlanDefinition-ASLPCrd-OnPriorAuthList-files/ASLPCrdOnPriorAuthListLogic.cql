@@ -18,7 +18,7 @@ define "Title-NotFound":
 
 // CRD-6
 define "Description-NotFound":
-  '' + Ctx."Service Request Item Code".code + ' is not a recognized procedure electronically.' + Ctx."NewLine" +
+  '' + Ctx."Service Request Item Code".display + ' is not a recognized procedure electronically.' + Ctx."NewLine" +
   '- Please contact the payer for further information.'
 
 // CRD-6
@@ -35,7 +35,7 @@ define "Title":
 
 // CRD-5
 define "Description":
-  '- Prior authorization is required for ' + Ctx."Service Request Item Code".code + '.' + Ctx."NewLine" +
+  '- Prior authorization is required for ' + Ctx."Service Request Item Code".display + '.' + Ctx."NewLine" +
   // TODO: To discuss this option:
   '- To discuss this option: Prior authorization is required for Provider Order ' + Ctx."Service Request Item ID" + '.'
 
