@@ -14,9 +14,8 @@ codesystem "Payor Identifier CodeSystem": 'http://terminology.hl7.org/CodeSystem
 code "Payor Code": 'pay' from "Payor Identifier CodeSystem" display 'Payor'
 code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
 
-// MedicationRequest, NutritionOrder, ServiceRequest, VisionPrescription with /draft/ status
-parameter "draftOrders" List<Choice<FHIR.MedicationRequest, FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.VisionPrescription>>
-//parameter "draftOrders" List<FHIR.ServiceRequest>
+// MedicationRequest, NutritionOrder, ServiceRequest with /draft/ status
+parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>>
 
 parameter "Service Request" FHIR.ServiceRequest
 parameter "Service Request Id" System.String
@@ -80,6 +79,10 @@ define function "GetResourceType"(resource Resource)
 returns System.String:
   if (resource is FHIR.ServiceRequest) then
     'ServiceRequest'
+  else if (resource is FHIR.NutritionOrder) then
+    'NutritionOrder'
+  else if (resource is FHIR.DeviceRequest) then
+    'DeviceRequest'
   else
     'Resource'
 
@@ -172,6 +175,7 @@ define function GetContext(isPayor System.Boolean):
 
 define "Service Request Item":
   Coalesce(
+    First("draftOrders" D where D is FHIR.ServiceRequest),
     "Service Request",
     First([FHIR.ServiceRequest] SR where SR.id ~ "Service Request Id"),
     // TODO: Remove for production use, this is only for testing
