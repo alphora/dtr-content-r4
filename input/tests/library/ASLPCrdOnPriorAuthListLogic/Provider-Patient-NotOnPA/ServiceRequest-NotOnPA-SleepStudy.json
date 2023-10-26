@@ -22,11 +22,11 @@
     }
   ],
   "requester": {
-    "reference": "Practitioner/Provider-Practitioner-NotOnPA"
+    "reference": "PractitionerRole/Provider-PractitionerRole-NotOnPA"
   },
   "performer": [
     {
-      "reference": "Practitioner/Provider-Practitioner-NotOnPA"
+      "reference": "PractitionerRole/Provider-PractitionerRole-NotOnPA"
     }
   ],
   "occurrenceDateTime": "2023-08-12T10:10:10-01:00"

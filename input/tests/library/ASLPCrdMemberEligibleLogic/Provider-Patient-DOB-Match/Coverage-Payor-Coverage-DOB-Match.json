@@ -1,25 +1,16 @@
 {
   "resourceType": "Coverage",
-  "id": "Provider-Coverage-LN-Mismatch",
+  "id": "Payor-Coverage-DOB-Match",
   "meta": {
     "tag": [
       {
-        "code": "prov",
+        "code": "pay",
         "system": "http://terminology.hl7.org/CodeSystem/organization-type",
-        "display": "Provider"
+        "display": "Payor"
       }
     ]
   },
   "status": "active",
-  "type": {
-    "coding": [
-      {
-        "code": "EHCPOL",
-        "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-        "display": "Extended Healthcare"
-      }
-    ]
-  },
   "identifier": [
     {
       "use": "usual",
@@ -32,10 +23,10 @@
           }
         ]
       },
-      "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-      "value": "1928377654",
+      "system": "http://example.org/fhir/memberidentifier",
+      "value": "12345678",
       "period": {
-        "start": "2010-06-05"
+        "start": "2000-05-06"
       },
       "assigner": {
         "display": "Acme Healthcare"
@@ -44,22 +35,31 @@
   ],
   "payor": [
     {
-      "reference": "Organization/Provider-Insurance-LN-Mismatch"
+      "reference": "Organization/Payor-Insurance-DOB-Match"
     }
   ],
   "beneficiary": {
-    "reference": "Patient/Provider-Patient-LN-Mismatch"
+    "reference": "Patient/Provider-Patient-DOB-Match"
   },
   "subscriber": {
-    "reference": "Patient/Provider-Patient-LN-Mismatch"
+    "reference": "RelatedPerson/Payor-Patient-DOB-Match"
   },
-  "subscriberId": "Provider-Patient-LN-Mismatch",
+  "subscriberId": "Payor-Patient-DOB-Match",
   "relationship": {
     "coding": [
       {
         "code": "self",
         "system": "http://terminology.hl7.org/CodeSystem/subscriber-relationship",
         "display": "Self"
+      }
+    ]
+  },
+  "type": {
+    "coding": [
+      {
+        "code": "EHCPOL",
+        "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+        "display": "Extended Healthcare"
       }
     ]
   },

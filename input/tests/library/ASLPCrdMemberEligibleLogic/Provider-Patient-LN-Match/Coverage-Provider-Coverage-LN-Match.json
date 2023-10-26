@@ -44,7 +44,7 @@
   ],
   "payor": [
     {
-      "reference": "Organization/Provider-Insurance-Example-LN-Match"
+      "reference": "Organization/Provider-Insurance-LN-Match"
     }
   ],
   "beneficiary": {

@@ -44,7 +44,7 @@
   ],
   "payor": [
     {
-      "reference": "Organization/Payor-Insurance-Example-LN-Mismatch"
+      "reference": "Organization/Payor-Insurance-LN-Mismatch"
     }
   ],
   "beneficiary": {
@@ -53,7 +53,7 @@
   "subscriber": {
     "reference": "RelatedPerson/Payor-Patient-LN-Mismatch"
   },
-  "subscriberId": "Payor-Patient-LN-Mismatch",
+  "subscriberId": "Provider-Patient-LN-Mismatch",
   "relationship": {
     "coding": [
       {
