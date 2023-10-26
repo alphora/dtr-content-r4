@@ -116,11 +116,12 @@ define "Matching Performing Organizations by Name & Type or NPI":
       (PerformingOrganization.name ~ PayorOrg.name and PerformingOrganization.type ~ PayorOrg.type)
       or PerformingOrganization.getNpi() ~ PayorOrg.getNpi()
 
-define "Organization Provider":
-  Ctx."Provider"."Organizations"
+define "Performing Practitioners NPIs":
+  "Performing Practitioners".npi() 
+    union "Performing Practitioners via PracitionerRoles".npi()
 
-define "Payor References by Coverage.payor":
-  flatten(Ctx."Provider"."Coverages" C return C.payor.reference.value)
+define "Performing Organizations NPIs":
+  "Performing Organizations".npi()
 
 define "Payor Organization from Provider Coverage for Patient":
   Ctx."Provider"."Organizations" O
