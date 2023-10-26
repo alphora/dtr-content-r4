@@ -44,7 +44,7 @@
   ],
   "payor": [
     {
-      "reference": "Organization/Provider-Insurance-Example-LN-Mismatch"
+      "reference": "Organization/Provider-Insurance-LN-Mismatch"
     }
   ],
   "beneficiary": {

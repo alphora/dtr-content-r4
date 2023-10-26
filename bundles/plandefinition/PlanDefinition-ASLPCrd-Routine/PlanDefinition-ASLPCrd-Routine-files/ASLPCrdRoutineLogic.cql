@@ -19,7 +19,7 @@ define "Title":
 // CRD-7
 define "Description":
   '- Order is covered.' + Ctx."NewLine" +
-  '- No prior auth is required for: ' + Ctx."Service Request Item Code".code + '.'
+  '- No prior auth is required for: ' + Ctx."Service Request Item Code".display + '.'
 
 // CRD-7
 define "Qualification":

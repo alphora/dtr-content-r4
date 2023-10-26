@@ -23,11 +23,11 @@
     }
   ],
   "requester": {
-    "reference": "Practitioner/Provider-Practitioner-LN-Match"
+    "reference": "PractitionerRole/Provider-PractitionerRole-LN-Match"
   },
   "performer": [
     {
-      "reference": "Practitioner/Provider-Practitioner-LN-Match"
+      "reference": "PractitionerRole/Provider-PractitionerRole-LN-Match"
     }
   ],
   "occurrenceDateTime": "2023-03-23T15:35:01+01:00"

@@ -44,14 +44,14 @@
   ],
   "payor": [
     {
-      "reference": "Organization/Provider-Insurance-Example-LN-Match"
+      "reference": "Organization/Provider-Insurance-LN-Match"
     }
   ],
   "beneficiary": {
     "reference": "Patient/Provider-Patient-LN-Match"
   },
   "subscriber": {
-    "reference": "Patient/Provider-Patient-LN-Match"
+    "reference": "RelatedPerson/Payor-Patient-LN-Match"
   },
   "subscriberId": "Provider-Patient-LN-Match",
   "relationship": {

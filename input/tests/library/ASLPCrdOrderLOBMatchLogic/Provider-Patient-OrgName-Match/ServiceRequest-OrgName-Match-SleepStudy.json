@@ -29,11 +29,11 @@
     }
   ],
   "requester": {
-    "reference": "Practitioner/Provider-Practitioner-OrgName-Match-1"
+    "reference": "PractitionerRole/Provider-PractitionerRole-OrgName-Match-1"
   },
   "performer": [
     {
-      "reference": "Practitioner/Provider-Practitioner-OrgName-Match-2"
+      "reference": "PractitionerRole/Provider-PractitionerRole-OrgName-Match-2"
     }
   ]
 }
