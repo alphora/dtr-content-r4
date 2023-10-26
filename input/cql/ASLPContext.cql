@@ -1,11 +1,12 @@
-library ASLPContext version '0.1.0'
+library ASLPContext
 
 using FHIR version '4.0.1'
 // TODO: update to use USCore directly
 //using USCore version '3.1.1'
 
-include USCoreCommon version '0.1.0'
+include USCoreCommon
 include FHIRHelpers version '4.1.000'
+include CrdExtendedCoverageInfo called ECI
 
 codesystem "Relationship Role": 'http://terminology.hl7.org/CodeSystem/v3-RoleCode'
 codesystem "Payor Identifier CodeSystem": 'http://terminology.hl7.org/CodeSystem/organization-type'
@@ -13,94 +14,88 @@ codesystem "Payor Identifier CodeSystem": 'http://terminology.hl7.org/CodeSystem
 code "Payor Code": 'pay' from "Payor Identifier CodeSystem" display 'Payor'
 code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
 
-parameter "Service Request" List<FHIR.ServiceRequest>
-parameter "Service Request Id" List<System.String> 
+// MedicationRequest, NutritionOrder, ServiceRequest with /draft/ status
+parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>>
+
+parameter "Service Request" FHIR.ServiceRequest
+parameter "Service Request Id" System.String
   // TODO: remove defaults for production use
-  default { 'required-SleepStudy', 'not-required-SleepStudy', 'SleepStudy', 'SleepStudy2' }
+  default 'SleepStudy'
+  //default { 'required-SleepStudy', 'not-required-SleepStudy', 'SleepStudy', 'SleepStudy2' }
+  
+parameter "Request Id" System.String
+  // TODO: remove defaults for production use
+  default 'generated-id-default-value'
+
+parameter "Payor Context" FHIR.Bundle
+  /*
+  default FHIR.Bundle {
+    "id": FHIR.id { "value": 'abc' },
+    "entry": {
+      FHIR.Bundle.Entry {
+        "resource": FHIR.Patient {
+          "name": {
+            FHIR.HumanName {
+              "family": FHIR.string { "value": 'Chalmers' }
+            }
+          },
+          "birthDate": FHIR.date { "value": @1974-12-25 }
+        }
+      }
+    }
+  }
+  */
 
 context Patient
 
-define function ExtensionPriorAuthNotNeeded(coverageId System.String)
-returns FHIR.Extension:
-  FHIR.Extension {
-    "url": FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information' },
-    "extension": { 
-      FHIR.Extension {
-        "url": FHIR.uri { "value": 'coverageInfo' },
-        "value": FHIR.Coding {
-          system: FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp' },
-          code: FHIR.code { "value": 'covered' },
-          display: FHIR.string { "value": 'Covered' }
-        }
-      },
-      FHIR.Extension {
-        "url": FHIR.uri { "value": 'coverage' },
-        "value": FHIR.Reference {
-          "reference": FHIR.string { "value": 'Coverage/' + coverageId }
-        }
-      },
-      FHIR.Extension {
-          "url": FHIR.uri { "value": 'date' },
-          "value": FHIR.date { "value": @2023-07-13 }
-      }
-    }
-  }
+define "NewLine":
+  '\r\n'
 
-define function ExtensionPriorAuthNeeded(coverageId System.String)
+define "Payor Coverage":
+  // TODO: ensure the Coverage is the relevant coverage instead of just the first matching coverage
+  First(
+    "Payor"."Coverages" 
+      // PayorCoverage
+      // with "Provider"."Coverages" ProviderCoverage
+      // such that exists(PayorCoverage.identifier.id intersect ProviderCoverage.identifier.id)
+  )
+
+define "Provider Coverage":
+  // TODO: ensure the Coverage is the relevant coverage instead of just the first matching coverage
+  First(
+    "Provider"."Coverages" 
+      // PayorCoverage
+      // with "Provider"."Coverages" ProviderCoverage
+      // such that exists(PayorCoverage.identifier.id intersect ProviderCoverage.identifier.id)
+  )
+
+define "Service Request Item Code":
+  FHIRHelpers.ToCode(singleton from "Service Request Item".code.coding)
+
+define "Service Request Item ID":
+  GetResourceType("Service Request Item") + '/' + "Service Request Item".id.value
+
+define function "GetResourceType"(resource Resource)
+returns System.String:
+  if (resource is FHIR.ServiceRequest) then
+    'ServiceRequest'
+  else if (resource is FHIR.NutritionOrder) then
+    'NutritionOrder'
+  else if (resource is FHIR.DeviceRequest) then
+    'DeviceRequest'
+  else
+    'Resource'
+
+define "System Generated Id":
+  "Request Id"
+
+define function ExtensionPriorAuthNotNeeded(covered System.String, priorAuthRequired System.String, codeValue System.String, qualification System.String, warningOrInfo System.String)
 returns FHIR.Extension:
-  FHIR.Extension {
-    "url": FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information' },
-    "extension": { 
-      FHIR.Extension {
-        "url": FHIR.uri { "value": 'coverageInfo' },
-        "value": FHIR.Coding {
-          system: FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp' },
-          code: FHIR.code { "value": 'clinical' },
-          display: FHIR.string { "value": 'Clinical' }
-        }
-      },
-      FHIR.Extension {
-        "url": FHIR.uri { "value": 'coverage' },
-        "value": FHIR.Reference {
-          "reference": FHIR.string { "value": 'Coverage/' + coverageId }
-        }
-      },
-      FHIR.Extension {
-          "url": FHIR.uri { "value": 'date' },
-          "value": FHIR.date { "value": @2022-06-12 }
-      },
-      FHIR.Extension {
-          "url": FHIR.uri { "value": 'questionnaire' },
-          "value": FHIR.canonical { "value": 'http://example.org/sdh/dtr/asip/Questionnaire/ASLPA1' }
-      },
-      FHIR.Extension {
-        "url": FHIR.uri { "value": 'detail' },
-        "extension": {
-          FHIR.Extension {
-            "url": FHIR.uri { "value": 'code' },
-            "value": FHIR.CodeableConcept { 
-              "coding": {
-                FHIR.Coding {
-                  system: FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp' },
-                  code: FHIR.code { "value": 'to-endpoint' },
-                  display: FHIR.string { "value": 'Send information to endpoint' }
-                }
-              },
-              "text": FHIR.string { "value": 'Send information to endpoint' }
-            }
-          },
-          FHIR.Extension {
-            "url": FHIR.uri { "value": 'value' },
-            "value": FHIR.string { "value": 'Warning' }
-          },
-          FHIR.Extension {
-            "url": FHIR.uri { "value": 'qualification' },
-            "value": FHIR.string { "value": 'Prior auth is required for: inpatient non-acute' }
-          }
-        }
-      }
-    }
-  }
+  ECI.ExtensionPriorAuthNotNeeded("Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id", "Service Request Item ID", "Service Request Item Code", codeValue, qualification, warningOrInfo)
+
+define function ExtensionPriorAuthNeeded(covered System.String, priorAuthRequired System.String, codeValue System.String, qualification System.String, warningOrInfo System.String)
+returns FHIR.Extension:
+  ECI.ExtensionPriorAuthNeeded("Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id", "Service Request Item ID", "Service Request Item Code", codeValue, qualification, warningOrInfo)
 
 define function TagExists(resource Resource, value System.Code)
 returns System.Boolean:
@@ -143,13 +138,23 @@ returns System.String:
 //   GetIdentifier(practitioner, 'http://hl7.org/fhir/sid/us-npi')
 
 define function GetContext(isPayor System.Boolean):
-  {
-    "Patient": if isPayor then "Payor Patient" else "Provider Patient",
-    "Coverages": [Coverage] item where IsPayorResource(item) = isPayor,
-    "Practitioners": [Practitioner] item where IsPayorResource(item) = isPayor,
-    "PractitionerRoles": [PractitionerRole] item where IsPayorResource(item) = isPayor,
-    "Organizations": [Organization] item where IsPayorResource(item) = isPayor
-  }
+// TODO: optimize retrieves
+  if (isPayor and Count("Payor Context".entry) >= 1) then 
+    {
+      "Patient": First(("Payor Context".entry.resource PayorResource return if (PayorResource is Patient) then PayorResource as FHIR.Patient else null as FHIR.Patient) I where I is not null),
+      "Coverages": ("Payor Context".entry.resource PayorResource return if (PayorResource is Coverage) then PayorResource as FHIR.Coverage else null as FHIR.Coverage) I where I is not null,
+      "Practitioners": ("Payor Context".entry.resource PayorResource return if (PayorResource is Practitioner) then PayorResource as FHIR.Practitioner else null as FHIR.Practitioner) I where I is not null,
+      "PractitionerRoles": ("Payor Context".entry.resource PayorResource return if (PayorResource is PractitionerRole) then PayorResource as FHIR.PractitionerRole else null as FHIR.PractitionerRole) I where I is not null,
+      "Organizations": ("Payor Context".entry.resource PayorResource return if (PayorResource is Organization) then PayorResource as FHIR.Organization else null as FHIR.Organization) I where I is not null
+    }
+  else
+    {
+      "Patient": if isPayor then "Payor Patient" else "Provider Patient",
+      "Coverages": [Coverage] item where IsPayorResource(item) = isPayor,
+      "Practitioners": [Practitioner] item where IsPayorResource(item) = isPayor,
+      "PractitionerRoles": [PractitionerRole] item where IsPayorResource(item) = isPayor,
+      "Organizations": [Organization] item where IsPayorResource(item) = isPayor
+    }
 
 // Option 1 (not feasible short-term): Use related context retrieve
 // give me the patient that is the beneficiary of this coverage
@@ -169,21 +174,20 @@ define function GetContext(isPayor System.Boolean):
 // need a architecture design question on how to solve longer term
 
 define "Service Request Item":
-  First(
-    Coalesce(
-      // TODO: require an exact match instead of an EndsWith match?
-      //[FHIR.ServiceRequest] SR where exists("Service Request Id" id where SR.id ~ id),
-      [FHIR.ServiceRequest] SR where exists("Service Request Id" id where EndsWith(SR.id, id)),
-      "Service Request",
-      { null as FHIR.ServiceRequest }
-    )
-  )
+  Coalesce(
+    First("draftOrders" D where D is FHIR.ServiceRequest),
+    "Service Request",
+    First([FHIR.ServiceRequest] SR where SR.id ~ "Service Request Id"),
+    // TODO: Remove for production use, this is only for testing
+    First([FHIR.ServiceRequest] SR where EndsWith(SR.id, "Service Request Id")),
+    null as FHIR.ServiceRequest
+  ) as FHIR.ServiceRequest
 
 define "Provider":
-  GetContext(false)
+  GetContext(false) // false = not payor
 
 define "Payor":
-  GetContext(true)
+  GetContext(true) // true = payor
 
 define "Provider Patient":
   First([Patient] P where not IsPayorResource(P))
