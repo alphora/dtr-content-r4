@@ -39,12 +39,12 @@
     }
   ],
   "beneficiary": {
-    "reference": "Provider-Patient-GS-Mismatch"
+    "reference": "Patient/Provider-Patient-GS-Mismatch"
   },
   "subscriber": {
-    "reference": "Provider-Patient-GS-Mismatch"
+    "reference": "Patient/Provider-Patient-GS-Mismatch"
   },
-  "subscriberId": "Patient-Patient-GS-Mismatch",
+  "subscriberId": "Provider-Patient-GS-Mismatch",
   "relationship": {
     "coding": [
       {

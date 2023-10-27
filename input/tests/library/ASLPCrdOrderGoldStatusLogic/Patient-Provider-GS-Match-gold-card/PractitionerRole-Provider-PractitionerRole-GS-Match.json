@@ -53,7 +53,7 @@
     }
   ],
   "organization": {
-    "reference": "Organization/Insurance-GS-Match"
+    "reference": "Organization/Provider-Insurance-GS-Match"
   },
   "practitioner": {
     "reference": "Practitioner/Provider-Practitioner-GS-Match",

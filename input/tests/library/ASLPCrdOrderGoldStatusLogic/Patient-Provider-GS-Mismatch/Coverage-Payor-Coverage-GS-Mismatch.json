@@ -39,7 +39,7 @@
     }
   ],
   "beneficiary": {
-    "reference": "Provider-Patient-GS-Mismatch"
+    "reference": "Patient/Provider-Patient-GS-Mismatch"
   },
   "subscriber": {
     "reference": "RelatedPerson/Payor-Patient-GS-Mismatch"

@@ -39,12 +39,12 @@
     }
   ],
   "beneficiary": {
-    "reference": "Provider-Patient-GS-Match"
+    "reference": "Patient/Provider-Patient-GS-Match-gold-card"
   },
   "subscriber": {
-    "reference": "Provider-Patient-GS-Match"
+    "reference": "Patient/Provider-Patient-GS-Match-gold-card"
   },
-  "subscriberId": "Patient-Patient-GS-Match",
+  "subscriberId": "Provider-Patient-GS-Match-gold-card",
   "relationship": {
     "coding": [
       {

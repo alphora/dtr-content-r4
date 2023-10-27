@@ -1,6 +1,6 @@
 {
   "resourceType": "RelatedPerson",
-  "id": "Payor-Patient-DOB-Mismatch",
+  "id": "Payor-Patient-GS-Mismatch",
   "meta": {
     "tag": [
       {

@@ -53,10 +53,10 @@
     }
   ],
   "organization": {
-    "reference": "Organization/Insurance-GS-Match"
+    "reference": "Organization/Payor-Insurance-GS-Match"
   },
   "practitioner": {
-    "reference": "Practitioner/Provider-Practitioner-GS-Match",
+    "reference": "Practitioner/Payor-Practitioner-GS-Match",
     "display": "Dr. Payton Sawyer"
   }
 }

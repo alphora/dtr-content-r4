@@ -39,7 +39,7 @@
     }
   ],
   "beneficiary": {
-    "reference": "Provider-Patient-GS-Match"
+    "reference": "Patient/Provider-Patient-GS-Match-gold-card"
   },
   "subscriber": {
     "reference": "RelatedPerson/Payor-Patient-GS-Match"
