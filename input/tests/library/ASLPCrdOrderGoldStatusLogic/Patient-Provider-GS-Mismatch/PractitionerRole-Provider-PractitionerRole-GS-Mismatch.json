@@ -1,0 +1,62 @@
+{
+  "resourceType": "PractitionerRole",
+  "id": "Provider-PractitionerRole-GS-Mismatch",
+  "meta": {
+    "tag": [
+      {
+        "code": "prov",
+        "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+        "display": "Provider"
+      }
+    ],
+    "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/Practitioner"
+    ]
+  },
+  "identifier": [
+    {
+      "system": "http://hl7.org.fhir/sid/us-npi",
+      "value": "6677889932"
+    }
+  ],
+  "active": true,
+  "code": [
+    {
+      "coding": [
+        {
+          "code": "PCP",
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction",
+          "display": "Primary Care Physician"
+        }
+      ]
+    }
+  ],
+  "specialty": [
+    {
+      "coding": [
+        {
+          "code": "Doctor",
+          "system": "http://nucc.org/provider-taxonomy",
+          "display": "Doctor"
+        }
+      ]
+    }
+  ],
+  "period": {
+    "start": "2010-10-10",
+    "end": "2040-10-10"
+  },
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "(237) 001 0022"
+    }
+  ],
+  "organization": {
+    "reference": "Organization/Insurance-GS-Mismatch"
+  },
+  "practitioner": {
+    "reference": "Practitioner/Provider-Practitioner-GS-Mismatch",
+    "display": "Dr. Payton Sawyer"
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "resourceType": "ServiceRequest",
+  "id": "GS-Mismatch-SleepStudy",
+  "status": "draft",
+  "intent": "order",
+  "code": {
+    "coding": [
+      {
+        "code": "ASLP.A1.DE2",
+        "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes",
+        "display": "Home sleep apnea testing (HSAT)"
+      }
+    ],
+    "text": "Home sleep apnea testing (HSAT)"
+  },
+  "subject": {
+    "reference": "Provider-Patient-GS-Mismatch"
+  },
+  "authoredOn": "2023-06-23",
+  "requester": {
+    "reference": "Practitioner/Provider-Practitioner-GS-Mismatch"
+  },
+  "performer": [
+    {
+      "reference": "Practitioner/Provider-Practitioner-GS-Mismatch"
+    }
+  ],
+  "occurrenceDateTime": "2023-03-23T15:35:01+01:00"
+}

@@ -53,7 +53,7 @@
     }
   ],
   "organization": {
-    "reference": "Organization/Insurance-DOB-Match"
+    "reference": "Organization/Provider-Insurance-DOB-Match"
   },
   "practitioner": {
     "reference": "Practitioner/Provider-Practitioner-DOB-Match",

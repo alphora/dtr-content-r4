@@ -53,7 +53,7 @@
     }
   ],
   "organization": {
-    "reference": "Organization/Insurance-DOB-Mismatch"
+    "reference": "Organization/Payor-Insurance-DOB-Mismatch"
   },
   "practitioner": {
     "reference": "Practitioner/Provider-Practitioner-DOB-Mismatch",
