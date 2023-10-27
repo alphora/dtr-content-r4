@@ -89,13 +89,13 @@ returns System.String:
 define "System Generated Id":
   "Request Id"
 
-define function ExtensionPriorAuthNotNeeded(covered System.String, priorAuthRequired System.String, codeValue System.String, qualification System.String, warningOrInfo System.String)
+define function ExtensionPriorAuthNotNeeded(covered System.String, priorAuthRequired System.String, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)
 returns FHIR.Extension:
-  ECI.ExtensionPriorAuthNotNeeded("Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id", "Service Request Item ID", "Service Request Item Code", codeValue, qualification, warningOrInfo)
+  ECI.ExtensionPriorAuthNotNeeded("Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id", "Service Request Item ID", "Service Request Item Code", codeValue, detailText, qualification, warningOrInfo)
 
-define function ExtensionPriorAuthNeeded(covered System.String, priorAuthRequired System.String, codeValue System.String, qualification System.String, warningOrInfo System.String)
+define function ExtensionPriorAuthNeeded(covered System.String, priorAuthRequired System.String, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)
 returns FHIR.Extension:
-  ECI.ExtensionPriorAuthNeeded("Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id", "Service Request Item ID", "Service Request Item Code", codeValue, qualification, warningOrInfo)
+  ECI.ExtensionPriorAuthNeeded("Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id", "Service Request Item ID", "Service Request Item Code", codeValue, detailText, qualification, warningOrInfo)
 
 define function TagExists(resource Resource, value System.Code)
 returns System.Boolean:

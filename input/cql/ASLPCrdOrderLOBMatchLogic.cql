@@ -12,20 +12,23 @@ context Patient
 
 // CRD-3.2
 define "Title":
-  'Line Of Business Mismatch'
+  'Prior Auth Evaluation'
 
 // CRD-3.2
 define "Description":
-  '- Line of Business MisMatch' + Ctx."NewLine" +
-  '- Prior authorization submission is required.'
+  'Information related to whether a service is covered, not covered or requires prior auth submission'
 
 // CRD-3.2
 define "Qualification":
-  'Prior auth is required for: ' + Ctx."Service Request Item ID"
+  'Line of Business MisMatch. Prior authorization submission is required.'
+
+// CRD-3.2
+define "Detail Text":
+  'Line Of Business Mismatch'
 
 // CRD-3.2
 define "CoverageExtension":
-  Ctx."ExtensionPriorAuthNeeded"('conditional', 'auth-needed', 'auth-needed', "Qualification", 'Warning')
+  Ctx."ExtensionPriorAuthNeeded"('conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification", 'Warning')
 
 define "Is OrderLOBMatch":
   exists("Matching Organizations by Name")

@@ -14,38 +14,43 @@ context Patient
 
 // CRD-6
 define "Title-NotFound":
-  'Code not found'
-
+  "Title"
+  
 // CRD-6
 define "Description-NotFound":
-  '' + Ctx."Service Request Item Code".display + ' is not a recognized procedure electronically.' + Ctx."NewLine" +
-  '- Please contact the payer for further information.'
+  "Description"
 
 // CRD-6
 define "Qualification-NotFound":
-  'No coverage determination as code could not be found electronically in payer database; please reach out to Payer directly.'
+  Ctx."Service Request Item Code".display + ' is not a recognized procedure electronically. Please contact the payer for further information.'
+  
+// CRD-6
+define "Detail Text-NotFound":
+  'Code Not Found'
 
 // CRD-6
 define "CoverageExtension-NotFound":
-  Ctx."ExtensionPriorAuthNeeded"('not-covered', 'conditional', 'not-covered', "Qualification-NotFound", 'Warning')
+  Ctx."ExtensionPriorAuthNeeded"('not-covered', 'conditional', 'not-covered', "Detail Text-NotFound", "Qualification-NotFound", 'Warning')
 
 // CRD-5
 define "Title":
-  'Prior Authorization Required'
+  'Prior Auth Evaluation'
 
 // CRD-5
 define "Description":
-  '- Prior authorization is required for ' + Ctx."Service Request Item Code".display + '.' + Ctx."NewLine" +
-  // TODO: To discuss this option:
-  '- To discuss this option: Prior authorization is required for Provider Order ' + Ctx."Service Request Item ID" + '.'
+  'Information related to whether a service is covered, not covered or requires prior auth submission' 
+
+// CRD-5
+define "Detail Text":
+  'Prior Authorization Required'
 
 // CRD-5
 define "Qualification":
-  'Prior auth is required for: ' + Ctx."Service Request Item ID"
+  'Prior authorization is required for ' + Ctx."Service Request Item Code".display
 
 // CRD-5
 define "CoverageExtension":
-  Ctx."ExtensionPriorAuthNeeded"('conditional', 'auth-needed', 'auth-needed', "Qualification", 'Warning')
+  Ctx."ExtensionPriorAuthNeeded"('conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification", 'Warning')
 
 define "Is OnPriorAuthList":
   exists("Prior Auth Required Service Requests")
