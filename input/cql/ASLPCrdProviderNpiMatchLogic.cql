@@ -12,20 +12,23 @@ context Patient
 
 // CRD-3.1
 define "Title":
-  'Provider Not in Network'
+  'Prior Auth Evaluation'
 
 // CRD-3.1
 define "Description":
-  '- Provider is not in the network.' + Ctx."NewLine" +
-  '- You can submit a PA request as an exception.'
+  'Information related to whether a service is covered, not covered or requires prior auth submission'
 
 // CRD-3.1
 define "Qualification":
-  'Prior auth is required for: ' + Ctx."Service Request Item ID"
+  'Provider is not in the network. You can submit a PA request as an exception.'
+
+// CRD-3.1
+define "Detail Text":
+  'Provider Not in Network'
 
 // CRD-3.1
 define "CoverageExtension":
-  Ctx."ExtensionPriorAuthNeeded"('conditional', 'auth-needed', 'auth-needed', "Qualification", 'Warning')
+  Ctx."ExtensionPriorAuthNeeded"('conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification", 'Warning')
 
 //TODO: CHANGE THE function names to match the Org name & type logic
 define "Is ProviderNpiMatch":
