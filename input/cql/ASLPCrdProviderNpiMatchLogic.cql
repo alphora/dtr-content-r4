@@ -90,10 +90,24 @@ define "Matching Requesting Organizations by Name & Type or NPI":
       (RequestingOrganization.name ~ PayorOrg.name and RequestingOrganization.type ~ PayorOrg.type)
       or RequestingOrganization.getNpi() ~ PayorOrg.getNpi()
 
-define "Performing Practitioners from Provider":
+define "Performing PractitionerRoles from ServiceRequest":
+  Ctx."Provider"."PractitionerRoles" PractitionerRole
+    with Ctx."Service Request Item".performer PerformerPractitioner
+    such that PerformerPractitioner.reference.getId() ~ PractitionerRole.id.value
+
+define "Performing Practitioners from PractitionerRoles":
   Ctx."Provider"."Practitioners" Practitioner
-    with Ctx."Service Request Item".performer PractitionerPerformer
-    such that PractitionerPerformer.reference.getId() ~ Practitioner.id.value
+    with "Performing PractitionerRoles from ServiceRequest" PerformerPractitionerRole
+    such that PerformerPractitionerRole.practitioner.reference.getId() ~ Practitioner.id.value
+
+define "Performing Practitioners from ServiceRequest":
+  Ctx."Provider"."Practitioners" Practitioner
+    with Ctx."Service Request Item".performer PerformerPractitioner
+    such that PerformerPractitioner.reference.getId() ~ Practitioner.id.value
+
+define "Performing Practitioners from Provider":
+  "Performing Practitioners from ServiceRequest"
+    union "Performing Practitioners from PractitionerRoles"
 
 define "Performing Practitioners from Payor":
   Ctx."Payor"."Practitioners" Practitioner
