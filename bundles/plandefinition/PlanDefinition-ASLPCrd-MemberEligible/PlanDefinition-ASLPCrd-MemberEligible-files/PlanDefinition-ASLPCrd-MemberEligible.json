@@ -82,7 +82,7 @@
       ],
       "title": "Member Eligible",
       "description": "Member Eligible",
-      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-ProviderNpiMatch"
+      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-OrderLOBMatch"
     },
     {
       "condition": [
@@ -96,7 +96,29 @@
       ],
       "title": "Not Member Eligible",
       "description": "Not Member Eligible",
-      "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCrd-Crd-2-Stub"
+      "dynamicValue": [
+        {
+          "path": "title",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Title"
+          }
+        },
+        {
+          "path": "description",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Description"
+          }
+        },
+        {
+          "path": "extension",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "CoverageExtension"
+          }
+        }
+      ]
     }
   ]
 }

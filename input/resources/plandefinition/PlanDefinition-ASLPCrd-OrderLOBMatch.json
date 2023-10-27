@@ -82,7 +82,7 @@
       ],
       "title": "Order LOB Match",
       "description": "Order LOB Match",
-      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-OrderGoldStatus"
+      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-ProviderNpiMatch"
     },
     {
       "condition": [
@@ -96,7 +96,29 @@
       ],
       "title": "Not Order LOB Match",
       "description": "Not Order LOB Match",
-      "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCrd-Crd-3-2-Stub"
+      "dynamicValue": [
+        {
+          "path": "title",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Title"
+          }
+        },
+        {
+          "path": "description",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Description"
+          }
+        },
+        {
+          "path": "extension",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "CoverageExtension"
+          }
+        }
+      ]
     }
   ]
 }

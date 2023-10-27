@@ -1,0 +1,33 @@
+{
+    "resourceType": "ServiceRequest",
+    "meta": {
+        "profile": [
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-sleep-study-order",
+            "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-servicerequest"
+        ]
+    },
+    "id": "example-provider-SleepStudy",
+    "status": "draft",
+    "intent": "order",
+    "code": {
+        "coding": [
+            {
+                "system": "urn:oid:2.16.840.1.113883.6.285",
+                "code": "G0122",
+                "display": "Colorectal cancer screening; barium enema"
+            }
+        ],
+        "text": "Colorectal cancer screening; barium enema"
+    },
+    "subject": {
+        "reference": "Patient/example-provider"
+    },
+    "requester": {
+        "reference": "Practitioner/provider-Practitioner-1"
+    },
+    "performer": [{
+        "reference": "Practitioner/provider-Practitioner-2"
+    }],
+    "authoredOn": "2023-04-06",
+    "occurrenceDateTime": "2023-04-10"
+}

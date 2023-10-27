@@ -1,0 +1,30 @@
+{
+  "resourceType": "RelatedPerson",
+  "id": "crd-7-routine-code-example-payor",
+  "meta": {
+    "tag": [
+      { "system": "http://terminology.hl7.org/CodeSystem/organization-type", "code": "pay" }
+    ]
+  },
+  "patient": { "reference": "Patient/crd-7-routine-code" },
+  "relationship": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+          "code": "ONESELF"
+        }
+      ]
+    }
+  ],
+  "name": [
+    {
+      "use": "official",
+      "family": "Chalmers",
+      "given": [
+        "Peter"
+      ]
+    }
+  ],
+  "birthDate": "1974-12-25"
+}

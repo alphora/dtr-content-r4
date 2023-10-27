@@ -84,116 +84,116 @@ RuleSet: ExpressionCql(expression)
   * language = #text/cql-identifier
   * expression = {expression}
 
-Instance: ASLPCrd-Crd-2-Stub
-InstanceOf: CPGComputableActivityDefinition
-Usage: #example
-* insert CpgCommonProperties
-* insert CpgIdentifier(ASLPCrd-Crd-2-Stub)
+// Instance: ASLPCrd-Crd-2-Stub
+// InstanceOf: CPGComputableActivityDefinition
+// Usage: #example
+// * insert CpgCommonProperties
+// * insert CpgIdentifier(ASLPCrd-Crd-2-Stub)
 
-//* library[+] = Canonical(ASLPCrd)
+// //* library[+] = Canonical(ASLPCrd)
 
-* kind = #CommunicationRequest
-* profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
-* description = """
-  The member cannot be found.
-  PA is required.
-  You can submit a PA request as an exception.
-  CRD link to the form
-  Reference ID
-  Session exits
-  """
+// * kind = #CommunicationRequest
+// * profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
+// * description = """
+//   The member cannot be found.
+//   PA is required.
+//   You can submit a PA request as an exception.
+//   CRD link to the form
+//   Reference ID
+//   Session exits
+//   """
 
-Instance: ASLPCrd-Crd-3-1-Stub
-InstanceOf: CPGComputableActivityDefinition
-Usage: #example
-* insert CpgCommonProperties
-* insert CpgIdentifier(ASLPCrd-Crd-3-1-Stub)
+// Instance: ASLPCrd-Crd-3-1-Stub
+// InstanceOf: CPGComputableActivityDefinition
+// Usage: #example
+// * insert CpgCommonProperties
+// * insert CpgIdentifier(ASLPCrd-Crd-3-1-Stub)
 
-* kind = #CommunicationRequest
-* profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
-* description = """
-  Provider is not in the network.
-  PA is required.
-  You can submit a PA request as an exception.
-  CRD link to the form
-  Reference ID
-  Session exits
-  """
+// * kind = #CommunicationRequest
+// * profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
+// * description = """
+//   Provider is not in the network.
+//   PA is required.
+//   You can submit a PA request as an exception.
+//   CRD link to the form
+//   Reference ID
+//   Session exits
+//   """
 
-Instance: ASLPCrd-Crd-3-2-Stub
-InstanceOf: CPGComputableActivityDefinition
-Usage: #example
-* insert CpgCommonProperties
-* insert CpgIdentifier(ASLPCrd-Crd-3-2-Stub)
+// Instance: ASLPCrd-Crd-3-2-Stub
+// InstanceOf: CPGComputableActivityDefinition
+// Usage: #example
+// * insert CpgCommonProperties
+// * insert CpgIdentifier(ASLPCrd-Crd-3-2-Stub)
 
-* kind = #CommunicationRequest
-* profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
-* description = """
-  Additional requirements disclosure (if any).
-  PA is required.
-  CRD link to the form
-  Reference ID
-  Session exits
-  """
+// * kind = #CommunicationRequest
+// * profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
+// * description = """
+//   Additional requirements disclosure (if any).
+//   PA is required.
+//   CRD link to the form
+//   Reference ID
+//   Session exits
+//   """
 
-Instance: ASLPCrd-Crd-4-Stub
-InstanceOf: CPGComputableActivityDefinition
-Usage: #example
-* insert CpgCommonProperties
-* insert CpgIdentifier(ASLPCrd-Crd-4-Stub)
+// Instance: ASLPCrd-Crd-4-Stub
+// InstanceOf: CPGComputableActivityDefinition
+// Usage: #example
+// * insert CpgCommonProperties
+// * insert CpgIdentifier(ASLPCrd-Crd-4-Stub)
 
-* kind = #CommunicationRequest
-* profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
-* description = """
-  Provider is Gold Card.
-  PA is not required for this service.
-  Reference ID
-  Session exits
-  """
+// * kind = #CommunicationRequest
+// * profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
+// * description = """
+//   Provider is Gold Card.
+//   PA is not required for this service.
+//   Reference ID
+//   Session exits
+//   """
 
-Instance: ASLPCrd-Crd-7-Stub
-InstanceOf: CPGComputableActivityDefinition
-Usage: #example
-* insert CpgCommonProperties
-* insert CpgIdentifier(ASLPCrd-Crd-7-Stub)
+// Instance: ASLPCrd-Crd-7-Stub
+// InstanceOf: CPGComputableActivityDefinition
+// Usage: #example
+// * insert CpgCommonProperties
+// * insert CpgIdentifier(ASLPCrd-Crd-7-Stub)
 
-* kind = #CommunicationRequest
-* profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
-* description = """
-  Routine service code.
-  PA is not required for this service.
-  Bypass to order, scheduling, or referral
-  """
+// * kind = #CommunicationRequest
+// * profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
+// * description = """
+//   Routine service code.
+//   PA is not required for this service.
+//   Bypass to order, scheduling, or referral
+//   """
 
-Instance: ASLPCrd-Crd-6-Stub
-InstanceOf: CPGComputableActivityDefinition
-Usage: #example
-* insert CpgCommonProperties
-* insert CpgIdentifier(ASLPCrd-Crd-6-Stub)
+// Instance: ASLPCrd-Crd-6-Stub
+// InstanceOf: CPGComputableActivityDefinition
+// Usage: #example
+// * insert CpgCommonProperties
+// * insert CpgIdentifier(ASLPCrd-Crd-6-Stub)
 
-* kind = #CommunicationRequest
-* profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
-* description = """
-  Code not found please contact the payer for further information.
-  Reference ID
-  Session exits
-  """
+// * kind = #CommunicationRequest
+// * profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
+// * description = """
+//   Code not found please contact the payer for further information.
+//   Reference ID
+//   Session exits
+//   """
 
-Instance: ASLPCrd-Crd-5-Stub
-InstanceOf: CPGComputableActivityDefinition
-Usage: #example
-* insert CpgCommonProperties
-* insert CpgIdentifier(ASLPCrd-Crd-5-Stub)
+// Instance: ASLPCrd-Crd-5-Stub
+// InstanceOf: CPGComputableActivityDefinition
+// Usage: #example
+// * insert CpgCommonProperties
+// * insert CpgIdentifier(ASLPCrd-Crd-5-Stub)
 
-* kind = #CommunicationRequest
-* profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
-* description = """
-  Prior authorization is required.
-  [Additional requiremets/disclaimer.]
-  CRD link to the form
-  Reference ID
-  Session exits
-  """
+// * kind = #CommunicationRequest
+// * profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest"
+// * description = """
+//   Prior authorization is required.
+//   [Additional requiremets/disclaimer.]
+//   CRD link to the form
+//   Reference ID
+//   Session exits
+//   """
 
 Instance: ASLPCrd-CdsHook
 InstanceOf: CPGComputablePlanDefinition
@@ -226,12 +226,20 @@ Usage: #example
   * insert ActionConditionCql("Is MemberEligible")
   * title = "Member Eligible"
   * description = "Member Eligible"
-  * definitionCanonical = Canonical(ASLPCrd-ProviderNpiMatch)
+  * definitionCanonical = Canonical(ASLPCrd-OrderLOBMatch)
 * action[+]
   * insert ActionConditionCql("Not MemberEligible")
   * title = "Not Member Eligible"
   * description = "Not Member Eligible"
-  * definitionCanonical = Canonical(ASLPCrd-Crd-2-Stub)
+  * dynamicValue[+]
+    * path = "title"
+    * insert ExpressionCql("Title")
+  * dynamicValue[+]
+    * path = "description"
+    * insert ExpressionCql("Description")
+  * dynamicValue[+]
+    * path = "extension"
+    * insert ExpressionCql("CoverageExtension")
 
 Instance: ASLPCrd-ProviderNpiMatch
 InstanceOf: CPGComputablePlanDefinition
@@ -246,12 +254,20 @@ Usage: #example
   * insert ActionConditionCql("Is ProviderNpiMatch")
   * title = "Provider Npi Match"
   * description = "Provider Npi Match"
-  * definitionCanonical = Canonical(ASLPCrd-OrderLOBMatch)
+  * definitionCanonical = Canonical(ASLPCrd-OrderGoldStatus)
 * action[+]
   * insert ActionConditionCql("Not ProviderNpiMatch")
   * title = "Not Provider Npi Match"
   * description = "Not Provider Npi Match"
-  * definitionCanonical = Canonical(ASLPCrd-Crd-3-1-Stub)
+  * dynamicValue[+]
+    * path = "title"
+    * insert ExpressionCql("Title")
+  * dynamicValue[+]
+    * path = "description"
+    * insert ExpressionCql("Description")
+  * dynamicValue[+]
+    * path = "extension"
+    * insert ExpressionCql("CoverageExtension")
 
 Instance: ASLPCrd-OrderLOBMatch
 InstanceOf: CPGComputablePlanDefinition
@@ -266,12 +282,20 @@ Usage: #example
   * insert ActionConditionCql("Is OrderLOBMatch")
   * title = "Order LOB Match"
   * description = "Order LOB Match"
-  * definitionCanonical = Canonical(ASLPCrd-OrderGoldStatus)
+  * definitionCanonical = Canonical(ASLPCrd-ProviderNpiMatch)
 * action[+]
   * insert ActionConditionCql("Not OrderLOBMatch")
   * title = "Not Order LOB Match"
   * description = "Not Order LOB Match"
-  * definitionCanonical = Canonical(ASLPCrd-Crd-3-2-Stub)
+  * dynamicValue[+]
+    * path = "title"
+    * insert ExpressionCql("Title")
+  * dynamicValue[+]
+    * path = "description"
+    * insert ExpressionCql("Description")
+  * dynamicValue[+]
+    * path = "extension"
+    * insert ExpressionCql("CoverageExtension")
 
 Instance: ASLPCrd-OrderGoldStatus
 InstanceOf: CPGComputablePlanDefinition
@@ -286,7 +310,15 @@ Usage: #example
   * insert ActionConditionCql("Is OrderGoldStatus")
   * title = "Order Gold Status"
   * description = "Order Gold Status"
-  * definitionCanonical = Canonical(ASLPCrd-Crd-4-Stub)
+  * dynamicValue[+]
+    * path = "title"
+    * insert ExpressionCql("Title")
+  * dynamicValue[+]
+    * path = "description"
+    * insert ExpressionCql("Description")
+  * dynamicValue[+]
+    * path = "extension"
+    * insert ExpressionCql("CoverageExtension")
 * action[+]
   * insert ActionConditionCql("Not OrderGoldStatus")
   * title = "Not Order Gold Status"
@@ -306,7 +338,15 @@ Usage: #example
   * insert ActionConditionCql("Is Routine")
   * title = "Routine"
   * description = "Routine"
-  * definitionCanonical = Canonical(ASLPCrd-Crd-7-Stub)
+  * dynamicValue[+]
+    * path = "title"
+    * insert ExpressionCql("Title")
+  * dynamicValue[+]
+    * path = "description"
+    * insert ExpressionCql("Description")
+  * dynamicValue[+]
+    * path = "extension"
+    * insert ExpressionCql("CoverageExtension")
 * action[+]
   * insert ActionConditionCql("Not Routine")
   * title = "Not Routine"
@@ -326,9 +366,25 @@ Usage: #example
   * insert ActionConditionCql("Is OnPriorAuthList")
   * title = "On Prior Auth List"
   * description = "On Prior Auth List"
-  * definitionCanonical = Canonical(ASLPCrd-Crd-5-Stub)
+  * dynamicValue[+]
+    * path = "title"
+    * insert ExpressionCql("Title")
+  * dynamicValue[+]
+    * path = "description"
+    * insert ExpressionCql("Description")
+  * dynamicValue[+]
+    * path = "extension"
+    * insert ExpressionCql("CoverageExtension")
 * action[+]
   * insert ActionConditionCql("Not OnPriorAuthList")
   * title = "Not On Prior Auth List"
   * description = "Not On Prior Auth List"
-  * definitionCanonical = Canonical(ASLPCrd-Crd-6-Stub)
+  * dynamicValue[+]
+    * path = "title"
+    * insert ExpressionCql("Title-NotFound")
+  * dynamicValue[+]
+    * path = "description"
+    * insert ExpressionCql("Description-NotFound")
+  * dynamicValue[+]
+    * path = "extension"
+    * insert ExpressionCql("CoverageExtension-NotFound")

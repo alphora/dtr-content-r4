@@ -82,7 +82,7 @@
       ],
       "title": "Provider Npi Match",
       "description": "Provider Npi Match",
-      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-OrderLOBMatch"
+      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-OrderGoldStatus"
     },
     {
       "condition": [
@@ -96,7 +96,29 @@
       ],
       "title": "Not Provider Npi Match",
       "description": "Not Provider Npi Match",
-      "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCrd-Crd-3-1-Stub"
+      "dynamicValue": [
+        {
+          "path": "title",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Title"
+          }
+        },
+        {
+          "path": "description",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Description"
+          }
+        },
+        {
+          "path": "extension",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "CoverageExtension"
+          }
+        }
+      ]
     }
   ]
 }

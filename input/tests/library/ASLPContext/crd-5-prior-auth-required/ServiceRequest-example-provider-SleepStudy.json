@@ -1,0 +1,33 @@
+{
+    "resourceType": "ServiceRequest",
+    "meta": {
+        "profile": [
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-sleep-study-order",
+            "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-servicerequest"
+        ]
+    },
+    "id": "crd-5-prior-auth-required-SleepStudy",
+    "status": "draft",
+    "intent": "order",
+    "code": {
+        "coding": [
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "84591",
+                "display": "Pathology Test"
+            }
+        ],
+        "text": "Pathology Test"
+    },
+    "subject": {
+        "reference": "Patient/crd-5-prior-auth-required"
+    },
+    "requester": {
+        "reference": "Practitioner/crd-5-prior-auth-required-provider-Practitioner-1"
+    },
+    "performer": [{
+        "reference": "Practitioner/crd-5-prior-auth-required-provider-Practitioner-2"
+    }],
+    "authoredOn": "2023-04-06",
+    "occurrenceDateTime": "2023-04-10"
+}

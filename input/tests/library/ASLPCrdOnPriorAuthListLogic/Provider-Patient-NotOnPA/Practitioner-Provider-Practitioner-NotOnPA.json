@@ -1,0 +1,49 @@
+{
+  "resourceType": "Practitioner",
+  "id": "Provider-Practitioner-NotOnPA",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+    ]
+  },
+  "identifier": [
+    {
+      "system": "http://hl7.org/fhir/sid/us-npi",
+      "value": "5647382910"
+    }
+  ],
+  "name": [
+    {
+      "family": "Graham",
+      "given": [
+        "Audrey"
+      ],
+      "prefix": [
+        "DR."
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "901-321-7654"
+    }
+  ],
+  "address": [
+    {
+      "use": "work",
+      "line": [
+        "20 Degrassi st"
+      ],
+      "city": "Memphis",
+      "state": "TN",
+      "postalCode": "37501",
+      "period": {
+        "start": "2011-06-01"
+      }
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1986-10-24",
+  "active": true
+}

@@ -8,6 +8,7 @@
     }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/Library/ASLPConcepts",
+  "version": "0.1.0",
   "name": "ASLPConcepts",
   "relatedArtifact": [ {
     "type": "depends-on",
