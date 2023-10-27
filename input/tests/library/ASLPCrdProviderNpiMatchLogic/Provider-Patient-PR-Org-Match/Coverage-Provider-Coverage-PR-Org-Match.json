@@ -1,0 +1,68 @@
+{
+  "resourceType": "Coverage",
+  "id": "Provider-Coverage-PR-Org-Match",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/davinci-crd/StructureDefinition/profile-coverage"
+    ],
+    "tag": [
+      {
+        "code": "prov",
+        "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+        "display": "Provider"
+      }
+    ]
+  },
+  "status": "active",
+  "identifier": [
+    {
+      "system": "http://acme.org/fhir-ns/payor-coverage-identifier-system",
+      "value": "1213"
+    }
+  ],
+  "type": {
+    "coding": [
+      {
+        "code": "EHCPOL",
+        "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+        "display": "Extended Healthcare"
+      }
+    ]
+  },
+  "subscriber": {
+    "reference": "RelatedPerson/Payor-Patient-PR-Org-Match"
+  },
+  "subscriberId": "Provider-Patient-PR-Org-Match",
+  "beneficiary": {
+    "reference": "Patient/Provider-Patient-PR-Org-Match"
+  },
+  "relationship": {
+    "coding": [
+      {
+        "code": "self",
+        "system": "http://terminology.hl7.org/CodeSystem/subscriber-relationship",
+        "display": "Self"
+      }
+    ]
+  },
+  "payor": [
+    {
+      "reference": "Organization/Provider-Insurance-PR-Org-Match"
+    }
+  ],
+  "class": [
+    {
+      "type": {
+        "coding": [
+          {
+            "code": "plan",
+            "system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+            "display": "Plan"
+          }
+        ]
+      },
+      "value": "IP",
+      "name": "Insurance Plan"
+    }
+  ]
+}

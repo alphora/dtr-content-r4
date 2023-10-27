@@ -1,0 +1,34 @@
+{
+  "resourceType": "ServiceRequest",
+  "id": "PR-Org-Match-SleepStudy",
+  "status": "draft",
+  "intent": "order",
+  "code": {
+    "coding": [
+      {
+        "code": "93010",
+        "system": "http://www.ama-assn.org/go/cpt",
+        "display": "ELECTROCARDIOGRAM REPORT"
+      }
+    ],
+    "text": "ELECTROCARDIOGRAM REPORT"
+  },
+  "subject": {
+    "reference": "Patient/Provider-Patient-PR-Org-Match"
+  },
+  "authoredOn": "2023-03-23",
+  "reasonReference": [
+    {
+      "reference": "Condition/Sleep-Apnea-PR-Org-Match"
+    }
+  ],
+  "requester": {
+    "reference": "PractitionerRole/Provider-PractitionerRole-PR-Org-Match-1"
+  },
+  "performer": [
+    {
+      "reference": "PractitionerRole/Provider-PractitionerRole-PR-Org-Match-1"
+    }
+  ],
+  "occurrenceDateTime": "2023-08-12T10:10:10-01:00"
+}

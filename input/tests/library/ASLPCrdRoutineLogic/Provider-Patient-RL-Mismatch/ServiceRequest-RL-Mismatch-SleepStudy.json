@@ -1,0 +1,34 @@
+{
+  "resourceType": "ServiceRequest",
+  "id": "RL-Mismatch-SleepStudy",
+  "status": "draft",
+  "intent": "order",
+  "code": {
+    "coding": [
+        {
+            "system": "urn:oid:2.16.840.1.113883.6.285",
+            "code": "G0122",
+            "display": "Colorectal cancer screening; barium enema"
+        }
+    ],
+    "text": "Colorectal cancer screening; barium enema"
+  },
+  "subject": {
+    "reference": "Patient/Provider-Patient-RL-Mismatch"
+  },
+  "authoredOn": "2023-03-23",
+  "reasonReference": [
+    {
+      "reference": "Condition/Sleep-Apnea-RL-Mismatch"
+    }
+  ],
+  "requester": {
+    "reference": "PractitionerRole/Provider-PractitionerRole-RL-Mismatch"
+  },
+  "performer": [
+    {
+      "reference": "PractitionerRole/Provider-PractitionerRole-RL-Mismatch"
+    }
+  ],
+  "occurrenceDateTime": "2023-08-12T10:10:10-01:00"
+}

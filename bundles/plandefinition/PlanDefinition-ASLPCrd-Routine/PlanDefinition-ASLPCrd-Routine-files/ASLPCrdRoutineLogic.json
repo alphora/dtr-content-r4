@@ -32,21 +32,25 @@
     "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo"
   }, {
     "type": "depends-on",
+    "display": "Code system Payor Identifier CodeSystem",
+    "resource": "http://terminology.hl7.org/CodeSystem/organization-type"
+  }, {
+    "type": "depends-on",
     "display": "Value set Routine Procedure Valueset",
     "resource": "http://terminology.smilecdr.com/cs/routine"
   } ],
   "parameter": [ {
-    "name": "Service Request",
-    "use": "in",
-    "min": 0,
-    "max": "1",
-    "type": "ServiceRequest"
-  }, {
     "name": "Service Request Id",
     "use": "in",
     "min": 0,
     "max": "1",
     "type": "string"
+  }, {
+    "name": "Service Request",
+    "use": "in",
+    "min": 0,
+    "max": "1",
+    "type": "ServiceRequest"
   }, {
     "name": "Request Id",
     "use": "in",
@@ -120,6 +124,18 @@
   }, {
     "profile": [ "urn:hl7-org:elm-types:r1/Code" ],
     "mustSupport": [ "display" ]
+  }, {
+    "type": "Coverage",
+    "profile": [ "http://hl7.org/fhir/StructureDefinition/Coverage" ]
+  }, {
+    "type": "Practitioner",
+    "profile": [ "http://hl7.org/fhir/StructureDefinition/Practitioner" ]
+  }, {
+    "type": "PractitionerRole",
+    "profile": [ "http://hl7.org/fhir/StructureDefinition/PractitionerRole" ]
+  }, {
+    "type": "Organization",
+    "profile": [ "http://hl7.org/fhir/StructureDefinition/Organization" ]
   }, {
     "type": "Coverage",
     "profile": [ "http://hl7.org/fhir/Coverage" ],
