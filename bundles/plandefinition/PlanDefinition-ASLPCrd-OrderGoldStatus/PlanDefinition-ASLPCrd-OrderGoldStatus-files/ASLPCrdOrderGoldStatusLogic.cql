@@ -12,25 +12,28 @@ context Patient
 
 // CRD-4
 define "Title":
-  'Provider is Gold Carded'
+  'Prior Auth Evaluation'
 
 // CRD-4
 define "Description":
-  '- Ordering Provider has Gold Card status for this service.' + Ctx."NewLine" +
-  '- Provider Order ' + Ctx."Service Request Item ID" + '.' + Ctx.NewLine +
-  '- Prior Auth is Not Required.'
+  'Information related to whether a service is covered, not covered or requires prior auth submission'
+
+// CRD-4
+define "Detail Text":
+  'Provider is Gold Carded'
 
 // CRD-4
 define "Qualification":
-  'Ordering Practitioner has been granted \'gold card\' status with this payer/coverage type.'
+  'Ordering Practitioner has been granted \'gold card\' status with this payer/coverage type. Prior Auth is Not Required.'
 
 // CRD-4
 define "CoverageExtension":
-  Ctx."ExtensionPriorAuthNeeded"('covered', 'no-auth', 'gold-card', "Qualification", 'info')
+  Ctx."ExtensionPriorAuthNeeded"('covered', 'no-auth', 'gold-card', "Detail Text", "Qualification", 'info')
 
 define "Is OrderGoldStatus":
+  //false
   // TODO: Remove this in production environment
-  Ctx."Provider"."Patient".id.value ~ 'crd-4-gold-card'
+  EndsWith(Ctx."Provider"."Patient".id.value, 'gold-card')
 
 define "Not OrderGoldStatus":
   not ("Is OrderGoldStatus")

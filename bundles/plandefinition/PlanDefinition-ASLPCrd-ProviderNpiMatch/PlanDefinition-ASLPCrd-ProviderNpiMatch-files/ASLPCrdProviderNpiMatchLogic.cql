@@ -4,28 +4,31 @@ using FHIR version '4.0.1'
 // TODO: update to use USCore directly
 //using USCore version '3.1.1'
 
-include ASLPContext version '0.1.0' called Ctx
-include USCoreCommon version '0.1.0'
+include ASLPContext called Ctx
+include USCoreCommon
 include FHIRHelpers version '4.1.000'
  
 context Patient
 
 // CRD-3.1
 define "Title":
-  'Provider Not in Network'
+  'Prior Auth Evaluation'
 
 // CRD-3.1
 define "Description":
-  '- Provider is not in the network.' + Ctx."NewLine" +
-  '- You can submit a PA request as an exception.'
+  'Information related to whether a service is covered, not covered or requires prior auth submission'
 
 // CRD-3.1
 define "Qualification":
-  'Prior auth is required for: ' + Ctx."Service Request Item ID"
+  'Provider is not in the network. You can submit a PA request as an exception.'
+
+// CRD-3.1
+define "Detail Text":
+  'Provider Not in Network'
 
 // CRD-3.1
 define "CoverageExtension":
-  Ctx."ExtensionPriorAuthNeeded"('conditional', 'auth-needed', 'auth-needed', "Qualification", 'Warning')
+  Ctx."ExtensionPriorAuthNeeded"('conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification", 'Warning')
 
 //TODO: CHANGE THE function names to match the Org name & type logic
 define "Is ProviderNpiMatch":
@@ -42,11 +45,25 @@ define "Performing Organization Match":
 define "Not ProviderNpiMatch":
   not ("Is ProviderNpiMatch")
 
+// TODO: Need to investigate how to handle a ServiceRequest.requester as an Organization
+define "Requesting PractitionerRoles from ServiceRequest":
+  Ctx."Provider"."PractitionerRoles" PractitionerRole
+    with ({ Ctx."Service Request Item".requester }) RequesterPractitioner
+    such that RequesterPractitioner.reference.getId() ~ PractitionerRole.id.value
 
-define "Requesting Practitioners from Provider":
+define "Requesting Practitioners from PractitionerRoles":
+  Ctx."Provider"."Practitioners" Practitioner
+    with "Requesting PractitionerRoles from ServiceRequest" RequesterPractitionerRole
+    such that RequesterPractitionerRole.practitioner.reference.getId() ~ Practitioner.id.value
+
+define "Requesting Practitioners from ServiceRequest":
   Ctx."Provider"."Practitioners" Practitioner
     with ({ Ctx."Service Request Item".requester }) RequesterPractitioner
     such that RequesterPractitioner.reference.getId() ~ Practitioner.id.value
+
+define "Requesting Practitioners from Provider":
+  "Requesting Practitioners from ServiceRequest"
+    union "Requesting Practitioners from PractitionerRoles"
 
 define "Requesting Practitioners from Payor":
   Ctx."Payor"."Practitioners" Practitioner
@@ -113,12 +130,8 @@ define "Matching Performing Organizations by Name & Type or NPI":
       (PerformingOrganization.name ~ PayorOrg.name and PerformingOrganization.type ~ PayorOrg.type)
       or PerformingOrganization.getNpi() ~ PayorOrg.getNpi()
 
-define "Performing Practitioners NPIs":
-  "Performing Practitioners".npi() 
-    union "Performing Practitioners via PracitionerRoles".npi()
-
-define "Performing Organizations NPIs":
-  "Performing Organizations".npi()
+define "Payor References by Coverage.payor":
+  flatten(Ctx."Provider"."Coverages" C return C.payor.reference.value)
 
 define "Payor Organization from Provider Coverage for Patient":
   Ctx."Provider"."Organizations" O

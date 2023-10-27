@@ -14,20 +14,23 @@ context Patient
 
 // CRD-7
 define "Title":
-  'Prior Authorization Not Required'
+  'Prior Auth Evaluation'
 
 // CRD-7
 define "Description":
-  '- Order is covered.' + Ctx."NewLine" +
-  '- No prior auth is required for: ' + Ctx."Service Request Item Code".display + '.'
+  'Information related to whether a service is covered, not covered or requires prior auth submission' 
 
 // CRD-7
 define "Qualification":
-  'Prior auth is not required for: ' + Ctx."Service Request Item ID"
+  'Order is covered. No prior auth is required for ' + Ctx."Service Request Item Code".display + '.'
+
+// CRD-7
+define "Detail Text":
+  'Prior Authorization Not Required'
 
 // CRD-7
 define "CoverageExtension":
-  Ctx."ExtensionPriorAuthNeeded"('covered', 'no-auth', 'no-auth', "Qualification", 'info')
+  Ctx."ExtensionPriorAuthNeeded"('covered', 'no-auth', 'no-auth', "Detail Text", "Qualification", 'info')
 
 define "Is Routine":
   exists("Routine Service Requests")

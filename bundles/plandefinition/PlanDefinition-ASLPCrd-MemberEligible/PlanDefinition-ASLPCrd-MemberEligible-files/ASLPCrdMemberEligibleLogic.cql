@@ -12,20 +12,23 @@ context Patient
 
 // CRD-2
 define "Title":
-  'Member Not Found'
+  'Prior Auth Evaluation'
 
 // CRD-2
 define "Description":
-  '- The member cannot be found.' + Ctx."NewLine" +
-  '- You can submit a PA request as an exception.'
+  'Information related to whether a service is covered, not covered or requires prior auth submission'
+
+// CRD-2
+define "Detail Text":
+  'Member Not Found'
 
 // CRD-2
 define "Qualification":
-  'Prior auth is required for: ' + Ctx."Service Request Item ID"
+  'The member cannot be found. You can submit a PA request as an exception.'
 
 // CRD-2
 define "CoverageExtension":
-  Ctx."ExtensionPriorAuthNeeded"('conditional', 'auth-needed', 'auth-needed', "Qualification", 'Warning')
+  Ctx."ExtensionPriorAuthNeeded"('conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification", 'Warning')
 
 define "Is MemberEligible":
   "Last Name Match" and "DOB Match"
