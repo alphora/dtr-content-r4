@@ -25,11 +25,9 @@
     "requester": {
         "reference": "Practitioner/provider-Practitioner-1"
     },
-    "performer": [
-        {
-            "reference": "Practitioner/provider-Practitioner-2"
-        }
-    ],
+    "performer": [{
+        "reference": "Practitioner/provider-Practitioner-2"
+    }],
     "authoredOn": "2023-04-06",
     "occurrenceDateTime": "2023-04-10"
 }
