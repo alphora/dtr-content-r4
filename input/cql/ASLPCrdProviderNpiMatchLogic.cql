@@ -45,11 +45,25 @@ define "Performing Organization Match":
 define "Not ProviderNpiMatch":
   not ("Is ProviderNpiMatch")
 
+// TODO: Need to investigate how to handle a ServiceRequest.requester as an Organization
+define "Requesting PractitionerRoles from ServiceRequest":
+  Ctx."Provider"."PractitionerRoles" PractitionerRole
+    with ({ Ctx."Service Request Item".requester }) RequesterPractitioner
+    such that RequesterPractitioner.reference.getId() ~ PractitionerRole.id.value
 
-define "Requesting Practitioners from Provider":
+define "Requesting Practitioners from PractitionerRoles":
+  Ctx."Provider"."Practitioners" Practitioner
+    with "Requesting PractitionerRoles from ServiceRequest" RequesterPractitionerRole
+    such that RequesterPractitionerRole.practitioner.reference.getId() ~ Practitioner.id.value
+
+define "Requesting Practitioners from ServiceRequest":
   Ctx."Provider"."Practitioners" Practitioner
     with ({ Ctx."Service Request Item".requester }) RequesterPractitioner
     such that RequesterPractitioner.reference.getId() ~ Practitioner.id.value
+
+define "Requesting Practitioners from Provider":
+  "Requesting Practitioners from ServiceRequest"
+    union "Requesting Practitioners from PractitionerRoles"
 
 define "Requesting Practitioners from Payor":
   Ctx."Payor"."Practitioners" Practitioner
