@@ -56,7 +56,7 @@
     "reference": "Organization/Payor-Insurance-LN-Mismatch"
   },
   "practitioner": {
-    "reference": "Payor-Practitioner-LN-Mismatch",
+    "reference": "Practitioner/Payor-Practitioner-LN-Mismatch",
     "display": "Dr. Chris Pine"
   }
 }

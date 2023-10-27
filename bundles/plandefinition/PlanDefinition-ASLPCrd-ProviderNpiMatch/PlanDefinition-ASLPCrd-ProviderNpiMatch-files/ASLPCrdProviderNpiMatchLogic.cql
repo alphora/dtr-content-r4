@@ -4,8 +4,8 @@ using FHIR version '4.0.1'
 // TODO: update to use USCore directly
 //using USCore version '3.1.1'
 
-include ASLPContext called Ctx
-include USCoreCommon
+include ASLPContext version '0.1.0' called Ctx
+include USCoreCommon version '0.1.0'
 include FHIRHelpers version '4.1.000'
  
 context Patient
@@ -27,90 +27,91 @@ define "Qualification":
 define "CoverageExtension":
   Ctx."ExtensionPriorAuthNeeded"('conditional', 'auth-needed', 'auth-needed', "Qualification", 'Warning')
 
+//TODO: CHANGE THE function names to match the Org name & type logic
 define "Is ProviderNpiMatch":
-  "Requesting NPIs Match"
-    and "Performing NPIs Match"
+  "Requesting Organization Match"
+    and "Performing Organization Match"
 
-define "Requesting NPIs Match":
-  exists("Requesting NPIs")
-    and "Requesting NPIs" included in "Payor NPIs"
+define "Requesting Organization Match":
+  exists("Matching Requesting Organizations by Name & Type or NPI")
 
-define "Performing NPIs Match":
-  "Performing NPIs" included in "Payor NPIs"
+define "Performing Organization Match":
+  exists("Matching Performing Organizations by Name & Type or NPI")
+  or not exists("Performing Practitioners from Provider")
 
 define "Not ProviderNpiMatch":
   not ("Is ProviderNpiMatch")
 
-define "Payor NPIs":
-  (
-    "Payor Practitioners NPIs"
-      union "Payor Organizations NPIs"
-  ) NPI where not IsNull(NPI)
 
-define "Payor Practitioners NPIs":
-  Ctx."Payor"."Practitioners".npi()
-
-define "Payor Organizations NPIs":
-  Ctx."Payor"."Organizations".npi()
-
-define "Requesting Practitioners":
+define "Requesting Practitioners from Provider":
   Ctx."Provider"."Practitioners" Practitioner
     with ({ Ctx."Service Request Item".requester }) RequesterPractitioner
     such that RequesterPractitioner.reference.getId() ~ Practitioner.id.value
 
-define "Requesting PractitionerRoles":
-  Ctx."Provider"."PractitionerRoles" PractitionerRole
-    with ({ Ctx."Service Request Item".requester }) RequesterPractitionerRole
-    such that RequesterPractitionerRole.reference.getId() ~ PractitionerRole.id.value
+define "Requesting Practitioners from Payor":
+  Ctx."Payor"."Practitioners" Practitioner
+    with "Requesting Practitioners from Provider" PractitionerRequester
+    such that PractitionerRequester.getNpi() ~ Practitioner.getNpi()
 
-define "Requesting Practitioners via PracitionerRoles":
-  Ctx."Provider"."Practitioners" Practitioner
-    with "Requesting PractitionerRoles" PractitionerRole
-    such that PractitionerRole.practitioner.reference.getId() ~ Practitioner.id.value
+define "Requesting PractitionerRoles":
+  Ctx."Payor"."PractitionerRoles" PractitionerRole
+    with "Requesting Practitioners from Payor" RequesterPractitioner
+    such that PractitionerRole.practitioner.reference.getId() ~ RequesterPractitioner.id.value
+
+define "Requesting Organizations associated with a PracitionerRole":
+  Ctx."Payor"."Organizations" Organization
+    with "Requesting PractitionerRoles" RequestPractRole
+    such that RequestPractRole.organization.reference.getId() ~ Organization.id.value
 
 define "Requesting Organizations":
-  Ctx."Provider"."Organizations" Organization
-    with ({ Ctx."Service Request Item".requester }) RequesterOrganization
-    such that RequesterOrganization.reference.getId() ~ Organization.id.value
+  "Requesting Organizations associated with a PracitionerRole"
 
-define "Requesting Practitioners NPIs":
-  "Requesting Practitioners".npi()
-    union "Requesting Practitioners via PracitionerRoles".npi()
+define "Matching Requesting Organizations by Name & Type or NPI":
+ "Requesting Organizations" RequestingOrganization
+    with "Payor Organization from Provider Coverage for Patient" PayorOrg
+    such that 
+      (RequestingOrganization.name ~ PayorOrg.name and RequestingOrganization.type ~ PayorOrg.type)
+      or RequestingOrganization.getNpi() ~ PayorOrg.getNpi()
 
-define "Requesting Organizations NPIs":
-  "Requesting Organizations".npi()
-
-define "Requesting NPIs":
-  (
-    "Requesting Practitioners NPIs"
-      union "Requesting Organizations NPIs"
-  ) NPI where not IsNull(NPI)
-    
-define "Performing Practitioners":
+define "Performing Practitioners from Provider":
   Ctx."Provider"."Practitioners" Practitioner
     with Ctx."Service Request Item".performer PractitionerPerformer
     such that PractitionerPerformer.reference.getId() ~ Practitioner.id.value
 
-define "Performing PractitionerRoles":
-  Ctx."Provider"."PractitionerRoles" PractitionerRole
-    with Ctx."Service Request Item".performer PractitionerPerformerRole
-    such that PractitionerPerformerRole.reference.getId() ~ PractitionerRole.id.value
+define "Performing Practitioners from Payor":
+  Ctx."Payor"."Practitioners" Practitioner
+    with "Performing Practitioners from Provider" PractitionerPerformer
+    such that PractitionerPerformer.getNpi() ~ Practitioner.getNpi()
+
+define "Performing PractitionerRoles from Payor":
+  Ctx."Payor"."PractitionerRoles" PractitionerRole
+    with "Performing Practitioners from Payor" Practitioner
+    such that PractitionerRole.practitioner.reference.getId() ~ Practitioner.id.value
 
 define "Performing Practitioners via PracitionerRoles":
   Ctx."Provider"."Practitioners" Practitioner
-    with "Performing PractitionerRoles" PractitionerRole
+    with "Performing PractitionerRoles from Payor" PractitionerRole
     such that PractitionerRole.practitioner.reference.getId() ~ Practitioner.id.value
+    
+define "Payor Organization via Performing PracitionerRole":
+  Ctx."Payor"."Organizations" Organization
+    with "Performing PractitionerRoles from Payor" PractitionerRole
+    such that PractitionerRole.organization.reference.getId() ~ Organization.id.value
+
+define "Performing Organizations associated with a PracitionerRole":
+  Ctx."Payor"."Organizations" Organization
+  with "Performing PractitionerRoles from Payor" PractitionerRole
+  such that PractitionerRole.organization.reference.getId() ~ Organization.id.value
 
 define "Performing Organizations":
-  Ctx."Provider"."Organizations" Organization
-    with Ctx."Service Request Item".performer PractitionerOrganization
-    such that PractitionerOrganization.reference.getId() ~ Organization.id.value
+  "Performing Organizations associated with a PracitionerRole"
 
-// TODO: ensure this is correct
-define "Performing Organizations associated with PractitionerRoles":
-  Ctx."Provider"."Organizations" Organization
-    with "Performing PractitionerRoles" PractitionerRole
-    such that PractitionerRole.organization.reference.getId() ~ Organization.id.value
+define "Matching Performing Organizations by Name & Type or NPI":
+  "Performing Organizations" PerformingOrganization
+    with "Payor Organization from Provider Coverage for Patient" PayorOrg
+    such that 
+      (PerformingOrganization.name ~ PayorOrg.name and PerformingOrganization.type ~ PayorOrg.type)
+      or PerformingOrganization.getNpi() ~ PayorOrg.getNpi()
 
 define "Performing Practitioners NPIs":
   "Performing Practitioners".npi() 
@@ -118,10 +119,8 @@ define "Performing Practitioners NPIs":
 
 define "Performing Organizations NPIs":
   "Performing Organizations".npi()
-    union "Performing Organizations associated with PractitionerRoles".npi()
 
-define "Performing NPIs":
-  (
-    "Performing Practitioners NPIs"
-      union "Performing Organizations NPIs"
-  ) NPI where not IsNull(NPI)
+define "Payor Organization from Provider Coverage for Patient":
+  Ctx."Provider"."Organizations" O
+    with "Payor References by Coverage.payor" R
+    such that R.getId() = O.id.value

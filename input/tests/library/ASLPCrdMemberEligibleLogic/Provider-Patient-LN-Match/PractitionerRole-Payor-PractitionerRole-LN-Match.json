@@ -56,7 +56,7 @@
     "reference": "Organization/Payor-Insurance-LN-Match"
   },
   "practitioner": {
-    "reference": "Payor-Practitioner-LN-Match",
+    "reference": "Practitioner/Payor-Practitioner-LN-Match",
     "display": "Dr. Chris Pine"
   }
 }

@@ -1,0 +1,57 @@
+{
+  "resourceType": "Practitioner",
+  "id": "Payor-Practitioner-GS-Match",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/Practitioner"
+    ],
+    "tag": [
+      {
+        "code": "pay",
+        "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+        "display": "Payor"
+      }
+    ]
+  },
+  "identifier": [
+    {
+      "system": "http://hl7.org.fhir/sid/us-npi",
+      "value": "6677889932"
+    }
+  ],
+  "name": [
+    {
+      "family": "Sawyer",
+      "given": [
+        "Payton"
+      ],
+      "prefix": [
+        "DR."
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "(237) 001 0022"
+    }
+  ],
+  "address": [
+    {
+      "use": "work",
+      "type": "both",
+      "line": [
+        "107 First Av"
+      ],
+      "city": "New York",
+      "state": "NY",
+      "postalCode": "10019",
+      "period": {
+        "start": "2010-10-10"
+      }
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1979-04-17",
+  "active": true
+}
