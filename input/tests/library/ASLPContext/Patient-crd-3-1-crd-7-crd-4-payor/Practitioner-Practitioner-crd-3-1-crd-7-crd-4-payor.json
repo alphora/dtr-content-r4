@@ -1,0 +1,56 @@
+{
+  "resourceType": "Practitioner",
+  "id": "Practitioner-crd-3-1-crd-7-crd-4-payor",
+  "meta": {
+    "tag": [
+      {
+        "code": "pay",
+        "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+        "display": "Payor"
+      }
+    ],
+    "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+    ]
+  },
+  "identifier": [
+    {
+      "system": "http://hl7.org/fhir/sid/us-npi",
+      "value": "0000000001"
+    }
+  ],
+  "name": [
+    {
+      "family": "Simpson",
+      "given": [
+        "Marge"
+      ],
+      "prefix": [
+        "DR."
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "901-783-2901"
+    }
+  ],
+  "address": [
+    {
+      "use": "work",
+      "line": [
+        "20 Hollywood ave"
+      ],
+      "city": "Los Angeles",
+      "state": "CA",
+      "postalCode": "90210",
+      "period": {
+        "start": "2017-06-11"
+      }
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1966-07-24",
+  "active": true
+}

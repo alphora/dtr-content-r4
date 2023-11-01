@@ -1,0 +1,34 @@
+{
+  "resourceType": "ServiceRequest",
+  "id": "SR2-crd-5-crd-7-SleepStudy",
+  "status": "draft",
+  "intent": "order",
+  "code": {
+    "coding": [
+      {
+        "code": "80053",
+        "system": "http://www.ama-assn.org/go/cpt",
+        "display": "Comprehensive Metabolic Panel"
+      }
+    ],
+    "text": "Comprehensive Metabolic Panel"
+  },
+  "subject": {
+    "reference": "Patient/Patient-crd-5-crd-7-provider"
+  },
+  "authoredOn": "2023-09-23",
+  "reasonReference": [
+    {
+      "reference": "Condition/Sleep-Apnea-P5"
+    }
+  ],
+  "requester": {
+    "reference": "PractitionerRole/PracRole-crd-5-crd-7-provider"
+  },
+  "performer": [
+    {
+      "reference": "PractitionerRole/PracRole-crd-5-crd-7-provider"
+    }
+  ],
+  "occurrenceDateTime": "2023-08-12T10:10:10-01:00"
+}
