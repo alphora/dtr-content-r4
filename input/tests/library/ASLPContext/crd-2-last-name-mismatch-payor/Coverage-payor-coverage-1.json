@@ -1,6 +1,6 @@
 {
   "resourceType": "Coverage",
-  "id": "crd-4-gold-card-payor-coverage-1",
+  "id": "crd-2-last-name-mismatch-payor-coverage-1",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/us/davinci-crd/StructureDefinition/profile-coverage"
@@ -17,11 +17,11 @@
   ],
   "status": "active",
   "beneficiary": {
-    "reference": "Patient/crd-4-gold-card"
+    "reference": "Patient/crd-2-last-name-mismatch-payor"
   },
   "payor": [
     {
-      "reference": "Organization/crd-4-gold-card-payor-NYS-Medicaid"
+      "reference": "Organization/crd-2-last-name-mismatch-payor-NYS-Medicaid"
     }
   ]
 }

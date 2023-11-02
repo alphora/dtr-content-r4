@@ -17,7 +17,7 @@
   ],
   "status": "active",
   "beneficiary": {
-    "reference": "Patient/crd-7-routine-code"
+    "reference": "Patient/crd-7-routine-code-payor"
   },
   "payor": [
     {

@@ -1,6 +1,6 @@
 {
   "resourceType": "Coverage",
-  "id": "crd-6-prior-auth-code-not-found-payor-coverage-1",
+  "id": "crd-5-prior-auth-required-payor-coverage-1",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/us/davinci-crd/StructureDefinition/profile-coverage"
@@ -17,11 +17,11 @@
   ],
   "status": "active",
   "beneficiary": {
-    "reference": "Patient/crd-6-prior-auth-code-not-found"
+    "reference": "Patient/crd-5-prior-auth-required-payor"
   },
   "payor": [
     {
-      "reference": "Organization/crd-6-prior-auth-code-not-found-payor-NYS-Medicaid"
+      "reference": "Organization/crd-5-prior-auth-required-payor-NYS-Medicaid"
     }
   ]
 }

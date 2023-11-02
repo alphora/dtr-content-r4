@@ -17,7 +17,7 @@
   ],
   "status": "active",
   "beneficiary": {
-    "reference": "Patient/crd-3-1-req-npi-missing"
+    "reference": "Patient/crd-3-1-req-npi-missing-payor"
   },
   "payor": [
     {

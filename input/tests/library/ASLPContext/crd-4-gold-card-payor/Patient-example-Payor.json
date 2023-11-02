@@ -1,6 +1,6 @@
 {
   "resourceType": "Patient",
-  "id": "crd-2-dob-mismatch-payor",
+  "id": "crd-4-gold-card-payor",
   "meta": {
     "tag": [
       { "system": "http://terminology.hl7.org/CodeSystem/organization-type", "code": "pay" }
@@ -9,11 +9,11 @@
   "name": [
     {
       "use": "official",
-      "family": "Chalmers",
+      "family": "Other",
       "given": [
         "Peter"
       ]
     }
   ],
-  "birthDate": "1974-12-26"
+  "birthDate": "1974-12-25"
 }

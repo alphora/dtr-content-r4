@@ -17,7 +17,7 @@
   ],
   "status": "active",
   "beneficiary": {
-    "reference": "crd-2-dob-mismatch-example-payor"
+    "reference": "crd-2-dob-mismatch-payor"
   },
   "payor": [
     {
