@@ -3,15 +3,15 @@
   "id": "SR2-rc-match-SleepStudy",
   "status": "draft",
   "intent": "order",
-  "code": {
-    "coding": [
-      {
-        "system": "urn:oid:2.16.840.1.113883.6.285",
-        "code": "E0601",
-        "display": "CPAP Machine"
-    }
-    ],
-    "text": "CPAP Machine"
+    "code": {
+      "coding": [
+          {
+              "system": "http://www.ama-assn.org/go/cpt",
+              "code": "93010",
+              "display": "ELECTROCARDIOGRAM REPORT"
+          }
+      ],
+      "text": "ELECTROCARDIOGRAM REPORT"
   },
   "subject": {
     "reference": "Patient/Patient-rc-match-provider"

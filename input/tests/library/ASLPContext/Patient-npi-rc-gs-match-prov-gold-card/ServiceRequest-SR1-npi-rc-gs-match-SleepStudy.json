@@ -5,13 +5,13 @@
   "intent": "order",
   "code": {
     "coding": [
-      {
-        "code": "28633-6",
-        "system": "http://loinc.org",
-        "display": "Polysomnography (Sleep study)"
-      }
+        {
+            "system": "http://www.ama-assn.org/go/cpt",
+            "code": "80053",
+            "display": "Comprehensive Metabolic Panel"
+        }
     ],
-    "text": "Polysomnography (Sleep study)"
+    "text": "Comprehensive Metabolic Panel"
   },
   "subject": {
     "reference": "Patient/Patient-npi-rc-gs-match-prov-gold-card"

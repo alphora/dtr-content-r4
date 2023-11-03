@@ -1,17 +1,17 @@
 {
   "resourceType": "ServiceRequest",
-  "id": "SR1-npi-rc-gs-match-SleepStudy",
+  "id": "SR2-npi-rc-gs-mismatch-SleepStudy",
   "status": "draft",
   "intent": "order",
   "code": {
     "coding": [
       {
-        "code": "28633-6",
-        "system": "http://loinc.org",
-        "display": "Polysomnography (Sleep study)"
+        "code": "G0122",
+        "system": "urn:oid:2.16.840.1.113883.6.285",
+        "display": "Colorectal cancer screening; barium enema"
       }
     ],
-    "text": "Polysomnography (Sleep study)"
+    "text": "Colorectal cancer screening; barium enema"
   },
   "subject": {
     "reference": "Patient/Patient-npi-rc-gs-mismatch-prov"

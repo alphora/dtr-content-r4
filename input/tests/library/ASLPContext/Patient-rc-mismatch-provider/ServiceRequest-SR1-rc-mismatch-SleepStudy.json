@@ -5,13 +5,12 @@
   "intent": "order",
   "code": {
     "coding": [
-        {
-            "system": "http://www.ama-assn.org/go/cpt",
-            "code": "84591",
-            "display": "Pathology Test"
-        }
-    ],
-    "text": "Pathology Test"
+      {
+        "code": "28633-6",
+        "system": "http://loinc.org",
+        "display": "Polysomnography (Sleep study)"
+      }
+    ]
   },
   "subject": {
     "reference": "Patient/Patient-rc-mismatch-provider"
