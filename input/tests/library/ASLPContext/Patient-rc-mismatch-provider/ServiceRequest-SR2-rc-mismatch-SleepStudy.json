@@ -3,16 +3,16 @@
   "id": "SR2-rc-mismatch-SleepStudy",
   "status": "draft",
   "intent": "order",
-"code": {
-  "coding": [
-      {
-          "system": "urn:oid:2.16.840.1.113883.6.285",
-          "code": "G0122",
-          "display": "Colorectal cancer screening; barium enema"
-      }
-  ],
-  "text": "Colorectal cancer screening; barium enema"
-},
+  "code": {
+    "coding": [
+        {
+            "system": "urn:oid:2.16.840.1.113883.6.285",
+            "code": "G0122",
+            "display": "Colorectal cancer screening; barium enema"
+        }
+    ],
+    "text": "Colorectal cancer screening; barium enema"
+  },
   "subject": {
     "reference": "Patient/Patient-rc-mismatch-provider"
   },
