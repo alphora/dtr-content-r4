@@ -9,7 +9,7 @@ include FHIRHelpers version '4.1.000'
 context Patient
 
 define "Is Prior Auth Required":
-    "Is Sleep Study Service Request" and "Has Comorbidities"
+  "Is Sleep Study Service Request" and "Has Comorbidities"
 
 define "Has Comorbidities":
  Dx."History of Diabetes" or Dx."History of Hypertension"

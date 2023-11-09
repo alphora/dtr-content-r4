@@ -203,7 +203,7 @@ Usage: #example
 
 * type = $plan-definition-type#eca-rule "ECA Rule"
 // required by _refresh.sh
-* library[+] = Canonical(ASLPCrd)
+* library[+] = Canonical(ASLPContext)
 
 // Define more specific Purpose/Description
 * purpose = "The purpose of this is to test the system to make sure we have complete end-to-end functionality"
