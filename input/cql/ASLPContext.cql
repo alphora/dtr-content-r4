@@ -17,8 +17,8 @@ code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
 // MedicationRequest, NutritionOrder, ServiceRequest with /draft/ status
 parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>>
 
-/*
 parameter "Service Request" FHIR.ServiceRequest
+/*
 parameter "Service Request Id" System.String
   // TODO: remove defaults for production use
   default 'SleepStudy'
@@ -178,7 +178,7 @@ define function GetContext(isPayor System.Boolean):
 define "Service Request Item":
   Coalesce(
     First("draftOrders" D where D is FHIR.ServiceRequest),
-    //"Service Request",
+    "Service Request",
     //First([FHIR.ServiceRequest] SR where SR.id ~ "Service Request Id"),
     // TODO: Remove for production use, this is only for testing
     //First([FHIR.ServiceRequest] SR where EndsWith(SR.id, "Service Request Id")),

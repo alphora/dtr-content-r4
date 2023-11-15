@@ -46,6 +46,12 @@
     "max": "*",
     "type": "Any"
   }, {
+    "name": "Service Request",
+    "use": "in",
+    "min": 0,
+    "max": "1",
+    "type": "ServiceRequest"
+  }, {
     "name": "Request Id",
     "use": "in",
     "min": 0,
