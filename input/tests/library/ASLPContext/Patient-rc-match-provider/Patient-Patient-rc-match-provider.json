@@ -1,0 +1,84 @@
+{
+  "resourceType": "Patient",
+  "id": "Patient-rc-match-provider",
+  "meta": {
+    "tag": [
+      {
+        "code": "prov",
+        "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+        "display": "Provider"
+      }
+    ]
+  },
+  "identifier": [
+    {
+      "use": "usual",
+      "type": {
+        "coding": [
+          {
+            "code": "MR",
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "display": "Medical Record Number"
+          }
+        ]
+      },
+      "system": "urn:oid:1.2.36.146.595.217.0.1",
+      "value": "246875",
+      "period": {
+        "start": "2016-06-16"
+      },
+      "assigner": {
+        "display": "Acme Healthcare"
+      }
+    }
+  ],
+  "active": true,
+  "name": [
+    {
+      "use": "official",
+      "family": "Cartman",
+      "given": [
+        "Eric"
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "303 303 3030",
+      "use": "mobile"
+    }
+  ],
+  "address": [
+    {
+      "use": "home",
+      "line": [
+        "28 Bonanza rd"
+      ],
+      "city": "Denver",
+      "state": "CO",
+      "postalCode": "80202",
+      "period": {
+        "start": "2011-11-11"
+      }
+    }
+  ],
+  "birthDate": "1992-01-04",
+  "deceasedBoolean": false,
+  "maritalStatus": {
+    "coding": [
+      {
+        "code": "S",
+        "system": "http://terminology.hl7.org/CodeSystem/v3-MaritalStatus"
+      }
+    ]
+  },
+  "_gender": {
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-birthsex",
+        "valueCode": "male"
+      }
+    ]
+  }
+}

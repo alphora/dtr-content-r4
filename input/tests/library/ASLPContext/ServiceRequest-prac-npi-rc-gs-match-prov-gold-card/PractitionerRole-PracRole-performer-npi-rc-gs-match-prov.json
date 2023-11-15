@@ -1,0 +1,62 @@
+{
+  "resourceType": "PractitionerRole",
+  "id": "PracRole-performer-npi-rc-gs-match-prov",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitionerrole"
+    ],
+    "tag": [
+      {
+        "code": "prov",
+        "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+        "display": "Provider"
+      }
+    ]
+  },
+  "identifier": [
+    {
+      "system": "http://hl7.org/fhir/sid/us-npi",
+      "value": "9292929288"
+    }
+  ],
+  "active": true,
+  "code": [
+    {
+      "coding": [
+        {
+          "code": "PCP",
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction",
+          "display": "Primary Care Physician"
+        }
+      ]
+    }
+  ],
+  "specialty": [
+    {
+      "coding": [
+        {
+          "code": "doctor",
+          "system": "http://terminology.hl7.org/CodeSystem/practitioner-role",
+          "display": "Doctor"
+        }
+      ]
+    }
+  ],
+  "period": {
+    "start": "2017-06-11",
+    "end": "2057-06-11"
+  },
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "901-783-2901"
+    }
+  ],
+  "organization": {
+    "reference": "Organization/Insurance-npi-rc-gs-match-prov"
+  },
+  "practitioner": {
+    "reference": "Practitioner/Practitioner-performer-rc-gs-match-prov",
+    "display": "Dr. Marge Simpson"
+  }
+}
