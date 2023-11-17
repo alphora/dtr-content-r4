@@ -67,7 +67,7 @@
     ]
   },
   "library": [
-    "http://example.org/sdh/dtr/aslp/Library/ASLPCrd"
+    "http://example.org/sdh/dtr/aslp/Library/ASLPContext"
   ],
   "action": [
     {

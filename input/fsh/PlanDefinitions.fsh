@@ -3,7 +3,7 @@ Alias: $usage-context-type = http://terminology.hl7.org/CodeSystem/usage-context
 Alias: $activity-codes = http://fhir.org/guides/nachc/hiv-cds/CodeSystem/activity-codes
 Alias: $iso3166-1-3 = http://hl7.org/fhir/ValueSet/iso3166-1-3
 
-Instance: ASLPCrd
+Instance: ASLPContext
 InstanceOf: Library
 * status = #draft
 * type = #logic-library
