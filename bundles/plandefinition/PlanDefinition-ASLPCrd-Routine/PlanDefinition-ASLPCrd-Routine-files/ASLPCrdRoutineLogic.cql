@@ -40,4 +40,4 @@ define "Not Routine":
 
 define "Routine Service Requests":
   ({ Ctx."Service Request Item" }) R
-    where R.code in "Routine Procedure Valueset"
+    where (Ctx.GetCode(R)) in "Routine Procedure Valueset"
