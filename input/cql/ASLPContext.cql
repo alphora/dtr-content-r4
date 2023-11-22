@@ -176,12 +176,20 @@ define function GetContext(isPayor System.Boolean):
 
 // need a architecture design question on how to solve longer term
 
+define "Device Request Code":
+  (("Service Request Item" as FHIR.DeviceRequest).code as FHIR.Reference).reference
+
 define function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>)
 returns FHIR.CodeableConcept:
   if (item is FHIR.ServiceRequest) then
     (item as FHIR.ServiceRequest).code
   else if (item is FHIR.DeviceRequest) then
-    (item as FHIR.DeviceRequest).code
+    if (item as FHIR.DeviceRequest).code is FHIR.CodeableConcept then
+      (item as FHIR.DeviceRequest).code as FHIR.CodeableConcept
+    else if (item as FHIR.DeviceRequest).code is FHIR.Reference then
+      ([Device: id ~ ((item as FHIR.DeviceRequest).code as FHIR.Reference).reference]).type
+    else 
+      null as FHIR.CodeableConcept
   else if (item is FHIR.NutritionOrder) then
     (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType
   else null as FHIR.CodeableConcept
