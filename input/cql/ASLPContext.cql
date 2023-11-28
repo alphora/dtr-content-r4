@@ -21,16 +21,17 @@ parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FH
 //parameter "Device Request" FHIR.DeviceRequest
 /*
 parameter "Service Request Id" System.String
-  // TODO: remove defaults for production use
+  // NOTE: defaults should not be used in production
   default 'SleepStudy'
   //default { 'required-SleepStudy', 'not-required-SleepStudy', 'SleepStudy', 'SleepStudy2' }
 */
 
 parameter "Request Id" System.String
-  // TODO: remove defaults for production use
+  // NOTE: defaults should not be used in production
   //default 'generated-id-default-value'
 
 parameter "Payor Context" FHIR.Bundle
+  // NOTE: defaults should not be used in production
   /*
   default FHIR.Bundle {
     "id": FHIR.id { "value": 'abc' },
@@ -141,7 +142,7 @@ returns System.String:
 //   GetIdentifier(practitioner, 'http://hl7.org/fhir/sid/us-npi')
 
 define function GetContext(isPayor System.Boolean):
-// TODO: optimize retrieves
+// TODO: optimize retrieves?
   if (isPayor and Count("Payor Context".entry) >= 1) then 
     {
       "Patient": First(("Payor Context".entry.resource PayorResource return if (PayorResource is Patient) then PayorResource as FHIR.Patient else null as FHIR.Patient) I where I is not null),
