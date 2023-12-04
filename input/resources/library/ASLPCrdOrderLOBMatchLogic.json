@@ -42,18 +42,6 @@
     "max": "1",
     "type": "string"
   }, {
-    "name": "draftOrders",
-    "use": "in",
-    "min": 0,
-    "max": "*",
-    "type": "Any"
-  }, {
-    "name": "Service Request",
-    "use": "in",
-    "min": 0,
-    "max": "1",
-    "type": "ServiceRequest"
-  }, {
     "name": "Patient",
     "use": "out",
     "min": 0,
@@ -148,9 +136,9 @@
     "type": "Organization",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/Organization" ]
   }, {
-    "type": "ServiceRequest",
-    "profile": [ "http://hl7.org/fhir/ServiceRequest" ],
-    "mustSupport": [ "id", "id.value", "code", "code.coding" ]
+    "type": "CodeableConcept",
+    "profile": [ "http://hl7.org/fhir/CodeableConcept" ],
+    "mustSupport": [ "coding" ]
   }, {
     "type": "Coverage",
     "profile": [ "http://hl7.org/fhir/Coverage" ],

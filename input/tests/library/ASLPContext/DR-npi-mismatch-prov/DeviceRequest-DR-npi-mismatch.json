@@ -1,0 +1,34 @@
+{
+  "resourceType": "DeviceRequest",
+  "id": "DR-npi-mismatch",
+  "status": "draft",
+  "intent": "order",
+  "codeCodeableConcept": {
+    "coding": [
+      {
+        "system": "urn:oid:2.16.840.1.113883.6.285",
+        "code": "E0607",
+        "display": "Home blood glucose monitor"
+      }
+    ],
+    "text": "Home blood glucose monitor"
+  },
+  "subject": {
+    "reference": "Patient/npi-mismatch-prov"
+  },
+  "authoredOn": "2023-11-27",
+  "reasonReference": [
+    {
+      "reference": "Condition/Sleep-Apnea-P5"
+    }
+  ],
+  "requester": {
+    "reference": "PractitionerRole/PracRole-npi-mismatch-prov"
+  },
+  "performer": [
+    {
+      "reference": "PractitionerRole/PracRole-npi-mismatch-prov"
+    }
+  ],
+  "occurrenceDateTime": "2023-08-12T10:10:10-01:00"
+}

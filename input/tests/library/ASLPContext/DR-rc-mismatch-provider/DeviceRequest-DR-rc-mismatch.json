@@ -1,0 +1,34 @@
+{
+  "resourceType": "DeviceRequest",
+  "id": "DR-rc-mismatch",
+  "status": "draft",
+  "intent": "order",
+  "codeCodeableConcept": {
+    "coding": [
+      {
+        "system": "urn:oid:2.16.840.1.113883.6.285",
+        "code": "E2102",
+        "display": "Adjunctive, non-implanted continuous glucose monitor or receiver"
+      }
+    ],
+    "text": "Adjunctive, non-implanted continuous glucose monitor or receiver"
+  },
+  "subject": {
+    "reference": "Patient/rc-mismatch-provider"
+  },
+  "authoredOn": "2023-11-27",
+  "reasonReference": [
+    {
+      "reference": "Condition/Sleep-Apnea-P5"
+    }
+  ],
+  "requester": {
+    "reference": "PractitionerRole/PracRole-rc-mismatch-provider"
+  },
+  "performer": [
+    {
+      "reference": "PractitionerRole/PracRole-rc-mismatch-provider"
+    }
+  ],
+  "occurrenceDateTime": "2023-08-12T10:10:10-01:00"
+}

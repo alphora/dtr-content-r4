@@ -60,4 +60,4 @@ define "Not OnPriorAuthList":
 
 define "Prior Auth Required Service Requests":
   ({ Ctx."Service Request Item" }) R
-    where R.code in "Prior Auth Required for Procedure Valueset"
+    where (Ctx.GetCode(R)) in "Prior Auth Required for Procedure Valueset"

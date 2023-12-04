@@ -17,19 +17,21 @@ code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
 // MedicationRequest, NutritionOrder, ServiceRequest with /draft/ status
 parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>>
 
-parameter "Service Request" FHIR.ServiceRequest
+//parameter "Service Request" FHIR.ServiceRequest
+//parameter "Device Request" FHIR.DeviceRequest
 /*
 parameter "Service Request Id" System.String
-  // TODO: remove defaults for production use
+  // NOTE: defaults should not be used in production
   default 'SleepStudy'
   //default { 'required-SleepStudy', 'not-required-SleepStudy', 'SleepStudy', 'SleepStudy2' }
 */
 
 parameter "Request Id" System.String
-  // TODO: remove defaults for production use
+  // NOTE: defaults should not be used in production
   //default 'generated-id-default-value'
 
 parameter "Payor Context" FHIR.Bundle
+  // NOTE: defaults should not be used in production
   /*
   default FHIR.Bundle {
     "id": FHIR.id { "value": 'abc' },
@@ -72,12 +74,12 @@ define "Provider Coverage":
   )
 
 define "Service Request Item Code":
-  FHIRHelpers.ToCode(singleton from "Service Request Item".code.coding)
+  FHIRHelpers.ToCode(singleton from GetCode("Service Request Item").coding)
 
 define "Service Request Item ID":
   GetResourceType("Service Request Item") + '/' + "Service Request Item".id.value
 
-define function "GetResourceType"(resource Resource)
+define function "GetResourceType"(resource Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>)
 returns System.String:
   if (resource is FHIR.ServiceRequest) then
     'ServiceRequest'
@@ -140,7 +142,7 @@ returns System.String:
 //   GetIdentifier(practitioner, 'http://hl7.org/fhir/sid/us-npi')
 
 define function GetContext(isPayor System.Boolean):
-// TODO: optimize retrieves
+// TODO: optimize retrieves?
   if (isPayor and Count("Payor Context".entry) >= 1) then 
     {
       "Patient": First(("Payor Context".entry.resource PayorResource return if (PayorResource is Patient) then PayorResource as FHIR.Patient else null as FHIR.Patient) I where I is not null),
@@ -175,15 +177,53 @@ define function GetContext(isPayor System.Boolean):
 
 // need a architecture design question on how to solve longer term
 
+define "Device Request Code":
+  (("Service Request Item" as FHIR.DeviceRequest).code as FHIR.Reference).reference
+
+define function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>)
+returns FHIR.CodeableConcept:
+  if (item is FHIR.ServiceRequest) then
+    (item as FHIR.ServiceRequest).code
+  else if (item is FHIR.DeviceRequest) then
+    if (item as FHIR.DeviceRequest).code is FHIR.CodeableConcept then
+      (item as FHIR.DeviceRequest).code as FHIR.CodeableConcept
+    else if (item as FHIR.DeviceRequest).code is FHIR.Reference then
+      ([Device: id ~ ((item as FHIR.DeviceRequest).code as FHIR.Reference).reference]).type
+    else 
+      null as FHIR.CodeableConcept
+  else if (item is FHIR.NutritionOrder) then
+    (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType
+  else null as FHIR.CodeableConcept
+
+define function GetRequester(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>)
+returns List<FHIR.Reference>:
+  if (item is FHIR.ServiceRequest) then
+    ({ (item as FHIR.ServiceRequest).requester }) as List<FHIR.Reference>
+  else if (item is FHIR.DeviceRequest) then
+    ({ (item as FHIR.DeviceRequest).requester }) as List<FHIR.Reference>
+  else if (item is FHIR.NutritionOrder) then
+    ({ (item as FHIR.NutritionOrder).orderer }) as List<FHIR.Reference>
+  else null as List<FHIR.Reference>
+
+define function GetPerformer(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>)
+returns List<FHIR.Reference>:
+  if (item is FHIR.ServiceRequest) then
+    ((item as FHIR.ServiceRequest).performer) as List<FHIR.Reference>
+  else if (item is FHIR.DeviceRequest) then
+    ({ (item as FHIR.DeviceRequest).performer }) as List<FHIR.Reference>
+  else if (item is FHIR.NutritionOrder) then
+    ({ (item as FHIR.NutritionOrder).orderer }) as List<FHIR.Reference>
+  else null as List<FHIR.Reference>
+
 define "Service Request Item":
-  Coalesce(
-    First("draftOrders" D where D is FHIR.ServiceRequest),
-    "Service Request",
-    //First([FHIR.ServiceRequest] SR where SR.id ~ "Service Request Id"),
-    // TODO: Remove for production use, this is only for testing
-    //First([FHIR.ServiceRequest] SR where EndsWith(SR.id, "Service Request Id")),
-    null as FHIR.ServiceRequest
-  ) as FHIR.ServiceRequest
+  if (not IsNull(First("draftOrders" D where D is FHIR.ServiceRequest))) then
+    First("draftOrders" D where D is FHIR.ServiceRequest)
+  else if (not IsNull(First("draftOrders" D where D is FHIR.DeviceRequest))) then
+    First("draftOrders" D where D is FHIR.DeviceRequest)
+  else if (not IsNull(First("draftOrders" D where D is FHIR.NutritionOrder))) then
+    First("draftOrders" D where D is FHIR.NutritionOrder)
+  else
+    null as Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>
 
 define "Provider":
   //GetContext(false) // false = not payor

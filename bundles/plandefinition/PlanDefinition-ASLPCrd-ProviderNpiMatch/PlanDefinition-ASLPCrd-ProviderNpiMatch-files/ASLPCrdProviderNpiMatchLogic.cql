@@ -48,7 +48,7 @@ define "Not ProviderNpiMatch":
 // TODO: Need to investigate how to handle a ServiceRequest.requester as an Organization
 define "Requesting PractitionerRoles from ServiceRequest":
   Ctx."Provider"."PractitionerRoles" PractitionerRole
-    with ({ Ctx."Service Request Item".requester }) RequesterPractitioner
+    with (Ctx.GetRequester(Ctx."Service Request Item")) RequesterPractitioner
     such that RequesterPractitioner.reference.getId() ~ PractitionerRole.id.value
 
 define "Requesting Practitioners from PractitionerRoles":
@@ -58,7 +58,7 @@ define "Requesting Practitioners from PractitionerRoles":
 
 define "Requesting Practitioners from ServiceRequest":
   Ctx."Provider"."Practitioners" Practitioner
-    with ({ Ctx."Service Request Item".requester }) RequesterPractitioner
+    with (Ctx.GetRequester(Ctx."Service Request Item")) RequesterPractitioner
     such that RequesterPractitioner.reference.getId() ~ Practitioner.id.value
 
 define "Requesting Practitioners from Provider":
@@ -92,7 +92,7 @@ define "Matching Requesting Organizations by Name & Type or NPI":
 
 define "Performing PractitionerRoles from ServiceRequest":
   Ctx."Provider"."PractitionerRoles" PractitionerRole
-    with Ctx."Service Request Item".performer PerformerPractitioner
+    with (Ctx.GetPerformer(Ctx."Service Request Item")) PerformerPractitioner
     such that PerformerPractitioner.reference.getId() ~ PractitionerRole.id.value
 
 define "Performing Practitioners from PractitionerRoles":
@@ -102,7 +102,7 @@ define "Performing Practitioners from PractitionerRoles":
 
 define "Performing Practitioners from ServiceRequest":
   Ctx."Provider"."Practitioners" Practitioner
-    with Ctx."Service Request Item".performer PerformerPractitioner
+    with (Ctx.GetPerformer(Ctx."Service Request Item")) PerformerPractitioner
     such that PerformerPractitioner.reference.getId() ~ Practitioner.id.value
 
 define "Performing Practitioners from Provider":
