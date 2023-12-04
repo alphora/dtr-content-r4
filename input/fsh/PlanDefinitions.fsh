@@ -8,6 +8,11 @@ InstanceOf: Library
 * status = #draft
 * type = #logic-library
 
+Instance: ASLPCrdMultipleRequestLogic
+InstanceOf: Library
+* status = #draft
+* type = #logic-library
+
 Instance: ASLPCrdMemberEligibleLogic
 InstanceOf: Library
 * status = #draft
@@ -212,6 +217,28 @@ Usage: #example
 * action[+]
   * insert ActionTrigger(order-sign)
   * definitionCanonical = Canonical(ASLPCrd-MemberEligible)
+
+Instance: ASLPCrd-MultipleRequest
+InstanceOf: CPGComputablePlanDefinition
+Usage: #example
+* insert CpgCommonProperties
+* insert CpgIdentifier(ASLPCrd-MultipleRequest)
+
+* type = $plan-definition-type#eca-rule "ECA Rule"
+* library[+] = Canonical(ASLPCrdMultipleRequestLogic)
+
+* action[+]
+  * title = "On Prior Auth List"
+  * description = "On Prior Auth List"
+  * dynamicValue[+]
+    * path = "title"
+    * insert ExpressionCql("Title")
+  * dynamicValue[+]
+    * path = "description"
+    * insert ExpressionCql("Description")
+  * dynamicValue[+]
+    * path = "extension"
+    * insert ExpressionCql("CoverageExtension")
 
 Instance: ASLPCrd-MemberEligible
 InstanceOf: CPGComputablePlanDefinition
