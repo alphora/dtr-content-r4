@@ -27,8 +27,8 @@ define "Detail Text":
   'Provider Not in Network'
 
 // CRD-3.1
-define "CoverageExtension":
-  Ctx."ExtensionPriorAuthNeeded"('conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification", 'Warning')
+define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  Ctx."ExtensionPriorAuthNeeded"(requestItem, 'conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification", 'Warning')
 
 //TODO: CHANGE THE function names to match the Org name & type logic
 define function "Is ProviderNpiMatch"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):

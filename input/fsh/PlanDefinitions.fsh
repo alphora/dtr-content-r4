@@ -228,8 +228,8 @@ Usage: #example
 * library[+] = Canonical(ASLPCrdMultipleRequestLogic)
 
 * action[+]
-  * title = "On Prior Auth List"
-  * description = "On Prior Auth List"
+  * title = "Prior Auth Evaluation"
+  * description = "Information related to whether a service is covered, not covered or requires prior auth submission"
   * dynamicValue[+]
     * path = "title"
     * insert ExpressionCql("Title")

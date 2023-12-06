@@ -68,9 +68,10 @@ define "Description":
 // CRD Coverage Extensions
 define "CoverageExtensionList":
   Ctx."Service Request Item List" RequestItem
-    return 
+    return all
+      //RequestItem.id.value
       (GetCrdResult(RequestItem)).ID
-      //"GetCoverageExtension"(GetCrdResult(RequestItem))
+      //"GetCoverageExtension"(RequestItem, GetCrdResult(RequestItem))
 
 // CRD Logic tree
 define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>)
@@ -84,9 +85,10 @@ returns Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" Sys
   else
     "CRD Matrix"."CRD-NotYetImplemented"
 
-define function "GetCoverageExtension"(item Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailValue" System.String})
+define function "GetCoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>, item Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailValue" System.String})
 returns FHIR.Extension:
   Ctx."ExtensionPriorAuthNeeded"(
+    requestItem,
     item."Covered", 
     item."PriorAuthNeeded", 
     item."DetailCode", 

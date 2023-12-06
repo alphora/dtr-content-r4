@@ -73,11 +73,11 @@ define "Provider Coverage":
       // such that exists(PayorCoverage.identifier.id intersect ProviderCoverage.identifier.id)
   )
 
-define "Service Request Item Code":
-  FHIRHelpers.ToCode(singleton from GetCode("Service Request Item").coding)
+define function "Service Request Item Code"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)
 
-define "Service Request Item ID":
-  GetResourceType("Service Request Item") + '/' + "Service Request Item".id.value
+define function "Service Request Item ID"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  GetResourceType(requestItem) + '/' + requestItem.id.value
 
 define function "GetResourceType"(resource Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>)
 returns System.String:
@@ -93,13 +93,13 @@ returns System.String:
 define "System Generated Id":
   "Request Id"
 
-define function ExtensionPriorAuthNotNeeded(covered System.String, priorAuthRequired System.String, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)
+define function ExtensionPriorAuthNotNeeded(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>, covered System.String, priorAuthRequired System.String, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)
 returns FHIR.Extension:
-  ECI.ExtensionPriorAuthNotNeeded("Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id", "Service Request Item ID", "Service Request Item Code", codeValue, detailText, qualification, warningOrInfo)
+  ECI.ExtensionPriorAuthNotNeeded("Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id", "Service Request Item ID"(requestItem), "Service Request Item Code"(requestItem), codeValue, detailText, qualification, warningOrInfo)
 
-define function ExtensionPriorAuthNeeded(covered System.String, priorAuthRequired System.String, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)
+define function ExtensionPriorAuthNeeded(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>, covered System.String, priorAuthRequired System.String, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)
 returns FHIR.Extension:
-  ECI.ExtensionPriorAuthNeeded("Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id", "Service Request Item ID", "Service Request Item Code", codeValue, detailText, qualification, warningOrInfo)
+  ECI.ExtensionPriorAuthNeeded("Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id", "Service Request Item ID"(requestItem), "Service Request Item Code"(requestItem), codeValue, detailText, qualification, warningOrInfo)
 
 define function TagExists(resource Resource, value System.Code)
 returns System.Boolean:
@@ -177,9 +177,6 @@ define function GetContext(isPayor System.Boolean):
 
 // need a architecture design question on how to solve longer term
 
-define "Device Request Code":
-  (("Service Request Item" as FHIR.DeviceRequest).code as FHIR.Reference).reference
-
 define function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>)
 returns FHIR.CodeableConcept:
   if (item is FHIR.ServiceRequest) then
@@ -216,27 +213,27 @@ returns List<FHIR.Reference>:
   else null as List<FHIR.Reference>
 
 define "Service Request Item List":
-  [ServiceRequest] //union [DeviceRequest] //union [NutritionOrder]
+  ([ServiceRequest]) union ([DeviceRequest]) //union ([NutritionOrder])
   //"draftOrders"
 
-define "Service Request Item":
-  if (not IsNull(First("draftOrders" D where D is FHIR.ServiceRequest))) then
-    First("draftOrders" D where D is FHIR.ServiceRequest)
-  else if (not IsNull(First("draftOrders" D where D is FHIR.DeviceRequest))) then
-    First("draftOrders" D where D is FHIR.DeviceRequest)
-  else if (not IsNull(First("draftOrders" D where D is FHIR.NutritionOrder))) then
-    First("draftOrders" D where D is FHIR.NutritionOrder)
-  else
-    null as Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>
+//define "Service Request Item":
+  // if (not IsNull(First("draftOrders" D where D is FHIR.ServiceRequest))) then
+  //   First("draftOrders" D where D is FHIR.ServiceRequest)
+  // else if (not IsNull(First("draftOrders" D where D is FHIR.DeviceRequest))) then
+  //   First("draftOrders" D where D is FHIR.DeviceRequest)
+  // else if (not IsNull(First("draftOrders" D where D is FHIR.NutritionOrder))) then
+  //   First("draftOrders" D where D is FHIR.NutritionOrder)
+  // else
+  //   null as Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>
 
 define "Provider":
   //GetContext(false) // false = not payor
   {
     "Patient": "Provider Patient",
-    "Coverages": [Coverage],
-    "Practitioners": [Practitioner],
-    "PractitionerRoles": [PractitionerRole],
-    "Organizations": [Organization]
+    "Coverages": [Coverage] item where IsPayorResource(item) = false,
+    "Practitioners": [Practitioner] item where IsPayorResource(item) = false,
+    "PractitionerRoles": [PractitionerRole] item where IsPayorResource(item) = false,
+    "Organizations": [Organization] item where IsPayorResource(item) = false
   }
 
 define "Payor":
