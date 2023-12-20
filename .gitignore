@@ -11,3 +11,4 @@ input/tests/*/*/*-bundle.json
 /input/tests/results
 *.bkp
 fsh-generated/
+gofsh/
