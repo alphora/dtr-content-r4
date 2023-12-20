@@ -4,7 +4,7 @@
     "meta": {
       "extension": [ {
         "url": "http://hapifhir.io/fhir/StructureDefinition/valueset-expansion-message",
-        "valueString": "ValueSet was expanded using an expansion that was pre-calculated at 2023-09-21T13:52:21.037+00:00 (02:09:17 ago)"
+        "valueString": "ValueSet was expanded using an expansion that was pre-calculated at 2023-12-19T13:52:21.037+00:00 (02:09:17 ago)"
       } ],
       "versionId": "1"
     },
@@ -55,13 +55,19 @@
         }, {
           "code": "A4670",
           "display": "Automatic blood pressure monitor"
+        }, {
+          "code": "B9000",
+          "display": "Enteral nutrition infusion pump - without alarm"
+        }, {
+          "code": "B9006",
+          "display": "Parenteral nutrition infusion pump, stationary"
         } ]
       } ]
     },
     "expansion": {
       "identifier": "4ad7ce36-f887-47e4-8ccd-8e6d1096ef55",
-      "timestamp": "2023-09-21T16:01:39+00:00",
-      "total": 13,
+      "timestamp": "2023-12-19T16:01:39+00:00",
+      "total": 15,
       "offset": 0,
       "contains": [ {
         "system": "http://www.ama-assn.org/go/cpt",
@@ -115,6 +121,14 @@
         "system": "urn:oid:2.16.840.1.113883.6.285",
         "code": "A4670",
         "display": "Automatic blood pressure monitor"
+      }, {
+        "system": "urn:oid:2.16.840.1.113883.6.285",
+        "code": "B9000",
+        "display": "Enteral nutrition infusion pump - without alarm"
+      }, {
+        "system": "urn:oid:2.16.840.1.113883.6.285",
+        "code": "B9006",
+        "display": "Parenteral nutrition infusion pump, stationary"
       } ]
     }
   }
