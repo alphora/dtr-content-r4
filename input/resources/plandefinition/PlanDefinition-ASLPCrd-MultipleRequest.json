@@ -92,7 +92,7 @@
           "path": "extension",
           "expression": {
             "language": "text/cql-identifier",
-            "expression": "CoverageExtension"
+            "expression": "CoverageExtensionList"
           }
         }
       ]

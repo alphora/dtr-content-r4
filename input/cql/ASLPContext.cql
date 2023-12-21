@@ -17,15 +17,6 @@ code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
 // MedicationRequest, NutritionOrder, ServiceRequest with /draft/ status
 parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>>
 
-//parameter "Service Request" FHIR.ServiceRequest
-//parameter "Device Request" FHIR.DeviceRequest
-/*
-parameter "Service Request Id" System.String
-  // NOTE: defaults should not be used in production
-  default 'SleepStudy'
-  //default { 'required-SleepStudy', 'not-required-SleepStudy', 'SleepStudy', 'SleepStudy2' }
-*/
-
 parameter "Request Id" System.String
   // NOTE: defaults should not be used in production
   //default 'generated-id-default-value'
@@ -136,30 +127,6 @@ define fluent function getNpi(item Choice<Practitioner, Organization>)
 returns System.String:
   GetIdentifier(item, 'http://hl7.org/fhir/sid/us-npi')
 
-// define function GetNPI(practitioner Choice<Practitioner, Organization>)
-// returns System.String:
-//   // TODO: rework this to use USCore identifier slice for NPI?
-//   GetIdentifier(practitioner, 'http://hl7.org/fhir/sid/us-npi')
-
-define function GetContext(isPayor System.Boolean):
-// TODO: optimize retrieves?
-  if (isPayor and Count("Payor Context".entry) >= 1) then 
-    {
-      "Patient": First(("Payor Context".entry.resource PayorResource return if (PayorResource is Patient) then PayorResource as FHIR.Patient else null as FHIR.Patient) I where I is not null),
-      "Coverages": ("Payor Context".entry.resource PayorResource return if (PayorResource is Coverage) then PayorResource as FHIR.Coverage else null as FHIR.Coverage) I where I is not null,
-      "Practitioners": ("Payor Context".entry.resource PayorResource return if (PayorResource is Practitioner) then PayorResource as FHIR.Practitioner else null as FHIR.Practitioner) I where I is not null,
-      "PractitionerRoles": ("Payor Context".entry.resource PayorResource return if (PayorResource is PractitionerRole) then PayorResource as FHIR.PractitionerRole else null as FHIR.PractitionerRole) I where I is not null,
-      "Organizations": ("Payor Context".entry.resource PayorResource return if (PayorResource is Organization) then PayorResource as FHIR.Organization else null as FHIR.Organization) I where I is not null
-    }
-  else
-    {
-      "Patient": if isPayor then "Payor Patient" else "Provider Patient",
-      "Coverages": [Coverage] item where IsPayorResource(item) = isPayor,
-      "Practitioners": [Practitioner] item where IsPayorResource(item) = isPayor,
-      "PractitionerRoles": [PractitionerRole] item where IsPayorResource(item) = isPayor,
-      "Organizations": [Organization] item where IsPayorResource(item) = isPayor
-    }
-
 // Option 1 (not feasible short-term): Use related context retrieve
 // give me the patient that is the beneficiary of this coverage
 // even then you'd still have to get to the coverage
@@ -213,21 +180,11 @@ returns List<FHIR.Reference>:
   else null as List<FHIR.Reference>
 
 define "Service Request Item List":
-  ([ServiceRequest]) union ([DeviceRequest]) //union ([NutritionOrder])
-  //"draftOrders"
-
-//define "Service Request Item":
-  // if (not IsNull(First("draftOrders" D where D is FHIR.ServiceRequest))) then
-  //   First("draftOrders" D where D is FHIR.ServiceRequest)
-  // else if (not IsNull(First("draftOrders" D where D is FHIR.DeviceRequest))) then
-  //   First("draftOrders" D where D is FHIR.DeviceRequest)
-  // else if (not IsNull(First("draftOrders" D where D is FHIR.NutritionOrder))) then
-  //   First("draftOrders" D where D is FHIR.NutritionOrder)
-  // else
-  //   null as Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>
+  "draftOrders"
+  // NOTE: these retrieves are only for local testing
+  //([ServiceRequest]) union ([DeviceRequest]) union ([NutritionOrder])
 
 define "Provider":
-  //GetContext(false) // false = not payor
   {
     "Patient": "Provider Patient",
     "Coverages": [Coverage] item where IsPayorResource(item) = false,
@@ -237,16 +194,16 @@ define "Provider":
   }
 
 define "Payor":
-  //GetContext(true) // true = payor
-  // if (Count("Payor Context".entry) >= 1) then 
-  //   {
-  //     "Patient": First(("Payor Context".entry.resource PayorResource return if (PayorResource is Patient) then PayorResource as FHIR.Patient else null as FHIR.Patient) I where I is not null),
-  //     "Coverages": ("Payor Context".entry.resource PayorResource return if (PayorResource is Coverage) then PayorResource as FHIR.Coverage else null as FHIR.Coverage) I where I is not null,
-  //     "Practitioners": ("Payor Context".entry.resource PayorResource return if (PayorResource is Practitioner) then PayorResource as FHIR.Practitioner else null as FHIR.Practitioner) I where I is not null,
-  //     "PractitionerRoles": ("Payor Context".entry.resource PayorResource return if (PayorResource is PractitionerRole) then PayorResource as FHIR.PractitionerRole else null as FHIR.PractitionerRole) I where I is not null,
-  //     "Organizations": ("Payor Context".entry.resource PayorResource return if (PayorResource is Organization) then PayorResource as FHIR.Organization else null as FHIR.Organization) I where I is not null
-  //   }
-  // else
+  if (Count("Payor Context".entry) >= 1) then 
+    {
+      "Patient": First(("Payor Context".entry.resource PayorResource return if (PayorResource is Patient) then PayorResource as FHIR.Patient else null as FHIR.Patient) I where I is not null),
+      "Coverages": ("Payor Context".entry.resource PayorResource return if (PayorResource is Coverage) then PayorResource as FHIR.Coverage else null as FHIR.Coverage) I where I is not null,
+      "Practitioners": ("Payor Context".entry.resource PayorResource return if (PayorResource is Practitioner) then PayorResource as FHIR.Practitioner else null as FHIR.Practitioner) I where I is not null,
+      "PractitionerRoles": ("Payor Context".entry.resource PayorResource return if (PayorResource is PractitionerRole) then PayorResource as FHIR.PractitionerRole else null as FHIR.PractitionerRole) I where I is not null,
+      "Organizations": ("Payor Context".entry.resource PayorResource return if (PayorResource is Organization) then PayorResource as FHIR.Organization else null as FHIR.Organization) I where I is not null
+    }
+  // This section is only for local CQL vs code plugin testing
+  else
     {
       "Patient": "Payor Patient",
       "Coverages": [Coverage] item where IsPayorResource(item) = true,
@@ -261,11 +218,11 @@ define "Provider Patient":
 define "Payor Patient":
   First(
     [RelatedPerson] RP
-      //where 
-        // exists(
-        //   RP.relationship.coding C 
-        //     where C.system.value ~ "Relationship Self Code".system
-        //       and C.code.value ~ "Relationship Self Code".code
-        // ) and 
-        //IsPayorResource(RP)
+      where 
+        exists(
+          RP.relationship.coding C 
+            where C.system.value ~ "Relationship Self Code".system
+              and C.code.value ~ "Relationship Self Code".code
+        ) and 
+        IsPayorResource(RP)
   )

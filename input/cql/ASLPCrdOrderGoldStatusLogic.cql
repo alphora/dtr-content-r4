@@ -31,9 +31,9 @@ define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR
   Ctx."ExtensionPriorAuthNeeded"(requestItem, 'covered', 'no-auth', 'gold-card', "Detail Text", "Qualification", 'info')
 
 define "Is OrderGoldStatus":
-  //false
+  false
   // TODO: Remove this in production environment
-  EndsWith(Ctx."Provider"."Patient".id.value, 'gold-card')
+  //EndsWith(Ctx."Provider"."Patient".id.value, 'gold-card')
 
 define "Not OrderGoldStatus":
   not ("Is OrderGoldStatus")

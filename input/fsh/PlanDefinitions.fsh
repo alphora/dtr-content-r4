@@ -216,7 +216,10 @@ Usage: #example
 
 * action[+]
   * insert ActionTrigger(order-sign)
-  * definitionCanonical = Canonical(ASLPCrd-MemberEligible)
+  // Multiple Request (ServiceRequest, DeviceRequest, NutritionOrder)
+  * definitionCanonical = Canonical(ASLPCrd-MultipleRequest)
+  // Single Request
+  //* definitionCanonical = Canonical(ASLPCrd-MemberEligible)
 
 Instance: ASLPCrd-MultipleRequest
 InstanceOf: CPGComputablePlanDefinition
@@ -238,7 +241,7 @@ Usage: #example
     * insert ExpressionCql("Description")
   * dynamicValue[+]
     * path = "extension"
-    * insert ExpressionCql("CoverageExtension")
+    * insert ExpressionCql("CoverageExtensionList")
 
 Instance: ASLPCrd-MemberEligible
 InstanceOf: CPGComputablePlanDefinition
