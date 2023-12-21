@@ -27,8 +27,8 @@ define "Qualification":
   'The member cannot be found. You can submit a PA request as an exception.'
 
 // CRD-2
-define "CoverageExtension":
-  Ctx."ExtensionPriorAuthNeeded"('conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification", 'Warning')
+define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  Ctx."ExtensionPriorAuthNeeded"(requestItem, 'conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification", 'Warning')
 
 define "Is MemberEligible":
   "Last Name Match" and "DOB Match"

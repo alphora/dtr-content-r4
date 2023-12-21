@@ -77,7 +77,7 @@
           "name": "order-sign"
         }
       ],
-      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-MemberEligible"
+      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-MultipleRequest"
     }
   ]
 }

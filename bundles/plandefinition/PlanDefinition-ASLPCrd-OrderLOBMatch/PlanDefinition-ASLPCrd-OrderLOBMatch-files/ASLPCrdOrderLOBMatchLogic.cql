@@ -27,8 +27,8 @@ define "Detail Text":
   'Line Of Business Mismatch'
 
 // CRD-3.2
-define "CoverageExtension":
-  Ctx."ExtensionPriorAuthNeeded"('conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification", 'Warning')
+define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  Ctx."ExtensionPriorAuthNeeded"(requestItem, 'conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification", 'Warning')
 
 define "Is OrderLOBMatch":
   exists("Matching Organizations by Name")
