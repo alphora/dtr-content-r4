@@ -1,0 +1,34 @@
+{
+  "resourceType": "DeviceRequest",
+  "id": "DR1-pa-match-provider-SleepStudy",
+  "status": "draft",
+  "intent": "order",
+  "codeCodeableConcept": {
+    "coding": [
+        {
+            "system": "urn:oid:2.16.840.1.113883.6.285",
+            "code": "E0601",
+            "display": "CPAP Machine"
+        }
+    ],
+    "text": "CPAP Machine"
+  },
+  "subject": {
+    "reference": "Patient/Patient-pa-match-provider"
+  },
+  "authoredOn": "2023-11-21",
+  "reasonReference": [
+    {
+      "reference": "Condition/Sleep-Apnea-P5"
+    }
+  ],
+  "requester": {
+    "reference": "PractitionerRole/PracRole-pa-match-provider"
+  },
+  "performer": [
+    {
+      "reference": "PractitionerRole/PracRole-pa-match-provider"
+    }
+  ],
+  "occurrenceDateTime": "2023-08-12T10:10:10-01:00"
+}

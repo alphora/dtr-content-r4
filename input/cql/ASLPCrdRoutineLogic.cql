@@ -21,23 +21,23 @@ define "Description":
   'Information related to whether a service is covered, not covered or requires prior auth submission' 
 
 // CRD-7
-define "Qualification":
-  'Order is covered. No prior auth is required for ' + Ctx."Service Request Item Code".display + '.'
+define function "Qualification"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  'Order is covered. No prior auth is required for ' + Ctx."Service Request Item Code"(requestItem).display + '.'
 
 // CRD-7
 define "Detail Text":
   'Prior Authorization Not Required'
 
 // CRD-7
-define "CoverageExtension":
-  Ctx."ExtensionPriorAuthNeeded"('covered', 'no-auth', 'no-auth', "Detail Text", "Qualification", 'info')
+define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  Ctx."ExtensionPriorAuthNeeded"(requestItem, 'covered', 'no-auth', 'no-auth', "Detail Text", "Qualification"(requestItem), 'info')
 
-define "Is Routine":
-  exists("Routine Service Requests")
+define function "Is Routine"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  exists(("Routine Service Requests"(requestItem)))
 
-define "Not Routine":
-  not ("Is Routine")
+define function "Not Routine"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  not (("Is Routine"(requestItem)))
 
-define "Routine Service Requests":
-  ({ Ctx."Service Request Item" }) R
+define function "Routine Service Requests"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  ({ requestItem }) R
     where (Ctx.GetCode(R)) in "Routine Procedure Valueset"
