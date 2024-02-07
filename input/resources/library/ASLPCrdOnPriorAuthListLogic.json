@@ -40,12 +40,6 @@
     "resource": "http://terminology.smilecdr.com/cs/priorauth"
   } ],
   "parameter": [ {
-    "name": "Request Id",
-    "use": "in",
-    "min": 0,
-    "max": "1",
-    "type": "string"
-  }, {
     "name": "Patient",
     "use": "out",
     "min": 0,
@@ -110,6 +104,18 @@
   }, {
     "type": "Organization",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/Organization" ]
+  }, {
+    "type": "string",
+    "profile": [ "http://hl7.org/fhir/string" ],
+    "mustSupport": [ "value" ]
+  }, {
+    "type": "uri",
+    "profile": [ "http://hl7.org/fhir/uri" ],
+    "mustSupport": [ "value" ]
+  }, {
+    "type": "Extension",
+    "profile": [ "http://hl7.org/fhir/Extension" ],
+    "mustSupport": [ "value" ]
   }, {
     "type": "Coverage",
     "profile": [ "http://hl7.org/fhir/Coverage" ],
