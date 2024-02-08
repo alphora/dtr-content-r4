@@ -36,6 +36,12 @@
     "resource": "http://terminology.hl7.org/CodeSystem/organization-type"
   } ],
   "parameter": [ {
+    "name": "Request Id",
+    "use": "in",
+    "min": 0,
+    "max": "1",
+    "type": "string"
+  }, {
     "name": "Patient",
     "use": "out",
     "min": 0,

@@ -40,6 +40,12 @@
     "resource": "http://terminology.smilecdr.com/cs/priorauth"
   } ],
   "parameter": [ {
+    "name": "Request Id",
+    "use": "in",
+    "min": 0,
+    "max": "1",
+    "type": "string"
+  }, {
     "name": "Patient",
     "use": "out",
     "min": 0,
