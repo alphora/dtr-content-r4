@@ -37,6 +37,15 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailQualification": OrderLOBMatch."Qualification",
       "DetailValue": 'Warning'
     },
+    "CRD-3.2b": { 
+      "ID": 'CRD-3.2b',
+      "Covered": 'conditional', 
+      "PriorAuthNeeded": 'auth-needed', 
+      "DetailCode": 'auth-needed', 
+      "DetailText": OrderLOBMatch."Detail Text", 
+      "DetailQualification": OrderLOBMatch."Qualification",
+      "DetailValue": 'Warning'
+    },
     "CRD-3.1": { 
       "ID": 'CRD-3.1',
       "Covered": 'conditional', 
@@ -118,6 +127,8 @@ returns Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" Sys
     "CRD Matrix"(requestItem)."CRD-3.2"
   else if (NpiMatch."Not ProviderNpiMatch"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-3.1"
+  else if (NpiMatch."Not LOBMatch"(requestItem)) then
+    "CRD Matrix"(requestItem)."CRD-3.2b"
   else if (GoldCard."Is OrderGoldStatus") then
     "CRD Matrix"(requestItem)."CRD-4"
   else if (Routine."Is Routine"(requestItem)) then

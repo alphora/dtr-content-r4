@@ -30,17 +30,38 @@ define "Detail Text":
 define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   Ctx."ExtensionPriorAuthNeeded"(requestItem, 'conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification", 'Warning')
 
-//TODO: CHANGE THE function names to match the Org name & type logic
-define function "Is ProviderNpiMatch"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+define function "Is LOBMatch"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   "Requesting Organization Match"(requestItem)
     and "Performing Organization Match"(requestItem)
+
+define function "Not LOBMatch"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  not ("Is LOBMatch"(requestItem))
+
+define function "Is ProviderNpiMatch"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  // 1. The requesting provider must be in the payer system.
+  // 2. AND All performing providers from the provider's system must match a performing provider from the payer's system. 
+  //    NOTE: This step can be skipped if there are no performing providers. 
+  "Requesting Provider Match"(requestItem)
+    and "Performing Provider Match"(requestItem)
+
+define function "Requesting Provider Match"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  // 'included in': Returns true if every element in list X is also in list Y, using equality semantics
+  ("Requesting Practitioners from Provider"(requestItem)).npi() // X
+    included in ("Requesting Practitioners from Payor"(requestItem)).npi() // Y
+
+define function "Performing Provider Match"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  // 'included in': Returns true if every element in list X is also in list Y, using equality semantics
+  (
+    ("Performing Practitioners from Provider"(requestItem)).npi() // X
+      included in ("Performing Practitioners from Payor"(requestItem)).npi() // Y
+  ) or not exists("Performing Practitioners from Provider"(requestItem)) // NOTE: This step can be skipped if there are no performing providers. 
 
 define function "Requesting Organization Match"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   exists(("Matching Requesting Organizations by Name & Type or NPI"(requestItem)))
 
 define function "Performing Organization Match"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   exists(("Matching Performing Organizations by Name & Type or NPI"(requestItem)))
-  or not exists(("Performing Practitioners from Provider"(requestItem)))
+    or not exists(("Performing Practitioners from Provider"(requestItem)))
 
 define function "Not ProviderNpiMatch"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   not ("Is ProviderNpiMatch"(requestItem))
@@ -88,7 +109,7 @@ define function "Matching Requesting Organizations by Name & Type or NPI"(reques
     with "Payor Organization from Provider Coverage for Patient" PayorOrg
     such that 
       (RequestingOrganization.name ~ PayorOrg.name and RequestingOrganization.type ~ PayorOrg.type)
-      or RequestingOrganization.getNpi() ~ PayorOrg.getNpi()
+        or RequestingOrganization.getNpi() ~ PayorOrg.getNpi()
 
 define function "Performing PractitionerRoles from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   Ctx."Provider"."PractitionerRoles" PractitionerRole
@@ -140,8 +161,8 @@ define function "Performing Organizations"(requestItem Choice<FHIR.NutritionOrde
 define function "Matching Performing Organizations by Name & Type or NPI"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   ("Performing Organizations"(requestItem)) PerformingOrganization
     with "Payor Organization from Provider Coverage for Patient" PayorOrg
-    such that 
-      (PerformingOrganization.name ~ PayorOrg.name and PerformingOrganization.type ~ PayorOrg.type)
+    such that PerformingOrganization.name ~ PayorOrg.name
+      //or (PerformingOrganization.name ~ PayorOrg.name and PerformingOrganization.type ~ PayorOrg.type)
       or PerformingOrganization.getNpi() ~ PayorOrg.getNpi()
 
 define "Payor References by Coverage.payor":

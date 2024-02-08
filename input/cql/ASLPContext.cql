@@ -82,11 +82,14 @@ returns System.String:
     'Resource'
 
 define function "System Generated Id"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
-  (First(
-    requestItem.extension E
-      where E.url = 'https://smiledigitalhealth.com/priorauth/smile-crd-assertion-id'
-      return E
-  )).value as FHIR.string
+  Coalesce(
+    (First(
+      requestItem.extension E
+        where E.url = 'https://smiledigitalhealth.com/priorauth/smile-crd-assertion-id'
+        return E
+    )).value as FHIR.string,
+    "Request Id"
+  )
 
 define function ExtensionPriorAuthNotNeeded(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>, covered System.String, priorAuthRequired System.String, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)
 returns FHIR.Extension:
