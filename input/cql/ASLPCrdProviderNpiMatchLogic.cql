@@ -46,8 +46,10 @@ define function "Is ProviderNpiMatch"(requestItem Choice<FHIR.NutritionOrder, FH
 
 define function "Requesting Provider Match"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   // 'included in': Returns true if every element in list X is also in list Y, using equality semantics
-  ("Requesting Practitioners from Provider"(requestItem)).npi() // X
-    included in ("Requesting Practitioners from Payor"(requestItem)).npi() // Y
+  (
+    ("Requesting Practitioners from Provider"(requestItem)).npi() // X
+      included in ("Requesting Practitioners from Payor"(requestItem)).npi() // Y
+  ) and exists("Requesting Practitioners from Provider"(requestItem)) // NOTE: This step cannot be skipped if there is no requester provider.
 
 define function "Performing Provider Match"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   // 'included in': Returns true if every element in list X is also in list Y, using equality semantics
@@ -108,7 +110,8 @@ define function "Matching Requesting Organizations by Name & Type or NPI"(reques
  ("Requesting Organizations"(requestItem)) RequestingOrganization
     with "Payor Organization from Provider Coverage for Patient" PayorOrg
     such that 
-      (RequestingOrganization.name ~ PayorOrg.name and RequestingOrganization.type ~ PayorOrg.type)
+      (RequestingOrganization.name ~ PayorOrg.name)
+        or (RequestingOrganization.name ~ PayorOrg.name and RequestingOrganization.type ~ PayorOrg.type)
         or RequestingOrganization.getNpi() ~ PayorOrg.getNpi()
 
 define function "Performing PractitionerRoles from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
@@ -161,9 +164,10 @@ define function "Performing Organizations"(requestItem Choice<FHIR.NutritionOrde
 define function "Matching Performing Organizations by Name & Type or NPI"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   ("Performing Organizations"(requestItem)) PerformingOrganization
     with "Payor Organization from Provider Coverage for Patient" PayorOrg
-    such that PerformingOrganization.name ~ PayorOrg.name
-      //or (PerformingOrganization.name ~ PayorOrg.name and PerformingOrganization.type ~ PayorOrg.type)
-      or PerformingOrganization.getNpi() ~ PayorOrg.getNpi()
+    such that 
+      PerformingOrganization.name ~ PayorOrg.name
+        or (PerformingOrganization.name ~ PayorOrg.name and PerformingOrganization.type ~ PayorOrg.type)
+        or PerformingOrganization.getNpi() ~ PayorOrg.getNpi()
 
 define "Payor References by Coverage.payor":
   flatten(Ctx."Provider"."Coverages" C return C.payor.reference.value)
