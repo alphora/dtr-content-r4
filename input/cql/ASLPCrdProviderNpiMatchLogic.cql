@@ -45,18 +45,24 @@ define function "Is ProviderNpiMatch"(requestItem Choice<FHIR.NutritionOrder, FH
     and "Performing Provider Match"(requestItem)
 
 define function "Requesting Provider Match"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
-  // 'included in': Returns true if every element in list X is also in list Y, using equality semantics
-  (
-    ("Requesting Practitioners from Provider"(requestItem)).npi() // X
-      included in ("Requesting Practitioners from Payor"(requestItem)).npi() // Y
-  ) and exists("Requesting Practitioners from Provider"(requestItem)) // NOTE: This step cannot be skipped if there is no requester provider.
+  if (not "All Requesting Practitioners Found"(requestItem)) then 
+    false 
+  else
+    // 'included in': Returns true if every element in list X is also in list Y, using equality semantics
+    (
+      ("Requesting Practitioners from Provider"(requestItem)).npi() // X
+        included in ("Requesting Practitioners from Payor"(requestItem)).npi() // Y
+    ) and exists("Requesting Practitioners from Provider"(requestItem)) // NOTE: This step cannot be skipped if there is no requester provider.
 
 define function "Performing Provider Match"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
-  // 'included in': Returns true if every element in list X is also in list Y, using equality semantics
-  (
-    ("Performing Practitioners from Provider"(requestItem)).npi() // X
-      included in ("Performing Practitioners from Payor"(requestItem)).npi() // Y
-  ) or not exists("Performing Practitioners from Provider"(requestItem)) // NOTE: This step can be skipped if there are no performing providers. 
+  if (not "All Performing Practitioners Found"(requestItem)) then 
+    false 
+  else
+    // 'included in': Returns true if every element in list X is also in list Y, using equality semantics
+    (
+      ("Performing Practitioners from Provider"(requestItem)).npi() // X
+        included in ("Performing Practitioners from Payor"(requestItem)).npi() // Y
+    ) or not exists("Performing Practitioners from Provider"(requestItem)) // NOTE: This step can be skipped if there are no performing providers. 
 
 define function "Requesting Organization Match"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   exists(("Matching Requesting Organizations by Name & Type or NPI"(requestItem)))
@@ -83,6 +89,21 @@ define function "Requesting Practitioners from ServiceRequest"(requestItem Choic
   Ctx."Provider"."Practitioners" Practitioner
     with (Ctx.GetRequester(requestItem)) RequesterPractitioner
     such that RequesterPractitioner.reference.getId() ~ Practitioner.id.value
+
+define function "Requesting Practitioner IDs from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  (
+    ("Requesting PractitionerRoles from ServiceRequest"(requestItem)) RequesterPractitionerRole
+    return RequesterPractitionerRole.practitioner.reference.getId()
+  )
+  union
+  (
+    (Ctx.GetRequester(requestItem)) RequesterPractitioner
+      return RequesterPractitioner.reference.getId()
+  )
+
+define function "All Requesting Practitioners Found"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  "Requesting Practitioner IDs from ServiceRequest"(requestItem)
+    included in (("Requesting Practitioners from Provider"(requestItem)) Practitioner return Practitioner.id.value)
 
 define function "Requesting Practitioners from Provider"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   ("Requesting Practitioners from ServiceRequest"(requestItem))
@@ -147,7 +168,22 @@ define function "Performing Practitioners via PracitionerRoles"(requestItem Choi
   Ctx."Provider"."Practitioners" Practitioner
     with ("Performing PractitionerRoles from Payor"(requestItem)) PractitionerRole
     such that PractitionerRole.practitioner.reference.getId() ~ Practitioner.id.value
-    
+
+define function "Performing Practitioner IDs from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  (
+    ("Performing PractitionerRoles from ServiceRequest"(requestItem)) PerformerPractitionerRole
+    return PerformerPractitionerRole.practitioner.reference.getId()
+  )
+  union
+  (
+    (Ctx.GetRequester(requestItem)) PerformerPractitioner
+      return PerformerPractitioner.reference.getId()
+  )
+
+define function "All Performing Practitioners Found"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  "Performing Practitioner IDs from ServiceRequest"(requestItem)
+    included in (("Performing Practitioners from Provider"(requestItem)) Practitioner return Practitioner.id.value)
+
 define function "Payor Organization via Performing PracitionerRole"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   Ctx."Payor"."Organizations" Organization
     with ("Performing PractitionerRoles from Payor"(requestItem)) PractitionerRole
