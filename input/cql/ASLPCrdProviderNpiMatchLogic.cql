@@ -102,8 +102,10 @@ define function "Requesting Practitioner IDs from ServiceRequest"(requestItem Ch
   )
 
 define function "All Requesting Practitioners Found"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
-  "Requesting Practitioner IDs from ServiceRequest"(requestItem)
-    included in (("Requesting Practitioners from Provider"(requestItem)) Practitioner return Practitioner.id.value)
+  IsTrue(
+    "Requesting Practitioner IDs from ServiceRequest"(requestItem)
+      included in (("Requesting Practitioners from Provider"(requestItem)) Practitioner return Practitioner.id.value)
+  )
 
 define function "Requesting Practitioners from Provider"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   ("Requesting Practitioners from ServiceRequest"(requestItem))
@@ -181,8 +183,10 @@ define function "Performing Practitioner IDs from ServiceRequest"(requestItem Ch
   )
 
 define function "All Performing Practitioners Found"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
-  "Performing Practitioner IDs from ServiceRequest"(requestItem)
-    included in (("Performing Practitioners from Provider"(requestItem)) Practitioner return Practitioner.id.value)
+  IsTrue(
+    "Performing Practitioner IDs from ServiceRequest"(requestItem)
+      included in (("Performing Practitioners from Provider"(requestItem)) Practitioner return Practitioner.id.value)
+  )
 
 define function "Payor Organization via Performing PracitionerRole"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   Ctx."Payor"."Organizations" Organization
