@@ -176,7 +176,7 @@ define function "Performing Practitioner IDs from ServiceRequest"(requestItem Ch
   )
   union
   (
-    (Ctx.GetRequester(requestItem)) PerformerPractitioner
+    (Ctx.GetPerformer(requestItem)) PerformerPractitioner
       return PerformerPractitioner.reference.getId()
   )
 
