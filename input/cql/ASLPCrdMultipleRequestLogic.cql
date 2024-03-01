@@ -123,10 +123,10 @@ define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
 returns Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailValue" System.String}:
   if (MemberEligible."Not MemberEligible") then
     "CRD Matrix"(requestItem)."CRD-2"
-  else if (OrderLOBMatch."Not OrderLOBMatch") then
-    "CRD Matrix"(requestItem)."CRD-3.2"
   else if (NpiMatch."Not ProviderNpiMatch"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-3.1"
+  else if (OrderLOBMatch."Not OrderLOBMatch") then
+    "CRD Matrix"(requestItem)."CRD-3.2"
   else if (NpiMatch."Not LOBMatch"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-3.2b"
   else if (GoldCard."Is OrderGoldStatus") then
