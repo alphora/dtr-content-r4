@@ -49,6 +49,10 @@ define function "Qualification"(requestItem Choice<FHIR.NutritionOrder, FHIR.Ser
   'Prior authorization is required for ' + Ctx."Service Request Item Code"(requestItem).display
 
 // CRD-5
+define "Detail Debugging":
+  'Not yet implemented.'
+
+// CRD-5
 define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   Ctx."ExtensionPriorAuthNeeded"(requestItem, 'conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification"(requestItem), 'Warning')
 

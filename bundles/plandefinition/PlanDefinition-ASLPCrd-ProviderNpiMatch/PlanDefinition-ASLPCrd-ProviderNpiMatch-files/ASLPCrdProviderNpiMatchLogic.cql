@@ -23,6 +23,16 @@ define "Qualification":
   'Provider is not in the network. You can submit a PA request as an exception.'
 
 // CRD-3.1
+define function "Detail Debugging"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+  '"Is LOBMatch"=' + Ctx.NewLine + ToString("Is LOBMatch"(requestItem))  + Ctx.NewLine +
+  '  - "Requesting Organization Match"=' + Ctx.NewLine + ToString("Requesting Organization Match"(requestItem))  + Ctx.NewLine +
+  '  - "Performing Organization Match"=' + Ctx.NewLine + ToString("Performing Organization Match"(requestItem))  + Ctx.NewLine +
+  Ctx.NewLine +
+  '"Is ProviderNpiMatch"=' + Ctx.NewLine + ToString("Is ProviderNpiMatch"(requestItem))  + Ctx.NewLine +
+  '  - "Requesting Provider Match"=' + Ctx.NewLine + ToString("Requesting Provider Match"(requestItem))  + Ctx.NewLine +
+  '  - "Performing Provider Match"=' + Ctx.NewLine + ToString("Performing Provider Match"(requestItem))  + Ctx.NewLine
+
+// CRD-3.1
 define "Detail Text":
   'Provider Not in Network'
 
@@ -102,8 +112,10 @@ define function "Requesting Practitioner IDs from ServiceRequest"(requestItem Ch
   )
 
 define function "All Requesting Practitioners Found"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
-  "Requesting Practitioner IDs from ServiceRequest"(requestItem)
-    included in (("Requesting Practitioners from Provider"(requestItem)) Practitioner return Practitioner.id.value)
+  IsTrue(
+    "Requesting Practitioner IDs from ServiceRequest"(requestItem)
+      included in (("Requesting Practitioners from Provider"(requestItem)) Practitioner return Practitioner.id.value)
+  )
 
 define function "Requesting Practitioners from Provider"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   ("Requesting Practitioners from ServiceRequest"(requestItem))
@@ -176,13 +188,15 @@ define function "Performing Practitioner IDs from ServiceRequest"(requestItem Ch
   )
   union
   (
-    (Ctx.GetRequester(requestItem)) PerformerPractitioner
+    (Ctx.GetPerformer(requestItem)) PerformerPractitioner
       return PerformerPractitioner.reference.getId()
   )
 
 define function "All Performing Practitioners Found"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
-  "Performing Practitioner IDs from ServiceRequest"(requestItem)
-    included in (("Performing Practitioners from Provider"(requestItem)) Practitioner return Practitioner.id.value)
+  IsTrue(
+    "Performing Practitioner IDs from ServiceRequest"(requestItem)
+      included in (("Performing Practitioners from Provider"(requestItem)) Practitioner return Practitioner.id.value)
+  )
 
 define function "Payor Organization via Performing PracitionerRole"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   Ctx."Payor"."Organizations" Organization
