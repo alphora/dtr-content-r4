@@ -29,6 +29,10 @@ define "Detail Text":
   'Prior Authorization Not Required'
 
 // CRD-7
+define "Detail Debugging":
+  'Not yet implemented.'
+
+// CRD-7
 define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   Ctx."ExtensionPriorAuthNeeded"(requestItem, 'covered', 'no-auth', 'no-auth', "Detail Text", "Qualification"(requestItem), 'info')
 

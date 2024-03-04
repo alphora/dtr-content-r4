@@ -23,6 +23,10 @@ define "Qualification":
   'Line of Business MisMatch. Prior authorization submission is required.'
 
 // CRD-3.2
+define "Detail Debugging":
+  'Not yet implemented.'
+
+// CRD-3.2
 define "Detail Text":
   'Line Of Business Mismatch'
 
