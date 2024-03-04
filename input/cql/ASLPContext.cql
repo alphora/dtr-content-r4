@@ -46,22 +46,11 @@ context Patient
 define "NewLine":
   '\r\n'
 
-define "Payor Coverage":
-  // TODO: ensure the Coverage is the relevant coverage instead of just the first matching coverage
-  First(
-    "Payor"."Coverages" 
-      // PayorCoverage
-      // with "Provider"."Coverages" ProviderCoverage
-      // such that exists(PayorCoverage.identifier.id intersect ProviderCoverage.identifier.id)
-  )
-
 define "Provider Coverage":
-  // TODO: ensure the Coverage is the relevant coverage instead of just the first matching coverage
+  // NOTE: per PA team, the Coverage is just the first matching coverage
+  //       - at some point we may return a "ambiguous data" response if there is > 1 Coverage
   First(
-    "Provider"."Coverages" 
-      // PayorCoverage
-      // with "Provider"."Coverages" ProviderCoverage
-      // such that exists(PayorCoverage.identifier.id intersect ProviderCoverage.identifier.id)
+    [Coverage] item where IsPayorResource(item) = false
   )
 
 define function "Service Request Item Code"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
@@ -194,7 +183,7 @@ define "Service Request Item List":
 define "Provider":
   {
     "Patient": "Provider Patient",
-    "Coverages": [Coverage] item where IsPayorResource(item) = false,
+    "Coverages": { "Provider Coverage" },
     "Practitioners": [Practitioner] item where IsPayorResource(item) = false,
     "PractitionerRoles": [PractitionerRole] item where IsPayorResource(item) = false,
     "Organizations": [Organization] item where IsPayorResource(item) = false
@@ -226,10 +215,5 @@ define "Payor Patient":
   First(
     [RelatedPerson] RP
       where 
-        exists(
-          RP.relationship.coding C 
-            where C.system.value ~ "Relationship Self Code".system
-              and C.code.value ~ "Relationship Self Code".code
-        ) and 
         IsPayorResource(RP)
   )

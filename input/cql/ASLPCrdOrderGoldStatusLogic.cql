@@ -27,6 +27,10 @@ define "Qualification":
   'Ordering Practitioner has been granted \'gold card\' status with this payer/coverage type. Prior Auth is Not Required.'
 
 // CRD-4
+define "Detail Debugging":
+  'Not yet implemented.'
+
+// CRD-4
 define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   Ctx."ExtensionPriorAuthNeeded"(requestItem, 'covered', 'no-auth', 'gold-card', "Detail Text", "Qualification", 'info')
 

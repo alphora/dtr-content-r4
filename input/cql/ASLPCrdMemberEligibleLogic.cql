@@ -27,6 +27,10 @@ define "Qualification":
   'The member cannot be found. You can submit a PA request as an exception.'
 
 // CRD-2
+define "Detail Debugging":
+  'Not yet implemented.'
+
+// CRD-2
 define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
   Ctx."ExtensionPriorAuthNeeded"(requestItem, 'conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification", 'Warning')
 
