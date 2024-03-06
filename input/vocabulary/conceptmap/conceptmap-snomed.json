@@ -1,44 +1,36 @@
 {
   "resourceType": "ConceptMap",
-  "id": "ICD-10",
-  "url": "http://example.org/sdh/dtr/aslp/ConceptMap/ICD-10",
-  "name": "ICD-10",
-  "title": "ICD-10",
+  "id": "SNOMED",
+  "url": "http://example.org/sdh/dtr/aslp/ConceptMap/SNOMED",
+  "name": "SNOMED",
+  "title": "SNOMED",
   "status": "draft",
   "experimental": false,
-  "description": "Concept mapping from content extended codes to ICD-10",
+  "description": "Concept mapping from content extended codes to SNOMED",
   "group": [ {
     "source": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes",
-    "target": "http://hl7.org/fhir/sid/icd-10",
+    "target": "http://snomed.info/sct",
     "element": [ {
-      "code": "ASLP.A1.DE17",
-      "display": "Obstructive sleep apnea (OSA)",
-      "target": [ {
-        "code": "G47.33",
-        "display": "Obstructive sleep apnea (OSA)",
-        "equivalence": "equivalent"
-      } ]
-    },{
       "code": "ASLP.A1.DE19",
       "display": "History of Diabetes",
       "target": [ {
-        "code": "E11.9",
-        "display": "Diabetes",
+        "code": "73211009",
+        "display": "Diabetes mellitus (disorder)",
         "equivalence": "equivalent"
       } ]
     },{
       "code": "ASLP.A1.DE18",
       "display": "History of Hypertension",
       "target": [ {
-        "code": "I10",
-        "display": "Hypertension",
+        "code": "38341003",
+        "display": "Hypertensive disorder, systemic arterial (disorder)",
         "equivalence": "equivalent"
       } ]
     },{
       "code": "ASLP.A1.DE17",
       "display": "Obstructive sleep apnea (OSA)",
       "target": [ {
-        "code": "G47.33",
+        "code": "78275009",
         "equivalence": "equivalent"
       } ]
     } ]

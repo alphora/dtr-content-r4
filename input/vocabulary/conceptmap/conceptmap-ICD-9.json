@@ -1,0 +1,31 @@
+{
+  "resourceType": "ConceptMap",
+  "id": "ICD-9",
+  "url": "http://example.org/sdh/dtr/aslp/ConceptMap/ICD-9",
+  "name": "ICD-9",
+  "title": "ICD-9",
+  "status": "draft",
+  "experimental": false,
+  "description": "Concept mapping from content extended codes to ICD-9",
+  "group": [ {
+    "source": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes",
+    "target": "http://hl7.org/fhir/sid/icd-9-cm/diagnosis",
+    "element": [ {
+      "code": "ASLP.A1.DE19",
+      "display": "History of Diabetes",
+      "target": [ {
+        "code": "250.00",
+        "display": "Diabetes",
+        "equivalence": "equivalent"
+      } ]
+    },{
+      "code": "ASLP.A1.DE18",
+      "display": "History of Hypertension",
+      "target": [ {
+        "code": "401.9",
+        "display": "Hypertension",
+        "equivalence": "equivalent"
+      } ]
+    } ]
+  } ]
+}

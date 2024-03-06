@@ -1,0 +1,47 @@
+{
+  "resourceType": "ConceptMap",
+  "id": "LOINC",
+  "url": "http://example.org/sdh/dtr/aslp/ConceptMap/LOINC",
+  "name": "LOINC",
+  "title": "LOINC",
+  "status": "draft",
+  "experimental": false,
+  "description": "Concept mapping from content extended codes to LOINC",
+  "group": [ {
+    "source": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes",
+    "target": "http://loinc.org",
+    "element": [ {
+      "code": "ASLP.A1.DE20",
+      "display": "Height",
+      "target": [ {
+        "code": "8302-2",
+        "display": "Body height",
+        "equivalence": "equivalent"
+      } ]
+    },{
+      "code": "ASLP.A1.DE21",
+      "display": "Weight",
+      "target": [ {
+        "code": "29463-7",
+        "display": "Body weight",
+        "equivalence": "equivalent"
+      } ]
+    },{
+      "code": "ASLP.A1.DE22",
+      "display": "BMI",
+      "target": [ {
+        "code": "39156-5",
+        "display": "Body mass index (BMI) [Ratio]",
+        "equivalence": "equivalent"
+      } ]
+    },{
+      "code": "ASLP.A1.DE23",
+      "display": "Neck Circumference",
+      "target": [ {
+        "code": "56074-8",
+        "display": "Circumference Neck",
+        "equivalence": "equivalent"
+      } ]
+    } ]
+  } ]
+}

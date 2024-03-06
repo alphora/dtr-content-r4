@@ -44,7 +44,7 @@ define "Diagnosis of Obstructive Sleep Apnea":
   SC.MostRecent(
   [Condition: Cs."Diagnosis of Obstructive Sleep Apnea Codes"] C
     where C.clinicalStatus in FC."Active Condition"
-      and C.verificationStatus ~ FC."confirmed"
+      //and C.verificationStatus ~ FC."confirmed"
   ).code
 
 
