@@ -144,6 +144,7 @@ returns FHIR.Extension:
       else if (codeValue = 'no-auth') then "DetailCodeAuthNotRequired"(detailText)
       else if (codeValue = 'gold-card') then "DetailCodeGoldCard"(detailText)
       else if (codeValue = 'not-covered') then "DetailCodeNoCoverage"(detailText)
+      else if (codeValue = 'coverage-info') then "DetailCodeCoverageInfo"(detailText)
       else "DetailCode"('http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp', codeValue, 'Unknown display', detailText),
 
       FHIR.Extension {
@@ -188,6 +189,10 @@ returns FHIR.Extension:
 define function "DetailCodeNoCoverage"(displayText System.String)
 returns FHIR.Extension:
   "DetailCode"('http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp', 'not-covered', 'Not covered', displayText)
+
+define function "DetailCodeCoverageInfo"(displayText System.String)
+returns FHIR.Extension:
+  "DetailCode"('http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp', 'coverage-info', 'Coverage Information', displayText)
 
 define function "DependencyExtension"(requestReferenceString System.String)
 returns FHIR.Extension:
