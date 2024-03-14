@@ -46,11 +46,25 @@ define "Qualification 8.3":
 define "Detail Debugging":
   'Not yet implemented.'
 
-define "Insufficient or Ambiguous High":
-  true
+// CRD-8
+define function "Insufficient or Ambiguous High"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
+  "Too many provider or payor coverages"
+    or "Request Patient does not match Context Patient"(requestItem)
 
-define "DomainResource is Empty":
-  true
+define "Too many provider or payor coverages":  
+  Count(Ctx."Provider"."Coverages") > 1 or
+    Count(Ctx."Payor"."Coverages") > 1
 
-define "Received Provider Data Cannot be Processed":
-  true
+define function "Request Patient does not match Context Patient"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
+  if requestItem is null then 
+    false
+  else
+    Ctx.GetSubjectID(requestItem) !~ Patient.id.value
+
+// CRD-8.1
+define function "DomainResource is Empty"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
+  requestItem is null
+
+// CRD-8.3
+define function "Received Provider Data Cannot be Processed"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
+  Ctx."GetResourceType"(requestItem) in Ctx."UnsupportedResourceTypes"
