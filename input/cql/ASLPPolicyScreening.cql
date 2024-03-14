@@ -1,4 +1,4 @@
-library ASLPPolicyPriorAuth
+library ASLPPolicyScreening
 
 using FHIR version '4.0.1'
 
@@ -11,7 +11,8 @@ codesystem "ICD10": 'http://hl7.org/fhir/sid/icd-10-cm'
 codesystem "ConditionClinicalStatusCodes": 'http://terminology.hl7.org/CodeSystem/condition-clinical'
 codesystem "ConditionVerificationStatusCodes": 'http://terminology.hl7.org/CodeSystem/condition-ver-status'
 codesystem "LOINC": 'http://loinc.org'
-
+codesystem "SNOMEDCT": 'http://snomed.info/sct'
+ 
 valueset "Excessive Daytime Sleepiness ValueSet": ' '
 valueset "Epworth Sleepiness Scale ValueSet": ' '
 valueset "Sleepiness While Driving ValueSet": ''
@@ -28,6 +29,7 @@ valueset "Safe Home Use ValueSet": ''
 valueset "Physician Can Evaluate Results ValueSet": ''
 
 code "Excessive Daytime Sleepiness code": 'G47.10' from "ICD10" display 'Excessive Daytime Sleepiness'
+code "Epworth Sleepiness Scale": '763254009' from "SNOMEDCT" display 'Epworth Sleepiness Scale'
 code "Loud Snoring code": 'R06.83' from "ICD10" display 'Loud/Intense Snoring'
 code "Witnessed Nocturnal Apnea code": 'G47.3' from "ICD10" display 'Witnessed nocturnal apnea, choking and/or gasping'
 code "active": 'active' from "ConditionClinicalStatusCodes"
@@ -43,6 +45,7 @@ code "Cardiac Disease": '45641-8' from "LOINC" display 'Congestive heart failure
 
 context Patient
 
+//use accelerator kit to produce these
 define "Patient Age":
   AgeInYears() >= 18
 
@@ -64,7 +67,7 @@ define "Qualified Excessive Daytime Sleepiness":
     where O.status = 'corrected'
 
 define "Epworth Sleepiness Scale Score > 10":
-  [Observation: "Epworth Sleepiness Scale ValueSet"] O 
+  [Observation: "Epworth Sleepiness Scale"] O 
     where O.status = 'corrected'
       and O.value > 10
 
@@ -162,8 +165,8 @@ define "Qualifying Cardiac Disease":
     where O.status = 'corrected'
 
 define "Uses A Qualified Device":
-  [DeviceRequest: "Eligible Devices ValueSet"] DR 
-    where DR.status = 'completed'
+  [Device: "Eligible Devices ValueSet"] DR 
+    where DR.status = 'active'
 
 define "Can Safely Use Equipment At Home":
   [Observation: "Safe Home Use ValueSet"] O 
