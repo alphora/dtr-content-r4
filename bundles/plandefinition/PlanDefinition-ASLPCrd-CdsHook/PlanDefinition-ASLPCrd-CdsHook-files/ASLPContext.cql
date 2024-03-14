@@ -21,6 +21,12 @@ parameter "Request Id" System.String
   // NOTE: defaults should not be used in production
   //default 'generated-id-default-value'
 
+// TODO: separate this into different parameters
+// parameter "Payor Patient" FHIR.Patient
+// parameter "Payor Coverages" List<FHIR.Coverage>
+// parameter "Payor Practitioners" List<FHIR.Practitioner>
+// parameter "Payor PractitionerRoles" List<FHIR.PractitionerRole>
+// parameter "Payor Organizations" List<FHIR.Organization>
 parameter "Payor Context" FHIR.Bundle
   // NOTE: defaults should not be used in production
   /*
