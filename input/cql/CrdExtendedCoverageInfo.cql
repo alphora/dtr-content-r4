@@ -35,9 +35,10 @@ returns FHIR.Extension:
       // detail code, warning or info, and qualification
       "DetailExtension"(codeValue, detailText, qualification, warningOrInfo),
 
-      // Always 'admin' and 'clinical', so using 'both'
-      // 'admin', 'clinical', 'both', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)
-      "DocNeeded"('both')
+      // Always 'admin' and 'clinical'
+      // 'admin', 'clinical', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)
+      "DocNeeded"('admin'),
+      "DocNeeded"('clinical')
     }) Extension where not IsNull(Extension)
   }
 
@@ -70,9 +71,10 @@ returns FHIR.Extension:
       // detail code, warning or info, and qualification
       "DetailExtension"(codeValue, detailText, qualification, warningOrInfo),
 
-      // Always 'admin' and 'clinical', so using 'both'
-      // 'admin', 'clinical', 'both', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)
-      "DocNeeded"('both')
+      // Always 'admin' and 'clinical'
+      // 'admin', 'clinical', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)
+      "DocNeeded"('admin'),
+      "DocNeeded"('clinical')
     }) Extension where not IsNull(Extension)
   }
 
