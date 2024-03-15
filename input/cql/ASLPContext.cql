@@ -193,7 +193,7 @@ returns List<FHIR.Reference>:
 
 define function GetSubjectID(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>)
 returns System.String:
-  if (item is FHIR.VisionPrescription or item is FHIR.VisionPrescription) then
+  if (item is FHIR.VisionPrescription or item is FHIR.NutritionOrder) then
     item.patient.reference.getId()
   else item.subject.reference.getId()
   
