@@ -10,6 +10,7 @@ include ASLPPolicyScreening called PS
 
 codesystem "ASLP Policy Screening Codes": 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes'
 
+//context???
 
 define "Qualifying Patient Age Assertion":
   FHIR.CodeableConcept {
@@ -33,7 +34,7 @@ define "Qualifying Excessive Daytime Sleepiness Assertion":
     }
   }
 
-define "Qualifying Epworth Sleepiness Scale Score Assertion":
+define "Qualifying Epworth Sleepiness Scale Assertion":
   FHIR.CodeableConcept {
     coding: {
         Coding {
@@ -42,7 +43,7 @@ define "Qualifying Epworth Sleepiness Scale Score Assertion":
             display: string { value: 'ESS Score >= 10' }
         }
     }
-  }
+  } //How do we account for value >= 10
 
 define "Qualifying Excessive Sleepiness While Driving Assertion":
   FHIR.CodeableConcept {
@@ -99,7 +100,7 @@ define "Qualifying Moderate To Severe Pulmonary Disease Assertion":
     }
   }
 
-define "Qualifying Moderate To Severe Pulmonary Disease Assertion Including COPD":
+define "Qualifying Moderate To Severe Pulmonary Disease Assertion Including COPD Assertion":
   FHIR.CodeableConcept {
     coding: {
         Coding {
@@ -110,7 +111,7 @@ define "Qualifying Moderate To Severe Pulmonary Disease Assertion Including COPD
     }
   }
 
-define "Qualifying Moderate To Severe Pulmonary Disease Assertion Including Asthma":
+define "Qualifying Moderate To Severe Pulmonary Disease Assertion Including Asthma Assertion":
   FHIR.CodeableConcept {
     coding: {
         Coding {

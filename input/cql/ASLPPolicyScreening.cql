@@ -28,8 +28,9 @@ valueset "Eligible Devices ValueSet": ' '
 valueset "Safe Home Use ValueSet": ''
 valueset "Physician Can Evaluate Results ValueSet": ''
 
+
 code "Excessive Daytime Sleepiness code": 'G47.10' from "ICD10" display 'Excessive Daytime Sleepiness'
-code "Epworth Sleepiness Scale": '763254009' from "SNOMEDCT" display 'Epworth Sleepiness Scale'
+code "Epworth Sleepiness Scale Code": '763254009' from "SNOMEDCT" display 'Epworth Sleepiness Scale'
 code "Loud Snoring code": 'R06.83' from "ICD10" display 'Loud/Intense Snoring'
 code "Witnessed Nocturnal Apnea code": 'G47.3' from "ICD10" display 'Witnessed nocturnal apnea, choking and/or gasping'
 code "active": 'active' from "ConditionClinicalStatusCodes"
@@ -49,39 +50,54 @@ context Patient
 define "Patient Age":
   AgeInYearsAt(Now()) 
 
-define "Qualifying Patient Age":
+define "Patient Age >= 18":
   AgeInYearsAt(Now()) >= 18
 
 //Excessive Daytime Sleepiness criteria
-define "Qualified Excessive Daytime Sleepiness criteria":
-  exists("Excessive Daytime Sleepiness")
+define "Excessive Daytime Sleepiness criteria":
+  ("Excessive Daytime Sleepiness Observation")
     and (
-        exists("Epworth Sleepiness Scale Score > 10")
+        ("ESS Score >= 10")
         or exists("Excessive Sleepiness While Driving")
-        or exists("Loud/Intense Snoring")
+        or exists("Loud Intense Snoring")
         or exists("Nocturnal Apnea")
     )
-
-define "Qualified Excessive Daytime Sleepiness":
-  exists("Excessive Daytime Sleepiness")
 
 define "Excessive Daytime Sleepiness":
   [Observation: "Excessive Daytime Sleepiness code"] O 
     where O.status = 'corrected'
 
-define "Epworth Sleepiness Scale Score > 10":
-  [Observation: "Epworth Sleepiness Scale"] O 
+define "Excessive Daytime Sleepiness Observation":
+  exists("Excessive Daytime Sleepiness")
+
+define "Epworth Sleepiness Scale":
+  [Observation: "Epworth Sleepiness Scale Code"] O 
     where O.status = 'corrected'
-      and O.value > 10
+
+define "Epworth Sleepiness Scale Score >= 10":
+  "Epworth Sleepiness Scale" O
+    where O.value > 10
+
+define "ESS Score >= 10":
+  exists("Epworth Sleepiness Scale Score >= 10")
 
 define "Excessive Sleepiness While Driving":
   [Observation: "Sleepiness While Driving ValueSet"] O 
     where O.status = 'corrected'
 
-define "Loud/Intense Snoring":
+define "Excessive Sleepiness While Driving Observation":
+  exists("Excessive Sleepiness While Driving")
+
+define "Witnessed Loud Snoring":
+  exists("Loud Intense Snoring")
+
+define "Loud Intense Snoring":
   [Condition: "Loud Snoring code"]  C 
     where C.clinicalStatus = "active"
       and C.verificationStatus = "confirmed"
+
+define "Witnessed Nocturnal Apnea":
+  exists("Nocturnal Apnea")
 
 define "Nocturnal Apnea":
   [Condition: "Witnessed Nocturnal Apnea code"] C 
@@ -106,13 +122,13 @@ define "Absence of Comorbid Medical Conditions":
 define "Qualifying Absence Of Comorbid Medical Conditions":
   "Absence of Comorbid Medical Conditions"
     and (
-        ("Moderate To Severe Pulmonary Disease")
+        ("Has Moderate To Severe Pulmonary Disease")
         or exists("Neuromuscular Disease With Associated Pulmonary Disease")
         or exists("Qualifying Cardiac Disease")
     )
 
 
-define "Moderate To Severe Pulmonary Disease":
+define "Has Moderate To Severe Pulmonary Disease":
   exists("Qualifying Moderate To Severe Pulmonary Disease")
     and (
         exists("Moderate To Severe Pulmonary Disease Including COPD")
@@ -124,6 +140,8 @@ define "Qualifying Moderate To Severe Pulmonary Disease":
     where O.status = 'corrected'
     //O.code ~ "Pulmonary function test panel" or O.code = "Chronic obstructive pulmonary disease" ; should this be used instead??
 
+define "Pulmonary Disease Including COPD":
+  exists("Moderate To Severe Pulmonary Disease Including COPD")
 
 define "Moderate To Severe Pulmonary Disease Including COPD":
   [Observation: "Chronic obstructive pulmonary disease"] O 
@@ -141,6 +159,9 @@ define "Moderate To Severe Pulmonary Disease Including COPD":
       )
     and O.status = 'corrected'
 
+define "Pulmonary Disease Including Asthma":
+  exists("Moderate To Severe Pulmonary Disease Including Asthma")
+
 define "Moderate To Severe Pulmonary Disease Including Asthma":
   [Observation: "Chronic obstructive pulmonary disease"] O 
     where exists(
@@ -149,6 +170,9 @@ define "Moderate To Severe Pulmonary Disease Including Asthma":
         )
     )
     and O.status = 'corrected'
+
+define "Qualified Neuromuscular Disease With Associated Pulmonary Disease":
+  exists("Neuromuscular Disease With Associated Pulmonary Disease")
 
 define "Qualifying Neuromuscular Disease":
   [Observation: "Neuromuscular Diseases"] O 
@@ -163,17 +187,34 @@ define "Neuromuscular Disease With Associated Pulmonary Disease":
     )
     and O.status = 'corrected'
 
+define "Cardiac Disease Observation":
+  exists("Qualifying Cardiac Disease")
+
 define "Qualifying Cardiac Disease":
   [Observation: "Cardiac Disease"] O 
     where O.status = 'corrected'
 
-define "Uses A Qualified Device":
+define "Qualified Device Observation":
+  exists("Qualified Device")
+
+//Do we want device or device req??
+define "Qualified Device Request":
+  [DeviceRequest: "Eligible Devices ValueSet"] DevReq 
+    where DevReq.status = 'active'
+
+define "Qualified Device": 
   [Device: "Eligible Devices ValueSet"] DR 
     where DR.status = 'active'
+
+define "Safe Use Of Equipment At Home Observation":
+  exists("Can Safely Use Equipment At Home")
 
 define "Can Safely Use Equipment At Home":
   [Observation: "Safe Home Use ValueSet"] O 
     where O.status = 'corrected'
+
+define "Physician Evaluated Results Observation":
+  exists("Physician Evaluated Results")
 
 define "Physician Evaluated Results":
   [Observation: "Physician Can Evaluate Results ValueSet"] O 

@@ -8,7 +8,7 @@ include FHIRHelpers version '4.1.000'
 
 context Patient
 //IMPORTANT NOTE: This was taken from demo-content-r4. May need edits
-
+ 
 define function ReferenceTo(resource Resource):
   Reference { reference: string { value: resource.typeof() + '/' + resource.id } }
  
@@ -32,7 +32,6 @@ define fluent function typeof(resource Resource):
     else
       Message(null, true, 'FHIRCommon.typeof.UnknownFHIResource', 'Error', 'Unknown resource type: ' + resource.id)
   end
-
 
 //NOTE: agent is to be set by the service
 //Inference resource should be built by CQL.  Need example.
@@ -168,6 +167,13 @@ define function MostRecent(value List<FHIR.Procedure>):
 
 //TODO: POC only (need to consider all the ServiceRequest considerations)
 define function MostRecent(value List<FHIR.ServiceRequest>):
+  First(
+    value Observation
+      sort by authoredOn descending
+  )
+
+//TODO: POC only (need to consider all the ServiceRequest considerations)
+define function MostRecent(value List<FHIR.DeviceRequest>):
   First(
     value Observation
       sort by authoredOn descending

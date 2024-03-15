@@ -38,7 +38,7 @@
       "valueExpression": {
         "language": "text/cql-identifier",
         "expression": "Safe Equipment Use At Home",
-        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyScreening"
+        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
       }
     }
   ],

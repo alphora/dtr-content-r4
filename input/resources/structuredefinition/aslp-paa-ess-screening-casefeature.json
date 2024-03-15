@@ -38,7 +38,7 @@
       "valueExpression": {
         "language": "text/cql-identifier",
         "expression": "ESS Score >= 10",
-        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyScreening"
+        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
       }
     }
   ],

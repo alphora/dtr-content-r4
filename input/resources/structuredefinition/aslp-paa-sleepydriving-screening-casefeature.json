@@ -37,14 +37,14 @@
         "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
         "valueExpression": {
           "language": "text/cql-identifier",
-          "expression": "Excessive Sleepiness While Driving",
-          "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyScreening"
+          "expression": "Qualifying Excessive Sleepiness While Driving",
+          "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
         }
       }
     ],
     "url": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepydriving-screening-casefeature",
     "name": "ExcessiveSleepinessWhileDriving",
-    "title": "Excessive Sleepiness While Driving",
+    "title": "Qualifying Excessive Sleepiness While Driving",
     "status": "draft",
     "experimental": true,
     "description": "Excessive Sleepiness While Driving",
@@ -73,8 +73,8 @@
         {
           "id": "Observation.code",
           "path": "Observation.code",
-          "short": "Excessive Sleepiness While Driving",
-          "definition": "Excessive Sleepiness While Driving",
+          "short": "Qualifying Excessive Sleepiness While Driving",
+          "definition": "Qualifying Excessive Sleepiness While Driving",
           "min": 1,
           "max": "1",
           "type": [
@@ -143,8 +143,8 @@
         {
           "id": "Observation.value[x]",
           "path": "Observation.value[x]",
-          "short": "Excessive Sleepiness While Driving",
-          "definition": "Excessive Sleepiness While Driving",
+          "short": "Qualifying Excessive Sleepiness While Driving",
+          "definition": "Qualifying Excessive Sleepiness While Driving",
           "min": 1,
           "max": "1",
           "type": [

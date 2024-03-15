@@ -366,14 +366,14 @@ InstanceOf: PlanDefinition
 Usage: #example
 * insert CommonProperties("Prior Authorization Adjudication for Home/portable monitor sleep testing", "Home Monitor PAA", "pa-adju-home-mon")
 
-* library = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyScreening"
+* library = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
 
 * action
   * title = "Qualifying Patient Age"
   * description = "Input for whether the patient is within qualifying age."
   * input
     * insert ActionInput("Is patient 18 years or older?", "The patient is 18 years or older")
-    * insert ActionInputCql("Qualifying Patient Age", ASLPPolicyScreening)
+    * insert ActionInputCql("Qualifying Patient Age", ASLPPolicyPAA)
     * type = #Observation
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-patientage-casefeature-definition"
   * action[0]
@@ -396,7 +396,7 @@ Usage: #example
     * description = "Patient has excessive daytime sleepiness"
     * input
       * insert ActionInput("Patient has excessive daytime sleepiness?", "Patient has excessive daytime sleepiness")
-      * insert ActionInputCql("Qualifying Excessive Daytime Sleepiness", ASLPPolicyScreening)
+      * insert ActionInputCql("Qualifying Excessive Daytime Sleepiness", ASLPPolicyPAA)
       * type = #Observation
       * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-eds-screening-casefeature"
     * action[0]
@@ -419,7 +419,7 @@ Usage: #example
         * description = "Epworth Sleepiness Scale (ESS) score of 10 or greater"
         * input
           * insert ActionInput("Does patient had ESS score >= 10?", "ESS score >= 10")
-          * insert ActionInputCql("ESS Score >= 10", ASLPPolicyScreening)
+          * insert ActionInputCql("ESS Score >= 10", ASLPPolicyPAA)
           * type = #Observation
           * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ess-screening-casefeature"
         * action[0]
@@ -442,7 +442,7 @@ Usage: #example
         * description = "Excessive sleepiness while driving"
         * input
           * insert ActionInput("Does patient have excessive sleepiness while driving", "Patient has Excessive sleepiness while driving")
-          * insert ActionInputCql("Excessive Sleepiness While Driving", ASLPPolicyScreening)
+          * insert ActionInputCql("Qualifying Excessive Sleepiness While Driving", ASLPPolicyPAA)
           * type = #Observation
           * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepydriving-screening-casefeature"
         * action[0]
@@ -465,7 +465,7 @@ Usage: #example
         * description = "Loud/intense snoring"
         * input
           * insert ActionInput("Does patient snore loudly", "Patient snores loudly")
-          * insert ActionInputCql("Loud/Intense Snoring", ASLPPolicyScreening)
+          * insert ActionInputCql("Loud/Intense Snoring", ASLPPolicyPAA)
           * type = #Condition
           * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-loudsnoring-screening-casefeature"
         * action[0]
@@ -488,7 +488,7 @@ Usage: #example
         * description = "Witnessed nocturnal apnea, choking and/or gasping"
         * input
           * insert ActionInput("Does patient have nocturnal apnea", "Patient has nocturnal apnea")
-          * insert ActionInputCql("Nocturnal Apnea", ASLPPolicyScreening)
+          * insert ActionInputCql("Nocturnal Apnea", ASLPPolicyPAA)
           * type = #Condition
           * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-apnea-screening-casefeature"
         * action[0]
@@ -511,7 +511,7 @@ Usage: #example
             * description = "Absence of comorbid medical condition(s) that would reduce the accuracy of a home/PM sleep test"
             * input
               * insert ActionInput("Patient has absence of medical condition?", "Patient has absence comorbid medical condition")
-              * insert ActionInputCql("Qualifying Absence Of Comorbid Medical Conditions", ASLPPolicyScreening)
+              * insert ActionInputCql("Qualifying Absence Of Comorbid Medical Conditions", ASLPPolicyPAA)
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-comorbid-screening-casefeature"
             * action[0]
@@ -534,7 +534,7 @@ Usage: #example
                 * description = "Moderate to severe pulmonary disease including, but may not be limited to: COPD, nocturnal or uncontrolled asthma"
                 * input
                   * insert ActionInput("Patient has moderate to severe pulmonary disease?", "Patient has moderate to severe pulmonary disease")
-                  * insert ActionInputCql("Qualifying Moderate To Severe Pulmonary Disease", ASLPPolicyScreening)
+                  * insert ActionInputCql("Qualifying Moderate To Severe Pulmonary Disease", ASLPPolicyPAA)
                   * type = #Observation
                   * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
                 * action[0]
@@ -557,7 +557,7 @@ Usage: #example
                     * description = "Moderate to severe pulmonary disease including Chronic Obstructive Pulmonary Disease (COPD) with an FEV1 less than 60%, use of home oxygen or evidence of hypoventilation such as CO2 level greater than or equal to 45 mm Hg"
                     * input
                       * insert ActionInput("Patient has moderate to severe pulmonary disease including COPD?", "Patient has moderate to severe pulmonary disease including COPD")
-                      * insert ActionInputCql("Qualifying Moderate To Severe Pulmonary Disease Including COPD", ASLPPolicyScreening)
+                      * insert ActionInputCql("Qualifying Moderate To Severe Pulmonary Disease Including COPD", ASLPPolicyPAA)
                       * type = #Observation
                       * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithcopd-screening-casefeature"
                     * action[0]
@@ -580,7 +580,7 @@ Usage: #example
                     * description = "Moderate to severe pulmonary disease including nocturnal or uncontrolled asthma"
                     * input
                       * insert ActionInput("Patient has moderate to severe pulmonary disease including nocturnal or uncontrolled asthma?", "Patient has moderate to severe pulmonary disease including nocturnal or uncontrolled asthma")
-                      * insert ActionInputCql("Qualifying Moderate To Severe Pulmonary Disease Including Asthma", ASLPPolicyScreening)
+                      * insert ActionInputCql("Qualifying Moderate To Severe Pulmonary Disease Including Asthma", ASLPPolicyPAA)
                       * type = #Observation
                       * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithasthma-screening-casefeature"
                     * action[0]
@@ -596,20 +596,20 @@ Usage: #example
                     * action[+]
                       * title = "Has moderate to severe pulmonary disease including asthma"
                       * description = "Patient has moderate to severe pulmonary disease including nocturnal or uncontrolled asthma"
-                      * insert ActionConditionCql("Has Moderate To Severe Pulmonary Disease Including Asthma")
+                      * insert ActionConditionCql("Has Moderate To Severe Pulmonary Disease Including Asthma") 
                       
                       * action
                         * title = "Neuromuscular disease with associated pulmonary disease"
                         * description = "Neuromuscular disease with associated pulmonary disease including, but may not be limited to: amyotrophic lateral sclerosis, multiple sclerosis, myotonic dystrophy, Parkinson’s, previous stroke with residual respiratory effects, spina bifida or uncontrolled epilepsy"
                         * input
                           * insert ActionInput("Patient has neuromuscular disease with associated pulmonary disease?", "Patient has neuromuscular disease with associated pulmonary disease")
-                          * insert ActionInputCql("Qualifying Neuromuscular Disease With Associated Pulmonary Disease", ASLPPolicyScreening)
+                          * insert ActionInputCql("Qualifying Neuromuscular Disease With Associated Pulmonary Disease", ASLPPolicyPAA)
                           * type = #Observation
                           * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscular-screening-casefeature"
                       * action[0]
                           * title = "No Neuromuscular disease with associated pulmonary disease"
                           * description = "Patient does not have neuromuscular disease with associated pulmonary disease"
-                          * insert ActionConditionCql("No Neuromuscular disease with associated pulmonary disease")
+                          * insert ActionConditionCql("No Neuromuscular Disease With Associated Pulmonary Disease")
                           * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
                       * action[+]
                           * title = "Null or Unknown neuromuscular diseas with associated pulmonary disease"
@@ -626,7 +626,7 @@ Usage: #example
                             * description = "Cardiac disease, including but may not be limited to; congestive heart failure (CHF) (New York Heart Association class III or IV or left ventricular ejection fraction [LVEF] less than 45%), pulmonary hypertension or uncontrolled cardiac arrhythmia"
                             * input
                               * insert ActionInput("Patient has Cardiac Disease?", "Patient has Cardiac Disease")
-                              * insert ActionInputCql("Qualifying Cardiac Disease", ASLPPolicyScreening)
+                              * insert ActionInputCql("Qualifying Cardiac Disease", ASLPPolicyPAA)
                               * type = #Observation
                               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature"
                             * action[0]
@@ -642,14 +642,14 @@ Usage: #example
                             * action[+]
                               * title = "Has Cardiac Disease"
                               * description = "Patient has Cardiac Disease"
-                              * insert ActionConditionCql("Has Cardiac disease")
+                              * insert ActionConditionCql("Has Cardiac Disease")
                   
                               * action[+]
                                 * title = "Qualified device is used"
                                 * description = "Type II, Type III, Type IV or PAT PM device is used (Type IV PM devices must measure a minimum of 3 channels that include heartrate, oxygen saturation and respiratory analysis)."
                                 * input
                                   * insert ActionInput("Patient uses a qualified device?", "Patient uses a qualified device")
-                                  * insert ActionInputCql("Uses A Qualified Device", ASLPPolicyScreening)
+                                  * insert ActionInputCql("Uses A Qualified Device", ASLPPolicyPAA)
                                   * type = #Observation
                                   * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-qualifieddevice-screening-casefeature"
                                 * action[0]
@@ -672,7 +672,7 @@ Usage: #example
                                     * description = "Individual or caregiver has appropriate cognitive function, dexterity and mobility to use equipment safely at home"
                                     * input
                                       * insert ActionInput("Patient can safely use equipment at home?", "Patient can safely use equipment at home")
-                                      * insert ActionInputCql("Safe Equipment Use At Home", ASLPPolicyScreening)
+                                      * insert ActionInputCql("Safe Equipment Use At Home", ASLPPolicyPAA)
                                       * type = #Observation
                                       * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature"
                                     * action[0]
@@ -695,7 +695,7 @@ Usage: #example
                                         * description = "Home sleep testing results must be evaluated by a qualified physician"
                                         * input
                                           * insert ActionInput("Patient can have physician evaluate results?", "Patient can have physician evaluate results")
-                                          * insert ActionInputCql("Physician Evaluated Results", ASLPPolicyScreening)
+                                          * insert ActionInputCql("Physician Evaluated Results", ASLPPolicyPAA)
                                           * type = #Observation
                                           * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature"
                                         * action[0]
@@ -723,14 +723,14 @@ InstanceOf: PlanDefinition
 Usage: #example
 * insert CommonProperties("Prior Authorization Adjudication for Home/portable monitor sleep testing", "Home Monitor PAA", "pa-adju-home-mon")
 
-* library = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyScreening"
+* library = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
 
 * action
   * title = "Qualifying Patient Age"
   * description = "Input for whether the patient is within qualifying age."
   * input
     * insert ActionInput("Is patient 18 years or older?", "The patient is 18 years or older")
-    * insert ActionInputCql("Qualifying Patient Age", ASLPPolicyScreening)
+    * insert ActionInputCql("Qualifying Patient Age", ASLPPolicyPAA)
     * type = #Observation
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/qualifying-age-casefeature"
   * action[0]
@@ -752,7 +752,7 @@ Usage: #example
     * description = "Patient has excessive daytime sleepiness"
     * input
       * insert ActionInput("Patient has excessive daytime sleepiness?", "Patient has excessive daytime sleepiness")
-      * insert ActionInputCql("Excessive Daytime Sleepiness", ASLPPolicyScreening)
+      * insert ActionInputCql("Excessive Daytime Sleepiness", ASLPPolicyPAA)
       * type = #Observation
       * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/excessive-daytime-sleepiness"
     * action[0]
@@ -771,19 +771,19 @@ Usage: #example
       * action
         * input[0]
           * insert ActionInput("Patient has ESS score of 10 or greater?", "Patient has ESS score of 10 or greater")
-          * insert ActionInputCql("ESS Score Of >= 10", ASLPPolicyScreening)
+          * insert ActionInputCql("ESS Score Of >= 10", ASLPPolicyPAA)
           * type = #Observation
         * input[+]
           * insert ActionInput("Patient has excessive sleepiness while driving?", "Patient has excessive sleepiness while driving")
-          * insert ActionInputCql("Excessive Sleepiness While Driving", ASLPPolicyScreening)
+          * insert ActionInputCql("Excessive Sleepiness While Driving", ASLPPolicyPAA)
           * type = #Observation
         * input[+]
           * insert ActionInput("Patient snores loudly/intensly?", "Patient snores loudly/intensly")
-          * insert ActionInputCql("Loud/Intense Snoring", ASLPPolicyScreening)
+          * insert ActionInputCql("Loud/Intense Snoring", ASLPPolicyPAA)
           * type = #Observation
         * input[+]
           * insert ActionInput("Patient has nocturnal apnea?", "Patient has nocturnal apnea")
-          * insert ActionInputCql("Nocturnal Apnea", ASLPPolicyScreening)
+          * insert ActionInputCql("Nocturnal Apnea", ASLPPolicyPAA)
           * type = #Observation
         
         * action[+]
@@ -791,7 +791,7 @@ Usage: #example
           * description = "Absence of comorbid medical condition(s) that would reduce the accuracy of a home/PM sleep test"
           * input
             * insert ActionInput("Patient has absence of the following comorbid medical condition?", "Patient has absence of the following comorbid medical condition")
-            * insert ActionInputCql("Absence Of The Following Comorbid Medical Conditions", ASLPPolicyScreening)
+            * insert ActionInputCql("Absence Of The Following Comorbid Medical Conditions", ASLPPolicyPAA)
             * type = #Observation
             * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/absence-of-comorbid-conditions"
           * action[0]
@@ -810,23 +810,23 @@ Usage: #example
             * action
               * input[0]
                 * insert ActionInput("Patient has neuromuscular disease with associated pulmonary disease?", "Patient has neuromuscular disease with associated pulmonary disease")
-                * insert ActionInputCql("Neuromuscular Disease With Associated Pulmonary Disease", ASLPPolicyScreening)
+                * insert ActionInputCql("Neuromuscular Disease With Associated Pulmonary Disease", ASLPPolicyPAA)
                 * type = #Observation
               * input[+]
                 * insert ActionInput("Patient has Cardiac Disease?", "Patient has Cardiac Disease")
-                * insert ActionInputCql("Cardiac Disease", ASLPPolicyScreening)
+                * insert ActionInputCql("Cardiac Disease", ASLPPolicyPAA)
                 * type = #Observation
               * input[+]
                 * insert ActionInput("Patient has moderate to severe pulmonary disease?", "Patient has moderate to severe pulmonary disease")
-                * insert ActionInputCql("Moderate To Severe Pulmonary Disease", ASLPPolicyScreening)
+                * insert ActionInputCql("Moderate To Severe Pulmonary Disease", ASLPPolicyPAA)
                 * type = #Observation
               * input[+] //Should this be equal??
                 * insert ActionInput("Patient has moderate to severe pulmonary disease including COPD?", "Patient has moderate to severe pulmonary disease including COPD")
-                * insert ActionInputCql("Moderate To Severe Pulmonary Disease Including COPD", ASLPPolicyScreening)
+                * insert ActionInputCql("Moderate To Severe Pulmonary Disease Including COPD", ASLPPolicyPAA)
                 * type = #Observation
               * input[=] //Should this be equal??
                 * insert ActionInput("Patient has moderate to severe pulmonary disease including asthma?", "Patient has moderate to severe pulmonary disease including asthma")
-                * insert ActionInputCql("Moderate To Severe Pulmonary Disease Including Asthma", ASLPPolicyScreening)
+                * insert ActionInputCql("Moderate To Severe Pulmonary Disease Including Asthma", ASLPPolicyPAA)
                 * type = #Observation
               
               * action[+]
@@ -834,7 +834,7 @@ Usage: #example
                 * description = "Individual or caregiver has appropriate cognitive function, dexterity and mobility to use equipment safely at home"
                 * input
                   * insert ActionInput("Patient can safely use equipment at home?", "Patient can safely use equipment at home")
-                  * insert ActionInputCql("Can Safely Use Equipment At Home", ASLPPolicyScreening)
+                  * insert ActionInputCql("Can Safely Use Equipment At Home", ASLPPolicyPAA)
                   * type = #Observation
                   * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/safely-use-equip-at-home"
                 * action[0]
@@ -856,7 +856,7 @@ Usage: #example
                   * description = "Home sleep testing results must be evaluated by a qualified physician"
                   * input
                     * insert ActionInput("Patient can have physician evaluated results?", "Patient can have physician evaluated results")
-                    * insert ActionInputCql("Physician Evaluated Results", ASLPPolicyScreening)
+                    * insert ActionInputCql("Physician Evaluated Results", ASLPPolicyPAA)
                     * type = #Observation
                     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/pysician-eval-results"
                   * action[0]
@@ -878,7 +878,7 @@ Usage: #example
                     * description = "Type II, Type III, Type IV or PAT PM device is used (Type IV PM devices must measure a minimum of 3 channels that include heartrate, oxygen saturation and respiratory analysis)."
                     * input
                       * insert ActionInput("Patient uses Type II\, Type III\, Type IV or PAT PM device?", "Patient uses Type II\, Type III\, Type IV or PAT PM device")
-                      * insert ActionInputCql("Patient Uses Type II\, Type III\, Type IV or PAT PM Device", ASLPPolicyScreening)
+                      * insert ActionInputCql("Patient Uses Type II\, Type III\, Type IV or PAT PM Device", ASLPPolicyPAA)
                       * type = #Observation
                       * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/device-used"
                     * action[0]
