@@ -33,7 +33,12 @@ returns FHIR.Extension:
       "DependencyExtension"(requestReferenceString),
 
       // detail code, warning or info, and qualification
-      "DetailExtension"(codeValue, detailText, qualification, warningOrInfo)
+      "DetailExtension"(codeValue, detailText, qualification, warningOrInfo),
+
+      // Always 'admin' and 'clinical'
+      // 'admin', 'clinical', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)
+      "DocNeeded"('admin'),
+      "DocNeeded"('clinical')
     }) Extension where not IsNull(Extension)
   }
 
@@ -64,7 +69,12 @@ returns FHIR.Extension:
       "DependencyExtension"(requestReferenceString),
 
       // detail code, warning or info, and qualification
-      "DetailExtension"(codeValue, detailText, qualification, warningOrInfo)
+      "DetailExtension"(codeValue, detailText, qualification, warningOrInfo),
+
+      // Always 'admin' and 'clinical'
+      // 'admin', 'clinical', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)
+      "DocNeeded"('admin'),
+      "DocNeeded"('clinical')
     }) Extension where not IsNull(Extension)
   }
 
@@ -185,5 +195,14 @@ returns FHIR.Extension:
     "url": FHIR.uri { "value": 'dependency' },
     "value": FHIR.Reference {
       "reference": FHIR.string { "value": requestReferenceString }
+    }
+  }
+
+define function "DocNeeded"(valueCode System.String)
+returns FHIR.Extension:
+  FHIR.Extension {
+    "url": FHIR.uri { "value": 'doc-needed' },
+    "value": FHIR.code {
+      "value": valueCode
     }
   }
