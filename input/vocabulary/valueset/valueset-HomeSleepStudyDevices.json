@@ -1,0 +1,639 @@
+{
+  "resourceType": "ValueSet",
+  "id": "HomeSleepStudyDevices",
+  "meta": {
+    "profile": [ "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-shareablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-executablevalueset" ]
+  },
+  "extension": [ {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "shareable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "narrative"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "publishable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-usageWarning",
+    "valueString": "This value set contains a point-in-time expansion enumerating the codes that meet the value set intent. As new versions of the code systems used by the value set are released, the contents of this expansion will need to be updated to incorporate newly defined codes that meet the value set intent. Before, and periodically during production use, the value set expansion contents SHOULD be updated. The value set expansion specifies the timestamp when the expansion was produced, SHOULD contain the parameters used for the expansion, and SHALL contain the codes that are obtained by evaluating the value set definition. If this is ONLY an executable value set, a distributable definition of the value set must be obtained to compute the updated expansion."
+  } ],
+  "url": "http://cts.nlm.nih.gov/fhir/ValueSet/HomeSleepStudyDevices",
+  "version": "20240314",
+  "title": "HomeSleepStudyDevices",
+  "status": "active",
+  "experimental": false,
+  "publisher": "Smile Digital Health",
+  "expansion": {
+    "timestamp": "2024-03-15T13:41:51-04:00",
+    "contains": [ {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "10190752173545",
+      "display": "ELECTRODES BLUE SENSOR DISP WET GEL"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "10190752167629",
+      "display": "RESPITRACE Q.D.C."
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "10190752161993",
+      "display": "SWR KIT SSPRO SOFTWARE VER 11"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "10190752161122",
+      "display": "KIT,z4 LEAD"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00817111021219"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00817111021202"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00817111021196"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00817111021189"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00817111021141",
+      "display": "Nomad PMU800 Portable Recorder (USB)"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00817111020762"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00990008600077",
+      "display": "Contains Main Kit, Accessory Kit, and Nonin Pulse Oximeter, USA only"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00990008600060",
+      "display": "Contains BresoSensor Frame (50 units) and BresoTape (100 Units); USA only"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00990008600053",
+      "display": "Contains BresoHub and BresoSensor; USA Only"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00990008600046",
+      "display": "Oximeter Medical Tape Strip is used to maintain the proper placement of the Oximeter Reusable Soft Sensor on the finger. In every pack, there are 100 strips."
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00990008600039",
+      "display": "BresoSensor Frame is a biocompatible component. BresoSensor Frame is a plastic holder with a medical grade adhesive on the patientâ€™s contact side. BresoSensor Frame is used to hold BresoSensor on the suprasternal notch. During a test, BresoSensor Frame is intended to be in contact with the patientâ€™s skin for a maximum period of 8 hours."
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00990008600022",
+      "display": "BresoSensor is a component of BresoDX1. During a test, BresoSensor is placed on the suprasternal notch of a patient and collects the tracheal sound and tracheo-sternal motion through a microphone and three-dimensional accelerometer. The BresoSensor is powered by an internal Lithium-ion rechargeable battery. It is only sold in USA."
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00990008600015",
+      "display": "BresoHub is a component of BresoDX1. During a test, BresoHub is placed at the patientâ€™s bedside to receive the data from BresoSensor and the pulse oximeter wirelessly, and it stores the data locally. BresoHub is powered by a provided power supply.  This device is only sold USA."
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103968",
+      "display": "RIPmate Lock Cable"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103944",
+      "display": "UARS Disposable Sensors"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103937",
+      "display": "Disposable Thermistor Sensor, Large/Adult"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103920",
+      "display": "Disposable Thermistor Sensor, Small/Infant"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103883",
+      "display": "Piezo Velcro Band Kit, Pediatric"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103876",
+      "display": "Piezo Loop Kit"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103869",
+      "display": "RIPmate Kit Alice 5"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103852",
+      "display": "RIPmate Kit"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103845",
+      "display": "RIPmate Kit, Pediatric"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103838",
+      "display": "Thermistor Kit"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103821",
+      "display": "Piezo Buckle Kit"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103814",
+      "display": "Piezo Film Kit"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103807",
+      "display": "Piezo Buckle Kit SNAP Labs"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103791",
+      "display": "Piezo Buckle Kit Alice 5"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103784",
+      "display": "Velstretch Band Kit"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103777",
+      "display": "Velstretch Band Kit, Pediatric"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103760",
+      "display": "RIPmate Abdominal Kit Alice 5"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103753",
+      "display": "RIPmate Abdominal Kit"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103746",
+      "display": "RIPmate Abdominal Kit, Pediatric"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103739",
+      "display": "RIPmate Thoracic Kit Alice 5"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103722",
+      "display": "RIPmate Thoracic Kit"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103715",
+      "display": "RIPmate Thoracic Kit, Pediatric"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103708",
+      "display": "RIPmate Kit without Processor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103692",
+      "display": "Velstretch Band 1in Buckle"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103685",
+      "display": "Velstretch Band Large 1.5in Velcro"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103678",
+      "display": "Velstretch Band Medium 1.5in Velcro"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103661",
+      "display": "Velstretch Band Small"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103654",
+      "display": "Velstretch Band Infant 1in Loop"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103647",
+      "display": "RIPmate Disposable Belt Roll"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103579",
+      "display": "Disposable Thermistor Sensor, Medium/Pediatric"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103470",
+      "display": "Pressure Transducer Alice 5"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103388",
+      "display": "Piezo Buckle Sensor Alice 5"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103371",
+      "display": "Snore Microphone"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103364",
+      "display": "Snore Microphone"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103357",
+      "display": "Snore Microphone"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103340",
+      "display": "Piezo Snore Sensor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103333",
+      "display": "Piezo Snore Sensor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103326",
+      "display": "Interface Cable Disposable Thermal UARS Sensor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103197",
+      "display": "RIPmateâ„¢ Belt"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103463",
+      "display": "Triple Thermocouple Airflow Sensor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103449",
+      "display": "Pressure Transducer"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103432",
+      "display": "Piezo Snore Sensor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103425",
+      "display": "Piezo Film Sensor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103418",
+      "display": "Piezo Double Loop Sensor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103401",
+      "display": "Piezo Sensor Buckle SNAP Labs"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103395",
+      "display": "Piezo Velcro Tab Sensor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103319",
+      "display": "Thermistor Battery Module"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103302",
+      "display": "Thermistor Alice 5"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103296",
+      "display": "Thermistor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103289",
+      "display": "Thermocouple"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103272",
+      "display": "Thermocouple, Pediatric"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103265",
+      "display": "Thermocouple"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103258",
+      "display": "CannuThermÂ® Thermistor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103241",
+      "display": "CannuThermÂ® Thermocouple"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103234",
+      "display": "Piezo Buckle Sensor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103227",
+      "display": "Beltless Piezo Effort Sensor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103210",
+      "display": "RIPmateâ„¢ Cable"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103203",
+      "display": "RIPmateâ„¢ Cable"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103180",
+      "display": "RIPmateâ„¢ Belt, Pediatric"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103173",
+      "display": "RIPmateâ„¢ Abdominal Processor Alice 5"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103166",
+      "display": "RIPmateâ„¢ Abdominal Processor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103159",
+      "display": "RIPmateâ„¢ Thoracic Processor Alice 5"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00840067103142",
+      "display": "RIPmateâ„¢ Thoracic Processor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "03615220004157",
+      "display": "Chest sensor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "03615220004140",
+      "display": "Breath sensor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "03615220004133",
+      "display": "Sleep Apnea diagnostic Device"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00851113007987",
+      "display": "Sleep Profiler PSG2 LE Device Kit - Piezo"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00851113007970",
+      "display": "Sleep Profiler PSG2 LE Device kit - ezRIP"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00851113007963",
+      "display": "Sleep Profiler PSG2 LE Device Kit No Belts (PM3)"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00851113007321",
+      "display": "Sleep Profiler PSG2 Upgrade Kit - Piezo"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00851113007314",
+      "display": "Sleep Profiler PSG2 upgrade Kit - ezRIP"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00851113007307",
+      "display": "Sleep Profiler PM3 Upgrade kit"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00851113007291",
+      "display": "Sleep Profiler PSG2 Device Kit - Piezo"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00851113007284",
+      "display": "Sleep Profiler PSG2 Device kit - ezRIP"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00851113007277",
+      "display": "Sleep Profiler PM3 Device Kit"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00851113007246",
+      "display": "50-Night Study Kit - Sleep Profiler PSG2/PM3"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00850015266942",
+      "display": "Sleep Profiler PSG2 LE Device Kit - Piezo (PVDF) French"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00850015266874",
+      "display": "Sleep Profiler PSG2 LE Device Kit - Piezo (PVDF) Italian"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00850015266867",
+      "display": "Sleep Profiler PSG2 LE Device Kit - Piezo (PVDF)"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00850015266850",
+      "display": "Sleep Profiler PSG2 LE Device Kit No Belts (PM3) German with cables"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00850015266669",
+      "display": "Sleep Profiler PSG2 LE Device Kit No Belts (PM3) Italian with cables"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00850015266546",
+      "display": "Sleep Profiler PSG2 LE Device Kit No Belts (PM3) German"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00850015266256",
+      "display": "Sleep Profiler PSG2 LE Device Kit (No Belts / PM3) with cables"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00860004872405",
+      "display": "DROWZLE PRO is indicated to record a patientâ€™s respiratory pattern during sleep for the purpose of prescreening patients for obstructive sleep apnea syndrome. The device is designed for use in home-screening of adults with suspected possible sleep breathing disorders. Results are used to assist the healthcare professional in determining the need for further diagnosis and evaluation. The system is not intended as a substitute for full polysomnography when additional parameters such as sleep stastages, limb movements, or EEG activity are required"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00606959054677",
+      "display": "Wi-Fi Access Device, DreamStation, One Container of 100 each, EU"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00606959049710",
+      "display": "AlicePDx MobileLink Cable"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00606959033573",
+      "display": "Alice PDx ECG Yoke, US"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00606959033566",
+      "display": "Alice PDx ExG Yoke, US"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00606959060418",
+      "display": "Alice PDx Portable Sleep Diagnostic System, Brazil"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00606959060401",
+      "display": "Alice PDx Portable Sleep Diagnostic System, Japan"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00606959060395",
+      "display": "Alice PDx Portable Sleep Diagnostics System, International"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00606959060388",
+      "display": "Alice PDx Portable Sleep Diagnostic System, Domestic"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00606959020450",
+      "display": "Alice PDx, Cable, ECG Yoke, International"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "05430001896091",
+      "display": "Sunrise sensor 2 (single night)"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "05430001896084",
+      "display": "Sunrise sensor 2 (multi-nights)"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "05430001896060",
+      "display": "Sunrise sensor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "05430001742039"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "05430001742022",
+      "display": "NightOwl sensor kit."
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00860512000291",
+      "display": "Home Sleep Test Kit v3"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00860512000277",
+      "display": "Breath Sensor v3"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00860512000260",
+      "display": "Chest Sensor v3"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00860512000253",
+      "display": "Home Sleep Test Device v3"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00860512000246",
+      "display": "Chain of Custody Disposable Sensors"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00860512000239",
+      "display": "Device box"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00860512000222",
+      "display": "Breath Sensor"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00860512000215",
+      "display": "Chain of Custody Patient Interface Dongle"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00860512000208",
+      "display": "Sleep apnea diagnosic device"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "B406CAT024030"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "B406CAT024020"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "B406CAT024010"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "B5663000010"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00854485007180",
+      "display": "ARES 620 Resp Effort Disposables Kit x10"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00854485007173",
+      "display": "ARES 620 Resp Effort System Kit"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00854485007166",
+      "display": "ARES 620 Resp Adapter Cable"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00854485007159",
+      "display": "ARES CoC Dongle"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00854485007142",
+      "display": "ARES CoC Cable"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00854485007135",
+      "display": "ARES Secure Sleep Study Disposable Kit (neck collars) - x10"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00854485007128",
+      "display": "ARES Secure Sleep Study Accessories (Dongle and cable pack)"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00854485007098",
+      "display": "ARES 610 HST Recorder and disposables"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00854485007081",
+      "display": "ARES 610 HST Recorder"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00854485007074",
+      "display": "ARES 620 Resp Belt Assembly"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00854485007067",
+      "display": "ARES 620 Effort Belt Adapter"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00854485007050",
+      "display": "ARES 620 Bluetooth Module"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00854485007012",
+      "display": "ARES 620 HST Recorder and Disposables"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "00854485007005",
+      "display": "ARES 620 HST Recorder"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "04250413410859"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "04250413410842"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "04250413410835"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "04250413404667"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "04250413404612"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "04250413404391"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "04250413404223"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "04250413404216"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "04250413404209"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "04250413404193"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "04250413404186"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "04250413404179"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "04250413404162"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "04250413404155"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "code": "04250413404094"
+    } ]
+  }
+}
