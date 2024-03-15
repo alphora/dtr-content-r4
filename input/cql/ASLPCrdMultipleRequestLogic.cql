@@ -11,6 +11,7 @@ include ASLPCrdProviderNpiMatchLogic called NpiMatch
 include ASLPCrdOrderGoldStatusLogic called GoldCard
 include ASLPCrdRoutineLogic called Routine
 include ASLPCrdOnPriorAuthListLogic called PriorAuthList
+include ASLPCrdContextValidationLogic called ContextValidation
 include USCoreCommon
 include FHIRHelpers version '4.1.000'
 
@@ -20,7 +21,7 @@ define "DebuggingEnabled":
   false
         
 // CRD Matrix of values
-define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
   {
     "CRD-2": {
       "ID": 'CRD-2',
@@ -102,6 +103,36 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailDebugging": PriorAuthList."Detail Debugging",
       "DetailValue": 'Warning'
     },
+    "CRD-8": { 
+      "ID": 'CRD-8',
+      "Covered": 'conditional', 
+      "PriorAuthNeeded": 'auth-needed', 
+      "DetailCode": 'auth-needed', 
+      "DetailText": ContextValidation."Detail Text 8", 
+      "DetailQualification": ContextValidation."Qualification 8",
+      "DetailDebugging": ContextValidation."Detail Debugging",
+      "DetailValue": 'Warning'
+    },
+    "CRD-8.1": { 
+      "ID": 'CRD-8.1',
+      "Covered": 'conditional', 
+      "PriorAuthNeeded": 'auth-needed', 
+      "DetailCode": 'coverage-info', 
+      "DetailText": ContextValidation."Detail Text 8.1", 
+      "DetailQualification": ContextValidation."Qualification 8.1",
+      "DetailDebugging": ContextValidation."Detail Debugging",
+      "DetailValue": 'Warning'
+    },
+    "CRD-8.3": { 
+      "ID": 'CRD-8.3',
+      "Covered": 'conditional', 
+      "PriorAuthNeeded": 'auth-needed', 
+      "DetailCode": 'coverage-info', 
+      "DetailText": ContextValidation."Detail Text 8.3", 
+      "DetailQualification": ContextValidation."Qualification 8.3",
+      "DetailDebugging": ContextValidation."Detail Debugging",
+      "DetailValue": 'Warning'
+    },
     "CRD-UnexpectedError": { 
       "ID": 'CRD-UnexpectedError',
       "Covered": 'conditional', 
@@ -122,19 +153,36 @@ define "Title":
 define "Description":
   'Information related to whether a service is covered, not covered or requires prior auth submission'
 
+define "null Service Request Item":
+  null as Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>
+
 // CRD Coverage Extensions
 define "CoverageExtensionList":
-  Ctx."Service Request Item List" RequestItem
-    return all
-      "GetCoverageExtension"(RequestItem, GetCrdResult(RequestItem))
-      // TESTING OUTPUT
-      //(GetCrdResult(RequestItem)).ID + Ctx.NewLine +
-      //(GetCrdResult(RequestItem)).DetailDebugging
+  if Ctx."Service Request Item List" is null then
+    { 
+      "GetCoverageExtension"(
+        "null Service Request Item", 
+        GetCrdResult("null Service Request Item")
+      ) 
+    }
+  else
+    Ctx."Service Request Item List" RequestItem
+      return all
+        "GetCoverageExtension"(RequestItem, GetCrdResult(RequestItem))
+        // TESTING OUTPUT
+        //(GetCrdResult(RequestItem)).ID + Ctx.NewLine +
+        //(GetCrdResult(RequestItem)).DetailDebugging
 
 // CRD Logic tree
-define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>)
+define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>)
 returns Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String}:
-  if (MemberEligible."Not MemberEligible") then
+  if (ContextValidation."Insufficient or Ambiguous High"(requestItem)) then
+    "CRD Matrix"(requestItem)."CRD-8"
+  else if (ContextValidation."DomainResource is Empty"(requestItem)) then
+    "CRD Matrix"(requestItem)."CRD-8.1"
+  else if (ContextValidation."Received Provider Data Cannot be Processed"(requestItem)) then
+    "CRD Matrix"(requestItem)."CRD-8.3"
+  else if (MemberEligible."Not MemberEligible") then
     "CRD Matrix"(requestItem)."CRD-2"
   else if (NpiMatch."Not ProviderNpiMatch"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-3.1"
@@ -153,7 +201,7 @@ returns Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" Sys
   else
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
-define function "GetCoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>, item Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String})
+define function "GetCoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>, item Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String})
 returns FHIR.Extension:
   Ctx."ExtensionPriorAuthNeeded"(
     requestItem,

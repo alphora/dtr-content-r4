@@ -21,7 +21,7 @@ define "Description-NotFound":
   "Description"
 
 // CRD-6
-define function "Qualification-NotFound"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+define function "Qualification-NotFound"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
   Ctx."Service Request Item Code"(requestItem).display + ' is not a recognized procedure electronically. Please contact the payer for further information.'
   
 // CRD-6
@@ -29,7 +29,7 @@ define "Detail Text-NotFound":
   'Code Not Found'
 
 // CRD-6
-define function "CoverageExtension-NotFound"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+define function "CoverageExtension-NotFound"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
   Ctx."ExtensionPriorAuthNeeded"(requestItem, 'not-covered', 'conditional', 'not-covered', "Detail Text-NotFound", "Qualification-NotFound"(requestItem), 'Warning')
 
 // CRD-5
@@ -45,7 +45,7 @@ define "Detail Text":
   'Prior Authorization Required'
 
 // CRD-5
-define function "Qualification"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+define function "Qualification"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
   'Prior authorization is required for ' + Ctx."Service Request Item Code"(requestItem).display
 
 // CRD-5
@@ -53,15 +53,15 @@ define "Detail Debugging":
   'Not yet implemented.'
 
 // CRD-5
-define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
   Ctx."ExtensionPriorAuthNeeded"(requestItem, 'conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification"(requestItem), 'Warning')
 
-define function "Is OnPriorAuthList"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+define function "Is OnPriorAuthList"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
   exists(("Prior Auth Required Service Requests"(requestItem)))
 
-define function "Not OnPriorAuthList"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+define function "Not OnPriorAuthList"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
   not (("Is OnPriorAuthList"(requestItem)))
 
-define function "Prior Auth Required Service Requests"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest>):
+define function "Prior Auth Required Service Requests"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
   ({ requestItem }) R
     where (Ctx.GetCode(R)) in "Prior Auth Required for Procedure Valueset"
