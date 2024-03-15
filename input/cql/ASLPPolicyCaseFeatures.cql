@@ -11,7 +11,7 @@ context Patient
 
 define function ReferenceTo(resource Resource):
   Reference { reference: string { value: resource.typeof() + '/' + resource.id } }
-
+ 
 //TODO: flesh out other types of resources
 define fluent function typeof(resource Resource): 
   case

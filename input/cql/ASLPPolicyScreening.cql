@@ -6,7 +6,7 @@ include ASLPConcepts called Cx
 include ASLPDataElements called Dx
 include FHIRHelpers version '4.1.000'
 include ASLPPolicyCaseFeatures called PCF
-
+ 
 codesystem "ICD10": 'http://hl7.org/fhir/sid/icd-10-cm'  
 codesystem "ConditionClinicalStatusCodes": 'http://terminology.hl7.org/CodeSystem/condition-clinical'
 codesystem "ConditionVerificationStatusCodes": 'http://terminology.hl7.org/CodeSystem/condition-ver-status'
@@ -47,14 +47,14 @@ context Patient
 
 //use accelerator kit to produce these
 define "Patient Age":
-  AgeInYears() >= 18
+  AgeInYearsAt(Now()) 
 
-define "Patient Age >= 18":
-  IsTrue("Patient Age")
+define "Qualifying Patient Age":
+  AgeInYearsAt(Now()) >= 18
 
 //Excessive Daytime Sleepiness criteria
-define "Excessive Daytime Sleepiness":
-  exists("Qualified Excessive Daytime Sleepiness")
+define "Qualified Excessive Daytime Sleepiness criteria":
+  exists("Excessive Daytime Sleepiness")
     and (
         exists("Epworth Sleepiness Scale Score > 10")
         or exists("Excessive Sleepiness While Driving")
@@ -63,6 +63,9 @@ define "Excessive Daytime Sleepiness":
     )
 
 define "Qualified Excessive Daytime Sleepiness":
+  exists("Excessive Daytime Sleepiness")
+
+define "Excessive Daytime Sleepiness":
   [Observation: "Excessive Daytime Sleepiness code"] O 
     where O.status = 'corrected'
 
@@ -100,7 +103,7 @@ define "Absence of Comorbid Medical Conditions":
     or not exists("Has Comorbid Medical Conditions") //Should we use the observation or condition??
 
 
-define "Qualifying absence of Comorbid Medical Conditions":
+define "Qualifying Absence Of Comorbid Medical Conditions":
   "Absence of Comorbid Medical Conditions"
     and (
         ("Moderate To Severe Pulmonary Disease")
