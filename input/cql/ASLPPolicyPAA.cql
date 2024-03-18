@@ -198,6 +198,7 @@ define "No Absence Of Comorbid Medical Conditions":
 define "Null Presence of Comorbid Medical Conditions":
   "Has Absence Of Comorbid Medical Conditions" is null
 
+//Eligible Comorbid Medical Conditions Criteria
 define "Has Applicable Comorbid Medical Conditions":
   "Has Neuromuscular Disease With Associated Pulmonary Disease"
     or "Has Cardiac Disease"
@@ -330,7 +331,6 @@ define "Qualifying Cardiac Disease":
       ''
     )
 
-
 define "Has Cardiac Disease":
   "Qualifying Cardiac Disease".value.value as System.Boolean
 
@@ -341,7 +341,7 @@ define "Null Cardiac Disease":
   "Has Cardiac Disease" is null
 
 
-
+//Home Observation Criteria:
 define "Most Recent Qualified Device Observation":
   PCF.MostRecent([Observation: AC."Uses A Qualified Device Assertion"])
 
@@ -417,6 +417,7 @@ define "Unable To Have Physician Evaluate Results":
 define "Unknown Ability To Have Physician Evaluate Results":
   "Ability To Have Physician Evaluate Results" is null
 
+
 //Not Approved Response
 define "Not Approved Detail":
   'Prior Authorization DENIED.'
@@ -452,16 +453,6 @@ define "Not Approved Pulmonary Disease With Associated Conditions":
   else 
   ''
 
-// define "Not Approved Pul Dis With Conditions Test":
-//   if "No Moderate To Severe Pulmonary Disease" then '<br />- Individual does not have moderate to severe pulmonary disease'
-//     + ' Including :'
-//     + Coalesce(
-//       if "No Moderate To Severe Pulmonary Disease Including COPD" then '<br />- Chronic Obstructive Pulmonary Disease' else '',
-//       if "No Moderate To Severe Pulmonary Disease Including Asthma" then '<br />- Nocturnal or Uncontrolled Asthma' else ''
-//     )
-//   else
-//     ''
-
 define "Not Approved Home Criteria":
   Coalesce(
     if "Does Not Use Qualified Device" then '<br />- Individual does not use Type II, Type III, Type IV or PAT PM device' else '',
@@ -470,45 +461,60 @@ define "Not Approved Home Criteria":
   )
 
 //Not Approved Null Response
-define "Null Response Detail":
+define "Temporarily not approved":
   'Prior Authorization DENIED.'
     + '<br />Reasoning:'
     + Coalesce(
-      if "Age Unknown" then '<br />- Null or unknown answer. Please repeat question: Patient Age Greater Than Or Equal To 18' else '', 
+      if "Age Unknown" then '<br />- Please enter the following: Patient Age' else '', 
       "Null EDS",
       "Null Comorbid Medical Conditions",
       "Null Home Criteria"
     )
 
 define "Null EDS":
-  Coalesce(
-    if "Null Excessive Daytime Sleepiness" then '<br />- Please enter the following: Excessive Daytime Sleepiness' else '',
-    if "Null ESS Score" then '<br />- Null or unknown answer. Please repeat question: Epworth Sleepiness Scale' else '',
-    if "Null Excessive Sleepiness While Driving" then '<br />- Null or unknown answer. Please repeat question: Excessive Sleepiness While driving' else '',
-    if "Null Snoring Volume/Intensity" then '<br />- Null or unknown answer. Please repeat question: Loud/Intense Snoring' else '',
-    if "Null Apnea" then '<br />- Null or unknown answer. Please repeat question: Nocturnal apnea' else ''
-  ) 
+  if "Null Excessive Daytime Sleepiness" 
+    then '<br />- Please enter the following: Excessive Daytime Sleepiness'
+  else 
+    if "Null Excessive Daytime Sleepiness" and "Null Additional Daytime Sleepiness Indicators"
+      then Coalesce(
+        if "Null ESS Score" then '<br />- Please enter the following: Epworth Sleepiness Scale' else '',
+        if "Null Excessive Sleepiness While Driving" then '<br />- Please enter the following: Excessive Sleepiness While driving' else '',
+        if "Null Snoring Volume/Intensity" then '<br />- Please enter the following: Loud/Intense Snoring' else '',
+        if "Null Apnea" then '<br />- Please enter the following: Nocturnal apnea' else ''
+      )
+  else
+    ''
 
 define "Null Comorbid Medical Conditions":
-  Coalesce(
-    if "Null Presence of Comorbid Medical Conditions" then '<br />- Null or unknown answer. Please repeat question: Absence Of Comorbid Medical Conditions' else '',
-    "Null Pulmonary Disease With Associated Conditions",
-    if "Null Nueromuscular Disease" then '<br />- Null or unknown answer. Please repeat question: Neuromuscular Disease With Associated Pulmonary Disease' else '',
-    if "Null Cardiac Disease" then '<br />- Null or unknown answer. Please repeat question: Cardiac Disease' else ''
-  )
+  if "Null Presence of Comorbid Medical Conditions" 
+    then '<br />- Please enter the following: Absence Of Comorbid Medical Conditions'
+  else 
+    if "Null Presence of Comorbid Medical Conditions" and "Null Applicable Comorbid Medical Conditions"
+      then Coalesce(
+        "Null Pulmonary Disease With Associated Conditions",
+        if "Null Nueromuscular Disease" then '<br />- Please enter the following: Neuromuscular Disease With Associated Pulmonary Disease' else '',
+        if "Null Cardiac Disease" then '<br />- Please enter the following: Cardiac Disease' else ''
+      )
+  else
+    ''
 
 define "Null Pulmonary Disease With Associated Conditions":
-  Coalesce(
-    if "Null Pulmonary Disease" then '<br />- Null or unknown answer. Please repeat question: Moderate To Severe Pulmonary Disease' else '',
-    if "Null Pulmonary Disease Including COPD" then '<br />- Null or unknown answer. Please repeat question: Moderate To Severe Pulmonary Disease Including Chronic Obstructive Pulmonary Disease' else '',
-    if "Null Pulmonary Disease Including Asthma" then '<br />- Null or unknown answer. Please repeat question: Moderate To Severe Pulmonary Disease Including Nocturnal Or Uncontrolled Asthma' else ''
-  )
+  if "Null Pulmonary Disease" 
+    then '<br />- Please enter the following: Moderate To Severe Pulmonary Disease'
+  else
+    if "Null Pulmonary Disease" and "Has Moderate To Severe Pulmonary Disease Including COPD or Asthma"
+      then Coalesce(
+        if "Null Pulmonary Disease Including COPD" then '<br />- Please enter the following: Moderate To Severe Pulmonary Disease Including Chronic Obstructive Pulmonary Disease' else '',
+        if "Null Pulmonary Disease Including Asthma" then '<br />- Please enter the following: Moderate To Severe Pulmonary Disease Including Nocturnal Or Uncontrolled Asthma' else ''
+      )
+  else
+    ''
 
 define "Null Home Criteria":
   Coalesce(
-    if "Unknown Device Used" then '<br />- Null or unknown answer. Please repeat question: Use Of Type II, Type III, Type IV or PAT PM Device' else '',
-    if "Unknown Ability To Use Equipment At Home" then '<br />- Null or unknown answer. Please repeat question: Individual Or Caregiver Use Of Equipment Safely At Home' else '',
-    if "Unknown Ability To Have Physician Evaluate Results" then '<br />- Null or unknown answer. Please repeat question: Ability To Have Physician Evaluate Home Testing Results' else ''
+    if "Unknown Device Used" then '<br />- Please enter the following: Use Of Type II, Type III, Type IV or PAT PM Device' else '',
+    if "Unknown Ability To Use Equipment At Home" then '<br />- Please enter the following: Individual Or Caregiver Use Of Equipment Safely At Home' else '',
+    if "Unknown Ability To Have Physician Evaluate Results" then '<br />- Please enter the following: Ability To Have Physician Evaluate Home Testing Results' else ''
   )
 
 //Approved Response
