@@ -308,18 +308,18 @@ RuleSet: ActionConditionCql(expression)
 Instance: PAA-Approved
 InstanceOf: PlanDefinition
 Usage: #example
-* insert CommonProperties("Prior Authorization Adjudication Approved", "Approved PAA", "pa-adju-approved")
+* insert CommonProperties("Prior Authorization Adjudication Approved", "Approved PAA", "aslp-pa-adju-approved")
 
-* library = "http://example.org/sdh/dtr/aslp/Library/pa-approved"
+* library = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
 
 * action[+]
   * title = "Prior Auth Adjudication Approved"
   * description = "Prior authorization adjudication approval for sleep study tests"
   * input
     * insert ActionInput("Patient has been approved?", "Patient has been approved")
-    * insert ActionInputCql("PAA Approved", pa-approved)
+    * insert ActionInputCql("Approved Detail", ASLPPolicyPAA)
     * type = #Observation
-    * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/approved-pa"
+    * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/pa-adj-approved"
   * action[0]
     * title = "Approved"
     * description = "Patient has been Approved"
@@ -329,19 +329,19 @@ Usage: #example
     * description = "Override approval"
     * insert ActionConditionCql("Override Approval")
 
-Instance: PAA-Denial
+Instance: PAA-Not-Approved
 InstanceOf: PlanDefinition
 Usage: #example
-* insert CommonProperties("Prior Authorization Adjudication for Sleep Study Denial", "Denied PAA", "aslp-pa-adj-not-approved")
+* insert CommonProperties("Prior Authorization Adjudication for Sleep Study Not Approved", "Not Approved PAA", "aslp-pa-adj-not-approved")
 
-* library = "http://example.org/sdh/dtr/aslp/Library/pa-denied"
+* library = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
 
 * action[+]
-  * title = "Denied Prior Authorization Adjudication"
-  * description = "Prior Authorization Adjudication for Sleep Study Denied"
+  * title = "Not Approved Prior Authorization Adjudication"
+  * description = "Prior Authorization Adjudication for Sleep Study Not Approved"
   * input
     * insert ActionInput("Is Sleep Study Denied?", "Sleep Study is Denied")
-    * insert ActionInputCql("Denied", pa-not-approved)
+    * insert ActionInputCql("Not Approved Detail", ASLPPolicyPAA)
     * type = #Observation
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/pa-adj-not-approved"
   * action[0]
@@ -352,12 +352,30 @@ Usage: #example
     * title = "Override Denial"
     * description = "Override Denial"
     * insert ActionConditionCql("Override Denial")
+
+Instance: PAA-Temporary-Not-Approved
+InstanceOf: PlanDefinition
+Usage: #example
+* insert CommonProperties("Prior Authorization Adjudication for Sleep Study Temporary Not Approved", "Temporary Not Approved PAA", "aslp-pa-adj-temp-not-approved")
+
+* library = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+
+* action[+]
+  * title = "Temporarily Not Approved Prior Authorization Adjudication"
+  * description = "Prior Authorization Adjudication for Sleep Study Temporarily Not Approved"
+  * input
+    * insert ActionInput("Is Sleep Study temporarily not approved?", "Sleep Study temporarily not approved")
+    * insert ActionInputCql("Temporarily not approved", ASLPPolicyPAA)
+    * type = #Observation
+    * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/pa-adj-temp-not-approved"
   * action[+]
-    * title = "Null or unknown response"
+    * title = "Unknown response"
     * description = "Response is null or unknown. Please resubmit responses."
     * insert ActionConditionCql("Null or Unknown Response")
-
-
+  * action[+]
+    * title = "Override Null Response"
+    * description = "Override null or unknown response"
+    * insert ActionConditionCql("Override Null or Unknown Response")
         
 
 //Home/Portable Monitor Sleep Testing to confirm the suspected diagnosis of moderate to severe obstructive sleep apnea (OSA)
@@ -385,7 +403,7 @@ Usage: #example
     * title = "Age Unknown"
     * description = "The patient age is unknown. More Information is needed"
     * insert ActionConditionCql("Age Unknown") 
-    * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+    * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
   * action[+]
     * title = "Is Qualifying Patient Age"
     * description = "The patient is within the qualifying age"
@@ -408,103 +426,51 @@ Usage: #example
       * title = "Null or Unknown excessive daytime sleepiness"
       * description = "Unknown answer. More Information is needed"
       * insert ActionConditionCql("Null Excessive Daytime Sleepiness")
-      * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+      * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
     * action[+]
       * title = "Has excessive daytime sleepiness"
       * description = "The patient has excessive daytime sleepiness"
       * insert ActionConditionCql("Has Excessive Daytime Sleepiness")
-    
+
       * action[+]
-        * title = "ESS score of 10 or greater"
-        * description = "Epworth Sleepiness Scale (ESS) score of 10 or greater"
-        * input
+        * title = "Additional Daytime Sleepiness Indicator"
+        * description = "One or more of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping"
+        * input[+]
           * insert ActionInput("Does patient had ESS score >= 10?", "ESS score >= 10")
           * insert ActionInputCql("ESS Score >= 10", ASLPPolicyPAA)
           * type = #Observation
           * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ess-screening-casefeature"
-        * action[0]
-          * title = "Does not have ESS score >= 10"
-          * description = "Patient does not have ESS score of 10 or greater"
-          * insert ActionConditionCql("Does Not Have ESS Score >= 10")
-          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved" //Is this right??  
-        * action[+]
-          * title = "Null or Unknown ESS Score"
-          * description = "Unknown answer. More Information is needed"
-          * insert ActionConditionCql("Null ESS Score")
-          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-        * action[+]
-          * title = "Has an ESS score >= 10"
-          * description = "Patient has an ESS Score of 10 or greater"
-          * insert ActionConditionCql("Has ESS Score >= 10")
-      
-      * action[+]
-        * title = "Excessive sleepiness while driving"
-        * description = "Excessive sleepiness while driving"
-        * input
+        * input[+]
           * insert ActionInput("Does patient have excessive sleepiness while driving", "Patient has Excessive sleepiness while driving")
           * insert ActionInputCql("Qualifying Excessive Sleepiness While Driving", ASLPPolicyPAA)
           * type = #Observation
           * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepydriving-screening-casefeature"
-        * action[0]
-          * title = "Does not have excessive sleepiness while driving"
-          * description = "Patient does not have excessive sleepiness while driving"
-          * insert ActionConditionCql("Does Not Have Excessive Sleepiness While Driving")
-          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved" //Is this right??  
-        * action[+]
-          * title = "Null or Unknown excessive sleepiness while driving"
-          * description = "Unknown answer. More Information is needed"
-          * insert ActionConditionCql("Null Excessive Sleepiness While Driving")
-          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-        * action[+]
-          * title = "Has excessive sleepiness while driving"
-          * description = "Patient has excessive sleepiness while driving"
-          * insert ActionConditionCql("Has Excessive Sleepiness While Driving")
-      
-      * action[+]
-        * title = "Loud Snoring"
-        * description = "Loud/intense snoring"
-        * input
+        * input[+]
           * insert ActionInput("Does patient snore loudly", "Patient snores loudly")
           * insert ActionInputCql("Loud/Intense Snoring", ASLPPolicyPAA)
           * type = #Condition
           * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-loudsnoring-screening-casefeature"
-        * action[0]
-          * title = "Does not snore loudly/intensely"
-          * description = "Patient does not snore loudly/intensely"
-          * insert ActionConditionCql("Does Not Snore Loudly/Intensely")
-          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved" //Is this right??  
-        * action[+]
-          * title = "Null or Unknown snoring volume"
-          * description = "Unknown answer. More Information is needed"
-          * insert ActionConditionCql("Null Snoring Volume/Intensity")
-          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-        * action[+]
-          * title = "Snores loudly/intensely"
-          * description = "Patient snores loudly/intensely"
-          * insert ActionConditionCql("Snores loudly/intensely")
-      
-      * action[+]
-        * title = "Nocturnal Apnea"
-        * description = "Witnessed nocturnal apnea, choking and/or gasping"
-        * input
+        * input[+]
           * insert ActionInput("Does patient have nocturnal apnea", "Patient has nocturnal apnea")
           * insert ActionInputCql("Nocturnal Apnea", ASLPPolicyPAA)
           * type = #Condition
           * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-apnea-screening-casefeature"
+    
         * action[0]
-          * title = "Does not have nocturnal apnea"
-          * description = "Patient does not have witnessed nocturnal apnea, choking and/or gasping"
-          * insert ActionConditionCql("Does Not have nocturnal apnea")
-          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved" //Is this right??  
+          * title = "Has none of the additional daytime sleepiness indicators"
+          * description = "Patient has none of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping"
+          * insert ActionConditionCql("Has No Additional Daytime Sleepiness Indicators")
+          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved" 
         * action[+]
-          * title = "Null or Unknown apnea"
+          * title = "Null or Unknown answer"
           * description = "Unknown answer. More Information is needed"
-          * insert ActionConditionCql("Null Apnea")
-          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+          * insert ActionConditionCql("Null Additional Daytime Sleepiness Indicators")
+          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
         * action[+]
-          * title = "Has Nocturnal Apnea"
-          * description = "Patient has witnessed nocturnal apnea, choking and/or gasping"
-          * insert ActionConditionCql("Has Nocturnal Apnea")
+          * title = "Has Additional Daytime Sleepiness Indicators"
+          * description = "Patient has the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping"
+          * insert ActionConditionCql("Has Additional Daytime Sleepiness Indicators")
+
 
           * action[+]
             * title = "Absence of comorbid medical conditions"
@@ -523,197 +489,131 @@ Usage: #example
               * title = "Null or Unknown presence of comorbid medical conditions"
               * description = "Unknown answer. More Information is needed"
               * insert ActionConditionCql("Null Presence of Comorbid Medical Conditions")
-              * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+              * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-temp-adj-not-approved"
             * action[+]
               * title = "Has an absence of comorbid medical conditions"
               * description = "The patient has an absence of comorbid medical conditions"
               * insert ActionConditionCql("Has Absence Of Comorbid Medical Conditions")
               
-              * action
-                * title = "Moderate to severe pulmonary disease"
-                * description = "Moderate to severe pulmonary disease including, but may not be limited to: COPD, nocturnal or uncontrolled asthma"
-                * input
+              * action[+]
+                * title = "Applicable comorbid medical conditions"
+                * description = "Has one of the following eligible comorbid conditions: Moderate to severe pulmonary disease including COPD or Asthma, Neuromuscular disease with associated pulmonary disease, Cardiac Disease"
+                * input[+]
+                  * insert ActionInput("Patient has neuromuscular disease with associated pulmonary disease?", "Patient has neuromuscular disease with associated pulmonary disease")
+                  * insert ActionInputCql("Qualifying Neuromuscular Disease With Associated Pulmonary Disease", ASLPPolicyPAA)
+                  * type = #Observation
+                  * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscular-screening-casefeature"
+                * input[+]
+                  * insert ActionInput("Patient has Cardiac Disease?", "Patient has Cardiac Disease")
+                  * insert ActionInputCql("Qualifying Cardiac Disease", ASLPPolicyPAA)
+                  * type = #Observation
+                  * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature"
+                * input[+]
                   * insert ActionInput("Patient has moderate to severe pulmonary disease?", "Patient has moderate to severe pulmonary disease")
                   * insert ActionInputCql("Qualifying Moderate To Severe Pulmonary Disease", ASLPPolicyPAA)
                   * type = #Observation
                   * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
-                * action[0]
-                  * title = "No Moderate to severe pulmonary disease"
-                  * description = "Patient has no moderate to severe pulmonary disease"
-                  * insert ActionConditionCql("No Moderate To Severe Pulmonary Disease")
-                  * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                * action[+]
-                  * title = "Null or Unknown pulmonary disease"
-                  * description = "Unknown answer. More Information is needed"
-                  * insert ActionConditionCql("Null Pulmonary Disease")
-                  * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                * action[+]
-                  * title = "Has moderate to severe pulmonary disease"
-                  * description = "Patient has moderate to severe pulmonary disease"
-                  * insert ActionConditionCql("Has Moderate To Severe Pulmonary Disease") 
-                  
-                  * action[+]
-                    * title = "Moderate to severe pulmonary disease including COPD"
-                    * description = "Moderate to severe pulmonary disease including Chronic Obstructive Pulmonary Disease (COPD) with an FEV1 less than 60%, use of home oxygen or evidence of hypoventilation such as CO2 level greater than or equal to 45 mm Hg"
-                    * input
+                  /* //Get Help getting this to work
+                  * action
+                    * title = "Moderate to severe pulmoary disease including COPD or Asthma"
+                    * description = "Moderate to severe pulmonary disease including, Chronic Obstructive Pulmonary Disease (COPD) or nocturnal or uncontrolled asthma"
+                    * input[+]
                       * insert ActionInput("Patient has moderate to severe pulmonary disease including COPD?", "Patient has moderate to severe pulmonary disease including COPD")
                       * insert ActionInputCql("Qualifying Moderate To Severe Pulmonary Disease Including COPD", ASLPPolicyPAA)
                       * type = #Observation
                       * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithcopd-screening-casefeature"
-                    * action[0]
-                      * title = "No Moderate to severe pulmonary disease including COPD"
-                      * description = "Patient has no moderate to severe pulmonary disease including chronic obstructive pulmonary disease"
-                      * insert ActionConditionCql("No Moderate To Severe Pulmonary Disease Including COPD")
-                      * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"  
-                    * action[+]
-                      * title = "Null or Unknown pulmonary disease including COPD"
-                      * description = "Unknown answer. More Information is needed"
-                      * insert ActionConditionCql("Null Pulmonary Disease Including COPD")
-                      * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                    * action[+]
-                      * title = "Has moderate to severe pulmonary disease including COPD"
-                      * description = "Patient has moderate to severe pulmonary disease including chronic obstructive pulmonary disease"
-                      * insert ActionConditionCql("Has Moderate To Severe Pulmonary Disease Including COPD")
-                      
-                  * action[+]
-                    * title = "Moderate to severe pulmonary disease including nocturnal or uncontrolled asthma"
-                    * description = "Moderate to severe pulmonary disease including nocturnal or uncontrolled asthma"
-                    * input
+                    * input[+]
                       * insert ActionInput("Patient has moderate to severe pulmonary disease including nocturnal or uncontrolled asthma?", "Patient has moderate to severe pulmonary disease including nocturnal or uncontrolled asthma")
                       * insert ActionInputCql("Qualifying Moderate To Severe Pulmonary Disease Including Asthma", ASLPPolicyPAA)
                       * type = #Observation
-                      * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithasthma-screening-casefeature"
+                      * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithasthma-screening-casefeature" */
+                
+                * action[+]
+                  * title = "Has no applicable comorbid medical conditions"
+                  * description = "Has none of the following eligible comorbid conditions: Moderate to severe pulmonary disease including COPD or Asthma, Neuromuscular disease with associated pulmonary disease, Cardiac Disease"
+                  * insert ActionConditionCql("Has No Applicable Comorbid Medical Conditions")
+                  * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved" 
+                * action[+]
+                  * title = "Null or Unknown answer"
+                  * description = "Unknown answer. More Information is needed"
+                  * insert ActionConditionCql("Null Applicable Comorbid Medical Conditions")
+                  * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+                * action[+]
+                  * title = "Has Applicable Comorbid Medical Conditions"
+                  * description = "Patient has one of the following eligible comorbid conditions: Moderate to severe pulmonary disease including COPD or Asthma, Neuromuscular disease with associated pulmonary disease, Cardiac Disease"
+                  * insert ActionConditionCql("Has Applicable Comorbid Medical Conditions")
+                
+                  * action[+]
+                    * title = "Qualified device is used"
+                    * description = "Type II, Type III, Type IV or PAT PM device is used (Type IV PM devices must measure a minimum of 3 channels that include heartrate, oxygen saturation and respiratory analysis)."
+                    * input
+                      * insert ActionInput("Patient uses a qualified device?", "Patient uses a qualified device")
+                      * insert ActionInputCql("Uses A Qualified Device", ASLPPolicyPAA)
+                      * type = #Observation
+                      * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-qualifieddevice-screening-casefeature"
                     * action[0]
-                      * title = "No Moderate to severe pulmonary disease including asthma"
-                      * description = "Patient has no moderate to severe pulmonary disease including nocturnal or uncontrolled asthma"
-                      * insert ActionConditionCql("No Moderate To Severe Pulmonary Disease Including Asthma")
+                      * title = "Does not use a qualified device" 
+                      * description = "The patient does not use Type II, Type III, Type IV or PAT PM device"
+                      * insert ActionConditionCql("Does Not Use Qualified Device")
                       * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
                     * action[+]
-                      * title = "Null or Unknown pulmonary disease including asthma"
+                      * title = "Null or Unknown device used"
                       * description = "Unknown answer. More Information is needed"
-                      * insert ActionConditionCql("Null Pulmonary Disease Including Asthma")
-                      * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+                      * insert ActionConditionCql("Unknown Device Used")
+                      * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
                     * action[+]
-                      * title = "Has moderate to severe pulmonary disease including asthma"
-                      * description = "Patient has moderate to severe pulmonary disease including nocturnal or uncontrolled asthma"
-                      * insert ActionConditionCql("Has Moderate To Severe Pulmonary Disease Including Asthma") 
-                      
-                      * action
-                        * title = "Neuromuscular disease with associated pulmonary disease"
-                        * description = "Neuromuscular disease with associated pulmonary disease including, but may not be limited to: amyotrophic lateral sclerosis, multiple sclerosis, myotonic dystrophy, Parkinson’s, previous stroke with residual respiratory effects, spina bifida or uncontrolled epilepsy"
+                      * title = "Uses a qualified device"
+                      * description = "The patient uses Type II, Type III, Type IV or PAT PM device"
+                      * insert ActionConditionCql("Patient Uses Qualified Device")
+                    
+                      * action[+]
+                        * title = "Can safely use equipment at home"
+                        * description = "Individual or caregiver has appropriate cognitive function, dexterity and mobility to use equipment safely at home"
                         * input
-                          * insert ActionInput("Patient has neuromuscular disease with associated pulmonary disease?", "Patient has neuromuscular disease with associated pulmonary disease")
-                          * insert ActionInputCql("Qualifying Neuromuscular Disease With Associated Pulmonary Disease", ASLPPolicyPAA)
+                          * insert ActionInput("Patient can safely use equipment at home?", "Patient can safely use equipment at home")
+                          * insert ActionInputCql("Safe Equipment Use At Home", ASLPPolicyPAA)
                           * type = #Observation
-                          * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscular-screening-casefeature"
-                      * action[0]
-                          * title = "No Neuromuscular disease with associated pulmonary disease"
-                          * description = "Patient does not have neuromuscular disease with associated pulmonary disease"
-                          * insert ActionConditionCql("No Neuromuscular Disease With Associated Pulmonary Disease")
+                          * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature"
+                        * action[0]
+                          * title = "Can not safely use equipment at home"
+                          * description = "The patient can not safely use equipment at home"
+                          * insert ActionConditionCql("Can Not Safely Use Equipment At Home")
                           * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                      * action[+]
-                          * title = "Null or Unknown neuromuscular diseas with associated pulmonary disease"
-                          * description = "Unknown answer. More Information is needed"
-                          * insert ActionConditionCql("Null Nueromuscular Disease")
-                          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                      * action[+]
-                          * title = "Has neuromuscular disease with associated pulmonary disease present"
-                          * description = "Patient has Neuromuscular disease with associated pulmonary disease"
-                          * insert ActionConditionCql("Has Neuromuscular Disease With Associated Pulmonary Disease")
-          
+                        * action[+] 
+                          * title = "Null or Unknown ability to use equipment at home"
+                          * description = "Unknown answer. More Information is needed" 
+                          * insert ActionConditionCql("Unknown Ability To Use Equipment At Home")
+                          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+                        * action[+]
+                          * title = "Can safely use equipment at home"
+                          * description = "The patient can safely use equipment at home"
+                          * insert ActionConditionCql("Can Safely Use Equipment At Home")
+                        
                           * action[+]
-                            * title = "Cardiac Disease"
-                            * description = "Cardiac disease, including but may not be limited to; congestive heart failure (CHF) (New York Heart Association class III or IV or left ventricular ejection fraction [LVEF] less than 45%), pulmonary hypertension or uncontrolled cardiac arrhythmia"
+                            * title = "Physician evaluated results"
+                            * description = "Home sleep testing results must be evaluated by a qualified physician"
                             * input
-                              * insert ActionInput("Patient has Cardiac Disease?", "Patient has Cardiac Disease")
-                              * insert ActionInputCql("Qualifying Cardiac Disease", ASLPPolicyPAA)
+                              * insert ActionInput("Patient can have physician evaluate results?", "Patient can have physician evaluate results")
+                              * insert ActionInputCql("Physician Evaluated Results", ASLPPolicyPAA)
                               * type = #Observation
-                              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature"
+                              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature"
                             * action[0]
-                              * title = "No Cardiac Disease"
-                              * description = "Patient does not have Cardiac Disease"
-                              * insert ActionConditionCql("No Cardiac Disease")
+                              * title = "Unable to have physician evaluate results"
+                              * description = "The patient is unable to have physician evaluate results of home sleep tests"
+                              * insert ActionConditionCql("Unable To Have Physician Evaluate Results")
                               * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                            * action[+]
-                              * title = "Null or Unknown cardiac disease"
+                            * action[+] 
+                              * title = "Null or Unknown ability to have physician evaluate results"
                               * description = "Unknown answer. More Information is needed"
-                              * insert ActionConditionCql("Null Cardiac Disease")
-                              * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+                              * insert ActionConditionCql("Unknown Ability To Have Physician Evaluate Results")
+                              * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
                             * action[+]
-                              * title = "Has Cardiac Disease"
-                              * description = "Patient has Cardiac Disease"
-                              * insert ActionConditionCql("Has Cardiac Disease")
-                  
-                              * action[+]
-                                * title = "Qualified device is used"
-                                * description = "Type II, Type III, Type IV or PAT PM device is used (Type IV PM devices must measure a minimum of 3 channels that include heartrate, oxygen saturation and respiratory analysis)."
-                                * input
-                                  * insert ActionInput("Patient uses a qualified device?", "Patient uses a qualified device")
-                                  * insert ActionInputCql("Uses A Qualified Device", ASLPPolicyPAA)
-                                  * type = #Observation
-                                  * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-qualifieddevice-screening-casefeature"
-                                * action[0]
-                                  * title = "Does not use a qualified device"
-                                  * description = "The patient does not use Type II, Type III, Type IV or PAT PM device"
-                                  * insert ActionConditionCql("Does Not Use Qualified Device")
-                                  * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                                * action[+]
-                                  * title = "Null or Unknown device used"
-                                  * description = "Unknown answer. More Information is needed"
-                                  * insert ActionConditionCql("Unknown Device Used")
-                                  * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                                * action[+]
-                                  * title = "Uses a qualified device"
-                                  * description = "The patient uses Type II, Type III, Type IV or PAT PM device"
-                                  * insert ActionConditionCql("Patient Uses Qualified Device")
-                      
-                                  * action[+]
-                                    * title = "Can safely use equipment at home"
-                                    * description = "Individual or caregiver has appropriate cognitive function, dexterity and mobility to use equipment safely at home"
-                                    * input
-                                      * insert ActionInput("Patient can safely use equipment at home?", "Patient can safely use equipment at home")
-                                      * insert ActionInputCql("Safe Equipment Use At Home", ASLPPolicyPAA)
-                                      * type = #Observation
-                                      * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature"
-                                    * action[0]
-                                      * title = "Can not safely use equipment at home"
-                                      * description = "The patient can not safely use equipment at home"
-                                      * insert ActionConditionCql("Can Not Safely Use Equipment At Home")
-                                      * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                                    * action[+]
-                                      * title = "Null or Unknown ability to use equipment at home"
-                                      * description = "Unknown answer. More Information is needed"
-                                      * insert ActionConditionCql("Unknown Ability To Use Equipment At Home")
-                                      * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                                    * action[+]
-                                      * title = "Can safely use equipment at home"
-                                      * description = "The patient can safely use equipment at home"
-                                      * insert ActionConditionCql("Can Safely Use Equipment At Home")                      
-                          
-                                      * action[+]
-                                        * title = "Physician evaluated results"
-                                        * description = "Home sleep testing results must be evaluated by a qualified physician"
-                                        * input
-                                          * insert ActionInput("Patient can have physician evaluate results?", "Patient can have physician evaluate results")
-                                          * insert ActionInputCql("Physician Evaluated Results", ASLPPolicyPAA)
-                                          * type = #Observation
-                                          * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature"
-                                        * action[0]
-                                          * title = "Unable to have physician evaluate results"
-                                          * description = "The patient is unable to have physician evaluate results of home sleep tests"
-                                          * insert ActionConditionCql("Unable To Have Physician Evaluate Results")
-                                          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                                        * action[+]
-                                          * title = "Null or Unknown ability to have physician evaluate results"
-                                          * description = "Unknown answer. More Information is needed"
-                                          * insert ActionConditionCql("Unknown Ability To Have Physician Evaluate Results")
-                                          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                                        * action[+]
-                                          * title = "Able to have physician evaluated results"
-                                          * description = "The patient is able to have physician evaluate results of home sleep tests"
-                                          * insert ActionConditionCql("Ability To Have Physician Evaluate Results")
-                                          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-approved"
-
+                              * title = "Able to have physician evaluated results"
+                              * description = "The patient is able to have physician evaluate results of home sleep tests"
+                              * insert ActionConditionCql("Ability To Have Physician Evaluate Results")
+                              * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-approved"
+                 
+ 
   
 
 /*

@@ -59,6 +59,19 @@ define "No Excessive Daytime Sleepiness":
 define "Null Excessive Daytime Sleepiness":
   "Has Excessive Daytime Sleepiness" is null
 
+//Additional EDS Criteria 
+define "Has Additional Daytime Sleepiness Indicators":
+  "Has ESS Score >= 10"
+    or "Has Excessive Sleepiness While Driving"
+    or "Snores loudly/intensely"
+    or "Has Nocturnal Apnea"
+
+define "Has No Additional Daytime Sleepiness Indicators":
+  not "Has Additional Daytime Sleepiness Indicators"
+
+define "Null Additional Daytime Sleepiness Indicators":
+  "Has Additional Daytime Sleepiness Indicators" is null
+
 
 define "Most Recent Epworth Sleepiness Scale Observation":
   PCF.MostRecent([Observation: AC."Qualifying Epworth Sleepiness Scale Assertion"])
@@ -185,6 +198,18 @@ define "No Absence Of Comorbid Medical Conditions":
 define "Null Presence of Comorbid Medical Conditions":
   "Has Absence Of Comorbid Medical Conditions" is null
 
+define "Has Applicable Comorbid Medical Conditions":
+  "Has Neuromuscular Disease With Associated Pulmonary Disease"
+    or "Has Cardiac Disease"
+    or ("Has Moderate To Severe Pulmonary Disease"
+      and "Has Moderate To Severe Pulmonary Disease Including COPD or Asthma")
+
+define "Has No Applicable Comorbid Medical Conditions":
+  not "Has Applicable Comorbid Medical Conditions"
+
+define "Null Applicable Comorbid Medical Conditions":
+  "Has Applicable Comorbid Medical Conditions" is null
+
 
 define "Most Recent Moderate To Severe Pulmonary Disease":
   PCF.MostRecent([Observation: AC."Qualifying Moderate To Severe Pulmonary Disease Assertion"])
@@ -209,6 +234,10 @@ define "No Moderate To Severe Pulmonary Disease":
 
 define "Null Pulmonary Disease":
   "Has Moderate To Severe Pulmonary Disease" is null
+
+define "Has Moderate To Severe Pulmonary Disease Including COPD or Asthma":
+  "Has Moderate To Severe Pulmonary Disease Including COPD"
+    or "Has Moderate To Severe Pulmonary Disease Including Asthma"
 
 
 define "Most Recent Pulmonary Disease Including COPD":
@@ -388,31 +417,101 @@ define "Unable To Have Physician Evaluate Results":
 define "Unknown Ability To Have Physician Evaluate Results":
   "Ability To Have Physician Evaluate Results" is null
 
-
+//Not Approved Response
 define "Not Approved Detail":
   'Prior Authorization DENIED.'
-    // + '<br />Reasoning:'
-    // + Coalesce(
-    //   if "Not Within Qualifying Age" then '<br />- Individual is not within the qualifying age.' else '',
-    //   if "No Excessive Daytime Sleepiness" then '<br />- Individual does not have excessive daytime sleepiness' else '',
-    //   if "Does Not Have ESS Score >= 10" then '<br />- Individual does not have ESS score of 10 or greater' else '',
-    //   if "Does Not Have Excessive Sleepiness While Driving" then '<br />- Individual does not have excessive sleepiness while driving' else '',
-    //   if "Does Not Snore Loudly/Intensely" then '<br />- Individual does not snore loudly/intensely' else '',
-    //   if "Does Not have nocturnal apnea" then '<br />- Individual does not have witnessed nocturnal apnea, choking and/or gasping' else '',
-    //   if "No Absence Of Comorbid Medical Conditions" then '<br />- Individual does not have an absence of comorbid medical conditions' else '',
-    //   if "No Moderate To Severe Pulmonary Disease" then '<br />- Individual does not have moderate to severe pulmonary disease' else '',
-    //   if "No Moderate To Severe Pulmonary Disease Including COPD" then '<br />- Individual does not have moderate to severe pulmonary disease including chronic obstructive pulmonary disease' else '',
-    //   if "No Moderate To Severe Pulmonary Disease Including Asthma" then '<br />- Individual doe not have moderate to severe pulmonary disease including nocturnal or uncontrolled asthma' else '',
-    //   if "No Neuromuscular Disease With Associated Pulmonary Disease" then '<br />- Individual does not have neuromuscular disease with associated pulmonary disease' else '',
-    //   if "No Cardiac Disease" then '<br />- Individual does not have Cardiac Disease' else '',
-    //   if "Does Not Use Qualified Device" then '<br />- Individual does not use Type II, Type III, Type IV or PAT PM device' else '',
-    //   if "Can Not Safely Use Equipment At Home" then '<br />- Individual or caregiver does not have appropriate cognitive function, dexterity and mobility to use equipment safely at home' else '',
-    //   if "Unable To Have Physician Evaluate Results" then '<br />- Individual is unable to have physician evaluate results of home sleep tests' else ''
-    // )
+    + '<br />Reasoning:'
+    + Coalesce(
+      if "Not Within Qualifying Age" then '<br />- Individual is not within the qualifying age.' else '',
+      "Not Approved EDS",
+      "Not Approved Absence of Comorbid Conditions",
+      "Not Approved Home Criteria"
+    ) //Coalesce only accepts 5 elements so they had to be spilt up:
 
+define "Not Approved EDS":
+  if "Has Excessive Daytime Sleepiness" and "Has No Additional Daytime Sleepiness Indicators" 
+    then  'Patient doesn\'t have any of the following additional daytime sleepiness indicators: ESS score of 10 or greater excessive sleepiness while driving snore loudly/intensely no witnessed nocturnal apnea, choking and/or gasping'   
+  else
+    if "No Excessive Daytime Sleepiness" then '<br />- Individual does not have excessive daytime sleepiness.'
+  else
+    ''
+
+define "Not Approved Absence of Comorbid Conditions":
+  if "No Absence Of Comorbid Medical Conditions" and "Has No Applicable Comorbid Medical Conditions"
+    then '<br />- Individual has none of the following eligible comorbid conditions: Moderate to severe pulmonary disease including COPD or Asthma, Neuromuscular disease with associated pulmonary disease, Cardiac Disease'
+  else 
+    if "No Absence Of Comorbid Medical Conditions" then '<br />- Individual does not have an absence of comorbid medical conditions'
+  else
+    ''
+
+define "Not Approved Pulmonary Disease With Associated Conditions":
+  if "No Moderate To Severe Pulmonary Disease" and "Has Moderate To Severe Pulmonary Disease Including COPD or Asthma"
+    then '<br />- Individual does not have moderate to severe pulmonary disease including COPD or Asthma'
+  else
+    if "No Moderate To Severe Pulmonary Disease" then '<br />- Individual does not have moderate to severe pulmonary disease'
+  else 
+  ''
+
+// define "Not Approved Pul Dis With Conditions Test":
+//   if "No Moderate To Severe Pulmonary Disease" then '<br />- Individual does not have moderate to severe pulmonary disease'
+//     + ' Including :'
+//     + Coalesce(
+//       if "No Moderate To Severe Pulmonary Disease Including COPD" then '<br />- Chronic Obstructive Pulmonary Disease' else '',
+//       if "No Moderate To Severe Pulmonary Disease Including Asthma" then '<br />- Nocturnal or Uncontrolled Asthma' else ''
+//     )
+//   else
+//     ''
+
+define "Not Approved Home Criteria":
+  Coalesce(
+    if "Does Not Use Qualified Device" then '<br />- Individual does not use Type II, Type III, Type IV or PAT PM device' else '',
+    if "Can Not Safely Use Equipment At Home" then '<br />- Individual or caregiver does not have appropriate cognitive function, dexterity and mobility to use equipment safely at home' else '',
+    if "Unable To Have Physician Evaluate Results" then '<br />- Individual is unable to have physician evaluate results of home sleep tests' else ''
+  )
+
+//Not Approved Null Response
 define "Null Response Detail":
-  null
+  'Prior Authorization DENIED.'
+    + '<br />Reasoning:'
+    + Coalesce(
+      if "Age Unknown" then '<br />- Null or unknown answer. Please repeat question: Patient Age Greater Than Or Equal To 18' else '', 
+      "Null EDS",
+      "Null Comorbid Medical Conditions",
+      "Null Home Criteria"
+    )
 
+define "Null EDS":
+  Coalesce(
+    if "Null Excessive Daytime Sleepiness" then '<br />- Please enter the following: Excessive Daytime Sleepiness' else '',
+    if "Null ESS Score" then '<br />- Null or unknown answer. Please repeat question: Epworth Sleepiness Scale' else '',
+    if "Null Excessive Sleepiness While Driving" then '<br />- Null or unknown answer. Please repeat question: Excessive Sleepiness While driving' else '',
+    if "Null Snoring Volume/Intensity" then '<br />- Null or unknown answer. Please repeat question: Loud/Intense Snoring' else '',
+    if "Null Apnea" then '<br />- Null or unknown answer. Please repeat question: Nocturnal apnea' else ''
+  ) 
+
+define "Null Comorbid Medical Conditions":
+  Coalesce(
+    if "Null Presence of Comorbid Medical Conditions" then '<br />- Null or unknown answer. Please repeat question: Absence Of Comorbid Medical Conditions' else '',
+    "Null Pulmonary Disease With Associated Conditions",
+    if "Null Nueromuscular Disease" then '<br />- Null or unknown answer. Please repeat question: Neuromuscular Disease With Associated Pulmonary Disease' else '',
+    if "Null Cardiac Disease" then '<br />- Null or unknown answer. Please repeat question: Cardiac Disease' else ''
+  )
+
+define "Null Pulmonary Disease With Associated Conditions":
+  Coalesce(
+    if "Null Pulmonary Disease" then '<br />- Null or unknown answer. Please repeat question: Moderate To Severe Pulmonary Disease' else '',
+    if "Null Pulmonary Disease Including COPD" then '<br />- Null or unknown answer. Please repeat question: Moderate To Severe Pulmonary Disease Including Chronic Obstructive Pulmonary Disease' else '',
+    if "Null Pulmonary Disease Including Asthma" then '<br />- Null or unknown answer. Please repeat question: Moderate To Severe Pulmonary Disease Including Nocturnal Or Uncontrolled Asthma' else ''
+  )
+
+define "Null Home Criteria":
+  Coalesce(
+    if "Unknown Device Used" then '<br />- Null or unknown answer. Please repeat question: Use Of Type II, Type III, Type IV or PAT PM Device' else '',
+    if "Unknown Ability To Use Equipment At Home" then '<br />- Null or unknown answer. Please repeat question: Individual Or Caregiver Use Of Equipment Safely At Home' else '',
+    if "Unknown Ability To Have Physician Evaluate Results" then '<br />- Null or unknown answer. Please repeat question: Ability To Have Physician Evaluate Home Testing Results' else ''
+  )
+
+//Approved Response
 define "Approved Detail":
   'Prior Authorization APPROVED.'
   + '<br />Reasoning:'
