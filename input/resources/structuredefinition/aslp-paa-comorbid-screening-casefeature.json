@@ -60,19 +60,19 @@
   "fhirVersion": "4.0.1",
   "kind": "resource",
   "abstract": false,
-  "type": "Observation",
-  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
+  "type": "Condition",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Condition",
   "derivation": "constraint",
   "differential": {
     "element": [
       {
-        "id": "Observation",
-        "path": "Observation",
+        "id": "Condition",
+        "path": "Condition",
         "mustSupport": false
       },
       {
-        "id": "Observation.code",
-        "path": "Observation.code",
+        "id": "Condition.code",
+        "path": "Condition.code",
         "short": "Qualifying Absence Of Comorbid Medical Conditions",
         "definition": "Qualifying Absence Of Comorbid Medical Conditions",
         "min": 1,
@@ -85,8 +85,8 @@
         "mustSupport": true
       },
       {
-        "id": "Observation.code.coding",
-        "path": "Observation.code.coding",
+        "id": "Condition.code.coding",
+        "path": "Condition.code.coding",
         "min": 1,
         "max": "1",
         "slicing": {
@@ -105,8 +105,8 @@
         }
       },
       {
-        "id": "Observation.code.coding:AbsenceOfComorbidMedicalConditionsCode",
-        "path": "Observation.code.coding",
+        "id": "Condition.code.coding:AbsenceOfComorbidMedicalConditionsCode",
+        "path": "Condition.code.coding",
         "sliceName": "AbsenceOfComorbidMedicalConditionsCode",
         "min": 1,
         "max": "1",
@@ -117,8 +117,8 @@
         ]
       },
       {
-        "id": "Observation.code.coding:AbsenceOfComorbidMedicalConditionsCode.system",
-        "path": "Observation.code.coding.system",
+        "id": "Condition.code.coding:AbsenceOfComorbidMedicalConditionsCode.system",
+        "path": "Condition.code.coding.system",
         "min": 1,
         "max": "1",
         "type": [
@@ -129,8 +129,8 @@
         "fixedUri": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes"
       },
       {
-        "id": "Observation.code.coding:AbsenceOfComorbidMedicalConditionsCode.code",
-        "path": "Observation.code.coding.code",
+        "id": "Condition.code.coding:AbsenceOfComorbidMedicalConditionsCode.code",
+        "path": "Condition.code.coding.code",
         "min": 1,
         "max": "1",
         "type": [
@@ -141,8 +141,8 @@
         "fixedCode": "Absence-Of-Comorbid-Conditions"
       },
       {
-        "id": "Observation.value[x]",
-        "path": "Observation.value[x]",
+        "id": "Condition.value[x]",
+        "path": "Condition.value[x]",
         "short": "Qualifying Absence Of Comorbid Medical Conditions",
         "definition": "Qualifying Absence Of Comorbid Medical Conditions",
         "min": 1,

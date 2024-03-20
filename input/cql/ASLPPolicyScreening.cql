@@ -7,42 +7,35 @@ include ASLPDataElements called Dx
 include FHIRHelpers version '4.1.000'
 include ASLPPolicyCaseFeatures called PCF
  
-codesystem "ICD10": 'http://hl7.org/fhir/sid/icd-10-cm'  
-codesystem "ConditionClinicalStatusCodes": 'http://terminology.hl7.org/CodeSystem/condition-clinical'
-codesystem "ConditionVerificationStatusCodes": 'http://terminology.hl7.org/CodeSystem/condition-ver-status'
+codesystem "ICD10": 'http://hl7.org/fhir/sid/icd-10-cm' 
 codesystem "LOINC": 'http://loinc.org'
 codesystem "SNOMEDCT": 'http://snomed.info/sct'
+codesystem "CPT": 'http://www.ama-assn.org/go/cpt'
  
-valueset "Excessive Daytime Sleepiness ValueSet": ' '
-valueset "Epworth Sleepiness Scale ValueSet": ' '
-valueset "Sleepiness While Driving ValueSet": ''
-valueset "Loud and Intense Snoring ValueSet": ''
-valueset "Nocturnal Apnea ValueSet": ''
-valueset "Comorbid Medical Conditions ValueSet": ''
-valueset "Neuromuscular Disease ValueSet": ''
-valueset "Moderate to Severe Pulmonary Disease ValueSet": ''
-valueset "Pulmonary Disease Including COPD ValueSet": ''
-valueset "Pulmonary Disease Including Asthma ValueSet": ''
-valueset "Cardiac Disease ValueSet": ''
-valueset "Eligible Devices ValueSet": ' '
-valueset "Safe Home Use ValueSet": ''
-valueset "Physician Can Evaluate Results ValueSet": ''
+//valuesets not in repo
+valueset "Excessive Daytime Sleepiness (Drowsiness) ValueSet": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1078.769'
+//valueset "Sleepiness While Driving ValueSet": '' //can't find valueset or code
+valueset "Sleep Apnea Disorders ValueSet": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1222.102' //does not have nocturnal but has insomnia
+// valueset "Comorbid Medical Conditions ValueSet": '' //can't find valueset or code
+// valueset "Safe Home Use ValueSet": '' //can't find valueset or code
+// valueset "Physician Can Evaluate Results ValueSet": '' //can't find valueset or code
 
+//Valuesets in repo
+valueset "Home Sleep Study Devices": 'http://cts.nlm.nih.gov/fhir/ValueSet/HomeSleepStudyDevices'
+valueset "Chronic Obstructive Lung Disease (COPD)": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1219.6'
+valueset "Asthma VS": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.526.3.362'
+valueset "Forced Expiratory Volume in One Second (FEV1)Forced Vital Capacity (FVC) Measurement": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1219.124'
+valueset "Past Medical History Condition Related to Need for Positive Airway Pressure Device": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1219.135'
+valueset "Acute or Chronic Heart Failure Disorder": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1219.24'
+valueset "Pulmonary Hypertension Disorder": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1219.93'
+valueset "Heart Failure Diagnosis": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1222.1543'
+valueset "COVID19 SNOMED Value Set for Muscular Dystrophy": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.3616.200.110.102.6183'
+valueset "Hypoventilation Disorder VS": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1219.121'
+valueset "Moderate to Severe Pulmonary Disease VS": 'http://example.org/sdh/dtr/aslp/ValueSet/ModerateToSeverePulmonaryDisease'
 
-code "Excessive Daytime Sleepiness code": 'G47.10' from "ICD10" display 'Excessive Daytime Sleepiness'
+//Can't find valuesets
 code "Epworth Sleepiness Scale Code": '763254009' from "SNOMEDCT" display 'Epworth Sleepiness Scale'
-code "Loud Snoring code": 'R06.83' from "ICD10" display 'Loud/Intense Snoring'
-code "Witnessed Nocturnal Apnea code": 'G47.3' from "ICD10" display 'Witnessed nocturnal apnea, choking and/or gasping'
-code "active": 'active' from "ConditionClinicalStatusCodes"
-code "confirmed": 'confirmed' from ConditionVerificationStatusCodes
-code "Carbon Dioxide [Partial Pressure] In Exhaled Gas": '1989-1' from "LOINC" display 'Carbon Dioxide [Partial Pressure] In Exhaled Gas'
-code "Chronic obstructive pulmonary disease": 'LA28200-6' from "LOINC"
-code "FEV1": '20150-9' from "LOINC" display 'forced expiratory volume in one second'
-code "Pulmonary function test panel": '81458-2' from "LOINC"
-code "Asthma": 'J45' from "ICD10"
-code "Asthma/chronic obstructive lung disease or chronic lung disease in last 7 days": '54822-2' from "LOINC" //IDK if I should use this one or just asthma^
-code "Neuromuscular Diseases": 'G70.9' from "ICD10" display 'Myoneural disorder'
-code "Cardiac Disease": '45641-8' from "LOINC" display 'Congestive heart failure [Minimum Data Set]'
+code "Snoring code": 'R06.83' from "ICD10" display 'Snoring' //Can't find a code for loud snoring
 
 context Patient
 
@@ -55,19 +48,18 @@ define "Patient Age >= 18":
 
 //Excessive Daytime Sleepiness criteria
 define "Excessive Daytime Sleepiness criteria":
-  ("Excessive Daytime Sleepiness Observation")
+  ("Has Excessive Daytime Sleepiness")
     and (
-        ("ESS Score >= 10")
-        or exists("Excessive Sleepiness While Driving")
+        ("Has ESS Score GTE 10")
+        or ("Has Excessive Sleepiness While Driving")
         or exists("Loud Intense Snoring")
         or exists("Nocturnal Apnea")
     )
 
 define "Excessive Daytime Sleepiness":
-  [Observation: "Excessive Daytime Sleepiness code"] O 
-    where O.status = 'corrected'
+  ([Condition: "Excessive Daytime Sleepiness (Drowsiness) ValueSet"]).active().confirmed() 
 
-define "Excessive Daytime Sleepiness Observation":
+define "Has Excessive Daytime Sleepiness":
   exists("Excessive Daytime Sleepiness")
 
 define "Epworth Sleepiness Scale":
@@ -78,144 +70,138 @@ define "Epworth Sleepiness Scale Score >= 10":
   "Epworth Sleepiness Scale" O
     where O.value > 10
 
-define "ESS Score >= 10":
+define "Has ESS Score GTE 10":
   exists("Epworth Sleepiness Scale Score >= 10")
 
-define "Excessive Sleepiness While Driving":
-  [Observation: "Sleepiness While Driving ValueSet"] O 
-    where O.status = 'corrected'
-
-define "Excessive Sleepiness While Driving Observation":
-  exists("Excessive Sleepiness While Driving")
+define "Has Excessive Sleepiness While Driving":
+  null as System.Boolean
 
 define "Witnessed Loud Snoring":
   exists("Loud Intense Snoring")
 
 define "Loud Intense Snoring":
-  [Condition: "Loud Snoring code"]  C 
-    where C.clinicalStatus = "active"
-      and C.verificationStatus = "confirmed"
+  ([Condition: "Snoring code"]).active().confirmed()
 
 define "Witnessed Nocturnal Apnea":
   exists("Nocturnal Apnea")
 
 define "Nocturnal Apnea":
-  [Condition: "Witnessed Nocturnal Apnea code"] C 
-    where C.clinicalStatus = "active"
-      and C.verificationStatus = "confirmed"
+  ([Condition: "Sleep Apnea Disorders ValueSet"]).active().confirmed()
 
 //Absence of comorbid conditions and criteria
+define "Evidence of Comorbid Medical Conditions":
+  "Qualifying Moderate To Severe Pulmonary Disease"
+    union "Diagnosed COPD"
+    union {"Most Recent FEV1"}
+    union "Hypoventilation Disorder"
+    union "Diagnosed Asthma"
+    union "Neuromuscular Disease Diagnosis"
+    union "Pulmonary Disease Diagnosis"
+    union "Qualifying Cardiac Disease"
+
 define "Has Comorbid Medical Conditions":
-  [Condition: "Comorbid Medical Conditions ValueSet"] C
-    where C.clinicalStatus = "active"
-      and C.verificationStatus = "confirmed"
+  "Has Moderate To Severe Pulmonary Disease"
+    or "Neuromuscular Disease With Associated Pulmonary Disease"
+    or "Has Cardiac Disease" 
 
-define "Qualifying Comorbid Medical Conditions":
-  [Observation: "Comorbid Medical Conditions ValueSet"] O 
-    where O.status = 'corrected'
+define "Has No Comorbid Medical Conditions":
+  not "Has Comorbid Medical Conditions"
 
+/*
 define "Absence of Comorbid Medical Conditions":
-  not exists("Qualifying Comorbid Medical Conditions")
-    or not exists("Has Comorbid Medical Conditions") //Should we use the observation or condition??
+  "Has No Comorbid Medical Conditions"
+    and "Does Not Have Applicable Comorbid Medical Conditions"
 
+define "Does Not Have Applicable Comorbid Medical Conditions":
+  not "Has Moderate To Severe Pulmonary Disease"
+    and not "Qualified Neuromuscular Disease With Associated Pulmonary Disease"
+    and not "Has Cardiac Disease" 
+*/
 
-define "Qualifying Absence Of Comorbid Medical Conditions":
-  "Absence of Comorbid Medical Conditions"
-    and (
-        ("Has Moderate To Severe Pulmonary Disease")
-        or exists("Neuromuscular Disease With Associated Pulmonary Disease")
-        or exists("Qualifying Cardiac Disease")
-    )
-
-
+//Pulmonary Disease
 define "Has Moderate To Severe Pulmonary Disease":
   exists("Qualifying Moderate To Severe Pulmonary Disease")
-    and (
-        exists("Moderate To Severe Pulmonary Disease Including COPD")
-        or exists("Moderate To Severe Pulmonary Disease Including Asthma")
-    ) 
+    or ( 
+      exists("Diagnosed COPD") 
+        and ( ("Most Recent FEV1 < 60") or exists("Hypoventilation Disorder") ) 
+      )
+    or ("Has Diagnosed Asthma")
 
 define "Qualifying Moderate To Severe Pulmonary Disease":
-  [Observation: "Pulmonary function test panel"] O 
+  [Observation: "Moderate to Severe Pulmonary Disease VS"] O 
     where O.status = 'corrected'
-    //O.code ~ "Pulmonary function test panel" or O.code = "Chronic obstructive pulmonary disease" ; should this be used instead??
 
-define "Pulmonary Disease Including COPD":
-  exists("Moderate To Severe Pulmonary Disease Including COPD")
+//COPD
+define "Has Diagnosed COPD":
+  "Moderate To Severe Pulmonary Disease Including COPD"
 
 define "Moderate To Severe Pulmonary Disease Including COPD":
-  [Observation: "Chronic obstructive pulmonary disease"] O 
-    where exists(
-        O.component c where(
-            c.code ~ "FEV1"
-            and c.value <= 60
-            and c.value.unit = '%'
-        )
-        and (
-            c.code ~ "Carbon Dioxide [Partial Pressure] In Exhaled Gas"
-            and c.value >= 45
-            and c.value.unit = 'mm[Hg]'
-        )
+  "Has Moderate To Severe Pulmonary Disease"
+    and (
+      exists("Diagnosed COPD")
+        and ( ("Most Recent FEV1 < 60") or exists("Hypoventilation Disorder") )
       )
-    and O.status = 'corrected'
 
-define "Pulmonary Disease Including Asthma":
-  exists("Moderate To Severe Pulmonary Disease Including Asthma")
+define "Diagnosed COPD":
+  ([Condition: "Chronic Obstructive Lung Disease (COPD)"]).active().confirmed()
 
-define "Moderate To Severe Pulmonary Disease Including Asthma":
-  [Observation: "Chronic obstructive pulmonary disease"] O 
-    where exists(
-        O.component c where(
-            c.code ~ "Asthma"
-        )
-    )
-    and O.status = 'corrected'
+define "Most Recent FEV1":
+  PCF.MostRecent(
+    [Observation: "Forced Expiratory Volume in One Second (FEV1)Forced Vital Capacity (FVC) Measurement"] 
+  )
 
-define "Qualified Neuromuscular Disease With Associated Pulmonary Disease":
-  exists("Neuromuscular Disease With Associated Pulmonary Disease")
+define "Most Recent FEV1 < 60":
+  "Most Recent FEV1".value <= 60 '%'
 
-define "Qualifying Neuromuscular Disease":
-  [Observation: "Neuromuscular Diseases"] O 
-    where O.status = 'corrected'
+define "Hypoventilation Disorder":
+  ([Condition: "Hypoventilation Disorder VS"]).active().confirmed()
+
+//Asthma
+define "Has Diagnosed Asthma": //rename
+  exists("Diagnosed Asthma")
+
+define "Diagnosed Asthma": //Moderate to severe with asthma
+  ([Condition: "Asthma VS"]).active().confirmed()
+
+//Neuromuscular
+// define "Qualified Neuromuscular Disease With Associated Pulmonary Disease":
+//   exists("Neuromuscular Disease With Associated Pulmonary Disease")
 
 define "Neuromuscular Disease With Associated Pulmonary Disease":
-  [Observation: "Chronic obstructive pulmonary disease"] O 
-    where exists(
-        O.component c where(
-            c.code ~ "Neuromuscular Diseases"
-        )
-    )
-    and O.status = 'corrected'
+  exists("Neuromuscular Disease Diagnosis")
+    and exists("Pulmonary Disease Diagnosis")
 
-define "Cardiac Disease Observation":
+define "Neuromuscular Disease Diagnosis":
+  ([Condition: "COVID19 SNOMED Value Set for Muscular Dystrophy"]).active().confirmed()
+
+define "Pulmonary Disease Diagnosis":
+  ([Condition: "Pulmonary Hypertension Disorder"])
+
+//cardiac disease
+define "Has Cardiac Disease":
   exists("Qualifying Cardiac Disease")
 
 define "Qualifying Cardiac Disease":
-  [Observation: "Cardiac Disease"] O 
-    where O.status = 'corrected'
+  ([Condition: "Heart Failure Diagnosis"]).active().confirmed()
 
+//qualified device
 define "Qualified Device Observation":
   exists("Qualified Device")
 
-//Do we want device or device req??
 define "Qualified Device Request":
-  [DeviceRequest: "Eligible Devices ValueSet"] DevReq 
-    where DevReq.status = 'active'
+  [DeviceRequest: "Home Sleep Study Devices"] DevReq 
+    where DevReq.status = 'active' //Do we want device or device req??
 
 define "Qualified Device": 
-  [Device: "Eligible Devices ValueSet"] DR 
-    where DR.status = 'active'
+  [Device: "Home Sleep Study Devices"] DR 
+    where DR.status = 'active' //Need help changing StructureDef for this one
 
+//safe home use
 define "Safe Use Of Equipment At Home Observation":
-  exists("Can Safely Use Equipment At Home")
+  null as System.Boolean
 
-define "Can Safely Use Equipment At Home":
-  [Observation: "Safe Home Use ValueSet"] O 
-    where O.status = 'corrected'
-
+//physician evaluation
 define "Physician Evaluated Results Observation":
-  exists("Physician Evaluated Results")
+  null as System.Boolean
 
-define "Physician Evaluated Results":
-  [Observation: "Physician Can Evaluate Results ValueSet"] O 
-    where O.status = 'corrected'
+    

@@ -8,7 +8,7 @@ include FHIRHelpers version '4.1.000'
 include ASLPPolicyCaseFeatures called PCF
 include ASLPPolicyConcepts called AC
 include ASLPPolicyScreening called PS
-
+ 
 context Patient
 
 define "Most Recent Qualifying Patient Age":
@@ -44,7 +44,7 @@ define "Qualified Excessive Daytime Sleepiness":
   else 
     PCF.CaseFeatureObservation(
       AC."Qualifying Excessive Daytime Sleepiness Assertion",
-      PS."Excessive Daytime Sleepiness Observation",
+      PS."Has Excessive Daytime Sleepiness",
       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-eds-screening-casefeature',
       PCF.MostRecent(PS."Excessive Daytime Sleepiness"),
       ''
@@ -72,7 +72,7 @@ define "Has No Additional Daytime Sleepiness Indicators":
 define "Null Additional Daytime Sleepiness Indicators":
   "Has Additional Daytime Sleepiness Indicators" is null
 
-
+//ESS
 define "Most Recent Epworth Sleepiness Scale Observation":
   PCF.MostRecent([Observation: AC."Qualifying Epworth Sleepiness Scale Assertion"])
 
@@ -82,7 +82,7 @@ define "ESS Score >= 10":
   else
     PCF.CaseFeatureObservation(
       AC."Qualifying Epworth Sleepiness Scale Assertion",
-      PS."ESS Score >= 10",
+      PS."Has ESS Score GTE 10",
       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ess-screening-casefeature',
       PCF.MostRecent(PS."Epworth Sleepiness Scale Score >= 10"),
       ''
@@ -97,7 +97,7 @@ define "Does Not Have ESS Score >= 10":
 define "Null ESS Score":
   "Has ESS Score >= 10" is null
 
-
+//Excessive Sleepiness While Driving
 define "Most Recent Excessive Sleepiness While Driving":
   PCF.MostRecent([Observation: AC."Qualifying Excessive Sleepiness While Driving Assertion"])
 
@@ -107,10 +107,8 @@ define "Qualifying Excessive Sleepiness While Driving":
   else 
     PCF.CaseFeatureObservation(
       AC."Qualifying Excessive Sleepiness While Driving Assertion",
-      PS."Excessive Sleepiness While Driving Observation",
-      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepydriving-screening-casefeature',
-      PCF.MostRecent(PS."Excessive Sleepiness While Driving"),
-      ''
+      PS."Has Excessive Sleepiness While Driving",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepydriving-screening-casefeature'
     )
 
 define "Has Excessive Sleepiness While Driving":
@@ -122,7 +120,7 @@ define "Does Not Have Excessive Sleepiness While Driving":
 define "Null Excessive Sleepiness While Driving":
   "Has Excessive Sleepiness While Driving" is null
 
-
+//Loud Snoring
 define "Most Recent Loud Snoring Observation":
   PCF.MostRecent([Observation: AC."Qualifying Loud Snoring Assertion"])
 
@@ -147,7 +145,7 @@ define "Does Not Snore Loudly/Intensely":
 define "Null Snoring Volume/Intensity":
   "Snores loudly/intensely" is null
 
-
+//Nocturnal Apnea
 define "Most Recent Nocturnal Apnea Observation":
   PCF.MostRecent([Observation: AC."Qualifying Nocturnal Apnea Assertion"])
 
@@ -177,22 +175,22 @@ define "Null Apnea":
 define "Most Recent Absence Of Comorbid Medical Conditions Observation":
   PCF.MostRecent([Observation: AC."Qualifying Absence Of Comorbid Medical Conditions Assertion"])
 
-define "Qualifying Absence Of Comorbid Medical Conditions":
-  if not "Most Recent Absence Of Comorbid Medical Conditions Observation" is null
-    then "Most Recent Absence Of Comorbid Medical Conditions Observation"
-  else 
-    PCF.CaseFeatureObservation(
-      AC."Qualifying Absence Of Comorbid Medical Conditions Assertion",
-      PS."Absence of Comorbid Medical Conditions",
-      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-comorbid-screening-casefeature',
-      PCF.MostRecent(PS."Has Comorbid Medical Conditions"),
-      ''
-    )
+// define "Qualifying Absence Of Comorbid Medical Conditions":
+//   if not "Most Recent Absence Of Comorbid Medical Conditions Observation" is null
+//     then "Most Recent Absence Of Comorbid Medical Conditions Observation"
+//   else 
+//     PCF.CaseFeatureObservation(
+//       AC."Qualifying Absence Of Comorbid Medical Conditions Assertion",
+//       "Has Absence Of Applicable Comorbid Medical Conditions",
+//       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-comorbid-screening-casefeature',
+//       PS."Evidence of Comorbid Medical Conditions", 
+//       ''
+//     )
 
 define "Has Absence Of Comorbid Medical Conditions":
-  "Qualifying Absence Of Comorbid Medical Conditions".value.value as System.Boolean
+  "Has Absence Of Applicable Comorbid Medical Conditions" as System.Boolean
 
-define "No Absence Of Comorbid Medical Conditions":
+define "Presence Of Comorbid Medical Conditions":
   not "Has Absence Of Comorbid Medical Conditions"
 
 define "Null Presence of Comorbid Medical Conditions":
@@ -202,16 +200,15 @@ define "Null Presence of Comorbid Medical Conditions":
 define "Has Applicable Comorbid Medical Conditions":
   "Has Neuromuscular Disease With Associated Pulmonary Disease"
     or "Has Cardiac Disease"
-    or ("Has Moderate To Severe Pulmonary Disease"
-      and "Has Moderate To Severe Pulmonary Disease Including COPD or Asthma")
+    or "Has Moderate To Severe Pulmonary Disease"
 
-define "Has No Applicable Comorbid Medical Conditions":
+define "Has Absence Of Applicable Comorbid Medical Conditions":
   not "Has Applicable Comorbid Medical Conditions"
 
 define "Null Applicable Comorbid Medical Conditions":
   "Has Applicable Comorbid Medical Conditions" is null
 
-
+//Pulmonary Disease
 define "Most Recent Moderate To Severe Pulmonary Disease":
   PCF.MostRecent([Observation: AC."Qualifying Moderate To Severe Pulmonary Disease Assertion"])
 
@@ -236,61 +233,61 @@ define "No Moderate To Severe Pulmonary Disease":
 define "Null Pulmonary Disease":
   "Has Moderate To Severe Pulmonary Disease" is null
 
-define "Has Moderate To Severe Pulmonary Disease Including COPD or Asthma":
-  "Has Moderate To Severe Pulmonary Disease Including COPD"
-    or "Has Moderate To Severe Pulmonary Disease Including Asthma"
+// define "Has Moderate To Severe Pulmonary Disease Including COPD or Asthma":
+//   "Has Moderate To Severe Pulmonary Disease Including COPD"
+//     or "Has Moderate To Severe Pulmonary Disease Including Asthma"
 
+//Do I still need the COPD and the asthma part??
+// define "Most Recent Pulmonary Disease Including COPD":
+//   PCF.MostRecent([Observation: AC."Qualifying Moderate To Severe Pulmonary Disease Assertion Including COPD Assertion"])
 
-define "Most Recent Pulmonary Disease Including COPD":
-  PCF.MostRecent([Observation: AC."Qualifying Moderate To Severe Pulmonary Disease Assertion Including COPD Assertion"])
+// define "Qualifying Moderate To Severe Pulmonary Disease Including COPD":
+//   if not "Most Recent Pulmonary Disease Including COPD" is null
+//     then "Most Recent Pulmonary Disease Including COPD"
+//   else 
+//     PCF.CaseFeatureObservation(
+//       AC."Qualifying Moderate To Severe Pulmonary Disease Assertion Including COPD Assertion",
+//       PS."Has Diagnosed COPD",
+//       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithcopd-screening-casefeature',
+//       PCF.MostRecent(PS."Diagnosed COPD"),
+//       ''
+//     )
 
-define "Qualifying Moderate To Severe Pulmonary Disease Including COPD":
-  if not "Most Recent Pulmonary Disease Including COPD" is null
-    then "Most Recent Pulmonary Disease Including COPD"
-  else 
-    PCF.CaseFeatureObservation(
-      AC."Qualifying Moderate To Severe Pulmonary Disease Assertion Including COPD Assertion",
-      PS."Pulmonary Disease Including COPD",
-      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithcopd-screening-casefeature',
-      PCF.MostRecent(PS."Moderate To Severe Pulmonary Disease Including COPD"),
-      ''
-    )
+// define "Has Moderate To Severe Pulmonary Disease Including COPD":
+//   "Qualifying Moderate To Severe Pulmonary Disease Including COPD".value.value as System.Boolean
 
-define "Has Moderate To Severe Pulmonary Disease Including COPD":
-  "Qualifying Moderate To Severe Pulmonary Disease Including COPD".value.value as System.Boolean
+// define "No Moderate To Severe Pulmonary Disease Including COPD":
+//   not "Has Moderate To Severe Pulmonary Disease Including COPD"
 
-define "No Moderate To Severe Pulmonary Disease Including COPD":
-  not "Has Moderate To Severe Pulmonary Disease Including COPD"
+// define "Null Pulmonary Disease Including COPD":
+//   "Has Moderate To Severe Pulmonary Disease Including COPD" is null
 
-define "Null Pulmonary Disease Including COPD":
-  "Has Moderate To Severe Pulmonary Disease Including COPD" is null
+// //Do I still need the COPD and the asthma part??
+// define "Most Recent Pulmonary Disease Including Asthma":
+//   PCF.MostRecent([Observation: AC."Qualifying Moderate To Severe Pulmonary Disease Assertion Including Asthma Assertion"])
 
+// define "Qualifying Moderate To Severe Pulmonary Disease Including Asthma":
+//   if not "Most Recent Pulmonary Disease Including Asthma" is null
+//     then "Most Recent Pulmonary Disease Including Asthma"
+//   else
+//     PCF.CaseFeatureObservation(
+//       AC."Qualifying Moderate To Severe Pulmonary Disease Assertion Including Asthma Assertion",
+//       PS."Has Diagnosed Asthma",
+//       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithasthma-screening-casefeature',
+//       PCF.MostRecent(PS."Diagnosed Asthma"),
+//       ''
+//     )
 
-define "Most Recent Pulmonary Disease Including Asthma":
-  PCF.MostRecent([Observation: AC."Qualifying Moderate To Severe Pulmonary Disease Assertion Including Asthma Assertion"])
+// define "Has Moderate To Severe Pulmonary Disease Including Asthma":
+//   "Most Recent Pulmonary Disease Including Asthma".value.value as System.Boolean
 
-define "Qualifying Moderate To Severe Pulmonary Disease Including Asthma":
-  if not "Most Recent Pulmonary Disease Including Asthma" is null
-    then "Most Recent Pulmonary Disease Including Asthma"
-  else
-    PCF.CaseFeatureObservation(
-      AC."Qualifying Moderate To Severe Pulmonary Disease Assertion Including Asthma Assertion",
-      PS."Pulmonary Disease Including Asthma",
-      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithasthma-screening-casefeature',
-      PCF.MostRecent(PS."Moderate To Severe Pulmonary Disease Including Asthma"),
-      ''
-    )
+// define "No Moderate To Severe Pulmonary Disease Including Asthma":
+//   not "Has Moderate To Severe Pulmonary Disease Including Asthma"
 
-define "Has Moderate To Severe Pulmonary Disease Including Asthma":
-  "Most Recent Pulmonary Disease Including Asthma".value.value as System.Boolean
+// define "Null Pulmonary Disease Including Asthma":
+//   "Has Moderate To Severe Pulmonary Disease Including Asthma" is null
 
-define "No Moderate To Severe Pulmonary Disease Including Asthma":
-  not "Has Moderate To Severe Pulmonary Disease Including Asthma"
-
-define "Null Pulmonary Disease Including Asthma":
-  "Has Moderate To Severe Pulmonary Disease Including Asthma" is null
-
-
+//Neuromuscular Disease
 define "Most Recent Neuromuscular Disease With Pulmonary Disease":
   PCF.MostRecent([Observation: AC."Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion"])
 
@@ -300,9 +297,9 @@ define "Qualifying Neuromuscular Disease With Associated Pulmonary Disease":
   else
     PCF.CaseFeatureObservation(
       AC."Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion",
-      PS."Qualified Neuromuscular Disease With Associated Pulmonary Disease",
+      PS."Neuromuscular Disease With Associated Pulmonary Disease",
       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscular-screening-casefeature',
-      PCF.MostRecent(PS."Neuromuscular Disease With Associated Pulmonary Disease"),
+      PCF.MostRecent(PS."Neuromuscular Disease Diagnosis"),
       ''
     )
 
@@ -315,7 +312,7 @@ define "No Neuromuscular Disease With Associated Pulmonary Disease":
 define "Null Nueromuscular Disease":
   "Has Neuromuscular Disease With Associated Pulmonary Disease" is null
 
-
+//Cardiac Disease
 define "Most Recent Cardiac Disease Observation":
   PCF.MostRecent([Observation: AC."Qualifying Cardiac Disease Assertion"])
 
@@ -325,7 +322,7 @@ define "Qualifying Cardiac Disease":
   else 
     PCF.CaseFeatureObservation(
       AC."Qualifying Cardiac Disease Assertion",
-      PS."Cardiac Disease Observation",
+      PS."Has Cardiac Disease",
       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature',
       PCF.MostRecent(PS."Qualifying Cardiac Disease"),
       ''
@@ -342,6 +339,7 @@ define "Null Cardiac Disease":
 
 
 //Home Observation Criteria:
+//Qualified Device
 define "Most Recent Qualified Device Observation":
   PCF.MostRecent([Observation: AC."Uses A Qualified Device Assertion"])
 
@@ -366,8 +364,7 @@ define "Does Not Use Qualified Device":
 define "Unknown Device Used":
   "Patient Uses Qualified Device" is null
 
-
-
+//Safe home use
 define "Most Recent Safe Use Of Equipment At Home Observation":
   PCF.MostRecent([Observation: AC."Safe Equipment Use At Home Assertion"])
 
@@ -378,9 +375,7 @@ define "Safe Equipment Use At Home":
     PCF.CaseFeatureObservation(
       AC."Safe Equipment Use At Home Assertion",
       PS."Safe Use Of Equipment At Home Observation",
-      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature',
-      PCF.MostRecent(PS."Can Safely Use Equipment At Home"),
-      ''
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature'
     )
 
 define "Can Safely Use Equipment At Home":
@@ -392,7 +387,7 @@ define "Can Not Safely Use Equipment At Home":
 define "Unknown Ability To Use Equipment At Home":
   "Can Safely Use Equipment At Home" is null
 
-
+//Physician Evaluated Results
 define "Most Recent Physician Evaluated Observation":
   PCF.MostRecent([Observation: AC."Physician Evaluated Results Assertion"])
 
@@ -403,9 +398,7 @@ define "Physician Evaluated Results":
     PCF.CaseFeatureObservation(
       AC."Physician Evaluated Results Assertion",
       PS."Physician Evaluated Results Observation",
-      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature',
-      PCF.MostRecent(PS."Physician Evaluated Results"),
-      ''
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature'
     )
 
 define "Ability To Have Physician Evaluate Results":
@@ -437,21 +430,13 @@ define "Not Approved EDS":
   else
     ''
 
-define "Not Approved Absence of Comorbid Conditions":
-  if "No Absence Of Comorbid Medical Conditions" and "Has No Applicable Comorbid Medical Conditions"
-    then '<br />- Individual has none of the following eligible comorbid conditions: Moderate to severe pulmonary disease including COPD or Asthma, Neuromuscular disease with associated pulmonary disease, Cardiac Disease'
+define "Not Approved Absence of Comorbid Conditions": //IS this right??
+  if "Presence Of Comorbid Medical Conditions" and "Has Applicable Comorbid Medical Conditions"
+    then '<br />- Individual has one or more of the following eligible comorbid conditions: Moderate to severe pulmonary disease including COPD or Asthma, Neuromuscular disease with associated pulmonary disease, Cardiac Disease'
   else 
-    if "No Absence Of Comorbid Medical Conditions" then '<br />- Individual does not have an absence of comorbid medical conditions'
+    if "Presence Of Comorbid Medical Conditions" then '<br />- Individual does not have an absence of comorbid medical conditions'
   else
     ''
-
-define "Not Approved Pulmonary Disease With Associated Conditions":
-  if "No Moderate To Severe Pulmonary Disease" and "Has Moderate To Severe Pulmonary Disease Including COPD or Asthma"
-    then '<br />- Individual does not have moderate to severe pulmonary disease including COPD or Asthma'
-  else
-    if "No Moderate To Severe Pulmonary Disease" then '<br />- Individual does not have moderate to severe pulmonary disease'
-  else 
-  ''
 
 define "Not Approved Home Criteria":
   Coalesce(
@@ -491,21 +476,9 @@ define "Null Comorbid Medical Conditions":
   else 
     if "Null Presence of Comorbid Medical Conditions" and "Null Applicable Comorbid Medical Conditions"
       then Coalesce(
-        "Null Pulmonary Disease With Associated Conditions",
+        if "Null Pulmonary Disease" then '<br />- Please enter the following: Pullmonary Disease' else '',
         if "Null Nueromuscular Disease" then '<br />- Please enter the following: Neuromuscular Disease With Associated Pulmonary Disease' else '',
         if "Null Cardiac Disease" then '<br />- Please enter the following: Cardiac Disease' else ''
-      )
-  else
-    ''
-
-define "Null Pulmonary Disease With Associated Conditions":
-  if "Null Pulmonary Disease" 
-    then '<br />- Please enter the following: Moderate To Severe Pulmonary Disease'
-  else
-    if "Null Pulmonary Disease" and "Has Moderate To Severe Pulmonary Disease Including COPD or Asthma"
-      then Coalesce(
-        if "Null Pulmonary Disease Including COPD" then '<br />- Please enter the following: Moderate To Severe Pulmonary Disease Including Chronic Obstructive Pulmonary Disease' else '',
-        if "Null Pulmonary Disease Including Asthma" then '<br />- Please enter the following: Moderate To Severe Pulmonary Disease Including Nocturnal Or Uncontrolled Asthma' else ''
       )
   else
     ''
@@ -528,11 +501,11 @@ define "Approved Detail":
   + '<br /> Snores loudly/intensly'
   + '<br /> Has witnessed nocturnal apnea, choking and/or gasping'
   + '<br /> Has an absence of comorbid medical conditions'
-  + '<br /> Has moderate to severe pulmonary disease'
-  + '<br /> Has moderate to severe pulmonary disease including COPD'
-  + '<br /> Has moderate to severe pulmonary disease including asthma'
-  + '<br /> Has neuromuscular disease with associated pulmonary disease'
-  + '<br /> Has cardiac disease'
+  + '<br /> Has an absence of moderate to severe pulmonary disease'
+  + '<br /> Has an absence of moderate to severe pulmonary disease including COPD'
+  + '<br /> Has an absence of moderate to severe pulmonary disease including asthma'
+  + '<br /> Has an absence of neuromuscular disease with associated pulmonary disease'
+  + '<br /> Has an absence of cardiac disease'
   + '<br /> Does use a qualified device'
   + '<br /> Individual or caregiver can use equipment safely at home'
   + '<br /> Can have physician evaluate home testing results'

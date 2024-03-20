@@ -1,0 +1,129 @@
+{
+  "resourceType": "ValueSet",
+  "id": "2.16.840.1.113762.1.4.1222.102",
+  "meta": {
+    "profile": [ "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-shareablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-executablevalueset" ]
+  },
+  "extension": [ {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "shareable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "narrative"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "publishable"
+  }, {
+    "url": "http://fhir.org/guides/cdc/opioid-cds/StructureDefinition/cdc-valueset-inclusion",
+    "valueString": "Includes sleep apnea disorder encoded terms."
+  }, {
+    "url": "http://fhir.org/guides/cdc/opioid-cds/StructureDefinition/cdc-valueset-exclusion",
+    "valueString": "Encoded terms not representative of sleep apnea disorders."
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-usageWarning",
+    "valueString": "This value set contains a point-in-time expansion enumerating the codes that meet the value set intent. As new versions of the code systems used by the value set are released, the contents of this expansion will need to be updated to incorporate newly defined codes that meet the value set intent. Before, and periodically during production use, the value set expansion contents SHOULD be updated. The value set expansion specifies the timestamp when the expansion was produced, SHOULD contain the parameters used for the expansion, and SHALL contain the codes that are obtained by evaluating the value set definition. If this is ONLY an executable value set, a distributable definition of the value set must be obtained to compute the updated expansion."
+  } ],
+  "url": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1222.102",
+  "version": "20200425",
+  "title": "Sleep Apnea Disorders",
+  "status": "active",
+  "experimental": false,
+  "publisher": "HL7 Patient Care Work Group",
+  "description": "This set of values contains diagnoses or problem terms representing central, obstructive, and unknown cause sleep apnea disorders.",
+  "purpose": "The intent of this set of values is to identify patients who have sleep apnea diagnoses or problems documented in a clinical record.",
+  "expansion": {
+    "timestamp": "2024-03-20T10:55:15-04:00",
+    "contains": [ {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2024",
+      "code": "G47.30",
+      "display": "Sleep apnea, unspecified"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2024",
+      "code": "G47.31",
+      "display": "Primary central sleep apnea"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2024",
+      "code": "G47.33",
+      "display": "Obstructive sleep apnea (adult) (pediatric)"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2024",
+      "code": "G47.37",
+      "display": "Central sleep apnea in conditions classified elsewhere"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2024",
+      "code": "G47.39",
+      "display": "Other sleep apnea"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "1091000119108",
+      "display": "Obstructive sleep apnea of child (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "1101000119103",
+      "display": "Obstructive sleep apnea of adult (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "16275741000119100",
+      "display": "Severe pediatric obstructive sleep apnea (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "230493001",
+      "display": "Mixed sleep apnea (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "361208003",
+      "display": "Primary sleep apnea of newborn (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "41975002",
+      "display": "Insomnia with sleep apnea (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "442164004",
+      "display": "Organic sleep apnea (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "719976001",
+      "display": "Glaucoma and sleep apnea syndrome (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "73430006",
+      "display": "Sleep apnea (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "765751002",
+      "display": "Autoimmune encephalopathy with parasomnia and obstructive sleep apnea (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "774068004",
+      "display": "AT-hook DNA binding motif containing 1-related intellectual disability, obstructive sleep apnea, mild dysmorphism syndrome (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "78275009",
+      "display": "Obstructive sleep apnea syndrome (disorder)"
+    } ]
+  }
+}

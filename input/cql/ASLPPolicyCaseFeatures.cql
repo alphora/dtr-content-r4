@@ -6,14 +6,20 @@ include ASLPConcepts called Cx
 include ASLPDataElements called Dx
 include FHIRHelpers version '4.1.000'
 
+codesystem "ConditionClinicalStatusCodes": 'http://terminology.hl7.org/CodeSystem/condition-clinical'
+codesystem "ConditionVerificationStatusCodes": 'http://terminology.hl7.org/CodeSystem/condition-ver-status'
+
+code "active": 'active' from "ConditionClinicalStatusCodes"
+code "confirmed": 'confirmed' from ConditionVerificationStatusCodes
+
 context Patient
 //IMPORTANT NOTE: This was taken from demo-content-r4. May need edits
  
-define function ReferenceTo(resource Resource):
+define function ReferenceTo(resource Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>):
   Reference { reference: string { value: resource.typeof() + '/' + resource.id } }
  
 //TODO: flesh out other types of resources
-define fluent function typeof(resource Resource): 
+define fluent function typeof(resource Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>): 
   case
     when resource is Patient then
       'Patient'
@@ -45,13 +51,13 @@ define function CaseFeatureObservation(
     value System.Boolean,
     effective System.DateTime,
     profile System.String, 
-    evidence FHIR.DomainResource,
+    evidences List<Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>>,
     evidenceText System.String
 ):
   if code is null or value is null 
     then null as Observation
   else
-    if evidence is null 
+    if evidences is null 
       then Observation {
         id: id { value: 'cf-' + code.coding[0].code},
         meta: Meta { profile: { canonical { value: profile } } },
@@ -70,7 +76,7 @@ define function CaseFeatureObservation(
       }
   else
     Observation {
-        id: id { value: 'cf-' + evidence.id },
+        id: id { value: 'cf-' + First(evidences).id },
         meta: Meta { profile: {canonical { value: profile } } },
         extension: { 
           Extension {
@@ -79,35 +85,7 @@ define function CaseFeatureObservation(
             }
         },
         contained: {
-          Provenance {
-            id: id { value: 'prov-' + evidence.id },
-            extension: { 
-              Extension { 
-                url: url { 
-                  value: 'http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-casefeature-evidence-text' 
-                }, 
-                value: markdown { 
-                  value: evidenceText 
-                } 
-              } 
-            },
-            target: { 
-              Reference { reference: string { value: 'Observation/cf-' + evidence.id } } 
-            },
-            occurred: dateTime { value: Now() },
-            recorded: instant { value: Now() },
-            entity: {
-              FHIR.Provenance.Entity { 
-                role: FHIR.ProvenanceEntityRole { value: 'derivation' },
-                what: ReferenceTo(evidence)
-              }
-             }
-            // agent: {
-            //     FHIR.Provenance.Agent {
-            //         who: Reference { reference: string {value: agent }} //Should this be "Humana"? 
-            //     }
-            // }
-          } 
+          CreateProvenence( evidences, evidenceText )
         },
         code: code,
         effective: dateTime { value: Coalesce(effective, Now() ) },
@@ -117,12 +95,49 @@ define function CaseFeatureObservation(
         value: boolean { value: value }
     }
 
-define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String, evidence FHIR.DomainResource, evidenceText System.String):
-  CaseFeatureObservation(code, value, Now(), profile, evidence, evidenceText)
+define function CreateProvenence( evidences List<Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>>, evidenceText System.String ):
+  Provenance {
+    id: id { value: 'prov-' + First(evidences).id },
+    extension: { 
+      Extension { 
+        url: url { 
+          value: 'http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-casefeature-evidence-text' 
+        }, 
+        value: markdown { 
+          value: evidenceText 
+        } 
+      } 
+    },
+    target: { 
+      Reference { reference: string { value: 'Observation/cf-' + First(evidences).id } } 
+    },
+    occurred: dateTime { value: Now() },
+    recorded: instant { value: Now() },
+    entity: (evidences evidence return 
+      FHIR.Provenance.Entity { 
+        role: FHIR.ProvenanceEntityRole { value: 'derivation' },
+        what: ReferenceTo(evidence)
+      })
+    // agent: {
+    //     FHIR.Provenance.Agent {
+    //         who: Reference { reference: string {value: agent }} //Should this be "Humana"? 
+    //     }
+    // }
+  } 
 
-define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String, evidence Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient>, evidenceText System.String):
-  if evidence is FHIR.Procedure
-    then CaseFeatureObservation(code, value, Now(), profile, evidence as FHIR.Procedure, evidenceText)
+define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String, evidences List<Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>>, evidenceText System.String):
+  CaseFeatureObservation(code, value, Now(), profile, evidences, evidenceText)
+
+define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String, evidences Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>, evidenceText System.String):
+  CaseFeatureObservation(code, value, Now(), profile, {evidences}, evidenceText)
+
+define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String):
+  CaseFeatureObservation(code, value, Now(), profile, {null as FHIR.Observation}, '')
+
+/*
+define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String, evidences List<Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>>, evidenceText System.String):
+  if evidences is FHIR.Procedure
+    then CaseFeatureObservation(code, value, Now(), profile, evidences as FHIR.Procedure, evidenceText)
   else if evidence is FHIR.Observation
     then CaseFeatureObservation(code, value, Now(), profile, evidence as FHIR.Observation, evidenceText)
   else if evidence is FHIR.Coverage then
@@ -135,7 +150,7 @@ define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.
     CaseFeatureObservation(code, value, Now(), profile, evidence as FHIR.Patient, evidenceText)
   else 
     Message(null, true, 'FHIRCommon.CaseFeatureObservation.UnknownFHIResource', 'Error', 'Unknown Resource Type') //should it be ASLPPOlicyCaseFeatures.CaseFeatureObservation instead of FHIRCommon.CaseFeatureObservation
-
+*/
 
 //TODO: POC only (need to consider all the Observation considerations)
 define function MostRecent(value List<FHIR.Observation>):
@@ -200,3 +215,11 @@ define function ProvenanceAsString(caseFeature DomainResource):
   else 
     ' (' + First((First(caseFeature.contained) as Provenance).extension).value + ')'
 
+
+define fluent function active(conditions List<FHIR.Condition>):
+  conditions C
+    where C.clinicalStatus ~ "active"
+
+define fluent function confirmed(conditions List<FHIR.Condition>):
+  conditions C
+    where C.verificationStatus ~ "confirmed"
