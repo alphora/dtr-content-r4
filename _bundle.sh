@@ -59,7 +59,7 @@ if test -f "$tooling"; then
 	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources/binary -bid=dtr-binary
 
 	# All resource bundle
-	java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources -bid=dtr-resources
+	java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources/structuredefinition -bid=dtr-resources
 	# All test-data bundle
 	#java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/tests/library/ASLPContext -bid=dtr-patient-data
 	# All vocabulary bundle

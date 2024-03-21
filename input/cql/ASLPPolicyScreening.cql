@@ -186,15 +186,13 @@ define "Qualifying Cardiac Disease":
 
 //qualified device
 define "Qualified Device Observation":
-  exists("Qualified Device")
+  exists("Qualified Device Request")
 
 define "Qualified Device Request":
   [DeviceRequest: "Home Sleep Study Devices"] DevReq 
-    where DevReq.status = 'active' //Do we want device or device req??
+    where DevReq.status = 'active'
+      and DevReq.intent = 'order'
 
-define "Qualified Device": 
-  [Device: "Home Sleep Study Devices"] DR 
-    where DR.status = 'active' //Need help changing StructureDef for this one
 
 //safe home use
 define "Safe Use Of Equipment At Home Observation":

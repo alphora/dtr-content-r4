@@ -35,6 +35,8 @@ define fluent function typeof(resource Choice<FHIR.Procedure,FHIR.Observation,FH
       'Encounter'
     when resource is Organization then  
       'Organization'
+    when resource is DeviceRequest then  
+      'DeviceRequest'
     else
       Message(null, true, 'FHIRCommon.typeof.UnknownFHIResource', 'Error', 'Unknown resource type: ' + resource.id)
   end
@@ -113,7 +115,7 @@ define function CreateProvenence( evidences List<Choice<FHIR.Procedure,FHIR.Obse
     },
     occurred: dateTime { value: Now() },
     recorded: instant { value: Now() },
-    entity: (evidences evidence return 
+    entity: ((evidences e where e is not null) evidence return 
       FHIR.Provenance.Entity { 
         role: FHIR.ProvenanceEntityRole { value: 'derivation' },
         what: ReferenceTo(evidence)
@@ -132,7 +134,7 @@ define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.
   CaseFeatureObservation(code, value, Now(), profile, {evidences}, evidenceText)
 
 define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String):
-  CaseFeatureObservation(code, value, Now(), profile, {null as FHIR.Observation}, '')
+  CaseFeatureObservation(code, value, Now(), profile, null as List<FHIR.Observation>, '')
 
 /*
 define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String, evidences List<Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>>, evidenceText System.String):

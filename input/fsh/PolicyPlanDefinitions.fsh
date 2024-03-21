@@ -127,7 +127,7 @@ RuleSet: ActionConditionCql(expression)
 
 
 
-Instance: PAA-Approved
+Instance: aslp-pa-adju-approved
 InstanceOf: PlanDefinition
 Usage: #example
 * insert CommonProperties("aslp-pa-adju-approved")
@@ -138,21 +138,21 @@ Usage: #example
 * action[+]
   * title = "Prior Auth Adjudication Approved"
   * description = "Prior authorization adjudication approval for sleep study tests"
-  * input
-    * insert ActionInput("Patient has been approved?", "Patient has been approved")
-    * insert ActionInputCql("Approved Detail", ASLPPolicyPAA)
-    * type = #Observation
-    * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/pa-adj-approved"
-  * action[0]
-    * title = "Approved"
-    * description = "Patient has been Approved"
-    * insert ActionConditionCql("Approved")
-  * action[+]
-    * title = "Override Approval"
-    * description = "Override approval"
-    * insert ActionConditionCql("Override Approval")
+  // * input
+  //   * insert ActionInput("Patient has been approved?", "Patient has been approved")
+  //   * insert ActionInputCql("Approved Detail", ASLPPolicyPAA)
+  //   * type = #Observation
+  //   * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/pa-adj-approved"
+  // * action[0]
+  //   * title = "Approved"
+  //   * description = "Patient has been Approved"
+  //   * insert ActionConditionCql("Approved Detail")
+  // * action[+]
+  //   * title = "Override Approval"
+  //   * description = "Override approval"
+  //   * insert ActionConditionCql("Override Approval")
 
-Instance: PAA-Not-Approved
+Instance: aslp-pa-adj-not-approved
 InstanceOf: PlanDefinition
 Usage: #example
 * insert CommonProperties("aslp-pa-adj-not-approved")
@@ -163,21 +163,21 @@ Usage: #example
 * action[+]
   * title = "Not Approved Prior Authorization Adjudication"
   * description = "Prior Authorization Adjudication for Sleep Study Not Approved"
-  * input
-    * insert ActionInput("Is Sleep Study Denied?", "Sleep Study is Denied")
-    * insert ActionInputCql("Not Approved Detail", ASLPPolicyPAA)
-    * type = #Observation
-    * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/pa-adj-not-approved"
-  * action[0]
-    * title = "Denied"
-    * description = "Patient has been denied"
-    * insert ActionConditionCql("Denied")
-  * action[+]
-    * title = "Override Denial"
-    * description = "Override Denial"
-    * insert ActionConditionCql("Override Denial")
+  // * input
+  //   * insert ActionInput("Is Sleep Study Denied?", "Sleep Study is Denied")
+  //   * insert ActionInputCql("Not Approved Detail", ASLPPolicyPAA)
+  //   * type = #Observation
+  //   * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/pa-adj-not-approved"
+  // * action[0]
+  //   * title = "Denied"
+  //   * description = "Patient has been denied"
+  //   * insert ActionConditionCql("Not Approved Detail")
+  // * action[+]
+  //   * title = "Override Denial"
+  //   * description = "Override Denial"
+  //   * insert ActionConditionCql("Override Denial")
 
-Instance: PAA-Temporary-Not-Approved
+Instance: aslp-pa-adj-temp-not-approved
 InstanceOf: PlanDefinition
 Usage: #example
 * insert CommonProperties("aslp-pa-adj-temp-not-approved")
@@ -188,19 +188,19 @@ Usage: #example
 * action[+]
   * title = "Temporarily Not Approved Prior Authorization Adjudication"
   * description = "Prior Authorization Adjudication for Sleep Study Temporarily Not Approved"
-  * input
-    * insert ActionInput("Is Sleep Study temporarily not approved?", "Sleep Study temporarily not approved")
-    * insert ActionInputCql("Temporarily not approved", ASLPPolicyPAA)
-    * type = #Observation
-    * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/pa-adj-temp-not-approved"
-  * action[+]
-    * title = "Unknown response"
-    * description = "Response is null or unknown. Please resubmit responses."
-    * insert ActionConditionCql("Null or Unknown Response")
-  * action[+]
-    * title = "Override Null Response"
-    * description = "Override null or unknown response"
-    * insert ActionConditionCql("Override Null or Unknown Response")
+  // * input
+  //   * insert ActionInput("Is Sleep Study temporarily not approved?", "Sleep Study temporarily not approved")
+  //   * insert ActionInputCql("Temporarily not approved", ASLPPolicyPAA)
+  //   * type = #Observation
+  //   * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/pa-adj-temp-not-approved"
+  // * action[+]
+  //   * title = "Unknown response"
+  //   * description = "Response is null or unknown. Please resubmit responses."
+  //   * insert ActionConditionCql("Temporarily not approved")
+  // * action[+]
+  //   * title = "Override Null Response"
+  //   * description = "Override null or unknown response"
+  //   * insert ActionConditionCql("Override Null or Unknown Response")
         
 
 //Home/Portable Monitor Sleep Testing to confirm the suspected diagnosis of moderate to severe obstructive sleep apnea (OSA)
@@ -246,7 +246,7 @@ Usage: #example
       * title = "Does Not Have excessive daytime sleepiness"
       * description = "The patient does not have excessive daytime sleepiness"
       * insert ActionConditionCql("No Excessive Daytime Sleepiness")
-      * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+      * definitionCanonical = Canonical(aslp-pa-adj-not-approved)
     * action[+]
       * title = "Null or Unknown excessive daytime sleepiness"
       * description = "Unknown answer. More Information is needed"
@@ -273,12 +273,12 @@ Usage: #example
         * input[+]
           * insert ActionInput("Does patient snore loudly", "Patient snores loudly")
           * insert ActionInputCql("Loud/Intense Snoring", ASLPPolicyPAA)
-          * type = #Condition
+          * type = #Observation
           * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-loudsnoring-screening-casefeature"
         * input[+]
           * insert ActionInput("Does patient have nocturnal apnea", "Patient has nocturnal apnea")
           * insert ActionInputCql("Nocturnal Apnea", ASLPPolicyPAA)
-          * type = #Condition
+          * type = #Observation
           * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-apnea-screening-casefeature"
     
         * action[0]
