@@ -127,13 +127,15 @@ RuleSet: ActionConditionCql(expression)
 
 
 
-Instance: aslp-pa-adju-approved
+Instance: aslp-pa-adj-approved
 InstanceOf: PlanDefinition
 Usage: #example
-* insert CommonProperties("aslp-pa-adju-approved")
+* insert CommonProperties("aslp-pa-adj-approved")
 * insert CommonPropertiesRationale("Prior Authorization Adjudication Approved", "Approved Detail")
 
 * library = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+
+* url = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-approved"
 
 * action[+]
   * title = "Prior Auth Adjudication Approved"
@@ -160,6 +162,8 @@ Usage: #example
 
 * library = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
 
+* url = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+
 * action[+]
   * title = "Not Approved Prior Authorization Adjudication"
   * description = "Prior Authorization Adjudication for Sleep Study Not Approved"
@@ -185,6 +189,8 @@ Usage: #example
 
 * library = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
 
+* url = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+
 * action[+]
   * title = "Temporarily Not Approved Prior Authorization Adjudication"
   * description = "Prior Authorization Adjudication for Sleep Study Temporarily Not Approved"
@@ -207,9 +213,11 @@ Usage: #example
 Instance: Home-Monitor-Sleep-Testing
 InstanceOf: PlanDefinition
 Usage: #example
-* insert CommonProperties("pa-adju-home-mon")
+* insert CommonProperties("Home-Monitor-Sleep-Testing")
 
 * library = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+
+* url = "http://example.org/sdh/dtr/aslp/PlanDefinition/Home-Monitor-Sleep-Testing"
 
 * action
   * title = "Qualifying Patient Age"

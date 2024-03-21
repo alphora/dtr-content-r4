@@ -26,14 +26,18 @@ define "Qualifying Patient Age":
       ''
     )
 
-define "Is Qualifying Age":
+define "Is Qualifying Age Value":
   "Qualifying Patient Age".value.value as System.Boolean
 
+define "Is Qualifying Age":
+  IsTrue("Is Qualifying Age Value")
+
 define "Not Within Qualifying Age":
-  not "Is Qualifying Age"
+  IsFalse("Is Qualifying Age Value")
 
 define "Age Unknown":
-  "Qualifying Patient Age" is null
+  IsNull("Is Qualifying Age Value")
+
 
 define "Most Recent Excessive Daytime Sleepiness Observation":
   PCF.MostRecent([Observation: AC."Qualifying Excessive Daytime Sleepiness Assertion"])
@@ -50,27 +54,33 @@ define "Qualified Excessive Daytime Sleepiness":
       ''
     )
 
-define "Has Excessive Daytime Sleepiness":
+define "Has Excessive Daytime Sleepiness Value":
   "Qualified Excessive Daytime Sleepiness".value.value as System.Boolean
 
+define "Has Excessive Daytime Sleepiness":
+  IsTrue("Has Excessive Daytime Sleepiness Value")
+
 define "No Excessive Daytime Sleepiness":
-  not "Has Excessive Daytime Sleepiness"
+  IsFalse("Has Excessive Daytime Sleepiness Value")
 
 define "Null Excessive Daytime Sleepiness":
-  "Has Excessive Daytime Sleepiness" is null
+  IsNull("Has Excessive Daytime Sleepiness Value")
 
 //Additional EDS Criteria 
+define "Has Additional Daytime Sleepiness Indicators Value":
+  "Has ESS Score >= 10 Value"
+    or "Has Excessive Sleepiness While Driving Value"
+    or "Snores loudly/intensely Value"
+    or "Has Nocturnal Apnea Value"
+
 define "Has Additional Daytime Sleepiness Indicators":
-  "Has ESS Score >= 10"
-    or "Has Excessive Sleepiness While Driving"
-    or "Snores loudly/intensely"
-    or "Has Nocturnal Apnea"
+  IsTrue("Has Additional Daytime Sleepiness Indicators Value")
 
 define "Has No Additional Daytime Sleepiness Indicators":
-  not "Has Additional Daytime Sleepiness Indicators"
+  IsFalse("Has Additional Daytime Sleepiness Indicators Value")
 
 define "Null Additional Daytime Sleepiness Indicators":
-  "Has Additional Daytime Sleepiness Indicators" is null
+  IsNull("Has Additional Daytime Sleepiness Indicators Value")
 
 //ESS
 define "Most Recent Epworth Sleepiness Scale Observation":
@@ -88,14 +98,17 @@ define "ESS Score >= 10":
       ''
     )
 
-define "Has ESS Score >= 10":
+define "Has ESS Score >= 10 Value":
   "ESS Score >= 10".value.value as System.Boolean
 
+define "Has ESS Score >= 10":
+  IsTrue("Has ESS Score >= 10 Value")
+
 define "Does Not Have ESS Score >= 10":
-  not "Has ESS Score >= 10"
+  IsFalse("Has ESS Score >= 10 Value")
 
 define "Null ESS Score":
-  "Has ESS Score >= 10" is null
+  IsNull("Has ESS Score >= 10 Value")
 
 //Excessive Sleepiness While Driving
 define "Most Recent Excessive Sleepiness While Driving":
@@ -111,14 +124,17 @@ define "Qualifying Excessive Sleepiness While Driving":
       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepydriving-screening-casefeature'
     )
 
-define "Has Excessive Sleepiness While Driving":
+define "Has Excessive Sleepiness While Driving Value":
   "Qualifying Excessive Sleepiness While Driving".value.value as System.Boolean
 
+define "Has Excessive Sleepiness While Driving":
+  IsTrue("Has Excessive Sleepiness While Driving Value")
+
 define "Does Not Have Excessive Sleepiness While Driving":  
-  not "Has Excessive Sleepiness While Driving"
+  IsFalse("Has Excessive Sleepiness While Driving Value")
 
 define "Null Excessive Sleepiness While Driving":
-  "Has Excessive Sleepiness While Driving" is null
+  IsNull("Has Excessive Sleepiness While Driving Value")
 
 //Loud Snoring
 define "Most Recent Loud Snoring Observation":
@@ -136,14 +152,17 @@ define "Loud/Intense Snoring":
       ''
     )
 
-define "Snores loudly/intensely":
+define "Snores loudly/intensely Value":
   "Loud/Intense Snoring".value.value as System.Boolean
 
+define "Snores loudly/intensely":
+  IsTrue("Snores loudly/intensely Value")
+
 define "Does Not Snore Loudly/Intensely":
-  not "Snores loudly/intensely"
+  IsFalse("Snores loudly/intensely Value")
 
 define "Null Snoring Volume/Intensity":
-  "Snores loudly/intensely" is null
+  IsNull("Snores loudly/intensely Value")
 
 //Nocturnal Apnea
 define "Most Recent Nocturnal Apnea Observation":
@@ -161,19 +180,22 @@ define "Nocturnal Apnea":
       ''
     )
 
-define "Has Nocturnal Apnea":
+define "Has Nocturnal Apnea Value":
   "Nocturnal Apnea".value.value as System.Boolean
 
+define "Has Nocturnal Apnea":
+  IsTrue("Has Nocturnal Apnea Value")
+
 define "Does Not have nocturnal apnea":
-  not "Has Nocturnal Apnea"
+  IsFalse("Has Nocturnal Apnea Value")
 
 define "Null Apnea":
-  "Has Nocturnal Apnea" is null
+  IsNull("Has Nocturnal Apnea Value")
 
 
 //RE-EXAMINE IF THIS IS OK/WORKS
-define "Most Recent Absence Of Comorbid Medical Conditions Observation":
-  PCF.MostRecent([Observation: AC."Qualifying Absence Of Comorbid Medical Conditions Assertion"])
+// define "Most Recent Absence Of Comorbid Medical Conditions Observation":
+//   PCF.MostRecent([Observation: AC."Qualifying Absence Of Comorbid Medical Conditions Assertion"])
 
 // define "Qualifying Absence Of Comorbid Medical Conditions":
 //   if not "Most Recent Absence Of Comorbid Medical Conditions Observation" is null
@@ -187,26 +209,29 @@ define "Most Recent Absence Of Comorbid Medical Conditions Observation":
 //       ''
 //     )
 
-define "Has Absence Of Comorbid Medical Conditions":
-  "Has Absence Of Applicable Comorbid Medical Conditions" as System.Boolean
+// define "Has Absence Of Comorbid Medical Conditions":
+//   "Has Absence Of Applicable Comorbid Medical Conditions" as System.Boolean
 
-define "Presence Of Comorbid Medical Conditions":
-  not "Has Absence Of Comorbid Medical Conditions"
+// define "Presence Of Comorbid Medical Conditions":
+//   not "Has Absence Of Comorbid Medical Conditions"
 
-define "Null Presence of Comorbid Medical Conditions":
-  "Has Absence Of Comorbid Medical Conditions" is null
+// define "Null Presence of Comorbid Medical Conditions":
+//   "Has Absence Of Comorbid Medical Conditions" is null
 
 //Eligible Comorbid Medical Conditions Criteria
+define "Has Applicable Comorbid Medical Conditions Value":
+  ("Has Neuromuscular Disease With Associated Pulmonary Disease Value"
+    or "Has Cardiac Disease Value"
+    or "Has Moderate To Severe Pulmonary Disease Value")
+
 define "Has Applicable Comorbid Medical Conditions":
-  "Has Neuromuscular Disease With Associated Pulmonary Disease"
-    or "Has Cardiac Disease"
-    or "Has Moderate To Severe Pulmonary Disease"
+  IsTrue("Has Applicable Comorbid Medical Conditions Value")
 
 define "Has Absence Of Applicable Comorbid Medical Conditions":
-  not "Has Applicable Comorbid Medical Conditions"
+  IsFalse("Has Applicable Comorbid Medical Conditions Value")
 
 define "Null Applicable Comorbid Medical Conditions":
-  "Has Applicable Comorbid Medical Conditions" is null
+  IsNull("Has Applicable Comorbid Medical Conditions Value")
 
 //Pulmonary Disease
 define "Most Recent Moderate To Severe Pulmonary Disease":
@@ -224,14 +249,17 @@ define "Qualifying Moderate To Severe Pulmonary Disease":
       ''
     )
 
-define "Has Moderate To Severe Pulmonary Disease":
+define "Has Moderate To Severe Pulmonary Disease Value":
   "Qualifying Moderate To Severe Pulmonary Disease".value.value as System.Boolean
 
+define "Has Moderate To Severe Pulmonary Disease":
+  IsTrue("Has Moderate To Severe Pulmonary Disease Value")
+
 define "No Moderate To Severe Pulmonary Disease":
-  not "Has Moderate To Severe Pulmonary Disease"
+  IsFalse("Has Moderate To Severe Pulmonary Disease Value")
 
 define "Null Pulmonary Disease":
-  "Has Moderate To Severe Pulmonary Disease" is null
+  IsNull("Has Moderate To Severe Pulmonary Disease Value")
 
 // define "Has Moderate To Severe Pulmonary Disease Including COPD or Asthma":
 //   "Has Moderate To Severe Pulmonary Disease Including COPD"
@@ -303,14 +331,17 @@ define "Qualifying Neuromuscular Disease With Associated Pulmonary Disease":
       ''
     )
 
-define "Has Neuromuscular Disease With Associated Pulmonary Disease":
+define "Has Neuromuscular Disease With Associated Pulmonary Disease Value":
   "Most Recent Neuromuscular Disease With Pulmonary Disease".value.value as System.Boolean
 
+define "Has Neuromuscular Disease With Associated Pulmonary Disease":
+  IsTrue("Has Neuromuscular Disease With Associated Pulmonary Disease Value")
+
 define "No Neuromuscular Disease With Associated Pulmonary Disease":
-  not "Has Neuromuscular Disease With Associated Pulmonary Disease"
+  IsFalse("Has Neuromuscular Disease With Associated Pulmonary Disease Value")
 
 define "Null Nueromuscular Disease":
-  "Has Neuromuscular Disease With Associated Pulmonary Disease" is null
+  IsNull("Has Neuromuscular Disease With Associated Pulmonary Disease Value")
 
 //Cardiac Disease
 define "Most Recent Cardiac Disease Observation":
@@ -328,14 +359,17 @@ define "Qualifying Cardiac Disease":
       ''
     )
 
-define "Has Cardiac Disease":
+define "Has Cardiac Disease Value":
   "Qualifying Cardiac Disease".value.value as System.Boolean
 
+define "Has Cardiac Disease":
+  IsTrue("Has Cardiac Disease Value")
+
 define "No Cardiac Disease":
-  not "Has Cardiac Disease"
+  IsFalse("Has Cardiac Disease Value")
 
 define "Null Cardiac Disease":
-  "Has Cardiac Disease" is null
+  IsNull("Has Cardiac Disease Value")
 
 
 //Home Observation Criteria:
@@ -355,14 +389,17 @@ define "Uses A Qualified Device":
       ''
     )
 
-define "Patient Uses Qualified Device":
+define "Patient Uses Qualified Device Value":
   "Uses A Qualified Device".value.value as System.Boolean
 
+define "Patient Uses Qualified Device":
+  IsTrue("Patient Uses Qualified Device Value")
+
 define "Does Not Use Qualified Device":
-  not "Patient Uses Qualified Device"
+  IsFalse("Patient Uses Qualified Device Value")
 
 define "Unknown Device Used":
-  "Patient Uses Qualified Device" is null
+  IsNull("Patient Uses Qualified Device Value")
 
 //Safe home use
 define "Most Recent Safe Use Of Equipment At Home Observation":
@@ -378,14 +415,17 @@ define "Safe Equipment Use At Home":
       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature'
     )
 
-define "Can Safely Use Equipment At Home":
+define "Can Safely Use Equipment At Home Value":
   "Safe Equipment Use At Home".value.value as System.Boolean
 
+define "Can Safely Use Equipment At Home":
+  IsTrue("Can Safely Use Equipment At Home Value")
+
 define "Can Not Safely Use Equipment At Home":
-  not "Can Safely Use Equipment At Home"
+  IsFalse("Can Safely Use Equipment At Home Value")
 
 define "Unknown Ability To Use Equipment At Home":
-  "Can Safely Use Equipment At Home" is null
+  IsNull("Can Safely Use Equipment At Home Value")
 
 //Physician Evaluated Results
 define "Most Recent Physician Evaluated Observation":
@@ -401,14 +441,18 @@ define "Physician Evaluated Results":
       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature'
     )
 
-define "Ability To Have Physician Evaluate Results":
+define "Ability To Have Physician Evaluate Results Value":
   "Physician Evaluated Results".value.value as System.Boolean
 
+define "Ability To Have Physician Evaluate Results":
+  IsTrue("Ability To Have Physician Evaluate Results Value")
+
 define "Unable To Have Physician Evaluate Results":
-  not "Ability To Have Physician Evaluate Results"
+  IsFalse("Ability To Have Physician Evaluate Results Value")
 
 define "Unknown Ability To Have Physician Evaluate Results":
-  "Ability To Have Physician Evaluate Results" is null
+  IsNull("Ability To Have Physician Evaluate Results Value")
+
 
 
 //Not Approved Response
@@ -431,11 +475,9 @@ define "Not Approved EDS":
     ''
 
 define "Not Approved Absence of Comorbid Conditions": //IS this right??
-  if "Presence Of Comorbid Medical Conditions" and "Has Applicable Comorbid Medical Conditions"
+  if "Has Applicable Comorbid Medical Conditions"
     then '<br />- Individual has one or more of the following eligible comorbid conditions: Moderate to severe pulmonary disease including COPD or Asthma, Neuromuscular disease with associated pulmonary disease, Cardiac Disease'
   else 
-    if "Presence Of Comorbid Medical Conditions" then '<br />- Individual does not have an absence of comorbid medical conditions'
-  else
     ''
 
 define "Not Approved Home Criteria":
@@ -471,10 +513,7 @@ define "Null EDS":
     ''
 
 define "Null Comorbid Medical Conditions":
-  if "Null Presence of Comorbid Medical Conditions" 
-    then '<br />- Please enter the following: Absence Of Comorbid Medical Conditions'
-  else 
-    if "Null Presence of Comorbid Medical Conditions" and "Null Applicable Comorbid Medical Conditions"
+  if "Null Applicable Comorbid Medical Conditions"
       then Coalesce(
         if "Null Pulmonary Disease" then '<br />- Please enter the following: Pullmonary Disease' else '',
         if "Null Nueromuscular Disease" then '<br />- Please enter the following: Neuromuscular Disease With Associated Pulmonary Disease' else '',

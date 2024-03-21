@@ -59,6 +59,7 @@
       "value": "aslp-pa-adj-temp-not-approved"
     }
   ],
+  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved",
   "version": "1.0.0",
   "status": "draft",
   "experimental": true,
