@@ -1,6 +1,6 @@
 {
   "resourceType": "Condition",
-  "id": "Condition-eds-policy-screening-example-2",
+  "id": "Condition-cardiacdisease-paa-example-3",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition"
@@ -11,7 +11,7 @@
       {
         "code": "active",
         "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-        "display": "Active"
+        "display": "active"
       }
     ]
   },
@@ -38,17 +38,18 @@
   "code": {
     "coding": [
       {
-        "code": "194439006",
-        "system": "http://snomed.info/sct",
-        "display": "Disorder of excessive somnolence (disorder)"
+        "code": "I50.21",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "display": "Acute systolic (congestive) heart failure",
+        "version": "2024"
       }
     ]
   },
   "subject": {
-    "reference": "Patient/Patient-policy-screening-example-2"
+    "reference": "Patient/Patient-paa-example-3"
   },
   "encounter": {
-    "reference": "Encounter/Encounter-policy-screening-example-2"
+    "reference": "Encounter/Encounter-paa-example-3"
   },
-  "onsetDateTime": "2023-10-02T12:30:00-07:00"
+  "onsetDateTime": "2023-10-12T12:30:00-07:00"
 }

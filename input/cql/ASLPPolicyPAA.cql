@@ -474,12 +474,12 @@ define "Not Approved EDS":
     then "LineBreak" + '- Individual does not have excessive daytime sleepiness.'
   else
     if "Has Excessive Daytime Sleepiness" and "Has No Additional Daytime Sleepiness Indicators" 
-      then "LineBreak" + '- Patient has none of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping'
+      then "LineBreak" + '- Individual has none of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping'
   else
    null
 
 define "Not Approved Absence of Comorbid Conditions": 
-  if "Has Moderate To Severe Pulmonary Disease" or "Has Neuromuscular Disease With Associated Pulmonary Disease" or "Has Cardiac Disease"
+  if "Has Applicable Comorbid Medical Conditions"//"Has Moderate To Severe Pulmonary Disease" or "Has Neuromuscular Disease With Associated Pulmonary Disease" or "Has Cardiac Disease"
     then "LineBreak" + '- Individual has one or more of the following eligible comorbid conditions: Moderate to severe pulmonary disease including COPD or Asthma, Neuromuscular disease with associated pulmonary disease, Cardiac Disease'
   else 
     null

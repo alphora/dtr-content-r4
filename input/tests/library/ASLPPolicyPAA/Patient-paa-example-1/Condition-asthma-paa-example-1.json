@@ -1,6 +1,6 @@
 {
   "resourceType": "Condition",
-  "id": "Condition-asthma-policy-screening-example-2",
+  "id": "Condition-asthma-paa-example-1",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition"
@@ -38,18 +38,18 @@
   "code": {
     "coding": [
       {
-        "system": "http://snomed.info/sct",
-        "version": "2021-09",
         "code": "12428000",
-        "display": "Intrinsic asthma without status asthmaticus (disorder)"
+        "system": "http://snomed.info/sct",
+        "display": "Intrinsic asthma without status asthmaticus (disorder)",
+        "version": "2021-09"
       }
     ]
   },
   "subject": {
-    "reference": "Patient/Patient-policy-screening-example-2"
+    "reference": "Patient/Patient-paa-example-1"
   },
   "encounter": {
-    "reference": "Encounter/Encounter-policy-screening-example-2"
+    "reference": "Encounter/Encounter-paa-example-1"
   },
   "onsetDateTime": "2023-10-01T11:30:00-07:00"
 }

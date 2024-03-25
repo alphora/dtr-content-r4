@@ -1,6 +1,6 @@
 {
   "resourceType": "Condition",
-  "id": "Condition-pulmonary-policy-screening-example-2",
+  "id": "Condition-snores-paa-example-1",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition"
@@ -9,9 +9,9 @@
   "clinicalStatus": {
     "coding": [
       {
-        "code": "inactive",
+        "code": "active",
         "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-        "display": "inactive"
+        "display": "Active"
       }
     ]
   },
@@ -38,18 +38,17 @@
   "code": {
     "coding": [
       {
+        "code": "R06.83",
         "system": "http://hl7.org/fhir/sid/icd-10-cm",
-        "version": "2024",
-        "code": "I27.20",
-        "display": "Pulmonary hypertension, unspecified"
+        "display": "Snoring code"
       }
     ]
   },
   "subject": {
-    "reference": "Patient/Patient-policy-screening-example-2"
+    "reference": "Patient/Patient-paa-example-1"
   },
   "encounter": {
-    "reference": "Encounter/Encounter-policy-screening-example-2"
+    "reference": "Encounter/Encounter-paa-example-1"
   },
   "onsetDateTime": "2023-10-01T11:30:00-07:00"
 }

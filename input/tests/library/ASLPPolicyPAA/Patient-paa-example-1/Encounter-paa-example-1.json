@@ -1,6 +1,6 @@
 {
   "resourceType": "Encounter",
-  "id": "Encounter-policy-screening-example-2",
+  "id": "Encounter-paa-example-1",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter"
@@ -24,7 +24,7 @@
     }
   ],
   "subject": {
-    "reference": "Patient/Patient-policy-screening-example-2"
+    "reference": "Patient/Patient-paa-example-1"
   },
   "period": {
     "start": "2023-10-02T12:30:00-07:00",

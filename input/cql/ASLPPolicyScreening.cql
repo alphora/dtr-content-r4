@@ -106,17 +106,6 @@ define "Has Comorbid Medical Conditions":
 define "Has No Comorbid Medical Conditions":
   not "Has Comorbid Medical Conditions"
 
-/*
-define "Absence of Comorbid Medical Conditions":
-  "Has No Comorbid Medical Conditions"
-    and "Does Not Have Applicable Comorbid Medical Conditions"
-
-define "Does Not Have Applicable Comorbid Medical Conditions":
-  not "Has Moderate To Severe Pulmonary Disease"
-    and not "Qualified Neuromuscular Disease With Associated Pulmonary Disease"
-    and not "Has Cardiac Disease" 
-*/
-
 //Pulmonary Disease
 define "Has Moderate To Severe Pulmonary Disease":
   exists("Qualifying Moderate To Severe Pulmonary Disease")

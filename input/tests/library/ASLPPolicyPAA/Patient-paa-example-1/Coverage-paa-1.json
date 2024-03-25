@@ -1,6 +1,6 @@
 {
   "resourceType": "Coverage",
-  "id": "Coverage-policy-screening-example-1",
+  "id": "Coverage-paa-1",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-coverage"
@@ -23,10 +23,10 @@
     ]
   },
   "policyHolder": {
-    "reference": "Patient/Patient-policy-screening-example-1"
+    "reference": "Patient/Patient-paa-example-1"
   },
   "beneficiary": {
-    "reference": "Patient/Patient-policy-screening-example-1"
+    "reference": "Patient/Patient-paa-example-1"
   },
   "period": {
     "start": "2020-01-01T00:00:00-07:00",
@@ -34,7 +34,7 @@
   },
   "payor": [
     {
-      "reference": "Patient/Patient-policy-screening-example-1"
+      "reference": "Patient/Patient-paa-example-1"
     }
   ]
 }
