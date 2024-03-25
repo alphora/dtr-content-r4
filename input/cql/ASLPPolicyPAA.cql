@@ -332,7 +332,7 @@ define "Qualifying Neuromuscular Disease With Associated Pulmonary Disease":
     )
 
 define "Has Neuromuscular Disease With Associated Pulmonary Disease Value":
-  "Most Recent Neuromuscular Disease With Pulmonary Disease".value.value as System.Boolean
+  "Qualifying Neuromuscular Disease With Associated Pulmonary Disease".value.value as System.Boolean
 
 define "Has Neuromuscular Disease With Associated Pulmonary Disease":
   IsTrue("Has Neuromuscular Disease With Associated Pulmonary Disease Value")
@@ -459,26 +459,24 @@ define "LineBreak":
   '\r\n'
 
 //Not Approved Response
-define "Not Approved Detail":
-  'Prior Authorization DENIED.'
-    + "LineBreak" + ' Reasoning; '
-    + Coalesce(
-      if "Not Within Qualifying Age" then "LineBreak" + '- Individual is not within the qualifying age.' else '',
-      "Not Approved EDS",
-      "Not Approved Absence of Comorbid Conditions",
-      "Not Approved Home Criteria"
-    ) //Coalesce only accepts 5 elements so they had to be spilt up:
+define "Not Approved Detail": //was originally a coalesce but results were always funky
+  ' Prior Authorization DENIED.'
+    + "LineBreak" + 'Reasoning:'
+    + "LineBreak" + if "Not Within Qualifying Age" then '- Individual is not within the qualifying age.' else ''
+    + "Not Approved EDS"
+    + "Not Approved Absence of Comorbid Conditions"
+    + "Not Approved Home Criteria" 
 
 define "Not Approved EDS":
-  if "Has Excessive Daytime Sleepiness" and "Has No Additional Daytime Sleepiness Indicators" 
-    then  'Patient doesn\'t have any of the following additional daytime sleepiness indicators: ESS score of 10 or greater excessive sleepiness while driving snore loudly/intensely no witnessed nocturnal apnea, choking and/or gasping'   
+  if "Does Not Have ESS Score >= 10" or "Does Not Have Excessive Sleepiness While Driving" or "Does Not Snore Loudly/Intensely" or "Does Not have nocturnal apnea"
+    then '- Patient has none of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping'
   else
     if "No Excessive Daytime Sleepiness" then "LineBreak" + '- Individual does not have excessive daytime sleepiness.'
   else
     ''
 
-define "Not Approved Absence of Comorbid Conditions": //IS this right??
-  if "Has Applicable Comorbid Medical Conditions"
+define "Not Approved Absence of Comorbid Conditions": 
+  if "Has Moderate To Severe Pulmonary Disease" or "Has Neuromuscular Disease With Associated Pulmonary Disease" or "Has Cardiac Disease"
     then "LineBreak" + '- Individual has one or more of the following eligible comorbid conditions: Moderate to severe pulmonary disease including COPD or Asthma, Neuromuscular disease with associated pulmonary disease, Cardiac Disease'
   else 
     ''
@@ -490,9 +488,10 @@ define "Not Approved Home Criteria":
     if "Unable To Have Physician Evaluate Results" then "LineBreak" + ' - Individual is unable to have physician evaluate results of home sleep tests' else ''
   )
 
+
 //Not Approved Null Response
 define "Temporarily not approved":
-  'Prior Authorization DENIED.'
+  'Prior Authorization Temporarily DENIED.'
     + "LineBreak" + 'Reasoning:'
     + Coalesce(
       if "Age Unknown" then 'Please enter the following: Patient Age' else '', 
@@ -503,22 +502,21 @@ define "Temporarily not approved":
 
 define "Null EDS":
   if "Null Excessive Daytime Sleepiness" 
-    then "LineBreak" + ' - Please enter the following: Excessive Daytime Sleepiness'
+    then "LineBreak" + ' - Please enter the following: Excessive Daytime Sleepiness' 
   else 
-    if "Null Excessive Daytime Sleepiness" and "Null Additional Daytime Sleepiness Indicators"
-      then Coalesce(
-        if "Null ESS Score" then "LineBreak" + ' - Please enter the following: Epworth Sleepiness Scale' else '',
-        if "Null Excessive Sleepiness While Driving" then "LineBreak" + ' - Please enter the following: Excessive Sleepiness While driving' else '',
-        if "Null Snoring Volume/Intensity" then "LineBreak" + ' - Please enter the following: Loud/Intense Snoring' else '',
-        if "Null Apnea" then "LineBreak" + ' - Please enter the following: Nocturnal apnea' else ''
-      )
-  else
+    if "Null Additional Daytime Sleepiness Indicators"
+      then "LineBreak" + 'Please enter the following: Additional Sleepiness Indicators' 
+      + (if "Null ESS Score" then "LineBreak" + ' - Please enter the following: Epworth Sleepiness Scale' 
+      else if "Null Excessive Sleepiness While Driving" then "LineBreak" + ' - Please enter the following: Excessive Sleepiness While driving'
+      else if "Null Snoring Volume/Intensity" then "LineBreak" + ' - Please enter the following: Loud/Intense Snoring'
+      else if "Null Apnea" then "LineBreak" + ' - Please enter the following: Nocturnal apnea' else '')
+  else 
     ''
 
 define "Null Comorbid Medical Conditions":
   if "Null Applicable Comorbid Medical Conditions"
       then Coalesce(
-        if "Null Pulmonary Disease" then "LineBreak" + ' - Please enter the following: Pullmonary Disease' else '',
+        if "Null Pulmonary Disease" then "LineBreak" + ' - Please enter the following: Pulmonary Disease' else '',
         if "Null Nueromuscular Disease" then "LineBreak" + ' - Please enter the following: Neuromuscular Disease With Associated Pulmonary Disease' else '',
         if "Null Cardiac Disease" then "LineBreak" + ' - Please enter the following: Cardiac Disease' else ''
       )
@@ -532,46 +530,25 @@ define "Null Home Criteria":
     if "Unknown Ability To Have Physician Evaluate Results" then "LineBreak" + ' - Please enter the following: Ability To Have Physician Evaluate Home Testing Results' else ''
   )
 
-//Approved Response
-// define "Approved Detail":
-//   'Prior Authorization APPROVED.'
-//   + 'n\ Reasoning:'
-//   + "LineBreak" + ' - Is qualifying age'
-//   + "LineBreak" + ' - Has Excessive Daytime Sleepiness'
-//   + "LineBreak" + ' - Has an Epworth Sleepiness Scale score greater than or equal to 10'
-//   + "LineBreak" + ' - Has excessive sleepiness while driving'
-//   + "LineBreak" + ' - Snores loudly/intensly'
-//   + "LineBreak" + ' - Has witnessed nocturnal apnea, choking and/or gasping'
-//   + "LineBreak" + ' - Has an absence of comorbid medical conditions'
-//   + "LineBreak" + ' - Has an absence of moderate to severe pulmonary disease'
-//   + "LineBreak" + ' - Has an absence of moderate to severe pulmonary disease including COPD'
-//   + "LineBreak" + ' - Has an absence of moderate to severe pulmonary disease including asthma'
-//   + "LineBreak" + ' - Has an absence of neuromuscular disease with associated pulmonary disease'
-//   + "LineBreak" + ' - Has an absence of cardiac disease'
-//   + "LineBreak" + ' - Does use a qualified device'
-//   + "LineBreak" + ' - Individual or caregiver can use equipment safely at home'
-//   + "LineBreak" + ' - Can have physician evaluate home testing results'
 
+
+//Approved Response
 define "Approved Detail":
-  if (
-      "Is Qualifying Age"
-        and "Has Excessive Daytime Sleepiness"
-        and "Has Additional Daytime Sleepiness Indicators"
-        and "Has Absence Of Applicable Comorbid Medical Conditions"
-        and "Patient Uses Qualified Device"
-        and "Can Safely Use Equipment At Home"
-        and "Ability To Have Physician Evaluate Results"
-  )
-    then (
-      'Prior Authorization APPROVED.'
-        + "LineBreak" + ' Reasoning:'
-        + "LineBreak" + ' - Individual is qualifying age'
-        + "LineBreak" + ' - Individual has Excessive Daytime Sleepiness'
-        + "LineBreak" + ' - Individual has Additional Excessive Daytime Sleepiness Indicators (An Epworth sleepiness scale score GTE 10 OR Excessive sleepiness while driving OR nocturnal apnea OR loud snoring)'
-        + "LineBreak" + ' - Individual has an absence of applicable comorbid medical conditions (An absence of moderate to severe pulmonary disease including asthma or COPD OR neuromuscular disease with associated pulmonary disease or Cardiac disease)'
-        + "LineBreak" + ' - Individual does use a qualified device'
-        + "LineBreak" + ' - Individual or caregiver can use equipment safely at home'
-        + "LineBreak" + ' - Individual can have physician evaluate home testing results'
-    )
-  else
-    ''
+  'Prior Authorization APPROVED.'
+  + "LineBreak" + 'Reasoning:'
+  + "LineBreak" + ' - Is qualifying age'
+  + "LineBreak" + ' - Has Excessive Daytime Sleepiness'
+  + "LineBreak" + ' - Has an Epworth Sleepiness Scale score greater than or equal to 10'
+  + "LineBreak" + ' - Has excessive sleepiness while driving'
+  + "LineBreak" + ' - Snores loudly/intensly'
+  + "LineBreak" + ' - Has witnessed nocturnal apnea, choking and/or gasping'
+  + "LineBreak" + ' - Has an absence of comorbid medical conditions'
+  + "LineBreak" + ' - Has an absence of moderate to severe pulmonary disease'
+  + "LineBreak" + ' - Has an absence of moderate to severe pulmonary disease including COPD'
+  + "LineBreak" + ' - Has an absence of moderate to severe pulmonary disease including asthma'
+  + "LineBreak" + ' - Has an absence of neuromuscular disease with associated pulmonary disease'
+  + "LineBreak" + ' - Has an absence of cardiac disease'
+  + "LineBreak" + ' - Does use a qualified device'
+  + "LineBreak" + ' - Individual or caregiver can use equipment safely at home'
+  + "LineBreak" + ' - Can have physician evaluate home testing results'
+

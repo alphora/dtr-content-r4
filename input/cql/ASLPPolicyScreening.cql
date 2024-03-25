@@ -63,8 +63,7 @@ define "Has Excessive Daytime Sleepiness":
   exists("Excessive Daytime Sleepiness")
 
 define "Epworth Sleepiness Scale":
-  [Observation: "Epworth Sleepiness Scale Code"] O 
-    where O.status = 'corrected'
+  ([Observation: "Epworth Sleepiness Scale Code"]).resulted() 
 
 define "Epworth Sleepiness Scale Score >= 10":
   "Epworth Sleepiness Scale" O
@@ -128,8 +127,7 @@ define "Has Moderate To Severe Pulmonary Disease":
     or ("Has Diagnosed Asthma")
 
 define "Qualifying Moderate To Severe Pulmonary Disease":
-  [Observation: "Moderate to Severe Pulmonary Disease VS"] O 
-    where O.status = 'corrected'
+  ([Observation: "Moderate to Severe Pulmonary Disease VS"]).resulted() 
 
 //COPD
 define "Has Diagnosed COPD":
@@ -147,7 +145,7 @@ define "Diagnosed COPD":
 
 define "Most Recent FEV1":
   PCF.MostRecent(
-    [Observation: "Forced Expiratory Volume in One Second (FEV1)Forced Vital Capacity (FVC) Measurement"] 
+    ([Observation: "Forced Expiratory Volume in One Second (FEV1)Forced Vital Capacity (FVC) Measurement"]).resulted() 
   )
 
 define "Most Recent FEV1 < 60":
@@ -157,6 +155,10 @@ define "Hypoventilation Disorder":
   ([Condition: "Hypoventilation Disorder VS"]).active().confirmed()
 
 //Asthma
+define "Moderate To Severe Pulmonary Disease Including Asthma":
+  "Has Moderate To Severe Pulmonary Disease"
+    and "Has Diagnosed Asthma"
+
 define "Has Diagnosed Asthma": //rename
   exists("Diagnosed Asthma")
 
@@ -169,13 +171,13 @@ define "Diagnosed Asthma": //Moderate to severe with asthma
 
 define "Neuromuscular Disease With Associated Pulmonary Disease":
   exists("Neuromuscular Disease Diagnosis")
-    and exists("Pulmonary Disease Diagnosis")
+    or exists("Pulmonary Disease Diagnosis")
 
 define "Neuromuscular Disease Diagnosis":
   ([Condition: "COVID19 SNOMED Value Set for Muscular Dystrophy"]).active().confirmed()
 
 define "Pulmonary Disease Diagnosis":
-  ([Condition: "Pulmonary Hypertension Disorder"])
+  ([Condition: "Pulmonary Hypertension Disorder"]).active().confirmed()
 
 //cardiac disease
 define "Has Cardiac Disease":
@@ -196,10 +198,12 @@ define "Qualified Device Request":
 
 //safe home use
 define "Safe Use Of Equipment At Home Observation":
-  null as System.Boolean
+  true
+  //null as System.Boolean
 
 //physician evaluation
 define "Physician Evaluated Results Observation":
-  null as System.Boolean
+  true
+  //null as System.Boolean
 
     

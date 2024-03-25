@@ -8,9 +8,13 @@ include FHIRHelpers version '4.1.000'
 
 codesystem "ConditionClinicalStatusCodes": 'http://terminology.hl7.org/CodeSystem/condition-clinical'
 codesystem "ConditionVerificationStatusCodes": 'http://terminology.hl7.org/CodeSystem/condition-ver-status'
+codesystem "ObservationStatusCodes": 'http://hl7.org/fhir/observation-status'
 
 code "active": 'active' from "ConditionClinicalStatusCodes"
 code "confirmed": 'confirmed' from ConditionVerificationStatusCodes
+code "observation-final": 'final' from "ObservationStatusCodes" display 'Final'
+code "observation-amended": 'amended' from "ObservationStatusCodes" display 'Amended'
+code "observation-corrected": 'corrected' from "ObservationStatusCodes" display 'Corrected'
 
 context Patient
 //IMPORTANT NOTE: This was taken from demo-content-r4. May need edits
@@ -217,7 +221,7 @@ define function ProvenanceAsString(caseFeature DomainResource):
   else 
     ' (' + First((First(caseFeature.contained) as Provenance).extension).value + ')'
 
-
+//Condition and Observation status fluent functions
 define fluent function active(conditions List<FHIR.Condition>):
   conditions C
     where C.clinicalStatus ~ "active"
@@ -225,3 +229,9 @@ define fluent function active(conditions List<FHIR.Condition>):
 define fluent function confirmed(conditions List<FHIR.Condition>):
   conditions C
     where C.verificationStatus ~ "confirmed"
+
+define fluent function resulted(observations List<FHIR.Observation>):
+  observations observation
+    where observation.status ~ "observation-final".code
+      or observation.status ~ "observation-amended".code
+      or observation.status ~ "observation-corrected".code

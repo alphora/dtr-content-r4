@@ -1,0 +1,55 @@
+{
+  "resourceType": "Condition",
+  "id": "Condition-asthma-policy-screening-example-1",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition"
+    ]
+  },
+  "clinicalStatus": {
+    "coding": [
+      {
+        "code": "inactive",
+        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+        "display": "inactive"
+      }
+    ]
+  },
+  "verificationStatus": {
+    "coding": [
+      {
+        "code": "confirmed",
+        "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+        "display": "Confirmed"
+      }
+    ]
+  },
+  "category": [
+    {
+      "coding": [
+        {
+          "code": "encounter-diagnosis",
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "display": "Encounter Diagnosis"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "system": "http://snomed.info/sct",
+        "version": "2021-09",
+        "code": "12428000",
+        "display": "Intrinsic asthma without status asthmaticus (disorder)"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/Patient-policy-screening-example-1"
+  },
+  "encounter": {
+    "reference": "Encounter/Encounter-policy-screening-example-1"
+  },
+  "onsetDateTime": "2023-10-01T11:30:00-07:00"
+}
