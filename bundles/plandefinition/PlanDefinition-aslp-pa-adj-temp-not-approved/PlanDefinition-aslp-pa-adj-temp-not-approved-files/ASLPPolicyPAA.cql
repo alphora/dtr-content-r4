@@ -468,12 +468,13 @@ define "Not Approved Detail": //was originally a coalesce but results were alway
     + "Not Approved Home Criteria" 
 
 define "Not Approved EDS":
-  if "Does Not Have ESS Score >= 10" or "Does Not Have Excessive Sleepiness While Driving" or "Does Not Snore Loudly/Intensely" or "Does Not have nocturnal apnea"
-    then '- Patient has none of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping'
+  if "No Excessive Daytime Sleepiness" 
+    then "LineBreak" + '- Individual does not have excessive daytime sleepiness.'
   else
-    if "No Excessive Daytime Sleepiness" then "LineBreak" + '- Individual does not have excessive daytime sleepiness.'
+    if "Has Excessive Daytime Sleepiness" and "Has No Additional Daytime Sleepiness Indicators" //and "Does Not Have ESS Score >= 10" or "Does Not Have Excessive Sleepiness While Driving" or "Does Not Snore Loudly/Intensely" or "Does Not have nocturnal apnea"
+      then "LineBreak" + '- Patient has none of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping'
   else
-    ''
+   ''
 
 define "Not Approved Absence of Comorbid Conditions": 
   if "Has Moderate To Severe Pulmonary Disease" or "Has Neuromuscular Disease With Associated Pulmonary Disease" or "Has Cardiac Disease"
@@ -552,48 +553,3 @@ define "Approved Detail":
   + "LineBreak" + ' - Individual or caregiver can use equipment safely at home'
   + "LineBreak" + ' - Can have physician evaluate home testing results'
 
-
-/*
-//not approved tests
-define "not approved eds":
-  if "Does Not Have ESS Score >= 10" or "Does Not Have Excessive Sleepiness While Driving" or "Does Not Snore Loudly/Intensely" or "Does Not have nocturnal apnea"
-    then '- Patient has none of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping'
-  else 
-    if "No Excessive Daytime Sleepiness" and "Does Not Have ESS Score >= 10" or "Does Not Have Excessive Sleepiness While Driving" or "Does Not Snore Loudly/Intensely" or "Does Not have nocturnal apnea"
-      then 'no eds or indicators'
-  else 
-    if "No Excessive Daytime Sleepiness" then '- Individual does not have excessive daytime sleepiness.'
-  else 
-    ''
-
-define "not Comorbid Conditions": 
-  if "Has Moderate To Severe Pulmonary Disease" or "Has Neuromuscular Disease With Associated Pulmonary Disease" or "Has Cardiac Disease"
-    then '- Individual has one or more of the following eligible comorbid conditions: Moderate to severe pulmonary disease including COPD or Asthma, Neuromuscular disease with associated pulmonary disease, Cardiac Disease'
-  else 
-    ''
-
-define "not home criteria":
-  if "Does Not Use Qualified Device" then '- Individual does not use Type II, Type III, Type IV or PAT PM device' 
-  else if "Can Not Safely Use Equipment At Home" then '- Individual or caregiver does not have appropriate cognitive function, dexterity and mobility to use equipment safely at home' 
-  else if "Unable To Have Physician Evaluate Results" then ' - Individual is unable to have physician evaluate results of home sleep tests' else ''
-
-
-define "not approved pulmonary":
-  if "No Moderate To Severe Pulmonary Disease" then 'No Moderate To Severe Pulmonary Disease' 
-  else if "Null Pulmonary Disease" then 'Null Pulmonary Disease'
-  else if "Has Moderate To Severe Pulmonary Disease" then 'has Moderate To Severe Pulmonary Disease'
-  else ''
-
-define "no neuro":
-  if "No Neuromuscular Disease With Associated Pulmonary Disease" then 'No Neuromuscular Disease With Associated Pulmonary Disease' 
-  else if "Null Nueromuscular Disease" then 'Null Nueromuscular Disease'
-  else if "Has Neuromuscular Disease With Associated Pulmonary Disease" then 'has Neuromuscular Disease With Associated Pulmonary Disease'
-  else ''
-
-define "no cardiac":
-  if "No Cardiac Disease" then 'No cardiac disease' 
-  else if "Null Cardiac Disease" then 'null cardiac disease' 
-  else if "Has Cardiac Disease" then 'Has cardiac disease'
-  else ''
-
-*/
