@@ -459,39 +459,41 @@ define "LineBreak":
   '\r\n'
 
 //Not Approved Response
-define "Not Approved Detail": //was originally a coalesce but results were always funky
+define "Not Approved Detail": 
   ' Prior Authorization DENIED.'
     + "LineBreak" + 'Reasoning:'
-    + "LineBreak" + if "Not Within Qualifying Age" then '- Individual is not within the qualifying age.' else ''
-    + "Not Approved EDS"
-    + "Not Approved Absence of Comorbid Conditions"
-    + "Not Approved Home Criteria" 
+    + Coalesce(
+      if "Not Within Qualifying Age" then "LineBreak" + '- Individual is not within the qualifying age.' else null,
+      "Not Approved EDS",
+      "Not Approved Absence of Comorbid Conditions",
+      "Not Approved Home Criteria"
+    )
 
 define "Not Approved EDS":
   if "No Excessive Daytime Sleepiness" 
     then "LineBreak" + '- Individual does not have excessive daytime sleepiness.'
   else
-    if "Has Excessive Daytime Sleepiness" and "Has No Additional Daytime Sleepiness Indicators" //and "Does Not Have ESS Score >= 10" or "Does Not Have Excessive Sleepiness While Driving" or "Does Not Snore Loudly/Intensely" or "Does Not have nocturnal apnea"
+    if "Has Excessive Daytime Sleepiness" and "Has No Additional Daytime Sleepiness Indicators" 
       then "LineBreak" + '- Patient has none of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping'
   else
-   ''
+   null
 
 define "Not Approved Absence of Comorbid Conditions": 
   if "Has Moderate To Severe Pulmonary Disease" or "Has Neuromuscular Disease With Associated Pulmonary Disease" or "Has Cardiac Disease"
     then "LineBreak" + '- Individual has one or more of the following eligible comorbid conditions: Moderate to severe pulmonary disease including COPD or Asthma, Neuromuscular disease with associated pulmonary disease, Cardiac Disease'
   else 
-    ''
+    null
 
 define "Not Approved Home Criteria":
   Coalesce(
-    if "Does Not Use Qualified Device" then "LineBreak" + '- Individual does not use Type II, Type III, Type IV or PAT PM device' else '',
-    if "Can Not Safely Use Equipment At Home" then "LineBreak" + '- Individual or caregiver does not have appropriate cognitive function, dexterity and mobility to use equipment safely at home' else '',
-    if "Unable To Have Physician Evaluate Results" then "LineBreak" + ' - Individual is unable to have physician evaluate results of home sleep tests' else ''
+    if "Does Not Use Qualified Device" then "LineBreak" + '- Individual does not use Type II, Type III, Type IV or PAT PM device' else null,
+    if "Can Not Safely Use Equipment At Home" then "LineBreak" + '- Individual or caregiver does not have appropriate cognitive function, dexterity and mobility to use equipment safely at home' else null,
+    if "Unable To Have Physician Evaluate Results" then "LineBreak" + ' - Individual is unable to have physician evaluate results of home sleep tests' else null
   )
 
 
 //Not Approved Null Response
-define "Temporarily not approved":
+define "Temporarily Not Approved":
   'Prior Authorization Temporarily DENIED.'
     + "LineBreak" + 'Reasoning:'
     + Coalesce(
@@ -510,25 +512,25 @@ define "Null EDS":
       + (if "Null ESS Score" then "LineBreak" + ' - Please enter the following: Epworth Sleepiness Scale' 
       else if "Null Excessive Sleepiness While Driving" then "LineBreak" + ' - Please enter the following: Excessive Sleepiness While driving'
       else if "Null Snoring Volume/Intensity" then "LineBreak" + ' - Please enter the following: Loud/Intense Snoring'
-      else if "Null Apnea" then "LineBreak" + ' - Please enter the following: Nocturnal apnea' else '')
+      else if "Null Apnea" then "LineBreak" + ' - Please enter the following: Nocturnal apnea' else null)
   else 
-    ''
+    null
 
 define "Null Comorbid Medical Conditions":
   if "Null Applicable Comorbid Medical Conditions"
       then Coalesce(
-        if "Null Pulmonary Disease" then "LineBreak" + ' - Please enter the following: Pulmonary Disease' else '',
-        if "Null Nueromuscular Disease" then "LineBreak" + ' - Please enter the following: Neuromuscular Disease With Associated Pulmonary Disease' else '',
-        if "Null Cardiac Disease" then "LineBreak" + ' - Please enter the following: Cardiac Disease' else ''
+        if "Null Pulmonary Disease" then "LineBreak" + ' - Please enter the following: Pulmonary Disease' else null,
+        if "Null Nueromuscular Disease" then "LineBreak" + ' - Please enter the following: Neuromuscular Disease With Associated Pulmonary Disease' else null,
+        if "Null Cardiac Disease" then "LineBreak" + ' - Please enter the following: Cardiac Disease' else null
       )
   else
-    ''
+    null
 
 define "Null Home Criteria":
   Coalesce(
-    if "Unknown Device Used" then "LineBreak" + ' - Please enter the following: Use Of Type II, Type III, Type IV or PAT PM Device' else '',
-    if "Unknown Ability To Use Equipment At Home" then "LineBreak" + ' - Please enter the following: Individual Or Caregiver Use Of Equipment Safely At Home' else '',
-    if "Unknown Ability To Have Physician Evaluate Results" then "LineBreak" + ' - Please enter the following: Ability To Have Physician Evaluate Home Testing Results' else ''
+    if "Unknown Device Used" then "LineBreak" + ' - Please enter the following: Use Of Type II, Type III, Type IV or PAT PM Device' else null,
+    if "Unknown Ability To Use Equipment At Home" then "LineBreak" + ' - Please enter the following: Individual Or Caregiver Use Of Equipment Safely At Home' else null,
+    if "Unknown Ability To Have Physician Evaluate Results" then "LineBreak" + ' - Please enter the following: Ability To Have Physician Evaluate Home Testing Results' else null
   )
 
 
@@ -536,20 +538,46 @@ define "Null Home Criteria":
 //Approved Response
 define "Approved Detail":
   'Prior Authorization APPROVED.'
-  + "LineBreak" + 'Reasoning:'
-  + "LineBreak" + ' - Is qualifying age'
-  + "LineBreak" + ' - Has Excessive Daytime Sleepiness'
-  + "LineBreak" + ' - Has an Epworth Sleepiness Scale score greater than or equal to 10'
-  + "LineBreak" + ' - Has excessive sleepiness while driving'
-  + "LineBreak" + ' - Snores loudly/intensly'
-  + "LineBreak" + ' - Has witnessed nocturnal apnea, choking and/or gasping'
-  + "LineBreak" + ' - Has an absence of comorbid medical conditions'
-  + "LineBreak" + ' - Has an absence of moderate to severe pulmonary disease'
-  + "LineBreak" + ' - Has an absence of moderate to severe pulmonary disease including COPD'
-  + "LineBreak" + ' - Has an absence of moderate to severe pulmonary disease including asthma'
-  + "LineBreak" + ' - Has an absence of neuromuscular disease with associated pulmonary disease'
-  + "LineBreak" + ' - Has an absence of cardiac disease'
-  + "LineBreak" + ' - Does use a qualified device'
-  + "LineBreak" + ' - Individual or caregiver can use equipment safely at home'
-  + "LineBreak" + ' - Can have physician evaluate home testing results'
+    + "LineBreak" + 'Reasoning:'
+    + "Approved Age"
+    + "Approved EDS"
+    + "Approved Comorbid Conditions Absence"
+    + "Approved Qualified Device"
+    + "Approved Home Use"
+    + "Approved Physician Evaluated Results"
 
+define "Approved Age":
+  if "Is Qualifying Age"
+    then "LineBreak" + '- Is qualifying age'
+  else 
+    null
+
+define "Approved EDS":
+  if "Has Excessive Daytime Sleepiness" and "Has Additional Daytime Sleepiness Indicators"
+    then "LineBreak" + '- Individual has Excessive Daytime Sleepiness and one of the following additional indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping'
+  else
+    null
+
+define "Approved Comorbid Conditions Absence":
+  if "Has Absence Of Applicable Comorbid Medical Conditions"
+    then "LineBreak" + '- Individual has an absence of the following eligible comorbid conditions: Moderate to severe pulmonary disease including COPD or Asthma, Neuromuscular disease with associated pulmonary disease, Cardiac Disease'
+  else 
+    null
+
+define "Approved Qualified Device":
+  if "Patient Uses Qualified Device"
+    then "LineBreak" + '- Individual uses a qualified device'
+  else 
+    null
+
+define "Approved Home Use":
+  if "Can Safely Use Equipment At Home"
+    then "LineBreak" + '- Individual or caregiver can use equipment safely at home'
+  else 
+    null
+
+define "Approved Physician Evaluated Results":
+  if "Ability To Have Physician Evaluate Results"
+    then "LineBreak" + '- Individual can have physician evaluate home testing results'
+  else 
+    null

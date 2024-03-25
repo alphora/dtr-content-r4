@@ -59,7 +59,6 @@
       "value": "aslp-pa-adj-approved"
     }
   ],
-  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-approved",
   "version": "1.0.0",
   "status": "draft",
   "experimental": true,
@@ -98,10 +97,20 @@
   "library": [
     "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
   ],
+  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-approved",
   "action": [
     {
       "title": "Prior Auth Adjudication Approved",
-      "description": "Prior authorization adjudication approval for sleep study tests"
+      "description": "Prior authorization adjudication approval for sleep study tests",
+      "dynamicValue": [
+        {
+          "path": "description",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Approval Detail"
+          }
+        }
+      ]
     }
   ]
 }

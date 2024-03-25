@@ -59,7 +59,6 @@
       "value": "aslp-pa-adj-not-approved"
     }
   ],
-  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved",
   "version": "1.0.0",
   "status": "draft",
   "experimental": true,
@@ -98,10 +97,20 @@
   "library": [
     "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
   ],
+  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved",
   "action": [
     {
       "title": "Not Approved Prior Authorization Adjudication",
-      "description": "Prior Authorization Adjudication for Sleep Study Not Approved"
+      "description": "Prior Authorization Adjudication for Sleep Study Not Approved",
+      "dynamicValue": [
+        {
+          "path": "description",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Not Approved Detail"
+          }
+        }
+      ]
     }
   ]
 }

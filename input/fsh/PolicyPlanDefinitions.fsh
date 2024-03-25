@@ -140,6 +140,11 @@ Usage: #example
 * action[+]
   * title = "Prior Auth Adjudication Approved"
   * description = "Prior authorization adjudication approval for sleep study tests"
+  * dynamicValue[+]
+    * path = "description" 
+    * expression
+      * language = #text/cql-identifier
+      * expression = "Approval Detail"
   // * input
   //   * insert ActionInput("Patient has been approved?", "Patient has been approved")
   //   * insert ActionInputCql("Approved Detail", ASLPPolicyPAA)
@@ -154,6 +159,7 @@ Usage: #example
   //   * description = "Override approval"
   //   * insert ActionConditionCql("Override Approval")
 
+
 Instance: aslp-pa-adj-not-approved
 InstanceOf: PlanDefinition
 Usage: #example
@@ -167,6 +173,11 @@ Usage: #example
 * action[+]
   * title = "Not Approved Prior Authorization Adjudication"
   * description = "Prior Authorization Adjudication for Sleep Study Not Approved"
+  * dynamicValue[+]
+    * path = "description" 
+    * expression
+      * language = #text/cql-identifier
+      * expression = "Not Approved Detail"
   // * input
   //   * insert ActionInput("Is Sleep Study Denied?", "Sleep Study is Denied")
   //   * insert ActionInputCql("Not Approved Detail", ASLPPolicyPAA)
@@ -194,6 +205,11 @@ Usage: #example
 * action[+]
   * title = "Temporarily Not Approved Prior Authorization Adjudication"
   * description = "Prior Authorization Adjudication for Sleep Study Temporarily Not Approved"
+  * dynamicValue[+]
+    * path = "description" 
+    * expression
+      * language = #text/cql-identifier
+      * expression = "Temporarily Not Approved"
   // * input
   //   * insert ActionInput("Is Sleep Study temporarily not approved?", "Sleep Study temporarily not approved")
   //   * insert ActionInputCql("Temporarily not approved", ASLPPolicyPAA)

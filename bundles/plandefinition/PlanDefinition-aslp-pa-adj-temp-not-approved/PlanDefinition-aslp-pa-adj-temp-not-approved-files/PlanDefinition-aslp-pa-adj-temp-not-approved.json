@@ -59,7 +59,6 @@
       "value": "aslp-pa-adj-temp-not-approved"
     }
   ],
-  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved",
   "version": "1.0.0",
   "status": "draft",
   "experimental": true,
@@ -98,10 +97,20 @@
   "library": [
     "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
   ],
+  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved",
   "action": [
     {
       "title": "Temporarily Not Approved Prior Authorization Adjudication",
-      "description": "Prior Authorization Adjudication for Sleep Study Temporarily Not Approved"
+      "description": "Prior Authorization Adjudication for Sleep Study Temporarily Not Approved",
+      "dynamicValue": [
+        {
+          "path": "description",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Temporarily Not Approved"
+          }
+        }
+      ]
     }
   ]
 }
