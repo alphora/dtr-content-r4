@@ -187,12 +187,10 @@ define "Qualified Device Request":
 
 //safe home use
 define "Safe Use Of Equipment At Home Observation":
-  true
-  //null as System.Boolean
+  null as System.Boolean
 
 //physician evaluation
 define "Physician Evaluated Results Observation":
-  true
-  //null as System.Boolean
+  null as System.Boolean
 
     

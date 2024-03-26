@@ -46,7 +46,7 @@
             "valueExpression": {
               "description": "Prior Authorization Adjudication for Sleep Study Temporary Not Approved",
               "language": "text/cql-identifier",
-              "expression": "Temporarily not approved"
+              "expression": "Temporarily Not Approved"
             }
           }
         ]

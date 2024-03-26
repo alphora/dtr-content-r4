@@ -196,7 +196,7 @@ Instance: aslp-pa-adj-temp-not-approved
 InstanceOf: PlanDefinition
 Usage: #example
 * insert CommonProperties("aslp-pa-adj-temp-not-approved")
-* insert CommonPropertiesRationale("Prior Authorization Adjudication for Sleep Study Temporary Not Approved", "Temporarily not approved")
+* insert CommonPropertiesRationale("Prior Authorization Adjudication for Sleep Study Temporary Not Approved", "Temporarily Not Approved")
 
 * library = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
 
