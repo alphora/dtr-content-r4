@@ -497,7 +497,7 @@ define "Temporarily Not Approved":
   'Prior Authorization Temporarily DENIED.'
     + "LineBreak" + 'Reasoning:'
     + Coalesce(
-      if "Age Unknown" then 'Please enter the following: Patient Age' else '', 
+      if "Age Unknown" then 'Please enter the following: Patient Age' else null, 
       "Null EDS",
       "Null Comorbid Medical Conditions",
       "Null Home Criteria"
