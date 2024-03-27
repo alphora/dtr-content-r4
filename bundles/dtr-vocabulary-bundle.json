@@ -44,7 +44,7 @@
         "source": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes",
         "target": "http://loinc.org",
         "element": [ {
-          "code": "ASLP.A1.DE20",
+          "code": "ASLP.A1.DE23",
           "display": "Neck Circumference",
           "target": [ {
             "code": "56074-8",
@@ -171,7 +171,7 @@
         "display": "History of Diabetes",
         "definition": "History of Diabetes"
       }, {
-        "code": "ASLP.A1.DE20",
+        "code": "ASLP.A1.DE23",
         "display": "Neck Circumference",
         "definition": "Neck Circumference"
       }, {
