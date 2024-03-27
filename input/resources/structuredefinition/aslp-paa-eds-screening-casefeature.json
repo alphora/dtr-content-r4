@@ -37,17 +37,17 @@
       "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
       "valueExpression": {
         "language": "text/cql-identifier",
-        "expression": "Qualifying Excessive Daytime Sleepiness",
+        "expression": "Qualified Excessive Daytime Sleepiness",
         "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
       }
     }
   ],
   "url": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-eds-screening-casefeature",
   "name": "QualifyingExcessiveDaytimeSleepiness",
-  "title": "Qualifying Excessive Daytime Sleepiness",
+  "title": "Qualified Excessive Daytime Sleepiness",
   "status": "draft",
   "experimental": true,
-  "description": "Qualifying Excessive Daytime Sleepiness",
+  "description": "Qualified Excessive Daytime Sleepiness",
   "useContext": [
     {
       "code": {
@@ -73,8 +73,8 @@
       {
         "id": "Observation.code",
         "path": "Observation.code",
-        "short": "Qualifying Excessive Daytime Sleepiness",
-        "definition": "Qualifying Excessive Daytime Sleepiness",
+        "short": "Qualified Excessive Daytime Sleepiness",
+        "definition": "Qualified Excessive Daytime Sleepiness",
         "min": 1,
         "max": "1",
         "type": [
@@ -143,8 +143,8 @@
       {
         "id": "Observation.value[x]",
         "path": "Observation.value[x]",
-        "short": "Qualifying Excessive Daytime Sleepiness",
-        "definition": "Qualifying Excessive Daytime Sleepiness",
+        "short": "Qualified Excessive Daytime Sleepiness",
+        "definition": "Qualified Excessive Daytime Sleepiness",
         "min": 1,
         "max": "1",
         "type": [

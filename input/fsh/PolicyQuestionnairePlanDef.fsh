@@ -18,7 +18,7 @@ Usage: #example
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-patientage-casefeature-definition"
   * input[+]
     * insert ActionInput("Patient has excessive daytime sleepiness?", "Patient has excessive daytime sleepiness")
-    * insert ActionInputCql("Qualifying Excessive Daytime Sleepiness", ASLPPolicyPAA)
+    * insert ActionInputCql("Qualified Excessive Daytime Sleepiness", ASLPPolicyPAA)
     * type = #Observation
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-eds-screening-casefeature"
   * input[+]
