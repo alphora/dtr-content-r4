@@ -25,6 +25,8 @@ define function ReferenceTo(resource Choice<FHIR.Procedure,FHIR.Observation,FHIR
 //TODO: flesh out other types of resources
 define fluent function typeof(resource Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>): 
   case
+    when resource is null then
+      Message(null, true, 'FHIRCommon.typeof.UnknownFHIResource', 'Error', 'Unknown resource type: resource is null')
     when resource is Patient then
       'Patient'
     when resource is Condition then  
@@ -135,7 +137,10 @@ define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.
   CaseFeatureObservation(code, value, Now(), profile, evidences, evidenceText)
 
 define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String, evidences Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>, evidenceText System.String):
-  CaseFeatureObservation(code, value, Now(), profile, {evidences}, evidenceText)
+  if evidences is null then
+    CaseFeatureObservation(code, value, Now(), profile, null as List<FHIR.Observation>, evidenceText)
+  else 
+    CaseFeatureObservation(code, value, Now(), profile, {evidences}, evidenceText)
 
 define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String):
   CaseFeatureObservation(code, value, Now(), profile, null as List<FHIR.Observation>, '')
@@ -156,6 +161,32 @@ define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.
     CaseFeatureObservation(code, value, Now(), profile, evidence as FHIR.Patient, evidenceText)
   else 
     Message(null, true, 'FHIRCommon.CaseFeatureObservation.UnknownFHIResource', 'Error', 'Unknown Resource Type') //should it be ASLPPOlicyCaseFeatures.CaseFeatureObservation instead of FHIRCommon.CaseFeatureObservation
+*/
+
+/*
+define function MostRecentConditionOrObservation(value List<Choice<FHIR.Observation, FHIR.Condition>>):
+  First(
+    value v
+      let mro: MostRecentObservation((value v where v is Observation)),
+        mrc: MostRecentCondition((value v where v is Condition))
+      return 
+        if (mro.effective as FHIR.dateTime > mrc.onset.start) then
+          mro
+        else
+          mrc
+  )
+
+define function MostRecentObservation(value List<FHIR.Observation>):
+  First(
+    value Observation
+      sort by effective descending
+  )
+
+define function MostRecentCondition(value List<FHIR.Condition>):
+  First(
+    value Observation
+      sort by onset.start descending
+  )
 */
 
 //TODO: POC only (need to consider all the Observation considerations)
