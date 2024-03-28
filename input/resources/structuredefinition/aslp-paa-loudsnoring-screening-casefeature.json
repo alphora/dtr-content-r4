@@ -1,0 +1,159 @@
+{
+    "resourceType": "StructureDefinition",
+    "id": "aslp-paa-loudsnoring-screening-casefeature",
+    "meta": {
+      "profile": [
+        "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishablecasefeature"
+      ]
+    },
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+        "valueCode": "shareable"
+      },
+      {
+        "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+        "valueCode": "computable"
+      },
+      {
+        "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+        "valueCode": "executable"
+      },
+      {
+        "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+        "valueCode": "publishable"
+      },
+      {
+        "url" : "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+        "valueCode" : "structured"
+      },
+      {
+        "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
+        "valueReference": {
+          "reference": "Device/cqf-tooling"
+        }
+      },
+      {
+        "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+        "valueExpression": {
+          "language": "text/cql-identifier",
+          "expression": "Loud/Intense Snoring",
+          "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+        }
+      }
+    ],
+    "url": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-loudsnoring-screening-casefeature",
+    "name": "LoudSnoring",
+    "title": "Loud/Intense Snoring",
+    "status": "draft",
+    "experimental": true,
+    "description": "Loud/Intense Snoring",
+    "useContext": [
+      {
+        "code": {
+          "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+          "code": "task",
+          "display": "Workflow Task"
+        }
+      }
+    ],
+    "fhirVersion": "4.0.1",
+    "kind": "resource",
+    "abstract": false,
+    "type": "Condition",
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Condition",
+    "derivation": "constraint",
+    "differential": {
+      "element": [
+        {
+          "id": "Condition",
+          "path": "Condition",
+          "mustSupport": false
+        },
+        {
+          "id": "Condition.code",
+          "path": "Condition.code",
+          "short": "Loud/Intense Snoring",
+          "definition": "Loud/Intense Snoring",
+          "min": 1,
+          "max": "1",
+          "type": [
+            {
+              "code": "CodeableConcept"
+            }
+          ],
+          "mustSupport": true
+        },
+        {
+          "id": "Condition.code.coding",
+          "path": "Condition.code.coding",
+          "min": 1,
+          "max": "1",
+          "slicing": {
+            "discriminator": [
+              {
+                "type": "value",
+                "path": "code"
+              },
+              {
+                "type": "value",
+                "path": "system"
+              }
+            ],
+            "ordered": false,
+            "rules": "open"
+          }
+        },
+        {
+          "id": "Condition.code.coding:LoudSnoringCode",
+          "path": "Condition.code.coding",
+          "sliceName": "LoudSnoringCode",
+          "min": 1,
+          "max": "1",
+          "type": [
+            {
+              "code": "Coding"
+            }
+          ]
+        },
+        {
+          "id": "Condition.code.coding:LoudSnoringCode.system",
+          "path": "Condition.code.coding.system",
+          "min": 1,
+          "max": "1",
+          "type": [
+            {
+              "code": "uri"
+            }
+          ],
+          "fixedUri": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes"
+        },
+        {
+          "id": "Condition.code.coding:LoudSnoringCode.code",
+          "path": "Condition.code.coding.code",
+          "min": 1,
+          "max": "1",
+          "type": [
+            {
+              "code": "code"
+            }
+          ],
+          "fixedCode": "Loud-Snoring"
+        },
+        {
+          "id": "Condition.value[x]",
+          "path": "Condition.value[x]",
+          "short": "Loud/Intense Snoring",
+          "definition": "Loud/Intense Snoring",
+          "min": 1,
+          "max": "1",
+          "type": [
+            {
+              "code": "boolean"
+            }
+          ],
+          "mustSupport": true
+        }
+      ]
+    }
+  }

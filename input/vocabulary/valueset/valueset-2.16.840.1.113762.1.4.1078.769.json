@@ -1,0 +1,104 @@
+{
+  "resourceType": "ValueSet",
+  "id": "2.16.840.1.113762.1.4.1078.769",
+  "meta": {
+    "profile": [ "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-shareablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-executablevalueset" ]
+  },
+  "extension": [ {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "shareable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "narrative"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "publishable"
+  }, {
+    "url": "http://fhir.org/guides/cdc/opioid-cds/StructureDefinition/cdc-valueset-inclusion",
+    "valueString": "Includes only relevant concepts associated with drowsiness in SNOMED CT and ICD10 CM codes"
+  }, {
+    "url": "http://fhir.org/guides/cdc/opioid-cds/StructureDefinition/cdc-valueset-exclusion",
+    "valueString": "None"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-usageWarning",
+    "valueString": "This value set contains a point-in-time expansion enumerating the codes that meet the value set intent. As new versions of the code systems used by the value set are released, the contents of this expansion will need to be updated to incorporate newly defined codes that meet the value set intent. Before, and periodically during production use, the value set expansion contents SHOULD be updated. The value set expansion specifies the timestamp when the expansion was produced, SHOULD contain the parameters used for the expansion, and SHALL contain the codes that are obtained by evaluating the value set definition. If this is ONLY an executable value set, a distributable definition of the value set must be obtained to compute the updated expansion."
+  } ],
+  "url": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1078.769",
+  "version": "20231215",
+  "title": "Drowsiness",
+  "status": "active",
+  "experimental": false,
+  "publisher": "Optum",
+  "description": "This value set contains concepts that represent drowsiness",
+  "purpose": "This value set may use the Quality Data Model (QDM) category related to Symptom.",
+  "expansion": {
+    "timestamp": "2024-03-20T10:54:11-04:00",
+    "contains": [ {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2024",
+      "code": "R40.0",
+      "display": "Somnolence"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "141000119100",
+      "display": "Daytime somnolence (finding)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "194439006",
+      "display": "Disorder of excessive somnolence (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "230492006",
+      "display": "Excessive daytime sleepiness with sleep paralysis (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "267088000",
+      "display": "Gets drowsiness (finding)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "271782001",
+      "display": "Drowsy (finding)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "313432002",
+      "display": "Post-ictal drowsiness (finding)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "315243006",
+      "display": "Intermittent drowsiness (finding)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "370971007",
+      "display": "Somnolence syndrome (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "372947007",
+      "display": "Excessive somnolence (finding)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "418424006",
+      "display": "Post-radiotherapy somnolence syndrome (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "95631006",
+      "display": "Drowsiness of the newborn (disorder)"
+    } ]
+  }
+}

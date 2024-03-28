@@ -1,0 +1,28 @@
+{
+  "resourceType": "ValueSet",
+  "id": "ModerateToSeverePulmonaryDisease",
+  "url": "http://example.org/sdh/dtr/aslp/ValueSet/ModerateToSeverePulmonaryDisease",
+  "name": "ModerateToSeverePulmonaryDisease",
+  "title": "Moderate to Severe Pulmonary Disease",
+  "status": "draft",
+  "experimental": false,
+  "description": "Codes representing Moderate to Severe Pulmonary Disease",
+  "compose": {
+    "include": [
+      {
+        "system": "http://snomed.info/sct",
+        "version": "2023-09",
+        "concept": [
+          {
+            "code": "840307003",
+            "display": "Moderate pulmonary hypertension (disorder)"
+          },
+          {
+            "code": "840308008",
+            "display": "Severe pulmonary hypertension (disorder)"
+          }
+        ]
+      }
+    ]
+  }
+}
