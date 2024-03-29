@@ -82,63 +82,16 @@
             "code": "CodeableConcept"
           }
         ],
-        "mustSupport": true
-      },
-      {
-        "id": "Observation.code.coding",
-        "path": "Observation.code.coding",
-        "min": 1,
-        "max": "1",
-        "slicing": {
-          "discriminator": [
+        "mustSupport": true,
+        "patternCodeableConcept": {
+          "coding": [
             {
-              "type": "value",
-              "path": "code"
-            },
-            {
-              "type": "value",
-              "path": "system"
+              "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes",
+              "code": "Moderate-To-Severe-Pulmonary-Disease-Including-Asthma",
+              "display": "Qualifying Moderate To Severe Pulmonary Disease Including Asthma"
             }
-          ],
-          "ordered": false,
-          "rules": "open"
+          ]
         }
-      },
-      {
-        "id": "Observation.code.coding:ModerateToSeverePulmonaryDiseaseIncludingAsthmaCode",
-        "path": "Observation.code.coding",
-        "sliceName": "ModerateToSeverePulmonaryDiseaseIncludingAsthmaCode",
-        "min": 1,
-        "max": "1",
-        "type": [
-          {
-            "code": "Coding"
-          }
-        ]
-      },
-      {
-        "id": "Observation.code.coding:ModerateToSeverePulmonaryDiseaseIncludingAsthmaCode.system",
-        "path": "Observation.code.coding.system",
-        "min": 1,
-        "max": "1",
-        "type": [
-          {
-            "code": "uri"
-          }
-        ],
-        "fixedUri": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes"
-      },
-      {
-        "id": "Observation.code.coding:ModerateToSeverePulmonaryDiseaseIncludingAsthmaCode.code",
-        "path": "Observation.code.coding.code",
-        "min": 1,
-        "max": "1",
-        "type": [
-          {
-            "code": "code"
-          }
-        ],
-        "fixedCode": "Moderate-To-Severe-Pulmonary-Disease-Including-Asthma"
       },
       {
         "id": "Observation.value[x]",

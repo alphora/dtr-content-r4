@@ -60,19 +60,19 @@
     "fhirVersion": "4.0.1",
     "kind": "resource",
     "abstract": false,
-    "type": "Condition",
-    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Condition",
+    "type": "Observation",
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
     "derivation": "constraint",
     "differential": {
       "element": [
         {
-          "id": "Condition",
-          "path": "Condition",
+          "id": "Observation",
+          "path": "Observation",
           "mustSupport": false
         },
         {
-          "id": "Condition.code",
-          "path": "Condition.code",
+          "id": "Observation.code",
+          "path": "Observation.code",
           "short": "Nocturnal Apnea",
           "definition": "Nocturnal Apnea",
           "min": 1,
@@ -82,67 +82,20 @@
               "code": "CodeableConcept"
             }
           ],
-          "mustSupport": true
-        },
-        {
-          "id": "Condition.code.coding",
-          "path": "Condition.code.coding",
-          "min": 1,
-          "max": "1",
-          "slicing": {
-            "discriminator": [
+          "mustSupport": true,
+          "patternCodeableConcept": {
+            "coding": [
               {
-                "type": "value",
-                "path": "code"
-              },
-              {
-                "type": "value",
-                "path": "system"
+                "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes",
+                "code": "Nocturnal-Apnea",
+                "display": "Nocturnal Apnea"
               }
-            ],
-            "ordered": false,
-            "rules": "open"
+            ]
           }
         },
         {
-          "id": "Condition.code.coding:NocturnalApneaCode",
-          "path": "Condition.code.coding",
-          "sliceName": "NocturnalApneaCode",
-          "min": 1,
-          "max": "1",
-          "type": [
-            {
-              "code": "Coding"
-            }
-          ]
-        },
-        {
-          "id": "Condition.code.coding:NocturnalApneaCode.system",
-          "path": "Condition.code.coding.system",
-          "min": 1,
-          "max": "1",
-          "type": [
-            {
-              "code": "uri"
-            }
-          ],
-          "fixedUri": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes"
-        },
-        {
-          "id": "Condition.code.coding:NocturnalApneaCode.code",
-          "path": "Condition.code.coding.code",
-          "min": 1,
-          "max": "1",
-          "type": [
-            {
-              "code": "code"
-            }
-          ],
-          "fixedCode": "Nocturnal-Apnea"
-        },
-        {
-          "id": "Condition.value[x]",
-          "path": "Condition.value[x]",
+          "id": "Observation.value[x]",
+          "path": "Observation.value[x]",
           "short": "Nocturnal Apnea",
           "definition": "Nocturnal Apnea",
           "min": 1,

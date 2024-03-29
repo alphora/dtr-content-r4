@@ -82,51 +82,16 @@
             "code": "CodeableConcept"
           }
         ],
-        "mustSupport": true
-      },
-      {
-        "id": "Observation.code.coding",
-        "path": "Observation.code.coding",
-        "min": 1,
-        "max": "1",
-        "slicing": {
-          "discriminator": [
+        "mustSupport": true,
+        "patternCodeableConcept": {
+          "coding": [
             {
-              "type": "value",
-              "path": "code"
-            },
-            {
-              "type": "value",
-              "path": "system"
+              "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes",
+              "code": "Qualifying-Excessive-Daytime-Sleepiness",
+              "display": "Qualified Excessive Daytime Sleepiness"
             }
-          ],
-          "ordered": false,
-          "rules": "open"
+          ]
         }
-      },
-      {
-        "id": "Observation.code.coding:QualifyingExcessiveDaytimeSleepinessCode",
-        "path": "Observation.code.coding",
-        "sliceName": "QualifyingExcessiveDaytimeSleepinessCode",
-        "min": 1,
-        "max": "1",
-        "type": [
-          {
-            "code": "Coding"
-          }
-        ]
-      },
-      {
-        "id": "Observation.code.coding:QualifyingExcessiveDaytimeSleepinessCode.system",
-        "path": "Observation.code.coding.system",
-        "min": 1,
-        "max": "1",
-        "type": [
-          {
-            "code": "uri"
-          }
-        ],
-        "fixedUri": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes"
       },
       {
         "id": "Observation.code.coding:QualifyingExcessiveDaytimeSleepinessCode.code",
