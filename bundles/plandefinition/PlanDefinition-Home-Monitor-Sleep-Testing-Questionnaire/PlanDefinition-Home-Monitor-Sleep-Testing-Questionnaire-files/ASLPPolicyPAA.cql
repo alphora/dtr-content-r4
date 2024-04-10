@@ -494,7 +494,7 @@ define "Not Approved Home Criteria":
 
 //Not Approved Null Response
 define "Temporarily Not Approved":
-  'Prior Authorization Temporarily DENIED.'
+  'Prior Authorization PENDING.'
     + "LineBreak" + 'Reasoning:'
     + Coalesce(
       if "Age Unknown" then 'Please enter the following: Patient Age' else null, 

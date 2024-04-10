@@ -9,6 +9,7 @@ include USCoreCommon
 include FHIRHelpers version '4.1.000'
 
 valueset "Prior Auth Required for Procedure Valueset": 'http://terminology.smilecdr.com/cs/priorauth'
+valueset "Prior Auth Required for Procedure Grouper": 'http://terminology.smilecdr.com/cs/priorauth-grouper'
 
 context Patient
 
@@ -64,4 +65,4 @@ define function "Not OnPriorAuthList"(requestItem Choice<FHIR.NutritionOrder, FH
 
 define function "Prior Auth Required Service Requests"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
   ({ requestItem }) R
-    where (Ctx.GetCode(R)) in "Prior Auth Required for Procedure Valueset"
+    where (Ctx.GetCode(R)) in "Prior Auth Required for Procedure Grouper"

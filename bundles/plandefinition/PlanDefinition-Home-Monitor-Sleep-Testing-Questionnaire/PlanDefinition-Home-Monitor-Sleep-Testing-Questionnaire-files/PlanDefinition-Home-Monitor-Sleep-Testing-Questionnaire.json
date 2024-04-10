@@ -127,7 +127,7 @@
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
                 "language": "text/cql-identifier",
-                "expression": "Qualifying Excessive Daytime Sleepiness",
+                "expression": "Qualified Excessive Daytime Sleepiness",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
             }
