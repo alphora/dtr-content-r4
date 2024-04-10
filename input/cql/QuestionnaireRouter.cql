@@ -16,11 +16,10 @@ define "CanonicalBase": 'http://example.org/sdh/dtr/aslp'
 
 define function GetAdaptiveQuestionnairePlanDefinition(procedureCode System.Code) 
 returns System.String:
-    // TODO: create a valueset for sleep study codes to compare to procedureCode
     if (procedureCode in "Sleep Study Procedure") then
         "CanonicalBase" + '/PlanDefinition/Home-Monitor-Sleep-Testing-Questionnaire'
     else if (procedureCode in "Other Example Procedure") then
         "CanonicalBase" + '/Questionnaire/ASLP1'
     else
-        //null as System.String
-        Message(null, true, 'QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition', 'Error', 'Error: Adapative Questionnaire PlanDefinition not found for code ' + procedureCode.code + '. (code=' + procedureCode.code + '; system=' + procedureCode.system + ')')
+        null as System.String
+        //Message(null, true, 'QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition', 'Error', 'Error: Adapative Questionnaire PlanDefinition not found for code ' + procedureCode.code + '. (code=' + procedureCode.code + '; system=' + procedureCode.system + ')')

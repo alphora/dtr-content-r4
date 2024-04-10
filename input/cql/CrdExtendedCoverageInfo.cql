@@ -122,14 +122,6 @@ returns FHIR.Extension:
 
 define function "QuestionnaireExtension"(procedureCode System.Code)
 returns FHIR.Extension:
-  // TODO: need to figure this out
-  // Ideas: 
-  // - ConceptMap for Service Code -> Questionnaire Canonical
-  //   - ConceptMap would need to be part of the patient context somehow
-  // - ValueSet of Service Codes per Questionnaire Canonical
-  //   - CQL file to match ValueSets to Canonicals
-  // - Related Context Retreive to get Questionnaire?
-  //   - https://cql.hl7.org/03-developersguide.html#related-context-retrieves
   FHIR.Extension {
     "url": FHIR.uri { "value": 'questionnaire' },
     "value": FHIR.canonical { "value": QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode) } 
