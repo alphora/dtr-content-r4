@@ -6,6 +6,7 @@ using FHIR version '4.0.1'
 
 include USCoreCommon
 include FHIRHelpers version '4.1.000'
+include QuestionnaireRouter
 
 context Patient
 
@@ -131,7 +132,7 @@ returns FHIR.Extension:
   //   - https://cql.hl7.org/03-developersguide.html#related-context-retrieves
   FHIR.Extension {
     "url": FHIR.uri { "value": 'questionnaire' },
-    "value": FHIR.canonical { "value": 'http://example.org/sdh/dtr/aslp/Questionnaire/ASLPA1' } 
+    "value": FHIR.canonical { "value": QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode) } 
   }
 
 // code = auth-needed|no-auth|gold-card|not-covered, warningOrInfo = Warning|info, qualification = {open text entry}
