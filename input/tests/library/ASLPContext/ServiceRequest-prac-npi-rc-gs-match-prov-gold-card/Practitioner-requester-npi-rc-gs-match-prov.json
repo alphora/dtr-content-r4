@@ -1,0 +1,46 @@
+{
+  "resourceType": "Practitioner",
+  "id": "Practitioner-requester-npi-rc-gs-match-prov",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+    ]
+  },
+  "identifier": [
+    {
+      "system": "http://hl7.org/fhir/sid/us-npi",
+      "value": "9292929288"
+    }
+  ],
+  "name": [
+    {
+      "family": "Grey",
+      "given": [
+        "Meredith"
+      ],
+      "prefix": [
+        "DR."
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "901-783-2901"
+    }
+  ],
+  "address": [
+    {
+      "use": "work",
+      "line": [
+        "20 Hollywood ave"
+      ],
+      "city": "Seattle",
+      "state": "WA",
+      "postalCode": "98101"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1966-07-24",
+  "active": true
+}

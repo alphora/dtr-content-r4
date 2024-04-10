@@ -1,0 +1,45 @@
+{
+  "resourceType": "Organization",
+  "id": "Provider-Insurance-Example-NPI-Mismatch",
+  "meta": {
+    "tag": [
+      {
+        "code": "prov",
+        "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+        "display": "Provider"
+      }
+    ]
+  },
+  "active": true,
+  "identifier": [
+    {
+      "system": "http://hl7.org/fhir/sid/us-npi",
+      "value": "5556667777"
+    }
+  ],
+  "name": "Good Insurance Co.",
+  "alias": [
+    "GoodI"
+  ],
+  "telecom": [
+    {
+      "use": "work",
+      "system": "phone",
+      "value": "613 316 0631"
+    }
+  ],
+  "address": [
+    {
+      "use": "work",
+      "line": [
+        "1800 Covered Lane"
+      ],
+      "city": "San Diego",
+      "state": "CA",
+      "postalCode": "91932",
+      "period": {
+        "start": "1902-01-01"
+      }
+    }
+  ]
+}

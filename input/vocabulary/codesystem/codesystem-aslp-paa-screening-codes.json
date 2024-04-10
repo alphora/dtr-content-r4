@@ -1,0 +1,91 @@
+{
+  "resourceType": "CodeSystem",
+  "id": "aslp-paa-screening-codes",
+  "url": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes",
+  "name": "aslppaacodes",
+  "title": "ASLP PAA Codes",
+  "status": "draft",
+  "experimental": false,
+  "description": "Set of codes representing all concepts used in the paa policies",
+  "caseSensitive": true,
+  "content": "complete",
+  "concept": [ {
+    "code": "Home-Monitor-Sleep-Testing",
+    "display": "Home monitor sleep testing",
+    "definition": "Home/portable monitor sleep testing"
+  }, {
+    "code": "Qualifying-Patient-Age",
+    "display": "Qualifying Patient Age",
+    "definition": "Home/portable monitor sleep testing - Qualifying Patient Age"
+  },
+  {
+    "code": "Qualifying-Excessive-Daytime-Sleepiness",
+    "display": "Qualified Excessive Daytime Sleepiness",
+    "definition": "Home/portable monitor sleep testing - Excessive Daytime Sleepiness"
+  },
+  {
+    "code": "Epworth-Sleepiness-Scale-Score",
+    "display": "ESS Score >= 10",
+    "definition": "Home/portable monitor sleep testing - Epworth Sleepiness Scale Score >= 10"
+  },
+  {
+    "code": "Excessive-Sleepiness-While-Driving",
+    "display": "Qualifying Excessive Sleepiness While Driving",
+    "definition": "Home/portable monitor sleep testing - Qualifying Excessive Sleepiness While Driving"
+  },
+  {
+    "code": "Loud-Snoring",
+    "display": "Loud/Intense Snoring",
+    "definition": "Home/portable monitor sleep testing - Loud/Intense Snoring"
+  },
+  {
+    "code": "Nocturnal-Apnea",
+    "display": "Nocturnal Apnea",
+    "definition": "Home/portable monitor sleep testing - Nocturnal Apnea"
+  },
+  {
+    "code": "Absence-Of-Comorbid-Conditions",
+    "display": "Qualifying Absence Of Comorbid Medical Conditions",
+    "definition": "Home/portable monitor sleep testing - Absence Of Comorbid Medical Conditions"
+  },
+  {
+    "code": "Moderate-To-Severe-Pulmonary-Disease",
+    "display": "Qualifying Moderate To Severe Pulmonary Disease",
+    "definition": "Home/portable monitor sleep testing - Moderate To Severe Pulmonary Disease"
+  },
+  {
+    "code": "Moderate-To-Severe-Pulmonary-Disease-Including-COPD",
+    "display": "Qualifying Moderate To Severe Pulmonary Disease Including COPD",
+    "definition": "Home/portable monitor sleep testing - Moderate To Severe Pulmonary Disease Including COPD"
+  },
+  {
+    "code": "Moderate-To-Severe-Pulmonary-Disease-Including-Asthma",
+    "display": "Qualifying Moderate To Severe Pulmonary Disease Including Asthma",
+    "definition": "Home/portable monitor sleep testing - Moderate To Severe Pulmonary Disease Including Asthma"
+  },
+  {
+    "code": "Neuromuscular-Disease-With-Pulmonary-Disease",
+    "display": "Qualifying Neuromuscular Disease With Associated Pulmonary Disease",
+    "definition": "Home/portable monitor sleep testing - Neuromuscular Disease With Associated Pulmonary Disease"
+  },
+  {
+    "code": "Qualifying-Cardiac-Disease",
+    "display": "Qualifying Cardiac Disease",
+    "definition": "Home/portable monitor sleep testing - Cardiac Disease"
+  },
+  {
+    "code": "Uses-Qualified-Device",
+    "display": "Uses A Qualified Device",
+    "definition": "Home/portable monitor sleep testing - Uses A Qualified Device"
+  },
+  {
+    "code": "Safe-Equipment-Use-At-Home",
+    "display": "Safe Equipment Use At Home",
+    "definition": "Home/portable monitor sleep testing - Safe Equipment Use At Home"
+  },
+  {
+    "code": "Physician-Evaluate-Results",
+    "display": "Physician Evaluated Results",
+    "definition": "Home/portable monitor sleep testing - Physician Evaluated Results"
+  } ]
+}

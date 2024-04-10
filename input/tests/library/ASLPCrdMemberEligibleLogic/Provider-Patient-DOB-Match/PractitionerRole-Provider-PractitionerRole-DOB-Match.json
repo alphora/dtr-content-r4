@@ -1,0 +1,62 @@
+{
+  "resourceType": "PractitionerRole",
+  "id": "Provider-PractitionerRole-DOB-Match",
+  "meta": {
+    "tag": [
+      {
+        "code": "prov",
+        "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+        "display": "Provider"
+      }
+    ],
+    "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/Practitioner"
+    ]
+  },
+  "identifier": [
+    {
+      "system": "http://hl7.org.fhir/sid/us-npi",
+      "value": "1234567890"
+    }
+  ],
+  "active": true,
+  "code": [
+    {
+      "coding": [
+        {
+          "code": "106291005",
+          "system": "http://terminology.hl7.org/CodeSystem/v3-ParticipationFunction",
+          "display": "Dietician"
+        }
+      ]
+    }
+  ],
+  "specialty": [
+    {
+      "coding": [
+        {
+          "code": "171400000X",
+          "system": "http://nucc.org/provider-taxonomy",
+          "display": "Health and Wellness Coach"
+        }
+      ]
+    }
+  ],
+  "period": {
+    "start": "2010-01-01",
+    "end": "2040-01-01"
+  },
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "(237) 998 327"
+    }
+  ],
+  "organization": {
+    "reference": "Organization/Provider-Insurance-DOB-Match"
+  },
+  "practitioner": {
+    "reference": "Practitioner/Provider-Practitioner-DOB-Match",
+    "display": "Dr. Curious George"
+  }
+}

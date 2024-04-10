@@ -1,0 +1,33 @@
+{
+    "resourceType": "ServiceRequest",
+    "meta": {
+        "profile": [
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-sleep-study-order",
+            "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-servicerequest"
+        ]
+    },
+    "id": "example-provider-SleepStudy",
+    "status": "draft",
+    "intent": "order",
+    "code": {
+        "coding": [
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "93010",
+                "display": "ELECTROCARDIOGRAM REPORT"
+            }
+        ],
+        "text": "ELECTROCARDIOGRAM REPORT"
+    },
+    "subject": {
+        "reference": "Patient/example-provider"
+    },
+    "requester": {
+        "reference": "Practitioner/provider-Practitioner-1"
+    },
+    "performer": [{
+        "reference": "Practitioner/provider-Practitioner-2"
+    }],
+    "authoredOn": "2023-04-06",
+    "occurrenceDateTime": "2023-04-10"
+}

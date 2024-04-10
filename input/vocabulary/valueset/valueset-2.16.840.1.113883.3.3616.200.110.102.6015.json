@@ -1,0 +1,125 @@
+{
+  "resourceType": "ValueSet",
+  "id": "2.16.840.1.113883.3.3616.200.110.102.6015",
+  "meta": {
+    "profile": [ "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-shareablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-executablevalueset" ]
+  },
+  "extension": [ {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "shareable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "narrative"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "publishable"
+  }, {
+    "url": "http://fhir.org/guides/cdc/opioid-cds/StructureDefinition/cdc-valueset-inclusion",
+    "valueString": "Includes amyotrophic lateral sclerosis."
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-usageWarning",
+    "valueString": "This value set contains a point-in-time expansion enumerating the codes that meet the value set intent. As new versions of the code systems used by the value set are released, the contents of this expansion will need to be updated to incorporate newly defined codes that meet the value set intent. Before, and periodically during production use, the value set expansion contents SHOULD be updated. The value set expansion specifies the timestamp when the expansion was produced, SHOULD contain the parameters used for the expansion, and SHALL contain the codes that are obtained by evaluating the value set definition. If this is ONLY an executable value set, a distributable definition of the value set must be obtained to compute the updated expansion."
+  } ],
+  "url": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.3616.200.110.102.6015",
+  "version": "20221207",
+  "title": "COVID19 SNOMED Value Set for Amyotrophic Lateral Sclerosis",
+  "status": "active",
+  "experimental": false,
+  "publisher": "Clinical Architecture",
+  "description": "This set of values contains terms related to amyotrophic lateral sclerosis and is listed as a neurologic disorder on the CDC SARS-CoV-2 hospitalization surveillance case report form.",
+  "expansion": {
+    "timestamp": "2024-03-15T13:41:51-04:00",
+    "contains": [ {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "1197523001",
+      "display": "Autosomal dominant amyotrophic lateral sclerosis type 1 (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "1197524007",
+      "display": "Autosomal recessive amyotrophic lateral sclerosis type 1 (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "1201863001",
+      "display": "Amyotrophic lateral sclerosis type 1 (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "1201947005",
+      "display": "Juvenile amyotrophic lateral sclerosis type 2 (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "1201950008",
+      "display": "Amyotrophic lateral sclerosis type 3 (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "1201961000",
+      "display": "Juvenile amyotrophic lateral sclerosis type 5 (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "1204334005",
+      "display": "Amyotrophic lateral sclerosis type 6 (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "1204349002",
+      "display": "Amyotrophic lateral sclerosis type 7 (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "1204350002",
+      "display": "Amyotrophic lateral sclerosis type 8 (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "1204351003",
+      "display": "Amyotrophic lateral sclerosis type 9 (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "1208412003",
+      "display": "Amyotrophic lateral sclerosis type 10 (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "230258005",
+      "display": "Amyotrophic lateral sclerosis with dementia (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "718555006",
+      "display": "Juvenile amyotrophic lateral sclerosis (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "722987009",
+      "display": "Amyotrophic lateral sclerosis plus syndrome (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "784341001",
+      "display": "Amyotrophic lateral sclerosis type 4 (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "838276009",
+      "display": "Amyotrophic lateral sclerosis, parkinsonism, dementia complex (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "86044005",
+      "display": "Amyotrophic lateral sclerosis (disorder)"
+    } ]
+  }
+}

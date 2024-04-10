@@ -1,0 +1,24 @@
+{
+  "resourceType": "Coverage",
+  "id": "crd-2-last-name-mismatch-provider-coverage-1",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/davinci-crd/StructureDefinition/profile-coverage"
+    ]
+  },
+  "identifier": [
+    {
+      "system": "http://acme.org/fhir-ns/payor-coverage-identifier-system",
+      "value": "12345"
+    }
+  ],
+  "status": "active",
+  "beneficiary": {
+    "reference": "Patient/crd-2-last-name-mismatch"
+  },
+  "payor": [
+    {
+      "reference": "Organization/crd-2-last-name-mismatch-provider-NYS-Medicaid"
+    }
+  ]
+}

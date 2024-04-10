@@ -1,0 +1,24 @@
+{
+  "resourceType": "Coverage",
+  "id": "crd-3-2b-org-not-linked-provider-coverage-1",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/davinci-crd/StructureDefinition/profile-coverage"
+    ]
+  },
+  "identifier": [
+    {
+      "system": "http://acme.org/fhir-ns/payor-coverage-identifier-system",
+      "value": "12345"
+    }
+  ],
+  "status": "active",
+  "beneficiary": {
+    "reference": "Patient/crd-3-2b-org-not-linked"
+  },
+  "payor": [
+    {
+      "reference": "Organization/crd-3-2b-org-not-linked-provider-NYS-Medicaid"
+    }
+  ]
+}

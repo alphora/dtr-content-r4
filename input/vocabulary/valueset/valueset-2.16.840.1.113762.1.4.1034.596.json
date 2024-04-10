@@ -1,0 +1,69 @@
+{
+  "resourceType": "ValueSet",
+  "id": "2.16.840.1.113762.1.4.1034.596",
+  "meta": {
+    "profile": [ "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-shareablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-executablevalueset" ]
+  },
+  "extension": [ {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "shareable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "narrative"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "publishable"
+  }, {
+    "url": "http://fhir.org/guides/cdc/opioid-cds/StructureDefinition/cdc-valueset-inclusion",
+    "valueString": "Parkinson's disease"
+  }, {
+    "url": "http://fhir.org/guides/cdc/opioid-cds/StructureDefinition/cdc-valueset-exclusion",
+    "valueString": "Dementias due to Parkinson's disease."
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-usageWarning",
+    "valueString": "This value set contains a point-in-time expansion enumerating the codes that meet the value set intent. As new versions of the code systems used by the value set are released, the contents of this expansion will need to be updated to incorporate newly defined codes that meet the value set intent. Before, and periodically during production use, the value set expansion contents SHOULD be updated. The value set expansion specifies the timestamp when the expansion was produced, SHOULD contain the parameters used for the expansion, and SHALL contain the codes that are obtained by evaluating the value set definition. If this is ONLY an executable value set, a distributable definition of the value set must be obtained to compute the updated expansion."
+  } ],
+  "url": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1034.596",
+  "version": "20210428",
+  "title": "Parkinson's Disease (SNOMED)",
+  "status": "active",
+  "experimental": false,
+  "publisher": "American Academy of Neurology",
+  "description": "This value set includes SNOMED concepts for Parkinson's Disease.",
+  "purpose": "The intent of this data element is to identify patients with Parkinson's Disease. This element may map to the \"Diagnosis\" Category of the Quality Data Model.",
+  "expansion": {
+    "timestamp": "2024-03-15T13:41:51-04:00",
+    "contains": [ {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "230291001",
+      "display": "Juvenile Parkinson's disease (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "32798002",
+      "display": "Parkinsonism (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "49049000",
+      "display": "Parkinson's disease (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "715345007",
+      "display": "Young onset Parkinson disease (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2023-09",
+      "code": "737582007",
+      "display": "Hemiparkinsonism hemiatrophy syndrome (disorder)"
+    } ]
+  }
+}

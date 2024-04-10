@@ -1,0 +1,24 @@
+{
+  "resourceType": "Coverage",
+  "id": "crd-7-routine-code-provider-coverage-1",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/davinci-crd/StructureDefinition/profile-coverage"
+    ]
+  },
+  "identifier": [
+    {
+      "system": "http://acme.org/fhir-ns/payor-coverage-identifier-system",
+      "value": "12345"
+    }
+  ],
+  "status": "active",
+  "beneficiary": {
+    "reference": "Patient/crd-7-routine-code"
+  },
+  "payor": [
+    {
+      "reference": "Organization/crd-7-routine-code-provider-NYS-Medicaid"
+    }
+  ]
+}

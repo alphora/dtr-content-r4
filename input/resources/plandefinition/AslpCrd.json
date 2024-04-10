@@ -6,7 +6,7 @@
       "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-recommendationdefinition"
     ]
   },
-  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPA1",
+  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd",
   "identifier": [
     {
       "use": "official",
@@ -115,9 +115,9 @@
       ],
       "action" : [
         {
-          "description": "Document - Document Prior Auth Requirements"
+          "description": "Document - Document prior authorization requirements"
         }, {
-          "description": "Snooze - Prior author will be done manually"
+          "description": "Snooze - Prior authorization will be done manually"
         }, {
           "description": "Remove - Will remove trigger sleep order"
         }

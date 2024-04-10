@@ -1,0 +1,57 @@
+{
+  "resourceType": "Practitioner",
+  "id": "Payor-Practitioner-6",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/core/StructureDefinition/us-core-practitioner"
+    ],
+    "tag": [
+      {
+        "code": "pay",
+        "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+        "display": "Payor"
+      }
+    ]
+  },
+  "identifier": [
+    {
+      "system": "http://hl7.org/fhir/sid/us-npi",
+      "value": "2143658709"
+    }
+  ],
+  "name": [
+    {
+      "family": "Davis",
+      "given": [
+        "Brooke"
+      ],
+      "prefix": [
+        "DR."
+      ]
+    }
+  ],
+  "telecom": [
+    {
+      "system": "phone",
+      "value": "(237) 889 724"
+    }
+  ],
+  "address": [
+    {
+      "use": "work",
+      "type": "both",
+      "line": [
+        "1 Broadway Av"
+      ],
+      "city": "New York",
+      "state": "NY",
+      "postalCode": "10019",
+      "period": {
+        "start": "2016-01-30"
+      }
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1990-04-11",
+  "active": true
+}

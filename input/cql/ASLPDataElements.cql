@@ -16,7 +16,9 @@ parameter "Medication Request Id" List<System.String>
 parameter "Nutrition Order" List<FHIR.NutritionOrder>
 parameter "Nutrition Order Id" List<System.String>
 parameter "Service Request" List<FHIR.ServiceRequest>
-parameter "Service Request Id" List<System.String> default { 'SleepStudy', 'SleepStudy2' }
+parameter "Service Request Id" List<System.String> 
+  // TODO: remove defaults for production use
+  default { 'required-SleepStudy', 'not-required-SleepStudy', 'SleepStudy', 'SleepStudy2' }
 parameter "Coverage Id" List<System.String>
 
 context Patient

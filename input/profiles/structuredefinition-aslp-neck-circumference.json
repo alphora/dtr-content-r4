@@ -45,7 +45,7 @@
       "mustSupport": true,
       "mapping": [ {
         "identity": "ASLP",
-        "map": "ASLP.A1.DE20"
+        "map": "ASLP.A1.DE23"
       } ]
     }, {
       "id": "Observation.value[x]",
@@ -60,7 +60,7 @@
       "mustSupport": true,
       "mapping": [ {
         "identity": "ASLP",
-        "map": "ASLP.A1.DE20"
+        "map": "ASLP.A1.DE23"
       } ]
     } ]
   }

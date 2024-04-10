@@ -1,0 +1,34 @@
+{
+  "resourceType": "ServiceRequest",
+  "id": "NPI-Match-SleepStudy",
+  "status": "draft",
+  "intent": "order",
+  "code": {
+    "coding": [
+      {
+          "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes",
+          "code": "ASLP.A1.DE2",
+          "display": "Home sleep apnea testing (HSAT)"
+      }
+  ],
+  "text": "Home sleep apnea testing (HSAT)"
+  },
+  "subject": {
+    "reference": "Patient/Provider-Patient-NPI-Match"
+  },
+  "authoredOn": "2023-03-23",
+  "reasonReference": [
+    {
+      "reference": "Condition/Sleep-Apnea-P3"
+    }
+  ],
+  "requester": {
+    "reference": "Practitioner/Provider-Practitioner-NPI-Match-1"
+  },
+  "performer": [
+    {
+      "reference": "Practitioner/Provider-Practitioner-NPI-Match-2"
+    }
+  ],
+  "occurrenceDateTime": "2023-03-23T15:35:01+01:00"
+}

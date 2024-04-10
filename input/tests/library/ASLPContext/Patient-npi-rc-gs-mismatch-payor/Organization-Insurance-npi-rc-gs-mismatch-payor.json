@@ -1,0 +1,45 @@
+{
+  "resourceType": "Organization",
+  "id": "Insurance-npi-rc-gs-mismatch-payor",
+  "meta": {
+    "tag": [
+      {
+        "code": "pay",
+        "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+        "display": "Payor"
+      }
+    ]
+  },
+  "active": true,
+  "identifier": [
+    {
+      "system": "http://hl7.org/fhir/sid/us-npi",
+      "value": "0192837465"
+    }
+  ],
+  "name": "Best Insurance Co.",
+  "alias": [
+    "BestI"
+  ],
+  "telecom": [
+    {
+      "use": "work",
+      "system": "phone",
+      "value": "212 555 0010"
+    }
+  ],
+  "address": [
+    {
+      "use": "work",
+      "line": [
+        "1 Insured Rd."
+      ],
+      "city": "New York",
+      "state": "NY",
+      "postalCode": "10002",
+      "period": {
+        "start": "1901-01-01"
+      }
+    }
+  ]
+}

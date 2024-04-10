@@ -1,0 +1,30 @@
+{
+  "resourceType": "RelatedPerson",
+  "id": "example-payor",
+  "meta": {
+    "tag": [
+      { "system": "http://terminology.hl7.org/CodeSystem/organization-type", "code": "pay" }
+    ]
+  },
+  "patient": { "reference": "Patient/example-provider" },
+  "relationship": [
+    {
+      "coding": [
+        {
+          "system": "http://terminology.hl7.org/CodeSystem/v3-RoleCode",
+          "code": "ONESELF"
+        }
+      ]
+    }
+  ],
+  "name": [
+    {
+      "use": "official",
+      "family": "Different",
+      "given": [
+        "Peter"
+      ]
+    }
+  ],
+  "birthDate": "1974-12-25"
+}
