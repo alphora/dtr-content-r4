@@ -1,0 +1,33 @@
+{
+  "resourceType": "Encounter",
+  "id": "Encounter-paa-example-4",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter"
+    ]
+  },
+  "status": "finished",
+  "class": {
+    "code": "AMB",
+    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+    "display": "Ambulatory"
+  },
+  "type": [
+    {
+      "coding": [
+        {
+          "code": "305381007",
+          "system": "http://snomed.info/sct",
+          "display": "Admission to palliative care department (procedure)"
+        }
+      ]
+    }
+  ],
+  "subject": {
+    "reference": "Patient/Patient-paa-example-4"
+  },
+  "period": {
+    "start": "2023-10-02T12:30:00-07:00",
+    "end": "2023-10-02T15:00:00-07:00"
+  }
+}
