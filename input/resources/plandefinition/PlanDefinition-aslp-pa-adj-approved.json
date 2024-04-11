@@ -107,7 +107,7 @@
           "path": "description",
           "expression": {
             "language": "text/cql-identifier",
-            "expression": "Approval Detail"
+            "expression": "Approved Detail"
           }
         }
       ]

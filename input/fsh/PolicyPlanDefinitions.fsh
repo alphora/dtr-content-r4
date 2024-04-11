@@ -144,7 +144,7 @@ Usage: #example
     * path = "description" 
     * expression
       * language = #text/cql-identifier
-      * expression = "Approval Detail"
+      * expression = "Approved Detail"
   // * input
   //   * insert ActionInput("Patient has been approved?", "Patient has been approved")
   //   * insert ActionInputCql("Approved Detail", ASLPPolicyPAA)
