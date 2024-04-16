@@ -12,7 +12,7 @@ include ASLPPolicyScreening called PS
 context Patient
 
 define "Most Recent Qualifying Patient Age":
-  PCF.MostRecent([Observation: AC."Qualifying Patient Age Assertion"])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Patient Age Assertion".coding)])
 
 define "Qualifying Patient Age":
   if not "Most Recent Qualifying Patient Age" is null
@@ -40,7 +40,7 @@ define "Age Unknown":
 
 
 define "Most Recent Excessive Daytime Sleepiness Observation":
-  PCF.MostRecent([Observation: AC."Qualifying Excessive Daytime Sleepiness Assertion"])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Excessive Daytime Sleepiness Assertion".coding)])
 
 define "Qualified Excessive Daytime Sleepiness":
   if not "Most Recent Excessive Daytime Sleepiness Observation" is null 
@@ -84,7 +84,7 @@ define "Null Additional Daytime Sleepiness Indicators":
 
 //ESS
 define "Most Recent Epworth Sleepiness Scale Observation":
-  PCF.MostRecent([Observation: AC."Qualifying Epworth Sleepiness Scale Assertion"])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Epworth Sleepiness Scale Assertion".coding)])
 
 define "ESS Score >= 10":
   if not "Most Recent Epworth Sleepiness Scale Observation" is null
@@ -112,7 +112,7 @@ define "Null ESS Score":
 
 //Excessive Sleepiness While Driving
 define "Most Recent Excessive Sleepiness While Driving":
-  PCF.MostRecent([Observation: AC."Qualifying Excessive Sleepiness While Driving Assertion"])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Excessive Sleepiness While Driving Assertion".coding)])
 
 define "Qualifying Excessive Sleepiness While Driving":
   if not "Most Recent Excessive Sleepiness While Driving" is null
@@ -138,7 +138,7 @@ define "Null Excessive Sleepiness While Driving":
 
 //Loud Snoring
 define "Most Recent Loud Snoring Observation":
-  PCF.MostRecent([Observation: AC."Qualifying Loud Snoring Assertion"])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Loud Snoring Assertion".coding)])
 
 define "Loud/Intense Snoring":
   if not "Most Recent Loud Snoring Observation" is null
@@ -166,7 +166,7 @@ define "Null Snoring Volume/Intensity":
 
 //Nocturnal Apnea
 define "Most Recent Nocturnal Apnea Observation":
-  PCF.MostRecent([Observation: AC."Qualifying Nocturnal Apnea Assertion"])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Nocturnal Apnea Assertion".coding)])
 
 define "Nocturnal Apnea":
   if not "Most Recent Nocturnal Apnea Observation" is null
@@ -195,7 +195,7 @@ define "Null Apnea":
 
 //RE-EXAMINE IF THIS IS OK/WORKS
 // define "Most Recent Absence Of Comorbid Medical Conditions Observation":
-//   PCF.MostRecent([Observation: AC."Qualifying Absence Of Comorbid Medical Conditions Assertion"])
+//   PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Absence Of Comorbid Medical Conditions Assertion".coding)])
 
 // define "Qualifying Absence Of Comorbid Medical Conditions":
 //   if not "Most Recent Absence Of Comorbid Medical Conditions Observation" is null
@@ -235,7 +235,7 @@ define "Null Applicable Comorbid Medical Conditions":
 
 //Pulmonary Disease
 define "Most Recent Moderate To Severe Pulmonary Disease":
-  PCF.MostRecent([Observation: AC."Qualifying Moderate To Severe Pulmonary Disease Assertion"])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Moderate To Severe Pulmonary Disease Assertion".coding)])
 
 define "Qualifying Moderate To Severe Pulmonary Disease":
   if not "Most Recent Moderate To Severe Pulmonary Disease" is null
@@ -267,7 +267,7 @@ define "Null Pulmonary Disease":
 
 //Do I still need the COPD and the asthma part??
 // define "Most Recent Pulmonary Disease Including COPD":
-//   PCF.MostRecent([Observation: AC."Qualifying Moderate To Severe Pulmonary Disease Assertion Including COPD Assertion"])
+//   PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Moderate To Severe Pulmonary Disease Assertion Including COPD Assertion".coding)])
 
 // define "Qualifying Moderate To Severe Pulmonary Disease Including COPD":
 //   if not "Most Recent Pulmonary Disease Including COPD" is null
@@ -292,7 +292,7 @@ define "Null Pulmonary Disease":
 
 // //Do I still need the COPD and the asthma part??
 // define "Most Recent Pulmonary Disease Including Asthma":
-//   PCF.MostRecent([Observation: AC."Qualifying Moderate To Severe Pulmonary Disease Assertion Including Asthma Assertion"])
+//   PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Moderate To Severe Pulmonary Disease Assertion Including Asthma Assertion".coding)])
 
 // define "Qualifying Moderate To Severe Pulmonary Disease Including Asthma":
 //   if not "Most Recent Pulmonary Disease Including Asthma" is null
@@ -317,7 +317,7 @@ define "Null Pulmonary Disease":
 
 //Neuromuscular Disease
 define "Most Recent Neuromuscular Disease With Pulmonary Disease":
-  PCF.MostRecent([Observation: AC."Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion"])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion".coding)])
 
 define "Qualifying Neuromuscular Disease With Associated Pulmonary Disease":
   if not "Most Recent Neuromuscular Disease With Pulmonary Disease" is null
@@ -345,7 +345,7 @@ define "Null Nueromuscular Disease":
 
 //Cardiac Disease
 define "Most Recent Cardiac Disease Observation":
-  PCF.MostRecent([Observation: AC."Qualifying Cardiac Disease Assertion"])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Cardiac Disease Assertion".coding)])
 
 define "Qualifying Cardiac Disease":
   if not "Most Recent Cardiac Disease Observation" is null
@@ -375,7 +375,7 @@ define "Null Cardiac Disease":
 //Home Observation Criteria:
 //Qualified Device
 define "Most Recent Qualified Device Observation":
-  PCF.MostRecent([Observation: AC."Uses A Qualified Device Assertion"])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Uses A Qualified Device Assertion".coding)])
 
 define "Uses A Qualified Device":
   if not "Most Recent Qualified Device Observation" is null
@@ -403,7 +403,7 @@ define "Unknown Device Used":
 
 //Safe home use
 define "Most Recent Safe Use Of Equipment At Home Observation":
-  PCF.MostRecent([Observation: AC."Safe Equipment Use At Home Assertion"])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Safe Equipment Use At Home Assertion".coding)])
 
 define "Safe Equipment Use At Home":
   if not "Most Recent Safe Use Of Equipment At Home Observation" is null
@@ -429,7 +429,7 @@ define "Unknown Ability To Use Equipment At Home":
 
 //Physician Evaluated Results
 define "Most Recent Physician Evaluated Observation":
-  PCF.MostRecent([Observation: AC."Physician Evaluated Results Assertion"])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Physician Evaluated Results Assertion".coding)])
 
 define "Physician Evaluated Results":
   if not "Most Recent Physician Evaluated Observation" is null

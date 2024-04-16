@@ -1,0 +1,19 @@
+{
+    "resourceType": "Observation",
+    "id": "Observation-safe-equipment-use-paa-example-4",
+    "code": {
+      "coding": [
+        {
+          "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes",
+          "code": "Safe-Equipment-Use-At-Home",
+          "display": "Safe Equipment Use At Home"
+        }
+      ]
+    },
+    "effectiveDateTime": "2024-04-11T00:00:00-00:00",
+    "status": "final",
+    "subject": {
+      "reference": "Patient/Patient-paa-example-4"
+    },
+    "valueBoolean": true
+  }

@@ -1,0 +1,19 @@
+{
+    "resourceType": "Observation",
+    "id": "Observation-physician-evaluate-results-paa-example-4",
+    "code": {
+      "coding": [
+        {
+          "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes",
+          "code": "Physician-Evaluate-Results",
+          "display": "Physician Evaluated Results"
+        }
+      ]
+    },
+    "effectiveDateTime": "2024-04-11T00:00:00-00:00",
+    "status": "final",
+    "subject": {
+      "reference": "Patient/Patient-paa-example-4"
+    },
+    "valueBoolean": true
+  }
