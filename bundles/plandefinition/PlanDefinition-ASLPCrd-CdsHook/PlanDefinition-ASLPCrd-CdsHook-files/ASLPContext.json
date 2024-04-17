@@ -28,6 +28,10 @@
     "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo"
   }, {
     "type": "depends-on",
+    "display": "Library QuestionnaireRouter",
+    "resource": "http://example.org/sdh/dtr/aslp/Library/QuestionnaireRouter"
+  }, {
+    "type": "depends-on",
     "display": "Code system Relationship Role",
     "resource": "http://terminology.hl7.org/CodeSystem/v3-RoleCode"
   }, {

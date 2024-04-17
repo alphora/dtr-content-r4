@@ -1,0 +1,163 @@
+{
+    "resourceType": "ValueSet",
+    "id": "payer-prior-auth-codes-grouper",
+    "url": "http://terminology.smilecdr.com/cs/priorauth-grouper",
+    "status": "active",
+    "compose": {
+        "include": [
+            {
+                "valueSet": [
+                    "http://terminology.smilecdr.com/cs/sleepstudy"
+                ]
+            },
+            {
+                "valueSet": [
+                    "http://terminology.smilecdr.com/cs/priorauth"
+                ]
+            }
+        ]
+    },
+    "expansion": {
+        "identifier": "c7bb836b-c9a4-4bc4-be39-9f378ee82bad",
+        "timestamp": "2024-04-10T15:27:10-06:00",
+        "total": 27,
+        "offset": 0,
+        "contains": [
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "95800",
+                "display": "Sleep study, unattended, simultaneous recording; heart rate, oxygen saturation, respiratory analysis (eg, by airflow or peripheral arterial tone), and sleep time"
+            },
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "95801",
+                "display": "Sleep study, unattended, simultaneous recording; minimum of heart rate, oxygen saturation, and respiratory analysis (eg, by airflow or peripheral arterial tone)"
+            },
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "95805",
+                "display": "Multiple sleep latency or maintenance of wakefulness testing, recording, analysis and interpretation of physiological measurements of sleep during multiple trials to assess sleepiness"
+            },
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "95806",
+                "display": "Sleep study, unattended, simultaneous recording of, heart rate, oxygen saturation, respiratory airflow, and respiratory effort (eg, thoracoabdominal movement)"
+            },
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "95807",
+                "display": "Sleep study, simultaneous recording of ventilation, respiratory effort, ECG or heart rate, and oxygen saturation, attended by a technologist"
+            },
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "95808",
+                "display": "Polysomnography; any age, sleep staging with 1-3 additional parameters of sleep, attended by a technologist"
+            },
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "95810",
+                "display": "Polysomnography; age 6 years or older, sleep staging with 4 or more additional parameters of sleep, attended by a technologist"
+            },
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "95811",
+                "display": "Polysomnography; age 6 years or older, sleep staging with 4 or more additional parameters of sleep, with initiation of continuous positive airway pressure therapy or bilevel ventilation, attended by a technologist"
+            },
+            {
+                "system": "urn:oid:2.16.840.1.113883.6.285",
+                "code": "E1399",
+                "display": "Durable medical equipment, miscellaneous"
+            },
+            {
+                "system": "urn:oid:2.16.840.1.113883.6.285",
+                "code": "G0398",
+                "display": "Home sleep study test (HST) with type II portable monitor, unattended; minimum of 7 channels: EEG, EOG, EMG, ECG/heart rate, airflow, respiratory effort and oxygen saturation"
+            },
+            {
+                "system": "urn:oid:2.16.840.1.113883.6.285",
+                "code": "G0399",
+                "display": "Home sleep test (HST) with type III portable monitor, unattended; minimum of 4 channels: 2 respiratory movement/airflow, 1 ECG/heart rate and 1 oxygen saturation"
+            },
+            {
+                "system": "urn:oid:2.16.840.1.113883.6.285",
+                "code": "G0400",
+                "display": "Home sleep test (HST) with type IV portable monitor, unattended; minimum of 3 channels"
+            },
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "55250",
+                "display": "Vasectomy, unilateral or bilateral (separate procedure), including postoperative semen"
+            },
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "86999",
+                "display": "Unlisted Transfusion Medicine procedure "
+            },
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "86849",
+                "display": "Unlisted immunology procedure"
+            },
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "84591",
+                "display": "Pathology Test"
+            },
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "81001",
+                "display": "Urinalysis Complete Procedure"
+            },
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "87299",
+                "display": "Immunoassay"
+            },
+            {
+                "system": "urn:oid:2.16.840.1.113883.6.285",
+                "code": "C8918",
+                "display": "Magnetic resonance angiography with contrast, pelvis"
+            },
+            {
+                "system": "urn:oid:2.16.840.1.113883.6.285",
+                "code": "G0122",
+                "display": "Colorectal cancer screening; barium enema"
+            },
+            {
+                "system": "urn:oid:2.16.840.1.113883.6.285",
+                "code": "G0219",
+                "display": "Pet imaging whole body; melanoma for non-covered indications"
+            },
+            {
+                "system": "urn:oid:2.16.840.1.113883.6.285",
+                "code": "E0601",
+                "display": "CPAP Machine"
+            },
+            {
+                "system": "urn:oid:2.16.840.1.113883.6.285",
+                "code": "E1093",
+                "display": "heavy duty wheelchair, detachable arms desk or full length arms, swing away detachable footrests"
+            },
+            {
+                "system": "urn:oid:2.16.840.1.113883.6.285",
+                "code": "E0574",
+                "display": "Ultrasonic/electronic aerosol generator with small volume nebulizer"
+            },
+            {
+                "system": "urn:oid:2.16.840.1.113883.6.285",
+                "code": "E0430",
+                "display": "Portable gaseous oxygen system, purchase; includes regulator, flowmeter, humidifier, cannula or mask, and tubing"
+            },
+            {
+                "system": "urn:oid:2.16.840.1.113883.6.285",
+                "code": "B9002",
+                "display": "Enteral nutrition infusion pump - with alarm"
+            },
+            {
+                "system": "urn:oid:2.16.840.1.113883.6.285",
+                "code": "B9004",
+                "display": "Parenteral nutrition infusion pump, portable"
+            }
+        ]
+    }
+}
