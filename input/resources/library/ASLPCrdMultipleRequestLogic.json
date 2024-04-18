@@ -59,10 +59,6 @@
     "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo"
   }, {
     "type": "depends-on",
-    "display": "Library QuestionnaireRouter",
-    "resource": "http://example.org/sdh/dtr/aslp/Library/QuestionnaireRouter"
-  }, {
-    "type": "depends-on",
     "display": "Code system Payor Identifier CodeSystem",
     "resource": "http://terminology.hl7.org/CodeSystem/organization-type"
   } ],
