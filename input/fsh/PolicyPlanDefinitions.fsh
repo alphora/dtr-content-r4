@@ -50,6 +50,7 @@ Alias: $usage-context-type = http://terminology.hl7.org/CodeSystem/usage-context
 Alias: $activity-codes = http://fhir.org/guides/nachc/hiv-cds/CodeSystem/activity-codes
 Alias: $iso3166-1-3 = http://hl7.org/fhir/ValueSet/iso3166-1-3
 Alias: $action-type = http://terminology.hl7.org/CodeSystem/action-type
+Alias: $x12-adjudication-status = https://codesystem.x12.org/005010/306
 
 RuleSet: CommonProperties(value)
 * meta.profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishableplandefinition"
@@ -140,24 +141,12 @@ Usage: #example
 * action[+]
   * title = "Prior Auth Adjudication Approved"
   * description = "Prior authorization adjudication approval for sleep study tests"
+  * code = $x12-adjudication-status#A1 "Approved"
   * dynamicValue[+]
     * path = "description" 
     * expression
       * language = #text/cql-identifier
       * expression = "Approved Detail"
-  // * input
-  //   * insert ActionInput("Patient has been approved?", "Patient has been approved")
-  //   * insert ActionInputCql("Approved Detail", ASLPPolicyPAA)
-  //   * type = #Observation
-  //   * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/pa-adj-approved"
-  // * action[0]
-  //   * title = "Approved"
-  //   * description = "Patient has been Approved"
-  //   * insert ActionConditionCql("Approved Detail")
-  // * action[+]
-  //   * title = "Override Approval"
-  //   * description = "Override approval"
-  //   * insert ActionConditionCql("Override Approval")
 
 
 Instance: aslp-pa-adj-not-approved
@@ -173,24 +162,12 @@ Usage: #example
 * action[+]
   * title = "Not Approved Prior Authorization Adjudication"
   * description = "Prior Authorization Adjudication for Sleep Study Not Approved"
+  * code = $x12-adjudication-status#A3 "Denied"
   * dynamicValue[+]
     * path = "description" 
     * expression
       * language = #text/cql-identifier
       * expression = "Not Approved Detail"
-  // * input
-  //   * insert ActionInput("Is Sleep Study Denied?", "Sleep Study is Denied")
-  //   * insert ActionInputCql("Not Approved Detail", ASLPPolicyPAA)
-  //   * type = #Observation
-  //   * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/pa-adj-not-approved"
-  // * action[0]
-  //   * title = "Denied"
-  //   * description = "Patient has been denied"
-  //   * insert ActionConditionCql("Not Approved Detail")
-  // * action[+]
-  //   * title = "Override Denial"
-  //   * description = "Override Denial"
-  //   * insert ActionConditionCql("Override Denial")
 
 Instance: aslp-pa-adj-temp-not-approved
 InstanceOf: PlanDefinition
@@ -205,24 +182,12 @@ Usage: #example
 * action[+]
   * title = "Temporarily Not Approved Prior Authorization Adjudication"
   * description = "Prior Authorization Adjudication for Sleep Study Temporarily Not Approved"
+  * code = $x12-adjudication-status#A4 "Pended"
   * dynamicValue[+]
     * path = "description" 
     * expression
       * language = #text/cql-identifier
       * expression = "Temporarily Not Approved"
-  // * input
-  //   * insert ActionInput("Is Sleep Study temporarily not approved?", "Sleep Study temporarily not approved")
-  //   * insert ActionInputCql("Temporarily not approved", ASLPPolicyPAA)
-  //   * type = #Observation
-  //   * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/pa-adj-temp-not-approved"
-  // * action[+]
-  //   * title = "Unknown response"
-  //   * description = "Response is null or unknown. Please resubmit responses."
-  //   * insert ActionConditionCql("Temporarily not approved")
-  // * action[+]
-  //   * title = "Override Null Response"
-  //   * description = "Override null or unknown response"
-  //   * insert ActionConditionCql("Override Null or Unknown Response")
         
 
 //Home/Portable Monitor Sleep Testing to confirm the suspected diagnosis of moderate to severe obstructive sleep apnea (OSA)
