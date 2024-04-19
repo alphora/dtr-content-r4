@@ -37,9 +37,10 @@ returns FHIR.Extension:
       "DetailExtension"(codeValue, detailText, qualification, warningOrInfo),
 
       // Always 'admin' and 'clinical'
-      // 'admin', 'clinical', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)
-      "DocNeeded"('admin'),
-      "DocNeeded"('clinical')
+      // 'admin', 'clinical', 'both', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)
+      // "DocNeeded"('admin'),
+      // "DocNeeded"('clinical'),
+      "DocNeeded"('both')
     }) Extension where not IsNull(Extension)
   }
 
