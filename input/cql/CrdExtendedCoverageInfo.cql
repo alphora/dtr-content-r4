@@ -37,9 +37,10 @@ returns FHIR.Extension:
       "DetailExtension"(codeValue, detailText, qualification, warningOrInfo),
 
       // Always 'admin' and 'clinical'
-      // 'admin', 'clinical', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)
-      "DocNeeded"('admin'),
-      "DocNeeded"('clinical')
+      // 'admin', 'clinical', 'both', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)
+      // "DocNeeded"('admin'),
+      // "DocNeeded"('clinical'),
+      "DocNeeded"('both')
     }) Extension where not IsNull(Extension)
   }
 
@@ -64,7 +65,7 @@ returns FHIR.Extension:
       "TodaysDateExtension"(),
 
       // TODO: need to figure out how to make this dynamic
-      "QuestionnaireExtension"(serviceRequestCode),
+      "QuestionnaireExtension"(priorAuthRequired, serviceRequestCode),
 
       // service request id
       "DependencyExtension"(requestReferenceString),
@@ -73,15 +74,15 @@ returns FHIR.Extension:
       "DetailExtension"(codeValue, detailText, qualification, warningOrInfo),
 
       // Always 'admin' and 'clinical'
-      // 'admin', 'clinical', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)
-      "DocNeeded"('admin'),
-      "DocNeeded"('clinical')
+      // 'admin', 'clinical', 'both', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)
+      // "DocNeeded"('admin'),
+      // "DocNeeded"('clinical'),
+      "DocNeeded"('both')
     }) Extension where not IsNull(Extension)
   }
 
 define function "CoverageExtension"(coverageId System.String)
 returns FHIR.Extension:
-  // TODO: verify this works
   if IsNull(coverageId) then null as FHIR.Extension
   else
     FHIR.Extension {
@@ -120,12 +121,16 @@ returns FHIR.Extension:
     "value": FHIR.date { "value": Today() }
   }
 
-define function "QuestionnaireExtension"(procedureCode System.Code)
+define function "QuestionnaireExtension"(priorAuthRequired System.String, procedureCode System.Code)
 returns FHIR.Extension:
-  FHIR.Extension {
-    "url": FHIR.uri { "value": 'questionnaire' },
-    "value": FHIR.canonical { "value": QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode) } 
-  }
+  if priorAuthRequired in { 'auth-needed' } then
+    if not IsNull(QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode)) then 
+      FHIR.Extension {
+        "url": FHIR.uri { "value": 'questionnaire' },
+        "value": FHIR.canonical { "value": QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode) } 
+      }
+    else null as FHIR.Extension
+  else null as FHIR.Extension
 
 // code = auth-needed|no-auth|gold-card|not-covered, warningOrInfo = Warning|info, qualification = {open text entry}
 define function "DetailExtension"(codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)

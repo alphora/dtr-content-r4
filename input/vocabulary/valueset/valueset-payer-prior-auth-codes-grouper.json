@@ -1,6 +1,15 @@
 {
     "resourceType": "ValueSet",
     "id": "payer-prior-auth-codes-grouper",
+    "meta": {
+        "extension": [
+            {
+                "url": "http://hapifhir.io/fhir/StructureDefinition/valueset-expansion-message",
+                "valueString": "ValueSet was expanded using an expansion that was pre-calculated at 2024-04-18T11:07:30.214-06:00 (00:10:00 ago)"
+            }
+        ],
+        "versionId": "5"
+    },
     "url": "http://terminology.smilecdr.com/cs/priorauth-grouper",
     "status": "active",
     "compose": {
@@ -18,9 +27,9 @@
         ]
     },
     "expansion": {
-        "identifier": "c7bb836b-c9a4-4bc4-be39-9f378ee82bad",
-        "timestamp": "2024-04-10T15:27:10-06:00",
-        "total": 27,
+        "identifier": "f18dd3ff-193c-47ec-9d8b-720b57bdcc6a",
+        "timestamp": "2024-04-18T11:17:30-06:00",
+        "total": 34,
         "offset": 0,
         "contains": [
             {
@@ -110,6 +119,11 @@
             },
             {
                 "system": "http://www.ama-assn.org/go/cpt",
+                "code": "95803",
+                "display": "Actigraphy testing, recording, analysis, interpretation, and report (minimum of 72 hours to 14 consecutive days of recording)"
+            },
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
                 "code": "87299",
                 "display": "Immunoassay"
             },
@@ -149,14 +163,44 @@
                 "display": "Portable gaseous oxygen system, purchase; includes regulator, flowmeter, humidifier, cannula or mask, and tubing"
             },
             {
-                "system": "urn:oid:2.16.840.1.113883.6.285",
-                "code": "B9002",
-                "display": "Enteral nutrition infusion pump - with alarm"
+                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "code": "C8918",
+                "display": "Magnetic resonance angiography with contrast, pelvis"
             },
             {
-                "system": "urn:oid:2.16.840.1.113883.6.285",
-                "code": "B9004",
-                "display": "Parenteral nutrition infusion pump, portable"
+                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "code": "G0398",
+                "display": "Home sleep study test (hst) with type ii portable monitor, unattended; minimum of 7 channels: eeg, eog, emg, ecg/heart rate, airflow, respiratory effort and oxygen saturation"
+            },
+            {
+                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "code": "G0122",
+                "display": "Colorectal cancer screening; barium enema"
+            },
+            {
+                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "code": "G0219",
+                "display": "Pet imaging whole body; melanoma for non-covered indications"
+            },
+            {
+                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "code": "E0601",
+                "display": "CPAP Machine"
+            },
+            {
+                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "code": "E1093",
+                "display": "heavy duty wheelchair, detachable arms desk or full length arms, swing away detachable footrests"
+            },
+            {
+                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "code": "E0574",
+                "display": "Ultrasonic/electronic aerosol generator with small volume nebulizer"
+            },
+            {
+                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "code": "E0430",
+                "display": "Portable gaseous oxygen system, purchase; includes regulator, flowmeter, humidifier, cannula or mask, and tubing"
             }
         ]
     }
