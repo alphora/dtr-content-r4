@@ -7,12 +7,8 @@ using FHIR version '4.0.1'
 include USCoreCommon
 include FHIRHelpers version '4.1.000'
 include CrdExtendedCoverageInfo called ECI
-
-codesystem "Relationship Role": 'http://terminology.hl7.org/CodeSystem/v3-RoleCode'
-codesystem "Payor Identifier CodeSystem": 'http://terminology.hl7.org/CodeSystem/organization-type'
-
-code "Payor Code": 'pay' from "Payor Identifier CodeSystem" display 'Payor'
-code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
+include ASLPContextProvider called ContextProvider
+include ASLPContextPayor called ContextPayor
 
 // NutritionOrder, ServiceRequest, DeviceRequest, MedicationRequest, VisionPrescription with /draft/ status
 parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>>
@@ -20,32 +16,6 @@ parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FH
 parameter "Request Id" System.String
   // NOTE: defaults should not be used in production
   //default 'generated-id-default-value'
-
-// TODO: separate this into different parameters
-// parameter "Payor Patient" FHIR.Patient
-// parameter "Payor Coverages" List<FHIR.Coverage>
-// parameter "Payor Practitioners" List<FHIR.Practitioner>
-// parameter "Payor PractitionerRoles" List<FHIR.PractitionerRole>
-// parameter "Payor Organizations" List<FHIR.Organization>
-parameter "Payor Context" FHIR.Bundle
-  // NOTE: defaults should not be used in production
-  /*
-  default FHIR.Bundle {
-    "id": FHIR.id { "value": 'abc' },
-    "entry": {
-      FHIR.Bundle.Entry {
-        "resource": FHIR.Patient {
-          "name": {
-            FHIR.HumanName {
-              "family": FHIR.string { "value": 'Chalmers' }
-            }
-          },
-          "birthDate": FHIR.date { "value": @1974-12-25 }
-        }
-      }
-    }
-  }
-  */
 
 context Patient
 
@@ -57,13 +27,6 @@ define "UnknownResourceType":
 
 define "UnsupportedResourceTypes":
   { 'VisionPrescription', 'MedicationRequest' }
-
-define "Provider Coverage":
-  // NOTE: per PA team, the Coverage is just the first matching coverage
-  //       - at some point we may return a "ambiguous data" response if there is > 1 Coverage
-  First(
-    [Coverage] item where IsPayorResource(item) = false
-  )
 
 define function "Service Request Item Code"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
   FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)
@@ -95,27 +58,10 @@ define function "System Generated Id"(requestItem Choice<FHIR.NutritionOrder, FH
     )).value as FHIR.string,
     "Request Id"
   )
-  
+
 define function ExtensionPriorAuthNeeded(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>, covered System.String, priorAuthRequired System.String, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)
 returns FHIR.Extension:
-  ECI.ExtensionPriorAuthNeeded("Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id"(requestItem), "Service Request Item ID"(requestItem), "Service Request Item Code"(requestItem), codeValue, detailText, qualification, warningOrInfo)
-
-define function TagExists(resource Resource, value System.Code)
-returns System.Boolean:
-  if (exists(resource.meta.tag.system)) then
-    AnyTrue(
-      resource.meta.tag Tag
-        return 
-          if Tag.system.value ~ value.system and Tag.code.value ~ value.code then 
-            true 
-          else 
-            false
-    )
-  else false
-
-define function IsPayorResource(resource Resource)
-returns System.Boolean:
-  TagExists(resource, "Payor Code")
+  ECI.ExtensionPriorAuthNeeded(ContextProvider."Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id"(requestItem), "Service Request Item ID"(requestItem), "Service Request Item Code"(requestItem), codeValue, detailText, qualification, warningOrInfo)
 
 define function GetIdentifier(item Choice<Practitioner, Organization>, url System.String)
 returns System.String:
@@ -192,47 +138,14 @@ returns System.String:
   if (item is FHIR.VisionPrescription or item is FHIR.NutritionOrder) then
     item.patient.reference.getId()
   else item.subject.reference.getId()
-  
 
 define "Service Request Item List":
   "draftOrders"
   // NOTE: these retrieves are only for local testing
   //([ServiceRequest]) union ([DeviceRequest]) union ([NutritionOrder])
 
-define "Provider":
-  {
-    "Patient": "Provider Patient",
-    "Coverages": { "Provider Coverage" },
-    "Practitioners": [Practitioner] item where IsPayorResource(item) = false,
-    "PractitionerRoles": [PractitionerRole] item where IsPayorResource(item) = false,
-    "Organizations": [Organization] item where IsPayorResource(item) = false
-  }
-
 define "Payor":
-  if (Count("Payor Context".entry) >= 1) then 
-    {
-      "Patient": First(("Payor Context".entry.resource PayorResource return if (PayorResource is Patient) then PayorResource as FHIR.Patient else null as FHIR.Patient) I where I is not null),
-      "Coverages": ("Payor Context".entry.resource PayorResource return if (PayorResource is Coverage) then PayorResource as FHIR.Coverage else null as FHIR.Coverage) I where I is not null,
-      "Practitioners": ("Payor Context".entry.resource PayorResource return if (PayorResource is Practitioner) then PayorResource as FHIR.Practitioner else null as FHIR.Practitioner) I where I is not null,
-      "PractitionerRoles": ("Payor Context".entry.resource PayorResource return if (PayorResource is PractitionerRole) then PayorResource as FHIR.PractitionerRole else null as FHIR.PractitionerRole) I where I is not null,
-      "Organizations": ("Payor Context".entry.resource PayorResource return if (PayorResource is Organization) then PayorResource as FHIR.Organization else null as FHIR.Organization) I where I is not null
-    }
-  // This section is only for local CQL vs code plugin testing
-  else
-    {
-      "Patient": "Payor Patient",
-      "Coverages": [Coverage] item where IsPayorResource(item) = true,
-      "Practitioners": [Practitioner] item where IsPayorResource(item) = true,
-      "PractitionerRoles": [PractitionerRole] item where IsPayorResource(item) = true,
-      "Organizations": [Organization] item where IsPayorResource(item) = true
-    }
+  ContextPayor."Payor"
 
-define "Provider Patient":
-  First([Patient] P where not IsPayorResource(P))
-
-define "Payor Patient":
-  First(
-    [RelatedPerson] RP
-      where 
-        IsPayorResource(RP)
-  )
+define "Provider":
+  ContextProvider."Provider"
