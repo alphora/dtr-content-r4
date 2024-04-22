@@ -32,8 +32,12 @@
     "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo"
   }, {
     "type": "depends-on",
-    "display": "Code system Payor Identifier CodeSystem",
-    "resource": "http://terminology.hl7.org/CodeSystem/organization-type"
+    "display": "Library ContextProvider",
+    "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider"
+  }, {
+    "type": "depends-on",
+    "display": "Library ContextPayor",
+    "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextPayor"
   } ],
   "parameter": [ {
     "name": "Request Id",
@@ -124,9 +128,6 @@
     "type": "Patient",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/Patient" ]
   }, {
-    "type": "Coverage",
-    "profile": [ "http://hl7.org/fhir/StructureDefinition/Coverage" ]
-  }, {
     "type": "string",
     "profile": [ "http://hl7.org/fhir/string" ],
     "mustSupport": [ "value" ]
@@ -146,6 +147,9 @@
     "type": "Coverage",
     "profile": [ "http://hl7.org/fhir/Coverage" ],
     "mustSupport": [ "id", "id.value" ]
+  }, {
+    "type": "Coverage",
+    "profile": [ "http://hl7.org/fhir/StructureDefinition/Coverage" ]
   }, {
     "type": "Practitioner",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/Practitioner" ]

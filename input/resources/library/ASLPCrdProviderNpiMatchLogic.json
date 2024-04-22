@@ -28,12 +28,16 @@
     "resource": "http://example.org/sdh/dtr/aslp/Library/FHIRHelpers|4.1.000"
   }, {
     "type": "depends-on",
-    "display": "Library ECI",
-    "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo"
+    "display": "Library ContextProvider",
+    "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider"
   }, {
     "type": "depends-on",
-    "display": "Code system Payor Identifier CodeSystem",
-    "resource": "http://terminology.hl7.org/CodeSystem/organization-type"
+    "display": "Library ContextPayor",
+    "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextPayor"
+  }, {
+    "type": "depends-on",
+    "display": "Library ECI",
+    "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo"
   } ],
   "parameter": [ {
     "name": "Request Id",
@@ -88,6 +92,10 @@
     "type": "Patient",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/Patient" ]
   }, {
+    "type": "string",
+    "profile": [ "http://hl7.org/fhir/string" ],
+    "mustSupport": [ "value" ]
+  }, {
     "type": "Coverage",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/Coverage" ]
   }, {
@@ -99,10 +107,6 @@
   }, {
     "type": "Organization",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/Organization" ]
-  }, {
-    "type": "string",
-    "profile": [ "http://hl7.org/fhir/string" ],
-    "mustSupport": [ "value" ]
   }, {
     "type": "uri",
     "profile": [ "http://hl7.org/fhir/uri" ],

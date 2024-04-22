@@ -55,12 +55,16 @@
     "resource": "http://example.org/sdh/dtr/aslp/Library/FHIRHelpers|4.1.000"
   }, {
     "type": "depends-on",
-    "display": "Library ECI",
-    "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo"
+    "display": "Library ContextPayor",
+    "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextPayor"
   }, {
     "type": "depends-on",
-    "display": "Code system Payor Identifier CodeSystem",
-    "resource": "http://terminology.hl7.org/CodeSystem/organization-type"
+    "display": "Library ContextProvider",
+    "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider"
+  }, {
+    "type": "depends-on",
+    "display": "Library ECI",
+    "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo"
   } ],
   "parameter": [ {
     "name": "Request Id",

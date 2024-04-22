@@ -32,8 +32,8 @@
     "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo"
   }, {
     "type": "depends-on",
-    "display": "Code system Payor Identifier CodeSystem",
-    "resource": "http://terminology.hl7.org/CodeSystem/organization-type"
+    "display": "Library ContextProvider",
+    "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider"
   }, {
     "type": "depends-on",
     "display": "Value set Prior Auth Required for Procedure Valueset",
@@ -108,9 +108,6 @@
   }, {
     "profile": [ "urn:hl7-org:elm-types:r1/Code" ],
     "mustSupport": [ "display" ]
-  }, {
-    "type": "Coverage",
-    "profile": [ "http://hl7.org/fhir/StructureDefinition/Coverage" ]
   }, {
     "type": "string",
     "profile": [ "http://hl7.org/fhir/string" ],
