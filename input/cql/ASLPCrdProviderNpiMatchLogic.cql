@@ -24,13 +24,13 @@ define "Qualification":
 
 // CRD-3.1
 define function "Detail Debugging"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
-  '"Is LOBMatch"=' + Ctx.NewLine + ToString("Is LOBMatch"(requestItem))  + Ctx.NewLine +
-  '  - "Requesting Organization Match"=' + Ctx.NewLine + ToString("Requesting Organization Match"(requestItem))  + Ctx.NewLine +
-  '  - "Performing Organization Match"=' + Ctx.NewLine + ToString("Performing Organization Match"(requestItem))  + Ctx.NewLine +
+  '"Is LOBMatch"=' + ToString("Is LOBMatch"(requestItem))  + Ctx.NewLine +
+  '  - "Requesting Organization Match"=' + ToString("Requesting Organization Match"(requestItem))  + Ctx.NewLine +
+  '  - "Performing Organization Match"=' + ToString("Performing Organization Match"(requestItem))  + Ctx.NewLine +
   Ctx.NewLine +
-  '"Is ProviderNpiMatch"=' + Ctx.NewLine + ToString("Is ProviderNpiMatch"(requestItem))  + Ctx.NewLine +
-  '  - "Requesting Provider Match"=' + Ctx.NewLine + ToString("Requesting Provider Match"(requestItem))  + Ctx.NewLine +
-  '  - "Performing Provider Match"=' + Ctx.NewLine + ToString("Performing Provider Match"(requestItem))  + Ctx.NewLine
+  '"Is ProviderNpiMatch"=' + ToString("Is ProviderNpiMatch"(requestItem))  + Ctx.NewLine +
+  '  - "Requesting Provider Match"=' + ToString("Requesting Provider Match"(requestItem))  + Ctx.NewLine +
+  '  - "Performing Provider Match"=' + ToString("Performing Provider Match"(requestItem))  + Ctx.NewLine
 
 // CRD-3.1
 define "Detail Text":
