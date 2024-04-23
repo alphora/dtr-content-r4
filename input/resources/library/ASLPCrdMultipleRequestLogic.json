@@ -113,6 +113,10 @@
     "type": "Patient",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/Patient" ]
   }, {
+    "type": "string",
+    "profile": [ "http://hl7.org/fhir/string" ],
+    "mustSupport": [ "value" ]
+  }, {
     "type": "Coverage",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/Coverage" ]
   }, {
@@ -124,10 +128,6 @@
   }, {
     "type": "Organization",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/Organization" ]
-  }, {
-    "type": "string",
-    "profile": [ "http://hl7.org/fhir/string" ],
-    "mustSupport": [ "value" ]
   }, {
     "type": "CodeableConcept",
     "profile": [ "http://hl7.org/fhir/CodeableConcept" ],
