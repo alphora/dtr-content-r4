@@ -102,7 +102,7 @@
         "max": "1",
         "type": [
           {
-            "code": "integer"
+            "code": "boolean"
           }
         ],
         "mustSupport": true
