@@ -10,7 +10,7 @@ Usage: #example
 * action
   * title = "Home/Portable Monitor Sleep Testing Questionnaire"
   * description = "Is the patient applicable for home/portable sleep monitor testing"
-  * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"  
+  * definitionCanonical = Canonical(Home-Monitor-Sleep-Testing)  
   * input[+]
     * insert ActionInput("Is patient 18 years or older?", "The patient is 18 years or older")
     * insert ActionInputCql("Qualifying Patient Age", ASLPPolicyPAA)
