@@ -17,6 +17,10 @@
                       "display": "Sleep study, unattended, simultaneous recording; minimum of heart rate, oxygen saturation, and respiratory analysis (eg, by airflow or peripheral arterial tone)"
                   },
                   {
+                      "code": "95803",
+                      "display": "Actigraphy testing, recording, analysis, interpretation, and report (minimum of 72 hours to 14 consecutive days of recording)"
+                  },
+                  {
                       "code": "95805",
                       "display": "Multiple sleep latency or maintenance of wakefulness testing, recording, analysis and interpretation of physiological measurements of sleep during multiple trials to assess sleepiness"
                   },
@@ -80,6 +84,11 @@
               "system": "http://www.ama-assn.org/go/cpt",
               "code": "95801",
               "display": "Sleep study, unattended, simultaneous recording; minimum of heart rate, oxygen saturation, and respiratory analysis (eg, by airflow or peripheral arterial tone)"
+          },
+          {
+              "system": "http://www.ama-assn.org/go/cpt",
+              "code": "95803",
+              "display": "Actigraphy testing, recording, analysis, interpretation, and report (minimum of 72 hours to 14 consecutive days of recording)"
           },
           {
               "system": "http://www.ama-assn.org/go/cpt",
