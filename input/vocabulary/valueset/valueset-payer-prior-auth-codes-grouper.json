@@ -73,6 +73,16 @@
                 "display": "Polysomnography; age 6 years or older, sleep staging with 4 or more additional parameters of sleep, with initiation of continuous positive airway pressure therapy or bilevel ventilation, attended by a technologist"
             },
             {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "94762",
+                "display": "Noninvasive ear or pulse oximetry for oxygen saturation; by continuous overnight monitoring (separate procedure)"
+            },
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "92520",
+                "display": "Laryngeal function studies (ie, aerodynamic testing and acoustic testing)"
+            },
+            {
                 "system": "urn:oid:2.16.840.1.113883.6.285",
                 "code": "E1399",
                 "display": "Durable medical equipment, miscellaneous"
