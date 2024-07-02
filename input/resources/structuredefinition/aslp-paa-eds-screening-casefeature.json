@@ -108,8 +108,8 @@
       {
         "id": "Observation.value[x]",
         "path": "Observation.value[x]",
-        "short": "Qualified Excessive Daytime Sleepiness",
-        "definition": "Qualified Excessive Daytime Sleepiness",
+        "short": "Excessive daytime sleepiness (EDS)",
+        "definition": "Inability to maintain wakefulness and alertness during the major waking episodes of the day, with sleep occurring unintentionally or at inappropriate times almost daily for at least three months",
         "min": 1,
         "max": "1",
         "type": [

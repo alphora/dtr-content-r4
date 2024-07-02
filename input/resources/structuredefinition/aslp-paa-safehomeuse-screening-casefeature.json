@@ -96,8 +96,8 @@
       {
         "id": "Observation.value[x]",
         "path": "Observation.value[x]",
-        "short": "Safe Equipment Use At Home",
-        "definition": "Safe Equipment Use At Home",
+        "short": "Individual or caregiver can use equipment safely at home",
+        "definition": "Individual or caregiver has appropriate cognitive function, dexterity and mobility to use equipment safely at home",
         "min": 1,
         "max": "1",
         "type": [
