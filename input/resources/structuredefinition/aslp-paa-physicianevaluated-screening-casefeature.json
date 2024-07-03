@@ -96,8 +96,8 @@
       {
         "id": "Observation.value[x]",
         "path": "Observation.value[x]",
-        "short": "Physician Evaluated Results",
-        "definition": "Physician Evaluated Results",
+        "short": "Results evaluated by qualified physician",
+        "definition": "Home sleep testing results must be evaluated by a qualified physician",
         "min": 1,
         "max": "1",
         "type": [

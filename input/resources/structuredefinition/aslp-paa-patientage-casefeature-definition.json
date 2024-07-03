@@ -96,8 +96,8 @@
       {
         "id": "Observation.value[x]",
         "path": "Observation.value[x]",
-        "short": "Qualifying Patient Age",
-        "definition": "Qualifying Patient Age",
+        "short": "Patient is an adult",
+        "definition": "Patient is 18 years of age or older",
         "min": 1,
         "max": "1",
         "type": [
