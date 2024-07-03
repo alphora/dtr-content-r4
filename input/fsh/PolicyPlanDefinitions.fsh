@@ -250,7 +250,7 @@ Usage: #example
         * title = "Additional Daytime Sleepiness Indicator"
         * description = "One or more of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping"
         * input[+]
-          * insert ActionInput("Does patient had ESS score >= 10?", "ESS score >= 10")
+          * insert ActionInput("Does patient have ESS score >= 10?", "ESS score >= 10")
           * insert ActionInputCql("ESS Score >= 10", ASLPPolicyPAA)
           * type = #Observation
           * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ess-screening-casefeature"

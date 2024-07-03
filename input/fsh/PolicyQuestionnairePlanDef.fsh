@@ -22,7 +22,7 @@ Usage: #example
     * type = #Observation
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-eds-screening-casefeature"
   * input[+]
-    * insert ActionInput("Does patient had ESS score >= 10?", "ESS score >= 10")
+    * insert ActionInput("Does patient have ESS score >= 10?", "ESS score >= 10")
     * insert ActionInputCql("ESS Score >= 10", ASLPPolicyPAA)
     * type = #Observation
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ess-screening-casefeature"

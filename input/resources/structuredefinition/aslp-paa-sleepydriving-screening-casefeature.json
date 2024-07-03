@@ -96,8 +96,8 @@
         {
           "id": "Observation.value[x]",
           "path": "Observation.value[x]",
-          "short": "Qualifying Excessive Sleepiness While Driving",
-          "definition": "Qualifying Excessive Sleepiness While Driving",
+          "short": "Excessive sleepiness while driving",
+          "definition": "Excessive sleepiness while driving",
           "min": 1,
           "max": "1",
           "type": [
