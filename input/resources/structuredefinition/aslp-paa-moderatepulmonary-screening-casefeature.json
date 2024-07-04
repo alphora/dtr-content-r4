@@ -44,10 +44,10 @@
   ],
   "url": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature",
   "name": "ModerateToSeverePulmonaryDisease",
-  "title": "Qualifying Moderate To Severe Pulmonary Disease",
+  "title": "Moderate To Severe Pulmonary Disease",
   "status": "draft",
   "experimental": true,
-  "description": "Qualifying Moderate To Severe Pulmonary Disease",
+  "description": "Moderate To Severe Pulmonary Disease",
   "useContext": [
     {
       "code": {
@@ -96,8 +96,8 @@
       {
         "id": "Observation.value[x]",
         "path": "Observation.value[x]",
-        "short": "Moderate to severe pulmonary disease",
-        "definition": "Moderate to severe pulmonary disease",
+        "short": "Patient has moderate to severe pulmonary disease?",
+        "definition": "Patient has moderate to severe pulmonary disease?",
         "min": 1,
         "max": "1",
         "type": [

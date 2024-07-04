@@ -44,10 +44,10 @@
   ],
   "url": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-comorbid-screening-casefeature",
   "name": "AbsenceOfComorbidMedicalObservations",
-  "title": "Qualifying Absence Of Comorbid Medical Observations",
+  "title": "Absence of the following comorbid medical condition(s) that would reduce the accuracy of a home/PM sleep test",
   "status": "draft",
   "experimental": true,
-  "description": "Qualifying Absence Of Comorbid Medical Observations",
+  "description": "Absence of the following comorbid medical condition(s) that would reduce the accuracy of a home/PM sleep test",
   "useContext": [
     {
       "code": {
@@ -96,8 +96,8 @@
       {
         "id": "Observation.value[x]",
         "path": "Observation.value[x]",
-        "short": "Absence of the following comorbid medical condition(s) that would reduce the accuracy of a home/PM sleep test",
-        "definition": "Moderate to severe pulmonary disease, neuromuscular disease with associated pulmonary disease, or cardiac disease",
+        "short": "Patient has moderate to severe pulmonary disease, neuromuscular disease with associated pulmonary disease, or cardiac disease?",
+        "definition": "Patient has moderate to severe pulmonary disease, neuromuscular disease with associated pulmonary disease, or cardiac disease?",
         "min": 1,
         "max": "1",
         "type": [

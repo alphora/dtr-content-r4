@@ -44,10 +44,10 @@
   ],
   "url": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature",
   "name": "PhysicianEvaluated",
-  "title": "Physician Evaluated Results",
+  "title": "Results Evaluated by Qualified Physician",
   "status": "draft",
   "experimental": true,
-  "description": "Physician Evaluated Results",
+  "description": "Results Evaluated by Qualified Physician",
   "useContext": [
     {
       "code": {
@@ -96,8 +96,8 @@
       {
         "id": "Observation.value[x]",
         "path": "Observation.value[x]",
-        "short": "Results evaluated by qualified physician",
-        "definition": "Home sleep testing results must be evaluated by a qualified physician",
+        "short": "Will home sleep testing results be evaluated by a qualified physician?",
+        "definition": "Will home sleep testing results be evaluated by a qualified physician?",
         "min": 1,
         "max": "1",
         "type": [
