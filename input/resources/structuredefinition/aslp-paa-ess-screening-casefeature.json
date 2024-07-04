@@ -44,10 +44,10 @@
   ],
   "url": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ess-screening-casefeature",
   "name": "EpworthSleepinessScaleScoreGTE10",
-  "title": "Epworth Sleepiness Scale Score >= 10",
+  "title": "Epworth Sleepiness Scale (ESS) Score >= 10",
   "status": "draft",
   "experimental": true,
-  "description": "Epworth Sleepiness Scale Score >= 10",
+  "description": "Epworth Sleepiness Scale (ESS) Score >= 10",
   "useContext": [
     {
       "code": {
@@ -96,8 +96,8 @@
       {
         "id": "Observation.value[x]",
         "path": "Observation.value[x]",
-        "short": "ESS Score >= 10",
-        "definition": "Epworth Sleepiness Scale (ESS) score of 10 or greater",
+        "short": "Patient has an Epworth Sleepiness Scale (ESS) score of 10 or greater?",
+        "definition": "Patient has an Epworth Sleepiness Scale (ESS) score of 10 or greater?",
         "min": 1,
         "max": "1",
         "type": [
