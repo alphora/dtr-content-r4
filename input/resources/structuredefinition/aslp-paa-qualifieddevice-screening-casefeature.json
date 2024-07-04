@@ -44,10 +44,10 @@
   ],
   "url": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-qualifieddevice-screening-casefeature",
   "name": "QualifiedDevice",
-  "title": "Uses A Qualified Device",
+  "title": "Type II, Type III, Type IV* or PAT PM device is used",
   "status": "draft",
   "experimental": true,
-  "description": "Uses A Qualified Device",
+  "description": "Type II, Type III, Type IV* or PAT PM device is used",
   "useContext": [
     {
       "code": {
@@ -96,8 +96,8 @@
       {
         "id": "Observation.value[x]",
         "path": "Observation.value[x]",
-        "short": "Type II, Type III, Type IV* or PAT PM device is used",
-        "definition": "Examples include, but may not be limited to: AccuSom, Alice PDx Portable Sleep System, ApneaLink Air, ARES Home Sleep Test System, Embletta MPR-PG, NightOwl or NightOwl Mini, Nox T3s, Sleep Profiler PSG2, SleepView, StarDust II, WatchPAT 300, or WatchPAT ONE",
+        "short": "Does patient use a Type II, Type III, Type IV* or PAT PM device? Examples include, but may not be limited to: AccuSom, Alice PDx Portable Sleep System, ApneaLink Air, ARES Home Sleep Test System, Embletta MPR-PG, NightOwl or NightOwl Mini, Nox T3s, Sleep Profiler PSG2, SleepView, StarDust II, WatchPAT 300, or WatchPAT ONE",
+        "definition": "Does patient use a Type II, Type III, Type IV* or PAT PM device? Examples include, but may not be limited to: AccuSom, Alice PDx Portable Sleep System, ApneaLink Air, ARES Home Sleep Test System, Embletta MPR-PG, NightOwl or NightOwl Mini, Nox T3s, Sleep Profiler PSG2, SleepView, StarDust II, WatchPAT 300, or WatchPAT ONE",
         "min": 1,
         "max": "1",
         "type": [

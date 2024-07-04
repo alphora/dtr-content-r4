@@ -44,10 +44,10 @@
   ],
   "url": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithasthma-screening-casefeature",
   "name": "ModerateToSeverePulmonaryDiseaseIncludingAsthma",
-  "title": "Qualifying Moderate To Severe Pulmonary Disease Including Asthma",
+  "title": "Asthma (moderate to severe pulmonary disease)",
   "status": "draft",
   "experimental": true,
-  "description": "Qualifying Moderate To Severe Pulmonary Disease Including Asthma",
+  "description": "Asthma (moderate to severe pulmonary disease)",
   "useContext": [
     {
       "code": {
@@ -96,8 +96,8 @@
       {
         "id": "Observation.value[x]",
         "path": "Observation.value[x]",
-        "short": "Asthma (moderate to severe pulmonary disease)",
-        "definition": "Nocturnal or uncontrolled asthma",
+        "short": "Patient has nocturnal or uncontrolled asthma?",
+        "definition": "Patient has nocturnal or uncontrolled asthma?",
         "min": 1,
         "max": "1",
         "type": [
