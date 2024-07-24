@@ -390,6 +390,100 @@ Usage: #example
                           * description = "The patient is able to have physician evaluate results of home sleep tests"
                           * insert ActionConditionCql("Ability To Have Physician Evaluate Results")
                           * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-approved"
-                 
- 
+
+
+//Facility-Based Polysomnogram (PSG) to confirm the suspected diagnosis of moderate to severe obstructive sleep apnea (OSA)
+Instance: Facility-Based-Polysomnogram
+InstanceOf: PlanDefinition
+Usage: #example
+* insert CommonProperties("Facility-Based-Polysomnogram")
+
+* library = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+
+* url = "http://example.org/sdh/dtr/aslp/PlanDefinition/Facility-Based-Polysomnogram"
+
+* action
+  * title = "Qualifying Patient Age"
+  * description = "Input for whether the patient is within qualifying age."
+  * input
+    * insert ActionInput("Is patient 18 years or older?", "The patient is 18 years or older")
+    * insert ActionInputCql("Qualifying Patient Age", ASLPPolicyPAA)
+    * type = #Observation
+    * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-patientage-casefeature-definition"
+  * action[0]
+    * title = "Is Not Qualifying Patient Age"
+    * description = "The patient is not within the qualifying age."
+    * insert ActionConditionCql("Not Within Qualifying Age")
+    * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+  * action[+]
+    * title = "Age Unknown"
+    * description = "The patient age is unknown. More Information is needed"
+    * insert ActionConditionCql("Age Unknown") 
+    * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+  * action[+]
+    * title = "Is Qualifying Patient Age"
+    * description = "The patient is within the qualifying age"
+    * insert ActionConditionCql("Is Qualifying Age")    
+
+  * action[+]
+    * title = "Has Excessive daytime sleepiness (EDS)"
+    * description = "Patient has excessive daytime sleepiness"
+    * input
+      * insert ActionInput("Patient has excessive daytime sleepiness?", "Patient has excessive daytime sleepiness")
+      * insert ActionInputCql("Qualified Excessive Daytime Sleepiness", ASLPPolicyPAA)
+      * type = #Observation
+      * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-eds-screening-casefeature"
+    * action[0]
+      * title = "Does Not Have excessive daytime sleepiness"
+      * description = "The patient does not have excessive daytime sleepiness"
+      * insert ActionConditionCql("No Excessive Daytime Sleepiness")
+      * definitionCanonical = Canonical(aslp-pa-adj-not-approved)
+    * action[+]
+      * title = "Null or Unknown excessive daytime sleepiness"
+      * description = "Unknown answer. More Information is needed"
+      * insert ActionConditionCql("Null Excessive Daytime Sleepiness")
+      * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+    * action[+]
+      * title = "Has excessive daytime sleepiness"
+      * description = "The patient has excessive daytime sleepiness"
+      * insert ActionConditionCql("Has Excessive Daytime Sleepiness")
+
+      * action[+]
+        * title = "Additional Daytime Sleepiness Indicator"
+        * description = "One or more of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping"
+        * input[+]
+          * insert ActionInput("Does patient have ESS score >= 10?", "ESS score >= 10")
+          * insert ActionInputCql("ESS Score >= 10", ASLPPolicyPAA)
+          * type = #Observation
+          * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ess-screening-casefeature"
+        * input[+]
+          * insert ActionInput("Does patient have excessive sleepiness while driving", "Patient has Excessive sleepiness while driving")
+          * insert ActionInputCql("Qualifying Excessive Sleepiness While Driving", ASLPPolicyPAA)
+          * type = #Observation
+          * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepydriving-screening-casefeature"
+        * input[+]
+          * insert ActionInput("Does patient snore loudly", "Patient snores loudly")
+          * insert ActionInputCql("Loud/Intense Snoring", ASLPPolicyPAA)
+          * type = #Observation
+          * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-loudsnoring-screening-casefeature"
+        * input[+]
+          * insert ActionInput("Does patient have nocturnal apnea", "Patient has nocturnal apnea")
+          * insert ActionInputCql("Nocturnal Apnea", ASLPPolicyPAA)
+          * type = #Observation
+          * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-apnea-screening-casefeature"
+    
+        * action[0]
+          * title = "Has none of the additional daytime sleepiness indicators"
+          * description = "Patient has none of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping"
+          * insert ActionConditionCql("Has No Additional Daytime Sleepiness Indicators")
+          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved" 
+        * action[+]
+          * title = "Null or Unknown answer"
+          * description = "Unknown answer. More Information is needed"
+          * insert ActionConditionCql("Null Additional Daytime Sleepiness Indicators")
+          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+        * action[+]
+          * title = "Has Additional Daytime Sleepiness Indicators"
+          * description = "Patient has the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping"
+          * insert ActionConditionCql("Has Additional Daytime Sleepiness Indicators")
   
