@@ -520,11 +520,11 @@ Usage: #example
               * insert ActionInputCql("Qualifying idiopathic central nervous system hyperinsomnia", ASLPPolicyPAA)
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cnshyperinsomnia-screening-casefeature"
-            * input[+]
-              * insert ActionInput("Patient or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM\) equipment safely at home?", "Patient or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM\) equipment safely at home")
-              * insert ActionInputCql("Qualifying cognitive, dexterity, or mobility impairment", ASLPPolicyPAA)
+            * input
+              * insert ActionInput("Patient can safely use equipment at home?", "Patient can safely use equipment at home")
+              * insert ActionInputCql("Safe Equipment Use At Home", ASLPPolicyPAA)
               * type = #Observation
-              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-difficultyusingpmequipment-screening-casefeature"
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature"
             * input[+]
               * insert ActionInput("Patient has a mission critical profession?", "Patient has a mission critical profession")
               * insert ActionInputCql("Qualifying mission critical profession", ASLPPolicyPAA)
@@ -556,8 +556,8 @@ Usage: #example
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-periodiclimbmovementdisorder-screening-casefeature"
             * input[+]
-              * insert ActionInput("Patient has cardiac disease, including but not limited to pulmonary hypertension or uncontrolled cardiac arrhythmia?", "Patient has cardiac disease, including but not limited to pulmonary hypertension or uncontrolled cardiac arrhythmia")
-              * insert ActionInputCql("Qualifying cardiac disease", ASLPPolicyPAA)
+              * insert ActionInput("Patient has Cardiac Disease?", "Patient has Cardiac Disease")
+              * insert ActionInputCql("Qualifying Cardiac Disease", ASLPPolicyPAA)
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature"
 
