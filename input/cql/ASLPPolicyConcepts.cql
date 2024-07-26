@@ -187,3 +187,14 @@ define "Qualifying Diagnostic Testing Prior to Planned HGNS Implantation With Di
         }
     }
   }
+
+define "Central Sleep Apnea (CSA) Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Central-Sleep-Apnea' },
+            display: string { value: 'Central Sleep Apnea' }
+        }
+    }
+  }

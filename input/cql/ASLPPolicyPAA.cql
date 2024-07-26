@@ -509,6 +509,34 @@ define "No Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis 
 define "Null Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
   IsNull("Has Diagnostic Testing Prior to Planned HGNS Implantation Value")
 
+//Central Sleep Apnea (CSA)
+define "Most Recent Central Sleep Apnea Diagnosis":
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Central Sleep Apnea (CSA) Assertion".coding)])
+
+define "Qualifying Central Sleep Apnea":
+  if not "Most Recent Central Sleep Apnea Diagnosis" is null
+    then "Most Recent Central Sleep Apnea Diagnosis"
+  else
+    PCF.CaseFeatureObservation(
+      AC."Central Sleep Apnea (CSA) Assertion",
+      FacilityPSG."Has Central Sleep Apnea (CSA)",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-csa-screening-casefeature',
+      PCF.MostRecent(FacilityPSG."Qualifying Central Sleep Apnea"),
+      ''
+    )
+
+define "Has Central Sleep Apnea (CSA) Value":
+  "Qualifying Central Sleep Apnea".value.value as System.Boolean
+
+define "Has Central Sleep Apnea (CSA)":
+  IsTrue("Has Central Sleep Apnea (CSA) Value")
+
+define "No Central Sleep Apnea (CSA)":
+  IsFalse("Has Central Sleep Apnea (CSA) Value")
+
+define "Null Central Sleep Apnea (CSA)":
+  IsNull("Has Central Sleep Apnea (CSA) Value")
+
 
 
 //Approval Logic

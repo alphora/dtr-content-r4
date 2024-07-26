@@ -21,6 +21,7 @@ code "Stimulation of hypoglossal nerve for sleep apnea (procedure)": '868249004'
 code "Diagnostic": 'D0120-D0999' from CDT display 'Diagnostic'
 code "Epworth Sleepiness Scale Code": '763254009' from "SNOMEDCT" display 'Epworth Sleepiness Scale'
 code "Snoring": 'R06.83' from "ICD10" display 'Snoring' 
+code "Central sleep apnea syndrome (disorder)": '27405005' from "SNOMEDCT" display 'Central sleep apnea syndrome (disorder)'
 code "Periodic Limb Movement Disorder": 'G47.61' from "ICD10" display 'Periodic Limb Movement Disorder'
 
 context Patient
@@ -68,8 +69,8 @@ define "Nocturnal Apnea":
 
 //Presence of any one of following medical conditions
 define "Presence of Applicable Medical Condition":
-  ("Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA"
-    or "Central Sleep Apnea (CSA)"
+  "Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA"
+    or "Has Central Sleep Apnea (CSA)"
     or "Narcolepsy When MSLT is Planned"
     or "Qualifying Obesity Hypoventilation Syndrome (OHS)"
     or "History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)"
@@ -81,8 +82,8 @@ define "Presence of Applicable Medical Condition":
     or "Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related"
     or "Periodic Limb Movement Disorder"
     or "Cardiac Disease"
-  )
 
+//Diagnostic testing 
 define "Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
     exists("Qualifying Diagnosis of Obstructive Sleep Apnea (OSA)") 
         and exists("Planned Hypoglossal Nerve Stimulator (HGNS) Implantation") HGNS
@@ -95,3 +96,10 @@ define "Qualifying Diagnosis of Obstructive Sleep Apnea (OSA)":
 define "Planned Hypoglossal Nerve Stimulator (HGNS) Implantation":
     ([Procedure: "Stimulation of hypoglossal nerve for sleep apnea (procedure)"]) HGNS 
         where HGNS.status = 'not-done'
+
+//Central Sleep Apnea (CSA)
+define "Has Central Sleep Apnea (CSA)":
+    exists("Qualifying Central Sleep Apnea")
+
+define "Qualifying Central Sleep Apnea":
+    ([Condition: "Central sleep apnea syndrome (disorder)"]).active().confirmed()
