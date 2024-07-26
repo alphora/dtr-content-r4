@@ -177,6 +177,13 @@ define "Physician Evaluated Results Assertion":
     }
   }
 
-
-
-
+define "Qualifying Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Diagnostic-Testing-Prior-To-HGNS-Implantation-With-Diagnosis-of-OSA' },
+            display: string { value: 'Diagnostic Testing Prior To HGNS Implantation With Diagnosis of OSA' }
+        }
+    }
+  }

@@ -8,6 +8,7 @@ include FHIRHelpers version '4.1.000'
 include ASLPPolicyCaseFeatures called PCF
 include ASLPPolicyConcepts called AC
 include ASLPPolicyScreening called PS
+include ASLPPolicyFacilityBasedPSG called FacilityPSG
  
 context Patient
 
@@ -452,6 +453,62 @@ define "Unable To Have Physician Evaluate Results":
 
 define "Unknown Ability To Have Physician Evaluate Results":
   IsNull("Ability To Have Physician Evaluate Results Value")
+
+
+
+//Facility-Based Polysomnogram (PSG)
+  //Criteria to meet any one of following medical conditions:
+define "Has Applicable Medical Condition For Facility-Based PSG Value":
+  "Has Diagnostic Testing Prior to Planned HGNS Implantation Value"
+    or "Has Central Sleep Apnea (CSA)"
+    or "Has Narcolepsy When MSLT is Planned"
+    or "Has Obesity Hypoventilation Syndrome (OHS)"
+    or "Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)"
+    or "Has Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned"
+    or "Has a Mission Critical Profession"
+    or "Has Moderate To Severe Pulmonary Disease Value"
+    or "Has Neuromuscular Disease With Associated Pulmonary Disease Value"
+    or "Has Unusual or Atypical Parasomnias"
+    or "Has Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related"
+    or "Has Periodic Limb Movement Disorder"
+    or "Has Cardiac Disease Value"
+
+define "Has Applicable Medical Condition For Facility-Based PSG":
+  IsTrue("Has Applicable Medical Condition For Facility-Based PSG Value")
+
+define "Has No Applicable Medical Condition For Facility-Based PSG":
+  IsFalse("Has Applicable Medical Condition For Facility-Based PSG Value")
+
+define "Null Applicable Medical Condition For Facility-Based PSG":
+  IsNull("Has Applicable Medical Condition For Facility-Based PSG Value")
+
+
+//Diagnostic testing with diagnosis of OSA
+define "Most Recent Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA Assertion".coding)])
+
+define "Qualifying Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
+  if not "Most Recent Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA" is null
+    then "Most Recent Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA"
+  else
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA Assertion",
+      FacilityPSG."Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-diagnostictesting-screening-casefeature'
+    )
+
+define "Has Diagnostic Testing Prior to Planned HGNS Implantation Value":
+  "Qualifying Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA".value.value as System.Boolean
+
+define "Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
+  IsTrue("Has Diagnostic Testing Prior to Planned HGNS Implantation Value")
+
+define "No Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
+  IsFalse("Has Diagnostic Testing Prior to Planned HGNS Implantation Value")
+
+define "Null Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
+  IsNull("Has Diagnostic Testing Prior to Planned HGNS Implantation Value")
+
 
 
 //Approval Logic

@@ -11,10 +11,14 @@ codesystem "ICD10": 'http://hl7.org/fhir/sid/icd-10-cm'
 codesystem "LOINC": 'http://loinc.org'
 codesystem "SNOMEDCT": 'http://snomed.info/sct'
 codesystem "CPT": 'http://www.ama-assn.org/go/cpt'
+codesystem "CDT": 'http://www.ada.org/cdt'
  
 valueset "Excessive Daytime Sleepiness (Drowsiness) ValueSet": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1078.769'
 valueset "Sleep Apnea": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1222.102' 
 
+code "Obstructive Sleep Apnea of Adult (Disorder)": '1101000119103' from SNOMEDCT display 'Obstructive Sleep Apnea of Adult (Disorder)'
+code "Stimulation of hypoglossal nerve for sleep apnea (procedure)": '868249004' from SNOMEDCT display 'Stimulation of hypoglossal nerve for sleep apnea (procedure)'
+code "Diagnostic": 'D0120-D0999' from CDT display 'Diagnostic'
 code "Epworth Sleepiness Scale Code": '763254009' from "SNOMEDCT" display 'Epworth Sleepiness Scale'
 code "Snoring": 'R06.83' from "ICD10" display 'Snoring' 
 code "Periodic Limb Movement Disorder": 'G47.61' from "ICD10" display 'Periodic Limb Movement Disorder'
@@ -64,17 +68,30 @@ define "Nocturnal Apnea":
 
 //Presence of any one of following medical conditions
 define "Presence of Applicable Medical Condition":
-  "Diagnostic testing prior to planned HGNS implantation and diagnosis of OSA"
-    union "Central Sleep Apnea (CSA)"
-    union "Narcolepsy When MSLT Is Planned"
-    union "Qualifying Obesity Hypoventilation Syndrome (OHS)"
-    union "History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)"
-    union "Idiopathic Central Nervous System Hyperinsomnia When MSLT Is Planned"
-    union "Has Mission Critical Profession"
-    union "Moderate to Severe Pulmonary Disease"
-    union "Neuromuscular Disease With Associated Pulmonary Disease"
-    union "Unusual or Atypical Parasomnias"
-    union "Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related"
-    union "Periodic Limb Movement Disorder"
-    union "Cardiac Disease"
+  ("Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA"
+    or "Central Sleep Apnea (CSA)"
+    or "Narcolepsy When MSLT is Planned"
+    or "Qualifying Obesity Hypoventilation Syndrome (OHS)"
+    or "History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)"
+    or "Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned"
+    or "Has Mission Critical Profession"
+    or "Moderate to Severe Pulmonary Disease"
+    or "Neuromuscular Disease With Associated Pulmonary Disease"
+    or "Unusual or Atypical Parasomnias"
+    or "Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related"
+    or "Periodic Limb Movement Disorder"
+    or "Cardiac Disease"
+  )
 
+define "Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
+    exists("Qualifying Diagnosis of Obstructive Sleep Apnea (OSA)") 
+        and exists("Planned Hypoglossal Nerve Stimulator (HGNS) Implantation") HGNS
+            where exists(["DiagnosticReport": "Diagnostic"] D
+                where D.effective before HGNS.performed)
+
+define "Qualifying Diagnosis of Obstructive Sleep Apnea (OSA)":
+    ([Condition: "Obstructive Sleep Apnea of Adult (Disorder)"]).active().confirmed()
+
+define "Planned Hypoglossal Nerve Stimulator (HGNS) Implantation":
+    ([Procedure: "Stimulation of hypoglossal nerve for sleep apnea (procedure)"]) HGNS 
+        where HGNS.status = 'not-done'
