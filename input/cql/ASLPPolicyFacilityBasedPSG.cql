@@ -61,3 +61,20 @@ define "Loud Intense Snoring":
 
 define "Nocturnal Apnea":
   ([Condition: "Sleep Apnea"]).active().confirmed()
+
+//Presence of any one of following medical conditions
+define "Presence of Applicable Medical Condition":
+  "Diagnostic testing prior to planned HGNS implantation and diagnosis of OSA"
+    union "Central Sleep Apnea (CSA)"
+    union "Narcolepsy When MSLT Is Planned"
+    union "Qualifying Obesity Hypoventilation Syndrome (OHS)"
+    union "History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)"
+    union "Idiopathic Central Nervous System Hyperinsomnia When MSLT Is Planned"
+    union "Has Mission Critical Profession"
+    union "Moderate to Severe Pulmonary Disease"
+    union "Neuromuscular Disease With Associated Pulmonary Disease"
+    union "Unusual or Atypical Parasomnias"
+    union "Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related"
+    union "Periodic Limb Movement Disorder"
+    union "Cardiac Disease"
+
