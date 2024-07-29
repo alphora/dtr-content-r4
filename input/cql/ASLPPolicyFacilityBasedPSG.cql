@@ -22,6 +22,10 @@ code "Diagnostic": 'D0120-D0999' from CDT display 'Diagnostic'
 code "Epworth Sleepiness Scale Code": '763254009' from "SNOMEDCT" display 'Epworth Sleepiness Scale'
 code "Snoring": 'R06.83' from "ICD10" display 'Snoring' 
 code "Central sleep apnea syndrome (disorder)": '27405005' from "SNOMEDCT" display 'Central sleep apnea syndrome (disorder)'
+code "Multiple sleep latency test (procedure)": '252731002' from "SNOMEDCT" display 'Multiple sleep latency test (procedure)'
+code "Narcolepsy with cataplexy": 'G47.411' from ICD10 display 'Narcolepsy with cataplexy'
+code "Hypnagogic hallucinations (finding)": '44780000' from SNOMEDCT display 'Hypnagogic hallucinations (finding)'
+code "Excessive daytime sleepiness with sleep paralysis (disorder)": '230492006' from SNOMEDCT display 'Excessive daytime sleepiness with sleep paralysis (disorder)'
 code "Periodic Limb Movement Disorder": 'G47.61' from "ICD10" display 'Periodic Limb Movement Disorder'
 
 context Patient
@@ -71,10 +75,11 @@ define "Nocturnal Apnea":
 define "Presence of Applicable Medical Condition":
   "Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA"
     or "Has Central Sleep Apnea (CSA)"
-    or "Narcolepsy When MSLT is Planned"
+    or "Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned"
     or "Qualifying Obesity Hypoventilation Syndrome (OHS)"
     or "History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)"
     or "Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned"
+    or "Lacks Cognitive Function, Dexterity, or Mobility for Safe Use of Equipment"
     or "Has Mission Critical Profession"
     or "Moderate to Severe Pulmonary Disease"
     or "Neuromuscular Disease With Associated Pulmonary Disease"
@@ -103,3 +108,20 @@ define "Has Central Sleep Apnea (CSA)":
 
 define "Qualifying Central Sleep Apnea":
     ([Condition: "Central sleep apnea syndrome (disorder)"]).active().confirmed()
+
+//Features associated with narcolepsy (moderate to severe daytime sleepiness associated with cataplexy, hypnagogic hallucinations, or sleep paralysis) when MSLT is planned
+define "Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned":
+    exists(
+        (([Condition: "Narcolepsy with cataplexy"]).active().confirmed()
+        union ([Condition: "Hypnagogic hallucinations (finding)"]).active().confirmed()
+        union ([Condition: "Excessive daytime sleepiness with sleep paralysis (disorder)"]).active().confirmed()
+        ) Narcolepsyfeature
+            where exists([Appointment]) Appt
+                where Appt.status = 'booked'
+                and Appt.start after Narcolepsyfeature.onset
+            and exists(Appt.serviceType.coding) C
+                where C.display = 'Multiple sleep latency test (procedure)'
+                or C.code = '252731002'
+    ) 
+     
+      

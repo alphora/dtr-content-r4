@@ -188,7 +188,7 @@ define "Qualifying Diagnostic Testing Prior to Planned HGNS Implantation With Di
     }
   }
 
-define "Central Sleep Apnea (CSA) Assertion":
+define "Qualifying Central Sleep Apnea (CSA) Assertion":
   FHIR.CodeableConcept {
     coding: {
         Coding {
@@ -198,3 +198,15 @@ define "Central Sleep Apnea (CSA) Assertion":
         }
     }
   }
+
+define "Qualifying Features Associated With Narcolepsy When a MSLT is Planned Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Features-Associated-With-Narcolepsy' },
+            display: string { value: 'Qualifying Features Associated With Narcolepsy' }
+        }
+    }
+  }
+

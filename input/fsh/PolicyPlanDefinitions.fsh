@@ -501,10 +501,10 @@ Usage: #example
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-csa-screening-casefeature"
             * input[+]
-              * insert ActionInput("Patient has/had narcolepsy when a multiple sleep latency test (MSLT\) is/was planned?", "Patient has/had narcolepsy when a multiple sleep latency test (MSLT\) is/was planned")
-              * insert ActionInputCql("Qualifying Narcolepsy", ASLPPolicyPAA)
+              * insert ActionInput("Patient has/had features associated with narcolepsy when a multiple sleep latency test (MSLT\) is/was planned?", "Patient has/had features associated with narcolepsy when a multiple sleep latency test (MSLT\) is/was planned")
+              * insert ActionInputCql("Qualifying Feature Associated With Narcolepsy", ASLPPolicyPAA)
               * type = #Observation
-              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-narcolepsy-screening-casefeature"
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-featuresassociatedwithnarcolepsy-screening-casefeature"
             * input[+]
               * insert ActionInput("Patient has/had obesity hypoventilation syndrome (OHS\) which cannot be attributed to hypothyroidism, neuromuscular weakness, pleural pathology, pulmonary disease, or skeletal restriction?", "Patient has/had obesity hypoventilation syndrome (OHS\) which cannot be attributed to hypothyroidism, neuromuscular weakness, pleural pathology, pulmonary disease, or skeletal restriction")
               * insert ActionInputCql("Qualifying Obesity Hypoventilation Syndrome (OHS\)", ASLPPolicyPAA)

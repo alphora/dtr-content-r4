@@ -461,10 +461,11 @@ define "Unknown Ability To Have Physician Evaluate Results":
 define "Has Applicable Medical Condition For Facility-Based PSG Value":
   "Has Diagnostic Testing Prior to Planned HGNS Implantation Value"
     or "Has Central Sleep Apnea (CSA)"
-    or "Has Narcolepsy When MSLT is Planned"
+    or "Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned"
     or "Has Obesity Hypoventilation Syndrome (OHS)"
     or "Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)"
     or "Has Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned"
+    or "Has Cognitive, Dexterity, or Mobility Impairment Affecting Safe Equipment Use"
     or "Has a Mission Critical Profession"
     or "Has Moderate To Severe Pulmonary Disease Value"
     or "Has Neuromuscular Disease With Associated Pulmonary Disease Value"
@@ -487,7 +488,7 @@ define "Null Applicable Medical Condition For Facility-Based PSG":
 define "Most Recent Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
   PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA Assertion".coding)])
 
-define "Qualifying Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
+define "Qualifying Diagnostic Testing With Diagnosis of OSA":
   if not "Most Recent Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA" is null
     then "Most Recent Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA"
   else
@@ -498,7 +499,7 @@ define "Qualifying Diagnostic Testing Prior to Planned HGNS Implantation With Di
     )
 
 define "Has Diagnostic Testing Prior to Planned HGNS Implantation Value":
-  "Qualifying Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA".value.value as System.Boolean
+  "Qualifying Diagnostic Testing With Diagnosis of OSA".value.value as System.Boolean
 
 define "Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
   IsTrue("Has Diagnostic Testing Prior to Planned HGNS Implantation Value")
@@ -511,31 +512,57 @@ define "Null Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosi
 
 //Central Sleep Apnea (CSA)
 define "Most Recent Central Sleep Apnea Diagnosis":
-  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Central Sleep Apnea (CSA) Assertion".coding)])
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Central Sleep Apnea (CSA) Assertion".coding)])
 
-define "Qualifying Central Sleep Apnea":
+define "Qualifying Central Sleep Apnea (CSA)":
   if not "Most Recent Central Sleep Apnea Diagnosis" is null
     then "Most Recent Central Sleep Apnea Diagnosis"
   else
     PCF.CaseFeatureObservation(
-      AC."Central Sleep Apnea (CSA) Assertion",
+      AC."Qualifying Central Sleep Apnea (CSA) Assertion",
       FacilityPSG."Has Central Sleep Apnea (CSA)",
       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-csa-screening-casefeature',
       PCF.MostRecent(FacilityPSG."Qualifying Central Sleep Apnea"),
       ''
     )
 
-define "Has Central Sleep Apnea (CSA) Value":
-  "Qualifying Central Sleep Apnea".value.value as System.Boolean
-
 define "Has Central Sleep Apnea (CSA)":
-  IsTrue("Has Central Sleep Apnea (CSA) Value")
+  "Qualifying Central Sleep Apnea (CSA)".value.value as System.Boolean
+
+define "Central Sleep Apnea (CSA) Present":
+  IsTrue("Has Central Sleep Apnea (CSA)")
 
 define "No Central Sleep Apnea (CSA)":
-  IsFalse("Has Central Sleep Apnea (CSA) Value")
+  IsFalse("Has Central Sleep Apnea (CSA)")
 
 define "Null Central Sleep Apnea (CSA)":
-  IsNull("Has Central Sleep Apnea (CSA) Value")
+  IsNull("Has Central Sleep Apnea (CSA)")
+
+//Features associated with narcolepsy when a multiple sleep latency test (MSLT) is planned
+define "Most Recent Feature Associated With Narcolepsy When a MSLT is Planned":
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Features Associated With Narcolepsy When a MSLT is Planned Assertion".coding)])
+
+define "Qualifying Feature Associated With Narcolepsy":
+  if not "Most Recent Feature Associated With Narcolepsy When a MSLT is Planned" is null
+    then "Most Recent Feature Associated With Narcolepsy When a MSLT is Planned"
+  else
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Features Associated With Narcolepsy When a MSLT is Planned Assertion",
+      FacilityPSG."Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-featuresassociatedwithnarcolepsy-screening-casefeature'
+    )
+
+define "Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned":
+  "Qualifying Feature Associated With Narcolepsy".value.value as System.Boolean
+
+define "Feature Associated With Narcolepsy Present When MSLT is Planned":
+  IsTrue("Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned")
+
+define "No Features Associated With Narcolepsy When MSLT is Planned":
+  IsFalse("Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned")
+
+define "Null Features Associated With Narcolepsy When MSLT is Planned":
+  IsNull("Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned")
 
 
 
