@@ -604,17 +604,17 @@ define "Qualifying Traumatic Brain Injury (TBI) with EDS":
       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-tbiwitheds-screening-casefeature'
     )
 
-define "Has Traumatic Brain Injury (TBI) with EDS":
+define "Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)":
   "Qualifying Traumatic Brain Injury (TBI) with EDS".value.value as System.Boolean
 
 define "History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS) Present":
-  IsTrue("Has Traumatic Brain Injury (TBI) with EDS")
+  IsTrue("Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)")
 
 define "No History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)":
-  IsFalse("Has Traumatic Brain Injury (TBI) with EDS")
+  IsFalse("Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)")
 
 define "Null History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)":
-  IsNull("Has Traumatic Brain Injury (TBI) with EDS")
+  IsNull("Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)")
 
 //Idiopathic central nervous system hypersomnia when multiple sleep latency test (MSLT) is planned
 define "Most Recent Diagnosis of Idiopathic Central Nervous System Hypersomnia":
@@ -630,17 +630,17 @@ define "Qualifying Idiopathic Central Nervous System Hypersomnia":
       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-idiopathiccnshypersomnia-screening-casefeature'
     )
 
-define "Has Idiopathic Central Nervous System Hypersomnia":
+define "Has Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned":
   "Qualifying Idiopathic Central Nervous System Hypersomnia".value.value as System.Boolean
 
 define "Idiopathic Central Nervous System Hypersomnia Present When MSLT is Planned":
-  IsTrue("Has Idiopathic Central Nervous System Hypersomnia")
+  IsTrue("Has Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned")
 
 define "No Idiopathic Central Nervous System Hypersomnia When MSLT is Planned":
-  IsFalse("Has Idiopathic Central Nervous System Hypersomnia")
+  IsFalse("Has Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned")
 
 define "Null Idiopathic Central Nervous System Hypersomnia When MSLT is Planned":
-  IsNull("Has Idiopathic Central Nervous System Hypersomnia")
+  IsNull("Has Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned")
 
 
 
