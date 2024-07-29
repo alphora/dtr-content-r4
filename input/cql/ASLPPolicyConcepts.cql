@@ -220,3 +220,14 @@ define "Qualifying Obesity Hypoventilation Syndrome (OHS) Assertion":
         }
     }
   }
+
+define "Qualifying Traumatic Brain Injury (TBI) with EDS Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Traumatic-Brain-Injury-TBI-with-EDS' },
+            display: string { value: 'Qualifying Traumatic Brain Injury (TBI) with EDS' }
+        }
+    }
+  }

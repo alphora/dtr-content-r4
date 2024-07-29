@@ -590,6 +590,33 @@ define "No Obesity Hypoventilation Syndrome (OHS)":
 define "Null Obesity Hypoventilation Syndrome (OHS)":
   IsNull("Has Obesity Hypoventilation Syndrome (OHS)")
 
+//Traumatic Brain Injury (TBI) with EDS 
+define "Most Recent Diagnosis of Traumatic Brain Injury (TBI) with EDS":
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Traumatic Brain Injury (TBI) with EDS Assertion".coding)])
+
+define "Qualifying Traumatic Brain Injury (TBI) with EDS":
+  if not "Most Recent Diagnosis of Traumatic Brain Injury (TBI) with EDS" is null
+    then "Most Recent Diagnosis of Traumatic Brain Injury (TBI) with EDS"
+  else
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Traumatic Brain Injury (TBI) with EDS Assertion",
+      FacilityPSG."Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-tbiwitheds-screening-casefeature'
+    )
+
+define "Has Traumatic Brain Injury (TBI) with EDS":
+  "Qualifying Traumatic Brain Injury (TBI) with EDS".value.value as System.Boolean
+
+define "History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS) Present":
+  IsTrue("Has Traumatic Brain Injury (TBI) with EDS")
+
+define "No History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)":
+  IsFalse("Has Traumatic Brain Injury (TBI) with EDS")
+
+define "Null History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)":
+  IsNull("Has Traumatic Brain Injury (TBI) with EDS")
+
+
 
 //Approval Logic
 define "LineBreak": 

@@ -33,6 +33,7 @@ code "Neurogenic muscle weakness, ataxia and retinitis pigmentosa (disorder)": '
 code "Disorder of pleura AND/OR pleural cavity (disorder)": '233635001' from SNOMEDCT display 'Disorder of pleura AND/OR pleural cavity (disorder)' 
 code "Disorder of respiratory system (disorder)": '50043002' from SNOMEDCT display 'Disorder of respiratory system (disorder)'
 code "Disorder of skeletal system (disorder)": '88230002' from SNOMEDCT display 'Disorder of skeletal system (disorder)'
+code "Traumatic brain injury (disorder)": '127295002' from SNOMEDCT display 'Traumatic brain injury (disorder)'
 code "Periodic Limb Movement Disorder": 'G47.61' from "ICD10" display 'Periodic Limb Movement Disorder'
 
 context Patient
@@ -84,7 +85,7 @@ define "Presence of Applicable Medical Condition":
     or "Has Central Sleep Apnea (CSA)"
     or "Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned"
     or "Has Obesity Hypoventilation Syndrome (OHS)"
-    or "History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)"
+    or "Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)"
     or "Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned"
     or "Lacks Cognitive Function, Dexterity, or Mobility for Safe Use of Equipment"
     or "Has Mission Critical Profession"
@@ -145,3 +146,10 @@ define "Qualifying Obesity Hypoventilation Syndrome (OHS)":
                     union ([Condition: "Disorder of respiratory system (disorder)"]).active().confirmed()
                     union ([Condition: "Disorder of skeletal system (disorder)"]).active().confirmed()
             )
+
+//Traumatic Brain Injury (TBI) with EDS
+define "Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)":
+    exists(([Condition: "Traumatic brain injury (disorder)"]).active().confirmed()) TBI
+        where TBI.onset before Now()
+        and exists(([Condition: "Excessive Daytime Sleepiness (Drowsiness) ValueSet"]).active().confirmed()) EDS
+            where TBI.onset during EDS.onset
