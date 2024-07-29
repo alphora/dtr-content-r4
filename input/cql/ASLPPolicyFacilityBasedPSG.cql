@@ -15,6 +15,8 @@ codesystem "CDT": 'http://www.ada.org/cdt'
  
 valueset "Excessive Daytime Sleepiness (Drowsiness) ValueSet": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1078.769'
 valueset "Sleep Apnea": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1222.102' 
+valueset "Obesity": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1235.417' 
+valueset "Hypothyroidism": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1178.6'
 
 code "Obstructive Sleep Apnea of Adult (Disorder)": '1101000119103' from SNOMEDCT display 'Obstructive Sleep Apnea of Adult (Disorder)'
 code "Stimulation of hypoglossal nerve for sleep apnea (procedure)": '868249004' from SNOMEDCT display 'Stimulation of hypoglossal nerve for sleep apnea (procedure)'
@@ -26,6 +28,11 @@ code "Multiple sleep latency test (procedure)": '252731002' from "SNOMEDCT" disp
 code "Narcolepsy with cataplexy": 'G47.411' from ICD10 display 'Narcolepsy with cataplexy'
 code "Hypnagogic hallucinations (finding)": '44780000' from SNOMEDCT display 'Hypnagogic hallucinations (finding)'
 code "Excessive daytime sleepiness with sleep paralysis (disorder)": '230492006' from SNOMEDCT display 'Excessive daytime sleepiness with sleep paralysis (disorder)'
+code "Alveolar hypoventilation (finding)": '15993004' from SNOMEDCT display 'Alveolar hypoventilation (finding)'
+code "Neurogenic muscle weakness, ataxia and retinitis pigmentosa (disorder)": '237984008' from SNOMEDCT display 'Neurogenic muscle weakness, ataxia and retinitis pigmentosa (disorder)'
+code "Disorder of pleura AND/OR pleural cavity (disorder)": '233635001' from SNOMEDCT display 'Disorder of pleura AND/OR pleural cavity (disorder)' 
+code "Disorder of respiratory system (disorder)": '50043002' from SNOMEDCT display 'Disorder of respiratory system (disorder)'
+code "Disorder of skeletal system (disorder)": '88230002' from SNOMEDCT display 'Disorder of skeletal system (disorder)'
 code "Periodic Limb Movement Disorder": 'G47.61' from "ICD10" display 'Periodic Limb Movement Disorder'
 
 context Patient
@@ -76,7 +83,7 @@ define "Presence of Applicable Medical Condition":
   "Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA"
     or "Has Central Sleep Apnea (CSA)"
     or "Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned"
-    or "Qualifying Obesity Hypoventilation Syndrome (OHS)"
+    or "Has Obesity Hypoventilation Syndrome (OHS)"
     or "History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)"
     or "Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned"
     or "Lacks Cognitive Function, Dexterity, or Mobility for Safe Use of Equipment"
@@ -124,4 +131,17 @@ define "Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned":
                 or C.code = '252731002'
     ) 
      
-      
+//Obesity Hypoventilation Syndrome (OHS)
+define "Has Obesity Hypoventilation Syndrome (OHS)":
+    "Qualifying Obesity Hypoventilation Syndrome (OHS)"
+
+define "Qualifying Obesity Hypoventilation Syndrome (OHS)":
+    exists([Observation: "Obesity"])
+        and exists ([Observation: "Alveolar hypoventilation (finding)"])
+            and not exists(
+                ([Condition: "Hypothyroidism"]).active().confirmed()
+                    union ([Condition: "Neurogenic muscle weakness, ataxia and retinitis pigmentosa (disorder)"]).active().confirmed()
+                    union ([Condition: "Disorder of pleura AND/OR pleural cavity (disorder)"]).active().confirmed()
+                    union ([Condition: "Disorder of respiratory system (disorder)"]).active().confirmed()
+                    union ([Condition: "Disorder of skeletal system (disorder)"]).active().confirmed()
+            )

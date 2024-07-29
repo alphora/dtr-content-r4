@@ -564,6 +564,31 @@ define "No Features Associated With Narcolepsy When MSLT is Planned":
 define "Null Features Associated With Narcolepsy When MSLT is Planned":
   IsNull("Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned")
 
+//Obesity Hypoventilation Syndrome (OHS)
+define "Most Recent Diagnosis of Obesity Hypoventilation Syndrome (OHS)":
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Obesity Hypoventilation Syndrome (OHS) Assertion".coding)])
+
+define "Qualifying Obesity Hypoventilation Syndrome (OHS)":
+  if not "Most Recent Diagnosis of Obesity Hypoventilation Syndrome (OHS)" is null
+    then "Most Recent Diagnosis of Obesity Hypoventilation Syndrome (OHS)"
+  else
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Obesity Hypoventilation Syndrome (OHS) Assertion",
+      FacilityPSG."Has Obesity Hypoventilation Syndrome (OHS)",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ohs-screening-casefeature'
+    )
+
+define "Has Obesity Hypoventilation Syndrome (OHS)":
+  "Qualifying Obesity Hypoventilation Syndrome (OHS)".value.value as System.Boolean
+
+define "Obesity Hypoventilation Syndrome (OHS) Present":
+  IsTrue("Has Obesity Hypoventilation Syndrome (OHS)")
+
+define "No Obesity Hypoventilation Syndrome (OHS)":
+  IsFalse("Has Obesity Hypoventilation Syndrome (OHS)")
+
+define "Null Obesity Hypoventilation Syndrome (OHS)":
+  IsNull("Has Obesity Hypoventilation Syndrome (OHS)")
 
 
 //Approval Logic

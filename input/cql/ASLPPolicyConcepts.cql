@@ -210,3 +210,13 @@ define "Qualifying Features Associated With Narcolepsy When a MSLT is Planned As
     }
   }
 
+define "Qualifying Obesity Hypoventilation Syndrome (OHS) Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Obesity-Hypoventilation-Syndrome-OHS' },
+            display: string { value: 'Qualifying Obesity Hypoventilation Syndrome (OHS)' }
+        }
+    }
+  }
