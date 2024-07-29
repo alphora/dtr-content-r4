@@ -36,6 +36,11 @@ code "Disorder of respiratory system (disorder)": '50043002' from SNOMEDCT displ
 code "Disorder of skeletal system (disorder)": '88230002' from SNOMEDCT display 'Disorder of skeletal system (disorder)'
 code "Traumatic brain injury (disorder)": '127295002' from SNOMEDCT display 'Traumatic brain injury (disorder)'
 code "Hypersomnia (disorder)": '77692006' from SNOMEDCT display 'Hypersomnia (disorder)'
+code "Idiopathic hypersomnia associated with long sleep time (disorder)": '442416002' from SNOMEDCT display 'Idiopathic hypersomnia associated with long sleep time (disorder)'
+code "Excessive day and night-time sleepiness (disorder)": '230490003' from SNOMEDCT display 'Excessive day and night-time sleepiness (disorder)'
+//may want to use a more specific code for difficulty waking up in the morning, but did not find any (using related code above for now)
+code "Somnolence": 'R40.0' from ICD10 display 'Somnolence'
+code "Sleep drunkenness (disorder)": '192003008' from SNOMEDCT display 'Sleep drunkenness (disorder)'
 code "Periodic Limb Movement Disorder": 'G47.61' from "ICD10" display 'Periodic Limb Movement Disorder'
 
 context Patient
@@ -88,7 +93,7 @@ define "Presence of Applicable Medical Condition":
     or "Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned"
     or "Has Obesity Hypoventilation Syndrome (OHS)"
     or "Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)"
-    or "Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned"
+    or "Has Idiopathic Central Nervous System Hypersomnia When MSLT is Planned"
     or "Lacks Cognitive Function, Dexterity, or Mobility for Safe Use of Equipment"
     or "Has Mission Critical Profession"
     or "Moderate to Severe Pulmonary Disease"
@@ -159,3 +164,19 @@ define "Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleep
                 union ([Condition: "Hypersomnia (disorder)"]).active().confirmed()
             ) EDS
                 where EDS.onset after TBI.onset
+
+//Idiopathic Central Nervous System Hypersomnia when MSLT is planned
+define "Has Idiopathic Central Nervous System Hypersomnia When MSLT is Planned":
+    exists(
+        (([Condition: "Idiopathic hypersomnia associated with long sleep time (disorder)"]).active().confirmed()
+        union ([Condition: "Excessive day and night-time sleepiness (disorder)"]).active().confirmed()
+        union ([Condition: "Somnolence"]).active().confirmed()
+        union ([Condition: "Sleep drunkenness (disorder)"]).active().confirmed()
+        ) Hypersomnia
+            where exists([Appointment]) Appt
+                where Appt.status = 'booked'
+                and Appt.start after Hypersomnia.onset
+            and exists(Appt.serviceType.coding) C
+                where C.display = 'Multiple sleep latency test (procedure)'
+                or C.code = '252731002'
+    ) 

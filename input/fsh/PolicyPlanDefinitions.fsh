@@ -517,9 +517,9 @@ Usage: #example
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-tbiwitheds-screening-casefeature"
             * input[+]
               * insert ActionInput("Patient has idiopathic central nervous system hyperinsomnia when a multiple sleep latency test (MSLT\) is planned?", "Patient has idiopathic central nervous system hyperinsomnia when a multiple sleep latency test (MSLT\) is planned")
-              * insert ActionInputCql("Qualifying idiopathic central nervous system hyperinsomnia", ASLPPolicyPAA)
+              * insert ActionInputCql("Qualifying Idiopathic Central Nervous System Hypersomnia", ASLPPolicyPAA)
               * type = #Observation
-              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cnshyperinsomnia-screening-casefeature"
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-idiopathiccnshypersomnia-screening-casefeature"
             * input
               * insert ActionInput("Patient can safely use equipment at home?", "Patient can safely use equipment at home")
               * insert ActionInputCql("Safe Equipment Use At Home", ASLPPolicyPAA)

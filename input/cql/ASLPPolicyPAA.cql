@@ -616,6 +616,33 @@ define "No History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepi
 define "Null History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)":
   IsNull("Has Traumatic Brain Injury (TBI) with EDS")
 
+//Idiopathic central nervous system hypersomnia when multiple sleep latency test (MSLT) is planned
+define "Most Recent Diagnosis of Idiopathic Central Nervous System Hypersomnia":
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Idiopathic Central Nervous System Hypersomnia Assertion".coding)])
+
+define "Qualifying Idiopathic Central Nervous System Hypersomnia":
+  if not "Most Recent Diagnosis of Idiopathic Central Nervous System Hypersomnia" is null
+    then "Most Recent Diagnosis of Idiopathic Central Nervous System Hypersomnia"
+  else
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Idiopathic Central Nervous System Hypersomnia Assertion",
+      FacilityPSG."Has Idiopathic Central Nervous System Hypersomnia When MSLT is Planned",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-idiopathiccnshypersomnia-screening-casefeature'
+    )
+
+define "Has Idiopathic Central Nervous System Hypersomnia":
+  "Qualifying Idiopathic Central Nervous System Hypersomnia".value.value as System.Boolean
+
+define "Idiopathic Central Nervous System Hypersomnia Present When MSLT is Planned":
+  IsTrue("Has Idiopathic Central Nervous System Hypersomnia")
+
+define "No Idiopathic Central Nervous System Hypersomnia When MSLT is Planned":
+  IsFalse("Has Idiopathic Central Nervous System Hypersomnia")
+
+define "Null Idiopathic Central Nervous System Hypersomnia When MSLT is Planned":
+  IsNull("Has Idiopathic Central Nervous System Hypersomnia")
+
+
 
 
 //Approval Logic

@@ -193,7 +193,7 @@ define "Qualifying Central Sleep Apnea (CSA) Assertion":
     coding: {
         Coding {
             system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
-            code: code { value: 'Central-Sleep-Apnea' },
+            code: code { value: 'Central-Sleep-Apnea-CSA' },
             display: string { value: 'Central Sleep Apnea' }
         }
     }
@@ -228,6 +228,17 @@ define "Qualifying Traumatic Brain Injury (TBI) with EDS Assertion":
             system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
             code: code { value: 'Qualifying-Traumatic-Brain-Injury-TBI-with-EDS' },
             display: string { value: 'Qualifying Traumatic Brain Injury (TBI) with EDS' }
+        }
+    }
+  }
+
+define "Qualifying Idiopathic Central Nervous System Hypersomnia Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Idiopathic-Central-Nervous-System-Hypersomnia' },
+            display: string { value: 'Qualifying Idiopathic Central Nervous System Hypersomnia' }
         }
     }
   }
