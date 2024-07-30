@@ -253,3 +253,14 @@ define "Qualifying Impairment Affecting Safe Equipment Use At Home Assertion":
         }
     }
   }
+
+define "Qualifying Mission Critical Profession Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Mission-Critical-Profession' },
+            display: string { value: 'Qualifying Mission Critical Profession' }
+        }
+    }
+  }

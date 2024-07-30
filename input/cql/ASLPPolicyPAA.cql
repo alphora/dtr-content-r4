@@ -465,7 +465,7 @@ define "Has Applicable Medical Condition For Facility-Based PSG Value":
     or "Has Obesity Hypoventilation Syndrome (OHS)"
     or "Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)"
     or "Has Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned"
-    or "Has Cognitive, Dexterity, or Mobility Impairment Affecting Safe Equipment Use"
+    or "Has Cognitive, Dexterity, or Mobility Impairment Affecting Safe Equipment Use At Home"
     or "Has a Mission Critical Profession"
     or "Has Moderate To Severe Pulmonary Disease Value"
     or "Has Neuromuscular Disease With Associated Pulmonary Disease Value"
@@ -658,17 +658,45 @@ define "Qualifying Impairment Affecting Safe Use of Equipment At Home":
       ''
     )
 
-define "Unsafe Use of Equipment At Home":
+define "Has Cognitive, Dexterity, or Mobility Impairment Affecting Safe Equipment Use At Home":
   "Qualifying Impairment Affecting Safe Use of Equipment At Home".value.value as System.Boolean
 
 define "Lacks Cognitive Function, Dexterity, or Mobility to Use Portable Monitor (PM) Safely At Home":
-  IsTrue("Unsafe Use of Equipment At Home")
+  IsTrue("Has Cognitive, Dexterity, or Mobility Impairment Affecting Safe Equipment Use At Home")
 
 define "Not Lacking Cognitive Function, Dexterity, or Mobility to Use Portable Monitor (PM) Safely At Home":
-  IsFalse("Unsafe Use of Equipment At Home")
+  IsFalse("Has Cognitive, Dexterity, or Mobility Impairment Affecting Safe Equipment Use At Home")
 
 define "Unknown Lack of Cognitive Function, Dexterity, or Mobility to Use Portable Monitor (PM) Safely At Home":
-  IsNull("Unsafe Use of Equipment At Home")
+  IsNull("Has Cognitive, Dexterity, or Mobility Impairment Affecting Safe Equipment Use At Home")
+
+//Mission critical profession
+define "Most Recent Mission Critical Profession":
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Mission Critical Profession Assertion".coding)])
+
+define "Qualifying Mission Critical Profession":
+  if not "Most Recent Mission Critical Profession" is null
+    then "Most Recent Mission Critical Profession"
+  else 
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Mission Critical Profession Assertion",
+      FacilityPSG."Has Mission Critical Profession",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-missioncriticalprofession-screening-casefeature',
+      PCF.MostRecent(FacilityPSG."Qualifying Mission Critical Profession"),
+      ''
+    )
+
+define "Has a Mission Critical Profession":
+  "Qualifying Mission Critical Profession".value.value as System.Boolean
+
+define "Has Mission Critical Profession":
+  IsTrue("Has a Mission Critical Profession")
+
+define "No Mission Critical Profession":
+  IsFalse("Has a Mission Critical Profession")
+
+define "Unknown Profession or Unknown Whether Profession is Mission Critical":
+  IsNull("Has a Mission Critical Profession")
 
 
 

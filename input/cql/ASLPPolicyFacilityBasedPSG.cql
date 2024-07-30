@@ -12,7 +12,8 @@ codesystem "LOINC": 'http://loinc.org'
 codesystem "SNOMEDCT": 'http://snomed.info/sct'
 codesystem "CPT": 'http://www.ama-assn.org/go/cpt'
 codesystem "CDT": 'http://www.ada.org/cdt'
- 
+codesystem "CDC": 'https://www.cdc.gov/'
+
 valueset "Excessive Daytime Sleepiness (Drowsiness) ValueSet": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1078.769'
 valueset "Sleep Apnea": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1222.102' 
 valueset "Obesity": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1235.417' 
@@ -37,14 +38,20 @@ code "Disorder of skeletal system (disorder)": '88230002' from SNOMEDCT display 
 code "Traumatic brain injury (disorder)": '127295002' from SNOMEDCT display 'Traumatic brain injury (disorder)'
 code "Hypersomnia (disorder)": '77692006' from SNOMEDCT display 'Hypersomnia (disorder)'
 code "Idiopathic hypersomnia associated with long sleep time (disorder)": '442416002' from SNOMEDCT display 'Idiopathic hypersomnia associated with long sleep time (disorder)'
-code "Excessive day and night-time sleepiness (disorder)": '230490003' from SNOMEDCT display 'Excessive day and night-time sleepiness (disorder)'
-//may want to use a more specific code for difficulty waking up in the morning, but did not find any (using related code above for now)
+code "Oversleeps (disorder)": '248261008' from SNOMEDCT display 'Oversleeps (disorder)'
 code "Somnolence": 'R40.0' from ICD10 display 'Somnolence'
 code "Sleep drunkenness (disorder)": '192003008' from SNOMEDCT display 'Sleep drunkenness (disorder)'
 code "Difficulty using domestic equipment (finding)": '285859009' from SNOMEDCT display 'Difficulty using domestic equipment (finding)'
 code "Impaired cognition (finding)": '386806002' from SNOMEDCT display 'Impaired cognition (finding)'
 code "Poor manual dexterity (finding)": '306741005' from SNOMEDCT display 'Poor manual dexterity (finding)'
 code "Impaired mobility (finding)": '82971005' from SNOMEDCT display 'Impaired mobility (finding)'
+code "Airplane pilot (occupation)": '159248008' from SNOMEDCT display 'Airplane pilot (occupation)'
+code "Bus/coach driver (occupation)": '266064005' from SNOMEDCT display 'Bus/coach driver (occupation)'
+code "Truck and van driver (local transport) (occupation)": '72004008' from SNOMEDCT display 'Truck and van driver (local transport) (occupation)'
+code "Truck and van driver (long-distance transport) (occupation)": '87447002' from SNOMEDCT display 'Truck and van driver (long-distance transport) (occupation)'
+code "Military personnel (occupation)": '302314004' from SNOMEDCT display 'Military personnel (occupation)'
+code "Healthcare professional (occupation)": '223366009' from SNOMEDCT display 'Healthcare professional (occupation)'
+code "Security/protective services (occupation)": '265981008' from SNOMEDCT display 'Security/protective services (occupation)'
 code "Periodic Limb Movement Disorder": 'G47.61' from "ICD10" display 'Periodic Limb Movement Disorder'
 
 context Patient
@@ -173,7 +180,7 @@ define "Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleep
 define "Has Idiopathic Central Nervous System Hypersomnia When MSLT is Planned":
     exists(
         (([Condition: "Idiopathic hypersomnia associated with long sleep time (disorder)"]).active().confirmed()
-        union ([Condition: "Excessive day and night-time sleepiness (disorder)"]).active().confirmed()
+        union ([Condition: "Oversleeps (disorder)"]).active().confirmed()
         union ([Condition: "Somnolence"]).active().confirmed()
         union ([Condition: "Sleep drunkenness (disorder)"]).active().confirmed()
         ) Hypersomnia
@@ -194,4 +201,16 @@ define "Qualifying Impairment for Safe Use of Equipment":
     union ([Observation: "Poor manual dexterity (finding)"])
     union ([Observation: "Impaired mobility (finding)"])
     union ([Observation: "Difficulty using domestic equipment (finding)"]) 
-    
+
+//Mission critical profession
+define "Has Mission Critical Profession":
+    exists("Qualifying Mission Critical Profession")
+
+define "Qualifying Mission Critical Profession": 
+    ([Observation: "Airplane pilot (occupation)"])
+    union ([Observation: "Bus/coach driver (occupation)"])
+    union ([Observation: "Truck and van driver (local transport) (occupation)"])
+    union ([Observation: "Truck and van driver (long-distance transport) (occupation)"])
+    union ([Observation: "Military personnel (occupation)"])
+    union ([Observation: "Healthcare professional (occupation)"])
+    union ([Observation: "Security/protective services (occupation)"])

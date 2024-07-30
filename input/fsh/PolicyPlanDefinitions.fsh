@@ -527,7 +527,7 @@ Usage: #example
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-unsafeequipmentuseathome-screening-casefeature"
             * input[+]
               * insert ActionInput("Patient has a mission critical profession?", "Patient has a mission critical profession")
-              * insert ActionInputCql("Qualifying mission critical profession", ASLPPolicyPAA)
+              * insert ActionInputCql("Qualifying Mission Critical Profession", ASLPPolicyPAA)
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-missioncriticalprofession-screening-casefeature"
             * input[+]
