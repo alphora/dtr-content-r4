@@ -12,13 +12,17 @@ codesystem "LOINC": 'http://loinc.org'
 codesystem "SNOMEDCT": 'http://snomed.info/sct'
 codesystem "CPT": 'http://www.ama-assn.org/go/cpt'
 codesystem "CDT": 'http://www.ada.org/cdt'
-codesystem "CDC": 'https://www.cdc.gov/'
 
 valueset "Excessive Daytime Sleepiness (Drowsiness) ValueSet": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1078.769'
 valueset "Sleep Apnea": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1222.102' 
 valueset "Obesity": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1235.417' 
 valueset "Hypothyroidism": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1178.6'
 valueset "Narcolepsy": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1222.1510'
+valueset "Chronic Obstructive Lung Disease (COPD)": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1219.6'
+valueset "Forced Expiratory Volume in One Second (FEV1)Forced Vital Capacity (FVC) Measurement": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1219.124'
+valueset "Hypoventilation Disorder": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1219.121'
+valueset "Arterial Blood Gases PaCO2": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.3616.200.110.102.5002'
+valueset "Uncontrolled or severe asthma": 'http://cts.nlm.nih.gov/fhir/ValueSet/1.3.6.1.4.1.6997.4.1.2.268.13.34951.1.11.1.999.263'
 
 code "Obstructive Sleep Apnea of Adult (Disorder)": '1101000119103' from SNOMEDCT display 'Obstructive Sleep Apnea of Adult (Disorder)'
 code "Stimulation of hypoglossal nerve for sleep apnea (procedure)": '868249004' from SNOMEDCT display 'Stimulation of hypoglossal nerve for sleep apnea (procedure)'
@@ -52,6 +56,11 @@ code "Truck and van driver (long-distance transport) (occupation)": '87447002' f
 code "Military personnel (occupation)": '302314004' from SNOMEDCT display 'Military personnel (occupation)'
 code "Healthcare professional (occupation)": '223366009' from SNOMEDCT display 'Healthcare professional (occupation)'
 code "Security/protective services (occupation)": '265981008' from SNOMEDCT display 'Security/protective services (occupation)'
+code "Disorder of lung (disorder)": '19829001' from SNOMEDCT display 'Disorder of lung (disorder)'
+code "Symptom moderate (finding)": '162469005' from SNOMEDCT display 'Symptom moderate (finding)'
+code "Symptom severe (finding)": '162470006' from SNOMEDCT display 'Symptom severe (finding)'
+code "Home oxygen supply (finding)": '268512000' from SNOMEDCT display 'Home oxygen supply (finding)'
+code "Asthma disturbing sleep (finding)": '170631002' from SNOMEDCT display 'Asthma disturbing sleep (finding)'
 code "Periodic Limb Movement Disorder": 'G47.61' from "ICD10" display 'Periodic Limb Movement Disorder'
 
 context Patient
@@ -107,7 +116,7 @@ define "Presence of Applicable Medical Condition":
     or "Has Idiopathic Central Nervous System Hypersomnia When MSLT is Planned"
     or "Lacks Cognitive Function, Dexterity, or Mobility for Safe Use of Equipment"
     or "Has Mission Critical Profession"
-    or "Moderate to Severe Pulmonary Disease"
+    or "Has Moderate to Severe Pulmonary Disease"
     or "Neuromuscular Disease With Associated Pulmonary Disease"
     or "Unusual or Atypical Parasomnias"
     or "Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related"
@@ -214,3 +223,42 @@ define "Qualifying Mission Critical Profession":
     union ([Observation: "Military personnel (occupation)"])
     union ([Observation: "Healthcare professional (occupation)"])
     union ([Observation: "Security/protective services (occupation)"])
+
+//Moderate to severe pulmonary disease
+define "Has Moderate To Severe Pulmonary Disease":
+  exists("Qualifying Moderate To Severe Pulmonary Disease")
+
+define "Qualifying Moderate To Severe Pulmonary Disease":
+    "Moderate to Severe Lung Disorder"
+    union "COPD With FEV1 < 60, Home Oxygen Use, Or Hypoventilation"
+    union "Nocturnal or Uncontrolled Asthma"
+
+define "Moderate to Severe Lung Disorder":
+    (([Condition: "Disorder of lung (disorder)"]).active().confirmed()) PulmonaryDisease
+        where exists(PulmonaryDisease.severity.coding) severity
+            where severity.code = '162469005'
+                or severity.display = 'Symptom moderate (finding)'
+                or severity.code = '162470006'
+                or severity.display = 'Symptom severe (finding)'
+
+define "COPD With FEV1 < 60, Home Oxygen Use, Or Hypoventilation":
+    (([Condition: "Chronic Obstructive Lung Disease (COPD)"]).active().confirmed()) COPD
+        where "Most Recent FEV1 < 60"
+            or exists([DeviceRequest: "Home oxygen supply (finding)"])
+            or exists([Condition: "Hypoventilation Disorder"]) 
+            or exists(([Observation: "Arterial Blood Gases PaCO2"]) CO2
+                where CO2.value >= 45 
+                    and CO2.value.unit = 'mmHg'
+            )
+
+define "Most Recent FEV1":
+    PCF.MostRecent(
+        ([Observation: "Forced Expiratory Volume in One Second (FEV1)Forced Vital Capacity (FVC) Measurement"])
+    )
+
+define "Most Recent FEV1 < 60":
+    "Most Recent FEV1".value < 60 '%'
+
+define "Nocturnal or Uncontrolled Asthma":
+    ([Condition: "Uncontrolled or severe asthma"])
+    union ([Condition: "Asthma disturbing sleep (finding)"])

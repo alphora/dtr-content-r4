@@ -303,7 +303,7 @@ Usage: #example
               * insert ActionInput("Patient has moderate to severe pulmonary disease?", "Patient has moderate to severe pulmonary disease")
               * insert ActionInputCql("Qualifying Moderate To Severe Pulmonary Disease", ASLPPolicyPAA)
               * type = #Observation
-              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature"
             
             * action[+]
               * title = "Has Applicable Comorbid Medical Conditions"
@@ -488,7 +488,7 @@ Usage: #example
           * insert ActionConditionCql("Has Additional Daytime Sleepiness Indicators")
   
           * action[+]
-            * title = "Presence of medical conditions"
+            * title = "Presence of medical condition"
             * description = "Presence of medical condition(s)"
             * input[+]
               * insert ActionInput("Patient has diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS\) implantation with a known diagnosis of obstructive sleep apnea (OSA\)?", "Patient has diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS\) implantation with a known diagnosis of obstructive sleep apnea (OSA\)")
@@ -531,10 +531,10 @@ Usage: #example
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-missioncriticalprofession-screening-casefeature"
             * input[+]
-              * insert ActionInput("Patient has moderate to severe pulmonary disease, including but not limited to chronic obstructive pulmonary disease (COPD\) or nocturnal or uncontrolled asthma?", "Patient has moderate to severe pulmonary disease, including but not limited to chronic obstructive pulmonary disease (COPD\) or nocturnal or uncontrolled asthma")
-              * insert ActionInputCql("Qualifying pulmonary disease", ASLPPolicyPAA)
+              * insert ActionInput("Patient has moderate to severe pulmonary disease?", "Patient has moderate to severe pulmonary disease")
+              * insert ActionInputCql("Qualifying Moderate To Severe Pulmonary Disease", ASLPPolicyPAA)
               * type = #Observation
-              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarydisease-screening-casefeature"
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature"
             * input[+]
               * insert ActionInput("Patient has neuromuscular disease with associated pulmonary disease?", "Patient has neuromuscular disease with associated pulmonary disease")
               * insert ActionInputCql("Qualifying neuromuscular disease with associated pulmonary disease", ASLPPolicyPAA)

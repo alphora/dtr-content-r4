@@ -244,9 +244,9 @@ define "Qualifying Moderate To Severe Pulmonary Disease":
   else
     PCF.CaseFeatureObservation(
       AC."Qualifying Moderate To Severe Pulmonary Disease Assertion",
-      PS."Has Moderate To Severe Pulmonary Disease", //Is this right? or should it be obs of only pulmonary disease??
-      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature',
-      PCF.MostRecent(PS."Qualifying Moderate To Severe Pulmonary Disease"),
+      FacilityPSG."Has Moderate To Severe Pulmonary Disease", //Is this right? or should it be obs of only pulmonary disease??
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature',
+      PCF.MostRecent(FacilityPSG."Qualifying Moderate To Severe Pulmonary Disease"),
       ''
     )
 
