@@ -242,3 +242,14 @@ define "Qualifying Idiopathic Central Nervous System Hypersomnia Assertion":
         }
     }
   }
+
+define "Qualifying Impairment Affecting Safe Equipment Use At Home Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Impairment-Affecting-Safe-Equipment-Use-At-Home' },
+            display: string { value: 'Qualifying Impairment Affecting Safe Equipment Use At Home' }
+        }
+    }
+  }

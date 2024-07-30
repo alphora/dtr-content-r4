@@ -41,6 +41,10 @@ code "Excessive day and night-time sleepiness (disorder)": '230490003' from SNOM
 //may want to use a more specific code for difficulty waking up in the morning, but did not find any (using related code above for now)
 code "Somnolence": 'R40.0' from ICD10 display 'Somnolence'
 code "Sleep drunkenness (disorder)": '192003008' from SNOMEDCT display 'Sleep drunkenness (disorder)'
+code "Difficulty using domestic equipment (finding)": '285859009' from SNOMEDCT display 'Difficulty using domestic equipment (finding)'
+code "Impaired cognition (finding)": '386806002' from SNOMEDCT display 'Impaired cognition (finding)'
+code "Poor manual dexterity (finding)": '306741005' from SNOMEDCT display 'Poor manual dexterity (finding)'
+code "Impaired mobility (finding)": '82971005' from SNOMEDCT display 'Impaired mobility (finding)'
 code "Periodic Limb Movement Disorder": 'G47.61' from "ICD10" display 'Periodic Limb Movement Disorder'
 
 context Patient
@@ -180,3 +184,14 @@ define "Has Idiopathic Central Nervous System Hypersomnia When MSLT is Planned":
                 where C.display = 'Multiple sleep latency test (procedure)'
                 or C.code = '252731002'
     ) 
+
+//Lack of cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely at home
+define "Lacks Cognitive Function, Dexterity, or Mobility for Safe Use of Equipment":
+    exists("Qualifying Impairment for Safe Use of Equipment")
+
+define "Qualifying Impairment for Safe Use of Equipment":
+    ([Observation: "Impaired cognition (finding)"])
+    union ([Observation: "Poor manual dexterity (finding)"])
+    union ([Observation: "Impaired mobility (finding)"])
+    union ([Observation: "Difficulty using domestic equipment (finding)"]) 
+    

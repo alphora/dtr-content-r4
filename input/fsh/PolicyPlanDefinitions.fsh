@@ -521,10 +521,10 @@ Usage: #example
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-idiopathiccnshypersomnia-screening-casefeature"
             * input
-              * insert ActionInput("Patient can safely use equipment at home?", "Patient can safely use equipment at home")
-              * insert ActionInputCql("Safe Equipment Use At Home", ASLPPolicyPAA)
+              * insert ActionInput("Patient lacks cognitive function, dexterity, or mobility for safe use of portable monitor (PM\) equipment at home?", "Patient lacks cognitive function, dexterity, or mobility for safe use of portable monitor (PM\) equipment at home")
+              * insert ActionInputCql("Qualifying Impairment Affecting Safe Use of Equipment At Home", ASLPPolicyPAA)
               * type = #Observation
-              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature"
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-unsafeequipmentuseathome-screening-casefeature"
             * input[+]
               * insert ActionInput("Patient has a mission critical profession?", "Patient has a mission critical profession")
               * insert ActionInputCql("Qualifying mission critical profession", ASLPPolicyPAA)

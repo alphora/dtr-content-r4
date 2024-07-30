@@ -642,6 +642,33 @@ define "No Idiopathic Central Nervous System Hypersomnia When MSLT is Planned":
 define "Null Idiopathic Central Nervous System Hypersomnia When MSLT is Planned":
   IsNull("Has Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned")
 
+//Individual or caregiver lacks cognitive function, dexterity, or mobility to safely use PM equipment at home
+define "Most Recent Impairment Observation Affecting Safe Use Of Equipment At Home":
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Impairment Affecting Safe Equipment Use At Home Assertion".coding)])
+
+define "Qualifying Impairment Affecting Safe Use of Equipment At Home":
+  if not "Most Recent Impairment Observation Affecting Safe Use Of Equipment At Home" is null
+    then "Most Recent Impairment Observation Affecting Safe Use Of Equipment At Home"
+  else 
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Impairment Affecting Safe Equipment Use At Home Assertion",
+      FacilityPSG."Lacks Cognitive Function, Dexterity, or Mobility for Safe Use of Equipment",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-unsafeequipmentuseathome-screening-casefeature',
+      PCF.MostRecent(FacilityPSG."Qualifying Impairment for Safe Use of Equipment"),
+      ''
+    )
+
+define "Unsafe Use of Equipment At Home":
+  "Qualifying Impairment Affecting Safe Use of Equipment At Home".value.value as System.Boolean
+
+define "Lacks Cognitive Function, Dexterity, or Mobility to Use Portable Monitor (PM) Safely At Home":
+  IsTrue("Unsafe Use of Equipment At Home")
+
+define "Not Lacking Cognitive Function, Dexterity, or Mobility to Use Portable Monitor (PM) Safely At Home":
+  IsFalse("Unsafe Use of Equipment At Home")
+
+define "Unknown Lack of Cognitive Function, Dexterity, or Mobility to Use Portable Monitor (PM) Safely At Home":
+  IsNull("Unsafe Use of Equipment At Home")
 
 
 
