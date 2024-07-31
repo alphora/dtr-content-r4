@@ -1,0 +1,22 @@
+{
+  "resourceType": "Group",
+  "id": "ASLPCrd",
+  "extension": [ {
+    "url": "http://hl7.org/fhir/StructureDefinition/artifact-testArtifact",
+    "valueCanonical": "http://ecqi.healthit.gov/ecqms/Measure/ASLPCrd"
+  } ],
+  "active": true,
+  "type": "person",
+  "actual": true,
+  "member": [ {
+    "entity": {
+      "reference": "Patient/not-required",
+      "display": "Rick Jones"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/required",
+      "display": "Rick Jones"
+    }
+  } ]
+}

@@ -506,7 +506,7 @@ Usage: #example
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-featuresassociatedwithnarcolepsy-screening-casefeature"
             * input[+]
-              * insert ActionInput("Patient has/had obesity hypoventilation syndrome (OHS\) which cannot be attributed to hypothyroidism, neuromuscular weakness, pleural pathology, pulmonary disease, or skeletal restriction?", "Patient has/had obesity hypoventilation syndrome (OHS\) which cannot be attributed to hypothyroidism, neuromuscular weakness, pleural pathology, pulmonary disease, or skeletal restriction")
+              * insert ActionInput("Patient has/had obesity hypoventilation syndrome (OHS\) which cannot be attributed to hypothyroidism\, neuromuscular weakness\, pleural pathology\, pulmonary disease\, or skeletal restriction?", "Patient has/had obesity hypoventilation syndrome (OHS\) which cannot be attributed to hypothyroidism\, neuromuscular weakness\, pleural pathology\, pulmonary disease\, or skeletal restriction")
               * insert ActionInputCql("Qualifying Obesity Hypoventilation Syndrome (OHS\)", ASLPPolicyPAA)
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ohs-screening-casefeature"
@@ -521,7 +521,7 @@ Usage: #example
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-idiopathiccnshypersomnia-screening-casefeature"
             * input
-              * insert ActionInput("Patient lacks cognitive function, dexterity, or mobility for safe use of portable monitor (PM\) equipment at home?", "Patient lacks cognitive function, dexterity, or mobility for safe use of portable monitor (PM\) equipment at home")
+              * insert ActionInput("Patient lacks cognitive function\, dexterity\, or mobility for safe use of portable monitor (PM\) equipment at home?", "Patient lacks cognitive function\, dexterity\, or mobility for safe use of portable monitor (PM\) equipment at home")
               * insert ActionInputCql("Qualifying Impairment Affecting Safe Use of Equipment At Home", ASLPPolicyPAA)
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-unsafeequipmentuseathome-screening-casefeature"

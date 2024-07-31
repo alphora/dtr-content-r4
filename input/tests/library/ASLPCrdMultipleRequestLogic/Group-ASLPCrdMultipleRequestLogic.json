@@ -1,0 +1,17 @@
+{
+  "resourceType": "Group",
+  "id": "ASLPCrdMultipleRequestLogic",
+  "extension": [ {
+    "url": "http://hl7.org/fhir/StructureDefinition/artifact-testArtifact",
+    "valueCanonical": "http://ecqi.healthit.gov/ecqms/Measure/ASLPCrdMultipleRequestLogic"
+  } ],
+  "active": true,
+  "type": "person",
+  "actual": true,
+  "member": [ {
+    "entity": {
+      "reference": "Patient/crd-5-prior-auth-required",
+      "display": "Peter James Chalmers"
+    }
+  } ]
+}

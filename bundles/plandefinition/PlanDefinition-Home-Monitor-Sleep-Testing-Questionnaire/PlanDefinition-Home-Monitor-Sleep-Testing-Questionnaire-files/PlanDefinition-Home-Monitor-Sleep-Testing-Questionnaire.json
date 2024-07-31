@@ -87,7 +87,7 @@
     {
       "title": "Home/Portable Monitor Sleep Testing Questionnaire",
       "description": "Is the patient applicable for home/portable sleep monitor testing",
-      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved",
+      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/Home-Monitor-Sleep-Testing",
       "input": [
         {
           "extension": [
@@ -141,7 +141,7 @@
           "extension": [
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-              "valueString": "Does patient had ESS score >= 10?"
+              "valueString": "Does patient have ESS score >= 10?"
             },
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",

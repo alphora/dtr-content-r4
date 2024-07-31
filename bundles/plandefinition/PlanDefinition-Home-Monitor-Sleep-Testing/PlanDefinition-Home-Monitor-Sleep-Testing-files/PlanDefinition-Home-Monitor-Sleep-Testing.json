@@ -234,7 +234,7 @@
                       "extension": [
                         {
                           "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                          "valueString": "Does patient had ESS score >= 10?"
+                          "valueString": "Does patient have ESS score >= 10?"
                         },
                         {
                           "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",

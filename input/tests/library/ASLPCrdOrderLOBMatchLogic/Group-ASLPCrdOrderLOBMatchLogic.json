@@ -1,0 +1,27 @@
+{
+  "resourceType": "Group",
+  "id": "ASLPCrdOrderLOBMatchLogic",
+  "extension": [ {
+    "url": "http://hl7.org/fhir/StructureDefinition/artifact-testArtifact",
+    "valueCanonical": "http://ecqi.healthit.gov/ecqms/Measure/ASLPCrdOrderLOBMatchLogic"
+  } ],
+  "active": true,
+  "type": "person",
+  "actual": true,
+  "member": [ {
+    "entity": {
+      "reference": "Patient/Provider-Patient-OrgName-Mismatch",
+      "display": "Saje Gisou"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Provider-Patient-OrgName-Match",
+      "display": "Saje Gisou"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/example-provider",
+      "display": "Peter James Chalmers"
+    }
+  } ]
+}

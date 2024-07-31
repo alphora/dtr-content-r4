@@ -1,0 +1,37 @@
+{
+  "resourceType": "Group",
+  "id": "ASLPCrdMemberEligibleLogic",
+  "extension": [ {
+    "url": "http://hl7.org/fhir/StructureDefinition/artifact-testArtifact",
+    "valueCanonical": "http://ecqi.healthit.gov/ecqms/Measure/ASLPCrdMemberEligibleLogic"
+  } ],
+  "active": true,
+  "type": "person",
+  "actual": true,
+  "member": [ {
+    "entity": {
+      "reference": "Patient/Provider-Patient-DOB-Mismatch",
+      "display": "Eleanor James"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Provider-Patient-DOB-Match",
+      "display": "Eleanor James"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/example-provider",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Provider-Patient-LN-Match",
+      "display": "Sam Smith"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Provider-Patient-LN-Mismatch",
+      "display": "Sam Smith"
+    }
+  } ]
+}

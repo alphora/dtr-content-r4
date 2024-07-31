@@ -133,7 +133,7 @@ Usage: #example
     * type = #Observation
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
   * input[+]
-    * insert ActionInput("Patient has/had obesity hypoventilation syndrome (OHS\) which cannot be attributed to hypothyroidism, neuromuscular weakness, pleural pathology, pulmonary disease, or skeletal restriction?", "Patient has/had obesity hypoventilation syndrome (OHS\) which cannot be attributed to hypothyroidism, neuromuscular weakness, pleural pathology, pulmonary disease, or skeletal restriction")
+    * insert ActionInput("Patient has/had obesity hypoventilation syndrome (OHS\) which cannot be attributed to hypothyroidism\, neuromuscular weakness\, pleural pathology\, pulmonary disease\, or skeletal restriction?", "Patient has/had obesity hypoventilation syndrome (OHS\) which cannot be attributed to hypothyroidism\, neuromuscular weakness\, pleural pathology\, pulmonary disease\, or skeletal restriction")
     * insert ActionInputCql("Qualifying Obesity Hypoventilation Syndrome (OHS\)", ASLPPolicyPAA)
     * type = #Observation
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
@@ -148,8 +148,8 @@ Usage: #example
     * type = #Observation
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
   * input[+]
-    * insert ActionInput("Patient or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM\) equipment safely at home?", "Patient or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM\) equipment safely at home")
-    * insert ActionInputCql("Qualifying cognitive, dexterity, or mobility impairment", ASLPPolicyPAA)
+    * insert ActionInput("Patient or caregiver lacks cognitive function\, dexterity\, or mobility to use portable monitor (PM\) equipment safely at home?", "Patient or caregiver lacks cognitive function\, dexterity\, or mobility to use portable monitor (PM\) equipment safely at home")
+    * insert ActionInputCql("Qualifying cognitive\, dexterity\, or mobility impairment", ASLPPolicyPAA)
     * type = #Observation
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
   * input[+]
@@ -158,7 +158,7 @@ Usage: #example
     * type = #Observation
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
   * input[+]
-    * insert ActionInput("Patient has moderate to severe pulmonary disease, including but not limited to chronic obstructive pulmonary disease (COPD\) or nocturnal or uncontrolled asthma?", "Patient has moderate to severe pulmonary disease, including but not limited to chronic obstructive pulmonary disease (COPD\) or nocturnal or uncontrolled asthma")
+    * insert ActionInput("Patient has moderate to severe pulmonary disease including but not limited to chronic obstructive pulmonary disease (COPD\) or nocturnal or uncontrolled asthma?", "Patient has moderate to severe pulmonary disease including but not limited to chronic obstructive pulmonary disease (COPD\) or nocturnal or uncontrolled asthma")
     * insert ActionInputCql("Qualifying pulmonary disease", ASLPPolicyPAA)
     * type = #Observation
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
@@ -183,7 +183,7 @@ Usage: #example
     * type = #Observation
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
   * input[+]
-    * insert ActionInput("Patient has cardiac disease, including but not limited to pulmonary hypertension or uncontrolled cardiac arrhythmia?", "Patient has cardiac disease, including but not limited to pulmonary hypertension or uncontrolled cardiac arrhythmia")
+    * insert ActionInput("Patient has cardiac disease including but not limited to pulmonary hypertension or uncontrolled cardiac arrhythmia?", "Patient has cardiac disease including but not limited to pulmonary hypertension or uncontrolled cardiac arrhythmia")
     * insert ActionInputCql("Qualifying cardiac disease", ASLPPolicyPAA)
     * type = #Observation
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
