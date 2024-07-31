@@ -537,9 +537,9 @@ Usage: #example
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature"
             * input[+]
               * insert ActionInput("Patient has neuromuscular disease with associated pulmonary disease?", "Patient has neuromuscular disease with associated pulmonary disease")
-              * insert ActionInputCql("Qualifying neuromuscular disease with associated pulmonary disease", ASLPPolicyPAA)
+              * insert ActionInputCql("Qualifying Neuromuscular Disease With Associated Pulmonary Disease", ASLPPolicyPAA)
               * type = #Observation
-              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromusculardiseasewithpulmonarydisease-screening-casefeature"
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature"
             * input[+]
               * insert ActionInput("Patient has unusual or atypical parasomnias?", "Patient has unusual or atypical parasomnias")
               * insert ActionInputCql("Qualifying parasomnias", ASLPPolicyPAA)

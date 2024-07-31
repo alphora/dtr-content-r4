@@ -318,7 +318,7 @@ define "Null Pulmonary Disease":
 
 //Neuromuscular Disease
 define "Most Recent Neuromuscular Disease With Pulmonary Disease":
-  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion".coding)])
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion".coding)])
 
 define "Qualifying Neuromuscular Disease With Associated Pulmonary Disease":
   if not "Most Recent Neuromuscular Disease With Pulmonary Disease" is null
@@ -326,9 +326,9 @@ define "Qualifying Neuromuscular Disease With Associated Pulmonary Disease":
   else
     PCF.CaseFeatureObservation(
       AC."Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion",
-      PS."Neuromuscular Disease With Associated Pulmonary Disease",
-      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscular-screening-casefeature',
-      PCF.MostRecent(PS."Neuromuscular Disease Diagnosis"),
+      FacilityPSG."Has Neuromuscular Disease With Associated Pulmonary Disease",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature',
+      PCF.MostRecent(FacilityPSG."Neuromuscular Disease Diagnosis With Associated Pulmonary Disease"),
       ''
     )
 
@@ -341,7 +341,7 @@ define "Has Neuromuscular Disease With Associated Pulmonary Disease":
 define "No Neuromuscular Disease With Associated Pulmonary Disease":
   IsFalse("Has Neuromuscular Disease With Associated Pulmonary Disease Value")
 
-define "Null Nueromuscular Disease":
+define "Null Nueromuscular Disease With Associated Pulmonary Disease":
   IsNull("Has Neuromuscular Disease With Associated Pulmonary Disease Value")
 
 //Cardiac Disease

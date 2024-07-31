@@ -23,6 +23,11 @@ valueset "Forced Expiratory Volume in One Second (FEV1)Forced Vital Capacity (FV
 valueset "Hypoventilation Disorder": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1219.121'
 valueset "Arterial Blood Gases PaCO2": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.3616.200.110.102.5002'
 valueset "Uncontrolled or severe asthma": 'http://cts.nlm.nih.gov/fhir/ValueSet/1.3.6.1.4.1.6997.4.1.2.268.13.34951.1.11.1.999.263'
+valueset "Parkinson's disease (Disorders)": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1146.1048'
+valueset "Spina Bifida (Disorders)": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1146.2122'
+valueset "Guillain Barré syndrome (Disorders)": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1146.666'
+valueset "Poliomyelitis (Disorders)": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1146.124'
+valueset "Neuromuscular Disease": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1029.306'
 
 code "Obstructive Sleep Apnea of Adult (Disorder)": '1101000119103' from SNOMEDCT display 'Obstructive Sleep Apnea of Adult (Disorder)'
 code "Stimulation of hypoglossal nerve for sleep apnea (procedure)": '868249004' from SNOMEDCT display 'Stimulation of hypoglossal nerve for sleep apnea (procedure)'
@@ -61,6 +66,17 @@ code "Symptom moderate (finding)": '162469005' from SNOMEDCT display 'Symptom mo
 code "Symptom severe (finding)": '162470006' from SNOMEDCT display 'Symptom severe (finding)'
 code "Home oxygen supply (finding)": '268512000' from SNOMEDCT display 'Home oxygen supply (finding)'
 code "Asthma disturbing sleep (finding)": '170631002' from SNOMEDCT display 'Asthma disturbing sleep (finding)'
+code "Amyotrophic lateral sclerosis (disorder)": '86044005' from SNOMEDCT display 'Amyotrophic lateral sclerosis (disorder)'
+code "Multiple sclerosis (disorder)": '24700007' from SNOMEDCT display 'Multiple sclerosis (disorder)'
+code "Myotonic dystrophy (disorder)": '1177122009' from SNOMEDCT display 'Myotonic dystrophy (disorder)'
+code "Respiratory distress (finding)": '271825005' from SNOMEDCT display 'Respiratory distress (finding)'
+code "History of cerebrovascular accident with residual deficit (situation)": '440140008' from SNOMEDCT display 'History of cerebrovascular accident with residual deficit (situation)'
+code "Epilepsy control poor (finding)": '314828009' from SNOMEDCT display 'Epilepsy control poor (finding)'
+code "Duchenne muscular dystrophy (disorder)": '76670001' from SNOMEDCT display 'Duchenne muscular dystrophy (disorder)'
+code "Spinal muscular atrophy (disorder)": '5262007' from SNOMEDCT display 'Spinal muscular atrophy (disorder)'
+code "Myasthenia gravis (disorder)": '91637004' from SNOMEDCT display 'Myasthenia gravis (disorder)'
+code "Friedreich ataxia (disorder)": '10394003' from SNOMEDCT display 'Friedreich ataxia (disorder)'
+code "Autosomal recessive muscular dystrophy with limb girdle distribution (disorder)": '240054004' from SNOMEDCT display 'Autosomal recessive muscular dystrophy with limb girdle distribution (disorder)'
 code "Periodic Limb Movement Disorder": 'G47.61' from "ICD10" display 'Periodic Limb Movement Disorder'
 
 context Patient
@@ -262,3 +278,34 @@ define "Most Recent FEV1 < 60":
 define "Nocturnal or Uncontrolled Asthma":
     ([Condition: "Uncontrolled or severe asthma"])
     union ([Condition: "Asthma disturbing sleep (finding)"])
+
+//Neuromuscular disease with associated pulmonary disease including, but not limited to: amyotrophic lateral sclerosis, multiple sclerosis, myotonic dystrophy, Parkinson's, previous stroke with residual respiratory effects, spina bifida, or uncontrolled epilepsy
+define "Has Neuromuscular Disease With Associated Pulmonary Disease":
+    exists("Neuromuscular Disease Diagnosis With Associated Pulmonary Disease")
+
+define "Neuromuscular Disease Diagnosis With Associated Pulmonary Disease":
+    "Neuromuscular Disease With Associated Pulmonary Disease"
+    union ([Condition: "Amyotrophic lateral sclerosis (disorder)"])
+    union ([Condition: "Multiple sclerosis (disorder)"])
+    union ([Condition: "Myotonic dystrophy (disorder)"])
+    union ([Condition: "Parkinson's disease (Disorders)"])
+    union "Previous Stroke With Residual Respiratory Effects"
+    union ([Condition: "Spina Bifida (Disorders)"])
+    union ([Condition: "Epilepsy control poor (finding)"])
+    union ([Condition: "Duchenne muscular dystrophy (disorder)"])
+    union ([Condition: "Spinal muscular atrophy (disorder)"])
+    union ([Condition: "Myasthenia gravis (disorder)"])
+    union ([Condition: "Guillain Barré syndrome (Disorders)"])
+    union ([Condition: "Poliomyelitis (Disorders)"])
+    union ([Condition: "Friedreich ataxia (disorder)"])
+    union ([Condition: "Autosomal recessive muscular dystrophy with limb girdle distribution (disorder)"])
+
+define "Neuromuscular Disease With Associated Pulmonary Disease":
+    ([Condition: "Neuromuscular Disease"]) Neuromuscular
+        where exists([Condition: "Disorder of lung (disorder)"]) Pulmonary
+            where Pulmonary.onset after Neuromuscular.onset
+
+define "Previous Stroke With Residual Respiratory Effects":
+    ([Condition: "History of cerebrovascular accident with residual deficit (situation)"]) Stroke
+        where exists([Condition: "Respiratory distress (finding)"]) R
+            where R.onset after Stroke.onset
