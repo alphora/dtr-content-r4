@@ -754,6 +754,34 @@ define "No Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure 
 define "Unknown Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related":
   IsNull("Has Paroxysmal Arousals")
 
+//Periodic Limb Movement Disorder (PLMD)
+define "Most Recent Periodic Limb Movement Disorder":
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Periodic Limb Movement Disorder (PLMD) Assertion".coding)])
+
+define "Qualifying Periodic Limb Movement Disorder":
+  if not "Most Recent Periodic Limb Movement Disorder" is null
+    then "Most Recent Periodic Limb Movement Disorder"
+  else 
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Periodic Limb Movement Disorder (PLMD) Assertion",
+      FacilityPSG."Has Periodic Limb Movement Disorder (PLMD)",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-plmd-screening-casefeature',
+      PCF.MostRecent(FacilityPSG."Qualifying Periodic Limb Movement Disorder"),
+      ''
+    )
+
+define "Has Periodic Limb Movement Disorder":
+  "Qualifying Periodic Limb Movement Disorder".value.value as System.Boolean
+
+define "Periodic Limb Movement Disorder (PLMD) Present":
+  IsTrue("Has Periodic Limb Movement Disorder")
+
+define "No Periodic Limb Movement Disorder (PLMD)":
+  IsFalse("Has Periodic Limb Movement Disorder")
+
+define "Unknown Periodic Limb Movement Disorder (PLMD)":
+  IsNull("Has Periodic Limb Movement Disorder")
+
 
 
 //Approval Logic

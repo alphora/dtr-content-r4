@@ -551,10 +551,10 @@ Usage: #example
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-paroxysmalarousals-screening-casefeature"
             * input[+]
-              * insert ActionInput("Patient has periodic limb movement disorder?", "Patient has periodic limb movement disorder")
-              * insert ActionInputCql("Qualifying periodic limb movement disorder", ASLPPolicyPAA)
+              * insert ActionInput("Patient has Periodic Limb Movement Disorder (PLMD\)?", "Patient has Periodic Limb Movement Disorder (PLMD\)")
+              * insert ActionInputCql("Qualifying Periodic Limb Movement Disorder", ASLPPolicyPAA)
               * type = #Observation
-              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-periodiclimbmovementdisorder-screening-casefeature"
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-plmd-screening-casefeature"
             * input[+]
               * insert ActionInput("Patient has Cardiac Disease?", "Patient has Cardiac Disease")
               * insert ActionInputCql("Qualifying Cardiac Disease", ASLPPolicyPAA)

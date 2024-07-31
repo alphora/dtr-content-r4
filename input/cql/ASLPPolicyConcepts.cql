@@ -286,3 +286,14 @@ define "Qualifying Paroxysmal Arousals Assertion":
         }
     }
   }
+
+define "Qualifying Periodic Limb Movement Disorder (PLMD) Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Periodic-Limb-Movement-Disorde-PLMD' },
+            display: string { value: 'Qualifying Periodic Limb Movement Disorder (PLMD)' }
+        }
+    }
+  }

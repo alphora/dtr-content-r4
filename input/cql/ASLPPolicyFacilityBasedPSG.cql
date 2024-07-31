@@ -88,7 +88,7 @@ code "Frontal lobe epilepsy (disorder)": 'Frontal lobe epilepsy (disorder)' from
 code "Temporal lobe epilepsy (disorder)": '193000002' from SNOMEDCT display 'Temporal lobe epilepsy (disorder)'
 code "Lennox-Gastaut syndrome (disorder)": '230418006' from SNOMEDCT display 'Lennox-Gastaut syndrome (disorder)'
 code "Juvenile myoclonic epilepsy (disorder)": '6204001' from SNOMEDCT display 'Juvenile myoclonic epilepsy (disorder)'
-code "Periodic Limb Movement Disorder": 'G47.61' from "ICD10" display 'Periodic Limb Movement Disorder'
+code "Periodic limb movement disorder": 'G47.61' from ICD10 display 'Periodic limb movement disorder'
 
 context Patient
 
@@ -147,7 +147,7 @@ define "Presence of Applicable Medical Condition":
     or "Has Neuromuscular Disease With Associated Pulmonary Disease"
     or "Has Parasomnia"
     or "Has Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related"
-    or "Periodic Limb Movement Disorder"
+    or "Has Periodic Limb Movement Disorder (PLMD)"
     or "Cardiac Disease"
 
 //Diagnostic testing 
@@ -339,3 +339,10 @@ define "Has Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure 
 
 define "Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related":
     ([Condition: "Nocturnal epilepsy (disorder)"])
+
+//Periodic Limb Movement Disorder (PLMD)
+define "Has Periodic Limb Movement Disorder (PLMD)":
+    exists("Qualifying Periodic Limb Movement Disorder")
+
+define "Qualifying Periodic Limb Movement Disorder":
+    ([Condition: "Periodic limb movement disorder"])
