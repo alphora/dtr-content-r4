@@ -82,6 +82,12 @@ code "Confusional arousal disorder (disorder)": '441830002' from SNOMEDCT displa
 code "Nocturnal epilepsy (disorder)": '230445007' from SNOMEDCT display 'Nocturnal epilepsy (disorder)'
 code "Sleep-related dissociative disorder (disorder)": '429571005' from SNOMEDCT display 'Sleep-related dissociative disorder (disorder)'
 code "REM sleep behavior disorder": 'G47.52' from ICD10 display 'REM sleep behavior disorder'
+code "Paroxysmal nocturnal dyspnea (finding)": '55442000' from SNOMEDCT display 'Paroxysmal nocturnal dyspnea (finding)'
+code "Benign Rolandic epilepsy (disorder)": '' from SNOMEDCT display 'Benign Rolandic epilepsy (disorder)'
+code "Frontal lobe epilepsy (disorder)": 'Frontal lobe epilepsy (disorder)' from SNOMEDCT display 'Frontal lobe epilepsy (disorder)'
+code "Temporal lobe epilepsy (disorder)": '193000002' from SNOMEDCT display 'Temporal lobe epilepsy (disorder)'
+code "Lennox-Gastaut syndrome (disorder)": '230418006' from SNOMEDCT display 'Lennox-Gastaut syndrome (disorder)'
+code "Juvenile myoclonic epilepsy (disorder)": '6204001' from SNOMEDCT display 'Juvenile myoclonic epilepsy (disorder)'
 code "Periodic Limb Movement Disorder": 'G47.61' from "ICD10" display 'Periodic Limb Movement Disorder'
 
 context Patient
@@ -140,7 +146,7 @@ define "Presence of Applicable Medical Condition":
     or "Has Moderate To Severe Pulmonary Disease"
     or "Has Neuromuscular Disease With Associated Pulmonary Disease"
     or "Has Parasomnia"
-    or "Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related"
+    or "Has Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related"
     or "Periodic Limb Movement Disorder"
     or "Cardiac Disease"
 
@@ -326,3 +332,10 @@ define "Qualifying Parasomnias":
     union ([Condition: "Nocturnal epilepsy (disorder)"])
     union ([Condition: "Sleep-related dissociative disorder (disorder)"])
     union ([Condition: "REM sleep behavior disorder"])
+
+//Paroxysmal arousals or other sleep disruptions thought to be seizure related
+define "Has Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related":
+    exists("Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related")
+
+define "Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related":
+    ([Condition: "Nocturnal epilepsy (disorder)"])

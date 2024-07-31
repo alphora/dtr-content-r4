@@ -547,7 +547,7 @@ Usage: #example
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-parasomnia-screening-casefeature"
             * input[+]
               * insert ActionInput("Patient has paroxysmal arousals or other sleep disruptions thought to be seizure related?", "Patient has paroxysmal arousals or other sleep disruptions thought to be seizure related")
-              * insert ActionInputCql("Qualifying paroxysmal arousals or other sleep disruptions thought to be seizure related", ASLPPolicyPAA)
+              * insert ActionInputCql("Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related", ASLPPolicyPAA)
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-paroxysmalarousals-screening-casefeature"
             * input[+]

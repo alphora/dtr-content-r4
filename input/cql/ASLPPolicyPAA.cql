@@ -726,6 +726,33 @@ define "No Parasomnia":
 define "Unknown Parasomnia":
   IsNull("Has Parasomnia")
 
+//Paroxysmal arousals 
+define "Most Recent Paroxysmal Arousal":
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Paroxysmal Arousals Assertion".coding)])
+
+define "Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related":
+  if not "Most Recent Paroxysmal Arousal" is null
+    then "Most Recent Paroxysmal Arousal"
+  else 
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Paroxysmal Arousals Assertion",
+      FacilityPSG."Has Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-paroxysmalarousals-screening-casefeature',
+      PCF.MostRecent(FacilityPSG."Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related"),
+      ''
+    )
+
+define "Has Paroxysmal Arousals":
+  "Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related".value.value as System.Boolean
+
+define "Presence of Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related":
+  IsTrue("Has Paroxysmal Arousals")
+
+define "No Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related":
+  IsFalse("Has Paroxysmal Arousals")
+
+define "Unknown Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related":
+  IsNull("Has Paroxysmal Arousals")
 
 
 

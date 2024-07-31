@@ -275,3 +275,14 @@ define "Qualifying Parasomnia Assertion":
         }
     }
   }
+
+define "Qualifying Paroxysmal Arousals Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Paroxysmal-Arousals' },
+            display: string { value: 'Qualifying Paroxysmal Arousals' }
+        }
+    }
+  }
