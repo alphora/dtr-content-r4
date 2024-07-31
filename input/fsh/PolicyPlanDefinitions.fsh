@@ -100,14 +100,14 @@ RuleSet: CommonPropertiesRationale(rationale, expression)
     * url = "http://hl7.org/fhir/StructureDefinition/cqf-expression"
     * valueExpression
       * description = {rationale}
-      * language = #text/cql-identifier
+      * language = #text/cql
       * expression = {expression}
 
 RuleSet: ActionInputCql(expression, name)
 * extension[+]
   * url = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression"
   * valueExpression
-    * language = #text/cql-identifier
+    * language = #text/cql
     * expression = {expression}
     * reference = "http://example.org/sdh/dtr/aslp/Library/{name}"
 
@@ -123,7 +123,7 @@ RuleSet: ActionConditionCql(expression)
 * condition
   * kind = #applicability
   * expression
-    * language = #text/cql-identifier
+    * language = #text/cql
     * expression = {expression}
 
 
@@ -145,7 +145,7 @@ Usage: #example
   * dynamicValue[+]
     * path = "description" 
     * expression
-      * language = #text/cql-identifier
+      * language = #text/cql
       * expression = "Approved Detail"
 
 
@@ -166,7 +166,7 @@ Usage: #example
   * dynamicValue[+]
     * path = "description" 
     * expression
-      * language = #text/cql-identifier
+      * language = #text/cql
       * expression = "Not Approved Detail"
 
 Instance: aslp-pa-adj-temp-not-approved
@@ -186,7 +186,7 @@ Usage: #example
   * dynamicValue[+]
     * path = "description" 
     * expression
-      * language = #text/cql-identifier
+      * language = #text/cql
       * expression = "Temporarily Not Approved"
         
 
@@ -573,5 +573,5 @@ Usage: #example
             * action[0]
               * title = "Has no applicable medical condition"
               * description = "Has none of the following eligible conditions: diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with a known diagnosis of OSA, central sleep apnea (CSA), narcolespy when a multiple sleep latency test (MSLT) is planned, obesity hypoventilation syndrome (OHS), traumatic brain injury (TBI) with EDS, idiopathic central nervous system hyperinsomnia when a MSLT is planned, individual or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely, has a mission critical profession, moderate to severe pulmonary disease, neuromuscular disease associated with pulmonary disease, unusual or atypical parasomnias, paroxysmal arousals or other sleep disruptions thought to be seizure related, periodic limb movement disorder, and/or cardiac disease" 
-              * insert ActionConditionCql("Has No Applicable Medical Condition For Facility-Based PSG")
+              * insert ActionConditionCql("No Applicable Medical Condition For Facility-Based PSG")
               * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved" 

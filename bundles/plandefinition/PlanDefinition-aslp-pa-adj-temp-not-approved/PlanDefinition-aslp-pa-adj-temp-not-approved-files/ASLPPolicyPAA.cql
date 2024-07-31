@@ -483,7 +483,6 @@ define "No Applicable Medical Condition For Facility-Based PSG":
 define "Null Applicable Medical Condition For Facility-Based PSG":
   IsNull("Has Applicable Medical Condition For Facility-Based PSG Value")
 
-
 //Diagnostic testing with diagnosis of OSA
 define "Most Recent Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
   PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA Assertion".coding)])
