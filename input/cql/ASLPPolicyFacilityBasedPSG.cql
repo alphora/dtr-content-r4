@@ -276,7 +276,7 @@ define "COPD With FEV1 < 60, Home Oxygen Use, Or Hypoventilation":
     (([Condition: "Chronic Obstructive Lung Disease (COPD)"]).active().confirmed()) COPD
         where "Most Recent FEV1 < 60"
             or exists([DeviceRequest: "Home oxygen supply (finding)"])
-            or exists([Condition: "Hypoventilation Disorder"]) 
+            or exists([Condition: "Hypoventilation Disorder"]).active().confirmed()
             or exists(([Observation: "Arterial Blood Gases PaCO2"]) CO2
                 where CO2.value >= 45 
                     and CO2.value.unit = 'mmHg'
@@ -291,8 +291,8 @@ define "Most Recent FEV1 < 60":
     "Most Recent FEV1".value < 60 '%'
 
 define "Nocturnal or Uncontrolled Asthma":
-    ([Condition: "Uncontrolled or severe asthma"])
-    union ([Condition: "Asthma disturbing sleep (finding)"])
+    ([Condition: "Uncontrolled or severe asthma"]).active().confirmed()
+    union ([Condition: "Asthma disturbing sleep (finding)"]).active().confirmed()
 
 
 //Neuromuscular disease with associated pulmonary disease including, but not limited to: amyotrophic lateral sclerosis, multiple sclerosis, myotonic dystrophy, Parkinson's, previous stroke with residual respiratory effects, spina bifida, or uncontrolled epilepsy
@@ -301,29 +301,29 @@ define "Has Neuromuscular Disease With Associated Pulmonary Disease":
 
 define "Neuromuscular Disease Diagnosis With Associated Pulmonary Disease":
     "Neuromuscular Disease With Associated Pulmonary Disease"
-    union ([Condition: "Amyotrophic lateral sclerosis (disorder)"])
-    union ([Condition: "Multiple sclerosis (disorder)"])
-    union ([Condition: "Myotonic dystrophy (disorder)"])
-    union ([Condition: "Parkinson's disease (Disorders)"])
+    union ([Condition: "Amyotrophic lateral sclerosis (disorder)"]).active().confirmed()
+    union ([Condition: "Multiple sclerosis (disorder)"]).active().confirmed()
+    union ([Condition: "Myotonic dystrophy (disorder)"]).active().confirmed()
+    union ([Condition: "Parkinson's disease (Disorders)"]).active().confirmed()
     union "Previous Stroke With Residual Respiratory Effects"
-    union ([Condition: "Spina Bifida (Disorders)"])
-    union ([Condition: "Epilepsy control poor (finding)"])
-    union ([Condition: "Duchenne muscular dystrophy (disorder)"])
-    union ([Condition: "Spinal muscular atrophy (disorder)"])
-    union ([Condition: "Myasthenia gravis (disorder)"])
-    union ([Condition: "Guillain Barré syndrome (Disorders)"])
-    union ([Condition: "Poliomyelitis (Disorders)"])
-    union ([Condition: "Friedreich ataxia (disorder)"])
-    union ([Condition: "Autosomal recessive muscular dystrophy with limb girdle distribution (disorder)"])
+    union ([Condition: "Spina Bifida (Disorders)"]).active().confirmed()
+    union ([Condition: "Epilepsy control poor (finding)"]).active().confirmed()
+    union ([Condition: "Duchenne muscular dystrophy (disorder)"]).active().confirmed()
+    union ([Condition: "Spinal muscular atrophy (disorder)"]).active().confirmed()
+    union ([Condition: "Myasthenia gravis (disorder)"]).active().confirmed()
+    union ([Condition: "Guillain Barré syndrome (Disorders)"]).active().confirmed()
+    union ([Condition: "Poliomyelitis (Disorders)"]).active().confirmed()
+    union ([Condition: "Friedreich ataxia (disorder)"]).active().confirmed()
+    union ([Condition: "Autosomal recessive muscular dystrophy with limb girdle distribution (disorder)"]).active().confirmed()
 
 define "Neuromuscular Disease With Associated Pulmonary Disease":
-    ([Condition: "Neuromuscular Disease"]) Neuromuscular
-        where exists([Condition: "Disorder of lung (disorder)"]) Pulmonary
+    (([Condition: "Neuromuscular Disease"]).active().confirmed()) Neuromuscular
+        where exists(([Condition: "Disorder of lung (disorder)"]).active().confirmed()) Pulmonary
             where Pulmonary.onset after Neuromuscular.onset
 
 define "Previous Stroke With Residual Respiratory Effects":
-    ([Condition: "History of cerebrovascular accident with residual deficit (situation)"]) Stroke
-        where exists([Condition: "Respiratory distress (finding)"]) R
+    (([Condition: "History of cerebrovascular accident with residual deficit (situation)"]).active().confirmed()) Stroke
+        where exists(([Condition: "Respiratory distress (finding)"]).active().confirmed()) R
             where R.onset after Stroke.onset
 
 //Parasomnias
@@ -331,25 +331,25 @@ define "Has Parasomnia":
     exists("Qualifying Parasomnias")
 
 define "Qualifying Parasomnias":
-    ([Condition: "Parasomnia (disorder)"])
-    union ([Condition: "Confusional arousal disorder (disorder)"])
-    union ([Condition: "Nocturnal epilepsy (disorder)"])
-    union ([Condition: "Sleep-related dissociative disorder (disorder)"])
-    union ([Condition: "REM sleep behavior disorder"])
+    ([Condition: "Parasomnia (disorder)"]).active().confirmed()
+    union ([Condition: "Confusional arousal disorder (disorder)"]).active().confirmed()
+    union ([Condition: "Nocturnal epilepsy (disorder)"]).active().confirmed()
+    union ([Condition: "Sleep-related dissociative disorder (disorder)"]).active().confirmed()
+    union ([Condition: "REM sleep behavior disorder"]).active().confirmed()
 
 //Paroxysmal arousals or other sleep disruptions thought to be seizure related
 define "Has Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related":
     exists("Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related")
 
 define "Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related":
-    ([Condition: "Nocturnal epilepsy (disorder)"])
+    ([Condition: "Nocturnal epilepsy (disorder)"]).active().confirmed()
 
 //Periodic Limb Movement Disorder (PLMD)
 define "Has Periodic Limb Movement Disorder (PLMD)":
     exists("Qualifying Periodic Limb Movement Disorder")
 
 define "Qualifying Periodic Limb Movement Disorder":
-    ([Condition: "Periodic limb movement disorder"])
+    ([Condition: "Periodic limb movement disorder"]).active().confirmed()
 
 //cardiac disease
 define "Has Cardiac Disease":
