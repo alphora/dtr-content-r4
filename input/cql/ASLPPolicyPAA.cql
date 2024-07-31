@@ -346,7 +346,7 @@ define "Null Nueromuscular Disease With Associated Pulmonary Disease":
 
 //Cardiac Disease
 define "Most Recent Cardiac Disease Observation":
-  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Cardiac Disease Assertion".coding)])
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Cardiac Disease Assertion".coding)])
 
 define "Qualifying Cardiac Disease":
   if not "Most Recent Cardiac Disease Observation" is null
@@ -354,9 +354,9 @@ define "Qualifying Cardiac Disease":
   else 
     PCF.CaseFeatureObservation(
       AC."Qualifying Cardiac Disease Assertion",
-      PS."Has Cardiac Disease",
+      FacilityPSG."Has Cardiac Disease",
       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature',
-      PCF.MostRecent(PS."Qualifying Cardiac Disease"),
+      PCF.MostRecent(FacilityPSG."Qualifying Cardiac Disease"),
       ''
     )
 

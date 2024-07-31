@@ -28,6 +28,10 @@ valueset "Spina Bifida (Disorders)": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.
 valueset "Guillain Barré syndrome (Disorders)": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1146.666'
 valueset "Poliomyelitis (Disorders)": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1146.124'
 valueset "Neuromuscular Disease": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1029.306'
+valueset "Chronic Heart Failure (CHF)": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1235.246'
+valueset "LVEF Assessment": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1047.258'
+valueset "Pulmonary Hypertension Disorder": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1219.93'
+valueset "Cardiac Arrhythmias": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1251.24'
 
 code "Obstructive Sleep Apnea of Adult (Disorder)": '1101000119103' from SNOMEDCT display 'Obstructive Sleep Apnea of Adult (Disorder)'
 code "Stimulation of hypoglossal nerve for sleep apnea (procedure)": '868249004' from SNOMEDCT display 'Stimulation of hypoglossal nerve for sleep apnea (procedure)'
@@ -148,7 +152,7 @@ define "Presence of Applicable Medical Condition":
     or "Has Parasomnia"
     or "Has Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related"
     or "Has Periodic Limb Movement Disorder (PLMD)"
-    or "Cardiac Disease"
+    or "Has Cardiac Disease"
 
 //Diagnostic testing 
 define "Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
@@ -346,3 +350,17 @@ define "Has Periodic Limb Movement Disorder (PLMD)":
 
 define "Qualifying Periodic Limb Movement Disorder":
     ([Condition: "Periodic limb movement disorder"])
+
+//cardiac disease
+define "Has Cardiac Disease":
+    exists("Qualifying Cardiac Disease")
+        or exists("LVEF < 45 Observed")
+
+define "Qualifying Cardiac Disease":
+  ([Condition: "Chronic Heart Failure (CHF)"]).active().confirmed()
+  union ([Condition: "Pulmonary Hypertension Disorder"]).active().confirmed()
+  union ([Condition: "Cardiac Arrhythmias"])
+
+define "LVEF < 45 Observed":
+    ([Observation: "LVEF Assessment"]) LVEF
+        where LVEF.value < 45 '%'
