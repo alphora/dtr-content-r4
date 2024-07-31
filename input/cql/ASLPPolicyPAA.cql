@@ -341,7 +341,7 @@ define "Has Neuromuscular Disease With Associated Pulmonary Disease":
 define "No Neuromuscular Disease With Associated Pulmonary Disease":
   IsFalse("Has Neuromuscular Disease With Associated Pulmonary Disease Value")
 
-define "Null Nueromuscular Disease With Associated Pulmonary Disease":
+define "Null Neuromuscular Disease With Associated Pulmonary Disease":
   IsNull("Has Neuromuscular Disease With Associated Pulmonary Disease Value")
 
 //Cardiac Disease
@@ -477,7 +477,7 @@ define "Has Applicable Medical Condition For Facility-Based PSG Value":
 define "Has Applicable Medical Condition For Facility-Based PSG":
   IsTrue("Has Applicable Medical Condition For Facility-Based PSG Value")
 
-define "Has No Applicable Medical Condition For Facility-Based PSG":
+define "No Applicable Medical Condition For Facility-Based PSG":
   IsFalse("Has Applicable Medical Condition For Facility-Based PSG Value")
 
 define "Null Applicable Medical Condition For Facility-Based PSG":
@@ -561,7 +561,7 @@ define "Feature Associated With Narcolepsy Present When MSLT is Planned":
 define "No Features Associated With Narcolepsy When MSLT is Planned":
   IsFalse("Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned")
 
-define "Null Features Associated With Narcolepsy When MSLT is Planned":
+define "Unknown Features Associated With Narcolepsy When MSLT is Planned":
   IsNull("Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned")
 
 //Obesity Hypoventilation Syndrome (OHS)
@@ -587,7 +587,7 @@ define "Obesity Hypoventilation Syndrome (OHS) Present":
 define "No Obesity Hypoventilation Syndrome (OHS)":
   IsFalse("Has Obesity Hypoventilation Syndrome (OHS)")
 
-define "Null Obesity Hypoventilation Syndrome (OHS)":
+define "Unknown Obesity Hypoventilation Syndrome (OHS)":
   IsNull("Has Obesity Hypoventilation Syndrome (OHS)")
 
 //Traumatic Brain Injury (TBI) with EDS 
@@ -613,7 +613,7 @@ define "History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepines
 define "No History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)":
   IsFalse("Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)")
 
-define "Null History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)":
+define "Unknown History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)":
   IsNull("Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)")
 
 //Idiopathic central nervous system hypersomnia when multiple sleep latency test (MSLT) is planned
@@ -784,6 +784,7 @@ define "Unknown Periodic Limb Movement Disorder (PLMD)":
 
 
 
+
 //Approval Logic
 define "LineBreak": 
   '\r\n'
@@ -796,7 +797,8 @@ define "Not Approved Detail":
       if "Not Within Qualifying Age" then "LineBreak" + '- Individual is not within the qualifying age.' else null,
       "Not Approved EDS",
       "Not Approved Absence of Comorbid Conditions",
-      "Not Approved Home Criteria"
+      "Not Approved Home Criteria",
+      "Not Approved - Absence of Eligible Medical Condition for Facility-Based Polysomnogram (PSG)"
     )
 
 define "Not Approved EDS":
@@ -821,6 +823,11 @@ define "Not Approved Home Criteria":
     if "Unable To Have Physician Evaluate Results" then "LineBreak" + ' - Individual is unable to have physician evaluate results of home sleep tests' else null
   )
 
+define "Not Approved - Absence of Eligible Medical Condition for Facility-Based Polysomnogram (PSG)":
+  if "No Applicable Medical Condition For Facility-Based PSG"
+    then "LineBreak" + '- Individual does not meet any of the following eligible criteria: Diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with diagnosis of OSA, History of or clinical features associated with Central Sleep Apnea (CSA), History of or clinical features associated with narcolepsy when a MSLT is planned, History of or clinical features associated with Obesity Hypoventilation Syndrome (OHS), History of Traumatic Brain Injury (TBI) with EDS, Idiopathic central nervous system hypersomnia when a MSLT is planned, Individual or caregiver impaired to use portable monitor equipment safely at home, Mission critical profession, Moderate to severe pulmonary disease, Neuromuscular disease with associated pulmonary disease, Parasomnias, Paroxysmal arousals thought to be seizure related, Periodic Limb Movement Disorder (PLMD), or Cardiac disease'
+  else 
+    null
 
 //Not Approved Null Response
 define "Temporarily Not Approved":
@@ -831,6 +838,7 @@ define "Temporarily Not Approved":
       "Null EDS",
       "Null Comorbid Medical Conditions",
       "Null Home Criteria"
+      "Null Eligible Medical Condition for Facility-Based Polysomnogram (PSG)"
     )
 
 define "Null EDS":
@@ -850,7 +858,7 @@ define "Null Comorbid Medical Conditions":
   if "Null Applicable Comorbid Medical Conditions"
       then Coalesce(
         if "Null Pulmonary Disease" then "LineBreak" + ' - Please enter the following: Pulmonary Disease' else null,
-        if "Null Nueromuscular Disease" then "LineBreak" + ' - Please enter the following: Neuromuscular Disease With Associated Pulmonary Disease' else null,
+        if "Null Neuromuscular Disease With Associated Pulmonary Disease" then "LineBreak" + ' - Please enter the following: Neuromuscular Disease With Associated Pulmonary Disease' else null,
         if "Null Cardiac Disease" then "LineBreak" + ' - Please enter the following: Cardiac Disease' else null
       )
   else
@@ -863,7 +871,40 @@ define "Null Home Criteria":
     if "Unknown Ability To Have Physician Evaluate Results" then "LineBreak" + ' - Please enter the following: Ability To Have Physician Evaluate Home Testing Results' else null
   )
 
-
+define "Null Eligible Medical Conditions for Facility-Based Polysomnogram (PSG)":
+  if "Null Applicable Medical Condition For Facility-Based PSG"
+    then "LineBreak" + 'Please enter the following: Applicable Medical Conditions' 
+    + (if "Null Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA" 
+      then "LineBreak" + ' - Please enter the following: Diagnostic Testing Prior to Planned Hypoglossal Nerve Stimulator (HGNS) Implantation With Diagnosis of Obstructive Sleep Apnea (OSA)' 
+    else if "Null Central Sleep Apnea (CSA)" 
+      then "LineBreak" + ' - Please enter the following: Central Sleep Apnea (CSA)'
+    else if "Unknown Features Associated With Narcolepsy When MSLT is Planned" 
+      then "LineBreak" + ' - Please enter the following: Features Associated With Narcolepsy When MSLT is Planned'
+    else if "Unknown Obesity Hypoventilation Syndrome (OHS)" 
+      then "LineBreak" + ' - Please enter the following: Obesity Hypoventilation Syndrome (OHS)' 
+    else if "Unknown History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)"
+      then "LineBreak" + ' - Please enter the following: Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)' 
+    else if "Null Idiopathic Central Nervous System Hypersomnia When MSLT is Planned"
+      then "LineBreak" + ' - Please enter the following: Idiopathic Central Nervous System Hypersomnia When MSLT is Planned' 
+    else if "Unknown Lack of Cognitive Function, Dexterity, or Mobility to Use Portable Monitor (PM) Safely At Home"
+      then "LineBreak" + ' - Please enter the following: Lack of Cognitive Function, Dexterity, or Mobility to Use Portable Monitor (PM) Safely At Home' 
+    else if "Unknown Profession or Unknown Whether Profession is Mission Critical"
+      then "LineBreak" + ' - Please enter the following: Mission Critical Profession' 
+    else if "Null Pulmonary Disease"
+      then "LineBreak" + ' - Please enter the following: Moderate to Severe Pulmonary Disease'
+    else if "Null Neuromuscular Disease With Associated Pulmonary Disease"
+      then "LineBreak" + ' - Please enter the following: Neuromuscular Disease With Associated Pulmonary Disease' 
+    else if "Unknown Parasomnia"
+      then "LineBreak" + ' - Please enter the following: Parasomnias' 
+    else if "Unknown Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related"
+      then "LineBreak" + ' - Please enter the following: Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related'  
+    else if "Unknown Periodic Limb Movement Disorder (PLMD)"
+      then "LineBreak" + ' - Please enter the following: Periodic Limb Movement Disorder (PLMD)'  
+    else if "Null Cardiac Disease"
+      then "LineBreak" + ' - Please enter the following: Cardiac Disease'  
+    else null)
+  else 
+    null
 
 //Approved Response
 define "Approved Detail":
@@ -875,6 +916,7 @@ define "Approved Detail":
     + "Approved Qualified Device"
     + "Approved Home Use"
     + "Approved Physician Evaluated Results"
+    + "Approved Eligible Medical Conditions for Facility-Based Polysomnogram (PSG)"
 
 define "Approved Age":
   if "Is Qualifying Age"
@@ -910,4 +952,10 @@ define "Approved Physician Evaluated Results":
   if "Ability To Have Physician Evaluate Results"
     then "LineBreak" + '- Individual can have physician evaluate home testing results'
   else 
+    null
+
+define "Approved Eligible Medical Conditions for Facility-Based Polysomnogram (PSG)":
+  if "Has Applicable Medical Condition For Facility-Based PSG"
+    then "LineBreak" + '- Individual meets one of the following additional medical criteria: Diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with diagnosis of OSA, History of or clinical features associated with Central Sleep Apnea (CSA), History of or clinical features associated with narcolepsy when a MSLT is planned, History of or clinical features associated with Obesity Hypoventilation Syndrome (OHS), History of Traumatic Brain Injury (TBI) with EDS, Idiopathic central nervous system hypersomnia when a MSLT is planned, Individual or caregiver impaired to use portable monitor equipment safely at home, Mission critical profession, Moderate to severe pulmonary disease, Neuromuscular disease with associated pulmonary disease, Parasomnias, Paroxysmal arousals thought to be seizure related, Periodic Limb Movement Disorder (PLMD), or Cardiac disease'
+  else
     null
