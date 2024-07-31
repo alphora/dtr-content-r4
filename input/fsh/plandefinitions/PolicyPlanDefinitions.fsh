@@ -119,13 +119,6 @@ RuleSet: ActionInput(string, markdown)
   * url = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description"
   * valueMarkdown = {markdown}
 
-RuleSet: ActionConditionCql(expression)
-* condition
-  * kind = #applicability
-  * expression
-    * language = #text/cql-identifier
-    * expression = {expression}
-
 
 
 Instance: aslp-pa-adj-approved
