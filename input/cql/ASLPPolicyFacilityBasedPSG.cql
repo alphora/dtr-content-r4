@@ -77,6 +77,11 @@ code "Spinal muscular atrophy (disorder)": '5262007' from SNOMEDCT display 'Spin
 code "Myasthenia gravis (disorder)": '91637004' from SNOMEDCT display 'Myasthenia gravis (disorder)'
 code "Friedreich ataxia (disorder)": '10394003' from SNOMEDCT display 'Friedreich ataxia (disorder)'
 code "Autosomal recessive muscular dystrophy with limb girdle distribution (disorder)": '240054004' from SNOMEDCT display 'Autosomal recessive muscular dystrophy with limb girdle distribution (disorder)'
+code "Parasomnia (disorder)": '58690002' from SNOMEDCT display 'Parasomnia (disorder)'
+code "Confusional arousal disorder (disorder)": '441830002' from SNOMEDCT display 'Confusional arousal disorder (disorder)'
+code "Nocturnal epilepsy (disorder)": '230445007' from SNOMEDCT display 'Nocturnal epilepsy (disorder)'
+code "Sleep-related dissociative disorder (disorder)": '429571005' from SNOMEDCT display 'Sleep-related dissociative disorder (disorder)'
+code "REM sleep behavior disorder": 'G47.52' from ICD10 display 'REM sleep behavior disorder'
 code "Periodic Limb Movement Disorder": 'G47.61' from "ICD10" display 'Periodic Limb Movement Disorder'
 
 context Patient
@@ -132,9 +137,9 @@ define "Presence of Applicable Medical Condition":
     or "Has Idiopathic Central Nervous System Hypersomnia When MSLT is Planned"
     or "Lacks Cognitive Function, Dexterity, or Mobility for Safe Use of Equipment"
     or "Has Mission Critical Profession"
-    or "Has Moderate to Severe Pulmonary Disease"
-    or "Neuromuscular Disease With Associated Pulmonary Disease"
-    or "Unusual or Atypical Parasomnias"
+    or "Has Moderate To Severe Pulmonary Disease"
+    or "Has Neuromuscular Disease With Associated Pulmonary Disease"
+    or "Has Parasomnia"
     or "Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related"
     or "Periodic Limb Movement Disorder"
     or "Cardiac Disease"
@@ -279,6 +284,7 @@ define "Nocturnal or Uncontrolled Asthma":
     ([Condition: "Uncontrolled or severe asthma"])
     union ([Condition: "Asthma disturbing sleep (finding)"])
 
+
 //Neuromuscular disease with associated pulmonary disease including, but not limited to: amyotrophic lateral sclerosis, multiple sclerosis, myotonic dystrophy, Parkinson's, previous stroke with residual respiratory effects, spina bifida, or uncontrolled epilepsy
 define "Has Neuromuscular Disease With Associated Pulmonary Disease":
     exists("Neuromuscular Disease Diagnosis With Associated Pulmonary Disease")
@@ -309,3 +315,14 @@ define "Previous Stroke With Residual Respiratory Effects":
     ([Condition: "History of cerebrovascular accident with residual deficit (situation)"]) Stroke
         where exists([Condition: "Respiratory distress (finding)"]) R
             where R.onset after Stroke.onset
+
+//Parasomnias
+define "Has Parasomnia":
+    exists("Qualifying Parasomnias")
+
+define "Qualifying Parasomnias":
+    ([Condition: "Parasomnia (disorder)"])
+    union ([Condition: "Confusional arousal disorder (disorder)"])
+    union ([Condition: "Nocturnal epilepsy (disorder)"])
+    union ([Condition: "Sleep-related dissociative disorder (disorder)"])
+    union ([Condition: "REM sleep behavior disorder"])

@@ -469,7 +469,7 @@ define "Has Applicable Medical Condition For Facility-Based PSG Value":
     or "Has a Mission Critical Profession"
     or "Has Moderate To Severe Pulmonary Disease Value"
     or "Has Neuromuscular Disease With Associated Pulmonary Disease Value"
-    or "Has Unusual or Atypical Parasomnias"
+    or "Has Parasomnia"
     or "Has Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related"
     or "Has Periodic Limb Movement Disorder"
     or "Has Cardiac Disease Value"
@@ -697,6 +697,35 @@ define "No Mission Critical Profession":
 
 define "Unknown Profession or Unknown Whether Profession is Mission Critical":
   IsNull("Has a Mission Critical Profession")
+
+//Parasomnias
+define "Most Recent Parasomnia":
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Parasomnia Assertion".coding)])
+
+define "Qualifying Parasomnia":
+  if not "Most Recent Parasomnia" is null
+    then "Most Recent Parasomnia"
+  else 
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Parasomnia Assertion",
+      FacilityPSG."Has Parasomnia",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-parasomnia-screening-casefeature',
+      PCF.MostRecent(FacilityPSG."Qualifying Parasomnias"),
+      ''
+    )
+
+define "Has Parasomnia":
+  "Qualifying Parasomnia".value.value as System.Boolean
+
+define "Parasomnia Present":
+  IsTrue("Has Parasomnia")
+
+define "No Parasomnia":
+  IsFalse("Has Parasomnia")
+
+define "Unknown Parasomnia":
+  IsNull("Has Parasomnia")
+
 
 
 

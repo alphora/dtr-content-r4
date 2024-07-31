@@ -541,8 +541,8 @@ Usage: #example
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature"
             * input[+]
-              * insert ActionInput("Patient has unusual or atypical parasomnias?", "Patient has unusual or atypical parasomnias")
-              * insert ActionInputCql("Qualifying parasomnias", ASLPPolicyPAA)
+              * insert ActionInput("Patient has unusual or atypical parasomnias", "Patient has unusual or atypical parasomnia")
+              * insert ActionInputCql("Qualifying Parasomnia", ASLPPolicyPAA)
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-parasomnia-screening-casefeature"
             * input[+]

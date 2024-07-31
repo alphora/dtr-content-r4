@@ -264,3 +264,14 @@ define "Qualifying Mission Critical Profession Assertion":
         }
     }
   }
+
+define "Qualifying Parasomnia Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Parasomnia' },
+            display: string { value: 'Qualifying Parasomnia' }
+        }
+    }
+  }
