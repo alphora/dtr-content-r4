@@ -207,7 +207,7 @@ define "Qualifying Obesity Hypoventilation Syndrome (OHS)":
 
 //Traumatic Brain Injury (TBI) with EDS
 define "Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)":
-    exists([Condition: "Traumatic brain injury (disorder)"]).active().confirmed()) TBI
+    exists(([Condition: "Traumatic brain injury (disorder)"]).active().confirmed()) TBI
         where TBI.onset before Now()
             and exists(
                 ([Condition: "Excessive Daytime Sleepiness (Drowsiness) ValueSet"]).active().confirmed()
