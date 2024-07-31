@@ -742,17 +742,17 @@ define "Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be S
       ''
     )
 
-define "Has Paroxysmal Arousals":
+define "Has Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related":
   "Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related".value.value as System.Boolean
 
 define "Presence of Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related":
-  IsTrue("Has Paroxysmal Arousals")
+  IsTrue("Has Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related")
 
 define "No Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related":
-  IsFalse("Has Paroxysmal Arousals")
+  IsFalse("Has Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related")
 
 define "Unknown Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related":
-  IsNull("Has Paroxysmal Arousals")
+  IsNull("Has Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related")
 
 //Periodic Limb Movement Disorder (PLMD)
 define "Most Recent Periodic Limb Movement Disorder":
