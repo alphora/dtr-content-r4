@@ -93,6 +93,18 @@
                   {
                       "code": "E0430",
                       "display": "Portable gaseous oxygen system, purchase; includes regulator, flowmeter, humidifier, cannula or mask, and tubing"
+                  },
+                  {
+                      "code": "E0607",
+                      "display": "Home blood glucose monitor"
+                  },
+                  {
+                      "code": "E0130",
+                      "display": "Walker, rigid (pickup), adjustable or fixed height"
+                  },
+                  {
+                      "code": "A4253",
+                      "display": "Blood glucose test or reagent strips for home blood glucose monitor, per 50"
                   }
               ]
           },
@@ -130,146 +142,20 @@
                   {
                       "code": "E0430",
                       "display": "Portable gaseous oxygen system, purchase; includes regulator, flowmeter, humidifier, cannula or mask, and tubing"
+                  },
+                  {
+                      "code": "E0607",
+                      "display": "Home blood glucose monitor"
+                  },
+                  {
+                      "code": "E0130",
+                      "display": "Walker, rigid (pickup), adjustable or fixed height"
+                  },
+                  {
+                      "code": "A4253",
+                      "display": "Blood glucose test or reagent strips for home blood glucose monitor, per 50"
                   }
               ]
-          }
-      ]
-  },
-  "expansion": {
-      "identifier": "9a934deb-7c7e-46c5-96f5-844de2781815",
-      "timestamp": "2024-04-18T11:19:43-06:00",
-      "total": 26,
-      "offset": 0,
-      "contains": [
-          {
-              "system": "http://www.ama-assn.org/go/cpt",
-              "code": "55250",
-              "display": "Vasectomy, unilateral or bilateral (separate procedure), including postoperative semen"
-          },
-          {
-              "system": "http://www.ama-assn.org/go/cpt",
-              "code": "86999",
-              "display": "Unlisted Transfusion Medicine procedure "
-          },
-          {
-              "system": "http://www.ama-assn.org/go/cpt",
-              "code": "86849",
-              "display": "Unlisted immunology procedure"
-          },
-          {
-              "system": "http://www.ama-assn.org/go/cpt",
-              "code": "84591",
-              "display": "Pathology Test"
-          },
-          {
-              "system": "http://www.ama-assn.org/go/cpt",
-              "code": "81001",
-              "display": "Urinalysis Complete Procedure"
-          },
-          {
-              "system": "http://www.ama-assn.org/go/cpt",
-              "code": "95805",
-              "display": "Multiple sleep latency or maintenance of wakefulness testing, recording, analysis and interpretation of physiological measurements of sleep during multiple trials to assess sleepiness"
-          },
-          {
-              "system": "http://www.ama-assn.org/go/cpt",
-              "code": "95811",
-              "display": "Polysomnography; age 6 years or older, sleep staging with 4 or more additional parameters of sleep, with initiation of continuous positive airway pressure therapy or bilevel ventilation, attended by a technologist"
-          },
-          {
-              "system": "http://www.ama-assn.org/go/cpt",
-              "code": "95803",
-              "display": "Actigraphy testing, recording, analysis, interpretation, and report (minimum of 72 hours to 14 consecutive days of recording)"
-          },
-          {
-              "system": "http://www.ama-assn.org/go/cpt",
-              "code": "95807",
-              "display": "Sleep study, simultaneous recording of ventilation, respiratory effort, ECG or heart rate, and oxygen saturation, attended by a technologist"
-          },
-          {
-              "system": "http://www.ama-assn.org/go/cpt",
-              "code": "87299",
-              "display": "Immunoassay"
-          },
-          {
-              "system": "urn:oid:2.16.840.1.113883.6.285",
-              "code": "C8918",
-              "display": "Magnetic resonance angiography with contrast, pelvis"
-          },
-          {
-              "system": "urn:oid:2.16.840.1.113883.6.285",
-              "code": "G0398",
-              "display": "Home sleep study test (hst) with type ii portable monitor, unattended; minimum of 7 channels: eeg, eog, emg, ecg/heart rate, airflow, respiratory effort and oxygen saturation"
-          },
-          {
-              "system": "urn:oid:2.16.840.1.113883.6.285",
-              "code": "G0122",
-              "display": "Colorectal cancer screening; barium enema"
-          },
-          {
-              "system": "urn:oid:2.16.840.1.113883.6.285",
-              "code": "G0219",
-              "display": "Pet imaging whole body; melanoma for non-covered indications"
-          },
-          {
-              "system": "urn:oid:2.16.840.1.113883.6.285",
-              "code": "E0601",
-              "display": "CPAP Machine"
-          },
-          {
-              "system": "urn:oid:2.16.840.1.113883.6.285",
-              "code": "E1093",
-              "display": "heavy duty wheelchair, detachable arms desk or full length arms, swing away detachable footrests"
-          },
-          {
-              "system": "urn:oid:2.16.840.1.113883.6.285",
-              "code": "E0574",
-              "display": "Ultrasonic/electronic aerosol generator with small volume nebulizer"
-          },
-          {
-              "system": "urn:oid:2.16.840.1.113883.6.285",
-              "code": "E0430",
-              "display": "Portable gaseous oxygen system, purchase; includes regulator, flowmeter, humidifier, cannula or mask, and tubing"
-          },
-          {
-              "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
-              "code": "C8918",
-              "display": "Magnetic resonance angiography with contrast, pelvis"
-          },
-          {
-              "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
-              "code": "G0398",
-              "display": "Home sleep study test (hst) with type ii portable monitor, unattended; minimum of 7 channels: eeg, eog, emg, ecg/heart rate, airflow, respiratory effort and oxygen saturation"
-          },
-          {
-              "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
-              "code": "G0122",
-              "display": "Colorectal cancer screening; barium enema"
-          },
-          {
-              "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
-              "code": "G0219",
-              "display": "Pet imaging whole body; melanoma for non-covered indications"
-          },
-          {
-              "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
-              "code": "E0601",
-              "display": "CPAP Machine"
-          },
-          {
-              "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
-              "code": "E1093",
-              "display": "heavy duty wheelchair, detachable arms desk or full length arms, swing away detachable footrests"
-          },
-          {
-              "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
-              "code": "E0574",
-              "display": "Ultrasonic/electronic aerosol generator with small volume nebulizer"
-          },
-          {
-              "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
-              "code": "E0430",
-              "display": "Portable gaseous oxygen system, purchase; includes regulator, flowmeter, humidifier, cannula or mask, and tubing"
           }
       ]
   }
