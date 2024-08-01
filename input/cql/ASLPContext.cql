@@ -189,7 +189,7 @@ returns List<FHIR.Reference>:
     if (IsNull((item as FHIR.DeviceRequest).performer)) then null as List<FHIR.Reference>
     else ({ (item as FHIR.DeviceRequest).performer }) as List<FHIR.Reference>
   else if (item is FHIR.NutritionOrder) then
-    if (IsNull((item as FHIR.DeviceRequest).performer)) then null as List<FHIR.Reference>
+    if (IsNull((item as FHIR.NutritionOrder).orderer)) then null as List<FHIR.Reference>
     else ({ (item as FHIR.NutritionOrder).orderer }) as List<FHIR.Reference>
   else null as List<FHIR.Reference>
 
