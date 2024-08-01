@@ -82,6 +82,18 @@
           {
             "code": "A4670",
             "display": "Automatic blood pressure monitor"
+          },
+          {
+              "code": "E0607",
+              "display": "Home blood glucose monitor"
+          },
+          {
+              "code": "E0130",
+              "display": "Walker, rigid (pickup), adjustable or fixed height"
+          },
+          {
+              "code": "A4253",
+              "display": "Blood glucose test or reagent strips for home blood glucose monitor, per 50"
           }
         ]
       },
@@ -115,6 +127,18 @@
             {
               "code": "A4670",
               "display": "Automatic blood pressure monitor"
+            },
+            {
+                "code": "E0607",
+                "display": "Home blood glucose monitor"
+            },
+            {
+                "code": "E0130",
+                "display": "Walker, rigid (pickup), adjustable or fixed height"
+            },
+            {
+                "code": "A4253",
+                "display": "Blood glucose test or reagent strips for home blood glucose monitor, per 50"
             }
           ]
         }

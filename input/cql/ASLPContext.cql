@@ -128,9 +128,11 @@ returns List<FHIR.Reference>:
   if (item is FHIR.ServiceRequest) then
     ((item as FHIR.ServiceRequest).performer) as List<FHIR.Reference>
   else if (item is FHIR.DeviceRequest) then
-    ({ (item as FHIR.DeviceRequest).performer }) as List<FHIR.Reference>
+    if (IsNull((item as FHIR.DeviceRequest).performer)) then null as List<FHIR.Reference>
+    else ({ (item as FHIR.DeviceRequest).performer }) as List<FHIR.Reference>
   else if (item is FHIR.NutritionOrder) then
-    ({ (item as FHIR.NutritionOrder).orderer }) as List<FHIR.Reference>
+    if (IsNull((item as FHIR.DeviceRequest).performer)) then null as List<FHIR.Reference>
+    else ({ (item as FHIR.NutritionOrder).orderer }) as List<FHIR.Reference>
   else null as List<FHIR.Reference>
 
 define function GetSubjectID(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>)
