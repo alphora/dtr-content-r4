@@ -1,0 +1,94 @@
+{
+  "resourceType": "ValueSet",
+  "id": "2.16.840.1.113762.1.4.1222.1510",
+  "meta": {
+    "profile": [ "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-shareablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-executablevalueset" ]
+  },
+  "extension": [ {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "shareable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "narrative"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "publishable"
+  }, {
+    "url": "http://fhir.org/guides/cdc/opioid-cds/StructureDefinition/cdc-valueset-inclusion",
+    "valueString": "Includes Narcolepsy diagnosis concepts from SNOMED CT and ICD-10-CM."
+  }, {
+    "url": "http://fhir.org/guides/cdc/opioid-cds/StructureDefinition/cdc-valueset-exclusion",
+    "valueString": "None."
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-usageWarning",
+    "valueString": "This value set contains a point-in-time expansion enumerating the codes that meet the value set intent. As new versions of the code systems used by the value set are released, the contents of this expansion will need to be updated to incorporate newly defined codes that meet the value set intent. Before, and periodically during production use, the value set expansion contents SHOULD be updated. The value set expansion specifies the timestamp when the expansion was produced, SHOULD contain the parameters used for the expansion, and SHALL contain the codes that are obtained by evaluating the value set definition. If this is ONLY an executable value set, a distributable definition of the value set must be obtained to compute the updated expansion."
+  } ],
+  "url": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1222.1510",
+  "version": "20240618",
+  "title": "Narcolepsy",
+  "status": "active",
+  "experimental": false,
+  "publisher": "HL7 Patient Care Work Group",
+  "description": "This set of values contains diagnosis terms representing Narcolepsy.",
+  "purpose": "The intent of this set of values is to identify patients who have a diagnosis of Narcolepsy.",
+  "expansion": {
+    "timestamp": "2024-08-08T12:33:36-04:00",
+    "contains": [ {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2025",
+      "code": "G47.41",
+      "display": "Narcolepsy"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2025",
+      "code": "G47.411",
+      "display": "Narcolepsy with cataplexy"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2025",
+      "code": "G47.419",
+      "display": "Narcolepsy without cataplexy"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "434241000124107",
+      "display": "Secondary narcolepsy (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "434251000124109",
+      "display": "Secondary narcolepsy without cataplexy (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "434261000124106",
+      "display": "Secondary narcolepsy with cataplexy (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "60380001",
+      "display": "Narcolepsy (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "722293005",
+      "display": "Autosomal dominant cerebellar ataxia, deafness and narcolepsy syndrome (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "735676003",
+      "display": "Narcolepsy type 1 (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "91521000119104",
+      "display": "Narcolepsy without cataplexy (disorder)"
+    } ]
+  }
+}

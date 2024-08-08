@@ -1,0 +1,124 @@
+{
+  "resourceType": "ValueSet",
+  "id": "2.16.840.1.113762.1.4.1146.1048",
+  "meta": {
+    "profile": [ "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-shareablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-executablevalueset" ]
+  },
+  "extension": [ {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "shareable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "narrative"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "publishable"
+  }, {
+    "url": "http://fhir.org/guides/cdc/opioid-cds/StructureDefinition/cdc-valueset-inclusion",
+    "valueString": "Root1 = Parkinson’s disease and children"
+  }, {
+    "url": "http://fhir.org/guides/cdc/opioid-cds/StructureDefinition/cdc-valueset-exclusion",
+    "valueString": "None"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-usageWarning",
+    "valueString": "This value set contains a point-in-time expansion enumerating the codes that meet the value set intent. As new versions of the code systems used by the value set are released, the contents of this expansion will need to be updated to incorporate newly defined codes that meet the value set intent. Before, and periodically during production use, the value set expansion contents SHOULD be updated. The value set expansion specifies the timestamp when the expansion was produced, SHOULD contain the parameters used for the expansion, and SHALL contain the codes that are obtained by evaluating the value set definition. If this is ONLY an executable value set, a distributable definition of the value set must be obtained to compute the updated expansion."
+  } ],
+  "url": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1146.1048",
+  "version": "20240123",
+  "title": "Parkinson’s disease (Disorders) (SNOMED)",
+  "status": "active",
+  "experimental": false,
+  "publisher": "Council of State and Territorial Epidemiologists Steward",
+  "description": "This set of values contains diagnoses or problems that represent that the patient has Parkinson's regardless of the clinical presentation of the condition",
+  "purpose": "Diagnoses or problems documented in a clinical record.",
+  "expansion": {
+    "timestamp": "2024-08-08T12:32:51-04:00",
+    "contains": [ {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "101421000119107",
+      "display": "Dementia due to Parkinson's disease (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "103871000119109",
+      "display": "Restrictive lung disease due to Parkinson disease (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "1156822001",
+      "display": "Autosomal recessive familial Parkinson disease (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "1259080009",
+      "display": "Disorder of autonomic nervous system due to Parkinson disease (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "15755701000119105",
+      "display": "Fluency disorder due to Parkinson disease (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "230291001",
+      "display": "Juvenile Parkinson's disease (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "425390006",
+      "display": "Dementia associated with Parkinson's Disease (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "438513002",
+      "display": "Cerebral degeneration due to Parkinson's disease (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "49049000",
+      "display": "Parkinson's disease (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "715345007",
+      "display": "Young onset Parkinson disease (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "716107009",
+      "display": "Early onset parkinsonism and intellectual disability syndrome (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "716662004",
+      "display": "Autosomal dominant late onset Parkinson disease (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "718685006",
+      "display": "Orthostatic hypotension co-occurrent and due to Parkinson's disease (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "719717006",
+      "display": "Psychosis co-occurrent and due to Parkinson's disease (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "724761004",
+      "display": "Sporadic Parkinson disease (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "725146001",
+      "display": "Atypical juvenile parkinsonism (disorder)"
+    } ]
+  }
+}
