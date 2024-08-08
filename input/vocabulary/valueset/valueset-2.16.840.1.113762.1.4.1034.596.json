@@ -38,7 +38,7 @@
   "description": "This value set includes SNOMED concepts for Parkinson's Disease.",
   "purpose": "The intent of this data element is to identify patients with Parkinson's Disease. This element may map to the \"Diagnosis\" Category of the Quality Data Model.",
   "expansion": {
-    "timestamp": "2024-03-15T13:41:51-04:00",
+    "timestamp": "2024-08-08T09:59:41-04:00",
     "contains": [ {
       "system": "http://snomed.info/sct",
       "version": "2023-09",
