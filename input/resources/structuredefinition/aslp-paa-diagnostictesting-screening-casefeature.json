@@ -73,8 +73,8 @@
         {
           "id": "Observation.code",
           "path": "Observation.code",
-          "short": "Qualifying Moderate To Severe Pulmonary Disease",
-          "definition": "Qualifying Moderate To Severe Pulmonary Disease",
+          "short": "Qualifying Diagnostic Testing With Diagnosis of OSA",
+          "definition": "Qualifying Diagnostic Testing With Diagnosis of OSA",
           "min": 1,
           "max": "1",
           "type": [
@@ -87,8 +87,8 @@
             "coding": [
               {
                 "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes",
-                "code": "Moderate-To-Severe-Pulmonary-Disease",
-                "display": "Qualifying Moderate To Severe Pulmonary Disease"
+                "code": "Qualifying-Diagnostic-Testing-With-Diagnosis-of-OSA",
+                "display": "Qualifying Diagnostic Testing With Diagnosis of OSA"
               }
             ]
           }
@@ -96,8 +96,8 @@
         {
           "id": "Observation.value[x]",
           "path": "Observation.value[x]",
-          "short": "Patient has moderate to severe pulmonary disease?",
-          "definition": "Patient has moderate to severe pulmonary disease?",
+          "short": "Does patient have diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation and a diagnosis of OSA?",
+          "definition": "Does patient have diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation and a diagnosis of OSA?",
           "min": 1,
           "max": "1",
           "type": [
