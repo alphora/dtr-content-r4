@@ -93,6 +93,7 @@ code "Temporal lobe epilepsy (disorder)": '193000002' from SNOMEDCT display 'Tem
 code "Lennox-Gastaut syndrome (disorder)": '230418006' from SNOMEDCT display 'Lennox-Gastaut syndrome (disorder)'
 code "Juvenile myoclonic epilepsy (disorder)": '6204001' from SNOMEDCT display 'Juvenile myoclonic epilepsy (disorder)'
 code "Periodic limb movement disorder": 'G47.61' from ICD10 display 'Periodic limb movement disorder'
+code "Complies with diagnostic test protocol (finding)": '1145284009' from SNOMEDCT display 'Complies with diagnostic test protocol (finding)'
 
 context Patient
 
@@ -156,10 +157,11 @@ define "Presence of Applicable Medical Condition":
 
 //Diagnostic testing 
 define "Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
-    exists("Qualifying Diagnosis of Obstructive Sleep Apnea (OSA)") 
-        and exists("Planned Hypoglossal Nerve Stimulator (HGNS) Implantation") HGNS
-            where exists(["DiagnosticReport": "Diagnostic"] D
-                where D.effective before HGNS.performed)
+    exists([Observation: "Complies with diagnostic test protocol (finding)"])
+        and exists("Qualifying Diagnosis of Obstructive Sleep Apnea (OSA)") OSA
+            and exists("Planned Hypoglossal Nerve Stimulator (HGNS) Implantation") HGNS
+                where exists(["DiagnosticReport": "Diagnostic"] D
+                    where D.effective before HGNS.performed)
 
 define "Qualifying Diagnosis of Obstructive Sleep Apnea (OSA)":
     ([Condition: "Obstructive Sleep Apnea of Adult (Disorder)"]).active().confirmed()
