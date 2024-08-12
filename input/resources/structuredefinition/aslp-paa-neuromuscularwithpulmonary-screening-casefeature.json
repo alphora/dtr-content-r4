@@ -1,6 +1,6 @@
 {
   "resourceType": "StructureDefinition",
-  "id": "aslp-paa-neuromuscular-screening-casefeature",
+  "id": "aslp-paa-neuromuscularwithpulmonary-screening-casefeature",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishablecasefeature"
@@ -42,7 +42,7 @@
       }
     }
   ],
-  "url": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscular-screening-casefeature",
+  "url": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature",
   "name": "NeuromuscularDiseaseWithPulmonaryDisease",
   "title": "Neuromuscular Disease with Associated Pulmonary Disease",
   "status": "draft",
@@ -60,19 +60,19 @@
   "fhirVersion": "4.0.1",
   "kind": "resource",
   "abstract": false,
-  "type": "Observation",
-  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
+  "type": "Condition",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Condition",
   "derivation": "constraint",
   "differential": {
     "element": [
       {
-        "id": "Observation",
-        "path": "Observation",
+        "id": "Condition",
+        "path": "Condition",
         "mustSupport": false
       },
       {
-        "id": "Observation.code",
-        "path": "Observation.code",
+        "id": "Condition.code",
+        "path": "Condition.code",
         "short": "Qualifying Neuromuscular Disease With Associated Pulmonary Disease",
         "definition": "Qualifying Neuromuscular Disease With Associated Pulmonary Disease",
         "min": 1,
@@ -94,10 +94,10 @@
         }
       },
       {
-        "id": "Observation.value[x]",
-        "path": "Observation.value[x]",
-        "short": "Patient has neuromuscular disease with associated pulmonary disease; including, but may not be limited to: amyotrophic lateral sclerosis, multiple sclerosis, myotonic dystrophy, Parkinson’s, previous stroke with residual respiratory effects, spina bifida or uncontrolled epilepsy?",
-        "definition": "Patient has neuromuscular disease with associated pulmonary disease; including, but may not be limited to: amyotrophic lateral sclerosis, multiple sclerosis, myotonic dystrophy, Parkinson’s, previous stroke with residual respiratory effects, spina bifida or uncontrolled epilepsy?",
+        "id": "Condition.value[x]",
+        "path": "Condition.value[x]",
+        "short": "Patient has neuromuscular disease with associated pulmonary disease including, but may not be limited to: amyotrophic lateral sclerosis, multiple sclerosis, myotonic dystrophy, Parkinson's, previous stroke with residual respiratory effects, spina bifida or uncontrolled epilepsy?",
+        "definition": "Patient has neuromuscular disease with associated pulmonary disease including, but may not be limited to: amyotrophic lateral sclerosis, multiple sclerosis, myotonic dystrophy, Parkinson's, previous stroke with residual respiratory effects, spina bifida or uncontrolled epilepsy?",
         "min": 1,
         "max": "1",
         "type": [
