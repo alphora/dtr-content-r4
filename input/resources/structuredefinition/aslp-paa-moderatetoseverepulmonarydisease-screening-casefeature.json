@@ -1,6 +1,6 @@
 {
   "resourceType": "StructureDefinition",
-  "id": "aslp-paa-moderatepulmonary-screening-casefeature",
+  "id": "aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishablecasefeature"
@@ -60,19 +60,19 @@
   "fhirVersion": "4.0.1",
   "kind": "resource",
   "abstract": false,
-  "type": "Observation",
-  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
+  "type": "Condition",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Condition",
   "derivation": "constraint",
   "differential": {
     "element": [
       {
-        "id": "Observation",
-        "path": "Observation",
+        "id": "Condition",
+        "path": "Condition",
         "mustSupport": false
       },
       {
-        "id": "Observation.code",
-        "path": "Observation.code",
+        "id": "Condition.code",
+        "path": "Condition.code",
         "short": "Qualifying Moderate To Severe Pulmonary Disease",
         "definition": "Qualifying Moderate To Severe Pulmonary Disease",
         "min": 1,
@@ -94,8 +94,8 @@
         }
       },
       {
-        "id": "Observation.value[x]",
-        "path": "Observation.value[x]",
+        "id": "Condition.value[x]",
+        "path": "Condition.value[x]",
         "short": "Patient has moderate to severe pulmonary disease?",
         "definition": "Patient has moderate to severe pulmonary disease?",
         "min": 1,
