@@ -87,7 +87,7 @@
             "coding": [
               {
                 "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes",
-                "code": "Periodic Limb Movement Disorder (PLMD)",
+                "code": "Periodic-Limb-Movement-Disorder-(PLMD)",
                 "display": "Periodic Limb Movement Disorder (PLMD)"
               }
             ]

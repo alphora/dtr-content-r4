@@ -88,7 +88,7 @@
               {
                 "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes",
                 "code": "Nocturnal-Apnea",
-                "display": "Nocturnal Apnea"
+                "display": "Witnessed Nocturnal Apnea, Choking and/or Gasping"
               }
             ]
           }

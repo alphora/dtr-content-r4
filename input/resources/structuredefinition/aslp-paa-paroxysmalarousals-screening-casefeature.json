@@ -87,7 +87,7 @@
             "coding": [
               {
                 "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes",
-                "code": "Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related",
+                "code": "Paroxysmal-Arousal-or-Other-Sleep-Disruptions-Thought-to-be-Seizure-Related",
                 "display": "Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related"
               }
             ]
