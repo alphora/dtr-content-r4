@@ -60,19 +60,19 @@
   "fhirVersion": "4.0.1",
   "kind": "resource",
   "abstract": false,
-  "type": "Condition",
-  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Condition",
+  "type": "Observation",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
   "derivation": "constraint",
   "differential": {
     "element": [
       {
-        "id": "Condition",
-        "path": "Condition",
+        "id": "Observation",
+        "path": "Observation",
         "mustSupport": false
       },
       {
-        "id": "Condition.code",
-        "path": "Condition.code",
+        "id": "Observation.code",
+        "path": "Observation.code",
         "short": "Qualifying Moderate To Severe Pulmonary Disease",
         "definition": "Qualifying Moderate To Severe Pulmonary Disease",
         "min": 1,
@@ -94,8 +94,8 @@
         }
       },
       {
-        "id": "Condition.value[x]",
-        "path": "Condition.value[x]",
+        "id": "Observation.value[x]",
+        "path": "Observation.value[x]",
         "short": "Patient has moderate to severe pulmonary disease?",
         "definition": "Patient has moderate to severe pulmonary disease?",
         "min": 1,

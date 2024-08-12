@@ -60,19 +60,19 @@
   "fhirVersion": "4.0.1",
   "kind": "resource",
   "abstract": false,
-  "type": "Condition",
-  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Condition",
+  "type": "Observation",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
   "derivation": "constraint",
   "differential": {
     "element": [
       {
-        "id": "Condition",
-        "path": "Condition",
+        "id": "Observation",
+        "path": "Observation",
         "mustSupport": false
       },
       {
-        "id": "Condition.code",
-        "path": "Condition.code",
+        "id": "Observation.code",
+        "path": "Observation.code",
         "short": "Qualifying Neuromuscular Disease With Associated Pulmonary Disease",
         "definition": "Qualifying Neuromuscular Disease With Associated Pulmonary Disease",
         "min": 1,
@@ -94,8 +94,8 @@
         }
       },
       {
-        "id": "Condition.value[x]",
-        "path": "Condition.value[x]",
+        "id": "Observation.value[x]",
+        "path": "Observation.value[x]",
         "short": "Patient has neuromuscular disease with associated pulmonary disease including, but may not be limited to: amyotrophic lateral sclerosis, multiple sclerosis, myotonic dystrophy, Parkinson's, previous stroke with residual respiratory effects, spina bifida or uncontrolled epilepsy?",
         "definition": "Patient has neuromuscular disease with associated pulmonary disease including, but may not be limited to: amyotrophic lateral sclerosis, multiple sclerosis, myotonic dystrophy, Parkinson's, previous stroke with residual respiratory effects, spina bifida or uncontrolled epilepsy?",
         "min": 1,

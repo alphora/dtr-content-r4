@@ -60,19 +60,19 @@
     "fhirVersion": "4.0.1",
     "kind": "resource",
     "abstract": false,
-    "type": "Condition",
-    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Condition",
+    "type": "Observation",
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
     "derivation": "constraint",
     "differential": {
       "element": [
         {
-          "id": "Condition",
-          "path": "Condition",
+          "id": "Observation",
+          "path": "Observation",
           "mustSupport": false
         },
         {
-          "id": "Condition.code",
-          "path": "Condition.code",
+          "id": "Observation.code",
+          "path": "Observation.code",
           "short": "Qualifying Parasomnia",
           "definition": "Qualifying Parasomnia",
           "min": 1,
@@ -94,8 +94,8 @@
           }
         },
         {
-          "id": "Condition.value[x]",
-          "path": "Condition.value[x]",
+          "id": "Observation.value[x]",
+          "path": "Observation.value[x]",
           "short": "Patient has parasomnias that are unusual or atypical because of duration, frequency, or time of the behavior including, but may not be limited to: confusional arousals, nocturnal seizures, psychogenic dissociative states and REM sleep behavior disorder?",
           "definition": "Patient has parasomnias that are unusual or atypical because of duration, frequency, or time of the behavior including, but may not be limited to: confusional arousals, nocturnal seizures, psychogenic dissociative states and REM sleep behavior disorder?",
           "min": 1,

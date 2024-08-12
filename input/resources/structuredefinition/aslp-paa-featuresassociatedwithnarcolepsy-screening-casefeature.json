@@ -60,19 +60,19 @@
     "fhirVersion": "4.0.1",
     "kind": "resource",
     "abstract": false,
-    "type": "Condition",
-    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Condition",
+    "type": "Observation",
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
     "derivation": "constraint",
     "differential": {
       "element": [
         {
-          "id": "Condition",
-          "path": "Condition",
+          "id": "Observation",
+          "path": "Observation",
           "mustSupport": false
         },
         {
-          "id": "Condition.code",
-          "path": "Condition.code",
+          "id": "Observation.code",
+          "path": "Observation.code",
           "short": "Qualifying Feature Associated With Narcolepsy",
           "definition": "Qualifying Feature Associated With Narcolepsy",
           "min": 1,
@@ -94,8 +94,8 @@
           }
         },
         {
-          "id": "Condition.value[x]",
-          "path": "Condition.value[x]",
+          "id": "Observation.value[x]",
+          "path": "Observation.value[x]",
           "short": "Does patient have history of or clinical features associated with narcolepsy when a multiple sleep latency test (MSLT) is planned?",
           "definition": "Does patient have history of or clinical features associated with narcolepsy when a multiple sleep latency test (MSLT) is planned?",
           "min": 1,

@@ -60,19 +60,19 @@
     "fhirVersion": "4.0.1",
     "kind": "resource",
     "abstract": false,
-    "type": "Condition",
-    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Condition",
+    "type": "Observation",
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
     "derivation": "constraint",
     "differential": {
       "element": [
         {
-          "id": "Condition",
-          "path": "Condition",
+          "id": "Observation",
+          "path": "Observation",
           "mustSupport": false
         },
         {
-          "id": "Condition.code",
-          "path": "Condition.code",
+          "id": "Observation.code",
+          "path": "Observation.code",
           "short": "Qualifying Central Sleep Apnea (CSA)",
           "definition": "Qualifying Central Sleep Apnea (CSA)",
           "min": 1,
@@ -94,8 +94,8 @@
           }
         },
         {
-          "id": "Condition.value[x]",
-          "path": "Condition.value[x]",
+          "id": "Observation.value[x]",
+          "path": "Observation.value[x]",
           "short": "Does patient have history of or clinical features associated with central sleep apnea (CSA)?",
           "definition": "Does patient have history of or clinical features associated with central sleep apnea (CSA)?",
           "min": 1,

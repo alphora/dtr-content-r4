@@ -60,19 +60,19 @@
     "fhirVersion": "4.0.1",
     "kind": "resource",
     "abstract": false,
-    "type": "Condition",
-    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Condition",
+    "type": "Observation",
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
     "derivation": "constraint",
     "differential": {
       "element": [
         {
-          "id": "Condition",
-          "path": "Condition",
+          "id": "Observation",
+          "path": "Observation",
           "mustSupport": false
         },
         {
-          "id": "Condition.code",
-          "path": "Condition.code",
+          "id": "Observation.code",
+          "path": "Observation.code",
           "short": "Qualifying Idiopathic Central Nervous System Hypersomnia",
           "definition": "Qualifying Idiopathic Central Nervous System Hypersomnia",
           "min": 1,
@@ -94,8 +94,8 @@
           }
         },
         {
-          "id": "Condition.value[x]",
-          "path": "Condition.value[x]",
+          "id": "Observation.value[x]",
+          "path": "Observation.value[x]",
           "short": "Does patient have idiopathic central nervous system hypersomnia when a multiple sleep latency test (MSLT) is planned?",
           "definition": "Does patient have idiopathic central nervous system hypersomnia when a multiple sleep latency test (MSLT) is planned?",
           "min": 1,

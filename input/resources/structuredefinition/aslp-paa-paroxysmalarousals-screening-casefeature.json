@@ -60,19 +60,19 @@
     "fhirVersion": "4.0.1",
     "kind": "resource",
     "abstract": false,
-    "type": "Condition",
-    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Condition",
+    "type": "Observation",
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
     "derivation": "constraint",
     "differential": {
       "element": [
         {
-          "id": "Condition",
-          "path": "Condition",
+          "id": "Observation",
+          "path": "Observation",
           "mustSupport": false
         },
         {
-          "id": "Condition.code",
-          "path": "Condition.code",
+          "id": "Observation.code",
+          "path": "Observation.code",
           "short": "Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related",
           "definition": "Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related",
           "min": 1,
@@ -94,8 +94,8 @@
           }
         },
         {
-          "id": "Condition.value[x]",
-          "path": "Condition.value[x]",
+          "id": "Observation.value[x]",
+          "path": "Observation.value[x]",
           "short": "Patient has paroxysmal arousals or other sleep disruptions thought to be seizure related?",
           "definition": "Patient has paroxysmal arousals or other sleep disruptions thought to be seizure related?",
           "min": 1,
