@@ -40,6 +40,8 @@ code "Diagnostic": 'D0120-D0999' from CDT display 'Diagnostic'
 code "Epworth Sleepiness Scale Code": '763254009' from "SNOMEDCT" display 'Epworth Sleepiness Scale'
 code "Snoring": 'R06.83' from "ICD10" display 'Snoring' 
 code "Central sleep apnea syndrome (disorder)": '27405005' from "SNOMEDCT" display 'Central sleep apnea syndrome (disorder)'
+code "Central sleep apnea co-occurrent with Cheyne Stokes respiration (disorder)": '724506009' from SNOMEDCT display 'Central sleep apnea co-occurrent with Cheyne Stokes respiration (disorder)'
+code "Central sleep apnea caused by high altitude (disorder)": '91441000119109' from SNOMEDCT display 'Central sleep apnea caused by high altitude (disorder)'
 code "Multiple sleep latency test (procedure)": '252731002' from "SNOMEDCT" display 'Multiple sleep latency test (procedure)'
 code "Narcolepsy with cataplexy": 'G47.411' from ICD10 display 'Narcolepsy with cataplexy'
 code "Hypnagogic hallucinations (finding)": '44780000' from SNOMEDCT display 'Hypnagogic hallucinations (finding)'
@@ -177,6 +179,8 @@ define "Has Central Sleep Apnea (CSA)":
 
 define "Qualifying Central Sleep Apnea":
     ([Condition: "Central sleep apnea syndrome (disorder)"]).active().confirmed()
+    union ([Condition: "Central sleep apnea co-occurrent with Cheyne Stokes respiration (disorder)"]).active().confirmed()
+    union ([Condition: "Central sleep apnea caused by high altitude (disorder)"]).active().confirmed()
 
 //Features associated with narcolepsy (moderate to severe daytime sleepiness associated with cataplexy, hypnagogic hallucinations, or sleep paralysis) when MSLT is planned
 define "Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned":
