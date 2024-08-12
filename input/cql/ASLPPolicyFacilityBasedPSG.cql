@@ -33,6 +33,7 @@ valueset "LVEF Assessment": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113
 valueset "Pulmonary Hypertension Disorder": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1219.93'
 valueset "Cardiac Arrhythmias": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1251.24'
 
+code "Difficulty driving a car (finding)": '300638003' from SNOMEDCT display 'Difficulty driving a car (finding)'
 code "Obstructive Sleep Apnea of Adult (Disorder)": '1101000119103' from SNOMEDCT display 'Obstructive Sleep Apnea of Adult (Disorder)'
 code "Stimulation of hypoglossal nerve for sleep apnea (procedure)": '868249004' from SNOMEDCT display 'Stimulation of hypoglossal nerve for sleep apnea (procedure)'
 code "Diagnostic": 'D0120-D0999' from CDT display 'Diagnostic'
@@ -130,7 +131,7 @@ define "Has ESS Score GTE 10":
   exists("Epworth Sleepiness Scale Score >= 10")
 
 define "Has Excessive Sleepiness While Driving":
-  null as System.Boolean
+  exists([Condition: "Difficulty driving a car (finding)"])
 
 define "Loud Intense Snoring":
   ([Condition: "Snoring"]).active().confirmed()
