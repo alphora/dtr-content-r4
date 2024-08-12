@@ -60,19 +60,19 @@
   "fhirVersion": "4.0.1",
   "kind": "resource",
   "abstract": false,
-  "type": "Observation",
-  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
+  "type": "Condition",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Condition",
   "derivation": "constraint",
   "differential": {
     "element": [
       {
-        "id": "Observation",
-        "path": "Observation",
+        "id": "Condition",
+        "path": "Condition",
         "mustSupport": false
       },
       {
-        "id": "Observation.code",
-        "path": "Observation.code",
+        "id": "Condition.code",
+        "path": "Condition.code",
         "short": "Qualifying Cardiac Disease",
         "definition": "Qualifying Cardiac Disease",
         "min": 1,
@@ -94,8 +94,8 @@
         }
       },
       {
-        "id": "Observation.value[x]",
-        "path": "Observation.value[x]",
+        "id": "Condition.value[x]",
+        "path": "Condition.value[x]",
         "short": "Patient has cardiac disease, including but may not be limited to: congestive heart failure (CHF) (New York Heart Association class III or IV or left ventricular ejection fraction [LVEF] less than 45%), pulmonary hypertension or uncontrolled cardiac arrhythmia?",
         "definition": "Patient has cardiac disease, including but may not be limited to: congestive heart failure (CHF) (New York Heart Association class III or IV or left ventricular ejection fraction [LVEF] less than 45%), pulmonary hypertension or uncontrolled cardiac arrhythmia?",
         "min": 1,
