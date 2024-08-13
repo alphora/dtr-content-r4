@@ -1,0 +1,19 @@
+{
+    "resourceType": "Observation",
+    "id": "Observation-hypoventilation-FacilityBasedPSG-test-case-1",
+    "code": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "15993004",
+          "display": "Alveolar hypoventilation (finding)"
+        }
+      ]
+    },
+    "effectiveDateTime": "2023-08-12T15:00:00-07:00",
+    "status": "final",
+    "subject": {
+      "reference": "Patient/FacilityBasedPSG-Patient-1"
+    },
+    "valueBoolean": true
+  }
