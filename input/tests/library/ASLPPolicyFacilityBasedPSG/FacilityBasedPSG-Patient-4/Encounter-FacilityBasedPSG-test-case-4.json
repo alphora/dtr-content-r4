@@ -1,0 +1,33 @@
+{
+    "resourceType": "Encounter",
+    "id": "Encounter-FacilityBasedPSG-test-case-4",
+    "meta": {
+      "profile": [
+        "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter"
+      ]
+    },
+    "status": "finished",
+    "class": {
+      "code": "HH",
+      "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+      "display": "home health"
+    },
+    "type": [
+      {
+        "coding": [
+          {
+            "code": "185460008",
+            "system": "http://snomed.info/sct",
+            "display": "Home visit request by patient (procedure)"
+          }
+        ]
+      }
+    ],
+    "subject": {
+      "reference": "Patient/FacilityBasedPSG-Patient-4"
+    },
+    "period": {
+      "start": "2023-02-21T16:00:00-07:00",
+      "end": "2023-02-21T17:00:00-07:00"
+    }
+  }
