@@ -1,0 +1,54 @@
+{
+    "resourceType": "Condition",
+    "id": "Condition-apnea-FacilityBasedPSG-test-case-7",
+    "meta": {
+      "profile": [
+        "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition"
+      ]
+    },
+    "clinicalStatus": {
+      "coding": [
+        {
+          "code": "active",
+          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+          "display": "Active"
+        }
+      ]
+    },
+    "verificationStatus": {
+      "coding": [
+        {
+          "code": "confirmed",
+          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+          "display": "Confirmed"
+        }
+      ]
+    },
+    "category": [
+      {
+        "coding": [
+          {
+            "code": "encounter-diagnosis",
+            "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+            "display": "Encounter Diagnosis"
+          }
+        ]
+      }
+    ],
+    "code": {
+      "coding": [
+        {
+          "code": "230493001",
+          "system": "http://snomed.info/sct",
+          "display": "Mixed sleep apnea (disorder)"
+        }
+      ]
+    },
+    "subject": {
+      "reference": "Patient/FacilityBasedPSG-Patient-7"
+    },
+    "encounter": {
+      "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-7"
+    },
+    "onsetDateTime": "2023-02-20T18:30:00-07:00"
+  }

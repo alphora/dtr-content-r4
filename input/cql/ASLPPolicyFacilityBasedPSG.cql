@@ -274,10 +274,10 @@ define "Qualifying Moderate To Severe Pulmonary Disease":
 define "Moderate to Severe Lung Disorder":
     (([Condition: "Disorder of lung (disorder)"]).active().confirmed()) PulmonaryDisease
         where exists(PulmonaryDisease.severity.coding) severity
-            where severity.code = '162469005'
-                or severity.display = 'Symptom moderate (finding)'
-                or severity.code = '162470006'
-                or severity.display = 'Symptom severe (finding)'
+            where severity.code = '6736007'
+                or severity.display = 'Moderate'
+                or severity.code = '24484000'
+                or severity.display = 'Severe'
 
 define "COPD With FEV1 < 60, Home Oxygen Use, Or Hypoventilation":
     (([Condition: "Chronic Obstructive Lung Disease (COPD)"]).active().confirmed()) COPD
