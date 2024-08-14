@@ -234,7 +234,7 @@ define "Has Idiopathic Central Nervous System Hypersomnia When MSLT is Planned":
             where exists([Appointment]) Appt
                 where Appt.status = 'booked'
                 and Appt.start after Hypersomnia.onset
-            and exists(Appt.serviceType.coding) C
+            and exists(Appt.reasonCode.coding) C
                 where C.display = 'Multiple sleep latency test (procedure)'
                 or C.code = '252731002'
     ) 
