@@ -97,6 +97,7 @@ code "Lennox-Gastaut syndrome (disorder)": '230418006' from SNOMEDCT display 'Le
 code "Juvenile myoclonic epilepsy (disorder)": '6204001' from SNOMEDCT display 'Juvenile myoclonic epilepsy (disorder)'
 code "Periodic limb movement disorder": 'G47.61' from ICD10 display 'Periodic limb movement disorder'
 code "Complies with diagnostic test protocol (finding)": '1145284009' from SNOMEDCT display 'Complies with diagnostic test protocol (finding)'
+code "Other physical and mental strain related to work": 'Z56.6' from ICD10 display 'Other physical and mental strain related to work'
 
 context Patient
 
@@ -252,6 +253,7 @@ define "Qualifying Impairment for Safe Use of Equipment":
 //Mission critical profession
 define "Has Mission Critical Profession":
     exists("Qualifying Mission Critical Profession")
+        or exists([Condition: "Other physical and mental strain related to work"])
 
 define "Qualifying Mission Critical Profession": 
     ([Observation: "Airplane pilot (occupation)"])
