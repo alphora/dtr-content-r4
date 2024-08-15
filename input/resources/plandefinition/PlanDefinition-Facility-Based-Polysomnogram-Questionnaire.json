@@ -254,7 +254,7 @@
           ],
           "type": "Observation",
           "profile": [
-            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscular-screening-casefeature"
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-diagnostictesting-screening-casefeature"
           ]
         },
         {
@@ -278,18 +278,18 @@
           ],
           "type": "Observation",
           "profile": [
-            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature"
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-csa-screening-casefeature"
           ]
         },
         {
           "extension": [
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-              "valueString": "Patient has/had narcolespy when a multiple sleep latency test (MSLT) is/was planned?"
+              "valueString": "Patient has/had narcolespy when a multiple sleep latency test (MSLT) is planned?"
             },
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-              "valueMarkdown": "Patient has/had narcolespy when a multiple sleep latency test (MSLT) is/was planned"
+              "valueMarkdown": "Patient has/had narcolespy when a multiple sleep latency test (MSLT) is planned"
             },
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
@@ -302,7 +302,7 @@
           ],
           "type": "Observation",
           "profile": [
-            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-featuresassociatedwithnarcolepsy-screening-casefeature"
           ]
         },
         {
@@ -326,7 +326,7 @@
           ],
           "type": "Observation",
           "profile": [
-            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ohs-screening-casefeature"
           ]
         },
         {
@@ -350,7 +350,7 @@
           ],
           "type": "Observation",
           "profile": [
-            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-tbiwitheds-screening-casefeature"
           ]
         },
         {
@@ -374,7 +374,7 @@
           ],
           "type": "Observation",
           "profile": [
-            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-idiopathiccnshypersomnia-screening-casefeature"
           ]
         },
         {
@@ -398,7 +398,7 @@
           ],
           "type": "Observation",
           "profile": [
-            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-unsafeequipmentuseathome-screening-casefeature"
           ]
         },
         {
@@ -422,7 +422,7 @@
           ],
           "type": "Observation",
           "profile": [
-            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-missioncriticalprofession-screening-casefeature"
           ]
         },
         {
@@ -446,7 +446,7 @@
           ],
           "type": "Observation",
           "profile": [
-            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature"
           ]
         },
         {
@@ -470,7 +470,7 @@
           ],
           "type": "Observation",
           "profile": [
-            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature"
           ]
         },
         {
@@ -494,7 +494,7 @@
           ],
           "type": "Observation",
           "profile": [
-            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-parasomnia-screening-casefeature"
           ]
         },
         {
@@ -518,7 +518,7 @@
           ],
           "type": "Observation",
           "profile": [
-            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-paroxysmalarousals-screening-casefeature"
           ]
         },
         {
@@ -542,7 +542,7 @@
           ],
           "type": "Observation",
           "profile": [
-            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-plmd-screening-casefeature"
           ]
         },
         {
@@ -566,7 +566,7 @@
           ],
           "type": "Observation",
           "profile": [
-            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature"
           ]
         }
       ]

@@ -562,16 +562,16 @@ Usage: #example
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature"
 
             * action[0]
-              * title = "Has no applicable medical condition"
+              * title = "Has no qualifying medical condition"
               * description = "Has none of the following eligible conditions: diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with a known diagnosis of OSA, central sleep apnea (CSA), narcolespy when a multiple sleep latency test (MSLT) is planned, obesity hypoventilation syndrome (OHS), traumatic brain injury (TBI) with EDS, idiopathic central nervous system hyperinsomnia when a MSLT is planned, individual or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely, has a mission critical profession, moderate to severe pulmonary disease, neuromuscular disease associated with pulmonary disease, unusual or atypical parasomnias, paroxysmal arousals or other sleep disruptions thought to be seizure related, periodic limb movement disorder, and/or cardiac disease" 
-              * insert ActionConditionCql("No Applicable Medical Condition For Facility-Based PSG")
+              * insert ActionConditionCql("No Qualifying Medical Condition For Facility-Based PSG")
               * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved" 
             * action[+]
-              * title = "Has Applicable Medical Condition For Facility-Based PSG"
+              * title = "Has Qualifying Medical Condition(s) For Facility-Based PSG"
               * description = "Patient has at least one of the following eligible conditions: diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with a known diagnosis of OSA, central sleep apnea (CSA), narcolespy when a multiple sleep latency test (MSLT) is planned, obesity hypoventilation syndrome (OHS), traumatic brain injury (TBI) with EDS, idiopathic central nervous system hyperinsomnia when a MSLT is planned, individual or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely, has a mission critical profession, moderate to severe pulmonary disease, neuromuscular disease associated with pulmonary disease, unusual or atypical parasomnias, paroxysmal arousals or other sleep disruptions thought to be seizure related, periodic limb movement disorder, and/or cardiac disease" 
-              * insert ActionConditionCql("Has Applicable Medical Condition For Facility-Based PSG")
+              * insert ActionConditionCql("Has Qualifying Medical Condition For Facility-Based PSG")
             * action[+]
               * title = "Null or Unknown answer"
               * description = "Unknown answer. More Information is needed"
-              * insert ActionConditionCql("Null Applicable Medical Condition For Facility-Based PSG")
+              * insert ActionConditionCql("Null Qualifying Medical Condition For Facility-Based PSG")
               * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"

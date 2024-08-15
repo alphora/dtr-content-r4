@@ -121,7 +121,7 @@
             {
               "kind": "applicability",
               "expression": {
-                "language": "text/cql-identifier",
+                "language": "text/cql",
                 "expression": "Not Within Qualifying Age"
               }
             }
@@ -135,7 +135,7 @@
             {
               "kind": "applicability",
               "expression": {
-                "language": "text/cql-identifier",
+                "language": "text/cql",
                 "expression": "Age Unknown"
               }
             }
@@ -149,7 +149,7 @@
             {
               "kind": "applicability",
               "expression": {
-                "language": "text/cql-identifier",
+                "language": "text/cql",
                 "expression": "Is Qualifying Age"
               }
             }
@@ -192,7 +192,7 @@
                 {
                   "kind": "applicability",
                   "expression": {
-                    "language": "text/cql-identifier",
+                    "language": "text/cql",
                     "expression": "No Excessive Daytime Sleepiness"
                   }
                 }
@@ -206,7 +206,7 @@
                 {
                   "kind": "applicability",
                   "expression": {
-                    "language": "text/cql-identifier",
+                    "language": "text/cql",
                     "expression": "Null Excessive Daytime Sleepiness"
                   }
                 }
@@ -220,16 +220,16 @@
                 {
                   "kind": "applicability",
                   "expression": {
-                    "language": "text/cql-identifier",
+                    "language": "text/cql",
                     "expression": "Has Excessive Daytime Sleepiness"
                   }
                 }
-              ],
-              "action": [
-                {
-                  "title": "Additional Daytime Sleepiness Indicator",
-                  "description": "One or more of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping",
-                  "input": [
+              ]
+            },
+            {
+              "title": "Additional Daytime Sleepiness Indicator",
+              "description": "One or more of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping",
+              "input": [
                     {
                       "extension": [
                         {
@@ -335,7 +335,7 @@
                         {
                           "kind": "applicability",
                           "expression": {
-                            "language": "text/cql-identifier",
+                            "language": "text/cql",
                             "expression": "Has No Additional Daytime Sleepiness Indicators"
                           }
                         }
@@ -349,7 +349,7 @@
                         {
                           "kind": "applicability",
                           "expression": {
-                            "language": "text/cql-identifier",
+                            "language": "text/cql",
                             "expression": "Null Additional Daytime Sleepiness Indicators"
                           }
                         }
@@ -363,21 +363,21 @@
                         {
                           "kind": "applicability",
                           "expression": {
-                            "language": "text/cql-identifier",
+                            "language": "text/cql",
                             "expression": "Has Additional Daytime Sleepiness Indicators"
                           }
                         }
-                      ],
-                      "action": [
-                        {
-                          "title": "Presence of medical condition",
-                          "description": "Presence of medical condition(s)",
-                          "input": [
+                      ]
+                    },
+                    {
+                      "title": "Presence of qualifying medical condition(s)",
+                      "description": "Presence of qualifying medical condition(s)",
+                      "input": [
                             {
                               "extension": [
                                 {
                                   "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient lacks cognitive function, dexterity, or mobility for safe use of portable monitor (PM) equipment at home?"
+                                  "valueString": "Patient or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely at home?"
                                 },
                                 {
                                   "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
@@ -425,11 +425,11 @@
                               "extension": [
                                 {
                                   "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient has/had features associated with narcolepsy when a multiple sleep latency test (MSLT) is/was planned?"
+                                  "valueString": "Patient has/had features associated with narcolepsy when a multiple sleep latency test (MSLT) is planned?"
                                 },
                                 {
                                   "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                  "valueMarkdown": "Patient has/had features associated with narcolepsy when a multiple sleep latency test (MSLT) is/was planned"
+                                  "valueMarkdown": "Patient has/had features associated with narcolepsy when a multiple sleep latency test (MSLT) is planned"
                                 },
                                 {
                                   "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
@@ -688,14 +688,14 @@
                           ],
                           "action": [
                             {
-                              "title": "Has no applicable medical condition",
+                              "title": "Has no qualifying medical condition",
                               "description": "Has none of the following eligible conditions: diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with a known diagnosis of OSA, central sleep apnea (CSA), narcolespy when a multiple sleep latency test (MSLT) is planned, obesity hypoventilation syndrome (OHS), traumatic brain injury (TBI) with EDS, idiopathic central nervous system hyperinsomnia when a MSLT is planned, individual or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely, has a mission critical profession, moderate to severe pulmonary disease, neuromuscular disease associated with pulmonary disease, unusual or atypical parasomnias, paroxysmal arousals or other sleep disruptions thought to be seizure related, periodic limb movement disorder, and/or cardiac disease",
                               "condition": [
                                 {
                                   "kind": "applicability",
                                   "expression": {
-                                    "language": "text/cql-identifier",
-                                    "expression": "No Applicable Medical Condition For Facility-Based PSG"
+                                    "language": "text/cql",
+                                    "expression": "No Qualifying Medical Condition For Facility-Based PSG"
                                   }
                                 }
                               ],
@@ -708,12 +708,25 @@
                                 {
                                   "kind": "applicability",
                                   "expression": {
-                                    "language": "text/cql-identifier",
-                                    "expression": "Null Applicable Medical Condition For Facility-Based PSG"
+                                    "language": "text/cql",
+                                    "expression": "Null Qualifying Medical Condition For Facility-Based PSG"
                                   }
                                 }
                               ],
                               "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+                            }, 
+                            {
+                              "title": "Has Qualifying Medical Condition(s) For Facility-Based PSG",
+                              "description": "Patient has at least one of the following eligible conditions: diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with a known diagnosis of OSA, central sleep apnea (CSA), narcolespy when a multiple sleep latency test (MSLT) is planned, obesity hypoventilation syndrome (OHS), traumatic brain injury (TBI) with EDS, idiopathic central nervous system hyperinsomnia when a MSLT is planned, individual or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely, has a mission critical profession, moderate to severe pulmonary disease, neuromuscular disease associated with pulmonary disease, unusual or atypical parasomnias, paroxysmal arousals or other sleep disruptions thought to be seizure related, periodic limb movement disorder, and/or cardiac disease",
+                              "condition": [
+                                {
+                                  "kind": "applicability",
+                                  "expression": {
+                                    "language": "text/cql",
+                                    "expression": "Has Qualifying Medical Condition For Facility-Based PSG"
+                                  }
+                                }
+                              ]
                             }
                           ]
                         }
@@ -725,7 +738,3 @@
             }
           ]
         }
-      ]
-    }
-  ]
-}
