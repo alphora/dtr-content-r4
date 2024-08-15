@@ -18,7 +18,7 @@
     "participant": [
         {
             "actor": {
-                "reference": "Patient/FacilityBasedPSG-Patient-6"
+                "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
             },
             "required": "required",
             "status": "accepted"

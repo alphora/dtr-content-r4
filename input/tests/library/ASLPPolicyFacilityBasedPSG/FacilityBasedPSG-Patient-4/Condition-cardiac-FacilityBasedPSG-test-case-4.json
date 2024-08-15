@@ -45,7 +45,7 @@
       ]
     },
     "subject": {
-      "reference": "Patient/FacilityBasedPSG-Patient-4"
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-4"
     },
     "encounter": {
       "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-4"

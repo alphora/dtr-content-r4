@@ -24,7 +24,7 @@
       }
     ],
     "subject": {
-      "reference": "Patient/FacilityBasedPSG-Patient-5"
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-5"
     },
     "period": {
       "start": "2023-05-15T16:00:00-07:00",

@@ -52838,7 +52838,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-5"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-5"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-5"
@@ -52885,7 +52885,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-5"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-5"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-5"
@@ -52932,7 +52932,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-5"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-5"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-5"
@@ -53002,7 +53002,7 @@
         } ]
       } ],
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-5"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-5"
       },
       "period": {
         "start": "2023-05-15T16:00:00-07:00",
@@ -53294,7 +53294,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-3"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-3"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-3"
@@ -53341,7 +53341,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-3"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-3"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-3"
@@ -53373,7 +53373,7 @@
         } ]
       } ],
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-3"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-3"
       },
       "period": {
         "start": "2023-04-22T17:00:00-07:00",
@@ -53458,7 +53458,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-4"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-4"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-4"
@@ -53490,7 +53490,7 @@
         } ]
       } ],
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-4"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-4"
       },
       "period": {
         "start": "2023-02-21T16:00:00-07:00",
@@ -53917,7 +53917,7 @@
         } ]
       } ],
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-10"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-10"
       },
       "period": {
         "start": "2023-12-01T16:00:00-07:00",
@@ -53964,7 +53964,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-10"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-10"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-10"
@@ -54011,7 +54011,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-10"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-10"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-10"
@@ -54578,7 +54578,7 @@
         } ]
       } ],
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-6"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
       },
       "period": {
         "start": "2023-06-25T16:00:00-07:00",
@@ -54663,7 +54663,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-6"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-6"
@@ -54710,7 +54710,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-6"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-6"
@@ -54737,7 +54737,7 @@
       "end": "2023-03-01T19:30:00-07:00",
       "participant": [ {
         "actor": {
-          "reference": "Patient/FacilityBasedPSG-Patient-6"
+          "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
         },
         "required": "required",
         "status": "accepted"
@@ -54783,7 +54783,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-6"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-6"
@@ -54830,7 +54830,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-8"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-8"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-8"
@@ -54877,7 +54877,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-8"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-8"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-8"
@@ -54962,7 +54962,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-8"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-8"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-8"
@@ -54994,7 +54994,7 @@
         } ]
       } ],
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-8"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-8"
       },
       "period": {
         "start": "2023-08-14T16:00:00-07:00",
@@ -55237,7 +55237,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-9"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-9"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-9"
@@ -55284,7 +55284,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-9"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-9"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-9"
@@ -55316,7 +55316,7 @@
         } ]
       } ],
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-9"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-9"
       },
       "period": {
         "start": "2023-10-22T16:00:00-07:00",
@@ -55378,7 +55378,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-9"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-9"
       },
       "effectiveDateTime": "2023-10-22T16:00:00-07:00"
     },
@@ -55445,7 +55445,7 @@
         } ]
       } ],
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-7"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-7"
       },
       "period": {
         "start": "2023-07-01T16:00:00-07:00",
@@ -55499,7 +55499,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-7"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-7"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-7"
@@ -55546,7 +55546,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-7"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-7"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-7"
@@ -55593,7 +55593,7 @@
         } ]
       },
       "subject": {
-        "reference": "Patient/FacilityBasedPSG-Patient-7"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-7"
       },
       "encounter": {
         "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-7"
