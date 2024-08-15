@@ -1,6 +1,6 @@
 {
   "resourceType": "Bundle",
-  "id": "dtr-tests",
+  "id": "dtr-tests-bundle",
   "type": "batch",
   "entry": [ {
     "resource": {
