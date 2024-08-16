@@ -1,7 +1,7 @@
 {
   "resourceType": "Bundle",
-  "id": "dtr-tests",
-  "type": "transaction",
+  "id": "dtr-tests-bundle",
+  "type": "batch",
   "entry": [ {
     "resource": {
       "resourceType": "Group",
