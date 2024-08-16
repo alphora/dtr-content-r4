@@ -101,7 +101,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying Patient Age",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -121,7 +121,7 @@
             {
               "kind": "applicability",
               "expression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Not Within Qualifying Age"
               }
             }
@@ -135,7 +135,7 @@
             {
               "kind": "applicability",
               "expression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Age Unknown"
               }
             }
@@ -149,7 +149,7 @@
             {
               "kind": "applicability",
               "expression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Is Qualifying Age"
               }
             }
@@ -172,7 +172,7 @@
                 {
                   "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
                   "valueExpression": {
-                    "language": "text/cql",
+                    "language": "text/cql-identifier",
                     "expression": "Qualified Excessive Daytime Sleepiness",
                     "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
                   }
@@ -192,7 +192,7 @@
                 {
                   "kind": "applicability",
                   "expression": {
-                    "language": "text/cql",
+                    "language": "text/cql-identifier",
                     "expression": "No Excessive Daytime Sleepiness"
                   }
                 }
@@ -206,7 +206,7 @@
                 {
                   "kind": "applicability",
                   "expression": {
-                    "language": "text/cql",
+                    "language": "text/cql-identifier",
                     "expression": "Null Excessive Daytime Sleepiness"
                   }
                 }
@@ -220,16 +220,16 @@
                 {
                   "kind": "applicability",
                   "expression": {
-                    "language": "text/cql",
+                    "language": "text/cql-identifier",
                     "expression": "Has Excessive Daytime Sleepiness"
                   }
                 }
-              ]
-            },
-            {
-              "title": "Additional Daytime Sleepiness Indicator",
-              "description": "One or more of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping",
-              "input": [
+              ],
+              "action": [
+                {
+                  "title": "Additional Daytime Sleepiness Indicator",
+                  "description": "One or more of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping",
+                  "input": [
                     {
                       "extension": [
                         {
@@ -243,7 +243,7 @@
                         {
                           "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
                           "valueExpression": {
-                            "language": "text/cql",
+                            "language": "text/cql-identifier",
                             "expression": "ESS Score >= 10",
                             "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
                           }
@@ -267,7 +267,7 @@
                         {
                           "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
                           "valueExpression": {
-                            "language": "text/cql",
+                            "language": "text/cql-identifier",
                             "expression": "Qualifying Excessive Sleepiness While Driving",
                             "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
                           }
@@ -291,7 +291,7 @@
                         {
                           "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
                           "valueExpression": {
-                            "language": "text/cql",
+                            "language": "text/cql-identifier",
                             "expression": "Loud/Intense Snoring",
                             "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
                           }
@@ -315,7 +315,7 @@
                         {
                           "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
                           "valueExpression": {
-                            "language": "text/cql",
+                            "language": "text/cql-identifier",
                             "expression": "Nocturnal Apnea",
                             "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
                           }
@@ -335,7 +335,7 @@
                         {
                           "kind": "applicability",
                           "expression": {
-                            "language": "text/cql",
+                            "language": "text/cql-identifier",
                             "expression": "Has No Additional Daytime Sleepiness Indicators"
                           }
                         }
@@ -349,7 +349,7 @@
                         {
                           "kind": "applicability",
                           "expression": {
-                            "language": "text/cql",
+                            "language": "text/cql-identifier",
                             "expression": "Null Additional Daytime Sleepiness Indicators"
                           }
                         }
@@ -363,368 +363,380 @@
                         {
                           "kind": "applicability",
                           "expression": {
-                            "language": "text/cql",
+                            "language": "text/cql-identifier",
                             "expression": "Has Additional Daytime Sleepiness Indicators"
                           }
                         }
-                      ]
-                    },
-                    {
-                      "title": "Presence of qualifying medical condition(s)",
-                      "description": "Presence of qualifying medical condition(s)",
-                      "input": [
+                      ],
+                      "action": [
                             {
-                              "extension": [
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely at home?"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                  "valueMarkdown": "Patient lacks cognitive function, dexterity, or mobility for safe use of portable monitor (PM) equipment at home"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                  "valueExpression": {
-                                    "language": "text/cql",
-                                    "expression": "Qualifying Impairment Affecting Safe Use of Equipment At Home",
-                                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                  }
-                                }
-                              ],
-                              "type": "Observation",
-                              "profile": [
-                                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-unsafeequipmentuseathome-screening-casefeature"
-                              ]
-                            },
-                            {
-                              "extension": [
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient has/had central sleep apnea (CSA)?"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                  "valueMarkdown": "Patient has/had central sleep apnea (CSA)"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                  "valueExpression": {
-                                    "language": "text/cql",
-                                    "expression": "Qualifying Central Sleep Apnea (CSA)",
-                                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                  }
-                                }
-                              ],
-                              "type": "Observation",
-                              "profile": [
-                                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-csa-screening-casefeature"
-                              ]
-                            },
-                            {
-                              "extension": [
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient has/had features associated with narcolepsy when a multiple sleep latency test (MSLT) is planned?"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                  "valueMarkdown": "Patient has/had features associated with narcolepsy when a multiple sleep latency test (MSLT) is planned"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                  "valueExpression": {
-                                    "language": "text/cql",
-                                    "expression": "Qualifying Feature Associated With Narcolepsy",
-                                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                  }
-                                }
-                              ],
-                              "type": "Observation",
-                              "profile": [
-                                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-featuresassociatedwithnarcolepsy-screening-casefeature"
-                              ]
-                            },
-                            {
-                              "extension": [
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient has/had obesity hypoventilation syndrome (OHS) which cannot be attributed to hypothyroidism, neuromuscular weakness, pleural pathology, pulmonary disease, or skeletal restriction?"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                  "valueMarkdown": "Patient has/had obesity hypoventilation syndrome (OHS) which cannot be attributed to hypothyroidism, neuromuscular weakness, pleural pathology, pulmonary disease, or skeletal restriction"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                  "valueExpression": {
-                                    "language": "text/cql",
-                                    "expression": "Qualifying Obesity Hypoventilation Syndrome (OHS)",
-                                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                  }
-                                }
-                              ],
-                              "type": "Observation",
-                              "profile": [
-                                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ohs-screening-casefeature"
-                              ]
-                            },
-                            {
-                              "extension": [
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient has history of traumatic brain injury (TBI) with EDS?"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                  "valueMarkdown": "Patient has history of traumatic brain injury (TBI) with EDS"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                  "valueExpression": {
-                                    "language": "text/cql",
-                                    "expression": "Qualifying Traumatic Brain Injury (TBI) with EDS",
-                                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                  }
-                                }
-                              ],
-                              "type": "Observation",
-                              "profile": [
-                                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-tbiwitheds-screening-casefeature"
-                              ]
-                            },
-                            {
-                              "extension": [
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient has idiopathic central nervous system hyperinsomnia when a multiple sleep latency test (MSLT) is planned?"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                  "valueMarkdown": "Patient has idiopathic central nervous system hyperinsomnia when a multiple sleep latency test (MSLT) is planned"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                  "valueExpression": {
-                                    "language": "text/cql",
-                                    "expression": "Qualifying Idiopathic Central Nervous System Hypersomnia",
-                                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                  }
-                                }
-                              ],
-                              "type": "Observation",
-                              "profile": [
-                                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-idiopathiccnshypersomnia-screening-casefeature"
-                              ]
-                            },
-                            {
-                              "extension": [
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient has a mission critical profession?"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                  "valueMarkdown": "Patient has a mission critical profession"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                  "valueExpression": {
-                                    "language": "text/cql",
-                                    "expression": "Qualifying Mission Critical Profession",
-                                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                  }
-                                }
-                              ],
-                              "type": "Observation",
-                              "profile": [
-                                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-missioncriticalprofession-screening-casefeature"
-                              ]
-                            },
-                            {
-                              "extension": [
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient has moderate to severe pulmonary disease?"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                  "valueMarkdown": "Patient has moderate to severe pulmonary disease"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                  "valueExpression": {
-                                    "language": "text/cql",
-                                    "expression": "Qualifying Moderate To Severe Pulmonary Disease",
-                                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                  }
-                                }
-                              ],
-                              "type": "Observation",
-                              "profile": [
-                                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature"
-                              ]
-                            },
-                            {
-                              "extension": [
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient has neuromuscular disease with associated pulmonary disease?"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                  "valueMarkdown": "Patient has neuromuscular disease with associated pulmonary disease"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                  "valueExpression": {
-                                    "language": "text/cql",
-                                    "expression": "Qualifying Neuromuscular Disease With Associated Pulmonary Disease",
-                                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                  }
-                                }
-                              ],
-                              "type": "Observation",
-                              "profile": [
-                                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature"
-                              ]
-                            },
-                            {
-                              "extension": [
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient has unusual or atypical parasomnias"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                  "valueMarkdown": "Patient has unusual or atypical parasomnia"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                  "valueExpression": {
-                                    "language": "text/cql",
-                                    "expression": "Qualifying Parasomnia",
-                                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                  }
-                                }
-                              ],
-                              "type": "Observation",
-                              "profile": [
-                                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-parasomnia-screening-casefeature"
-                              ]
-                            },
-                            {
-                              "extension": [
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient has paroxysmal arousals or other sleep disruptions thought to be seizure related?"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                  "valueMarkdown": "Patient has paroxysmal arousals or other sleep disruptions thought to be seizure related"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                  "valueExpression": {
-                                    "language": "text/cql",
-                                    "expression": "Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related",
-                                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                  }
-                                }
-                              ],
-                              "type": "Observation",
-                              "profile": [
-                                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-paroxysmalarousals-screening-casefeature"
-                              ]
-                            },
-                            {
-                              "extension": [
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient has Periodic Limb Movement Disorder (PLMD)?"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                  "valueMarkdown": "Patient has Periodic Limb Movement Disorder (PLMD)"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                  "valueExpression": {
-                                    "language": "text/cql",
-                                    "expression": "Qualifying Periodic Limb Movement Disorder",
-                                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                  }
-                                }
-                              ],
-                              "type": "Observation",
-                              "profile": [
-                                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-plmd-screening-casefeature"
-                              ]
-                            },
-                            {
-                              "extension": [
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient has Cardiac Disease?"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                  "valueMarkdown": "Patient has Cardiac Disease"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                  "valueExpression": {
-                                    "language": "text/cql",
-                                    "expression": "Qualifying Cardiac Disease",
-                                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                  }
-                                }
-                              ],
-                              "type": "Observation",
-                              "profile": [
-                                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature"
-                              ]
-                            }
-                          ],
-                          "action": [
-                            {
-                              "title": "Has no qualifying medical condition",
-                              "description": "Has none of the following eligible conditions: diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with a known diagnosis of OSA, central sleep apnea (CSA), narcolespy when a multiple sleep latency test (MSLT) is planned, obesity hypoventilation syndrome (OHS), traumatic brain injury (TBI) with EDS, idiopathic central nervous system hyperinsomnia when a MSLT is planned, individual or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely, has a mission critical profession, moderate to severe pulmonary disease, neuromuscular disease associated with pulmonary disease, unusual or atypical parasomnias, paroxysmal arousals or other sleep disruptions thought to be seizure related, periodic limb movement disorder, and/or cardiac disease",
+                              "title": "Presence of qualifying medical condition(s)",
+                              "description": "Presence of qualifying medical condition(s)",
                               "condition": [
                                 {
                                   "kind": "applicability",
                                   "expression": {
-                                    "language": "text/cql",
-                                    "expression": "No Qualifying Medical Condition For Facility-Based PSG"
+                                    "language": "text/cql-identifier",
+                                    "expression": "Has Applicable Medical Condition For Facility-Based PSG Value"
                                   }
                                 }
                               ],
-                              "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                            },
-                            {
-                              "title": "Null or Unknown answer",
-                              "description": "Unknown answer. More Information is needed",
-                              "condition": [
+                              "input": [
                                 {
-                                  "kind": "applicability",
-                                  "expression": {
-                                    "language": "text/cql",
-                                    "expression": "Null Qualifying Medical Condition For Facility-Based PSG"
-                                  }
+                                  "extension": [
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                      "valueString": "Patient or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely at home?"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                      "valueMarkdown": "Patient lacks cognitive function, dexterity, or mobility for safe use of portable monitor (PM) equipment at home"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                      "valueExpression": {
+                                        "language": "text/cql",
+                                        "expression": "Qualifying Impairment Affecting Safe Use of Equipment At Home",
+                                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                      }
+                                    }
+                                  ],
+                                  "type": "Observation",
+                                  "profile": [
+                                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-unsafeequipmentuseathome-screening-casefeature"
+                                  ]
+                                },
+                                {
+                                  "extension": [
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                      "valueString": "Patient has/had central sleep apnea (CSA)?"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                      "valueMarkdown": "Patient has/had central sleep apnea (CSA)"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                      "valueExpression": {
+                                        "language": "text/cql",
+                                        "expression": "Qualifying Central Sleep Apnea (CSA)",
+                                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                      }
+                                    }
+                                  ],
+                                  "type": "Observation",
+                                  "profile": [
+                                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-csa-screening-casefeature"
+                                  ]
+                                },
+                                {
+                                  "extension": [
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                      "valueString": "Patient has/had features associated with narcolepsy when a multiple sleep latency test (MSLT) is planned?"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                      "valueMarkdown": "Patient has/had features associated with narcolepsy when a multiple sleep latency test (MSLT) is planned"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                      "valueExpression": {
+                                        "language": "text/cql",
+                                        "expression": "Qualifying Feature Associated With Narcolepsy",
+                                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                      }
+                                    }
+                                  ],
+                                  "type": "Observation",
+                                  "profile": [
+                                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-featuresassociatedwithnarcolepsy-screening-casefeature"
+                                  ]
+                                },
+                                {
+                                  "extension": [
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                      "valueString": "Patient has/had obesity hypoventilation syndrome (OHS) which cannot be attributed to hypothyroidism, neuromuscular weakness, pleural pathology, pulmonary disease, or skeletal restriction?"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                      "valueMarkdown": "Patient has/had obesity hypoventilation syndrome (OHS) which cannot be attributed to hypothyroidism, neuromuscular weakness, pleural pathology, pulmonary disease, or skeletal restriction"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                      "valueExpression": {
+                                        "language": "text/cql",
+                                        "expression": "Qualifying Obesity Hypoventilation Syndrome (OHS)",
+                                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                      }
+                                    }
+                                  ],
+                                  "type": "Observation",
+                                  "profile": [
+                                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ohs-screening-casefeature"
+                                  ]
+                                },
+                                {
+                                  "extension": [
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                      "valueString": "Patient has history of traumatic brain injury (TBI) with EDS?"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                      "valueMarkdown": "Patient has history of traumatic brain injury (TBI) with EDS"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                      "valueExpression": {
+                                        "language": "text/cql",
+                                        "expression": "Qualifying Traumatic Brain Injury (TBI) with EDS",
+                                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                      }
+                                    }
+                                  ],
+                                  "type": "Observation",
+                                  "profile": [
+                                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-tbiwitheds-screening-casefeature"
+                                  ]
+                                },
+                                {
+                                  "extension": [
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                      "valueString": "Patient has idiopathic central nervous system hyperinsomnia when a multiple sleep latency test (MSLT) is planned?"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                      "valueMarkdown": "Patient has idiopathic central nervous system hyperinsomnia when a multiple sleep latency test (MSLT) is planned"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                      "valueExpression": {
+                                        "language": "text/cql",
+                                        "expression": "Qualifying Idiopathic Central Nervous System Hypersomnia",
+                                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                      }
+                                    }
+                                  ],
+                                  "type": "Observation",
+                                  "profile": [
+                                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-idiopathiccnshypersomnia-screening-casefeature"
+                                  ]
+                                },
+                                {
+                                  "extension": [
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                      "valueString": "Patient has a mission critical profession?"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                      "valueMarkdown": "Patient has a mission critical profession"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                      "valueExpression": {
+                                        "language": "text/cql",
+                                        "expression": "Qualifying Mission Critical Profession",
+                                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                      }
+                                    }
+                                  ],
+                                  "type": "Observation",
+                                  "profile": [
+                                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-missioncriticalprofession-screening-casefeature"
+                                  ]
+                                },
+                                {
+                                  "extension": [
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                      "valueString": "Patient has moderate to severe pulmonary disease?"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                      "valueMarkdown": "Patient has moderate to severe pulmonary disease"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                      "valueExpression": {
+                                        "language": "text/cql",
+                                        "expression": "Qualifying Moderate To Severe Pulmonary Disease",
+                                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                      }
+                                    }
+                                  ],
+                                  "type": "Observation",
+                                  "profile": [
+                                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature"
+                                  ]
+                                },
+                                {
+                                  "extension": [
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                      "valueString": "Patient has neuromuscular disease with associated pulmonary disease?"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                      "valueMarkdown": "Patient has neuromuscular disease with associated pulmonary disease"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                      "valueExpression": {
+                                        "language": "text/cql",
+                                        "expression": "Qualifying Neuromuscular Disease With Associated Pulmonary Disease",
+                                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                      }
+                                    }
+                                  ],
+                                  "type": "Observation",
+                                  "profile": [
+                                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature"
+                                  ]
+                                },
+                                {
+                                  "extension": [
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                      "valueString": "Patient has unusual or atypical parasomnias"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                      "valueMarkdown": "Patient has unusual or atypical parasomnia"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                      "valueExpression": {
+                                        "language": "text/cql",
+                                        "expression": "Qualifying Parasomnia",
+                                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                      }
+                                    }
+                                  ],
+                                  "type": "Observation",
+                                  "profile": [
+                                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-parasomnia-screening-casefeature"
+                                  ]
+                                },
+                                {
+                                  "extension": [
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                      "valueString": "Patient has paroxysmal arousals or other sleep disruptions thought to be seizure related?"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                      "valueMarkdown": "Patient has paroxysmal arousals or other sleep disruptions thought to be seizure related"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                      "valueExpression": {
+                                        "language": "text/cql",
+                                        "expression": "Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related",
+                                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                      }
+                                    }
+                                  ],
+                                  "type": "Observation",
+                                  "profile": [
+                                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-paroxysmalarousals-screening-casefeature"
+                                  ]
+                                },
+                                {
+                                  "extension": [
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                      "valueString": "Patient has Periodic Limb Movement Disorder (PLMD)?"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                      "valueMarkdown": "Patient has Periodic Limb Movement Disorder (PLMD)"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                      "valueExpression": {
+                                        "language": "text/cql",
+                                        "expression": "Qualifying Periodic Limb Movement Disorder",
+                                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                      }
+                                    }
+                                  ],
+                                  "type": "Observation",
+                                  "profile": [
+                                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-plmd-screening-casefeature"
+                                  ]
+                                },
+                                {
+                                  "extension": [
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                      "valueString": "Patient has Cardiac Disease?"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                      "valueMarkdown": "Patient has Cardiac Disease"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                      "valueExpression": {
+                                        "language": "text/cql",
+                                        "expression": "Qualifying Cardiac Disease",
+                                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                      }
+                                    }
+                                  ],
+                                  "type": "Observation",
+                                  "profile": [
+                                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature"
+                                  ]
                                 }
                               ],
-                              "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
-                            }, 
-                            {
-                              "title": "Has Qualifying Medical Condition(s) For Facility-Based PSG",
-                              "description": "Patient has at least one of the following eligible conditions: diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with a known diagnosis of OSA, central sleep apnea (CSA), narcolespy when a multiple sleep latency test (MSLT) is planned, obesity hypoventilation syndrome (OHS), traumatic brain injury (TBI) with EDS, idiopathic central nervous system hyperinsomnia when a MSLT is planned, individual or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely, has a mission critical profession, moderate to severe pulmonary disease, neuromuscular disease associated with pulmonary disease, unusual or atypical parasomnias, paroxysmal arousals or other sleep disruptions thought to be seizure related, periodic limb movement disorder, and/or cardiac disease",
-                              "condition": [
+                              "action": [
                                 {
-                                  "kind": "applicability",
-                                  "expression": {
-                                    "language": "text/cql",
-                                    "expression": "Has Qualifying Medical Condition For Facility-Based PSG"
-                                  }
+                                  "title": "No Applicable Medical Condition For Facility-Based PSG",
+                                  "description": "Has none of the following eligible conditions: diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with a known diagnosis of OSA, central sleep apnea (CSA), narcolespy when a multiple sleep latency test (MSLT) is planned, obesity hypoventilation syndrome (OHS), traumatic brain injury (TBI) with EDS, idiopathic central nervous system hyperinsomnia when a MSLT is planned, individual or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely, has a mission critical profession, moderate to severe pulmonary disease, neuromuscular disease associated with pulmonary disease, unusual or atypical parasomnias, paroxysmal arousals or other sleep disruptions thought to be seizure related, periodic limb movement disorder, and/or cardiac disease",
+                                  "condition": [
+                                    {
+                                      "kind": "applicability",
+                                      "expression": {
+                                        "language": "text/cql",
+                                        "expression": "No Applicable Medical Condition For Facility-Based PSG"
+                                      }
+                                    }
+                                  ],
+                                  "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+                                },
+                                {
+                                  "title": "Null Applicable Medical Condition For Facility-Based PSG",
+                                  "description": "Unknown answer. More Information is needed",
+                                  "condition": [
+                                    {
+                                      "kind": "applicability",
+                                      "expression": {
+                                        "language": "text/cql",
+                                        "expression": "Null Applicable Medical Condition For Facility-Based PSG"
+                                      }
+                                    }
+                                  ],
+                                  "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+                                }, 
+                                {
+                                  "title": "Has Applicable Medical Condition For Facility-Based PSG",
+                                  "description": "Patient has at least one of the following eligible conditions: diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with a known diagnosis of OSA, central sleep apnea (CSA), narcolespy when a multiple sleep latency test (MSLT) is planned, obesity hypoventilation syndrome (OHS), traumatic brain injury (TBI) with EDS, idiopathic central nervous system hyperinsomnia when a MSLT is planned, individual or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely, has a mission critical profession, moderate to severe pulmonary disease, neuromuscular disease associated with pulmonary disease, unusual or atypical parasomnias, paroxysmal arousals or other sleep disruptions thought to be seizure related, periodic limb movement disorder, and/or cardiac disease",
+                                  "condition": [
+                                    {
+                                      "kind": "applicability",
+                                      "expression": {
+                                        "language": "text/cql",
+                                        "expression": "Has Applicable Medical Condition For Facility-Based PSG"
+                                      }
+                                    }
+                                  ], 
+                                  "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-approved"
                                 }
                               ]
                             }
@@ -738,3 +750,5 @@
             }
           ]
         }
+    ]
+}

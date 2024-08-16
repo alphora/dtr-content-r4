@@ -25,6 +25,11 @@
     }
   }, {
     "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-5",
+      "display": "Pete Robertson"
+    }
+  }, {
+    "entity": {
       "reference": "Patient/Patient-paa-example-1",
       "display": "Harold Munez"
     }

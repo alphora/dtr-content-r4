@@ -10,11 +10,6 @@
   "actual": true,
   "member": [ {
     "entity": {
-      "reference": "Patient/Patient-FacilityBasedPSG-test-case-5",
-      "display": "Pete Robertson"
-    }
-  }, {
-    "entity": {
       "reference": "Patient/Patient-FacilityBasedPSG-test-case-2",
       "display": "Will Witherspoon"
     }
@@ -30,13 +25,13 @@
     }
   }, {
     "entity": {
-      "reference": "Patient/Patient-FacilityBasedPSG-test-case-10",
-      "display": "Elizabeth Rodriguez"
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-5",
+      "display": "Pete Robertson"
     }
   }, {
     "entity": {
-      "reference": "Patient/Patient-FacilityBasedPSG-test-case-1",
-      "display": "Drake Smith"
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-10",
+      "display": "Elizabeth Rodriguez"
     }
   }, {
     "entity": {
@@ -47,6 +42,11 @@
     "entity": {
       "reference": "Patient/Patient-FacilityBasedPSG-test-case-8",
       "display": "Charlotte Davis"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-1",
+      "display": "Drake Smith"
     }
   }, {
     "entity": {
