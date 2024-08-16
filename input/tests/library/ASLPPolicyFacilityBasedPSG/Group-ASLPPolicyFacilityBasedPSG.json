@@ -10,8 +10,8 @@
   "actual": true,
   "member": [ {
     "entity": {
-      "reference": "Patient/Patient-FacilityBasedPSG-test-case-2",
-      "display": "Will Witherspoon"
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-4",
+      "display": "Mariah Robertson"
     }
   }, {
     "entity": {
@@ -20,8 +20,8 @@
     }
   }, {
     "entity": {
-      "reference": "Patient/Patient-FacilityBasedPSG-test-case-4",
-      "display": "Mariah Robertson"
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-2",
+      "display": "Will Witherspoon"
     }
   }, {
     "entity": {
@@ -35,13 +35,18 @@
     }
   }, {
     "entity": {
-      "reference": "Patient/Patient-FacilityBasedPSG-test-case-6",
-      "display": "Rebecca Williams"
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-9",
+      "display": "Luke Wilson"
     }
   }, {
     "entity": {
-      "reference": "Patient/Patient-FacilityBasedPSG-test-case-8",
-      "display": "Charlotte Davis"
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-7",
+      "display": "Martin Davis"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-6",
+      "display": "Rebecca Williams"
     }
   }, {
     "entity": {
@@ -50,13 +55,8 @@
     }
   }, {
     "entity": {
-      "reference": "Patient/Patient-FacilityBasedPSG-test-case-9",
-      "display": "Luke Wilson"
-    }
-  }, {
-    "entity": {
-      "reference": "Patient/Patient-FacilityBasedPSG-test-case-7",
-      "display": "Martin Davis"
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-8",
+      "display": "Charlotte Davis"
     }
   } ]
 }

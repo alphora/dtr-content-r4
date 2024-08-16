@@ -52804,120 +52804,232 @@
     }
   }, {
     "resource": {
-      "resourceType": "Condition",
-      "id": "Condition-EDS-FacilityBasedPSG-test-case-2",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
-      },
-      "clinicalStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-          "code": "active",
-          "display": "Active"
-        } ]
-      },
-      "verificationStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
-          "code": "confirmed",
-          "display": "Confirmed"
-        } ]
-      },
-      "category": [ {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
-          "code": "encounter-diagnosis",
-          "display": "Encounter Diagnosis"
-        } ]
-      } ],
-      "code": {
-        "coding": [ {
-          "system": "http://snomed.info/sct",
-          "code": "141000119100",
-          "display": "Daytime somnolence (finding)"
-        } ]
-      },
-      "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-2"
-      },
-      "encounter": {
-        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-2"
-      },
-      "onsetDateTime": "2023-01-10T16:30:00-07:00"
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Condition/Condition-EDS-FacilityBasedPSG-test-case-2"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Patient",
-      "id": "Patient-FacilityBasedPSG-test-case-2",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
-      },
-      "identifier": [ {
-        "use": "usual",
-        "type": {
-          "coding": [ {
-            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-            "code": "MR"
-          } ]
+      "resourceType": "Bundle",
+      "id": "tests-Patient-FacilityBasedPSG-test-case-7-bundle",
+      "type": "transaction",
+      "entry": [ {
+        "resource": {
+          "resourceType": "Patient",
+          "id": "Patient-FacilityBasedPSG-test-case-7",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
+          },
+          "identifier": [ {
+            "use": "usual",
+            "type": {
+              "coding": [ {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "MR"
+              } ]
+            },
+            "system": "urn:oid:1.2.36.146.595.217.0.1",
+            "value": "777765",
+            "period": {
+              "start": "2015-04-02"
+            },
+            "assigner": {
+              "display": "Acme Healthcare"
+            }
+          } ],
+          "active": true,
+          "name": [ {
+            "use": "official",
+            "family": "Davis",
+            "given": [ "Martin" ]
+          } ],
+          "gender": "male",
+          "birthDate": "1976-09-10",
+          "deceasedBoolean": false
         },
-        "system": "urn:oid:1.2.36.146.595.217.0.1",
-        "value": "777765",
-        "period": {
-          "start": "2015-04-02"
-        },
-        "assigner": {
-          "display": "Acme Healthcare"
+        "request": {
+          "method": "PUT",
+          "url": "Patient/Patient-FacilityBasedPSG-test-case-7"
         }
-      } ],
-      "active": true,
-      "name": [ {
-        "use": "official",
-        "family": "Witherspoon",
-        "given": [ "Will" ]
-      } ],
-      "gender": "male",
-      "birthDate": "1999-04-21",
-      "deceasedBoolean": false
+      }, {
+        "resource": {
+          "resourceType": "Encounter",
+          "id": "Encounter-FacilityBasedPSG-test-case-7",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
+          },
+          "status": "finished",
+          "class": {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+            "code": "PTNTCARE",
+            "display": "Health Care Interaction - Patient Care"
+          },
+          "type": [ {
+            "coding": [ {
+              "system": "http://www.ama-assn.org/go/cpt",
+              "code": "99201",
+              "display": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family"
+            } ]
+          } ],
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-7"
+          },
+          "period": {
+            "start": "2023-07-01T16:00:00-07:00",
+            "end": "2023-07-01T17:00:00-07:00"
+          }
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Encounter/Encounter-FacilityBasedPSG-test-case-7"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Condition",
+          "id": "Condition-pulmonary-FacilityBasedPSG-test-case-7",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
+          "severity": {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "6736007",
+              "display": "Moderate"
+            } ]
+          },
+          "code": {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "19829001",
+              "display": "Disorder of lung (disorder)"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-7"
+          },
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-7"
+          },
+          "onsetDateTime": "2023-03-05T18:30:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Condition/Condition-pulmonary-FacilityBasedPSG-test-case-7"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Condition",
+          "id": "Condition-EDS-FacilityBasedPSG-test-case-7",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
+          "code": {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "141000119100",
+              "display": "Daytime somnolence (finding)"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-7"
+          },
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-7"
+          },
+          "onsetDateTime": "2023-03-12T17:30:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Condition/Condition-EDS-FacilityBasedPSG-test-case-7"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Condition",
+          "id": "Condition-apnea-FacilityBasedPSG-test-case-7",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
+          "code": {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "230493001",
+              "display": "Mixed sleep apnea (disorder)"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-7"
+          },
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-7"
+          },
+          "onsetDateTime": "2023-02-20T18:30:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Condition/Condition-apnea-FacilityBasedPSG-test-case-7"
+        }
+      } ]
     },
     "request": {
       "method": "PUT",
-      "url": "Patient/Patient-FacilityBasedPSG-test-case-2"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Encounter",
-      "id": "Encounter-FacilityBasedPSG-test-case-2",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
-      },
-      "status": "finished",
-      "class": {
-        "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-        "code": "GENRL",
-        "display": "General"
-      },
-      "type": [ {
-        "coding": [ {
-          "system": "http://snomed.info/sct",
-          "code": "444971000124105",
-          "display": "Annual wellness visit (procedure)"
-        } ]
-      } ],
-      "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-2"
-      },
-      "period": {
-        "start": "2023-11-15T16:00:00-07:00",
-        "end": "2023-11-15T17:00:00-07:00"
-      }
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Encounter/Encounter-FacilityBasedPSG-test-case-2"
+      "url": "Bundle/tests-Patient-FacilityBasedPSG-test-case-7-bundle"
     }
   }, {
     "resource": {
@@ -53046,6 +53158,251 @@
     "request": {
       "method": "PUT",
       "url": "Bundle/tests-FacilityBasedPSG-Patient-4-bundle"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Condition",
+      "id": "Condition-cardiac-FacilityBasedPSG-test-case-4",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+      },
+      "clinicalStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+          "code": "active",
+          "display": "Active"
+        } ]
+      },
+      "verificationStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+          "code": "confirmed",
+          "display": "Confirmed"
+        } ]
+      },
+      "category": [ {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        } ]
+      } ],
+      "code": {
+        "coding": [ {
+          "system": "http://hl7.org/fhir/sid/icd-10-cm",
+          "code": "I50",
+          "display": "Heart failure"
+        } ]
+      },
+      "subject": {
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-4"
+      },
+      "encounter": {
+        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-4"
+      },
+      "onsetDateTime": "2023-01-01T17:30:00-07:00"
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Condition/Condition-cardiac-FacilityBasedPSG-test-case-4"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Encounter",
+      "id": "Encounter-FacilityBasedPSG-test-case-4",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
+      },
+      "status": "finished",
+      "class": {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+        "code": "HH",
+        "display": "home health"
+      },
+      "type": [ {
+        "coding": [ {
+          "system": "http://snomed.info/sct",
+          "code": "185460008",
+          "display": "Home visit request by patient (procedure)"
+        } ]
+      } ],
+      "subject": {
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-4"
+      },
+      "period": {
+        "start": "2023-02-21T16:00:00-07:00",
+        "end": "2023-02-21T17:00:00-07:00"
+      }
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Encounter/Encounter-FacilityBasedPSG-test-case-4"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Patient",
+      "id": "Patient-FacilityBasedPSG-test-case-4",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
+      },
+      "identifier": [ {
+        "use": "usual",
+        "type": {
+          "coding": [ {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "MR"
+          } ]
+        },
+        "system": "urn:oid:1.2.36.146.595.217.0.1",
+        "value": "777765",
+        "period": {
+          "start": "2015-04-02"
+        },
+        "assigner": {
+          "display": "Acme Healthcare"
+        }
+      } ],
+      "active": true,
+      "name": [ {
+        "use": "official",
+        "family": "Robertson",
+        "given": [ "Mariah" ]
+      } ],
+      "gender": "female",
+      "birthDate": "1974-10-01",
+      "deceasedBoolean": false
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Patient/Patient-FacilityBasedPSG-test-case-4"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Bundle",
+      "id": "tests-Patient-FacilityBasedPSG-test-case-2-bundle",
+      "type": "transaction",
+      "entry": [ {
+        "resource": {
+          "resourceType": "Condition",
+          "id": "Condition-EDS-FacilityBasedPSG-test-case-2",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
+          "code": {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "141000119100",
+              "display": "Daytime somnolence (finding)"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-2"
+          },
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-2"
+          },
+          "onsetDateTime": "2023-01-10T16:30:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Condition/Condition-EDS-FacilityBasedPSG-test-case-2"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Patient",
+          "id": "Patient-FacilityBasedPSG-test-case-2",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
+          },
+          "identifier": [ {
+            "use": "usual",
+            "type": {
+              "coding": [ {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "MR"
+              } ]
+            },
+            "system": "urn:oid:1.2.36.146.595.217.0.1",
+            "value": "777765",
+            "period": {
+              "start": "2015-04-02"
+            },
+            "assigner": {
+              "display": "Acme Healthcare"
+            }
+          } ],
+          "active": true,
+          "name": [ {
+            "use": "official",
+            "family": "Witherspoon",
+            "given": [ "Will" ]
+          } ],
+          "gender": "male",
+          "birthDate": "1999-04-21",
+          "deceasedBoolean": false
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Patient/Patient-FacilityBasedPSG-test-case-2"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Encounter",
+          "id": "Encounter-FacilityBasedPSG-test-case-2",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
+          },
+          "status": "finished",
+          "class": {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+            "code": "GENRL",
+            "display": "General"
+          },
+          "type": [ {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "444971000124105",
+              "display": "Annual wellness visit (procedure)"
+            } ]
+          } ],
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-2"
+          },
+          "period": {
+            "start": "2023-11-15T16:00:00-07:00",
+            "end": "2023-11-15T17:00:00-07:00"
+          }
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Encounter/Encounter-FacilityBasedPSG-test-case-2"
+        }
+      } ]
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Bundle/tests-Patient-FacilityBasedPSG-test-case-2-bundle"
     }
   }, {
     "resource": {
@@ -53214,7 +53571,7 @@
   }, {
     "resource": {
       "resourceType": "Condition",
-      "id": "Condition-cardiac-FacilityBasedPSG-test-case-4",
+      "id": "Condition-EDS-FacilityBasedPSG-test-case-2",
       "meta": {
         "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
       },
@@ -53241,59 +53598,27 @@
       } ],
       "code": {
         "coding": [ {
-          "system": "http://hl7.org/fhir/sid/icd-10-cm",
-          "code": "I50",
-          "display": "Heart failure"
+          "system": "http://snomed.info/sct",
+          "code": "141000119100",
+          "display": "Daytime somnolence (finding)"
         } ]
       },
       "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-4"
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-2"
       },
       "encounter": {
-        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-4"
+        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-2"
       },
-      "onsetDateTime": "2023-01-01T17:30:00-07:00"
+      "onsetDateTime": "2023-01-10T16:30:00-07:00"
     },
     "request": {
       "method": "PUT",
-      "url": "Condition/Condition-cardiac-FacilityBasedPSG-test-case-4"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Encounter",
-      "id": "Encounter-FacilityBasedPSG-test-case-4",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
-      },
-      "status": "finished",
-      "class": {
-        "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-        "code": "HH",
-        "display": "home health"
-      },
-      "type": [ {
-        "coding": [ {
-          "system": "http://snomed.info/sct",
-          "code": "185460008",
-          "display": "Home visit request by patient (procedure)"
-        } ]
-      } ],
-      "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-4"
-      },
-      "period": {
-        "start": "2023-02-21T16:00:00-07:00",
-        "end": "2023-02-21T17:00:00-07:00"
-      }
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Encounter/Encounter-FacilityBasedPSG-test-case-4"
+      "url": "Condition/Condition-EDS-FacilityBasedPSG-test-case-2"
     }
   }, {
     "resource": {
       "resourceType": "Patient",
-      "id": "Patient-FacilityBasedPSG-test-case-4",
+      "id": "Patient-FacilityBasedPSG-test-case-2",
       "meta": {
         "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
       },
@@ -53317,16 +53642,48 @@
       "active": true,
       "name": [ {
         "use": "official",
-        "family": "Robertson",
-        "given": [ "Mariah" ]
+        "family": "Witherspoon",
+        "given": [ "Will" ]
       } ],
-      "gender": "female",
-      "birthDate": "1974-10-01",
+      "gender": "male",
+      "birthDate": "1999-04-21",
       "deceasedBoolean": false
     },
     "request": {
       "method": "PUT",
-      "url": "Patient/Patient-FacilityBasedPSG-test-case-4"
+      "url": "Patient/Patient-FacilityBasedPSG-test-case-2"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Encounter",
+      "id": "Encounter-FacilityBasedPSG-test-case-2",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
+      },
+      "status": "finished",
+      "class": {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+        "code": "GENRL",
+        "display": "General"
+      },
+      "type": [ {
+        "coding": [ {
+          "system": "http://snomed.info/sct",
+          "code": "444971000124105",
+          "display": "Annual wellness visit (procedure)"
+        } ]
+      } ],
+      "subject": {
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-2"
+      },
+      "period": {
+        "start": "2023-11-15T16:00:00-07:00",
+        "end": "2023-11-15T17:00:00-07:00"
+      }
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Encounter/Encounter-FacilityBasedPSG-test-case-2"
     }
   }, {
     "resource": {
@@ -53538,6 +53895,228 @@
     "request": {
       "method": "PUT",
       "url": "Encounter/Encounter-FacilityBasedPSG-test-case-5"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Bundle",
+      "id": "tests-Patient-FacilityBasedPSG-test-case-8-bundle",
+      "type": "transaction",
+      "entry": [ {
+        "resource": {
+          "resourceType": "Condition",
+          "id": "Condition-snoring-FacilityBasedPSG-test-case-8",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
+          "code": {
+            "coding": [ {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "R06.83",
+              "display": "Snoring"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-8"
+          },
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-8"
+          },
+          "onsetDateTime": "2023-01-01T11:30:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Condition/Condition-snoring-FacilityBasedPSG-test-case-8"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Condition",
+          "id": "Condition-EDS-FacilityBasedPSG-test-case-8",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
+          "code": {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "267088000",
+              "display": "Gets drowsiness (finding)"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-8"
+          },
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-8"
+          },
+          "onsetDateTime": "2023-05-01T17:30:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Condition/Condition-EDS-FacilityBasedPSG-test-case-8"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Patient",
+          "id": "Patient-FacilityBasedPSG-test-case-8",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
+          },
+          "identifier": [ {
+            "use": "usual",
+            "type": {
+              "coding": [ {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "MR"
+              } ]
+            },
+            "system": "urn:oid:1.2.36.146.595.217.0.1",
+            "value": "777765",
+            "period": {
+              "start": "2015-04-02"
+            },
+            "assigner": {
+              "display": "Acme Healthcare"
+            }
+          } ],
+          "active": true,
+          "name": [ {
+            "use": "official",
+            "family": "Davis",
+            "given": [ "Charlotte" ]
+          } ],
+          "gender": "female",
+          "birthDate": "1973-10-10",
+          "deceasedBoolean": false
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Patient/Patient-FacilityBasedPSG-test-case-8"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Condition",
+          "id": "Condition-PLMD-FacilityBasedPSG-test-case-8",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
+          "code": {
+            "coding": [ {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "G47.61",
+              "display": "Periodic limb movement disorder"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-8"
+          },
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-8"
+          },
+          "onsetDateTime": "2023-02-26T18:30:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Condition/Condition-PLMD-FacilityBasedPSG-test-case-8"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Encounter",
+          "id": "Encounter-FacilityBasedPSG-test-case-8",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
+          },
+          "status": "finished",
+          "class": {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+            "code": "HH",
+            "display": "home health"
+          },
+          "type": [ {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "439708006",
+              "display": "Home visit (procedure)"
+            } ]
+          } ],
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-8"
+          },
+          "period": {
+            "start": "2023-08-14T16:00:00-07:00",
+            "end": "2023-08-14T17:00:00-07:00"
+          }
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Encounter/Encounter-FacilityBasedPSG-test-case-8"
+        }
+      } ]
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Bundle/tests-Patient-FacilityBasedPSG-test-case-8-bundle"
     }
   }, {
     "resource": {
@@ -53990,6 +54569,134 @@
   }, {
     "resource": {
       "resourceType": "Bundle",
+      "id": "tests-Patient-FacilityBasedPSG-test-case-4-bundle",
+      "type": "transaction",
+      "entry": [ {
+        "resource": {
+          "resourceType": "Condition",
+          "id": "Condition-cardiac-FacilityBasedPSG-test-case-4",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
+          "code": {
+            "coding": [ {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "I50",
+              "display": "Heart failure"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-4"
+          },
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-4"
+          },
+          "onsetDateTime": "2023-01-01T17:30:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Condition/Condition-cardiac-FacilityBasedPSG-test-case-4"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Encounter",
+          "id": "Encounter-FacilityBasedPSG-test-case-4",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
+          },
+          "status": "finished",
+          "class": {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+            "code": "HH",
+            "display": "home health"
+          },
+          "type": [ {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "185460008",
+              "display": "Home visit request by patient (procedure)"
+            } ]
+          } ],
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-4"
+          },
+          "period": {
+            "start": "2023-02-21T16:00:00-07:00",
+            "end": "2023-02-21T17:00:00-07:00"
+          }
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Encounter/Encounter-FacilityBasedPSG-test-case-4"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Patient",
+          "id": "Patient-FacilityBasedPSG-test-case-4",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
+          },
+          "identifier": [ {
+            "use": "usual",
+            "type": {
+              "coding": [ {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "MR"
+              } ]
+            },
+            "system": "urn:oid:1.2.36.146.595.217.0.1",
+            "value": "777765",
+            "period": {
+              "start": "2015-04-02"
+            },
+            "assigner": {
+              "display": "Acme Healthcare"
+            }
+          } ],
+          "active": true,
+          "name": [ {
+            "use": "official",
+            "family": "Robertson",
+            "given": [ "Mariah" ]
+          } ],
+          "gender": "female",
+          "birthDate": "1974-10-01",
+          "deceasedBoolean": false
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Patient/Patient-FacilityBasedPSG-test-case-4"
+        }
+      } ]
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Bundle/tests-Patient-FacilityBasedPSG-test-case-4-bundle"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Bundle",
       "id": "tests-FacilityBasedPSG-Patient-2-bundle",
       "type": "transaction",
       "entry": [ {
@@ -54196,53 +54903,6 @@
     }
   }, {
     "resource": {
-      "resourceType": "Condition",
-      "id": "Condition-EDS-FacilityBasedPSG-test-case-10",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
-      },
-      "clinicalStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-          "code": "inactive",
-          "display": "inactive"
-        } ]
-      },
-      "verificationStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
-          "code": "unconfirmed",
-          "display": "unconfirmed"
-        } ]
-      },
-      "category": [ {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
-          "code": "encounter-diagnosis",
-          "display": "Encounter Diagnosis"
-        } ]
-      } ],
-      "code": {
-        "coding": [ {
-          "system": "http://snomed.info/sct",
-          "code": "194439006",
-          "display": "Disorder of excessive somnolence (disorder)"
-        } ]
-      },
-      "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-10"
-      },
-      "encounter": {
-        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-10"
-      },
-      "onsetDateTime": "2023-06-01T17:30:00-07:00"
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Condition/Condition-EDS-FacilityBasedPSG-test-case-10"
-    }
-  }, {
-    "resource": {
       "resourceType": "Patient",
       "id": "Patient-FacilityBasedPSG-test-case-10",
       "meta": {
@@ -54292,8 +54952,8 @@
       "actual": true,
       "member": [ {
         "entity": {
-          "reference": "Patient/Patient-FacilityBasedPSG-test-case-2",
-          "display": "Will Witherspoon"
+          "reference": "Patient/Patient-FacilityBasedPSG-test-case-4",
+          "display": "Mariah Robertson"
         }
       }, {
         "entity": {
@@ -54302,8 +54962,8 @@
         }
       }, {
         "entity": {
-          "reference": "Patient/Patient-FacilityBasedPSG-test-case-4",
-          "display": "Mariah Robertson"
+          "reference": "Patient/Patient-FacilityBasedPSG-test-case-2",
+          "display": "Will Witherspoon"
         }
       }, {
         "entity": {
@@ -54317,21 +54977,6 @@
         }
       }, {
         "entity": {
-          "reference": "Patient/Patient-FacilityBasedPSG-test-case-6",
-          "display": "Rebecca Williams"
-        }
-      }, {
-        "entity": {
-          "reference": "Patient/Patient-FacilityBasedPSG-test-case-8",
-          "display": "Charlotte Davis"
-        }
-      }, {
-        "entity": {
-          "reference": "Patient/Patient-FacilityBasedPSG-test-case-1",
-          "display": "Drake Smith"
-        }
-      }, {
-        "entity": {
           "reference": "Patient/Patient-FacilityBasedPSG-test-case-9",
           "display": "Luke Wilson"
         }
@@ -54340,11 +54985,201 @@
           "reference": "Patient/Patient-FacilityBasedPSG-test-case-7",
           "display": "Martin Davis"
         }
+      }, {
+        "entity": {
+          "reference": "Patient/Patient-FacilityBasedPSG-test-case-6",
+          "display": "Rebecca Williams"
+        }
+      }, {
+        "entity": {
+          "reference": "Patient/Patient-FacilityBasedPSG-test-case-1",
+          "display": "Drake Smith"
+        }
+      }, {
+        "entity": {
+          "reference": "Patient/Patient-FacilityBasedPSG-test-case-8",
+          "display": "Charlotte Davis"
+        }
       } ]
     },
     "request": {
       "method": "PUT",
       "url": "Group/ASLPPolicyFacilityBasedPSG"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Bundle",
+      "id": "tests-Patient-FacilityBasedPSG-test-case-3-bundle",
+      "type": "transaction",
+      "entry": [ {
+        "resource": {
+          "resourceType": "Condition",
+          "id": "Condition-EDS-FacilityBasedPSG-test-case-3",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
+          "code": {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "267088000",
+              "display": "Gets drowsiness (finding)"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-3"
+          },
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-3"
+          },
+          "onsetDateTime": "2023-02-01T16:30:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Condition/Condition-EDS-FacilityBasedPSG-test-case-3"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Condition",
+          "id": "Condition-difficultydriving-FacilityBasedPSG-test-case-3",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
+          "code": {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "300638003",
+              "display": "Difficulty driving a car (finding)"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-3"
+          },
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-3"
+          },
+          "onsetDateTime": "2023-01-07T16:30:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Condition/Condition-difficultydriving-FacilityBasedPSG-test-case-3"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Encounter",
+          "id": "Encounter-FacilityBasedPSG-test-case-3",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
+          },
+          "status": "finished",
+          "class": {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+            "code": "GENRL",
+            "display": "General"
+          },
+          "type": [ {
+            "coding": [ {
+              "system": "http://www.ama-assn.org/go/cpt",
+              "code": "99395",
+              "display": "Periodic comprehensive preventive medicine reevaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, established patient; 18-39 years"
+            } ]
+          } ],
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-3"
+          },
+          "period": {
+            "start": "2023-04-22T17:00:00-07:00",
+            "end": "2023-04-22T18:00:00-07:00"
+          }
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Encounter/Encounter-FacilityBasedPSG-test-case-3"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Patient",
+          "id": "Patient-FacilityBasedPSG-test-case-3",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
+          },
+          "identifier": [ {
+            "use": "usual",
+            "type": {
+              "coding": [ {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "MR"
+              } ]
+            },
+            "system": "urn:oid:1.2.36.146.595.217.0.1",
+            "value": "777765",
+            "period": {
+              "start": "2015-04-02"
+            },
+            "assigner": {
+              "display": "Acme Healthcare"
+            }
+          } ],
+          "active": true,
+          "name": [ {
+            "use": "official",
+            "family": "Smith",
+            "given": [ "Beatrice" ]
+          } ],
+          "gender": "female",
+          "birthDate": "1994-07-08",
+          "deceasedBoolean": false
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Patient/Patient-FacilityBasedPSG-test-case-3"
+        }
+      } ]
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Bundle/tests-Patient-FacilityBasedPSG-test-case-3-bundle"
     }
   }, {
     "resource": {
@@ -54570,763 +55405,13 @@
     }
   }, {
     "resource": {
-      "resourceType": "Encounter",
-      "id": "Encounter-FacilityBasedPSG-test-case-6",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
-      },
-      "status": "finished",
-      "class": {
-        "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-        "code": "GENRL",
-        "display": "General"
-      },
-      "type": [ {
-        "coding": [ {
-          "system": "http://snomed.info/sct",
-          "code": "444971000124105",
-          "display": "Annual wellness visit (procedure)"
-        } ]
-      } ],
-      "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
-      },
-      "period": {
-        "start": "2023-06-25T16:00:00-07:00",
-        "end": "2023-06-25T17:00:00-07:00"
-      }
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Encounter/Encounter-FacilityBasedPSG-test-case-6"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Patient",
-      "id": "Patient-FacilityBasedPSG-test-case-6",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
-      },
-      "identifier": [ {
-        "use": "usual",
-        "type": {
-          "coding": [ {
-            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-            "code": "MR"
-          } ]
-        },
-        "system": "urn:oid:1.2.36.146.595.217.0.1",
-        "value": "777765",
-        "period": {
-          "start": "2015-04-02"
-        },
-        "assigner": {
-          "display": "Acme Healthcare"
-        }
-      } ],
-      "active": true,
-      "name": [ {
-        "use": "official",
-        "family": "Williams",
-        "given": [ "Rebecca" ]
-      } ],
-      "gender": "female",
-      "birthDate": "1981-06-11",
-      "deceasedBoolean": false
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Patient/Patient-FacilityBasedPSG-test-case-6"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Condition",
-      "id": "Condition-hypersomnia-FacilityBasedPSG-test-case-6",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
-      },
-      "clinicalStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-          "code": "active",
-          "display": "Active"
-        } ]
-      },
-      "verificationStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
-          "code": "confirmed",
-          "display": "Confirmed"
-        } ]
-      },
-      "category": [ {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
-          "code": "encounter-diagnosis",
-          "display": "Encounter Diagnosis"
-        } ]
-      } ],
-      "code": {
-        "coding": [ {
-          "system": "http://snomed.info/sct",
-          "code": "44241600",
-          "display": "Idiopathic hypersomnia associated with long sleep time (disorder)"
-        } ]
-      },
-      "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
-      },
-      "encounter": {
-        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-6"
-      },
-      "onsetDateTime": "2023-02-01T18:30:00-07:00"
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Condition/Condition-hypersomnia-FacilityBasedPSG-test-case-6"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Condition",
-      "id": "Condition-EDS-FacilityBasedPSG-test-case-6",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
-      },
-      "clinicalStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-          "code": "active",
-          "display": "Active"
-        } ]
-      },
-      "verificationStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
-          "code": "confirmed",
-          "display": "Confirmed"
-        } ]
-      },
-      "category": [ {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
-          "code": "encounter-diagnosis",
-          "display": "Encounter Diagnosis"
-        } ]
-      } ],
-      "code": {
-        "coding": [ {
-          "system": "http://snomed.info/sct",
-          "code": "194439006",
-          "display": "Disorder of excessive somnolence (disorder)"
-        } ]
-      },
-      "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
-      },
-      "encounter": {
-        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-6"
-      },
-      "onsetDateTime": "2023-01-05T17:30:00-07:00"
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Condition/Condition-EDS-FacilityBasedPSG-test-case-6"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Appointment",
-      "id": "Appointment-FacilityBasedPSG-test-case-6",
-      "status": "booked",
-      "reasonCode": [ {
-        "coding": [ {
-          "system": "http://snomed.info/sct",
-          "code": "252731002",
-          "display": "Multiple sleep latency test (procedure)"
-        } ]
-      } ],
-      "start": "2023-03-01T18:30:00-07:00",
-      "end": "2023-03-01T19:30:00-07:00",
-      "participant": [ {
-        "actor": {
-          "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
-        },
-        "required": "required",
-        "status": "accepted"
-      } ]
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Appointment/Appointment-FacilityBasedPSG-test-case-6"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Condition",
-      "id": "Condition-difficultydriving-FacilityBasedPSG-test-case-6",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
-      },
-      "clinicalStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-          "code": "active",
-          "display": "Active"
-        } ]
-      },
-      "verificationStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
-          "code": "confirmed",
-          "display": "Confirmed"
-        } ]
-      },
-      "category": [ {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
-          "code": "encounter-diagnosis",
-          "display": "Encounter Diagnosis"
-        } ]
-      } ],
-      "code": {
-        "coding": [ {
-          "system": "http://snomed.info/sct",
-          "code": "300638003",
-          "display": "Difficulty driving a car (finding)"
-        } ]
-      },
-      "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
-      },
-      "encounter": {
-        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-6"
-      },
-      "onsetDateTime": "2023-01-07T16:30:00-07:00"
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Condition/Condition-difficultydriving-FacilityBasedPSG-test-case-6"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Condition",
-      "id": "Condition-snoring-FacilityBasedPSG-test-case-8",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
-      },
-      "clinicalStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-          "code": "active",
-          "display": "Active"
-        } ]
-      },
-      "verificationStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
-          "code": "confirmed",
-          "display": "Confirmed"
-        } ]
-      },
-      "category": [ {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
-          "code": "encounter-diagnosis",
-          "display": "Encounter Diagnosis"
-        } ]
-      } ],
-      "code": {
-        "coding": [ {
-          "system": "http://hl7.org/fhir/sid/icd-10-cm",
-          "code": "R06.83",
-          "display": "Snoring"
-        } ]
-      },
-      "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-8"
-      },
-      "encounter": {
-        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-8"
-      },
-      "onsetDateTime": "2023-01-01T11:30:00-07:00"
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Condition/Condition-snoring-FacilityBasedPSG-test-case-8"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Condition",
-      "id": "Condition-EDS-FacilityBasedPSG-test-case-8",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
-      },
-      "clinicalStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-          "code": "active",
-          "display": "Active"
-        } ]
-      },
-      "verificationStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
-          "code": "confirmed",
-          "display": "Confirmed"
-        } ]
-      },
-      "category": [ {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
-          "code": "encounter-diagnosis",
-          "display": "Encounter Diagnosis"
-        } ]
-      } ],
-      "code": {
-        "coding": [ {
-          "system": "http://snomed.info/sct",
-          "code": "267088000",
-          "display": "Gets drowsiness (finding)"
-        } ]
-      },
-      "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-8"
-      },
-      "encounter": {
-        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-8"
-      },
-      "onsetDateTime": "2023-05-01T17:30:00-07:00"
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Condition/Condition-EDS-FacilityBasedPSG-test-case-8"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Patient",
-      "id": "Patient-FacilityBasedPSG-test-case-8",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
-      },
-      "identifier": [ {
-        "use": "usual",
-        "type": {
-          "coding": [ {
-            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-            "code": "MR"
-          } ]
-        },
-        "system": "urn:oid:1.2.36.146.595.217.0.1",
-        "value": "777765",
-        "period": {
-          "start": "2015-04-02"
-        },
-        "assigner": {
-          "display": "Acme Healthcare"
-        }
-      } ],
-      "active": true,
-      "name": [ {
-        "use": "official",
-        "family": "Davis",
-        "given": [ "Charlotte" ]
-      } ],
-      "gender": "female",
-      "birthDate": "1973-10-10",
-      "deceasedBoolean": false
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Patient/Patient-FacilityBasedPSG-test-case-8"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Condition",
-      "id": "Condition-PLMD-FacilityBasedPSG-test-case-8",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
-      },
-      "clinicalStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-          "code": "active",
-          "display": "Active"
-        } ]
-      },
-      "verificationStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
-          "code": "confirmed",
-          "display": "Confirmed"
-        } ]
-      },
-      "category": [ {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
-          "code": "encounter-diagnosis",
-          "display": "Encounter Diagnosis"
-        } ]
-      } ],
-      "code": {
-        "coding": [ {
-          "system": "http://hl7.org/fhir/sid/icd-10-cm",
-          "code": "G47.61",
-          "display": "Periodic limb movement disorder"
-        } ]
-      },
-      "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-8"
-      },
-      "encounter": {
-        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-8"
-      },
-      "onsetDateTime": "2023-02-26T18:30:00-07:00"
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Condition/Condition-PLMD-FacilityBasedPSG-test-case-8"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Encounter",
-      "id": "Encounter-FacilityBasedPSG-test-case-8",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
-      },
-      "status": "finished",
-      "class": {
-        "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-        "code": "HH",
-        "display": "home health"
-      },
-      "type": [ {
-        "coding": [ {
-          "system": "http://snomed.info/sct",
-          "code": "439708006",
-          "display": "Home visit (procedure)"
-        } ]
-      } ],
-      "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-8"
-      },
-      "period": {
-        "start": "2023-08-14T16:00:00-07:00",
-        "end": "2023-08-14T17:00:00-07:00"
-      }
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Encounter/Encounter-FacilityBasedPSG-test-case-8"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Observation",
-      "id": "Observation-hypoventilation-FacilityBasedPSG-test-case-1",
-      "status": "final",
-      "code": {
-        "coding": [ {
-          "system": "http://snomed.info/sct",
-          "code": "15993004",
-          "display": "Alveolar hypoventilation (finding)"
-        } ]
-      },
-      "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-1"
-      },
-      "effectiveDateTime": "2023-08-12T15:00:00-07:00",
-      "valueBoolean": true
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Observation/Observation-hypoventilation-FacilityBasedPSG-test-case-1"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Encounter",
-      "id": "Encounter-FacilityBasedPSG-test-case-1",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
-      },
-      "status": "finished",
-      "class": {
-        "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
-        "code": "PTNTCARE",
-        "display": "Health Care Interaction - Patient Care"
-      },
-      "type": [ {
-        "coding": [ {
-          "system": "http://www.ama-assn.org/go/cpt",
-          "code": "99201",
-          "display": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family"
-        } ]
-      } ],
-      "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-1"
-      },
-      "period": {
-        "start": "2023-08-12T15:00:00-07:00",
-        "end": "2023-08-12T17:00:00-07:00"
-      }
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Encounter/Encounter-FacilityBasedPSG-test-case-1"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Patient",
-      "id": "Patient-FacilityBasedPSG-test-case-1",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
-      },
-      "identifier": [ {
-        "use": "usual",
-        "type": {
-          "coding": [ {
-            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
-            "code": "MR"
-          } ]
-        },
-        "system": "urn:oid:1.2.36.146.595.217.0.1",
-        "value": "777765",
-        "period": {
-          "start": "2015-04-02"
-        },
-        "assigner": {
-          "display": "Acme Healthcare"
-        }
-      } ],
-      "active": true,
-      "name": [ {
-        "use": "official",
-        "family": "Smith",
-        "given": [ "Drake" ]
-      } ],
-      "gender": "male",
-      "birthDate": "2009-11-24",
-      "deceasedBoolean": false
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Patient/Patient-FacilityBasedPSG-test-case-1"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Observation",
-      "id": "Observation-obesity-FacilityBasedPSG-test-case-1",
-      "status": "final",
-      "code": {
-        "coding": [ {
-          "system": "http://snomed.info/sct",
-          "code": "238134004",
-          "display": "Generalized obesity (disorder)"
-        } ]
-      },
-      "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-1"
-      },
-      "effectiveDateTime": "2023-08-12T15:00:00-07:00",
-      "valueBoolean": true
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Observation/Observation-obesity-FacilityBasedPSG-test-case-1"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Condition",
-      "id": "Condition-snoring-FacilityBasedPSG-test-case-1",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
-      },
-      "clinicalStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-          "code": "active",
-          "display": "Active"
-        } ]
-      },
-      "verificationStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
-          "code": "confirmed",
-          "display": "Confirmed"
-        } ]
-      },
-      "category": [ {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
-          "code": "encounter-diagnosis",
-          "display": "Encounter Diagnosis"
-        } ]
-      } ],
-      "code": {
-        "coding": [ {
-          "system": "http://hl7.org/fhir/sid/icd-10-cm",
-          "code": "R06.83",
-          "display": "Snoring"
-        } ]
-      },
-      "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-1"
-      },
-      "encounter": {
-        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-1"
-      },
-      "onsetDateTime": "2023-02-01T11:30:00-07:00"
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Condition/Condition-snoring-FacilityBasedPSG-test-case-1"
-    }
-  }, {
-    "resource": {
-      "resourceType": "Condition",
-      "id": "Condition-EDS-FacilityBasedPSG-test-case-1",
-      "meta": {
-        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
-      },
-      "clinicalStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-          "code": "active",
-          "display": "Active"
-        } ]
-      },
-      "verificationStatus": {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
-          "code": "confirmed",
-          "display": "Confirmed"
-        } ]
-      },
-      "category": [ {
-        "coding": [ {
-          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
-          "code": "encounter-diagnosis",
-          "display": "Encounter Diagnosis"
-        } ]
-      } ],
-      "code": {
-        "coding": [ {
-          "system": "http://snomed.info/sct",
-          "code": "194439006",
-          "display": "Disorder of excessive somnolence (disorder)"
-        } ]
-      },
-      "subject": {
-        "reference": "Patient/Patient-FacilityBasedPSG-test-case-1"
-      },
-      "encounter": {
-        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-1"
-      },
-      "onsetDateTime": "2023-01-12T16:30:00-07:00"
-    },
-    "request": {
-      "method": "PUT",
-      "url": "Condition/Condition-EDS-FacilityBasedPSG-test-case-1"
-    }
-  }, {
-    "resource": {
       "resourceType": "Bundle",
-      "id": "tests-FacilityBasedPSG-Patient-9-bundle",
+      "id": "tests-Patient-FacilityBasedPSG-test-case-6-bundle",
       "type": "transaction",
       "entry": [ {
         "resource": {
-          "resourceType": "Condition",
-          "id": "Condition-EDS-FacilityBasedPSG-test-case-9",
-          "meta": {
-            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
-          },
-          "clinicalStatus": {
-            "coding": [ {
-              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-              "code": "active",
-              "display": "Active"
-            } ]
-          },
-          "verificationStatus": {
-            "coding": [ {
-              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
-              "code": "confirmed",
-              "display": "Confirmed"
-            } ]
-          },
-          "category": [ {
-            "coding": [ {
-              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
-              "code": "encounter-diagnosis",
-              "display": "Encounter Diagnosis"
-            } ]
-          } ],
-          "code": {
-            "coding": [ {
-              "system": "http://snomed.info/sct",
-              "code": "370971007",
-              "display": "Somnolence syndrome (disorder)"
-            } ]
-          },
-          "subject": {
-            "reference": "Patient/Patient-FacilityBasedPSG-test-case-9"
-          },
-          "encounter": {
-            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-9"
-          },
-          "onsetDateTime": "2023-06-01T17:30:00-07:00"
-        },
-        "request": {
-          "method": "PUT",
-          "url": "Condition/Condition-EDS-FacilityBasedPSG-test-case-9"
-        }
-      }, {
-        "resource": {
-          "resourceType": "Condition",
-          "id": "Condition-apnea-FacilityBasedPSG-test-case-9",
-          "meta": {
-            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
-          },
-          "clinicalStatus": {
-            "coding": [ {
-              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
-              "code": "active",
-              "display": "Active"
-            } ]
-          },
-          "verificationStatus": {
-            "coding": [ {
-              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
-              "code": "confirmed",
-              "display": "Confirmed"
-            } ]
-          },
-          "category": [ {
-            "coding": [ {
-              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
-              "code": "encounter-diagnosis",
-              "display": "Encounter Diagnosis"
-            } ]
-          } ],
-          "code": {
-            "coding": [ {
-              "system": "http://hl7.org/fhir/sid/icd-10-cm",
-              "code": "G47.30",
-              "display": "Sleep apnea, unspecified"
-            } ]
-          },
-          "subject": {
-            "reference": "Patient/Patient-FacilityBasedPSG-test-case-9"
-          },
-          "encounter": {
-            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-9"
-          },
-          "onsetDateTime": "2023-02-01T18:30:00-07:00"
-        },
-        "request": {
-          "method": "PUT",
-          "url": "Condition/Condition-apnea-FacilityBasedPSG-test-case-9"
-        }
-      }, {
-        "resource": {
           "resourceType": "Encounter",
-          "id": "Encounter-FacilityBasedPSG-test-case-9",
+          "id": "Encounter-FacilityBasedPSG-test-case-6",
           "meta": {
             "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
           },
@@ -55338,27 +55423,27 @@
           },
           "type": [ {
             "coding": [ {
-              "system": "http://www.ama-assn.org/go/cpt",
-              "code": "99395",
-              "display": "Periodic comprehensive preventive medicine reevaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, established patient; 18-39 years"
+              "system": "http://snomed.info/sct",
+              "code": "444971000124105",
+              "display": "Annual wellness visit (procedure)"
             } ]
           } ],
           "subject": {
-            "reference": "Patient/Patient-FacilityBasedPSG-test-case-9"
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
           },
           "period": {
-            "start": "2023-10-22T16:00:00-07:00",
-            "end": "2023-10-22T17:00:00-07:00"
+            "start": "2023-06-25T16:00:00-07:00",
+            "end": "2023-06-25T17:00:00-07:00"
           }
         },
         "request": {
           "method": "PUT",
-          "url": "Encounter/Encounter-FacilityBasedPSG-test-case-9"
+          "url": "Encounter/Encounter-FacilityBasedPSG-test-case-6"
         }
       }, {
         "resource": {
           "resourceType": "Patient",
-          "id": "Patient-FacilityBasedPSG-test-case-9",
+          "id": "Patient-FacilityBasedPSG-test-case-6",
           "meta": {
             "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
           },
@@ -55382,43 +55467,189 @@
           "active": true,
           "name": [ {
             "use": "official",
-            "family": "Wilson",
-            "given": [ "Luke" ]
+            "family": "Williams",
+            "given": [ "Rebecca" ]
           } ],
-          "gender": "male",
-          "birthDate": "1987-01-02",
+          "gender": "female",
+          "birthDate": "1981-06-11",
           "deceasedBoolean": false
         },
         "request": {
           "method": "PUT",
-          "url": "Patient/Patient-FacilityBasedPSG-test-case-9"
+          "url": "Patient/Patient-FacilityBasedPSG-test-case-6"
         }
       }, {
         "resource": {
-          "resourceType": "Observation",
-          "id": "Observation-occupation-FacilityBasedPSG-test-case-9",
-          "status": "unknown",
+          "resourceType": "Condition",
+          "id": "Condition-hypersomnia-FacilityBasedPSG-test-case-6",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
           "code": {
             "coding": [ {
               "system": "http://snomed.info/sct",
-              "code": "159248008",
-              "display": "Airplane pilot (occupation)"
+              "code": "44241600",
+              "display": "Idiopathic hypersomnia associated with long sleep time (disorder)"
             } ]
           },
           "subject": {
-            "reference": "Patient/Patient-FacilityBasedPSG-test-case-9"
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
           },
-          "effectiveDateTime": "2023-10-22T16:00:00-07:00"
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-6"
+          },
+          "onsetDateTime": "2023-02-01T18:30:00-07:00"
         },
         "request": {
           "method": "PUT",
-          "url": "Observation/Observation-occupation-FacilityBasedPSG-test-case-9"
+          "url": "Condition/Condition-hypersomnia-FacilityBasedPSG-test-case-6"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Condition",
+          "id": "Condition-EDS-FacilityBasedPSG-test-case-6",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
+          "code": {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "194439006",
+              "display": "Disorder of excessive somnolence (disorder)"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
+          },
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-6"
+          },
+          "onsetDateTime": "2023-01-05T17:30:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Condition/Condition-EDS-FacilityBasedPSG-test-case-6"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Appointment",
+          "id": "Appointment-FacilityBasedPSG-test-case-6",
+          "status": "booked",
+          "reasonCode": [ {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "252731002",
+              "display": "Multiple sleep latency test (procedure)"
+            } ]
+          } ],
+          "start": "2023-03-01T18:30:00-07:00",
+          "end": "2023-03-01T19:30:00-07:00",
+          "participant": [ {
+            "actor": {
+              "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
+            },
+            "required": "required",
+            "status": "accepted"
+          } ]
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Appointment/Appointment-FacilityBasedPSG-test-case-6"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Condition",
+          "id": "Condition-difficultydriving-FacilityBasedPSG-test-case-6",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
+          "code": {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "300638003",
+              "display": "Difficulty driving a car (finding)"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
+          },
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-6"
+          },
+          "onsetDateTime": "2023-01-07T16:30:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Condition/Condition-difficultydriving-FacilityBasedPSG-test-case-6"
         }
       } ]
     },
     "request": {
       "method": "PUT",
-      "url": "Bundle/tests-FacilityBasedPSG-Patient-9-bundle"
+      "url": "Bundle/tests-Patient-FacilityBasedPSG-test-case-6-bundle"
     }
   }, {
     "resource": {
@@ -55822,6 +56053,858 @@
     "request": {
       "method": "PUT",
       "url": "Condition/Condition-apnea-FacilityBasedPSG-test-case-7"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Encounter",
+      "id": "Encounter-FacilityBasedPSG-test-case-6",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
+      },
+      "status": "finished",
+      "class": {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+        "code": "GENRL",
+        "display": "General"
+      },
+      "type": [ {
+        "coding": [ {
+          "system": "http://snomed.info/sct",
+          "code": "444971000124105",
+          "display": "Annual wellness visit (procedure)"
+        } ]
+      } ],
+      "subject": {
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
+      },
+      "period": {
+        "start": "2023-06-25T16:00:00-07:00",
+        "end": "2023-06-25T17:00:00-07:00"
+      }
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Encounter/Encounter-FacilityBasedPSG-test-case-6"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Patient",
+      "id": "Patient-FacilityBasedPSG-test-case-6",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
+      },
+      "identifier": [ {
+        "use": "usual",
+        "type": {
+          "coding": [ {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "MR"
+          } ]
+        },
+        "system": "urn:oid:1.2.36.146.595.217.0.1",
+        "value": "777765",
+        "period": {
+          "start": "2015-04-02"
+        },
+        "assigner": {
+          "display": "Acme Healthcare"
+        }
+      } ],
+      "active": true,
+      "name": [ {
+        "use": "official",
+        "family": "Williams",
+        "given": [ "Rebecca" ]
+      } ],
+      "gender": "female",
+      "birthDate": "1981-06-11",
+      "deceasedBoolean": false
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Patient/Patient-FacilityBasedPSG-test-case-6"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Condition",
+      "id": "Condition-hypersomnia-FacilityBasedPSG-test-case-6",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+      },
+      "clinicalStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+          "code": "active",
+          "display": "Active"
+        } ]
+      },
+      "verificationStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+          "code": "confirmed",
+          "display": "Confirmed"
+        } ]
+      },
+      "category": [ {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        } ]
+      } ],
+      "code": {
+        "coding": [ {
+          "system": "http://snomed.info/sct",
+          "code": "44241600",
+          "display": "Idiopathic hypersomnia associated with long sleep time (disorder)"
+        } ]
+      },
+      "subject": {
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
+      },
+      "encounter": {
+        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-6"
+      },
+      "onsetDateTime": "2023-02-01T18:30:00-07:00"
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Condition/Condition-hypersomnia-FacilityBasedPSG-test-case-6"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Condition",
+      "id": "Condition-EDS-FacilityBasedPSG-test-case-6",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+      },
+      "clinicalStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+          "code": "active",
+          "display": "Active"
+        } ]
+      },
+      "verificationStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+          "code": "confirmed",
+          "display": "Confirmed"
+        } ]
+      },
+      "category": [ {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        } ]
+      } ],
+      "code": {
+        "coding": [ {
+          "system": "http://snomed.info/sct",
+          "code": "194439006",
+          "display": "Disorder of excessive somnolence (disorder)"
+        } ]
+      },
+      "subject": {
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
+      },
+      "encounter": {
+        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-6"
+      },
+      "onsetDateTime": "2023-01-05T17:30:00-07:00"
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Condition/Condition-EDS-FacilityBasedPSG-test-case-6"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Appointment",
+      "id": "Appointment-FacilityBasedPSG-test-case-6",
+      "status": "booked",
+      "reasonCode": [ {
+        "coding": [ {
+          "system": "http://snomed.info/sct",
+          "code": "252731002",
+          "display": "Multiple sleep latency test (procedure)"
+        } ]
+      } ],
+      "start": "2023-03-01T18:30:00-07:00",
+      "end": "2023-03-01T19:30:00-07:00",
+      "participant": [ {
+        "actor": {
+          "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
+        },
+        "required": "required",
+        "status": "accepted"
+      } ]
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Appointment/Appointment-FacilityBasedPSG-test-case-6"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Condition",
+      "id": "Condition-difficultydriving-FacilityBasedPSG-test-case-6",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+      },
+      "clinicalStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+          "code": "active",
+          "display": "Active"
+        } ]
+      },
+      "verificationStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+          "code": "confirmed",
+          "display": "Confirmed"
+        } ]
+      },
+      "category": [ {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        } ]
+      } ],
+      "code": {
+        "coding": [ {
+          "system": "http://snomed.info/sct",
+          "code": "300638003",
+          "display": "Difficulty driving a car (finding)"
+        } ]
+      },
+      "subject": {
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-6"
+      },
+      "encounter": {
+        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-6"
+      },
+      "onsetDateTime": "2023-01-07T16:30:00-07:00"
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Condition/Condition-difficultydriving-FacilityBasedPSG-test-case-6"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Observation",
+      "id": "Observation-hypoventilation-FacilityBasedPSG-test-case-1",
+      "status": "final",
+      "code": {
+        "coding": [ {
+          "system": "http://snomed.info/sct",
+          "code": "15993004",
+          "display": "Alveolar hypoventilation (finding)"
+        } ]
+      },
+      "subject": {
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-1"
+      },
+      "effectiveDateTime": "2023-08-12T15:00:00-07:00",
+      "valueBoolean": true
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Observation/Observation-hypoventilation-FacilityBasedPSG-test-case-1"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Encounter",
+      "id": "Encounter-FacilityBasedPSG-test-case-1",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
+      },
+      "status": "finished",
+      "class": {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+        "code": "PTNTCARE",
+        "display": "Health Care Interaction - Patient Care"
+      },
+      "type": [ {
+        "coding": [ {
+          "system": "http://www.ama-assn.org/go/cpt",
+          "code": "99201",
+          "display": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family"
+        } ]
+      } ],
+      "subject": {
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-1"
+      },
+      "period": {
+        "start": "2023-08-12T15:00:00-07:00",
+        "end": "2023-08-12T17:00:00-07:00"
+      }
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Encounter/Encounter-FacilityBasedPSG-test-case-1"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Patient",
+      "id": "Patient-FacilityBasedPSG-test-case-1",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
+      },
+      "identifier": [ {
+        "use": "usual",
+        "type": {
+          "coding": [ {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "MR"
+          } ]
+        },
+        "system": "urn:oid:1.2.36.146.595.217.0.1",
+        "value": "777765",
+        "period": {
+          "start": "2015-04-02"
+        },
+        "assigner": {
+          "display": "Acme Healthcare"
+        }
+      } ],
+      "active": true,
+      "name": [ {
+        "use": "official",
+        "family": "Smith",
+        "given": [ "Drake" ]
+      } ],
+      "gender": "male",
+      "birthDate": "2009-11-24",
+      "deceasedBoolean": false
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Patient/Patient-FacilityBasedPSG-test-case-1"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Observation",
+      "id": "Observation-obesity-FacilityBasedPSG-test-case-1",
+      "status": "final",
+      "code": {
+        "coding": [ {
+          "system": "http://snomed.info/sct",
+          "code": "238134004",
+          "display": "Generalized obesity (disorder)"
+        } ]
+      },
+      "subject": {
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-1"
+      },
+      "effectiveDateTime": "2023-08-12T15:00:00-07:00",
+      "valueBoolean": true
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Observation/Observation-obesity-FacilityBasedPSG-test-case-1"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Condition",
+      "id": "Condition-snoring-FacilityBasedPSG-test-case-1",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+      },
+      "clinicalStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+          "code": "active",
+          "display": "Active"
+        } ]
+      },
+      "verificationStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+          "code": "confirmed",
+          "display": "Confirmed"
+        } ]
+      },
+      "category": [ {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        } ]
+      } ],
+      "code": {
+        "coding": [ {
+          "system": "http://hl7.org/fhir/sid/icd-10-cm",
+          "code": "R06.83",
+          "display": "Snoring"
+        } ]
+      },
+      "subject": {
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-1"
+      },
+      "encounter": {
+        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-1"
+      },
+      "onsetDateTime": "2023-02-01T11:30:00-07:00"
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Condition/Condition-snoring-FacilityBasedPSG-test-case-1"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Condition",
+      "id": "Condition-EDS-FacilityBasedPSG-test-case-1",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+      },
+      "clinicalStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+          "code": "active",
+          "display": "Active"
+        } ]
+      },
+      "verificationStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+          "code": "confirmed",
+          "display": "Confirmed"
+        } ]
+      },
+      "category": [ {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        } ]
+      } ],
+      "code": {
+        "coding": [ {
+          "system": "http://snomed.info/sct",
+          "code": "194439006",
+          "display": "Disorder of excessive somnolence (disorder)"
+        } ]
+      },
+      "subject": {
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-1"
+      },
+      "encounter": {
+        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-1"
+      },
+      "onsetDateTime": "2023-01-12T16:30:00-07:00"
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Condition/Condition-EDS-FacilityBasedPSG-test-case-1"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Condition",
+      "id": "Condition-snoring-FacilityBasedPSG-test-case-8",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+      },
+      "clinicalStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+          "code": "active",
+          "display": "Active"
+        } ]
+      },
+      "verificationStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+          "code": "confirmed",
+          "display": "Confirmed"
+        } ]
+      },
+      "category": [ {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        } ]
+      } ],
+      "code": {
+        "coding": [ {
+          "system": "http://hl7.org/fhir/sid/icd-10-cm",
+          "code": "R06.83",
+          "display": "Snoring"
+        } ]
+      },
+      "subject": {
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-8"
+      },
+      "encounter": {
+        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-8"
+      },
+      "onsetDateTime": "2023-01-01T11:30:00-07:00"
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Condition/Condition-snoring-FacilityBasedPSG-test-case-8"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Condition",
+      "id": "Condition-EDS-FacilityBasedPSG-test-case-8",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+      },
+      "clinicalStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+          "code": "active",
+          "display": "Active"
+        } ]
+      },
+      "verificationStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+          "code": "confirmed",
+          "display": "Confirmed"
+        } ]
+      },
+      "category": [ {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        } ]
+      } ],
+      "code": {
+        "coding": [ {
+          "system": "http://snomed.info/sct",
+          "code": "267088000",
+          "display": "Gets drowsiness (finding)"
+        } ]
+      },
+      "subject": {
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-8"
+      },
+      "encounter": {
+        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-8"
+      },
+      "onsetDateTime": "2023-05-01T17:30:00-07:00"
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Condition/Condition-EDS-FacilityBasedPSG-test-case-8"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Patient",
+      "id": "Patient-FacilityBasedPSG-test-case-8",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
+      },
+      "identifier": [ {
+        "use": "usual",
+        "type": {
+          "coding": [ {
+            "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+            "code": "MR"
+          } ]
+        },
+        "system": "urn:oid:1.2.36.146.595.217.0.1",
+        "value": "777765",
+        "period": {
+          "start": "2015-04-02"
+        },
+        "assigner": {
+          "display": "Acme Healthcare"
+        }
+      } ],
+      "active": true,
+      "name": [ {
+        "use": "official",
+        "family": "Davis",
+        "given": [ "Charlotte" ]
+      } ],
+      "gender": "female",
+      "birthDate": "1973-10-10",
+      "deceasedBoolean": false
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Patient/Patient-FacilityBasedPSG-test-case-8"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Condition",
+      "id": "Condition-PLMD-FacilityBasedPSG-test-case-8",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+      },
+      "clinicalStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+          "code": "active",
+          "display": "Active"
+        } ]
+      },
+      "verificationStatus": {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+          "code": "confirmed",
+          "display": "Confirmed"
+        } ]
+      },
+      "category": [ {
+        "coding": [ {
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "code": "encounter-diagnosis",
+          "display": "Encounter Diagnosis"
+        } ]
+      } ],
+      "code": {
+        "coding": [ {
+          "system": "http://hl7.org/fhir/sid/icd-10-cm",
+          "code": "G47.61",
+          "display": "Periodic limb movement disorder"
+        } ]
+      },
+      "subject": {
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-8"
+      },
+      "encounter": {
+        "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-8"
+      },
+      "onsetDateTime": "2023-02-26T18:30:00-07:00"
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Condition/Condition-PLMD-FacilityBasedPSG-test-case-8"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Encounter",
+      "id": "Encounter-FacilityBasedPSG-test-case-8",
+      "meta": {
+        "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
+      },
+      "status": "finished",
+      "class": {
+        "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+        "code": "HH",
+        "display": "home health"
+      },
+      "type": [ {
+        "coding": [ {
+          "system": "http://snomed.info/sct",
+          "code": "439708006",
+          "display": "Home visit (procedure)"
+        } ]
+      } ],
+      "subject": {
+        "reference": "Patient/Patient-FacilityBasedPSG-test-case-8"
+      },
+      "period": {
+        "start": "2023-08-14T16:00:00-07:00",
+        "end": "2023-08-14T17:00:00-07:00"
+      }
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Encounter/Encounter-FacilityBasedPSG-test-case-8"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Bundle",
+      "id": "tests-FacilityBasedPSG-Patient-9-bundle",
+      "type": "transaction",
+      "entry": [ {
+        "resource": {
+          "resourceType": "Condition",
+          "id": "Condition-EDS-FacilityBasedPSG-test-case-9",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
+          "code": {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "370971007",
+              "display": "Somnolence syndrome (disorder)"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-9"
+          },
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-9"
+          },
+          "onsetDateTime": "2023-06-01T17:30:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Condition/Condition-EDS-FacilityBasedPSG-test-case-9"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Condition",
+          "id": "Condition-apnea-FacilityBasedPSG-test-case-9",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
+          "code": {
+            "coding": [ {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "G47.30",
+              "display": "Sleep apnea, unspecified"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-9"
+          },
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-9"
+          },
+          "onsetDateTime": "2023-02-01T18:30:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Condition/Condition-apnea-FacilityBasedPSG-test-case-9"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Encounter",
+          "id": "Encounter-FacilityBasedPSG-test-case-9",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
+          },
+          "status": "finished",
+          "class": {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+            "code": "GENRL",
+            "display": "General"
+          },
+          "type": [ {
+            "coding": [ {
+              "system": "http://www.ama-assn.org/go/cpt",
+              "code": "99395",
+              "display": "Periodic comprehensive preventive medicine reevaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, established patient; 18-39 years"
+            } ]
+          } ],
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-9"
+          },
+          "period": {
+            "start": "2023-10-22T16:00:00-07:00",
+            "end": "2023-10-22T17:00:00-07:00"
+          }
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Encounter/Encounter-FacilityBasedPSG-test-case-9"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Patient",
+          "id": "Patient-FacilityBasedPSG-test-case-9",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
+          },
+          "identifier": [ {
+            "use": "usual",
+            "type": {
+              "coding": [ {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "MR"
+              } ]
+            },
+            "system": "urn:oid:1.2.36.146.595.217.0.1",
+            "value": "777765",
+            "period": {
+              "start": "2015-04-02"
+            },
+            "assigner": {
+              "display": "Acme Healthcare"
+            }
+          } ],
+          "active": true,
+          "name": [ {
+            "use": "official",
+            "family": "Wilson",
+            "given": [ "Luke" ]
+          } ],
+          "gender": "male",
+          "birthDate": "1987-01-02",
+          "deceasedBoolean": false
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Patient/Patient-FacilityBasedPSG-test-case-9"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Observation",
+          "id": "Observation-occupation-FacilityBasedPSG-test-case-9",
+          "status": "unknown",
+          "code": {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "159248008",
+              "display": "Airplane pilot (occupation)"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-9"
+          },
+          "effectiveDateTime": "2023-10-22T16:00:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Observation/Observation-occupation-FacilityBasedPSG-test-case-9"
+        }
+      } ]
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Bundle/tests-FacilityBasedPSG-Patient-9-bundle"
     }
   }, {
     "resource": {
@@ -56467,6 +57550,330 @@
     "request": {
       "method": "PUT",
       "url": "Bundle/tests-FacilityBasedPSG-Patient-6-bundle"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Bundle",
+      "id": "tests-Patient-FacilityBasedPSG-test-case-10-bundle",
+      "type": "transaction",
+      "entry": [ {
+        "resource": {
+          "resourceType": "Encounter",
+          "id": "Encounter-FacilityBasedPSG-test-case-10",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
+          },
+          "status": "finished",
+          "class": {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+            "code": "GENRL",
+            "display": "General"
+          },
+          "type": [ {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "444971000124105",
+              "display": "Annual wellness visit (procedure)"
+            } ]
+          } ],
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-10"
+          },
+          "period": {
+            "start": "2023-12-01T16:00:00-07:00",
+            "end": "2023-12-01T17:00:00-07:00"
+          }
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Encounter/Encounter-FacilityBasedPSG-test-case-10"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Condition",
+          "id": "Condition-neuromuscular-FacilityBasedPSG-test-case-10",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
+          "code": {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "86044005",
+              "display": "Amyotrophic lateral sclerosis (disorder)"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-10"
+          },
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-10"
+          },
+          "onsetDateTime": "2023-04-01T18:30:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Condition/Condition-neuromuscular-FacilityBasedPSG-test-case-10"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Patient",
+          "id": "Patient-FacilityBasedPSG-test-case-10",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
+          },
+          "identifier": [ {
+            "use": "usual",
+            "type": {
+              "coding": [ {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "MR"
+              } ]
+            },
+            "system": "urn:oid:1.2.36.146.595.217.0.1",
+            "value": "777765",
+            "period": {
+              "start": "2015-04-02"
+            },
+            "assigner": {
+              "display": "Acme Healthcare"
+            }
+          } ],
+          "active": true,
+          "name": [ {
+            "use": "official",
+            "family": "Rodriguez",
+            "given": [ "Elizabeth" ]
+          } ],
+          "gender": "female",
+          "birthDate": "1968-02-11",
+          "deceasedBoolean": false
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Patient/Patient-FacilityBasedPSG-test-case-10"
+        }
+      } ]
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Bundle/tests-Patient-FacilityBasedPSG-test-case-10-bundle"
+    }
+  }, {
+    "resource": {
+      "resourceType": "Bundle",
+      "id": "tests-Patient-FacilityBasedPSG-test-case-9-bundle",
+      "type": "transaction",
+      "entry": [ {
+        "resource": {
+          "resourceType": "Condition",
+          "id": "Condition-EDS-FacilityBasedPSG-test-case-9",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
+          "code": {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "370971007",
+              "display": "Somnolence syndrome (disorder)"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-9"
+          },
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-9"
+          },
+          "onsetDateTime": "2023-06-01T17:30:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Condition/Condition-EDS-FacilityBasedPSG-test-case-9"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Condition",
+          "id": "Condition-apnea-FacilityBasedPSG-test-case-9",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-condition" ]
+          },
+          "clinicalStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+              "code": "active",
+              "display": "Active"
+            } ]
+          },
+          "verificationStatus": {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+              "code": "confirmed",
+              "display": "Confirmed"
+            } ]
+          },
+          "category": [ {
+            "coding": [ {
+              "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+              "code": "encounter-diagnosis",
+              "display": "Encounter Diagnosis"
+            } ]
+          } ],
+          "code": {
+            "coding": [ {
+              "system": "http://hl7.org/fhir/sid/icd-10-cm",
+              "code": "G47.30",
+              "display": "Sleep apnea, unspecified"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-9"
+          },
+          "encounter": {
+            "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-9"
+          },
+          "onsetDateTime": "2023-02-01T18:30:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Condition/Condition-apnea-FacilityBasedPSG-test-case-9"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Encounter",
+          "id": "Encounter-FacilityBasedPSG-test-case-9",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter" ]
+          },
+          "status": "finished",
+          "class": {
+            "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+            "code": "GENRL",
+            "display": "General"
+          },
+          "type": [ {
+            "coding": [ {
+              "system": "http://www.ama-assn.org/go/cpt",
+              "code": "99395",
+              "display": "Periodic comprehensive preventive medicine reevaluation and management of an individual including an age and gender appropriate history, examination, counseling/anticipatory guidance/risk factor reduction interventions, and the ordering of laboratory/diagnostic procedures, established patient; 18-39 years"
+            } ]
+          } ],
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-9"
+          },
+          "period": {
+            "start": "2023-10-22T16:00:00-07:00",
+            "end": "2023-10-22T17:00:00-07:00"
+          }
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Encounter/Encounter-FacilityBasedPSG-test-case-9"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Patient",
+          "id": "Patient-FacilityBasedPSG-test-case-9",
+          "meta": {
+            "profile": [ "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient" ]
+          },
+          "identifier": [ {
+            "use": "usual",
+            "type": {
+              "coding": [ {
+                "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                "code": "MR"
+              } ]
+            },
+            "system": "urn:oid:1.2.36.146.595.217.0.1",
+            "value": "777765",
+            "period": {
+              "start": "2015-04-02"
+            },
+            "assigner": {
+              "display": "Acme Healthcare"
+            }
+          } ],
+          "active": true,
+          "name": [ {
+            "use": "official",
+            "family": "Wilson",
+            "given": [ "Luke" ]
+          } ],
+          "gender": "male",
+          "birthDate": "1987-01-02",
+          "deceasedBoolean": false
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Patient/Patient-FacilityBasedPSG-test-case-9"
+        }
+      }, {
+        "resource": {
+          "resourceType": "Observation",
+          "id": "Observation-occupation-FacilityBasedPSG-test-case-9",
+          "status": "unknown",
+          "code": {
+            "coding": [ {
+              "system": "http://snomed.info/sct",
+              "code": "159248008",
+              "display": "Airplane pilot (occupation)"
+            } ]
+          },
+          "subject": {
+            "reference": "Patient/Patient-FacilityBasedPSG-test-case-9"
+          },
+          "effectiveDateTime": "2023-10-22T16:00:00-07:00"
+        },
+        "request": {
+          "method": "PUT",
+          "url": "Observation/Observation-occupation-FacilityBasedPSG-test-case-9"
+        }
+      } ]
+    },
+    "request": {
+      "method": "PUT",
+      "url": "Bundle/tests-Patient-FacilityBasedPSG-test-case-9-bundle"
     }
   }, {
     "resource": {
