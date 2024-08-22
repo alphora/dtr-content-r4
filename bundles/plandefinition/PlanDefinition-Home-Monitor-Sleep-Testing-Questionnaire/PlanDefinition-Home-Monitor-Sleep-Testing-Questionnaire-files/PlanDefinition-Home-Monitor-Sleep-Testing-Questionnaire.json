@@ -254,7 +254,7 @@
           ],
           "type": "Observation",
           "profile": [
-            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscular-screening-casefeature"
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature"
           ]
         },
         {
@@ -302,7 +302,7 @@
           ],
           "type": "Observation",
           "profile": [
-            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
+            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature"
           ]
         },
         {

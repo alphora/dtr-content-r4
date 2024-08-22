@@ -1,7 +1,7 @@
 {
   "resourceType": "Bundle",
-  "id": "dtr-case-features-bundle",
-  "type": "batch",
+  "id": "dtr-case-features",
+  "type": "transaction",
   "entry": [ {
     "resource": {
       "resourceType": "StructureDefinition",

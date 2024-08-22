@@ -45,7 +45,7 @@ Usage: #example
     * insert ActionInput("Patient has neuromuscular disease with associated pulmonary disease?", "Patient has neuromuscular disease with associated pulmonary disease")
     * insert ActionInputCql("Qualifying Neuromuscular Disease With Associated Pulmonary Disease", ASLPPolicyPAA)
     * type = #Observation
-    * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscular-screening-casefeature"
+    * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature"
   * input[+]
     * insert ActionInput("Patient has Cardiac Disease?", "Patient has Cardiac Disease")
     * insert ActionInputCql("Qualifying Cardiac Disease", ASLPPolicyPAA)
@@ -55,7 +55,7 @@ Usage: #example
     * insert ActionInput("Patient has moderate to severe pulmonary disease?", "Patient has moderate to severe pulmonary disease")
     * insert ActionInputCql("Qualifying Moderate To Severe Pulmonary Disease", ASLPPolicyPAA)
     * type = #Observation
-    * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
+    * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature"
   * input[+]
     * insert ActionInput("Patient uses a qualified device?", "Patient uses a qualified device")
     * insert ActionInputCql("Uses A Qualified Device", ASLPPolicyPAA)
