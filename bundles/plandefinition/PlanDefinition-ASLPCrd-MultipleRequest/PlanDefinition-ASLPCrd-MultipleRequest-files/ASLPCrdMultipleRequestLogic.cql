@@ -116,7 +116,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
     "CRD-8.1": { 
       "ID": 'CRD-8.1',
       "Covered": 'conditional', 
-      "PriorAuthNeeded": 'auth-needed', 
+      "PriorAuthNeeded": 'conditional', 
       "DetailCode": 'coverage-info', 
       "DetailText": ContextValidation."Detail Text 8.1", 
       "DetailQualification": ContextValidation."Qualification 8.1",
@@ -126,7 +126,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
     "CRD-8.3": { 
       "ID": 'CRD-8.3',
       "Covered": 'conditional', 
-      "PriorAuthNeeded": 'auth-needed', 
+      "PriorAuthNeeded": 'conditional', 
       "DetailCode": 'coverage-info', 
       "DetailText": ContextValidation."Detail Text 8.3", 
       "DetailQualification": ContextValidation."Qualification 8.3",
@@ -137,7 +137,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "ID": 'CRD-UnexpectedError',
       "Covered": 'conditional', 
       "PriorAuthNeeded": 'conditional', 
-      "DetailCode": 'auth-needed', 
+      "DetailCode": 'coverage-info', 
       "DetailText": 'Unexpected result', 
       "DetailQualification": 'Unexpected Prior Authorization result. Please try again or contact support.',
       "DetailDebugging": 'No debugging available',

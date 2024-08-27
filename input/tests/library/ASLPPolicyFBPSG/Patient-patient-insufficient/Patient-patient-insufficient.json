@@ -1,0 +1,20 @@
+{
+  "resourceType": "Patient",
+  "id": "Patient-patient-insufficient",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-patient"
+    ]
+  },
+  "name": [
+    {
+      "family": "Witherspoon",
+      "given": [
+        "Reese"
+      ],
+      "text": "Reese Witherspoon"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1976-03-22"
+}

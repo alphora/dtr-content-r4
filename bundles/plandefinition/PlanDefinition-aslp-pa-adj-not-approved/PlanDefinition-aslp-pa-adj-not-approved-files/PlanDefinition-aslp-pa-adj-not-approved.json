@@ -102,6 +102,17 @@
     {
       "title": "Not Approved Prior Authorization Adjudication",
       "description": "Prior Authorization Adjudication for Sleep Study Not Approved",
+      "code": [
+        {
+          "coding": [
+            {
+              "code": "A3",
+              "system": "https://codesystem.x12.org/005010/306",
+              "display": "Denied"
+            }
+          ]
+        }
+      ],
       "dynamicValue": [
         {
           "path": "description",

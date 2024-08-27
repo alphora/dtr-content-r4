@@ -141,6 +141,25 @@ Usage: #example
       * language = #text/cql-identifier
       * expression = "Approved Detail"
 
+Instance: fbpsg-pa-adj-approved
+InstanceOf: PlanDefinition
+Usage: #example
+* insert CommonProperties("fbpsg-pa-adj-approved")
+* insert CommonPropertiesRationale("Facility-Based PSG Prior Authorization Adjudication Approved", "Approved Detail")
+
+* library = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyFBPSG"
+
+* url = "http://example.org/sdh/dtr/aslp/PlanDefinition/fbpsg-pa-adj-approved"
+
+* action[+]
+  * title = "Facility-Based PSG Prior Auth Adjudication Approved"
+  * description = "Prior authorization adjudication approval for Facility-Based PSG"
+  * code = $x12-adjudication-status#A1 "Approved"
+  * dynamicValue[+]
+    * path = "description" 
+    * expression
+      * language = #text/cql-identifier
+      * expression = "Approved Detail"
 
 Instance: aslp-pa-adj-not-approved
 InstanceOf: PlanDefinition
@@ -155,6 +174,26 @@ Usage: #example
 * action[+]
   * title = "Not Approved Prior Authorization Adjudication"
   * description = "Prior Authorization Adjudication for Sleep Study Not Approved"
+  * code = $x12-adjudication-status#A3 "Denied"
+  * dynamicValue[+]
+    * path = "description" 
+    * expression
+      * language = #text/cql-identifier
+      * expression = "Not Approved Detail"
+
+Instance: fbpsg-pa-adj-not-approved
+InstanceOf: PlanDefinition
+Usage: #example
+* insert CommonProperties("fbpsg-pa-adj-not-approved")
+* insert CommonPropertiesRationale("Facility-Based PSG Prior Authorization Adjudication for Sleep Study Not Approved", "Not Approved Detail")
+
+* library = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyFBPSG"
+
+* url = "http://example.org/sdh/dtr/aslp/PlanDefinition/fbpsg-pa-adj-not-approved"
+
+* action[+]
+  * title = "Facility-Based PSG Not Approved Prior Authorization Adjudication"
+  * description = "Prior Authorization Adjudication for Facility-Based PSG Not Approved"
   * code = $x12-adjudication-status#A3 "Denied"
   * dynamicValue[+]
     * path = "description" 
@@ -182,6 +221,25 @@ Usage: #example
       * language = #text/cql-identifier
       * expression = "Temporarily Not Approved"
         
+Instance: fbpsg-pa-adj-temp-not-approved
+InstanceOf: PlanDefinition
+Usage: #example
+* insert CommonProperties("fbpsg-pa-adj-temp-not-approved")
+* insert CommonPropertiesRationale("Prior Authorization Adjudication for Sleep Study Temporary Not Approved", "Temporarily Not Approved")
+
+* library = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyFBPSG"
+
+* url = "http://example.org/sdh/dtr/aslp/PlanDefinition/fbpsg-pa-adj-temp-not-approved"
+
+* action[+]
+  * title = "Facility-Based PSG Temporarily Not Approved Prior Authorization Adjudication"
+  * description = "Prior Authorization Adjudication for Facility-Based PSG Temporarily Not Approved"
+  * code = $x12-adjudication-status#A4 "Pended"
+  * dynamicValue[+]
+    * path = "description" 
+    * expression
+      * language = #text/cql-identifier
+      * expression = "Temporarily Not Approved"
 
 //Home/Portable Monitor Sleep Testing to confirm the suspected diagnosis of moderate to severe obstructive sleep apnea (OSA)
 Instance: Home-Monitor-Sleep-Testing

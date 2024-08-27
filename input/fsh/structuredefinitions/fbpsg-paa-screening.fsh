@@ -12,20 +12,6 @@ Description: "Diagnostic testing prior to planned hypoglossal nerve stimulator i
   * ^short = "Patient has undergone diagnostic testing prior to planned hypoglossal nerve stimulator implantation with a known diagnosis of OSA?"
   * ^definition = "Patient has undergone diagnostic testing prior to planned hypoglossal nerve stimulator implantation with a known diagnosis of OSA?"
 
-Profile: HistoryCentralSleepApnea
-Parent: Observation
-Id: fbpsg-paa-history-CSA-screening
-Title: "History of CSA"
-Description: "History of Central Sleep Apnea (CSA)"
-* insert CommonextensionsStrucutureDefinition
-* code = fbpsg-paa-screening-codes#history-of-CSA "History of central sleep apnea (CSA)"
-  * ^short = "History of central sleep apnea (CSA)"
-  * ^definition = "History of central sleep apnea (CSA)"
-* value[x] 1..1 MS
-* value[x] only boolean
-  * ^short = "Patient has history of Central Sleep Apnea(CSA)?"
-  * ^definition = "Patient has history of Central Sleep Apnea(CSA)?"
-
 Profile: CentralSleepApnea
 Parent: Observation
 Id: fbpsg-paa-CSA-screening
@@ -40,20 +26,6 @@ Description: "Clinical features associated with Central Sleep Apnea (CSA)"
   * ^short = "Patient has Central Sleep Apnea(CSA)?"
   * ^definition = "Patient has Central Sleep Apnea(CSA)?"
 
-Profile: HistoryNarcolepsy
-Parent: Observation
-Id: fbpsg-paa-history-narcolepsy-screening
-Title: "History of Narcolepsy"
-Description: "History of narcolepsy when a MSLT is planned"
-* insert CommonextensionsStrucutureDefinition
-* code = fbpsg-paa-screening-codes#history-of-narcolepsy "History of narcolepsy"
-  * ^short = "History of narcolepsy"
-  * ^definition = "History of narcolepsy"
-* value[x] 1..1 MS
-* value[x] only boolean
-  * ^short = "Patient has history of narcolepsy?"
-  * ^definition = "Patient has history of narcolepsy?"
-
 Profile: Narcolepsy
 Parent: Observation
 Id: fbpsg-paa-narcolepsy-screening
@@ -67,20 +39,6 @@ Description: "Narcolepsy when a MSLT is planned"
 * value[x] only boolean
   * ^short = "Patient has narcolepsy?"
   * ^definition = "Patient has narcolepsy?"
-
-Profile: HistoryObesityHypoventilationSyndrome
-Parent: Observation
-Id: fbpsg-paa-history-OHS-screening
-Title: "History of Obesity hypoventilation syndrome (OHS)"
-Description: "History of Obesity hypoventilation syndrome (OHS) which cannot be attributed to other conditions such as hypothyroidism, neuromuscular weakness, pleural pathology, pulmonary disease or skeletal restriction"
-* insert CommonextensionsStrucutureDefinition
-* code = fbpsg-paa-screening-codes#history-of-OHS "History of Obesity hypoventilation syndrome (OHS)"
-  * ^short = "History of Obesity hypoventilation syndrome (OHS)"
-  * ^definition = "History of Obesity hypoventilation syndrome (OHS)"
-* value[x] 1..1 MS
-* value[x] only boolean
-  * ^short = "Patient has History of Obesity hypoventilation syndrome (OHS)?"
-  * ^definition = "Patient has History of Obesity hypoventilation syndrome (OHS)?"
 
 Profile: ObesityHypoventilationSyndrome
 Parent: Observation

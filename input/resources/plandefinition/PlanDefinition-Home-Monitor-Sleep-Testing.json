@@ -44,7 +44,6 @@
       "value": "Home-Monitor-Sleep-Testing"
     }
   ],
-  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/Home-Monitor-Sleep-Testing",
   "version": "1.0.0",
   "status": "draft",
   "experimental": true,
@@ -83,6 +82,7 @@
   "library": [
     "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
   ],
+  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/Home-Monitor-Sleep-Testing",
   "action": [
     {
       "title": "Qualifying Patient Age",

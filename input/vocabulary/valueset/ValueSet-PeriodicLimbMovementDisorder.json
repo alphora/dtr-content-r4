@@ -1,0 +1,32 @@
+{
+  "resourceType": "ValueSet",
+  "status": "active",
+  "name": "PeriodicLimbMovementDisorder",
+  "id": "PeriodicLimbMovementDisorder",
+  "title": "Periodic limb movement disorder ValueSet",
+  "description": "ValueSet for Periodic limb movement disorder in adults",
+  "url": "http://example.org/sdh/dtr/aslp/ValueSet/PeriodicLimbMovementDisorder",
+  "experimental": false,
+  "compose": {
+    "include": [
+      {
+        "system": "http://id.who.int/icd/release/11/mms",
+        "concept": [
+          {
+            "code": "7A81",
+            "display": "Periodic limb movement disorder"
+          }
+        ]
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "concept": [
+          {
+            "code": "418763003",
+            "display": "Periodic limb movement disorder (disorder)"
+          }
+        ]
+      }
+    ]
+  }
+}

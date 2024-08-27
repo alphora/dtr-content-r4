@@ -1,0 +1,35 @@
+{
+  "resourceType": "ValueSet",
+  "status": "active",
+  "name": "Narcolespy",
+  "id": "Narcolespy",
+  "title": "Narcolespy ValueSet",
+  "description": "ICD 11 codes for Narcolespy in adults",
+  "url": "http://example.org/sdh/dtr/aslp/ValueSet/Narcolespy",
+  "experimental": false,
+  "compose": {
+    "include": [
+      {
+        "system": "http://id.who.int/icd/release/11/mms",
+        "concept": [
+          {
+            "code": "7A20.0",
+            "display": "Narcolepsy, Type 1"
+          },
+          {
+            "code": "7A2Z",
+            "display": "Hypersomnolence disorders, unspecified"
+          },
+          {
+            "code": "7B01.1",
+            "display": "Recurrent isolated sleep paralysis"
+          },
+          {
+            "code": "MB27.23",
+            "display": "Hypnagogic hallucinations"
+          }
+        ]
+      }
+    ]
+  }
+}

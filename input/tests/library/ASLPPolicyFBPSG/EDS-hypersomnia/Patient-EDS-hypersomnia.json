@@ -1,0 +1,15 @@
+{
+  "resourceType": "Patient",
+  "id": "EDS-hypersomnia",
+  "name": [
+    {
+      "family": "Knapp",
+      "given": [
+        "Alexis"
+      ],
+      "text": "Alexis Knapp"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1989-07-31"
+}

@@ -1,0 +1,15 @@
+{
+  "resourceType": "Patient",
+  "id": "Patient-EDS-Snoring-apnea",
+  "name": [
+    {
+      "family": "Phillippe",
+      "given": [
+        "Ryan"
+      ],
+      "text": "Ryan Phillippe"
+    }
+  ],
+  "gender": "male",
+  "birthDate": "1974-09-10"
+}

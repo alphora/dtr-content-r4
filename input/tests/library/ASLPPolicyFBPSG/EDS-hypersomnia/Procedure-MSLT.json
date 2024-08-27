@@ -1,0 +1,17 @@
+{
+  "resourceType": "Procedure",
+  "id": "MSLT",
+  "status": "preparation",
+  "code": {
+    "coding": [
+      {
+        "code": "95805",
+        "system": "http://www.ama-assn.org/go/cpt",
+        "display": "Multiple sleep latency or maintenance of wakefulness testing, recording, analysis and interpretation of physiological measurements of sleep during multiple trials to assess sleepiness"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/EDS-hypersomnia"
+  }
+}

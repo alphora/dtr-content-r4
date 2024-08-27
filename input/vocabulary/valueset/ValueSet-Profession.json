@@ -1,0 +1,81 @@
+{
+  "resourceType": "ValueSet",
+  "status": "active",
+  "name": "Profession",
+  "id": "Profession",
+  "title": "Profession ValueSet",
+  "description": "ValueSet for Mission Critical Profession",
+  "url": "http://example.org/sdh/dtr/aslp/ValueSet/Profession",
+  "experimental": false,
+  "compose": {
+    "include": [
+      {
+        "system": "http://id.who.int/icd/release/11/mms",
+        "concept": [
+          {
+            "code": "XE3TU",
+            "display": "Occupation - legislators, senior officials, managers"
+          },
+          {
+            "code": "XE59Y",
+            "display": "Occupation - professionals"
+          },
+          {
+            "code": "XE5G8",
+            "display": "Occupation - armed forces"
+          }
+        ]
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "filter": [
+          {
+            "property": "parent",
+            "op": "=",
+            "value": "159248008"
+          }
+        ]
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "filter": [
+          {
+            "property": "parent",
+            "op": "=",
+            "value": "266064005"
+          }
+        ]
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "filter": [
+          {
+            "property": "parent",
+            "op": "=",
+            "value": "106538001"
+          }
+        ]
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "filter": [
+          {
+            "property": "parent",
+            "op": "=",
+            "value": "265981008"
+          }
+        ]
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "filter": [
+          {
+            "property": "parent",
+            "op": "=",
+            "value": "223366009"
+          }
+        ]
+      }
+    ]
+  }
+}

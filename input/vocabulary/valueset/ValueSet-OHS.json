@@ -1,0 +1,33 @@
+{
+  "resourceType": "ValueSet",
+  "status": "active",
+  "name": "OHS",
+  "id": "OHS",
+  "title": "OHS ValueSet",
+  "description": "ValueSet for OHS in adults",
+  "url": "http://example.org/sdh/dtr/aslp/ValueSet/OHS",
+  "experimental": false,
+  "compose": {
+    "include": [
+      {
+        "system": "http://id.who.int/icd/release/11/mms",
+        "concept": [
+          {
+            "code": "7A42.0",
+            "display": "Obesity hypoventilation syndrome"
+          }
+        ]
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "filter": [
+          {
+            "property": "parent",
+            "op": "=",
+            "value": "15993004"
+          }
+        ]
+      }
+    ]
+  }
+}
