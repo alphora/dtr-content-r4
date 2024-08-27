@@ -71,12 +71,6 @@
   ],
   "action": [
     {
-      "trigger": [
-        {
-          "type": "named-event",
-          "name": "order-sign"
-        }
-      ],
       "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-MultipleRequest"
     }
   ]
