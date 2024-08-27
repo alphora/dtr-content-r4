@@ -64,7 +64,8 @@ returns FHIR.Extension:
       // today's date
       "TodaysDateExtension"(),
 
-      // TODO: need to figure out how to make this dynamic
+      // questionnaire canonical extension based on the service request code
+      // requires a valueset per canonical questionnaire
       "QuestionnaireExtension"(priorAuthRequired, serviceRequestCode),
 
       // service request id
