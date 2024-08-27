@@ -1,0 +1,20 @@
+{
+  "resourceType": "Patient",
+  "id": "Patient-patient-with-EDS-ObesityHypoventilationSyndrome",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter"
+    ]
+  },
+  "name": [
+    {
+      "family": "Grill",
+      "given": [
+        "Patty"
+      ],
+      "text": "Patty Grill"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "2000-01-01"
+}

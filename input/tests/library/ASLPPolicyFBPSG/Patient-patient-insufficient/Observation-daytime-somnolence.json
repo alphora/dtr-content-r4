@@ -1,0 +1,19 @@
+{
+  "resourceType": "Observation",
+  "id": "daytime-somnolence",
+  "code": {
+    "coding": [
+      {
+        "code": "141000119100",
+        "system": "http://snomed.info/sct",
+        "display": "Daytime somnolence (finding)"
+      }
+    ]
+  },
+  "effectiveDateTime": "2023-01-10T16:30:00-07:00",
+  "status": "final",
+  "subject": {
+    "reference": "Patient/Patient-patient-insufficient"
+  },
+  "valueBoolean": true
+}

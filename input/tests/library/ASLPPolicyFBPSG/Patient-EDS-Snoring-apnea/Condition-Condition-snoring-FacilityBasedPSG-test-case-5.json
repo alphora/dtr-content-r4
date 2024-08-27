@@ -1,0 +1,46 @@
+{
+  "resourceType": "Condition",
+  "id": "Condition-snoring-FacilityBasedPSG-test-case-5",
+  "clinicalStatus": {
+    "coding": [
+      {
+        "code": "active",
+        "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+        "display": "Active"
+      }
+    ]
+  },
+  "verificationStatus": {
+    "coding": [
+      {
+        "code": "confirmed",
+        "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+        "display": "Confirmed"
+      }
+    ]
+  },
+  "category": [
+    {
+      "coding": [
+        {
+          "code": "problem-list-item",
+          "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+          "display": "Problem List Item"
+        }
+      ]
+    }
+  ],
+  "code": {
+    "coding": [
+      {
+        "code": "R06.83",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
+        "display": "Snoring"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/Patient-EDS-Snoring-apnea"
+  },
+  "onsetDateTime": "2023-01-03T11:30:00-07:00"
+}

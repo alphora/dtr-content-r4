@@ -1,0 +1,48 @@
+{
+  "resourceType": "ValueSet",
+  "status": "active",
+  "name": "Parasomnias",
+  "id": "Parasomnias",
+  "title": "Parasomnias ValueSet",
+  "description": "ValueSet for Parasomnias that are unusual or atypical in adults",
+  "url": "http://example.org/sdh/dtr/aslp/ValueSet/Parasomnias",
+  "experimental": false,
+  "compose": {
+    "include": [
+      {
+        "system": "http://id.who.int/icd/release/11/mms",
+        "concept": [
+          {
+            "code": "7B00.0",
+            "display": "Confusional arousals"
+          },
+          {
+            "code": "7B01.0",
+            "display": "REM sleep behaviour disorder"
+          }
+        ]
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "concept": [
+          {
+            "code": "58690002",
+            "display": "Parasomnia (disorder)"
+          },
+          {
+            "code": "441830002",
+            "display": "Confusional arousal disorder (disorder)"
+          },
+          {
+            "code": "429571005",
+            "display": "Sleep-related dissociative disorder (disorder)"
+          },
+          {
+            "code": "415238003",
+            "display": "Rapid eye movement sleep behavior disorder (disorder)"
+          }
+        ]
+      }
+    ]
+  }
+}

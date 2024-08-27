@@ -1,0 +1,45 @@
+{
+  "resourceType": "ValueSet",
+  "status": "active",
+  "name": "CSA",
+  "id": "CSA",
+  "title": "CSA ValueSet",
+  "description": "ICD 11 codes for Central sleep apnoea in adults",
+  "url": "http://example.org/sdh/dtr/aslp/ValueSet/CSA",
+  "experimental": false,
+  "compose": {
+    "include": [
+      {
+        "system": "http://id.who.int/icd/release/11/mms",
+        "concept": [
+          {
+            "code": "7A40.0",
+            "display": "Primary central sleep apnoea"
+          },
+          {
+            "code": "7A40.3",
+            "display": "Central sleep apnea with Cheyne-Stokes breathing"
+          },
+          {
+            "code": "7A40.5",
+            "display": "Central sleep apnoea due to high-altitude periodic breathing"
+          },
+          {
+            "code": "7A40.6",
+            "display": "Central sleep apnoea due to a medication or substance"
+          }
+        ]
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "filter": [
+          {
+            "property": "parent",
+            "op": "=",
+            "value": "27405005"
+          }
+        ]
+      }
+    ]
+  }
+}

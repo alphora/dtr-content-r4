@@ -193,4 +193,54 @@ define "Safe Use Of Equipment At Home Observation":
 define "Physician Evaluated Results Observation":
   null as System.Boolean
 
-    
+define "Qualifying Diagnosis of Obstructive Sleep Apnea (OSA)":
+  (([Condition: Cx."Mild OSA"]).active().confirmed()) OSA
+    where exists(OSA.severity.coding) severity
+            where severity.code ~ '255604002'
+                or severity.display ~ 'Mild'
+
+define "Has BMI less than 35 kg/m2":
+  ([Observation: Cx."BMI Less than 35"]).resulted()
+
+define "DISE performed prior to HGNS implantation":
+  ([Procedure: Cx."DISE"]) DISE
+    where DISE.status ~ 'completed'
+
+define "Planned Hypoglossal Nerve Stimulator (HGNS) Implantation":
+    ([Procedure: Cx."HGNS implantation"]) HGNS 
+        where HGNS.status ~ 'not-done'
+        or HGNS.status ~ 'preparation'
+        or HGNS.status ~ 'on-hold'
+
+define "Qualifying Central Sleep Apnea":
+    ([Condition: Cx."Central sleep apnea"]).active().confirmed()
+
+define "Qualifying Narcolepsy":
+    ([Condition: Cx."Narcolepsy"]).active().confirmed()
+
+define "Planned Multiple sleep latency test (MSLT)":
+    ([Procedure: Cx."MSLT"]) MSLT 
+        where MSLT.status ~ 'not-done'
+        or MSLT.status ~ 'preparation'
+        or MSLT.status ~ 'on-hold'
+
+define "Qualifying Obesity Hypoventilation Syndrome":
+  ([Condition: Cx."OHS"]).active().confirmed()
+
+define "Qualifying Idiopathic Central Nervous System Hypersomnia":
+  ([Condition: Cx."Idiopathic CNS Hypersomnia"]).active().confirmed()
+
+define "Qualifying Impairment for Safe Use of Equipment":
+  ([Observation: Cx."Impairment"]).resulted()
+
+define "Qualifying Mission Critical Profession": 
+  ([Observation: Cx."Profession"]).resulted()
+
+define "Qualifying Parasomnias":
+  ([Condition: Cx."Parasomnias"]).active().confirmed()
+
+define "Qualifying Sleep Disruptions Thought to be Seizure Related":
+  ([Condition: Cx."Sleep disruptions due to seizure"]).active().confirmed()
+
+define "Qualifying Periodic Limb Movement Disorder":
+  ([Condition: Cx."PLMD"]).active().confirmed()

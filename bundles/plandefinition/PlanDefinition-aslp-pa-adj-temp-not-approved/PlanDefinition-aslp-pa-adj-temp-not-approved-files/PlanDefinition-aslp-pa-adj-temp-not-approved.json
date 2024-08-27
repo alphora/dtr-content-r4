@@ -102,6 +102,17 @@
     {
       "title": "Temporarily Not Approved Prior Authorization Adjudication",
       "description": "Prior Authorization Adjudication for Sleep Study Temporarily Not Approved",
+      "code": [
+        {
+          "coding": [
+            {
+              "code": "A4",
+              "system": "https://codesystem.x12.org/005010/306",
+              "display": "Pended"
+            }
+          ]
+        }
+      ],
       "dynamicValue": [
         {
           "path": "description",

@@ -1,0 +1,41 @@
+{
+  "resourceType": "ValueSet",
+  "status": "active",
+  "name": "OSA",
+  "id": "OSA",
+  "title": "OSA ValueSet",
+  "description": "ValueSet for Obstructive sleep apnoea in adults",
+  "url": "http://example.org/sdh/dtr/aslp/ValueSet/OSA",
+  "experimental": false,
+  "compose": {
+    "include": [
+      {
+        "system": "http://snomed.info/sct",
+        "concept": [
+          {
+            "code": "1101000119103",
+            "display": "Obstructive sleep apnea of adult (disorder)"
+          }
+        ]
+      },
+      {
+        "system": "http://id.who.int/icd/release/11/mms",
+        "concept": [
+          {
+            "code": "7A41",
+            "display": "Obstructive sleep apnoea"
+          }
+        ]
+      },
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10",
+        "concept": [
+          {
+            "code": "G47.33",
+            "display": "Obstructive sleep apnea (adult) (pediatric)"
+          }
+        ]
+      }
+    ]
+  }
+}

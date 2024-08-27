@@ -1,0 +1,15 @@
+{
+  "resourceType": "Patient",
+  "id": "Patient-drowsy-cant-drive",
+  "name": [
+    {
+      "family": "Phillippe",
+      "given": [
+        "Ava"
+      ],
+      "text": "Ava Elizabeth Phillippe"
+    }
+  ],
+  "gender": "female",
+  "birthDate": "1999-09-09"
+}

@@ -1,0 +1,105 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "fbpsg-paa-idiopathic-CNS-hypersomnia-screening",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishablecasefeature"
+    ]
+  },
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+      "valueCode": "shareable"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+      "valueCode": "computable"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+      "valueCode": "executable"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+      "valueCode": "publishable"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+      "valueCode": "structured"
+    },
+    {
+      "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
+      "valueReference": {
+        "reference": "Device/cqf-tooling"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+      "valueExpression": {
+        "language": "text/cql-identifier",
+        "expression": "Diagnostic test prior to HGNS",
+        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+      }
+    }
+  ],
+  "url": "http://example.org/sdh/dtr/aslp/StructureDefinition/fbpsg-paa-idiopathic-CNS-hypersomnia-screening",
+  "version": "1.0.0",
+  "name": "IdiopathicCentralNervousSystemHypersomnia",
+  "title": "Idiopathic central nervous system hypersomnia",
+  "status": "draft",
+  "experimental": false,
+  "description": "Idiopathic central nervous system hypersomnia when a MSLT is planned",
+  "useContext": [
+    {
+      "code": {
+        "code": "task",
+        "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+        "display": "Workflow Task"
+      }
+    }
+  ],
+  "fhirVersion": "4.0.1",
+  "kind": "resource",
+  "abstract": false,
+  "type": "Observation",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Observation",
+        "path": "Observation",
+        "mustSupport": false
+      },
+      {
+        "id": "Observation.code",
+        "path": "Observation.code",
+        "short": "Idiopathic hypersomnia with long sleep time",
+        "definition": "A sleep disorder of central nervous system origin characterized by prolonged nocturnal sleep and periods of daytime drowsiness. Affected individuals experience difficulty with awakening in the morning and may have associated sleep drunkenness, automatic behaviors, and memory disturbances. This condition differs from narcolepsy in that daytime sleep periods are longer, there is no association with cataplexy, and the multiple sleep latency onset test does not record sleep-onset rapid eye movement sleep. (from chokroverty, sleep disorders medicine, 1994, pp319-20; psychiatry clin neurosci 1998 apr:52(2):125-129)",
+        "patternCodeableConcept": {
+          "coding": [
+            {
+              "code": "G47.11",
+              "system": "http://hl7.org/fhir/sid/icd-10",
+              "display": "Idiopathic hypersomnia with long sleep time"
+            }
+          ]
+        },
+        "mustSupport": true
+      },
+      {
+        "id": "Observation.value[x]",
+        "path": "Observation.value[x]",
+        "short": "Patient has idiopathic central nervous system hypersomnia when a multiple sleep latency test (MSLT) is planned?",
+        "definition": "Patient has idiopathic central nervous system hypersomnia when a multiple sleep latency test (MSLT) is planned?",
+        "min": 1,
+        "type": [
+          {
+            "code": "boolean"
+          }
+        ],
+        "mustSupport": true
+      }
+    ]
+  }
+}

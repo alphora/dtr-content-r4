@@ -1,0 +1,83 @@
+{
+  "resourceType": "ValueSet",
+  "status": "active",
+  "name": "BMILessThan35",
+  "id": "BMILessThan35",
+  "title": "BMI <35 ValueSet",
+  "description": "ICD 10 codes for BMI <35 kg/m2 in adults",
+  "url": "http://example.org/sdh/dtr/aslp/ValueSet/BMILessThan35",
+  "experimental": false,
+  "compose": {
+    "include": [
+      {
+        "system": "http://hl7.org/fhir/sid/icd-10",
+        "concept": [
+          {
+            "code": "Z68.1",
+            "display": "Body mass index [BMI] 19.9 or less, adult"
+          },
+          {
+            "code": "Z68.20",
+            "display": "Body mass index [BMI] 20.0-20.9, adult"
+          },
+          {
+            "code": "Z68.21",
+            "display": "Body mass index [BMI] 21.0-21.9, adult"
+          },
+          {
+            "code": "Z68.22",
+            "display": "Body mass index [BMI] 22.0-22.9, adult"
+          },
+          {
+            "code": "Z68.23",
+            "display": "Body mass index [BMI] 23.0-23.9, adult"
+          },
+          {
+            "code": "Z68.24",
+            "display": "Body mass index [BMI] 24.0-24.9, adult"
+          },
+          {
+            "code": "Z68.25",
+            "display": "Body mass index [BMI] 25.0-25.9, adult"
+          },
+          {
+            "code": "Z68.26",
+            "display": "Body mass index [BMI] 26.0-26.9, adult"
+          },
+          {
+            "code": "Z68.27",
+            "display": "Body mass index [BMI] 27.0-27.9, adult"
+          },
+          {
+            "code": "Z68.28",
+            "display": "Body mass index [BMI] 28.0-28.9, adult"
+          },
+          {
+            "code": "Z68.29",
+            "display": "Body mass index [BMI] 29.0-29.9, adult"
+          },
+          {
+            "code": "Z68.30",
+            "display": "Body mass index [BMI] 30.0-30.9, adult"
+          },
+          {
+            "code": "Z68.31",
+            "display": "Body mass index [BMI] 31.0-31.9, adult"
+          },
+          {
+            "code": "Z68.32",
+            "display": "Body mass index [BMI] 32.0-32.9, adult"
+          },
+          {
+            "code": "Z68.33",
+            "display": "Body mass index [BMI] 33.0-33.9, adult"
+          },
+          {
+            "code": "Z68.34",
+            "display": "Body mass index [BMI] 34.0-34.9, adult"
+          }
+        ]
+      }
+    ]
+  }
+}

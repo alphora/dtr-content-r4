@@ -1,0 +1,76 @@
+{
+  "resourceType": "ValueSet",
+  "status": "active",
+  "name": "Impairment",
+  "id": "Impairment",
+  "title": "Impairment ValueSet",
+  "description": "ValueSet for Impairment for Safe Use of Equipment",
+  "url": "http://example.org/sdh/dtr/aslp/ValueSet/Impairment",
+  "experimental": false,
+  "compose": {
+    "include": [
+      {
+        "system": "http://id.who.int/icd/release/11/mms",
+        "filter": [
+          {
+            "property": "parent",
+            "op": "=",
+            "value": "MB21"
+          }
+        ]
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "filter": [
+          {
+            "property": "parent",
+            "op": "=",
+            "value": "386806002"
+          }
+        ]
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "concept": [
+          {
+            "code": "306741005",
+            "display": "Poor manual dexterity (finding)"
+          }
+        ]
+      },
+      {
+        "system": "http://id.who.int/icd/release/11/mms",
+        "concept": [
+          {
+            "code": "QF23",
+            "display": "Difficulty or need for assistance with mobility"
+          },
+          {
+            "code": "QF26",
+            "display": "Difficulty or need for assistance with household tasks"
+          }
+        ]
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "filter": [
+          {
+            "property": "parent",
+            "op": "=",
+            "value": "82971005"
+          }
+        ]
+      },
+      {
+        "system": "http://snomed.info/sct",
+        "filter": [
+          {
+            "property": "parent",
+            "op": "=",
+            "value": "285859009"
+          }
+        ]
+      }
+    ]
+  }
+}

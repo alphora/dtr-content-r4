@@ -1,0 +1,19 @@
+{
+  "resourceType": "Observation",
+  "id": "Observation-hypoventilation-FacilityBasedPSG-test-case-1",
+  "code": {
+    "coding": [
+      {
+        "code": "190966007",
+        "system": "http://snomed.info/sct",
+        "display": "Extreme obesity with alveolar hypoventilation (disorder)"
+      }
+    ]
+  },
+  "effectiveDateTime": "2023-08-12T15:00:00-07:00",
+  "status": "final",
+  "subject": {
+    "reference": "Patient/patient-with-EDS-ObesityHypoventilationSyndrome"
+  },
+  "valueBoolean": true
+}

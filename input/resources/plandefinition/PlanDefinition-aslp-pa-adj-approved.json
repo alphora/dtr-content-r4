@@ -106,8 +106,8 @@
         {
           "coding": [
             {
-              "system": "https://codesystem.x12.org/005010/306",
               "code": "A1",
+              "system": "https://codesystem.x12.org/005010/306",
               "display": "Approved"
             }
           ]
