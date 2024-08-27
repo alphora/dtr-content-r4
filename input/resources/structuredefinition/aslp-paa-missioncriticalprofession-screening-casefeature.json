@@ -1,0 +1,112 @@
+{
+    "resourceType": "StructureDefinition",
+    "id": "aslp-paa-missioncriticalprofession-screening-casefeature",
+    "meta": {
+      "profile": [
+        "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishablecasefeature"
+      ]
+    },
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+        "valueCode": "shareable"
+      },
+      {
+        "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+        "valueCode": "computable"
+      },
+      {
+        "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+        "valueCode": "executable"
+      },
+      {
+        "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+        "valueCode": "publishable"
+      },
+      {
+        "url" : "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+        "valueCode" : "structured"
+      },
+      {
+        "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
+        "valueReference": {
+          "reference": "Device/cqf-tooling"
+        }
+      },
+      {
+        "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+        "valueExpression": {
+          "language": "text/cql-identifier",
+          "expression": "Qualifying Mission Critical Profession",
+          "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+        }
+      }
+    ],
+    "url": "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-missioncriticalprofession-screening-casefeature",
+    "name": "MissionCriticalProfession",
+    "title": "Mission Critical Profession",
+    "status": "draft",
+    "experimental": true,
+    "description": "Mission Critical Profession",
+    "useContext": [
+      {
+        "code": {
+          "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+          "code": "task",
+          "display": "Workflow Task"
+        }
+      }
+    ],
+    "fhirVersion": "4.0.1",
+    "kind": "resource",
+    "abstract": false,
+    "type": "Observation",
+    "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
+    "derivation": "constraint",
+    "differential": {
+      "element": [
+        {
+          "id": "Observation",
+          "path": "Observation",
+          "mustSupport": false
+        },
+        {
+          "id": "Observation.code",
+          "path": "Observation.code",
+          "short": "Qualifying Mission Critical Profession",
+          "definition": "Qualifying Mission Critical Profession",
+          "min": 1,
+          "max": "1",
+          "type": [
+            {
+              "code": "CodeableConcept"
+            }
+          ],
+          "mustSupport": true,
+          "patternCodeableConcept": {
+            "coding": [
+              {
+                "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes",
+                "code": "Qualifying-Mission-Critical-Profession",
+                "display": "Qualifying Mission Critical Profession"
+              }
+            ]
+          }
+        },
+        {
+          "id": "Observation.value[x]",
+          "path": "Observation.value[x]",
+          "short": "Does patient have a mission critical profession including, but may not be limited to: airline pilots, bus drivers, military personnel and truck drivers?",
+          "definition": "Does patient have a mission critical profession including, but may not be limited to: airline pilots, bus drivers, military personnel and truck drivers?",
+          "min": 1,
+          "max": "1",
+          "type": [
+            {
+              "code": "boolean"
+            }
+          ],
+          "mustSupport": true
+        }
+      ]
+    }
+  }

@@ -8,6 +8,7 @@ include FHIRHelpers version '4.1.000'
 include ASLPPolicyCaseFeatures called PCF
 include ASLPPolicyConcepts called AC
 include ASLPPolicyScreening called PS
+include ASLPPolicyFacilityBasedPSG called FacilityPSG
  
 context Patient
 
@@ -243,9 +244,9 @@ define "Qualifying Moderate To Severe Pulmonary Disease":
   else
     PCF.CaseFeatureObservation(
       AC."Qualifying Moderate To Severe Pulmonary Disease Assertion",
-      PS."Has Moderate To Severe Pulmonary Disease", //Is this right? or should it be obs of only pulmonary disease??
-      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature',
-      PCF.MostRecent(PS."Qualifying Moderate To Severe Pulmonary Disease"),
+      FacilityPSG."Has Moderate To Severe Pulmonary Disease", //Is this right? or should it be obs of only pulmonary disease??
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature',
+      PCF.MostRecent(FacilityPSG."Qualifying Moderate To Severe Pulmonary Disease"),
       ''
     )
 
@@ -317,7 +318,7 @@ define "Null Pulmonary Disease":
 
 //Neuromuscular Disease
 define "Most Recent Neuromuscular Disease With Pulmonary Disease":
-  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion".coding)])
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion".coding)])
 
 define "Qualifying Neuromuscular Disease With Associated Pulmonary Disease":
   if not "Most Recent Neuromuscular Disease With Pulmonary Disease" is null
@@ -325,9 +326,9 @@ define "Qualifying Neuromuscular Disease With Associated Pulmonary Disease":
   else
     PCF.CaseFeatureObservation(
       AC."Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion",
-      PS."Neuromuscular Disease With Associated Pulmonary Disease",
-      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscular-screening-casefeature',
-      PCF.MostRecent(PS."Neuromuscular Disease Diagnosis"),
+      FacilityPSG."Has Neuromuscular Disease With Associated Pulmonary Disease",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature',
+      PCF.MostRecent(FacilityPSG."Neuromuscular Disease Diagnosis With Associated Pulmonary Disease"),
       ''
     )
 
@@ -340,12 +341,12 @@ define "Has Neuromuscular Disease With Associated Pulmonary Disease":
 define "No Neuromuscular Disease With Associated Pulmonary Disease":
   IsFalse("Has Neuromuscular Disease With Associated Pulmonary Disease Value")
 
-define "Null Nueromuscular Disease":
+define "Null Neuromuscular Disease With Associated Pulmonary Disease":
   IsNull("Has Neuromuscular Disease With Associated Pulmonary Disease Value")
 
 //Cardiac Disease
 define "Most Recent Cardiac Disease Observation":
-  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Cardiac Disease Assertion".coding)])
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Cardiac Disease Assertion".coding)])
 
 define "Qualifying Cardiac Disease":
   if not "Most Recent Cardiac Disease Observation" is null
@@ -353,9 +354,9 @@ define "Qualifying Cardiac Disease":
   else 
     PCF.CaseFeatureObservation(
       AC."Qualifying Cardiac Disease Assertion",
-      PS."Has Cardiac Disease",
+      FacilityPSG."Has Cardiac Disease",
       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature',
-      PCF.MostRecent(PS."Qualifying Cardiac Disease"),
+      PCF.MostRecent(FacilityPSG."Qualifying Cardiac Disease"),
       ''
     )
 
@@ -454,6 +455,335 @@ define "Unknown Ability To Have Physician Evaluate Results":
   IsNull("Ability To Have Physician Evaluate Results Value")
 
 
+
+//Facility-Based Polysomnogram (PSG)
+  //Criteria to meet any one of following medical conditions:
+define "Has Applicable Medical Condition For Facility-Based PSG Value":
+  "Has Diagnostic Testing Prior to Planned HGNS Implantation Value"
+    or "Has Central Sleep Apnea (CSA)"
+    or "Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned"
+    or "Has Obesity Hypoventilation Syndrome (OHS)"
+    or "Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)"
+    or "Has Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned"
+    or "Has Cognitive, Dexterity, or Mobility Impairment Affecting Safe Equipment Use At Home"
+    or "Has a Mission Critical Profession"
+    or "Has Moderate To Severe Pulmonary Disease Value"
+    or "Has Neuromuscular Disease With Associated Pulmonary Disease Value"
+    or "Has Parasomnia"
+    or "Has Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related"
+    or "Has Periodic Limb Movement Disorder"
+    or "Has Cardiac Disease Value"
+
+define "Has Applicable Medical Condition For Facility-Based PSG":
+  IsTrue("Has Applicable Medical Condition For Facility-Based PSG Value")
+
+define "No Applicable Medical Condition For Facility-Based PSG":
+  IsFalse("Has Applicable Medical Condition For Facility-Based PSG Value")
+
+define "Null Applicable Medical Condition For Facility-Based PSG":
+  IsNull("Has Applicable Medical Condition For Facility-Based PSG Value")
+
+//Diagnostic testing with diagnosis of OSA
+define "Most Recent Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA Assertion".coding)])
+
+define "Qualifying Diagnostic Testing With Diagnosis of OSA":
+  if not "Most Recent Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA" is null
+    then "Most Recent Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA"
+  else
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA Assertion",
+      FacilityPSG."Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-diagnostictesting-screening-casefeature'
+    )
+
+define "Has Diagnostic Testing Prior to Planned HGNS Implantation Value":
+  "Qualifying Diagnostic Testing With Diagnosis of OSA".value.value as System.Boolean
+
+define "Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
+  IsTrue("Has Diagnostic Testing Prior to Planned HGNS Implantation Value")
+
+define "No Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
+  IsFalse("Has Diagnostic Testing Prior to Planned HGNS Implantation Value")
+
+define "Null Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
+  IsNull("Has Diagnostic Testing Prior to Planned HGNS Implantation Value")
+
+//Central Sleep Apnea (CSA)
+define "Most Recent Central Sleep Apnea Diagnosis":
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Central Sleep Apnea (CSA) Assertion".coding)])
+
+define "Qualifying Central Sleep Apnea (CSA)":
+  if not "Most Recent Central Sleep Apnea Diagnosis" is null
+    then "Most Recent Central Sleep Apnea Diagnosis"
+  else
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Central Sleep Apnea (CSA) Assertion",
+      FacilityPSG."Has Central Sleep Apnea (CSA)",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-csa-screening-casefeature',
+      PCF.MostRecent(FacilityPSG."Qualifying Central Sleep Apnea"),
+      ''
+    )
+
+define "Has Central Sleep Apnea (CSA)":
+  "Qualifying Central Sleep Apnea (CSA)".value.value as System.Boolean
+
+define "Central Sleep Apnea (CSA) Present":
+  IsTrue("Has Central Sleep Apnea (CSA)")
+
+define "No Central Sleep Apnea (CSA)":
+  IsFalse("Has Central Sleep Apnea (CSA)")
+
+define "Null Central Sleep Apnea (CSA)":
+  IsNull("Has Central Sleep Apnea (CSA)")
+
+//Features associated with narcolepsy when a multiple sleep latency test (MSLT) is planned
+define "Most Recent Feature Associated With Narcolepsy When a MSLT is Planned":
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Features Associated With Narcolepsy When a MSLT is Planned Assertion".coding)])
+
+define "Qualifying Feature Associated With Narcolepsy":
+  if not "Most Recent Feature Associated With Narcolepsy When a MSLT is Planned" is null
+    then "Most Recent Feature Associated With Narcolepsy When a MSLT is Planned"
+  else
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Features Associated With Narcolepsy When a MSLT is Planned Assertion",
+      FacilityPSG."Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-featuresassociatedwithnarcolepsy-screening-casefeature'
+    )
+
+define "Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned":
+  "Qualifying Feature Associated With Narcolepsy".value.value as System.Boolean
+
+define "Feature Associated With Narcolepsy Present When MSLT is Planned":
+  IsTrue("Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned")
+
+define "No Features Associated With Narcolepsy When MSLT is Planned":
+  IsFalse("Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned")
+
+define "Unknown Features Associated With Narcolepsy When MSLT is Planned":
+  IsNull("Has Qualifying Feature Associated With Narcolepsy When MSLT is Planned")
+
+//Obesity Hypoventilation Syndrome (OHS)
+define "Most Recent Diagnosis of Obesity Hypoventilation Syndrome (OHS)":
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Obesity Hypoventilation Syndrome (OHS) Assertion".coding)])
+
+define "Qualifying Obesity Hypoventilation Syndrome (OHS)":
+  if not "Most Recent Diagnosis of Obesity Hypoventilation Syndrome (OHS)" is null
+    then "Most Recent Diagnosis of Obesity Hypoventilation Syndrome (OHS)"
+  else
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Obesity Hypoventilation Syndrome (OHS) Assertion",
+      FacilityPSG."Has Obesity Hypoventilation Syndrome (OHS)",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ohs-screening-casefeature'
+    )
+
+define "Has Obesity Hypoventilation Syndrome (OHS)":
+  "Qualifying Obesity Hypoventilation Syndrome (OHS)".value.value as System.Boolean
+
+define "Obesity Hypoventilation Syndrome (OHS) Present":
+  IsTrue("Has Obesity Hypoventilation Syndrome (OHS)")
+
+define "No Obesity Hypoventilation Syndrome (OHS)":
+  IsFalse("Has Obesity Hypoventilation Syndrome (OHS)")
+
+define "Unknown Obesity Hypoventilation Syndrome (OHS)":
+  IsNull("Has Obesity Hypoventilation Syndrome (OHS)")
+
+//Traumatic Brain Injury (TBI) with EDS 
+define "Most Recent Diagnosis of Traumatic Brain Injury (TBI) with EDS":
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Traumatic Brain Injury (TBI) with EDS Assertion".coding)])
+
+define "Qualifying Traumatic Brain Injury (TBI) with EDS":
+  if not "Most Recent Diagnosis of Traumatic Brain Injury (TBI) with EDS" is null
+    then "Most Recent Diagnosis of Traumatic Brain Injury (TBI) with EDS"
+  else
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Traumatic Brain Injury (TBI) with EDS Assertion",
+      FacilityPSG."Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-tbiwitheds-screening-casefeature'
+    )
+
+define "Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)":
+  "Qualifying Traumatic Brain Injury (TBI) with EDS".value.value as System.Boolean
+
+define "History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS) Present":
+  IsTrue("Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)")
+
+define "No History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)":
+  IsFalse("Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)")
+
+define "Unknown History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)":
+  IsNull("Has History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)")
+
+//Idiopathic central nervous system hypersomnia when multiple sleep latency test (MSLT) is planned
+define "Most Recent Diagnosis of Idiopathic Central Nervous System Hypersomnia":
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Idiopathic Central Nervous System Hypersomnia Assertion".coding)])
+
+define "Qualifying Idiopathic Central Nervous System Hypersomnia":
+  if not "Most Recent Diagnosis of Idiopathic Central Nervous System Hypersomnia" is null
+    then "Most Recent Diagnosis of Idiopathic Central Nervous System Hypersomnia"
+  else
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Idiopathic Central Nervous System Hypersomnia Assertion",
+      FacilityPSG."Has Idiopathic Central Nervous System Hypersomnia When MSLT is Planned",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-idiopathiccnshypersomnia-screening-casefeature'
+    )
+
+define "Has Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned":
+  "Qualifying Idiopathic Central Nervous System Hypersomnia".value.value as System.Boolean
+
+define "Idiopathic Central Nervous System Hypersomnia Present When MSLT is Planned":
+  IsTrue("Has Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned")
+
+define "No Idiopathic Central Nervous System Hypersomnia When MSLT is Planned":
+  IsFalse("Has Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned")
+
+define "Null Idiopathic Central Nervous System Hypersomnia When MSLT is Planned":
+  IsNull("Has Idiopathic Central Nervous System Hyperinsomnia When MSLT is Planned")
+
+//Individual or caregiver lacks cognitive function, dexterity, or mobility to safely use PM equipment at home
+define "Most Recent Impairment Observation Affecting Safe Use Of Equipment At Home":
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Impairment Affecting Safe Equipment Use At Home Assertion".coding)])
+
+define "Qualifying Impairment Affecting Safe Use of Equipment At Home":
+  if not "Most Recent Impairment Observation Affecting Safe Use Of Equipment At Home" is null
+    then "Most Recent Impairment Observation Affecting Safe Use Of Equipment At Home"
+  else 
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Impairment Affecting Safe Equipment Use At Home Assertion",
+      FacilityPSG."Lacks Cognitive Function, Dexterity, or Mobility for Safe Use of Equipment",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-unsafeequipmentuseathome-screening-casefeature',
+      PCF.MostRecent(FacilityPSG."Qualifying Impairment for Safe Use of Equipment"),
+      ''
+    )
+
+define "Has Cognitive, Dexterity, or Mobility Impairment Affecting Safe Equipment Use At Home":
+  "Qualifying Impairment Affecting Safe Use of Equipment At Home".value.value as System.Boolean
+
+define "Lacks Cognitive Function, Dexterity, or Mobility to Use Portable Monitor (PM) Safely At Home":
+  IsTrue("Has Cognitive, Dexterity, or Mobility Impairment Affecting Safe Equipment Use At Home")
+
+define "Not Lacking Cognitive Function, Dexterity, or Mobility to Use Portable Monitor (PM) Safely At Home":
+  IsFalse("Has Cognitive, Dexterity, or Mobility Impairment Affecting Safe Equipment Use At Home")
+
+define "Unknown Lack of Cognitive Function, Dexterity, or Mobility to Use Portable Monitor (PM) Safely At Home":
+  IsNull("Has Cognitive, Dexterity, or Mobility Impairment Affecting Safe Equipment Use At Home")
+
+//Mission critical profession
+define "Most Recent Mission Critical Profession":
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Mission Critical Profession Assertion".coding)])
+
+define "Qualifying Mission Critical Profession":
+  if not "Most Recent Mission Critical Profession" is null
+    then "Most Recent Mission Critical Profession"
+  else 
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Mission Critical Profession Assertion",
+      FacilityPSG."Has Mission Critical Profession",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-missioncriticalprofession-screening-casefeature',
+      PCF.MostRecent(FacilityPSG."Qualifying Mission Critical Profession"),
+      ''
+    )
+
+define "Has a Mission Critical Profession":
+  "Qualifying Mission Critical Profession".value.value as System.Boolean
+
+define "Has Mission Critical Profession":
+  IsTrue("Has a Mission Critical Profession")
+
+define "No Mission Critical Profession":
+  IsFalse("Has a Mission Critical Profession")
+
+define "Unknown Profession or Unknown Whether Profession is Mission Critical":
+  IsNull("Has a Mission Critical Profession")
+
+//Parasomnias
+define "Most Recent Parasomnia":
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Parasomnia Assertion".coding)])
+
+define "Qualifying Parasomnia":
+  if not "Most Recent Parasomnia" is null
+    then "Most Recent Parasomnia"
+  else 
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Parasomnia Assertion",
+      FacilityPSG."Has Parasomnia",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-parasomnia-screening-casefeature',
+      PCF.MostRecent(FacilityPSG."Qualifying Parasomnias"),
+      ''
+    )
+
+define "Has Parasomnia":
+  "Qualifying Parasomnia".value.value as System.Boolean
+
+define "Parasomnia Present":
+  IsTrue("Has Parasomnia")
+
+define "No Parasomnia":
+  IsFalse("Has Parasomnia")
+
+define "Unknown Parasomnia":
+  IsNull("Has Parasomnia")
+
+//Paroxysmal arousals 
+define "Most Recent Paroxysmal Arousal":
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Paroxysmal Arousals Assertion".coding)])
+
+define "Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related":
+  if not "Most Recent Paroxysmal Arousal" is null
+    then "Most Recent Paroxysmal Arousal"
+  else 
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Paroxysmal Arousals Assertion",
+      FacilityPSG."Has Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-paroxysmalarousals-screening-casefeature',
+      PCF.MostRecent(FacilityPSG."Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related"),
+      ''
+    )
+
+define "Has Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related":
+  "Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related".value.value as System.Boolean
+
+define "Presence of Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related":
+  IsTrue("Has Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related")
+
+define "No Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related":
+  IsFalse("Has Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related")
+
+define "Unknown Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related":
+  IsNull("Has Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related")
+
+//Periodic Limb Movement Disorder (PLMD)
+define "Most Recent Periodic Limb Movement Disorder":
+  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Periodic Limb Movement Disorder (PLMD) Assertion".coding)])
+
+define "Qualifying Periodic Limb Movement Disorder":
+  if not "Most Recent Periodic Limb Movement Disorder" is null
+    then "Most Recent Periodic Limb Movement Disorder"
+  else 
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Periodic Limb Movement Disorder (PLMD) Assertion",
+      FacilityPSG."Has Periodic Limb Movement Disorder (PLMD)",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-plmd-screening-casefeature',
+      PCF.MostRecent(FacilityPSG."Qualifying Periodic Limb Movement Disorder"),
+      ''
+    )
+
+define "Has Periodic Limb Movement Disorder":
+  "Qualifying Periodic Limb Movement Disorder".value.value as System.Boolean
+
+define "Periodic Limb Movement Disorder (PLMD) Present":
+  IsTrue("Has Periodic Limb Movement Disorder")
+
+define "No Periodic Limb Movement Disorder (PLMD)":
+  IsFalse("Has Periodic Limb Movement Disorder")
+
+define "Unknown Periodic Limb Movement Disorder (PLMD)":
+  IsNull("Has Periodic Limb Movement Disorder")
+
+
+
+
 //Approval Logic
 define "LineBreak": 
   '\r\n'
@@ -466,7 +796,8 @@ define "Not Approved Detail":
       if "Not Within Qualifying Age" then "LineBreak" + '- Individual is not within the qualifying age.' else null,
       "Not Approved EDS",
       "Not Approved Absence of Comorbid Conditions",
-      "Not Approved Home Criteria"
+      "Not Approved Home Criteria",
+      "Not Approved - Absence of Eligible Medical Condition for Facility-Based Polysomnogram (PSG)"
     )
 
 define "Not Approved EDS":
@@ -491,6 +822,11 @@ define "Not Approved Home Criteria":
     if "Unable To Have Physician Evaluate Results" then "LineBreak" + ' - Individual is unable to have physician evaluate results of home sleep tests' else null
   )
 
+define "Not Approved - Absence of Eligible Medical Condition for Facility-Based Polysomnogram (PSG)":
+  if "No Applicable Medical Condition For Facility-Based PSG"
+    then "LineBreak" + '- Individual does not meet any of the following eligible criteria: Diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with diagnosis of OSA, History of or clinical features associated with Central Sleep Apnea (CSA), History of or clinical features associated with narcolepsy when a MSLT is planned, History of or clinical features associated with Obesity Hypoventilation Syndrome (OHS), History of Traumatic Brain Injury (TBI) with EDS, Idiopathic central nervous system hypersomnia when a MSLT is planned, Individual or caregiver impaired to use portable monitor equipment safely at home, Mission critical profession, Moderate to severe pulmonary disease, Neuromuscular disease with associated pulmonary disease, Parasomnias, Paroxysmal arousals thought to be seizure related, Periodic Limb Movement Disorder (PLMD), or Cardiac disease'
+  else 
+    null
 
 //Not Approved Null Response
 define "Temporarily Not Approved":
@@ -501,6 +837,7 @@ define "Temporarily Not Approved":
       "Null EDS",
       "Null Comorbid Medical Conditions",
       "Null Home Criteria"
+      "Null Eligible Medical Condition for Facility-Based Polysomnogram (PSG)"
     )
 
 define "Null EDS":
@@ -520,7 +857,7 @@ define "Null Comorbid Medical Conditions":
   if "Null Applicable Comorbid Medical Conditions"
       then Coalesce(
         if "Null Pulmonary Disease" then "LineBreak" + ' - Please enter the following: Pulmonary Disease' else null,
-        if "Null Nueromuscular Disease" then "LineBreak" + ' - Please enter the following: Neuromuscular Disease With Associated Pulmonary Disease' else null,
+        if "Null Neuromuscular Disease With Associated Pulmonary Disease" then "LineBreak" + ' - Please enter the following: Neuromuscular Disease With Associated Pulmonary Disease' else null,
         if "Null Cardiac Disease" then "LineBreak" + ' - Please enter the following: Cardiac Disease' else null
       )
   else
@@ -533,7 +870,40 @@ define "Null Home Criteria":
     if "Unknown Ability To Have Physician Evaluate Results" then "LineBreak" + ' - Please enter the following: Ability To Have Physician Evaluate Home Testing Results' else null
   )
 
-
+define "Null Eligible Medical Conditions for Facility-Based Polysomnogram (PSG)":
+  if "Null Applicable Medical Condition For Facility-Based PSG"
+    then "LineBreak" + 'Please enter the following: Applicable Medical Conditions' 
+    + (if "Null Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA" 
+      then "LineBreak" + ' - Please enter the following: Diagnostic Testing Prior to Planned Hypoglossal Nerve Stimulator (HGNS) Implantation With Diagnosis of Obstructive Sleep Apnea (OSA)' 
+    else if "Null Central Sleep Apnea (CSA)" 
+      then "LineBreak" + ' - Please enter the following: Central Sleep Apnea (CSA)'
+    else if "Unknown Features Associated With Narcolepsy When MSLT is Planned" 
+      then "LineBreak" + ' - Please enter the following: Features Associated With Narcolepsy When MSLT is Planned'
+    else if "Unknown Obesity Hypoventilation Syndrome (OHS)" 
+      then "LineBreak" + ' - Please enter the following: Obesity Hypoventilation Syndrome (OHS)' 
+    else if "Unknown History of Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)"
+      then "LineBreak" + ' - Please enter the following: Traumatic Brain Injury (TBI) with Excessive Daytime Sleepiness (EDS)' 
+    else if "Null Idiopathic Central Nervous System Hypersomnia When MSLT is Planned"
+      then "LineBreak" + ' - Please enter the following: Idiopathic Central Nervous System Hypersomnia When MSLT is Planned' 
+    else if "Unknown Lack of Cognitive Function, Dexterity, or Mobility to Use Portable Monitor (PM) Safely At Home"
+      then "LineBreak" + ' - Please enter the following: Lack of Cognitive Function, Dexterity, or Mobility to Use Portable Monitor (PM) Safely At Home' 
+    else if "Unknown Profession or Unknown Whether Profession is Mission Critical"
+      then "LineBreak" + ' - Please enter the following: Mission Critical Profession' 
+    else if "Null Pulmonary Disease"
+      then "LineBreak" + ' - Please enter the following: Moderate to Severe Pulmonary Disease'
+    else if "Null Neuromuscular Disease With Associated Pulmonary Disease"
+      then "LineBreak" + ' - Please enter the following: Neuromuscular Disease With Associated Pulmonary Disease' 
+    else if "Unknown Parasomnia"
+      then "LineBreak" + ' - Please enter the following: Parasomnias' 
+    else if "Unknown Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related"
+      then "LineBreak" + ' - Please enter the following: Paroxysmal Arousals or Other Sleep Disruptions Thought to be Seizure Related'  
+    else if "Unknown Periodic Limb Movement Disorder (PLMD)"
+      then "LineBreak" + ' - Please enter the following: Periodic Limb Movement Disorder (PLMD)'  
+    else if "Null Cardiac Disease"
+      then "LineBreak" + ' - Please enter the following: Cardiac Disease'  
+    else null)
+  else 
+    null
 
 //Approved Response
 define "Approved Detail":
@@ -545,6 +915,7 @@ define "Approved Detail":
     + "Approved Qualified Device"
     + "Approved Home Use"
     + "Approved Physician Evaluated Results"
+    + "Approved Eligible Medical Conditions for Facility-Based Polysomnogram (PSG)"
 
 define "Approved Age":
   if "Is Qualifying Age"
@@ -580,4 +951,10 @@ define "Approved Physician Evaluated Results":
   if "Ability To Have Physician Evaluate Results"
     then "LineBreak" + '- Individual can have physician evaluate home testing results'
   else 
+    null
+
+define "Approved Eligible Medical Conditions for Facility-Based Polysomnogram (PSG)":
+  if "Has Applicable Medical Condition For Facility-Based PSG"
+    then "LineBreak" + '- Individual meets one of the following additional medical criteria: Diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with diagnosis of OSA, History of or clinical features associated with Central Sleep Apnea (CSA), History of or clinical features associated with narcolepsy when a MSLT is planned, History of or clinical features associated with Obesity Hypoventilation Syndrome (OHS), History of Traumatic Brain Injury (TBI) with EDS, Idiopathic central nervous system hypersomnia when a MSLT is planned, Individual or caregiver impaired to use portable monitor equipment safely at home, Mission critical profession, Moderate to severe pulmonary disease, Neuromuscular disease with associated pulmonary disease, Parasomnias, Paroxysmal arousals thought to be seizure related, Periodic Limb Movement Disorder (PLMD), or Cardiac disease'
+  else
     null

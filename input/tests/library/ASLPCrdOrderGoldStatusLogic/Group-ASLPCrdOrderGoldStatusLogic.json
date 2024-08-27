@@ -1,0 +1,22 @@
+{
+  "resourceType": "Group",
+  "id": "ASLPCrdOrderGoldStatusLogic",
+  "extension": [ {
+    "url": "http://hl7.org/fhir/StructureDefinition/artifact-testArtifact",
+    "valueCanonical": "http://ecqi.healthit.gov/ecqms/Measure/ASLPCrdOrderGoldStatusLogic"
+  } ],
+  "active": true,
+  "type": "person",
+  "actual": true,
+  "member": [ {
+    "entity": {
+      "reference": "Patient/Provider-Patient-GS-Mismatch",
+      "display": "Lois Griffin"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Provider-Patient-GS-Match-gold-card",
+      "display": "Lois Griffin"
+    }
+  } ]
+}

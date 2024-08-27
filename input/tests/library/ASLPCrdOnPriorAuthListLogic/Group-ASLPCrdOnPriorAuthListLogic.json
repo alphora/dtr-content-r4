@@ -1,0 +1,27 @@
+{
+  "resourceType": "Group",
+  "id": "ASLPCrdOnPriorAuthListLogic",
+  "extension": [ {
+    "url": "http://hl7.org/fhir/StructureDefinition/artifact-testArtifact",
+    "valueCanonical": "http://ecqi.healthit.gov/ecqms/Measure/ASLPCrdOnPriorAuthListLogic"
+  } ],
+  "active": true,
+  "type": "person",
+  "actual": true,
+  "member": [ {
+    "entity": {
+      "reference": "Patient/Provider-Patient-NotOnPA",
+      "display": "Sadie Brown"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/example-provider",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Provider-Patient-OnPA",
+      "display": "Sadie Brown"
+    }
+  } ]
+}

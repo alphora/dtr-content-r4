@@ -102,6 +102,17 @@
     {
       "title": "Prior Auth Adjudication Approved",
       "description": "Prior authorization adjudication approval for sleep study tests",
+      "code": [
+        {
+          "coding": [
+            {
+              "system": "https://codesystem.x12.org/005010/306",
+              "code": "A1",
+              "display": "Approved"
+            }
+          ]
+        }
+      ],
       "dynamicValue": [
         {
           "path": "description",

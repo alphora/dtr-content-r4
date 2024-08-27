@@ -177,6 +177,123 @@ define "Physician Evaluated Results Assertion":
     }
   }
 
+define "Qualifying Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Diagnostic-Testing-Prior-To-HGNS-Implantation-With-Diagnosis-of-OSA' },
+            display: string { value: 'Diagnostic Testing Prior To HGNS Implantation With Diagnosis of OSA' }
+        }
+    }
+  }
 
+define "Qualifying Central Sleep Apnea (CSA) Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Central-Sleep-Apnea-CSA' },
+            display: string { value: 'Central Sleep Apnea' }
+        }
+    }
+  }
 
+define "Qualifying Features Associated With Narcolepsy When a MSLT is Planned Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Features-Associated-With-Narcolepsy' },
+            display: string { value: 'Qualifying Features Associated With Narcolepsy' }
+        }
+    }
+  }
 
+define "Qualifying Obesity Hypoventilation Syndrome (OHS) Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Obesity-Hypoventilation-Syndrome-OHS' },
+            display: string { value: 'Qualifying Obesity Hypoventilation Syndrome (OHS)' }
+        }
+    }
+  }
+
+define "Qualifying Traumatic Brain Injury (TBI) with EDS Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Traumatic-Brain-Injury-TBI-with-EDS' },
+            display: string { value: 'Qualifying Traumatic Brain Injury (TBI) with EDS' }
+        }
+    }
+  }
+
+define "Qualifying Idiopathic Central Nervous System Hypersomnia Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Idiopathic-Central-Nervous-System-Hypersomnia' },
+            display: string { value: 'Qualifying Idiopathic Central Nervous System Hypersomnia' }
+        }
+    }
+  }
+
+define "Qualifying Impairment Affecting Safe Equipment Use At Home Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Impairment-Affecting-Safe-Equipment-Use-At-Home' },
+            display: string { value: 'Qualifying Impairment Affecting Safe Equipment Use At Home' }
+        }
+    }
+  }
+
+define "Qualifying Mission Critical Profession Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Mission-Critical-Profession' },
+            display: string { value: 'Qualifying Mission Critical Profession' }
+        }
+    }
+  }
+
+define "Qualifying Parasomnia Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Parasomnia' },
+            display: string { value: 'Qualifying Parasomnia' }
+        }
+    }
+  }
+
+define "Qualifying Paroxysmal Arousals Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Paroxysmal-Arousals' },
+            display: string { value: 'Qualifying Paroxysmal Arousals' }
+        }
+    }
+  }
+
+define "Qualifying Periodic Limb Movement Disorder (PLMD) Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Periodic-Limb-Movement-Disorde-PLMD' },
+            display: string { value: 'Qualifying Periodic Limb Movement Disorder (PLMD)' }
+        }
+    }
+  }
