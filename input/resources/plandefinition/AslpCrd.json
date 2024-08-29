@@ -69,10 +69,6 @@
   ],
   "action": [
     {
-      "trigger": {
-        "type": "named-event",
-        "value": "order-sign"
-      },
       "condition": [
         {
           "kind": "applicability",

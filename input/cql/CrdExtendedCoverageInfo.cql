@@ -30,7 +30,8 @@ returns FHIR.Extension:
       // today's date
       "TodaysDateExtension"(),
 
-      // questionnaire associated with the service request code
+      // questionnaire canonical extension based on the service request code
+      // requires a valueset per canonical questionnaire
       "QuestionnaireExtension"(priorAuthRequired, serviceRequestCode),
 
       // service request id

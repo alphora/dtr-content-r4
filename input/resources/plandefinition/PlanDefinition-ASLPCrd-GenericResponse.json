@@ -1,6 +1,6 @@
 {
   "resourceType": "PlanDefinition",
-  "id": "ASLPCrd-CdsHook",
+  "id": "ASLPCrd-GenericResponse",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-computableplandefinition"
@@ -53,10 +53,10 @@
     }
   ],
   "usage": "This is to be used in conjunction with a patient-facing FHIR application.",
-  "name": "ASLPCrd-CdsHook",
-  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-CdsHook",
-  "purpose": "The purpose of this is to test the system to make sure we have complete end-to-end functionality",
-  "description": "Test the system to make sure we have complete end-to-end functionality",
+  "name": "ASLPCrd-GenericResponse",
+  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-GenericResponse",
+  "purpose": "Purpose for ASLPCrd-GenericResponse",
+  "description": "Description for ASLPCrd-GenericResponse",
   "type": {
     "coding": [
       {
@@ -67,11 +67,35 @@
     ]
   },
   "library": [
-    "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider"
+    "http://example.org/sdh/dtr/aslp/Library/ASLPCrdGenericResponseLogic"
   ],
   "action": [
     {
-      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-MultipleRequest"
+      "title": "Prior Auth Evaluation",
+      "description": "Information related to whether a service is covered, not covered or requires prior auth submission",
+      "dynamicValue": [
+        {
+          "path": "title",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Title"
+          }
+        },
+        {
+          "path": "description",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Description"
+          }
+        },
+        {
+          "path": "extension",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "CoverageExtensionList"
+          }
+        }
+      ]
     }
   ]
 }
