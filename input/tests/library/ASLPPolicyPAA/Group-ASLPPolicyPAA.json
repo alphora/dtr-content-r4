@@ -1,0 +1,37 @@
+{
+  "resourceType": "Group",
+  "id": "ASLPPolicyPAA",
+  "extension": [ {
+    "url": "http://hl7.org/fhir/StructureDefinition/artifact-testArtifact",
+    "valueCanonical": "http://ecqi.healthit.gov/ecqms/Measure/ASLPPolicyPAA"
+  } ],
+  "active": true,
+  "type": "person",
+  "actual": true,
+  "member": [ {
+    "entity": {
+      "reference": "Patient/Patient-paa-example-3",
+      "display": "Stanley Drake"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-paa-example-4",
+      "display": "Harold Munez"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-paa-example-2",
+      "display": "Claire Drake"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-5",
+      "display": "Pete Robertson"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-paa-example-1",
+      "display": "Harold Munez"
+    }
+  } ]
+}

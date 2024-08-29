@@ -1,0 +1,134 @@
+{
+  "resourceType": "ValueSet",
+  "id": "2.16.840.1.113762.1.4.1130.11",
+  "meta": {
+    "profile": [ "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-shareablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-executablevalueset" ]
+  },
+  "extension": [ {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "shareable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "narrative"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "publishable"
+  }, {
+    "url": "http://fhir.org/guides/cdc/opioid-cds/StructureDefinition/cdc-valueset-inclusion",
+    "valueString": "Value Sets developed for Sleep Apnea, relevant to AAO-HNSF"
+  }, {
+    "url": "http://fhir.org/guides/cdc/opioid-cds/StructureDefinition/cdc-valueset-exclusion",
+    "valueString": "NA"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-usageWarning",
+    "valueString": "This value set contains a point-in-time expansion enumerating the codes that meet the value set intent. As new versions of the code systems used by the value set are released, the contents of this expansion will need to be updated to incorporate newly defined codes that meet the value set intent. Before, and periodically during production use, the value set expansion contents SHOULD be updated. The value set expansion specifies the timestamp when the expansion was produced, SHOULD contain the parameters used for the expansion, and SHALL contain the codes that are obtained by evaluating the value set definition. If this is ONLY an executable value set, a distributable definition of the value set must be obtained to compute the updated expansion."
+  } ],
+  "url": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1130.11",
+  "version": "20180515",
+  "title": "Sleep Apnea",
+  "status": "active",
+  "experimental": false,
+  "publisher": "ECRI",
+  "description": "This value set encodes a Conditional defining the concept sleep apnea for the AAO-HNSF guideline on Allergic Rhinitis",
+  "purpose": "This valueset is intended to work with the data element type, Condition/Diagnosis/Problem",
+  "expansion": {
+    "timestamp": "2024-08-08T12:31:47-04:00",
+    "contains": [ {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2025",
+      "code": "G47.3",
+      "display": "Sleep apnea"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2025",
+      "code": "G47.30",
+      "display": "Sleep apnea, unspecified"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2025",
+      "code": "G47.33",
+      "display": "Obstructive sleep apnea (adult) (pediatric)"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2025",
+      "code": "G47.39",
+      "display": "Other sleep apnea"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/icd9cm",
+      "version": "2013",
+      "code": "327.23",
+      "display": "Obstructive sleep apnea (adult)(pediatric)"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/icd9cm",
+      "version": "2013",
+      "code": "780.51",
+      "display": "Insomnia with sleep apnea, unspecified"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/icd9cm",
+      "version": "2013",
+      "code": "780.53",
+      "display": "Hypersomnia with sleep apnea, unspecified"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/icd9cm",
+      "version": "2013",
+      "code": "780.57",
+      "display": "Unspecified sleep apnea"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/icd9cm",
+      "version": "2013",
+      "code": "780.59",
+      "display": "Other sleep disturbances"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "1091000119108",
+      "display": "Obstructive sleep apnea of child (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "1101000119103",
+      "display": "Obstructive sleep apnea of adult (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "111489007",
+      "display": "Breathing-related sleep disorder (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "230493001",
+      "display": "Mixed sleep apnea (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "230494007",
+      "display": "Alveolar sleep apnea (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "41975002",
+      "display": "Insomnia with sleep apnea (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "73430006",
+      "display": "Sleep apnea (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "78275009",
+      "display": "Obstructive sleep apnea syndrome (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "79280005",
+      "display": "Hypersomnia with sleep apnea (disorder)"
+    } ]
+  }
+}

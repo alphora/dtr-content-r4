@@ -199,35 +199,35 @@ define function MostRecent(value List<FHIR.Observation>):
 //TODO: POC only (need to consider all the Condition considerations)
 define function MostRecent(value List<FHIR.Condition>):
   First(
-    value Observation
+    value Condition
       sort by recordedDate descending
   )
 
 //TODO: POC only (need to consider all the Coverage considerations)
 define function MostRecent(value List<FHIR.Coverage>):
   First(
-    value Observation
+    value Coverage
       sort by period.start descending
   )
 
 //TODO: POC only (need to consider all the Procedure considerations)
 define function MostRecent(value List<FHIR.Procedure>):
   First(
-    value Observation
+    value Procedure
       sort by performed.start descending
   )
 
 //TODO: POC only (need to consider all the ServiceRequest considerations)
 define function MostRecent(value List<FHIR.ServiceRequest>):
   First(
-    value Observation
+    value ServiceRequest
       sort by authoredOn descending
   )
 
 //TODO: POC only (need to consider all the ServiceRequest considerations)
 define function MostRecent(value List<FHIR.DeviceRequest>):
   First(
-    value Observation
+    value DeviceRequest
       sort by authoredOn descending
   )
 

@@ -16,32 +16,32 @@
   }, {
     "code": "Qualifying-Patient-Age",
     "display": "Qualifying Patient Age",
-    "definition": "Home/portable monitor sleep testing - Qualifying Patient Age"
+    "definition": "Qualifying Patient Age for Sleep Testing"
   },
   {
     "code": "Qualifying-Excessive-Daytime-Sleepiness",
     "display": "Qualified Excessive Daytime Sleepiness",
-    "definition": "Home/portable monitor sleep testing - Excessive Daytime Sleepiness"
+    "definition": "Excessive Daytime Sleepiness (EDS)"
   },
   {
     "code": "Epworth-Sleepiness-Scale-Score",
     "display": "ESS Score >= 10",
-    "definition": "Home/portable monitor sleep testing - Epworth Sleepiness Scale Score >= 10"
+    "definition": "Epworth Sleepiness Scale (ESS) Score >= 10"
   },
   {
     "code": "Excessive-Sleepiness-While-Driving",
     "display": "Qualifying Excessive Sleepiness While Driving",
-    "definition": "Home/portable monitor sleep testing - Qualifying Excessive Sleepiness While Driving"
+    "definition": "Qualifying Excessive Sleepiness While Driving"
   },
   {
     "code": "Loud-Snoring",
     "display": "Loud/Intense Snoring",
-    "definition": "Home/portable monitor sleep testing - Loud/Intense Snoring"
+    "definition": "Loud/Intense Snoring"
   },
   {
     "code": "Nocturnal-Apnea",
-    "display": "Nocturnal Apnea",
-    "definition": "Home/portable monitor sleep testing - Nocturnal Apnea"
+    "display": "Witnessed Nocturnal Apnea, Choking and/or Gasping",
+    "definition": "Witnessed Nocturnal Apnea, Choking and/or Gasping"
   },
   {
     "code": "Absence-Of-Comorbid-Conditions",
@@ -51,27 +51,27 @@
   {
     "code": "Moderate-To-Severe-Pulmonary-Disease",
     "display": "Qualifying Moderate To Severe Pulmonary Disease",
-    "definition": "Home/portable monitor sleep testing - Moderate To Severe Pulmonary Disease"
+    "definition": "Moderate To Severe Pulmonary Disease"
   },
   {
     "code": "Moderate-To-Severe-Pulmonary-Disease-Including-COPD",
     "display": "Qualifying Moderate To Severe Pulmonary Disease Including COPD",
-    "definition": "Home/portable monitor sleep testing - Moderate To Severe Pulmonary Disease Including COPD"
+    "definition": "Moderate To Severe Pulmonary Disease Including COPD"
   },
   {
     "code": "Moderate-To-Severe-Pulmonary-Disease-Including-Asthma",
     "display": "Qualifying Moderate To Severe Pulmonary Disease Including Asthma",
-    "definition": "Home/portable monitor sleep testing - Moderate To Severe Pulmonary Disease Including Asthma"
+    "definition": "Moderate To Severe Pulmonary Disease Including Asthma"
   },
   {
     "code": "Neuromuscular-Disease-With-Pulmonary-Disease",
     "display": "Qualifying Neuromuscular Disease With Associated Pulmonary Disease",
-    "definition": "Home/portable monitor sleep testing - Neuromuscular Disease With Associated Pulmonary Disease"
+    "definition": "Neuromuscular Disease With Associated Pulmonary Disease"
   },
   {
     "code": "Qualifying-Cardiac-Disease",
     "display": "Qualifying Cardiac Disease",
-    "definition": "Home/portable monitor sleep testing - Cardiac Disease"
+    "definition": "Cardiac Disease"
   },
   {
     "code": "Uses-Qualified-Device",
@@ -87,5 +87,60 @@
     "code": "Physician-Evaluate-Results",
     "display": "Physician Evaluated Results",
     "definition": "Home/portable monitor sleep testing - Physician Evaluated Results"
+  },
+  {
+    "code": "Qualifying-Diagnostic-Testing-With-Diagnosis-of-OSA",
+    "display": "Qualifying Diagnostic Testing With Diagnosis of OSA",
+    "definition": "Diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation for an individual with a known diagnosis of OSA"
+  },
+  {
+    "code": "Qualifying-Central-Sleep-Apnea",
+    "display": "Qualifying Central Sleep Apnea (CSA)",
+    "definition": "History of or clinical features associated with central sleep apnea (CSA)"
+  },
+  {
+    "code": "Qualifying-Feature-Associated-With-Narcolepsy",
+    "display": "Qualifying Feature Associated With Narcolepsy",
+    "definition": "History of or clinical features associated with narcolepsy when a multiple sleep latency test (MSLT) is planned"
+  },
+  {
+    "code": "Qualifying-Obesity-Hypoventilation-Syndrome",
+    "display": "Qualifying Obesity Hypoventilation Syndrome (OHS)",
+    "definition": "History of or clinical features associated with obesity hypoventilation syndrome (OHS)"
+  },
+  {
+    "code": "Qualifying-Traumatic-Brain-Injury-With-EDS",
+    "display": "Qualifying Traumatic Brain Injury (TBI) with EDS",
+    "definition": "History of traumatic brain injury (TBI) with excessive daytime sleepiness (EDS)"
+  },
+  {
+    "code": "Qualifying-Idiopathic-Central-Nervous-System-Hypersomnia",
+    "display": "Qualifying Idiopathic Central Nervous System Hypersomnia",
+    "definition": "Idiopathic central nervous system hypersomnia when a multiple sleep latency test (MSLT) is planned"
+  },
+  {
+    "code": "Qualifying-Impairment-Affecting-Safe-Use-of-Equipment-At-Home",
+    "display": "Qualifying Impairment Affecting Safe Use of Equipment At Home",
+    "definition": "Individual or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely at home"
+  },
+  {
+    "code": "Qualifying-Mission-Critical-Profession",
+    "display": "Qualifying Mission Critical Profession",
+    "definition": "Mission critical profession including, but may not be limited to: airline pilots, bus drivers, military personnel and truck drivers"
+  },
+  {
+    "code": "Parasomnia",
+    "display": "Parasomnia",
+    "definition": "Parasomnias that are unusual or atypical because of duration, frequency, or time of the behavior"
+  },
+  {
+    "code": "Paroxysmal-Arousal-or-Other-Sleep-Disruptions-Thought-to-be-Seizure-Related",
+    "display": "Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related",
+    "definition": "Paroxysmal arousals or other sleep disruptions thought to be seizure related"
+  },
+  {
+    "code": "Periodic-Limb-Movement-Disorder-(PLMD)",
+    "display": "Periodic Limb Movement Disorder (PLMD)",
+    "definition": "Periodic Limb Movement Disorder (PLMD)"
   } ]
 }

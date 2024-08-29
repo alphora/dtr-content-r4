@@ -1,0 +1,62 @@
+{
+  "resourceType": "Group",
+  "id": "ASLPPolicyFacilityBasedPSG",
+  "extension": [ {
+    "url": "http://hl7.org/fhir/StructureDefinition/artifact-testArtifact",
+    "valueCanonical": "http://ecqi.healthit.gov/ecqms/Measure/ASLPPolicyFacilityBasedPSG"
+  } ],
+  "active": true,
+  "type": "person",
+  "actual": true,
+  "member": [ {
+    "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-4",
+      "display": "Mariah Robertson"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-3",
+      "display": "Beatrice Smith"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-2",
+      "display": "Will Witherspoon"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-5",
+      "display": "Pete Robertson"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-10",
+      "display": "Elizabeth Rodriguez"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-9",
+      "display": "Luke Wilson"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-7",
+      "display": "Martin Davis"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-6",
+      "display": "Rebecca Williams"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-1",
+      "display": "Drake Smith"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-8",
+      "display": "Charlotte Davis"
+    }
+  } ]
+}

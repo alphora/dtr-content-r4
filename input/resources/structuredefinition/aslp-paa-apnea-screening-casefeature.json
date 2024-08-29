@@ -36,7 +36,7 @@
       {
         "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
         "valueExpression": {
-          "language": "text/cql-identifier",
+          "language": "text/cql",
           "expression": "Nocturnal Apnea",
           "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
         }
@@ -88,7 +88,7 @@
               {
                 "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes",
                 "code": "Nocturnal-Apnea",
-                "display": "Nocturnal Apnea"
+                "display": "Witnessed Nocturnal Apnea, Choking and/or Gasping"
               }
             ]
           }

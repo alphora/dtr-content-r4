@@ -1,0 +1,699 @@
+{
+  "resourceType": "ValueSet",
+  "id": "2.16.840.1.113762.1.4.1235.417",
+  "meta": {
+    "profile": [ "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-shareablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-executablevalueset" ]
+  },
+  "extension": [ {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "shareable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "narrative"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "publishable"
+  }, {
+    "url": "http://fhir.org/guides/cdc/opioid-cds/StructureDefinition/cdc-valueset-inclusion",
+    "valueString": "This value set's intent is to define the clinical codes that constitute the Obesity_Clinical Condition Grouping and utilization in patients/users connected health."
+  }, {
+    "url": "http://fhir.org/guides/cdc/opioid-cds/StructureDefinition/cdc-valueset-exclusion",
+    "valueString": "This value set's intent is to define the clinical codes that constitute the Obesity_Clinical Condition Grouping and utilization in patients/users connected health."
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-usageWarning",
+    "valueString": "This value set contains a point-in-time expansion enumerating the codes that meet the value set intent. As new versions of the code systems used by the value set are released, the contents of this expansion will need to be updated to incorporate newly defined codes that meet the value set intent. Before, and periodically during production use, the value set expansion contents SHOULD be updated. The value set expansion specifies the timestamp when the expansion was produced, SHOULD contain the parameters used for the expansion, and SHALL contain the codes that are obtained by evaluating the value set definition. If this is ONLY an executable value set, a distributable definition of the value set must be obtained to compute the updated expansion."
+  } ],
+  "url": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1235.417",
+  "version": "20240410",
+  "title": "Obesity_Clinical Grouping Condition",
+  "status": "active",
+  "experimental": false,
+  "publisher": "B.well Connected Health",
+  "description": "This value set's intent is to define the clinical codes that constitute the Obesity_Clinical Condition Grouping and utilization in patients/users connected health.",
+  "purpose": "This value set's intent is to define the clinical codes that constitute the Obesity_Clinical Condition Grouping and utilization in patients/users connected health.",
+  "expansion": {
+    "timestamp": "2024-08-08T12:34:22-04:00",
+    "contains": [ {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2025",
+      "code": "E66",
+      "display": "Overweight and obesity"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2025",
+      "code": "E66.0",
+      "display": "Obesity due to excess calories"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2025",
+      "code": "E66.01",
+      "display": "Morbid (severe) obesity due to excess calories"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2025",
+      "code": "E66.09",
+      "display": "Other obesity due to excess calories"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2025",
+      "code": "E66.2",
+      "display": "Morbid (severe) obesity with alveolar hypoventilation"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2025",
+      "code": "E66.8",
+      "display": "Other obesity"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2025",
+      "code": "E66.9",
+      "display": "Obesity, unspecified"
+    }, {
+      "system": "http://hl7.org/fhir/sid/icd-10-cm",
+      "version": "2025",
+      "code": "Z68.3",
+      "display": "Body mass index [BMI] 30-39, adult"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/icd9cm",
+      "version": "2013",
+      "code": "278.0",
+      "display": "Overweight and obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/icd9cm",
+      "version": "2013",
+      "code": "278.00",
+      "display": "Obesity, unspecified"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/icd9cm",
+      "version": "2013",
+      "code": "278.01",
+      "display": "Morbid obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/icd9cm",
+      "version": "2013",
+      "code": "278.03",
+      "display": "Obesity hypoventilation syndrome"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0028754",
+      "display": "Obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0028756",
+      "display": "Morbid obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0031880",
+      "display": "Obesity Hypoventilation Syndrome"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0149974",
+      "display": "Obesity, primary"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0267989",
+      "display": "Lifelong obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0267990",
+      "display": "Adult-onset obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0267992",
+      "display": "Obesity of endocrine origin"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0271523",
+      "display": "Hypogonadal obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0271638",
+      "display": "Type 2 diabetes mellitus in obese"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0271651",
+      "display": "Impaired glucose tolerance in obese"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0271792",
+      "display": "Hypothyroid obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0271885",
+      "display": "Hypothalamic obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0311277",
+      "display": "Obesity, Abdominal"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0342940",
+      "display": "Android obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0342941",
+      "display": "Gynecoid obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0342942",
+      "display": "Generalized obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0348480",
+      "display": "Other obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0424612",
+      "display": "Obese build"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0424671",
+      "display": "Body mass index 30+ - obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0426650",
+      "display": "Obese abdomen"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0451819",
+      "display": "Simple obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0545039",
+      "display": "Hyperinsulinar obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0545040",
+      "display": "Obesity, hyperplasmic"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0545041",
+      "display": "Obesity, hypoplasmic"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0596693",
+      "display": "hereditary hyperglycemic obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0694533",
+      "display": "Moderate obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0849920",
+      "display": "excessive weight (bmi>30)"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0849922",
+      "display": "fat (BMI>30)"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0856870",
+      "display": "Type II obese diabetic"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C0857116",
+      "display": "Gross obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C1167841",
+      "display": "Obesity surgery"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C1260894",
+      "display": "Hypertrophic obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C1281429",
+      "display": "Exogenous obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C1281440",
+      "display": "Familial obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C1319441",
+      "display": "Body mass index 40+ - severely obese"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C1398735",
+      "display": "obesity; glandular"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C1400190",
+      "display": "pituitary; obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C1532480",
+      "display": "Hyperplastic obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C1532611",
+      "display": "Obesity by contributing factors"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C1556380",
+      "display": "Class II obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C1556381",
+      "display": "Class III obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C1561826",
+      "display": "Overweight and obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C1841613",
+      "display": "Obesity, mild"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C1963185",
+      "display": "Obesity, CTCAE"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C2026325",
+      "display": "centrifugal obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C2062945",
+      "display": "secondary obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C2874225",
+      "display": "Morbid (Severe) Obesity due to Excess Calories"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C2874226",
+      "display": "Other Obesity due to Excess Calories"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C2874227",
+      "display": "Morbid (Severe) Obesity with Alveolar Hypoventilation"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C2911050",
+      "display": "Body mass index [BMI] 30-39, adult"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C2930930",
+      "display": "Abdominal obesity metabolic syndrome"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C2936179",
+      "display": "Obesity, Visceral"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C2937223",
+      "display": "Hyperplastic-hypertrophic obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C2937224",
+      "display": "Constitutional obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C2945676",
+      "display": "obesity in diabetes"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C3810324",
+      "display": "MORBID OBESITY AND SPERMATOGENIC FAILURE"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C3853263",
+      "display": "Obese class II"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C3853264",
+      "display": "Obese class I"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C4016383",
+      "display": "OBESITY, ASSOCIATION WITH"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C4016768",
+      "display": "OBESITY, SEVERE, AND TYPE II DIABETES"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C4042861",
+      "display": "Obesity, Metabolically Benign"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C4054170",
+      "display": "Polygenic Obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C4054476",
+      "display": "Monogenic Obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C4054748",
+      "display": "Iatrogenic Obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C4063061",
+      "display": "Sarcopenic obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C4237343",
+      "display": "Overweight or obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C4268182",
+      "display": "Obesity hypoventilation syndrome (OHS)"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C4476813",
+      "display": "Class I obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C4505068",
+      "display": "Obesity Management"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C4551560",
+      "display": "Truncal obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C4552322",
+      "display": "Obesity cardiomyopathy"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C4698949",
+      "display": "Med: Obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C4706528",
+      "display": "Obesity care"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C4759305",
+      "display": "Lower body obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C5193166",
+      "display": "OBESITY (BMIQ20)"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C5204774",
+      "display": "Body Mass Index Greater than or Equal to 30"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C5568673",
+      "display": "Myelopathy due to obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C5568719",
+      "display": "Neuropathy due to obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C5680938",
+      "display": "Syndromic obesity"
+    }, {
+      "system": "http://terminology.hl7.org/CodeSystem/umls",
+      "version": "2024AA",
+      "code": "C5681294",
+      "display": "Genetic obesity"
+    }, {
+      "system": "http://loinc.org",
+      "version": "2.77",
+      "code": "LA20940-5",
+      "display": "Obese"
+    }, {
+      "system": "http://loinc.org",
+      "version": "2.77",
+      "code": "LA25683-6",
+      "display": "Med: Obesity"
+    }, {
+      "system": "http://loinc.org",
+      "version": "2.77",
+      "code": "LA6301-1",
+      "display": "Obesity"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "111036000",
+      "display": "Hyperinsulinar obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "1186802008",
+      "display": "Disorder of nerve due to obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "1186873004",
+      "display": "Disorder of spinal cord due to obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "162864005",
+      "display": "Body mass index 30+ - obesity (finding)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "190966007",
+      "display": "Extreme obesity with alveolar hypoventilation (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "22910008",
+      "display": "Impaired glucose tolerance in obese (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "238132000",
+      "display": "Android obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "238133005",
+      "display": "Gynecoid obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "238134004",
+      "display": "Generalized obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "238136002",
+      "display": "Morbid obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "248311001",
+      "display": "Central obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "249533007",
+      "display": "Obese abdomen (finding)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "271590003",
+      "display": "Obese build (finding)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "292464007",
+      "display": "Constitutional obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "293481008",
+      "display": "Hyperplastic-hypertrophic obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "294493008",
+      "display": "Lifelong obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "295509007",
+      "display": "Hypertrophic obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "296526005",
+      "display": "Adult-onset obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "297500005",
+      "display": "Endogenous obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "298464002",
+      "display": "Obesity of endocrine origin (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "408512008",
+      "display": "Body mass index 40+ - severely obese (finding)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "414438005",
+      "display": "Hyperplastic obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "414915002",
+      "display": "Obese (finding)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "414916001",
+      "display": "Obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "414919008",
+      "display": "Obesity by contributing factors (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "415530009",
+      "display": "Simple obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "443371000124107",
+      "display": "Obese class I (finding)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "443381000124105",
+      "display": "Obese class II (finding)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "45346005",
+      "display": "Alteration in nutrition: more than body requirements (finding)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "5036006",
+      "display": "Hypogonadal obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "53146006",
+      "display": "Hypothyroid obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "763643007",
+      "display": "Obesity care (regime/therapy)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "81531005",
+      "display": "Diabetes mellitus type 2 in obese (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "819948005",
+      "display": "Obese class III (finding)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "82793005",
+      "display": "Hypothalamic obesity (disorder)"
+    }, {
+      "system": "http://snomed.info/sct",
+      "version": "2024-03",
+      "code": "83911000119104",
+      "display": "Severe obesity (disorder)"
+    } ]
+  }
+}

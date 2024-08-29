@@ -34,7 +34,7 @@
   "publisher": "Clinical Architecture",
   "description": "This set of values contains terms related to muscular dystrophy and is listed as a neurologic disorder on the CDC SARS-CoV-2 hospitalization surveillance case report form.",
   "expansion": {
-    "timestamp": "2024-03-15T13:41:51-04:00",
+    "timestamp": "2024-08-08T09:59:41-04:00",
     "contains": [ {
       "system": "http://snomed.info/sct",
       "version": "2023-09",

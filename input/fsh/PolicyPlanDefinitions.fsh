@@ -100,14 +100,14 @@ RuleSet: CommonPropertiesRationale(rationale, expression)
     * url = "http://hl7.org/fhir/StructureDefinition/cqf-expression"
     * valueExpression
       * description = {rationale}
-      * language = #text/cql-identifier
+      * language = #text/cql
       * expression = {expression}
 
 RuleSet: ActionInputCql(expression, name)
 * extension[+]
   * url = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression"
   * valueExpression
-    * language = #text/cql-identifier
+    * language = #text/cql
     * expression = {expression}
     * reference = "http://example.org/sdh/dtr/aslp/Library/{name}"
 
@@ -123,7 +123,7 @@ RuleSet: ActionConditionCql(expression)
 * condition
   * kind = #applicability
   * expression
-    * language = #text/cql-identifier
+    * language = #text/cql
     * expression = {expression}
 
 
@@ -145,7 +145,7 @@ Usage: #example
   * dynamicValue[+]
     * path = "description" 
     * expression
-      * language = #text/cql-identifier
+      * language = #text/cql
       * expression = "Approved Detail"
 
 
@@ -166,7 +166,7 @@ Usage: #example
   * dynamicValue[+]
     * path = "description" 
     * expression
-      * language = #text/cql-identifier
+      * language = #text/cql
       * expression = "Not Approved Detail"
 
 Instance: aslp-pa-adj-temp-not-approved
@@ -186,7 +186,7 @@ Usage: #example
   * dynamicValue[+]
     * path = "description" 
     * expression
-      * language = #text/cql-identifier
+      * language = #text/cql
       * expression = "Temporarily Not Approved"
         
 
@@ -293,7 +293,7 @@ Usage: #example
               * insert ActionInput("Patient has neuromuscular disease with associated pulmonary disease?", "Patient has neuromuscular disease with associated pulmonary disease")
               * insert ActionInputCql("Qualifying Neuromuscular Disease With Associated Pulmonary Disease", ASLPPolicyPAA)
               * type = #Observation
-              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscular-screening-casefeature"
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature"
             * input[+]
               * insert ActionInput("Patient has Cardiac Disease?", "Patient has Cardiac Disease")
               * insert ActionInputCql("Qualifying Cardiac Disease", ASLPPolicyPAA)
@@ -303,7 +303,7 @@ Usage: #example
               * insert ActionInput("Patient has moderate to severe pulmonary disease?", "Patient has moderate to severe pulmonary disease")
               * insert ActionInputCql("Qualifying Moderate To Severe Pulmonary Disease", ASLPPolicyPAA)
               * type = #Observation
-              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatepulmonary-screening-casefeature"
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature"
             
             * action[+]
               * title = "Has Applicable Comorbid Medical Conditions"
@@ -390,6 +390,188 @@ Usage: #example
                           * description = "The patient is able to have physician evaluate results of home sleep tests"
                           * insert ActionConditionCql("Ability To Have Physician Evaluate Results")
                           * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-approved"
-                 
- 
+
+
+//Facility-Based Polysomnogram (PSG) to confirm the suspected diagnosis of moderate to severe obstructive sleep apnea (OSA)
+Instance: Facility-Based-Polysomnogram
+InstanceOf: PlanDefinition
+Usage: #example
+* insert CommonProperties("Facility-Based-Polysomnogram")
+
+* library = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+
+* url = "http://example.org/sdh/dtr/aslp/PlanDefinition/Facility-Based-Polysomnogram"
+
+* action
+  * title = "Qualifying Patient Age"
+  * description = "Input for whether the patient is within qualifying age."
+  * input
+    * insert ActionInput("Is patient 18 years or older?", "The patient is 18 years or older")
+    * insert ActionInputCql("Qualifying Patient Age", ASLPPolicyPAA)
+    * type = #Observation
+    * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-patientage-casefeature-definition"
+  * action[0]
+    * title = "Is Not Qualifying Patient Age"
+    * description = "The patient is not within the qualifying age."
+    * insert ActionConditionCql("Not Within Qualifying Age")
+    * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+  * action[+]
+    * title = "Age Unknown"
+    * description = "The patient age is unknown. More Information is needed"
+    * insert ActionConditionCql("Age Unknown") 
+    * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+  * action[+]
+    * title = "Is Qualifying Patient Age"
+    * description = "The patient is within the qualifying age"
+    * insert ActionConditionCql("Is Qualifying Age")    
+
+  * action[+]
+    * title = "Has Excessive daytime sleepiness (EDS)"
+    * description = "Patient has excessive daytime sleepiness"
+    * input
+      * insert ActionInput("Patient has excessive daytime sleepiness?", "Patient has excessive daytime sleepiness")
+      * insert ActionInputCql("Qualified Excessive Daytime Sleepiness", ASLPPolicyPAA)
+      * type = #Observation
+      * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-eds-screening-casefeature"
+    * action[0]
+      * title = "Does Not Have excessive daytime sleepiness"
+      * description = "The patient does not have excessive daytime sleepiness"
+      * insert ActionConditionCql("No Excessive Daytime Sleepiness")
+      * definitionCanonical = Canonical(aslp-pa-adj-not-approved)
+    * action[+]
+      * title = "Null or Unknown excessive daytime sleepiness"
+      * description = "Unknown answer. More Information is needed"
+      * insert ActionConditionCql("Null Excessive Daytime Sleepiness")
+      * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+    * action[+]
+      * title = "Has excessive daytime sleepiness"
+      * description = "The patient has excessive daytime sleepiness"
+      * insert ActionConditionCql("Has Excessive Daytime Sleepiness")
+
+      * action[+]
+        * title = "Additional Daytime Sleepiness Indicator"
+        * description = "One or more of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping"
+        * input[+]
+          * insert ActionInput("Does patient have ESS score >= 10?", "ESS score >= 10")
+          * insert ActionInputCql("ESS Score >= 10", ASLPPolicyPAA)
+          * type = #Observation
+          * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ess-screening-casefeature"
+        * input[+]
+          * insert ActionInput("Does patient have excessive sleepiness while driving", "Patient has Excessive sleepiness while driving")
+          * insert ActionInputCql("Qualifying Excessive Sleepiness While Driving", ASLPPolicyPAA)
+          * type = #Observation
+          * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepydriving-screening-casefeature"
+        * input[+]
+          * insert ActionInput("Does patient snore loudly", "Patient snores loudly")
+          * insert ActionInputCql("Loud/Intense Snoring", ASLPPolicyPAA)
+          * type = #Observation
+          * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-loudsnoring-screening-casefeature"
+        * input[+]
+          * insert ActionInput("Does patient have nocturnal apnea", "Patient has nocturnal apnea")
+          * insert ActionInputCql("Nocturnal Apnea", ASLPPolicyPAA)
+          * type = #Observation
+          * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-apnea-screening-casefeature"
+    
+        * action[0]
+          * title = "Has none of the additional daytime sleepiness indicators"
+          * description = "Patient has none of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping"
+          * insert ActionConditionCql("Has No Additional Daytime Sleepiness Indicators")
+          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved" 
+        * action[+]
+          * title = "Null or Unknown answer"
+          * description = "Unknown answer. More Information is needed"
+          * insert ActionConditionCql("Null Additional Daytime Sleepiness Indicators")
+          * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+        * action[+]
+          * title = "Has Additional Daytime Sleepiness Indicators"
+          * description = "Patient has the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping"
+          * insert ActionConditionCql("Has Additional Daytime Sleepiness Indicators")
   
+          * action[+]
+            * title = "Presence of medical condition"
+            * description = "Presence of medical condition(s)"
+            * input[+]
+              * insert ActionInput("Patient has diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS\) implantation with a known diagnosis of obstructive sleep apnea (OSA\)?", "Patient has diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS\) implantation with a known diagnosis of obstructive sleep apnea (OSA\)")
+              * insert ActionInputCql("Qualifying Diagnostic Testing With Diagnosis of OSA", ASLPPolicyPAA)
+              * type = #Observation
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-diagnostictesting-screening-casefeature"
+            * input[+]
+              * insert ActionInput("Patient has/had central sleep apnea (CSA\)?", "Patient has/had central sleep apnea (CSA\)")
+              * insert ActionInputCql("Qualifying Central Sleep Apnea (CSA\)", ASLPPolicyPAA)
+              * type = #Observation
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-csa-screening-casefeature"
+            * input[+]
+              * insert ActionInput("Patient has/had features associated with narcolepsy when a multiple sleep latency test (MSLT\) is/was planned?", "Patient has/had features associated with narcolepsy when a multiple sleep latency test (MSLT\) is/was planned")
+              * insert ActionInputCql("Qualifying Feature Associated With Narcolepsy", ASLPPolicyPAA)
+              * type = #Observation
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-featuresassociatedwithnarcolepsy-screening-casefeature"
+            * input[+]
+              * insert ActionInput("Patient has/had obesity hypoventilation syndrome (OHS\) which cannot be attributed to hypothyroidism\, neuromuscular weakness\, pleural pathology\, pulmonary disease\, or skeletal restriction?", "Patient has/had obesity hypoventilation syndrome (OHS\) which cannot be attributed to hypothyroidism\, neuromuscular weakness\, pleural pathology\, pulmonary disease\, or skeletal restriction")
+              * insert ActionInputCql("Qualifying Obesity Hypoventilation Syndrome (OHS\)", ASLPPolicyPAA)
+              * type = #Observation
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ohs-screening-casefeature"
+            * input[+]
+              * insert ActionInput("Patient has history of traumatic brain injury (TBI\) with EDS?", "Patient has history of traumatic brain injury (TBI\) with EDS")
+              * insert ActionInputCql("Qualifying Traumatic Brain Injury (TBI\) with EDS", ASLPPolicyPAA)
+              * type = #Observation
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-tbiwitheds-screening-casefeature"
+            * input[+]
+              * insert ActionInput("Patient has idiopathic central nervous system hyperinsomnia when a multiple sleep latency test (MSLT\) is planned?", "Patient has idiopathic central nervous system hyperinsomnia when a multiple sleep latency test (MSLT\) is planned")
+              * insert ActionInputCql("Qualifying Idiopathic Central Nervous System Hypersomnia", ASLPPolicyPAA)
+              * type = #Observation
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-idiopathiccnshypersomnia-screening-casefeature"
+            * input
+              * insert ActionInput("Patient lacks cognitive function\, dexterity\, or mobility for safe use of portable monitor (PM\) equipment at home?", "Patient lacks cognitive function\, dexterity\, or mobility for safe use of portable monitor (PM\) equipment at home")
+              * insert ActionInputCql("Qualifying Impairment Affecting Safe Use of Equipment At Home", ASLPPolicyPAA)
+              * type = #Observation
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-unsafeequipmentuseathome-screening-casefeature"
+            * input[+]
+              * insert ActionInput("Patient has a mission critical profession?", "Patient has a mission critical profession")
+              * insert ActionInputCql("Qualifying Mission Critical Profession", ASLPPolicyPAA)
+              * type = #Observation
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-missioncriticalprofession-screening-casefeature"
+            * input[+]
+              * insert ActionInput("Patient has moderate to severe pulmonary disease?", "Patient has moderate to severe pulmonary disease")
+              * insert ActionInputCql("Qualifying Moderate To Severe Pulmonary Disease", ASLPPolicyPAA)
+              * type = #Observation
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature"
+            * input[+]
+              * insert ActionInput("Patient has neuromuscular disease with associated pulmonary disease?", "Patient has neuromuscular disease with associated pulmonary disease")
+              * insert ActionInputCql("Qualifying Neuromuscular Disease With Associated Pulmonary Disease", ASLPPolicyPAA)
+              * type = #Observation
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature"
+            * input[+]
+              * insert ActionInput("Patient has unusual or atypical parasomnias", "Patient has unusual or atypical parasomnia")
+              * insert ActionInputCql("Qualifying Parasomnia", ASLPPolicyPAA)
+              * type = #Observation
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-parasomnia-screening-casefeature"
+            * input[+]
+              * insert ActionInput("Patient has paroxysmal arousals or other sleep disruptions thought to be seizure related?", "Patient has paroxysmal arousals or other sleep disruptions thought to be seizure related")
+              * insert ActionInputCql("Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related", ASLPPolicyPAA)
+              * type = #Observation
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-paroxysmalarousals-screening-casefeature"
+            * input[+]
+              * insert ActionInput("Patient has Periodic Limb Movement Disorder (PLMD\)?", "Patient has Periodic Limb Movement Disorder (PLMD\)")
+              * insert ActionInputCql("Qualifying Periodic Limb Movement Disorder", ASLPPolicyPAA)
+              * type = #Observation
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-plmd-screening-casefeature"
+            * input[+]
+              * insert ActionInput("Patient has Cardiac Disease?", "Patient has Cardiac Disease")
+              * insert ActionInputCql("Qualifying Cardiac Disease", ASLPPolicyPAA)
+              * type = #Observation
+              * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature"
+
+            * action[0]
+              * title = "Has no qualifying medical condition"
+              * description = "Has none of the following eligible conditions: diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with a known diagnosis of OSA, central sleep apnea (CSA), narcolespy when a multiple sleep latency test (MSLT) is planned, obesity hypoventilation syndrome (OHS), traumatic brain injury (TBI) with EDS, idiopathic central nervous system hyperinsomnia when a MSLT is planned, individual or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely, has a mission critical profession, moderate to severe pulmonary disease, neuromuscular disease associated with pulmonary disease, unusual or atypical parasomnias, paroxysmal arousals or other sleep disruptions thought to be seizure related, periodic limb movement disorder, and/or cardiac disease" 
+              * insert ActionConditionCql("No Qualifying Medical Condition For Facility-Based PSG")
+              * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved" 
+            * action[+]
+              * title = "Has Qualifying Medical Condition(s) For Facility-Based PSG"
+              * description = "Patient has at least one of the following eligible conditions: diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with a known diagnosis of OSA, central sleep apnea (CSA), narcolespy when a multiple sleep latency test (MSLT) is planned, obesity hypoventilation syndrome (OHS), traumatic brain injury (TBI) with EDS, idiopathic central nervous system hyperinsomnia when a MSLT is planned, individual or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely, has a mission critical profession, moderate to severe pulmonary disease, neuromuscular disease associated with pulmonary disease, unusual or atypical parasomnias, paroxysmal arousals or other sleep disruptions thought to be seizure related, periodic limb movement disorder, and/or cardiac disease" 
+              * insert ActionConditionCql("Has Qualifying Medical Condition For Facility-Based PSG")
+            * action[+]
+              * title = "Null or Unknown answer"
+              * description = "Unknown answer. More Information is needed"
+              * insert ActionConditionCql("Null Qualifying Medical Condition For Facility-Based PSG")
+              * definitionCanonical = "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"

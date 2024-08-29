@@ -1,0 +1,18 @@
+{
+    "resourceType": "Observation",
+    "id": "Observation-occupation-FacilityBasedPSG-test-case-9",
+    "code": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "159248008",
+          "display": "Airplane pilot (occupation)"
+        }
+      ]
+    },
+    "effectiveDateTime": "2023-10-22T16:00:00-07:00",
+    "status": "unknown",
+    "subject": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-9"
+    }
+  }

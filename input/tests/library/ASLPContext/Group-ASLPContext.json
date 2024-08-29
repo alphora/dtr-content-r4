@@ -1,0 +1,302 @@
+{
+  "resourceType": "Group",
+  "id": "ASLPContext",
+  "extension": [ {
+    "url": "http://hl7.org/fhir/StructureDefinition/artifact-testArtifact",
+    "valueCanonical": "http://ecqi.healthit.gov/ecqms/Measure/ASLPContext"
+  } ],
+  "active": true,
+  "type": "person",
+  "actual": true,
+  "member": [ {
+    "entity": {
+      "reference": "Patient/crd-4-gold-card-payor",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-npi-rc-gs-mismatch-payor",
+      "display": "Emily Gilmore"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-pa-match-provider",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-7-routine-code",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/pa-match-payor",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-2-last-name-mismatch",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-7-routine-code-payor",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-pa-mismatch-provider",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-5-prior-auth-required-payor",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-3-2b-org-not-linked-payor",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-3-1-req-npi-missing",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-rc-match-provider",
+      "display": "Eric Cartman"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/pa-match-provider",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-rc-mismatch-provider",
+      "display": "Eric Cartman"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-rc-mismatch-payor",
+      "display": "Eric Cartman"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/rc-mismatch-provider",
+      "display": "Eric Cartman"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-rc-match-payor",
+      "display": "Eric Cartman"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-pa-mismatch-payor",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-pa-mismatch-payor",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-3-1-req-npi-missing-payor",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-3-2b-org-not-linked",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/pa-match-payor",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-pa-match-payor",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-pa-match-payor",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/npi-mismatch-payor",
+      "display": "Emily Gilmore"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-6-prior-auth-code-not-found-payor",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-8-multiple-coverage-payor",
+      "display": "Peter Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-npi-rc-gs-match-prov-gold-card",
+      "display": "Emily Gilmore"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-2-dob-mismatch-payor",
+      "display": "Peter Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/pa-match-payor",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-3-2-org-name-mismatch",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-5-prior-auth-required",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-3-1c-practitioner-missing",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-3-1c-practitioner-missing-payor",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-pa-match-provider",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-4-gold-card",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-npi-rc-gs-match-prov-gold-card",
+      "display": "Emily Gilmore"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-npi-rc-gs-match-payor-gold-card",
+      "display": "Emily Gilmore"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/pa-match-provider",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/pa-match-payor",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-pa-mismatch-payor",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-npi-rc-gs-match-payor-gold-card",
+      "display": "Emily Gilmore"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/pa-match-provider",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-npi-rc-gs-mismatch-prov",
+      "display": "Emily Gilmore"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/pa-match-provider",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-pa-mismatch-provider",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-pa-mismatch-provider",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-3-1b-practitioner-missing",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/npi-mismatch-prov",
+      "display": "Emily Gilmore"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-3-1b-practitioner-missing-payor",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-6-prior-auth-code-not-found",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-8-multiple-coverage",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-2-dob-mismatch",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-pa-mismatch-provider",
+      "display": "Jessica Kardashian"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/rc-mismatch-payor",
+      "display": "Eric Cartman"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-2-last-name-mismatch-payor",
+      "display": "Peter Other"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-3-2-org-name-mismatch-payor",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-pa-mismatch-payor",
+      "display": "Jessica Kardashian"
+    }
+  } ]
+}
