@@ -7,4 +7,4 @@ Description: "ValueSet for OHS in adults"
 * ^experimental = false
 
 * $ICD11#7A42.0 "Obesity hypoventilation syndrome"
-* codes from system $SCT where parent = #15993004
+* $SCT#190966007 "Extreme obesity with alveolar hypoventilation (disorder)"

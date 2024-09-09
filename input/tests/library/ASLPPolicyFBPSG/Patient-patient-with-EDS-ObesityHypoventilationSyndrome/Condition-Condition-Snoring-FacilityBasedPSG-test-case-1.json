@@ -28,9 +28,9 @@
     {
       "coding": [
         {
-          "code": "encounter-diagnosis",
+          "code": "problem-list-item",
           "system": "http://terminology.hl7.org/CodeSystem/condition-category",
-          "display": "Encounter Diagnosis"
+          "display": "Problem List Item"
         }
       ]
     }
@@ -39,16 +39,13 @@
     "coding": [
       {
         "code": "R06.83",
-        "system": "http://hl7.org/fhir/sid/icd-10",
+        "system": "http://hl7.org/fhir/sid/icd-10-cm",
         "display": "Snoring"
       }
     ]
   },
   "subject": {
     "reference": "Patient/patient-with-EDS-ObesityHypoventilationSyndrome"
-  },
-  "encounter": {
-    "reference": "Encounter/Encounter-FacilityBasedPSG-test-case-1"
   },
   "onsetDateTime": "2023-02-01T11:30:00-07:00"
 }

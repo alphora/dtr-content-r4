@@ -30,9 +30,9 @@
         "system": "http://snomed.info/sct",
         "filter": [
           {
-            "property": "parent",
-            "op": "=",
-            "value": "159248008"
+            "property": "concept",
+            "op": "is-a",
+            "value": "308040008"
           }
         ]
       },
@@ -40,9 +40,9 @@
         "system": "http://snomed.info/sct",
         "filter": [
           {
-            "property": "parent",
-            "op": "=",
-            "value": "266064005"
+            "property": "concept",
+            "op": "is-a",
+            "value": "236320001"
           }
         ]
       },
@@ -50,18 +50,8 @@
         "system": "http://snomed.info/sct",
         "filter": [
           {
-            "property": "parent",
-            "op": "=",
-            "value": "106538001"
-          }
-        ]
-      },
-      {
-        "system": "http://snomed.info/sct",
-        "filter": [
-          {
-            "property": "parent",
-            "op": "=",
+            "property": "concept",
+            "op": "is-a",
             "value": "265981008"
           }
         ]
@@ -70,8 +60,8 @@
         "system": "http://snomed.info/sct",
         "filter": [
           {
-            "property": "parent",
-            "op": "=",
+            "property": "concept",
+            "op": "is-a",
             "value": "223366009"
           }
         ]

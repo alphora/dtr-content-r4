@@ -9,8 +9,7 @@ Description: "ValueSet for Mission Critical Profession"
 * $ICD11#XE3TU "Occupation - legislators, senior officials, managers"
 * $ICD11#XE59Y "Occupation - professionals"
 * $ICD11#XE5G8 "Occupation - armed forces"
-* codes from system $SCT where parent = #159248008
-* codes from system $SCT where parent = #266064005
-* codes from system $SCT where parent = #106538001
-* codes from system $SCT where parent = #265981008
-* codes from system $SCT where parent = #223366009
+* include codes from system $SCT where concept is-a #308040008
+* include codes from system $SCT where concept is-a #236320001
+* include codes from system $SCT where concept is-a #265981008
+* include codes from system $SCT where concept is-a #223366009

@@ -1,4 +1,4 @@
-Instance: patient-with-EDS-ObesityHypoventilationSyndrome
+Instance: Patient-with-EDS-ObesityHypoventilationSyndrome
 InstanceOf: Patient
 Description: "Patient Example - With EDS and Obesity Hypoventilation Syndrome"
 

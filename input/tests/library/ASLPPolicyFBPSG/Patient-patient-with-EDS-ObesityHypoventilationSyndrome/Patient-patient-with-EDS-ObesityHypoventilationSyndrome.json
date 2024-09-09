@@ -1,6 +1,6 @@
 {
   "resourceType": "Patient",
-  "id": "Patient-patient-with-EDS-ObesityHypoventilationSyndrome",
+  "id": "patient-with-EDS-ObesityHypoventilationSyndrome",
   "meta": {
     "profile": [
       "http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-encounter"

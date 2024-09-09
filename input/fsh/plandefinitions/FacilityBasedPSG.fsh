@@ -96,12 +96,12 @@ Usage: #example
             * description = "Individual presents with ANY of the following"
             * input[+]
               * insert ActionInput("Patient has undergone diagnostic testing prior to planned hypoglossal nerve stimulator implantation with a known diagnosis of OSA?", "Patient has undergone diagnostic testing prior to planned hypoglossal nerve stimulator implantation with a known diagnosis of OSA")
-              * insert ActionInputCql("Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA", ASLPPolicyFBPSG)
+              * insert ActionInputCql("Qualifying Diagnostic Testing Prior to Planned HGNS Implantation", ASLPPolicyFBPSG)
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/fbpsg-paa-HGNS-screening"
             * input[+]
               * insert ActionInput("Patient has Central Sleep Apnea(CSA\)?", "Patient has Central Sleep Apnea(CSA\)")
-              * insert ActionInputCql("Has Central Sleep Apnea", ASLPPolicyFBPSG)
+              * insert ActionInputCql("Qualifying Central Sleep Apnea", ASLPPolicyFBPSG)
               * type = #Observation
               * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/fbpsg-paa-CSA-screening"
             * input[+]

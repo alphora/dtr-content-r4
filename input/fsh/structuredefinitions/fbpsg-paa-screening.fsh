@@ -3,7 +3,7 @@ Parent: Observation
 Id: fbpsg-paa-HGNS-screening
 Title: "Diagnostic test prior to HGNS"
 Description: "Diagnostic testing prior to planned hypoglossal nerve stimulator implantation (HGNS)"
-* insert CommonextensionsStrucutureDefinition
+* insert CommonextensionsStrucutureDefinition("Qualifying Diagnostic Testing Prior to Planned HGNS Implantation")
 * code = fbpsg-paa-screening-codes#diagnostic-test-prior-to-HGNS "Diagnostic test prior to HGNS"
   * ^short = "Diagnostic test prior to HGNS"
   * ^definition = "Diagnostic test prior to HGNS"
@@ -17,10 +17,10 @@ Parent: Observation
 Id: fbpsg-paa-CSA-screening
 Title: "Clinical features associated with CSA"
 Description: "Clinical features associated with Central Sleep Apnea (CSA)"
-* insert CommonextensionsStrucutureDefinition
-* code = $ICD10#G47.31 "Primary central sleep apnea"
-  * ^short = "Primary central sleep apnea"
-  * ^definition = "A condition associated with multiple episodes of sleep apnea which are distinguished from obstructive sleep apnea (sleep apnea, obstructive) by the complete cessation of efforts to breathe. This disorder is associated with dysfunction of central nervous system centers that regulate respiration."
+* insert CommonextensionsStrucutureDefinition("Qualifying Central Sleep Apnea")
+* code = fbpsg-paa-screening-codes#history-of-or-clinical-features–associated–with-CSA "History of or clinical features associated with central sleep apnea (CSA)"
+  * ^short = "History of or clinical features associated with central sleep apnea (CSA)"
+  * ^definition = "History of or clinical features associated with central sleep apnea (CSA)"
 * value[x] 1..1 MS
 * value[x] only boolean
   * ^short = "Patient has Central Sleep Apnea(CSA)?"

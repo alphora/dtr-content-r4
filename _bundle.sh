@@ -63,7 +63,7 @@ if test -f "$tooling"; then
 	# All profiles bundle
 	#java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/profiles -bid=dtr-case-features
 	# All test-data bundle
-	#java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/tests/library/ASLPContext -bid=dtr-patient-data
+	java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/tests/library/ASLPPolicyFBPSG -bid=dtr-patient-data
 	# All vocabulary bundle
     java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/vocabulary -bid=dtr-vocabulary
 else

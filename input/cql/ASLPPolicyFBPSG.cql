@@ -54,27 +54,55 @@ define "Has No Additional Daytime Sleepiness Indicators":
 define "Null Additional Daytime Sleepiness Indicators":
   IsNull("Has Additional Daytime Sleepiness Indicators Value")
 
-//Diagnostic testing
+//Diagnostic testing Prior to Planned HGNS Implantation
+define "Most Recent Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Diagnostic testing prior to planned HGNS implantation for an individual with a known diagnosis of OSA Assertion".coding)])
 
+define "Qualifying Diagnostic Testing Prior to Planned HGNS Implantation":
+  if not "Most Recent Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA" is null
+    then "Most Recent Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA"
+  else
+    PCF.CaseFeatureObservation(
+      AC."Diagnostic testing prior to planned HGNS implantation for an individual with a known diagnosis of OSA Assertion",
+      PS."Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/fbpsg-paa-HGNS-screening',
+      {PCF.MostRecent(PS."Planned Hypoglossal Nerve Stimulator (HGNS) Implantation"), PCF.MostRecent(PS."DISE performed")},
+      ''
+    )
+
+define "Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA Value":
+  "Qualifying Diagnostic Testing Prior to Planned HGNS Implantation".value.value as System.Boolean
 
 define "Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
-  exists ( PS."Has BMI less than 35 kg/m2" ) //https://resources.massgeneralbrighamhealthplan.org/medicalpolicy/SleepStudies.pdf
-    
-    and exists ( PS."DISE performed prior to HGNS implantation" )
-    and exists ( PS."Qualifying Diagnosis of Obstructive Sleep Apnea (OSA)" )
-    and exists ( PS."Planned Hypoglossal Nerve Stimulator (HGNS) Implantation" )
+  IsTrue("Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA Value")
 
 define "Null Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
-  IsNull("Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA")
+  IsNull("Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA Value")
 
 //Central Sleep Apnea (CSA)
+define "Most Recent Central Sleep Apnea":
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."History of or clinical features associated with Central Sleep Apnea Assertion".coding)])
 
+define "Qualifying Central Sleep Apnea":
+  if not "Most Recent Central Sleep Apnea" is null
+    then "Most Recent Central Sleep Apnea"
+  else
+    PCF.CaseFeatureObservation(
+      AC."History of or clinical features associated with Central Sleep Apnea Assertion",
+      PS."Has Central Sleep Apnea",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/fbpsg-paa-CSA-screening',
+      PCF.MostRecent(PS."Qualifying Central Sleep Apnea"),
+      ''
+    )
+
+define "Has Central Sleep Apnea Value":
+  "Qualifying Central Sleep Apnea".value.value as System.Boolean
 
 define "Has Central Sleep Apnea":
-  exists ( PS."Qualifying Central Sleep Apnea" )
+  IsTrue("Has Central Sleep Apnea Value")
 
 define "Null Central Sleep Apnea (CSA)":
-  IsNull("Has Central Sleep Apnea")
+  IsNull("Has Central Sleep Apnea Value")
 
 //Features associated with narcolepsy when MSLT is planned
 
@@ -202,10 +230,10 @@ define "Has Applicable Medical Condition For Facility-Based PSG Value":
 define "Has Applicable Medical Condition For Facility-Based PSG":
   IsTrue("Has Applicable Medical Condition For Facility-Based PSG Value")
 
-define "No Applicable Medical Condition For Facility-Based PSG":
+define "Has No Applicable Medical Conditions For Facility-Based PSG":
   IsFalse("Has Applicable Medical Condition For Facility-Based PSG Value")
 
-define "Null Applicable Medical Condition For Facility-Based PSG":
+define "Null Applicable Medical Conditions For Facility-Based PSG":
   IsNull("Has Applicable Medical Condition For Facility-Based PSG Value")
 
 define "LineBreak":
@@ -245,7 +273,7 @@ define "Not Approved EDS":
     else null
 
 define "Not Approved Absence of Comorbid Conditions":
-  if "No Applicable Medical Condition For Facility-Based PSG" then "LineBreak" + '- Individual has an absence of the following: diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with a known diagnosis of OSA, central sleep apnea (CSA), narcolespy when a multiple sleep latency test (MSLT) is planned, obesity hypoventilation syndrome (OHS), traumatic brain injury (TBI) with EDS, idiopathic central nervous system hyperinsomnia when a MSLT is planned, individual or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely, has a mission critical profession, moderate to severe pulmonary disease, neuromuscular disease associated with pulmonary disease, unusual or atypical parasomnias, paroxysmal arousals or other sleep disruptions thought to be seizure related, periodic limb movement disorder, and/or cardiac disease' 
+  if "Has No Applicable Medical Conditions For Facility-Based PSG" then "LineBreak" + '- Individual has an absence of the following: diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with a known diagnosis of OSA, central sleep apnea (CSA), narcolespy when a multiple sleep latency test (MSLT) is planned, obesity hypoventilation syndrome (OHS), traumatic brain injury (TBI) with EDS, idiopathic central nervous system hyperinsomnia when a MSLT is planned, individual or caregiver lacks cognitive function, dexterity, or mobility to use portable monitor (PM) equipment safely, has a mission critical profession, moderate to severe pulmonary disease, neuromuscular disease associated with pulmonary disease, unusual or atypical parasomnias, paroxysmal arousals or other sleep disruptions thought to be seizure related, periodic limb movement disorder, and/or cardiac disease' 
     else null
 
 //Not Approved Null Response
@@ -267,7 +295,7 @@ define "Null EDS":
     else null
 
 define "Null Eligible Medical Conditions for Facility-Based Polysomnogram (PSG)":
-  if "Null Applicable Medical Condition For Facility-Based PSG" then "LineBreak" + 'Please enter the following: Applicable Medical Conditions' + ( if "Null Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA" then "LineBreak" + ' - Please enter the following: Diagnostic Testing Prior to Planned Hypoglossal Nerve Stimulator (HGNS) Implantation With Diagnosis of Obstructive Sleep Apnea (OSA)' 
+  if "Null Applicable Medical Conditions For Facility-Based PSG" then "LineBreak" + 'Please enter the following: Applicable Medical Conditions' + ( if "Null Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA" then "LineBreak" + ' - Please enter the following: Diagnostic Testing Prior to Planned Hypoglossal Nerve Stimulator (HGNS) Implantation With Diagnosis of Obstructive Sleep Apnea (OSA)' 
       else if "Null Central Sleep Apnea (CSA)" then "LineBreak" + ' - Please enter the following: Central Sleep Apnea (CSA)' 
       else if "Unknown Features Associated With Narcolepsy When MSLT is Planned" then "LineBreak" + ' - Please enter the following: Features Associated With Narcolepsy When MSLT is Planned' 
       else if "Unknown Obesity Hypoventilation Syndrome (OHS)" then "LineBreak" + ' - Please enter the following: Obesity Hypoventilation Syndrome (OHS)' 

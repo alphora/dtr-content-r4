@@ -177,6 +177,90 @@ define "Physician Evaluated Results Assertion":
     }
   }
 
+define "Diagnostic testing prior to planned HGNS implantation for an individual with a known diagnosis of OSA Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/fbpsg-paa-screening-codes' },
+            code: code { value: 'diagnostic-test-prior-to-HGNS-with-OSA' },
+            display: string { value: 'Diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation for an individual with a known diagnosis of OSA' }
+        }
+    }
+  }
 
+define "History of or clinical features associated with Central Sleep Apnea Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/fbpsg-paa-screening-codes' },
+            code: code { value: 'history-of-or-clinical-features–associated–with-CSA' },
+            display: string { value: 'History of or clinical features associated with central sleep apnea (CSA)' }
+            }
+    }
+  }
 
+define "History of or clinical features associated with narcolepsy when a MSLT is planned Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/fbpsg-paa-screening-codes' },
+            code: code { value: 'history-of-or-clinical-features–associated–with-narcolepsy-when-a-MSLT-is-planned' },
+            display: string { value: 'History of or clinical features associated with narcolepsy when a MSLT is planned' }
+        }
+    }
+  }
 
+define "History of or clinical features associated with obesity hypoventilation syndrome (OHS) Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/fbpsg-paa-screening-codes' },
+            code: code { value: 'history-of-or-clinical-features–associated–with-OHS' },
+            display: string { value: 'History of or clinical features associated with obesity hypoventilation syndrome (OHS)' }
+        }
+    }
+  }
+
+define "History of traumatic brain injury (TBI) with EDS Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/fbpsg-paa-screening-codes' },
+            code: code { value: 'history-of-TBI-with-EDS' },
+            display: string { value: 'History of traumatic brain injury (TBI) with EDS' }
+        }
+    }
+  }
+
+define "Idiopathic central nervous system hypersomnia Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/fbpsg-paa-screening-codes' },
+            code: code { value: 'idiopathic-CNS-hypersomnia-when-a-MSLT-is-planned' },
+            display: string { value: 'Idiopathic central nervous system hypersomnia when a MSLT is planned' }
+        }
+    }
+  }
+
+define "Individual (or caregiver) lacks cognitive function, dexterity or mobility to use PM equipment safely at home Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/fbpsg-paa-screening-codes' },
+            code: code { value: 'not-safe-equipment-use-at-home' },
+            display: string { value: 'Individual (or caregiver) lacks cognitive function, dexterity or mobility to use PM equipment safely at home' }
+        }
+    }
+  }
+
+define "Mission critical profession Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/fbpsg-paa-screening-codes' },
+            code: code { value: 'mission-critical-profession' },
+            display: string { value: 'Mission critical profession' }
+        }
+    }
+  }

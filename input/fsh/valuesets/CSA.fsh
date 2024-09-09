@@ -10,4 +10,4 @@ Description: "ICD 11 codes for Central sleep apnoea in adults"
 * $ICD11#7A40.3 "Central sleep apnea with Cheyne-Stokes breathing"
 * $ICD11#7A40.5 "Central sleep apnoea due to high-altitude periodic breathing"
 * $ICD11#7A40.6 "Central sleep apnoea due to a medication or substance"
-* codes from system $SCT where parent = #27405005
+* include codes from system $SCT where concept is-a #27405005

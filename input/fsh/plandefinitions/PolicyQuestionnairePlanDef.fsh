@@ -119,12 +119,12 @@ Usage: #example
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-apnea-screening-casefeature"
   * input[+]
     * insert ActionInput("Does patient had diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS\) implantation with a known diagnosis of obstructive sleep apnea (OSA\)?", "Patient has diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS\) implantation with a known diagnosis of obstructive sleep apnea (OSA\)")
-    * insert ActionInputCql("Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA", ASLPPolicyFBPSG)
+    * insert ActionInputCql("Qualifying Diagnostic Testing Prior to Planned HGNS Implantation", ASLPPolicyFBPSG)
     * type = #Observation
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/fbpsg-paa-HGNS-screening"
   * input[+]
     * insert ActionInput("Does patient has/had central sleep apnea (CSA\)?", "Patient has/had central sleep apnea (CSA\)")
-    * insert ActionInputCql("Has Central Sleep Apnea", ASLPPolicyFBPSG)
+    * insert ActionInputCql("Qualifying Central Sleep Apnea", ASLPPolicyFBPSG)
     * type = #Observation
     * profile = "http://example.org/sdh/dtr/aslp/StructureDefinition/fbpsg-paa-HGNS-screening"
   * input[+]

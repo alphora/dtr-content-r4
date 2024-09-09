@@ -47246,36 +47246,29 @@
         }, {
           "system": "http://snomed.info/sct",
           "filter": [ {
-            "property": "parent",
-            "op": "=",
-            "value": "159248008"
+            "property": "concept",
+            "op": "is-a",
+            "value": "308040008"
           } ]
         }, {
           "system": "http://snomed.info/sct",
           "filter": [ {
-            "property": "parent",
-            "op": "=",
-            "value": "266064005"
+            "property": "concept",
+            "op": "is-a",
+            "value": "236320001"
           } ]
         }, {
           "system": "http://snomed.info/sct",
           "filter": [ {
-            "property": "parent",
-            "op": "=",
-            "value": "106538001"
-          } ]
-        }, {
-          "system": "http://snomed.info/sct",
-          "filter": [ {
-            "property": "parent",
-            "op": "=",
+            "property": "concept",
+            "op": "is-a",
             "value": "265981008"
           } ]
         }, {
           "system": "http://snomed.info/sct",
           "filter": [ {
-            "property": "parent",
-            "op": "=",
+            "property": "concept",
+            "op": "is-a",
             "value": "223366009"
           } ]
         } ]
@@ -49060,17 +49053,10 @@
       "description": "ValueSet for Impairment for Safe Use of Equipment",
       "compose": {
         "include": [ {
-          "system": "http://id.who.int/icd/release/11/mms",
-          "filter": [ {
-            "property": "parent",
-            "op": "=",
-            "value": "MB21"
-          } ]
-        }, {
           "system": "http://snomed.info/sct",
           "filter": [ {
-            "property": "parent",
-            "op": "=",
+            "property": "concept",
+            "op": "is-a",
             "value": "386806002"
           } ]
         }, {
@@ -49091,15 +49077,15 @@
         }, {
           "system": "http://snomed.info/sct",
           "filter": [ {
-            "property": "parent",
-            "op": "=",
+            "property": "concept",
+            "op": "is-a",
             "value": "82971005"
           } ]
         }, {
           "system": "http://snomed.info/sct",
           "filter": [ {
-            "property": "parent",
-            "op": "=",
+            "property": "concept",
+            "op": "is-a",
             "value": "285859009"
           } ]
         } ]
@@ -50318,10 +50304,9 @@
           } ]
         }, {
           "system": "http://snomed.info/sct",
-          "filter": [ {
-            "property": "parent",
-            "op": "=",
-            "value": "15993004"
+          "concept": [ {
+            "code": "190966007",
+            "display": "Extreme obesity with alveolar hypoventilation (disorder)"
           } ]
         } ]
       }
@@ -53515,8 +53500,8 @@
         }, {
           "system": "http://snomed.info/sct",
           "filter": [ {
-            "property": "parent",
-            "op": "=",
+            "property": "concept",
+            "op": "is-a",
             "value": "27405005"
           } ]
         } ]
@@ -53590,7 +53575,7 @@
             "display": "Obstructive sleep apnoea"
           } ]
         }, {
-          "system": "http://hl7.org/fhir/sid/icd-10",
+          "system": "http://hl7.org/fhir/sid/icd-10-cm",
           "concept": [ {
             "code": "G47.33",
             "display": "Obstructive sleep apnea (adult) (pediatric)"

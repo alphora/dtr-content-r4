@@ -1,4 +1,4 @@
-RuleSet: CommonextensionsStrucutureDefinition
+RuleSet: CommonextensionsStrucutureDefinition (expression)
 * ^meta.profile = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishablecasefeature"
 * ^extension[0].url = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability"
 * ^extension[=].valueCode = #shareable
@@ -14,8 +14,8 @@ RuleSet: CommonextensionsStrucutureDefinition
 * ^extension[=].valueReference = Reference(Device/cqf-tooling)
 * ^extension[+].url = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression"
 * ^extension[=].valueExpression.language = #text/cql-identifier
-* ^extension[=].valueExpression.expression = "Diagnostic test prior to HGNS"
-* ^extension[=].valueExpression.reference = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+* ^extension[=].valueExpression.expression = {expression}
+* ^extension[=].valueExpression.reference = "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyFBPSG"
 * ^version = "1.0.0"
 * ^status = #draft
 * ^experimental = false

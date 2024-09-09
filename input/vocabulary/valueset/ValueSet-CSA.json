@@ -34,8 +34,8 @@
         "system": "http://snomed.info/sct",
         "filter": [
           {
-            "property": "parent",
-            "op": "=",
+            "property": "concept",
+            "op": "is-a",
             "value": "27405005"
           }
         ]

@@ -20,11 +20,10 @@
       },
       {
         "system": "http://snomed.info/sct",
-        "filter": [
+        "concept": [
           {
-            "property": "parent",
-            "op": "=",
-            "value": "15993004"
+            "code": "190966007",
+            "display": "Extreme obesity with alveolar hypoventilation (disorder)"
           }
         ]
       }

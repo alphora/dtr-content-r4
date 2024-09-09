@@ -199,10 +199,17 @@ define "Qualifying Diagnosis of Obstructive Sleep Apnea (OSA)":
             where severity.code ~ '255604002'
                 or severity.display ~ 'Mild'
 
+//Diagnostic Testing Prior to Planned HGNS Implantation
+define "Has Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosis of OSA":
+  exists ( "Has BMI less than 35 kg/m2" ) //https://resources.massgeneralbrighamhealthplan.org/medicalpolicy/SleepStudies.pdf
+    and exists ( "DISE performed" )
+    and exists ( "Qualifying Diagnosis of Obstructive Sleep Apnea (OSA)" )
+    and exists ( "Planned Hypoglossal Nerve Stimulator (HGNS) Implantation" )
+
 define "Has BMI less than 35 kg/m2":
   ([Observation: Cx."BMI Less than 35"]).resulted()
 
-define "DISE performed prior to HGNS implantation":
+define "DISE performed":
   ([Procedure: Cx."DISE"]) DISE
     where DISE.status ~ 'completed'
 
@@ -212,17 +219,21 @@ define "Planned Hypoglossal Nerve Stimulator (HGNS) Implantation":
         or HGNS.status ~ 'preparation'
         or HGNS.status ~ 'on-hold'
 
+//CSA
+define "Has Central Sleep Apnea":
+  exists("Qualifying Central Sleep Apnea")
+
 define "Qualifying Central Sleep Apnea":
-    ([Condition: Cx."Central sleep apnea"]).active().confirmed()
+  ([Condition: Cx."Central sleep apnea"]).active().confirmed()
 
 define "Qualifying Narcolepsy":
-    ([Condition: Cx."Narcolepsy"]).active().confirmed()
+  ([Condition: Cx."Narcolepsy"]).active().confirmed()
 
 define "Planned Multiple sleep latency test (MSLT)":
-    ([Procedure: Cx."MSLT"]) MSLT 
-        where MSLT.status ~ 'not-done'
-        or MSLT.status ~ 'preparation'
-        or MSLT.status ~ 'on-hold'
+  ([Procedure: Cx."MSLT"]) MSLT 
+      where MSLT.status ~ 'not-done'
+      or MSLT.status ~ 'preparation'
+      or MSLT.status ~ 'on-hold'
 
 define "Qualifying Obesity Hypoventilation Syndrome":
   ([Condition: Cx."OHS"]).active().confirmed()

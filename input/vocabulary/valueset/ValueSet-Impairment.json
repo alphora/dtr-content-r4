@@ -10,21 +10,11 @@
   "compose": {
     "include": [
       {
-        "system": "http://id.who.int/icd/release/11/mms",
-        "filter": [
-          {
-            "property": "parent",
-            "op": "=",
-            "value": "MB21"
-          }
-        ]
-      },
-      {
         "system": "http://snomed.info/sct",
         "filter": [
           {
-            "property": "parent",
-            "op": "=",
+            "property": "concept",
+            "op": "is-a",
             "value": "386806002"
           }
         ]
@@ -55,8 +45,8 @@
         "system": "http://snomed.info/sct",
         "filter": [
           {
-            "property": "parent",
-            "op": "=",
+            "property": "concept",
+            "op": "is-a",
             "value": "82971005"
           }
         ]
@@ -65,8 +55,8 @@
         "system": "http://snomed.info/sct",
         "filter": [
           {
-            "property": "parent",
-            "op": "=",
+            "property": "concept",
+            "op": "is-a",
             "value": "285859009"
           }
         ]
