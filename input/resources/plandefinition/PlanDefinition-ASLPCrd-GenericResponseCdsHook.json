@@ -66,9 +66,6 @@
       }
     ]
   },
-  "library": [
-    "http://example.org/sdh/dtr/aslp/Library/ASLPCrdGenericResponseLogic"
-  ],
   "action": [
     {
       "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-GenericResponse"
