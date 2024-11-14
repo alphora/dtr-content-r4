@@ -108,8 +108,10 @@ define function "Requesting Practitioner IDs from ServiceRequest"(requestItem Ch
   union
   (
     (Ctx.GetRequester(requestItem)) RequesterPractitioner
-      return RequesterPractitioner.reference.getId()
-  )
+      return if (PositionOf('Practitioner/', RequesterPractitioner.reference) >= 0) 
+        then RequesterPractitioner.reference.getId()
+        else null
+  ) item where not IsNull(item)
 
 define function "All Requesting Practitioners Found"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
   IsTrue(
@@ -189,8 +191,10 @@ define function "Performing Practitioner IDs from ServiceRequest"(requestItem Ch
   union
   (
     (Ctx.GetPerformer(requestItem)) PerformerPractitioner
-      return PerformerPractitioner.reference.getId()
-  )
+      return if (PositionOf('Practitioner/', PerformerPractitioner.reference) >= 0) 
+        then PerformerPractitioner.reference.getId()
+        else null
+  ) item where not IsNull(item)
 
 define function "All Performing Practitioners Found"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
   IsTrue(
