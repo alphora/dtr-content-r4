@@ -24,7 +24,11 @@ define "Qualification":
 
 // CRD-3.2
 define "Detail Debugging":
-  'Not yet implemented.'
+  '"Is OrderLOBMatch"=' + Ctx.NewLine + ToString("Is OrderLOBMatch")  + Ctx.NewLine +
+  '  - "Matching Organizations by Name".npi()=' + Ctx.NewLine + Combine("Matching Organizations by Name".npi(), ',')  + Ctx.NewLine +
+  '  - "Provider References by Coverage.payor"=' + Ctx.NewLine + Combine("Provider References by Coverage.payor", ',')  + Ctx.NewLine +
+  '  - "Provider Organizations by Coverage.payor".npi()=' + Ctx.NewLine + Combine("Provider Organizations by Coverage.payor".npi(), ',')  + Ctx.NewLine +
+  '  - "Payor Organizations by Coverage.payor".npi()=' + Ctx.NewLine + Combine("Payor Organizations by Coverage.payor".npi(), ',')  + Ctx.NewLine
 
 // CRD-3.2
 define "Detail Text":
