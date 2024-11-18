@@ -30,7 +30,22 @@ define function "Detail Debugging"(requestItem Choice<FHIR.NutritionOrder, FHIR.
   Ctx.NewLine +
   '"Is ProviderNpiMatch"=' + Ctx.NewLine + ToString("Is ProviderNpiMatch"(requestItem))  + Ctx.NewLine +
   '  - "Requesting Provider Match"=' + Ctx.NewLine + ToString("Requesting Provider Match"(requestItem))  + Ctx.NewLine +
+  '    - "All Requesting Practitioners Found"(requestItem)=' + Ctx.NewLine + ToString("All Requesting Practitioners Found"(requestItem))  + Ctx.NewLine +
+  '    - "Requesting PractitionerRoles from ServiceRequest Output"(requestItem)=' + Ctx.NewLine + Combine("Requesting PractitionerRoles from ServiceRequest Output"(requestItem), ',')  + Ctx.NewLine +
+  '    - ("Requesting Practitioners from Provider"(requestItem)).npi()=' + Ctx.NewLine + Combine(("Requesting Practitioners from Provider"(requestItem)).npi(), ',')  + Ctx.NewLine +
+  '    - ("Requesting Practitioners from Payor"(requestItem)).npi()=' + Ctx.NewLine + Combine(("Requesting Practitioners from Payor"(requestItem)).npi(), ',')  + Ctx.NewLine +
+  '    - "Performing Practitioner IDs from ServiceRequest"(requestItem)=' + Ctx.NewLine + Combine("Performing Practitioner IDs from ServiceRequest"(requestItem), ',')  + Ctx.NewLine +
+  '    - "Performing Practitioners from Provider"(requestItem)=' + Ctx.NewLine + Combine((("Performing Practitioners from Provider"(requestItem)) Practitioner return Practitioner.id.value), ',')  + Ctx.NewLine +
+  '    - "Requesting Practitioners from Provider NPI included in Requesting Practitioners from Payor NPI"=' + Ctx.NewLine + ToString("Requesting Practitioners from Provider NPI included in Requesting Practitioners from Payor NPI"(requestItem))  + Ctx.NewLine +
   '  - "Performing Provider Match"=' + Ctx.NewLine + ToString("Performing Provider Match"(requestItem))  + Ctx.NewLine
+
+define function "Requesting PractitionerRoles from ServiceRequest Output"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
+  ("Requesting PractitionerRoles from ServiceRequest"(requestItem)) RequesterPractitionerRole
+    return RequesterPractitionerRole.practitioner.reference.getId()
+
+define function "Requesting Practitioners from Provider NPI included in Requesting Practitioners from Payor NPI"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
+  ("Requesting Practitioners from Provider"(requestItem)).npi() // X
+    included in ("Requesting Practitioners from Payor"(requestItem)).npi() // Y
 
 // CRD-3.1
 define "Detail Text":
@@ -108,8 +123,10 @@ define function "Requesting Practitioner IDs from ServiceRequest"(requestItem Ch
   union
   (
     (Ctx.GetRequester(requestItem)) RequesterPractitioner
-      return RequesterPractitioner.reference.getId()
-  )
+      return if (PositionOf('Practitioner/', RequesterPractitioner.reference) >= 0) 
+        then RequesterPractitioner.reference.getId()
+        else null
+  ) item where not IsNull(item)
 
 define function "All Requesting Practitioners Found"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
   IsTrue(
@@ -184,13 +201,15 @@ define function "Performing Practitioners via PracitionerRoles"(requestItem Choi
 define function "Performing Practitioner IDs from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
   (
     ("Performing PractitionerRoles from ServiceRequest"(requestItem)) PerformerPractitionerRole
-    return PerformerPractitionerRole.practitioner.reference.getId()
+      return PerformerPractitionerRole.practitioner.reference.getId()
   )
   union
   (
     (Ctx.GetPerformer(requestItem)) PerformerPractitioner
-      return PerformerPractitioner.reference.getId()
-  )
+      return if (PositionOf('Practitioner/', PerformerPractitioner.reference) >= 0) 
+        then PerformerPractitioner.reference.getId()
+        else null
+  ) item where not IsNull(item)
 
 define function "All Performing Practitioners Found"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
   IsTrue(

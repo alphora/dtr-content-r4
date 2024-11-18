@@ -1,0 +1,61 @@
+{
+    "resourceType": "Organization",
+    "id": "provider-org-acme",
+    "meta": {
+        "profile": [
+            "http://hl7.org/fhir/us/davinci-crd/StructureDefinition/profile-organization",
+            "http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/plannet-Organization"
+        ]
+    },
+    "extension": [
+        {
+            "url": "http://hl7.org/fhir/us/davinci-pdex-plan-net/StructureDefinition/org-description",
+            "valueString": "Acme is a leading provider of health and other insurance products."
+        }
+    ],
+    "identifier": [
+        {
+            "system": "http://hl7.org/fhir/sid/us-npi",
+            "value": "1029384756"
+        }
+    ],
+    "type": [
+        {
+            "coding": [
+                {
+                    "system": "http://hl7.org/fhir/us/davinci-pdex-plan-net/CodeSystem/OrgTypeCS",
+                    "code": "payer",
+                    "display": "Payer"
+                }
+            ]
+        }
+    ],
+    "active": true,
+    "name": "ACME PAYOR ORGANIZATION",
+    "telecom": [
+        {
+            "system": "phone",
+            "value": "1-877-860-2837"
+        },
+        {
+            "system": "fax",
+            "value": "(+1) 602-544-3017"
+        },
+        {
+            "system": "email",
+            "value": "acmeorganization@email.com"
+        }
+    ],
+    "address": [
+        {
+            "type": "both",
+            "line": [
+                "1310 G Street"
+            ],
+            "city": "Washington",
+            "state": "DC",
+            "postalCode": "20005",
+            "country": "USA"
+        }
+    ]
+}
