@@ -36,7 +36,7 @@
       {
         "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
         "valueExpression": {
-          "language": "text/cql",
+          "language": "text/cql-identifier",
           "expression": "Qualifying Impairment Affecting Safe Use of Equipment At Home",
           "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
         }
@@ -103,6 +103,73 @@
           "type": [
             {
               "code": "boolean"
+            }
+          ],
+          "mustSupport": true
+        },
+        {
+          "extension": [
+            {
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueCanonical": "http://fhir.org/test/StructureDefinition/LaunchContexts#Observation.subject"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.subject"
+                  }
+                }
+              ],
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue"
+            }
+          ],
+          "id": "Observation.subject",
+          "path": "Observation.subject",
+          "short": "Who the observation is about",
+          "definition": "The patient this observation is about.",
+          "min": 1,
+          "max": "1",
+          "type": [
+            {
+              "code": "Reference",
+              "targetProfile": [
+                "http://hl7.org/fhir/StructureDefinition/Patient"
+              ]
+            }
+          ],
+          "mustSupport": true
+        },
+        {
+          "extension": [
+            {
+              "extension": [
+                {
+                  "url": "definition",
+                  "valueCanonical": "http://fhir.org/test/StructureDefinition/LaunchContexts#Observation.effective[x]"
+                },
+                {
+                  "url": "expression",
+                  "valueExpression": {
+                    "language": "text/fhirpath",
+                    "expression": "%resource.authored"
+                  }
+                }
+              ],
+              "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-definitionExtractValue"
+            }
+          ],
+          "id": "Observation.effective[x]",
+          "path": "Observation.effective[x]",
+          "short": "Clinically relevant time for observation",
+          "definition": "The time the observed value is asserted as being true.",
+          "min": 1,
+          "max": "1",
+          "type": [
+            {
+              "code": "dateTime"
             }
           ],
           "mustSupport": true

@@ -4,6 +4,7 @@ output/
 temp/
 template/
 bundles/
+releases/
 input/tests/*-bundle.json
 input/tests/*/*-bundle.json
 input/tests/*/*/*-bundle.json
