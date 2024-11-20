@@ -36,7 +36,7 @@
       {
         "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
         "valueExpression": {
-          "language": "text/cql",
+          "language": "text/cql-identifier",
           "expression": "Qualifying Impairment Affecting Safe Use of Equipment At Home",
           "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
         }

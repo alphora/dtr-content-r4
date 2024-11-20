@@ -102,7 +102,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying Patient Age",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -126,7 +126,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualified Excessive Daytime Sleepiness",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -150,7 +150,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "ESS Score >= 10",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -174,7 +174,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying Excessive Sleepiness While Driving",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -198,7 +198,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Loud/Intense Snoring",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -222,7 +222,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Nocturnal Apnea",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -246,7 +246,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying Diagnostic Testing With Diagnosis of OSA",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -270,7 +270,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying Central Sleep Apnea (CSA)",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -294,7 +294,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying Narcolespy",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -318,7 +318,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying Obesity Hypoventilation Syndrome (OHS)",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -342,7 +342,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying traumatic brain injury (TBI)",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -366,7 +366,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying idiopathic central nervous system hyperinsomnia",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -390,7 +390,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying cognitive, dexterity, or mobility impairment",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -414,7 +414,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying mission critical profession",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -438,7 +438,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying pulmonary disease",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -462,7 +462,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying neuromuscular disease with associated pulmonary disease",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -486,7 +486,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying parasomnias",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -510,7 +510,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying paroxysmal arousals or other sleep disruptions thought to be seizure related",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -534,7 +534,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying periodic limb movement disorder",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -558,7 +558,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying cardiac disease",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
