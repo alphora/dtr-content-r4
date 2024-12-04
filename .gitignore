@@ -3,7 +3,8 @@ input-cache/
 output/
 temp/
 template/
-/bundles/measure/BreastCancerScreeningsFHIR/BreastCancerScreeningsFHIR-files
+bundles/
+releases/
 input/tests/*-bundle.json
 input/tests/*/*-bundle.json
 input/tests/*/*/*-bundle.json

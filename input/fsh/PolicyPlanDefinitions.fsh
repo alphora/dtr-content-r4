@@ -100,14 +100,14 @@ RuleSet: CommonPropertiesRationale(rationale, expression)
     * url = "http://hl7.org/fhir/StructureDefinition/cqf-expression"
     * valueExpression
       * description = {rationale}
-      * language = #text/cql
+      * language = #text/cql-identifier
       * expression = {expression}
 
 RuleSet: ActionInputCql(expression, name)
 * extension[+]
   * url = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression"
   * valueExpression
-    * language = #text/cql
+    * language = #text/cql-identifier
     * expression = {expression}
     * reference = "http://example.org/sdh/dtr/aslp/Library/{name}"
 
@@ -123,7 +123,7 @@ RuleSet: ActionConditionCql(expression)
 * condition
   * kind = #applicability
   * expression
-    * language = #text/cql
+    * language = #text/cql-identifier
     * expression = {expression}
 
 
@@ -145,7 +145,7 @@ Usage: #example
   * dynamicValue[+]
     * path = "description" 
     * expression
-      * language = #text/cql
+      * language = #text/cql-identifier
       * expression = "Approved Detail"
 
 
@@ -166,7 +166,7 @@ Usage: #example
   * dynamicValue[+]
     * path = "description" 
     * expression
-      * language = #text/cql
+      * language = #text/cql-identifier
       * expression = "Not Approved Detail"
 
 Instance: aslp-pa-adj-temp-not-approved
@@ -186,7 +186,7 @@ Usage: #example
   * dynamicValue[+]
     * path = "description" 
     * expression
-      * language = #text/cql
+      * language = #text/cql-identifier
       * expression = "Temporarily Not Approved"
         
 

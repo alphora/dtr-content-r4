@@ -102,7 +102,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying Patient Age",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -126,7 +126,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualified Excessive Daytime Sleepiness",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -150,7 +150,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "ESS Score >= 10",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -174,7 +174,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying Excessive Sleepiness While Driving",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -198,7 +198,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Loud/Intense Snoring",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -222,7 +222,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Nocturnal Apnea",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -246,7 +246,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying Neuromuscular Disease With Associated Pulmonary Disease",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -270,7 +270,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying Cardiac Disease",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -294,7 +294,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Qualifying Moderate To Severe Pulmonary Disease",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -318,7 +318,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Uses A Qualified Device",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -342,7 +342,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Safe Equipment Use At Home",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
@@ -366,7 +366,7 @@
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
               "valueExpression": {
-                "language": "text/cql",
+                "language": "text/cql-identifier",
                 "expression": "Physician Evaluated Results",
                 "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
               }
