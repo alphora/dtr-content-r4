@@ -8,6 +8,16 @@ InstanceOf: Library
 * status = #draft
 * type = #logic-library
 
+Instance: ASLPContextPayor
+InstanceOf: Library
+* status = #draft
+* type = #logic-library
+
+Instance: ASLPContextProvider
+InstanceOf: Library
+* status = #draft
+* type = #logic-library
+
 Instance: ASLPCrdMultipleRequestLogic
 InstanceOf: Library
 * status = #draft
@@ -208,7 +218,7 @@ Usage: #example
 
 * type = $plan-definition-type#eca-rule "ECA Rule"
 // required by _refresh.sh
-* library[+] = Canonical(ASLPContext)
+* library[+] = Canonical(ASLPContextProvider)
 
 // Define more specific Purpose/Description
 * purpose = "The purpose of this is to test the system to make sure we have complete end-to-end functionality"
