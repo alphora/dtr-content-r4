@@ -15,6 +15,8 @@ codesystem "NIDA": 'https://cde.drugabuse.gov'
 codesystem "ASLP Codes": 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes'
 
 valueset "Home Based Testing Sleep Studies Codes": 'http://example.org/sdh/dtr/aslp/ValueSet/aslp-a1-de2'
+valueset "Sleep Study Nutrition Codes": 'http://example.org/sdh/dtr/aslp/ValueSet/aslp-nutrition'
+valueset "Home Sleep Study Device Codes": 'http://cts.nlm.nih.gov/fhir/ValueSet/HomeSleepStudyDevices'
 valueset "Facility Based Testing Sleep Studies Codes": 'http://example.org/sdh/dtr/aslp/ValueSet/aslp-a1-de9'
 valueset "Sleep Study Codes Grouper": 'http://example.org/sdh/dtr/aslp/ValueSet/aslp-a1-de1-codes-grouper'
 valueset "Diagnosis of Obstructive Sleep Apnea Codes": 'http://example.org/sdh/dtr/aslp/ValueSet/aslp-a1-de17'

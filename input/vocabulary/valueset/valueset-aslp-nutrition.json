@@ -1,0 +1,20 @@
+{
+  "resourceType": "ValueSet",
+  "id": "valueset-aslp-nutrition",
+  "url": "http://example.org/sdh/dtr/aslp/ValueSet/aslp-nutrition",
+  "name": "NutritionForSleepStudiesCodes",
+  "title": "Nutrition For Sleep Studies Codes",
+  "status": "draft",
+  "experimental": false,
+  "description": "Codes representing possible values for the Sleep Study Nutrition Codes element",
+  "immutable": true,
+  "compose": {
+    "include": [ {
+      "system": "http://www.ama-assn.org/go/cpt",
+      "concept": [ {
+        "code": "86849",
+        "display": "Unlisted immunology procedure"
+      } ]
+    } ]
+  }
+}

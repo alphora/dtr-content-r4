@@ -17,6 +17,20 @@ define "Has Comorbidities":
 define "Is Sleep Study Service Request":
     exists (Dx."Sleep Study" S where S.code in Cx."Home Based Testing Sleep Studies Codes")
 
+define "Is Sleep Study Nutrition Order":
+    exists (Dx."Nutrition Order Requests" N 
+      where (
+          (N.enteralFormula.baseFormulaType in Cx."Sleep Study Nutrition Codes")
+          or (N.oralDiet.type in Cx."Sleep Study Nutrition Codes")
+          or (N.supplement.type in Cx."Sleep Study Nutrition Codes")
+          or (N.foodPreferenceModifier in Cx."Sleep Study Nutrition Codes")
+          or (N.excludeFoodModifier in Cx."Sleep Study Nutrition Codes")
+      )
+    )
+
+define "Is Sleep Study Device Request":
+    exists (Dx."Device Requests" D where S.code in Cx."Home Sleep Study Device Codes")
+
 define "Get Card Summary":
   if "Is Prior Auth Required" then
     'Patient requires prior authorization for a sleep study'
