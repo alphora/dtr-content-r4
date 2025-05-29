@@ -92,7 +92,7 @@ define "Sleep Study Code":
 define "Sleep Study Date":
   ("Sleep Study").occurrence
 
-define "Nutrition Order":
+define "Nutrition Order Requests":
   Coalesce(
     [FHIR.NutritionOrder] NutOrder
       where NutOrder.id in "Nutrition Order Id",
@@ -101,10 +101,30 @@ define "Nutrition Order":
     union Coalesce("Nutrition Order", { null as FHIR.NutritionOrder })
 
 define "Nutrition Order Code":
-  ("Nutrition Order").code
+  ("Nutrition Order Requests").enteralFormula.baseFormulaType
+  union ("Nutrition Order Requests").oralDiet.type
+  union ("Nutrition Order Requests").supplement.type
+  union ("Nutrition Order Requests").foodPreferenceModifier
+  union ("Nutrition Order Requests").excludeFoodModifier
 
-define "Nutrition Order Date":
-  ("Nutrition Order").occurrence
+define "Nutrition Date":
+  ("Nutrition Order Requests").oralDiet.schedule
+  union ("Nutrition Order Requests").supplement.schedule
+  union ("Nutrition Order Requests").enteralFormula.administration.schedule
+
+define "Device Requests":
+  Coalesce(
+    [FHIR.DeviceRequest] DR
+      where DR.id in "Device Request Id",
+    { null as FHIR.DeviceRequest }
+  )
+    union Coalesce("Device Request", { null as FHIR.DeviceRequest })
+
+define "Device Request Code":
+  ("Device Requests").code
+
+define "Device Request Date":
+  ("Device Requests").occurrence
 
 define "Weight":
   convert(
