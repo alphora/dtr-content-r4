@@ -1,15 +1,37 @@
 {
   "resourceType": "PlanDefinition",
-  "id": "ASLPCrd-MultipleRequest",
+  "id": "PlanDefinition-ASLPCrd-MultipleRequest",
   "meta": {
     "profile": [
-      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-computableplandefinition"
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishableplandefinition"
     ]
   },
-  "extension": [
+    "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+      "valueCode": "shareable"
+    },
     {
       "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
       "valueCode": "computable"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+      "valueCode": "executable"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+      "valueCode": "publishable"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+      "valueCode": "structured"
+    },
+    {
+      "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
+      "valueReference": {
+        "reference": "Device/cqf-tooling"
+      }
     }
   ],
   "identifier": [
@@ -31,9 +53,9 @@
       "valueCodeableConcept": {
         "coding": [
           {
-            "code": "ASLP.A1",
+            "code": "ASLP.PAS",
             "system": "http://fhir.org/guides/nachc/hiv-cds/CodeSystem/activity-codes",
-            "display": "Adult Sleep Studies"
+            "display": "Prior Auth Adjudication"
           }
         ]
       }
@@ -53,8 +75,11 @@
     }
   ],
   "usage": "This is to be used in conjunction with a patient-facing FHIR application.",
-  "name": "ASLPCrd-MultipleRequest",
+  "library": [
+    "http://example.org/sdh/dtr/aslp/Library/ASLPCrdMultipleRequestLogic"
+  ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-MultipleRequest",
+  "name": "ASLPCrd-MultipleRequest",
   "purpose": "Purpose for ASLPCrd-MultipleRequest",
   "description": "Description for ASLPCrd-MultipleRequest",
   "type": {
@@ -66,9 +91,6 @@
       }
     ]
   },
-  "library": [
-    "http://example.org/sdh/dtr/aslp/Library/ASLPCrdMultipleRequestLogic"
-  ],
   "action": [
     {
       "title": "Prior Auth Evaluation",

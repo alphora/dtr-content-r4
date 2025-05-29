@@ -15,6 +15,8 @@ parameter "Medication Request" List<USCore.MedicationRequestProfile>
 parameter "Medication Request Id" List<System.String>
 parameter "Nutrition Order" List<FHIR.NutritionOrder>
 parameter "Nutrition Order Id" List<System.String>
+  // TODO: remove defaults for production use
+  default { 'required-NutritionOrder', 'not-required-NutritionOrder', 'NutritionOrder', 'NutritionOrder2' }
 parameter "Service Request" List<FHIR.ServiceRequest>
 parameter "Service Request Id" List<System.String> 
   // TODO: remove defaults for production use
@@ -89,6 +91,20 @@ define "Sleep Study Code":
 
 define "Sleep Study Date":
   ("Sleep Study").occurrence
+
+define "Nutrition Order":
+  Coalesce(
+    [FHIR.NutritionOrder] NutOrder
+      where NutOrder.id in "Nutrition Order Id",
+    { null as FHIR.NutritionOrder }
+  )
+    union Coalesce("Nutrition Order", { null as FHIR.NutritionOrder })
+
+define "Nutrition Order Code":
+  ("Nutrition Order").code
+
+define "Nutrition Order Date":
+  ("Nutrition Order").occurrence
 
 define "Weight":
   convert(
