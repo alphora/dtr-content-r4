@@ -93,28 +93,85 @@
   },
   "action": [
     {
-      "title": "Prior Auth Evaluation",
-      "description": "Information related to whether a service is covered, not covered or requires prior auth submission",
+      "title": "Evaluate Service Requests for Prior Auth",
+      "description": "Information related to whether a service is covered, not covered, or requires prior auth submission",
+      "trigger": [ 
+        {
+          "type": "named-event",
+          "name": "order-sign"
+        }
+      ],
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql",
+            "expression": "HasServiceRequest"
+          }
+        }
+      ],
       "dynamicValue": [
-        {
-          "path": "title",
-          "expression": {
-            "language": "text/cql-identifier",
-            "expression": "Title"
-          }
-        },
-        {
-          "path": "description",
-          "expression": {
-            "language": "text/cql-identifier",
-            "expression": "Description"
-          }
-        },
         {
           "path": "extension",
           "expression": {
-            "language": "text/cql-identifier",
-            "expression": "CoverageExtensionList"
+            "language": "text/cql",
+            "expression": "ServiceRequestPriorAuthExtension"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Evaluate Nutrition Orders for Prior Auth",
+      "description": "Information related to whether a nutrition order is covered, not covered, or requires prior auth submission",
+      "trigger": [ 
+        {
+          "type": "named-event",
+          "name": "order-sign"
+        }
+      ],
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql",
+            "expression": "HasNutritionOrder"
+          }
+        }
+      ],
+      "dynamicValue": [
+        {
+          "path": "extension",
+          "expression": {
+            "language": "text/cql",
+            "expression": "NutritionOrderPriorAuthExtension"
+          }
+        }
+      ]
+    },
+    {
+      "title": "Evaluate Device Requests for Prior Auth",
+      "description": "Information related to whether a device is covered, not covered, or requires prior auth submission",
+      "trigger": [ 
+        {
+          "type": "named-event",
+          "name": "order-sign"
+        }
+      ],
+      "condition": [
+        {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql",
+            "expression": "HasDeviceRequest"
+          }
+        }
+      ],
+      "dynamicValue": [
+        {
+          "path": "extension",
+          "expression": {
+            "language": "text/cql",
+            "expression": "DeviceRequestPriorAuthExtension"
           }
         }
       ]

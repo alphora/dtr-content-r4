@@ -5,6 +5,7 @@ using FHIR version '4.0.1'
 //using USCore version '3.1.1'
 
 include ASLPContext called Ctx
+include ASLPDataElements called DataElements
 include ASLPCrdMemberEligibleLogic called MemberEligible
 include ASLPCrdOrderLOBMatchLogic called OrderLOBMatch
 include ASLPCrdProviderNpiMatchLogic called NpiMatch
@@ -212,3 +213,30 @@ returns FHIR.Extension:
     if "DebuggingEnabled" then item."DetailQualification" + Ctx.NewLine + '--- DEBUGGING ---' + Ctx.NewLine + item."DetailDebugging" else item."DetailQualification",
     item."DetailValue"
   )
+
+define "HasServiceRequest":
+  exists (DataElements."Sleep Study")
+
+define "HasNutritionOrder":
+  exists (DataElements."Nutrition Order Requests")
+
+define "HasDeviceRequest":
+  exists (DataElements."Device Requests")
+
+define "ServiceRequestPriorAuthExtension":
+  if Ctx."Service Request Item List" is null then
+      { 
+        "GetCoverageExtension"(
+          "null Service Request Item", 
+          GetCrdResult("null Service Request Item")
+        ) 
+      }
+  else 
+    FHIR.Extension {
+        "url": FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information' },
+        extension:
+                DataElements."Sleep Study" ServiceRequestItem
+      return all
+        "GetCoverageExtension"(ServiceRequestItem, GetCrdResult(ServiceRequestItem))
+            
+      }

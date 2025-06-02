@@ -9,7 +9,11 @@ include FHIRHelpers version '4.1.000'
 context Patient
 
 define "Is Prior Auth Required":
-    "Is Sleep Study Service Request" and "Has Comorbidities"
+    ("Is Sleep Study Service Request"
+      or "Is Sleep Study Nutrition Order"
+      or "Is Sleep Study Device Request"
+    ) 
+      and "Has Comorbidities"
 
 define "Has Comorbidities":
  Dx."History of Diabetes" or Dx."History of Hypertension"
@@ -29,7 +33,7 @@ define "Is Sleep Study Nutrition Order":
     )
 
 define "Is Sleep Study Device Request":
-    exists (Dx."Device Requests" D where S.code in Cx."Home Sleep Study Device Codes")
+    exists (Dx."Device Requests" D where D.code in Cx."Home Sleep Study Device Codes")
 
 define "Get Card Summary":
   if "Is Prior Auth Required" then

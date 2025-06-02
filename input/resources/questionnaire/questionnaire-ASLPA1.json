@@ -53,7 +53,7 @@
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-itemPopulationContext",
           "valueExpression": {
-            "language": "text/cql-identifier",
+            "language": "text/cql",
             "expression": "Sleep Study"
           }
         }
@@ -84,7 +84,7 @@
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
           "valueExpression": {
-            "language": "text/cql-identifier",
+            "language": "text/cql",
             "expression": "Diagnosis of Obstructive Sleep Apnea"
           }
         }
@@ -100,7 +100,7 @@
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
           "valueExpression": {
-            "language": "text/cql-identifier",
+            "language": "text/cql",
             "expression": "History of Hypertension"
           }
         }
@@ -115,7 +115,7 @@
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
           "valueExpression": {
-            "language": "text/cql-identifier",
+            "language": "text/cql",
             "expression": "History of Diabetes"
           }
         }
@@ -130,7 +130,7 @@
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
           "valueExpression": {
-            "language": "text/cql-identifier",
+            "language": "text/cql",
             "expression": "Neck Circumference"
           }
         }
@@ -145,7 +145,7 @@
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
           "valueExpression": {
-            "language": "text/cql-identifier",
+            "language": "text/cql",
             "expression": "Height"
           }
         }
@@ -160,7 +160,7 @@
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
           "valueExpression": {
-            "language": "text/cql-identifier",
+            "language": "text/cql",
             "expression": "Weight"
           }
         }
@@ -175,7 +175,7 @@
         {
           "url": "http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire-initialExpression",
           "valueExpression": {
-            "language": "text/cql-identifier",
+            "language": "text/cql",
             "expression": "BMI"
           }
         }

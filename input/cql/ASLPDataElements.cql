@@ -11,6 +11,8 @@ include ASLPConcepts called Cs
 
 parameter "Device Request" List<FHIR.DeviceRequest>
 parameter "Device Request Id" List<System.String>
+  // TODO: remove defaults for production use
+  default { 'required-DeviceRequest', 'not-required-DeviceRequest', 'DeviceRequest', 'DeviceRequest2' }
 parameter "Medication Request" List<USCore.MedicationRequestProfile>
 parameter "Medication Request Id" List<System.String>
 parameter "Nutrition Order" List<FHIR.NutritionOrder>
