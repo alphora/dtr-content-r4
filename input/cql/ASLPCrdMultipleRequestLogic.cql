@@ -174,9 +174,11 @@ define "CoverageExtensionList":
         //(GetCrdResult(RequestItem)).DetailDebugging
 
 // CRD Logic tree
-define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>)
+define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>)
 returns Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String}:
-  if (ContextValidation."Insufficient or Ambiguous High"(requestItem)) then
+  if requestItem is FHIR.CommunicationRequest then
+    "CRD Matrix"(requestItem)."CRD-7"
+  else if (ContextValidation."Insufficient or Ambiguous High"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-8"
   else if (ContextValidation."DomainResource is Empty"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-8.1"
@@ -201,14 +203,25 @@ returns Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" Sys
   else
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
-define function "GetCoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>, item Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String})
+define function "GetCoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>, item Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String})
 returns FHIR.Extension:
-  Ctx."ExtensionPriorAuthNeeded"(
-    requestItem,
-    item."Covered", 
-    item."PriorAuthNeeded", 
-    item."DetailCode", 
-    item."DetailText", 
-    if "DebuggingEnabled" then item."DetailQualification" + Ctx.NewLine + '--- DEBUGGING ---' + Ctx.NewLine + item."DetailDebugging" else item."DetailQualification",
-    item."DetailValue"
-  )
+  if requestItem is FHIR.CommunicationRequest then
+    Ctx."ExtensionPriorAuthNotNeeded"(
+      requestItem,
+      item."Covered", 
+      item."PriorAuthNeeded", 
+      item."DetailCode", 
+      item."DetailText", 
+      if "DebuggingEnabled" then item."DetailQualification" + Ctx.NewLine + '--- DEBUGGING ---' + Ctx.NewLine + item."DetailDebugging" else item."DetailQualification",
+      item."DetailValue"
+    )
+  else 
+    Ctx."ExtensionPriorAuthNeeded"(
+      requestItem,
+      item."Covered", 
+      item."PriorAuthNeeded", 
+      item."DetailCode", 
+      item."DetailText", 
+      if "DebuggingEnabled" then item."DetailQualification" + Ctx.NewLine + '--- DEBUGGING ---' + Ctx.NewLine + item."DetailDebugging" else item."DetailQualification",
+      item."DetailValue"
+    )
