@@ -12,6 +12,7 @@ include ASLPCrdOrderGoldStatusLogic called GoldCard
 include ASLPCrdRoutineLogic called Routine
 include ASLPCrdOnPriorAuthListLogic called PriorAuthList
 include ASLPCrdContextValidationLogic called ContextValidation
+include ASLPCrdMedicationRequestLogic called MedicationRequestLogic
 include USCoreCommon
 include FHIRHelpers version '4.1.000'
 
@@ -142,7 +143,17 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailQualification": 'Unexpected Prior Authorization result. Please try again or contact support.',
       "DetailDebugging": 'No debugging available',
       "DetailValue": 'error'
-    } 
+    },
+    "CRD-MedicationRequest": {
+      "ID": 'CRD-MedicationRequest',
+      "Covered": 'conditional', 
+      "PriorAuthNeeded": 'conditional', 
+      "DetailCode": 'coverage-info', 
+      "DetailText": MedicationRequestLogic."Detail Text", 
+      "DetailQualification": MedicationRequestLogic."Qualification MedicationRequest",
+      "DetailDebugging": 'No debugging available',
+      "DetailValue": 'Warning'
+    }
   }
 
 // CRD Static text
@@ -154,7 +165,7 @@ define "Description":
   'Information related to whether a service is covered, not covered or requires prior auth submission'
 
 define "null Service Request Item":
-  null as Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>
+  null as Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>
 
 // CRD Coverage Extensions
 define "CoverageExtensionList":
@@ -200,6 +211,8 @@ returns Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" Sys
     "CRD Matrix"(requestItem)."CRD-5"
   else if(PriorAuthList."Not OnPriorAuthList"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-6"
+  else if requestItem is FHIR.MedicationRequest then 
+    "CRD Matrix"(requestItem)."CRD-MedicationRequest"
   else
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 

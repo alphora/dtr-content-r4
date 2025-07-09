@@ -56,7 +56,7 @@ define "UnknownResourceType":
   'UnknownResourceType'
 
 define "UnsupportedResourceTypes":
-  { 'VisionPrescription', 'MedicationRequest' }
+  { 'VisionPrescription' }
 
 define "Provider Coverage":
   // NOTE: per PA team, the Coverage is just the first matching coverage
