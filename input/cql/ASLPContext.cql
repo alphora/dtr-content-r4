@@ -65,10 +65,10 @@ define "Provider Coverage":
     [Coverage] item where IsPayorResource(item) = false
   )
 
-define function "Service Request Item Code"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
+define function "Service Request Item Code"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
   FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)
 
-define function "Service Request Item ID"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
+define function "Service Request Item ID"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
   GetResourceType(requestItem) + '/' + requestItem.id.value
 
 define function "GetResourceType"(resource Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>)
@@ -86,7 +86,7 @@ returns System.String:
   else
     "UnknownResourceType"
 
-define function "System Generated Id"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
+define function "System Generated Id"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
   Coalesce(
     (First(
       requestItem.extension E
@@ -201,9 +201,13 @@ returns System.String:
   
 
 define "Service Request Item List":
-  "draftOrders"
+  // "draftOrders"
   // NOTE: these retrieves are only for local testing
-  //([ServiceRequest]) union ([DeviceRequest]) union ([NutritionOrder])
+  ([ServiceRequest]) 
+  union ([DeviceRequest]) 
+  union ([NutritionOrder])
+  union ([MedicationRequest])
+  union ([CommunicationRequest])
 
 define "Provider":
   {
