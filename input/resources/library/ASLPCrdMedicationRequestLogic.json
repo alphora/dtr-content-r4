@@ -1,0 +1,80 @@
+{
+  "resourceType": "Library",
+  "id": "ASLPCrdMedicationRequestLogic",
+  "contained": [ {
+    "resourceType": "Parameters",
+    "id": "options",
+    "parameter": [ {
+      "name": "translatorVersion",
+      "valueString": "3.6.0"
+    }, {
+      "name": "option",
+      "valueString": "EnableAnnotations"
+    }, {
+      "name": "option",
+      "valueString": "EnableLocators"
+    }, {
+      "name": "option",
+      "valueString": "EnableResultTypes"
+    }, {
+      "name": "option",
+      "valueString": "DisableListDemotion"
+    }, {
+      "name": "option",
+      "valueString": "DisableListPromotion"
+    }, {
+      "name": "format",
+      "valueString": "JSON"
+    }, {
+      "name": "format",
+      "valueString": "XML"
+    }, {
+      "name": "analyzeDataRequirements",
+      "valueBoolean": false
+    }, {
+      "name": "collapseDataRequirements",
+      "valueBoolean": true
+    }, {
+      "name": "compatibilityLevel",
+      "valueString": "1.5"
+    }, {
+      "name": "enableCqlOnly",
+      "valueBoolean": false
+    }, {
+      "name": "errorLevel",
+      "valueString": "Info"
+    }, {
+      "name": "signatureLevel",
+      "valueString": "All"
+    }, {
+      "name": "validateUnits",
+      "valueBoolean": true
+    }, {
+      "name": "verifyOnly",
+      "valueBoolean": false
+    } ]
+  } ],
+  "extension": [ {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-cqlOptions",
+    "valueReference": {
+      "reference": "#options"
+    }
+  }, {
+    "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
+    "valueReference": {
+      "reference": "Device/cqf-tooling"
+    }
+  } ],
+  "url": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdMedicationRequestLogic",
+  "name": "ASLPCrdMedicationRequestLogic",
+  "type": {
+    "coding": [ {
+      "system": "http://terminology.hl7.org/CodeSystem/library-type",
+      "code": "logic-library"
+    } ]
+  },
+  "content": [ {
+    "contentType": "text/cql",
+    "data": "bGlicmFyeSBBU0xQQ3JkTWVkaWNhdGlvblJlcXVlc3RMb2dpYwoKdXNpbmcgRkhJUiB2ZXJzaW9uICc0LjAuMScKLy8gVE9ETzogdXBkYXRlIHRvIHVzZSBVU0NvcmUgZGlyZWN0bHkKLy91c2luZyBVU0NvcmUgdmVyc2lvbiAnMy4xLjEnCgppbmNsdWRlIEFTTFBDb250ZXh0IGNhbGxlZCBDdHgKaW5jbHVkZSBVU0NvcmVDb21tb24KaW5jbHVkZSBGSElSSGVscGVycyB2ZXJzaW9uICc0LjEuMDAwJwoKY29udGV4dCBQYXRpZW50CgovLyBDUkQtTWVkaWNhdGlvblJlcXVlc3QKZGVmaW5lICJUaXRsZSI6CiAgJ1ByaW9yIEF1dGggRXZhbHVhdGlvbicKCi8vIENSRC1NZWRpY2F0aW9uUmVxdWVzdApkZWZpbmUgIkRlc2NyaXB0aW9uIjoKICAnSW5mb3JtYXRpb24gcmVsYXRlZCB0byB3aGV0aGVyIGEgc2VydmljZSBpcyBjb3ZlcmVkLCBub3QgY292ZXJlZCBvciByZXF1aXJlcyBwcmlvciBhdXRoIHN1Ym1pc3Npb24nIAoKLy8gQ1JELU1lZGljYXRpb25SZXF1ZXN0CmRlZmluZSAiRGV0YWlsIFRleHQiOgogICdQcmlvciBhdXRob3JpemF0aW9uIHJlcXVpcmVtZW50IGFuZCBjb3ZlcmFnZSBkZXRlcm1pbmF0aW9uIGFyZSBwZW5kaW5nLCBzdWJqZWN0IHRvIHRoZSBtZWRpY2F0aW9uIGNvdmVyYWdlIHBvbGljeS4nCgovLyBDUkQtTWVkaWNhdGlvblJlcXVlc3QKZGVmaW5lICJRdWFsaWZpY2F0aW9uIE1lZGljYXRpb25SZXF1ZXN0IjoKICAgICdUaGUgcmVxdWlyZW1lbnQgZm9yIHByaW9yIGF1dGhvcml6YXRpb24gYW5kIGNvdmVyYWdlIGZvciAnICsgIk1lZGljYXRpb24gTGlzdCIgKyAnYXJlIGRldGVybWluZWQgYnkgdGhlIGFwcGxpY2FibGUgcG9saWN5LicKCmRlZmluZSAiTWVkaWNhdGlvbiBMaXN0IjoKICAgIENvbWJpbmUoICAgIAogICAgICAgIChbTWVkaWNhdGlvblJlcXVlc3RdKS5tZWRpY2F0aW9uLmNvZGluZy5kaXNwbGF5LAogICAgICAgICcsICcKICAgICk="
+  } ]
+}
