@@ -82,8 +82,8 @@ returns FHIR.Extension:
     }) Extension where not IsNull(Extension)
   }
 
-define function "CoverageExtension"(coverageId System.String)
-returns FHIR.Extension:
+define function "CoverageExtension"(coverageId System.String):
+// returns FHIR.Extension:
   if IsNull(coverageId) then null as FHIR.Extension
   else
     FHIR.Extension {
@@ -122,8 +122,8 @@ returns FHIR.Extension:
     "value": FHIR.date { "value": Today() }
   }
 
-define function "QuestionnaireExtension"(priorAuthRequired System.String, procedureCode System.Code)
-returns FHIR.Extension:
+define function "QuestionnaireExtension"(priorAuthRequired System.String, procedureCode System.Code):
+// returns FHIR.Extension:
   if priorAuthRequired in { 'auth-needed' } then
     if not IsNull(QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode)) then 
       FHIR.Extension {
@@ -193,8 +193,8 @@ define function "DetailCodeCoverageInfo"(displayText System.String)
 returns FHIR.Extension:
   "DetailCode"('http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp', 'coverage-info', 'Coverage Information', displayText)
 
-define function "DependencyExtension"(requestReferenceString System.String)
-returns FHIR.Extension:
+define function "DependencyExtension"(requestReferenceString System.String):
+// returns FHIR.Extension:
   if IsNull(requestReferenceString) then null as FHIR.Extension
   else
     FHIR.Extension {
