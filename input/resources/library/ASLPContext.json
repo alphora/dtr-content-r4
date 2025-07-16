@@ -114,8 +114,20 @@
     "profile": [ "http://hl7.org/fhir/Coverage" ],
     "mustSupport": [ "id", "id.value" ]
   }, {
-    "type": "Coverage",
-    "profile": [ "http://hl7.org/fhir/StructureDefinition/Coverage" ]
+    "type": "ServiceRequest",
+    "profile": [ "http://hl7.org/fhir/StructureDefinition/ServiceRequest" ]
+  }, {
+    "type": "DeviceRequest",
+    "profile": [ "http://hl7.org/fhir/StructureDefinition/DeviceRequest" ]
+  }, {
+    "type": "NutritionOrder",
+    "profile": [ "http://hl7.org/fhir/StructureDefinition/NutritionOrder" ]
+  }, {
+    "type": "MedicationRequest",
+    "profile": [ "http://hl7.org/fhir/StructureDefinition/MedicationRequest" ]
+  }, {
+    "type": "CommunicationRequest",
+    "profile": [ "http://hl7.org/fhir/StructureDefinition/CommunicationRequest" ]
   }, {
     "type": "Practitioner",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/Practitioner" ]
