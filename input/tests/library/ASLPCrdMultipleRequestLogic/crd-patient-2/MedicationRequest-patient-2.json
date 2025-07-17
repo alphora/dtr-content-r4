@@ -1,0 +1,55 @@
+{
+    "resourceType": "MedicationRequest",
+    "id": "MedicationRequest-patient-2",
+    "meta": {
+    "profile": [
+        "http://hl7.org/fhir/us/davinci-crd/StructureDefinition/profile-medicationrequest"
+    ]
+    },
+    "status": "draft",
+    "intent": "order",
+    "medicationCodeableConcept": {
+        "coding": [
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "95808",
+                "display": "Polysomnography; any age, sleep staging with 1-3 additional parameters of sleep, attended by a technologist"
+            }
+        ],
+            "text": "Polysom any age 1-3> param"
+    },
+    "subject": {
+    "reference": "Patient/crd-patient-2"
+    },
+    "authoredOn": "2024-05-26",
+    "requester": {
+    "reference": "Practitioner/Practitioner-patient-2"
+    },
+    "reasonCode": [
+    {
+        "coding": [
+            {
+                "system": "http://snomed.info/sct",
+                "code": "78275009",
+                "display": "Obstructive sleep apnea syndrome"
+            }
+        ],
+        "text": "Obstructive sleep apnea syndrome"
+    }
+    ],
+    "insurance": [
+        {
+            "reference": "Coverage/Coverage-patient-2"
+        }
+    ],
+    "dosageInstruction": [
+        {
+            "text": "Take as directed"
+        }
+    ],
+    "dispenseRequest": {
+        "quantity": {
+            "value": 1
+        }
+    }
+}
