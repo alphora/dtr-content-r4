@@ -1,0 +1,40 @@
+{
+    "resourceType": "CommunicationRequest",
+    "id": "CommunicationRequest-patient-2",
+    "meta": {
+        "profile": [
+            "http://hl7.org/fhir/StructureDefinition/CommunicationRequest"
+        ]
+    },
+    "status": "draft",
+    "subject": {
+        "reference": "Patient/crd-patient-2"
+    },
+    "authoredOn": "2024-05-26",
+    "requester": {
+    "reference": "Practitioner/Practitioner-patient-2"
+    },
+    "payload": [
+        {
+            "contentString": "Requesting patient communication regarding test results."
+        }
+    ],
+        "recipient": [
+        {
+            "reference": "Practitioner/Practitioner-patient-2"
+        }
+    ],
+    "reasonCode": [
+        {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "281647001",
+                    "display": "Follow-up communication"
+                }
+            ],
+            "text": "Follow-up communication"
+        }
+    ],
+    "occurrenceDateTime": "2024-05-26T08:00:00.000Z"
+}
