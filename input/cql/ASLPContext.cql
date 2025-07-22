@@ -15,7 +15,7 @@ code "Payor Code": 'pay' from "Payor Identifier CodeSystem" display 'Payor'
 code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
 
 // NutritionOrder, ServiceRequest, DeviceRequest, MedicationRequest, VisionPrescription with /draft/ status
-// parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>>
+parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>>
 
 parameter "Request Id" System.String
   // NOTE: defaults should not be used in production
@@ -212,13 +212,13 @@ define function GetSubjectID(item Choice<FHIR.NutritionOrder, FHIR.ServiceReques
   
 
 define "Service Request Item List":
-  // "draftOrders"
+  "draftOrders"
   // NOTE: these retrieves are only for local testing
-  ([ServiceRequest]) 
-  union ([DeviceRequest]) 
-  union ([NutritionOrder])
-  union ([MedicationRequest])
-  union ([CommunicationRequest])
+  // ([ServiceRequest]) 
+  // union ([DeviceRequest]) 
+  // union ([NutritionOrder])
+  // union ([MedicationRequest])
+  // union ([CommunicationRequest])
 
 define "Provider":
   {
