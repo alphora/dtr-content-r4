@@ -169,7 +169,7 @@ define "null Service Request Item":
 
 // CRD Coverage Extensions
 define "CoverageExtensionList":
-  if Ctx."Service Request Item List"[0] is null then
+  if Ctx."Service Request Item List" is null then
     { 
       "GetCoverageExtension"(
         "null Service Request Item", 
