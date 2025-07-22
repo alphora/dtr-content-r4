@@ -53,10 +53,10 @@
     }
   ],
   "organization": {
-    "reference": "Organization/crd-5-prior-auth-required-payor-NYS-Medicaid"
+    "reference": "Organization/Organization-patient-2"
   },
   "practitioner": {
-    "reference": "Practitioner/crd-5-prior-auth-required-payor-Practitioner-1",
+    "reference": "Practitioner/Practitioner-patient-2",
     "display": "Dr. George Curious"
   }
 }

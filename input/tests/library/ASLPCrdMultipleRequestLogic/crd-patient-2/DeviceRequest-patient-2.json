@@ -14,11 +14,6 @@
     "text": "CPAP Machine"
   },
   "authoredOn": "2023-11-21",
-  "reasonReference": [
-    {
-      "reference": "Condition/Condition1-patient-2"
-    }
-  ],
   "subject": {
       "reference": "Patient/crd-patient-2"
   },
