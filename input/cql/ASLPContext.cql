@@ -11,7 +11,7 @@ include ASLPContextProvider called ContextProvider
 include ASLPContextPayor called ContextPayor
 
 // NutritionOrder, ServiceRequest, DeviceRequest, MedicationRequest, VisionPrescription with /draft/ status
-// parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>>
+parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>>
 
 parameter "Request Id" System.String
   // NOTE: defaults should not be used in production
@@ -181,13 +181,13 @@ define function GetSubjectID(item Choice<FHIR.NutritionOrder, FHIR.ServiceReques
   else item.subject.reference.getId()
 
 define "Service Request Item List":
-  // "draftOrders"
+  "draftOrders"
   // NOTE: these retrieves are only for local testing
-  ([ServiceRequest]) 
-  union ([DeviceRequest]) 
-  union ([NutritionOrder])
-  union ([MedicationRequest])
-  union ([CommunicationRequest])
+  // ([ServiceRequest]) 
+  // union ([DeviceRequest]) 
+  // union ([NutritionOrder])
+  // union ([MedicationRequest])
+  // union ([CommunicationRequest])
 
 define "Payor":
   ContextPayor."Payor"
