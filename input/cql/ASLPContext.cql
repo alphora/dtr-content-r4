@@ -53,6 +53,8 @@ define function "GetResourceType"(resource Choice<FHIR.NutritionOrder, FHIR.Serv
     'VisionPrescription'
   else if (resource is FHIR.MedicationRequest) then
     'MedicationRequest'
+  else if (resource is FHIR.CommunicationRequest) then
+    'CommunicationRequest'
   else
     "UnknownResourceType"
 
@@ -126,7 +128,7 @@ define fluent function getNpi(item Choice<Practitioner, Organization>):
 
 // need a architecture design question on how to solve longer term
 
-define function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
+define function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription>):
 // returns FHIR.CodeableConcept:
   if (item is FHIR.ServiceRequest) then
     (item as FHIR.ServiceRequest).code
@@ -139,6 +141,15 @@ define function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FH
       null as FHIR.CodeableConcept
   else if (item is FHIR.NutritionOrder) then
     (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType
+  else if (item is FHIR.MedicationRequest) then
+    if (item as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then
+      (item as FHIR.MedicationRequest).medication as FHIR.CodeableConcept
+    else if (item as FHIR.MedicationRequest).medication is FHIR.Reference then
+      ([Medication: id ~ ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference]).code
+    else 
+      null as FHIR.CodeableConcept
+  // else if (item is FHIR.CommunicationRequest) then
+  //   (item as FHIR.CommunicationRequest).payload.contentString
   else null as FHIR.CodeableConcept
 
 define function GetRequester(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
