@@ -182,8 +182,7 @@ define "null Service Request Item":
 
 // CRD Coverage Extensions
 define "CoverageExtensionList":
-  if Ctx."Service Request Item List" is null 
-    or not exists (Ctx."Service Request Item List") then
+  if Ctx."Service Request Item List" is null then
       { 
         "GetCoverageExtension"(
           "null Service Request Item", 
@@ -237,28 +236,28 @@ define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
 
 define function "GetCoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>, item Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String}):
   // returns FHIR.Extension:
-  if requestItem is null then 
-    FHIR.Extension {
-      "url": FHIR.uri { "value": 'coverage-info' },
-      "value": FHIR.string { "value": 'No orders found.' }
-    }
-  else if requestItem is FHIR.CommunicationRequest then
-    Ctx."ExtensionPriorAuthNotNeeded"(
-      requestItem,
-      item."Covered", 
-      item."PriorAuthNeeded", 
-      item."DetailCode", 
-      item."DetailText", 
-      (if "DebuggingEnabled" then item."DetailQualification" + Ctx.NewLine + '--- DEBUGGING ---' + Ctx.NewLine + item."DetailDebugging" else item."DetailQualification"),
-      item."DetailValue"
-    ) 
-  else
+  // if requestItem is null then 
+  //   FHIR.Extension {
+  //     "url": FHIR.uri { "value": 'coverage-info' },
+  //     "value": FHIR.string { "value": 'No orders found.' }
+  //   }
+  // else if requestItem is FHIR.CommunicationRequest then
+  //   Ctx."ExtensionPriorAuthNotNeeded"(
+  //     requestItem,
+  //     item."Covered", 
+  //     item."PriorAuthNeeded", 
+  //     item."DetailCode", 
+  //     item."DetailText", 
+  //     (if "DebuggingEnabled" then item."DetailQualification" + Ctx.NewLine + '--- DEBUGGING ---' + Ctx.NewLine + item."DetailDebugging" else item."DetailQualification"),
+  //     item."DetailValue"
+  //   ) 
+  // else
     Ctx."ExtensionPriorAuthNeeded"(
       requestItem,
       item."Covered", 
       item."PriorAuthNeeded", 
       item."DetailCode", 
       item."DetailText", 
-      (if "DebuggingEnabled" then item."DetailQualification" + Ctx.NewLine + '--- DEBUGGING ---' + Ctx.NewLine + item."DetailDebugging" else item."DetailQualification"),
+      if "DebuggingEnabled" then item."DetailQualification" + Ctx.NewLine + '--- DEBUGGING ---' + Ctx.NewLine + item."DetailDebugging" else item."DetailQualification",
       item."DetailValue"
     )
