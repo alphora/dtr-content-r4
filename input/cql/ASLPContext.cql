@@ -7,6 +7,8 @@ using FHIR version '4.0.1'
 include USCoreCommon
 include FHIRHelpers version '4.1.000'
 include CrdExtendedCoverageInfo called ECI
+include ASLPContextProvider called ContextProvider
+include ASLPContextPayor called ContextPayor
 
 codesystem "Relationship Role": 'http://terminology.hl7.org/CodeSystem/v3-RoleCode'
 codesystem "Payor Identifier CodeSystem": 'http://terminology.hl7.org/CodeSystem/organization-type'
@@ -20,32 +22,6 @@ parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FH
 parameter "Request Id" System.String
   // NOTE: defaults should not be used in production
   //default 'generated-id-default-value'
-
-// TODO: separate this into different parameters
-// parameter "Payor Patient" FHIR.Patient
-// parameter "Payor Coverages" List<FHIR.Coverage>
-// parameter "Payor Practitioners" List<FHIR.Practitioner>
-// parameter "Payor PractitionerRoles" List<FHIR.PractitionerRole>
-// parameter "Payor Organizations" List<FHIR.Organization>
-parameter "Payor Context" FHIR.Bundle
-  // NOTE: defaults should not be used in production
-  /*
-  default FHIR.Bundle {
-    "id": FHIR.id { "value": 'abc' },
-    "entry": {
-      FHIR.Bundle.Entry {
-        "resource": FHIR.Patient {
-          "name": {
-            FHIR.HumanName {
-              "family": FHIR.string { "value": 'Chalmers' }
-            }
-          },
-          "birthDate": FHIR.date { "value": @1974-12-25 }
-        }
-      }
-    }
-  }
-  */
 
 context Patient
 
@@ -66,13 +42,41 @@ define "Provider Coverage":
   )
 
 define function "Service Request Item Code"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
-  FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)
+  if (requestItem is FHIR.CommunicationRequest) then
+    if exists ((requestItem as FHIR.CommunicationRequest).payload P
+      where not IsNull(P)
+    ) then null as FHIR.CodeableConcept
+        // if not IsNull(P.content as FHIR.string) then 
+        //   FHIRHelpers.ToCode(
+        //       FHIR.Coding {
+        //         system: FHIR.uri { value: 'http://example.org/fhir/payload-string' },
+        //         code: FHIR.code { value: (P.content as FHIR.string) }
+        //       }
+        //   )
+        // else if not IsNull(P.content as FHIR.Attachment) then 
+        //   FHIRHelpers.ToCode(
+        //       FHIR.Coding {
+        //         system: FHIR.uri { value: 'http://example.org/fhir/payload-attachment' },
+        //         code: FHIR.code { value: (P.content as FHIR.Attachment) }
+        //       }
+        //   )
+        // else if not IsNull(P.content as FHIR.Reference) then 
+        //   FHIRHelpers.ToCode(
+        //       FHIR.Coding {
+        //         system: FHIR.uri { value: 'http://example.org/fhir/payload-reference' },
+        //         code: FHIR.code { value: (P.content as FHIR.Reference) }
+        //       }
+        //   )
+        // else null as FHIR.CodeableConcept
+    else null 
+  else 
+    FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)
 
 define function "Service Request Item ID"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
   GetResourceType(requestItem) + '/' + requestItem.id.value
 
-define function "GetResourceType"(resource Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
-// returns System.String:
+define function "GetResourceType"(resource Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>)
+returns System.String:
   if (resource is FHIR.ServiceRequest) then
     'ServiceRequest'
   else if (resource is FHIR.NutritionOrder) then
@@ -98,13 +102,9 @@ define function "System Generated Id"(requestItem Choice<FHIR.NutritionOrder, FH
     "Request Id"
   )
 
-// define function ExtensionPriorAuthNotNeeded(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>, covered System.String, priorAuthRequired System.String, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String):
-// // returns FHIR.Extension:
-//   ECI.ExtensionPriorAuthNotNeeded("Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id"(requestItem), "Service Request Item ID"(requestItem), "Service Request Item Code"(requestItem), codeValue, detailText, qualification, warningOrInfo)
-
-define function ExtensionPriorAuthNeeded(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>, covered System.String, priorAuthRequired System.String, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String):
-// returns FHIR.Extension:
-  ECI.ExtensionPriorAuthNeeded("Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id"(requestItem), "Service Request Item ID"(requestItem), "Service Request Item Code"(requestItem), codeValue, detailText, qualification, warningOrInfo)
+define function ExtensionPriorAuthNeeded(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>, covered System.String, priorAuthRequired System.String, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)
+returns FHIR.Extension:
+  ECI.ExtensionPriorAuthNeeded(ContextProvider."Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id"(requestItem), "Service Request Item ID"(requestItem), "Service Request Item Code"(requestItem), codeValue, detailText, qualification, warningOrInfo)
 
 define function TagExists(resource Resource, value System.Code):
 // returns System.Boolean:
@@ -118,13 +118,13 @@ define function TagExists(resource Resource, value System.Code):
             false
     )
   else false
-
+  
 define function IsPayorResource(resource Resource):
 // returns System.Boolean:
   TagExists(resource, "Payor Code")
 
-define function GetIdentifier(item Choice<Practitioner, Organization>, url System.String):
-// returns System.String:
+define function GetIdentifier(item Choice<Practitioner, Organization>, url System.String)
+returns System.String:
   singleton from
   (
     item.identifier I
@@ -132,13 +132,13 @@ define function GetIdentifier(item Choice<Practitioner, Organization>, url Syste
       return I.value.value
   )
 
-define fluent function npi(items List<Choice<Practitioner, Organization>>):
-// returns List<System.String>:
+define fluent function npi(items List<Choice<Practitioner, Organization>>)
+returns List<System.String>:
   items I
     return GetIdentifier(I, 'http://hl7.org/fhir/sid/us-npi')
 
-define fluent function getNpi(item Choice<Practitioner, Organization>):
-// returns System.String:
+define fluent function getNpi(item Choice<Practitioner, Organization>)
+returns System.String:
   GetIdentifier(item, 'http://hl7.org/fhir/sid/us-npi')
 
 // Option 1 (not feasible short-term): Use related context retrieve
@@ -158,10 +158,10 @@ define fluent function getNpi(item Choice<Practitioner, Organization>):
 
 // need a architecture design question on how to solve longer term
 
-define function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription>):
-// returns FHIR.CodeableConcept:
+define function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>)
+returns FHIR.CodeableConcept:
   if (item is FHIR.ServiceRequest) then
-    (item as FHIR.ServiceRequest).code as FHIR.CodeableConcept
+    (item as FHIR.ServiceRequest).code
   else if (item is FHIR.DeviceRequest) then
     if (item as FHIR.DeviceRequest).code is FHIR.CodeableConcept then
       (item as FHIR.DeviceRequest).code as FHIR.CodeableConcept
@@ -170,32 +170,11 @@ define function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FH
     else 
       null as FHIR.CodeableConcept
   else if (item is FHIR.NutritionOrder) then
-    if exists ((item as FHIR.NutritionOrder).enteralFormula.baseFormulaType) then 
-      (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType as FHIR.CodeableConcept
-    else if exists ((item as FHIR.NutritionOrder).supplmement.type) then 
-      (item as FHIR.NutritionOrder).supplmement.type as FHIR.CodeableConcept
-    else if exists ((item as FHIR.NutritionOrder).oralDiet.type) then 
-      (item as FHIR.NutritionOrder).oralDiet.type as FHIR.CodeableConcept
-  else if (item is FHIR.MedicationRequest) then
-    if (item as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then
-      (item as FHIR.MedicationRequest).medication as FHIR.CodeableConcept
-    else if (item as FHIR.MedicationRequest).medication is FHIR.Reference then
-      ([Medication: id ~ ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference]).code
-    else 
-      null as FHIR.CodeableConcept
-  else if (item is FHIR.CommunicationRequest) then
-    if (item as FHIR.CommunicationRequest).payload.content is FHIR.String then 
-      (item as FHIR.CommunicationRequest).payload.content as FHIR.String
-    else if (item as FHIR.CommunicationRequest).payload.content is FHIR.Attachment then 
-      (item as FHIR.CommunicationRequest).payload.content as FHIR.Attachment
-    else if (item as FHIR.CommunicationRequest).payload.content is FHIR.Reference then 
-      ([Communication: id ~ ((item as FHIR.CommunicationRequest).payload.content as FHIR.Reference).reference])
-    else 
-      null as FHIR.CodeableConcept
+    (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType
   else null as FHIR.CodeableConcept
 
-define function GetRequester(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
-// returns List<FHIR.Reference>:
+define function GetRequester(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>)
+returns List<FHIR.Reference>:
   if (item is FHIR.ServiceRequest) then
     ({ (item as FHIR.ServiceRequest).requester }) as List<FHIR.Reference>
   else if (item is FHIR.DeviceRequest) then
@@ -206,8 +185,8 @@ define function GetRequester(item Choice<FHIR.NutritionOrder, FHIR.ServiceReques
     ({ (item as FHIR.CommunicationRequest).requester }) as List<FHIR.Reference>
   else null as List<FHIR.Reference>
 
-define function GetPerformer(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
-// returns List<FHIR.Reference>:
+define function GetPerformer(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>)
+returns List<FHIR.Reference>:
   if (item is FHIR.ServiceRequest) then
     ((item as FHIR.ServiceRequest).performer) as List<FHIR.Reference>
   else if (item is FHIR.DeviceRequest) then
@@ -221,56 +200,19 @@ define function GetPerformer(item Choice<FHIR.NutritionOrder, FHIR.ServiceReques
     else ({ (item as FHIR.CommunicationRequest).sender }) as List<FHIR.Reference>
   else null as List<FHIR.Reference>
 
-define function GetSubjectID(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
-// returns System.String:
+define function GetSubjectID(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>)
+returns System.String:
   if (item is FHIR.VisionPrescription or item is FHIR.NutritionOrder) then
     item.patient.reference.getId()
   else item.subject.reference.getId()
-  
 
 define "Service Request Item List":
   "draftOrders"
   // NOTE: these retrieves are only for local testing
-  // ([ServiceRequest]) 
-  // union ([DeviceRequest]) 
-  // union ([NutritionOrder])
-  // union ([MedicationRequest])
-  // union ([CommunicationRequest])
-
-define "Provider":
-  {
-    "Patient": "Provider Patient",
-    "Coverages": { "Provider Coverage" },
-    "Practitioners": [Practitioner] item where IsPayorResource(item) = false,
-    "PractitionerRoles": [PractitionerRole] item where IsPayorResource(item) = false,
-    "Organizations": [Organization] item where IsPayorResource(item) = false
-  }
+  //([ServiceRequest]) union ([DeviceRequest]) union ([NutritionOrder])
 
 define "Payor":
-  if (Count("Payor Context".entry) >= 1) then 
-    {
-      "Patient": First(("Payor Context".entry.resource PayorResource return if (PayorResource is Patient) then PayorResource as FHIR.Patient else null as FHIR.Patient) I where I is not null),
-      "Coverages": ("Payor Context".entry.resource PayorResource return if (PayorResource is Coverage) then PayorResource as FHIR.Coverage else null as FHIR.Coverage) I where I is not null,
-      "Practitioners": ("Payor Context".entry.resource PayorResource return if (PayorResource is Practitioner) then PayorResource as FHIR.Practitioner else null as FHIR.Practitioner) I where I is not null,
-      "PractitionerRoles": ("Payor Context".entry.resource PayorResource return if (PayorResource is PractitionerRole) then PayorResource as FHIR.PractitionerRole else null as FHIR.PractitionerRole) I where I is not null,
-      "Organizations": ("Payor Context".entry.resource PayorResource return if (PayorResource is Organization) then PayorResource as FHIR.Organization else null as FHIR.Organization) I where I is not null
-    }
-  // This section is only for local CQL vs code plugin testing
-  else
-    {
-      "Patient": "Payor Patient",
-      "Coverages": [Coverage] item where IsPayorResource(item) = true,
-      "Practitioners": [Practitioner] item where IsPayorResource(item) = true,
-      "PractitionerRoles": [PractitionerRole] item where IsPayorResource(item) = true,
-      "Organizations": [Organization] item where IsPayorResource(item) = true
-    }
+  ContextPayor."Payor"
 
-define "Provider Patient":
-  First([Patient] P where not IsPayorResource(P))
-
-define "Payor Patient":
-  First(
-    [RelatedPerson] RP
-      where 
-        IsPayorResource(RP)
-  )
+define "Provider":
+  ContextProvider."Provider"
