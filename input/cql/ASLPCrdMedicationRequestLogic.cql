@@ -19,12 +19,15 @@ define "Description":
   'Information related to whether a service is covered, not covered or requires prior auth submission' 
 
 // CRD-MedicationRequest
-define "Detail Text":
-  'Prior authorization requirement and coverage determination are pending, subject to the medication coverage policy.'
+define "Detail Text 9":
+  'Prior authorization requirement and coverage determination for ' + "Medication List" + ' are pending, subject to the medication coverage policy.'
 
 // CRD-MedicationRequest
-define "Qualification MedicationRequest":
-    'The requirement for prior authorization and coverage for ' + "Medication List" + 'are determined by the applicable policy.'
+define "Qualification 9":
+    'The requirement for prior authorization and coverage for ' + "Medication List" + ' are determined by the applicable policy.'
+
+define "Detail Debugging":
+  'Not yet implemented.'
 
 define "Medication List":
     Combine(    
