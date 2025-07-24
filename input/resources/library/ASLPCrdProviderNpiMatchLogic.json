@@ -10,6 +10,12 @@
   "url": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdProviderNpiMatchLogic",
   "version": "0.1.0",
   "name": "ASLPCrdProviderNpiMatchLogic",
+  "type": {
+    "coding": [ {
+      "system": "http://terminology.hl7.org/CodeSystem/library-type",
+      "code": "logic-library"
+    } ]
+  },
   "relatedArtifact": [ {
     "type": "depends-on",
     "display": "FHIR model information",

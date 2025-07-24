@@ -42,35 +42,33 @@ define "Provider Coverage":
   )
 
 define function "Service Request Item Code"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
-  if (requestItem is FHIR.CommunicationRequest) then
-    if exists ((requestItem as FHIR.CommunicationRequest).payload P
-      where not IsNull(P)
-    ) then null as FHIR.CodeableConcept
-        // if not IsNull(P.content as FHIR.string) then 
-        //   FHIRHelpers.ToCode(
-        //       FHIR.Coding {
-        //         system: FHIR.uri { value: 'http://example.org/fhir/payload-string' },
-        //         code: FHIR.code { value: (P.content as FHIR.string) }
-        //       }
-        //   )
-        // else if not IsNull(P.content as FHIR.Attachment) then 
-        //   FHIRHelpers.ToCode(
-        //       FHIR.Coding {
-        //         system: FHIR.uri { value: 'http://example.org/fhir/payload-attachment' },
-        //         code: FHIR.code { value: (P.content as FHIR.Attachment) }
-        //       }
-        //   )
-        // else if not IsNull(P.content as FHIR.Reference) then 
-        //   FHIRHelpers.ToCode(
-        //       FHIR.Coding {
-        //         system: FHIR.uri { value: 'http://example.org/fhir/payload-reference' },
-        //         code: FHIR.code { value: (P.content as FHIR.Reference) }
-        //       }
-        //   )
-        // else null as FHIR.CodeableConcept
-    else null 
+  if (requestItem is FHIR.CommunicationRequest) then 
+    FHIRHelpers.ToCode(singleton from GetCodeableConceptForCommunicationRequest(requestItem).coding)
   else 
     FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)
+
+define function GetCodeableConceptForCommunicationRequest(cr FHIR.CommunicationRequest):
+  if exists (cr.payload p
+    where not IsNull(p.content)
+     // where not IsNull(p.contentString)
+    // or not IsNull(p.contentAttachment)
+    // or not IsNull(p.contentReference)
+  ) then
+    FHIR.CodeableConcept {
+      coding: {
+        FHIR.Coding {
+          system: FHIR.uri { value: 'http://example.org/fhir/payload-content' },
+          code: FHIR.code { value: CommunicationPayloadValue(cr) }
+        }
+      },
+      text: FHIR.string { value: CommunicationPayloadValue(cr) }
+    }
+  else null as FHIR.CodeableConcept
+
+define function CommunicationPayloadValue(cr FHIR.CommunicationRequest):
+  if exists(cr.payload p) then
+    First(cr.payload p where not IsNull(p.content)).content as FHIR.string
+  else null
 
 define function "Service Request Item ID"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
   GetResourceType(requestItem) + '/' + requestItem.id.value

@@ -10,6 +10,12 @@
   "url": "http://example.org/sdh/dtr/aslp/Library/ASLPContext",
   "version": "0.1.0",
   "name": "ASLPContext",
+  "type": {
+    "coding": [ {
+      "system": "http://terminology.hl7.org/CodeSystem/library-type",
+      "code": "logic-library"
+    } ]
+  },
   "relatedArtifact": [ {
     "type": "depends-on",
     "display": "FHIR model information",
@@ -34,6 +40,14 @@
     "type": "depends-on",
     "display": "Library ContextPayor",
     "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextPayor"
+  }, {
+    "type": "depends-on",
+    "display": "Code system Relationship Role",
+    "resource": "http://terminology.hl7.org/CodeSystem/v3-RoleCode"
+  }, {
+    "type": "depends-on",
+    "display": "Code system Payor Identifier CodeSystem",
+    "resource": "http://terminology.hl7.org/CodeSystem/organization-type"
   } ],
   "parameter": [ {
     "name": "draftOrders",
@@ -71,6 +85,12 @@
     "min": 0,
     "max": "*",
     "type": "string"
+  }, {
+    "name": "Provider Coverage",
+    "use": "out",
+    "min": 0,
+    "max": "1",
+    "type": "Coverage"
   }, {
     "name": "Service Request Item List",
     "use": "out",
