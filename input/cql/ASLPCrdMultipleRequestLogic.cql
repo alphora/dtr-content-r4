@@ -142,7 +142,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailText": MedicationRequest."Detail Text 9", 
       "DetailQualification": MedicationRequest."Qualification 9",
       "DetailDebugging": if "DebuggingEnabled" then MedicationRequest."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'error'
+      "DetailValue": 'Warning'
     }, 
     "CRD-UnexpectedError": { 
       "ID": 'CRD-UnexpectedError',
@@ -152,7 +152,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailText": 'Unexpected result', 
       "DetailQualification": 'Unexpected Prior Authorization result. Please try again or contact support.',
       "DetailDebugging": 'No debugging available',
-      "DetailValue": 'error'
+      "DetailValue": 'critical'
     } 
   }
 
