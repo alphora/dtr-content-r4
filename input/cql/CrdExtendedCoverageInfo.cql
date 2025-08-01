@@ -90,7 +90,7 @@ returns FHIR.Extension:
 
 define function "QuestionnaireExtension"(priorAuthRequired System.String, procedureCode System.Code)
 returns FHIR.Extension:
-  if priorAuthRequired in { 'auth-needed' } then
+  if priorAuthRequired in { 'auth-needed', 'conditional' } then
     if not IsNull(QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode)) then 
       FHIR.Extension {
         "url": FHIR.uri { "value": 'questionnaire' },
