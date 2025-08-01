@@ -49,10 +49,9 @@ define function "Service Request Item Code"(requestItem Choice<FHIR.NutritionOrd
 
 define function GetCodeableConceptForCommunicationRequest(cr FHIR.CommunicationRequest):
   if exists (cr.payload p
-    where not IsNull(p.content)
-     // where not IsNull(p.contentString)
-    // or not IsNull(p.contentAttachment)
-    // or not IsNull(p.contentReference)
+    where not IsNull(p.contentString)
+    or not IsNull(p.contentAttachment)
+    or not IsNull(p.contentReference)
   ) then
     FHIR.CodeableConcept {
       coding: {
