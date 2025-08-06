@@ -67,4 +67,4 @@ define function "DomainResource is Empty"(requestItem Choice<FHIR.NutritionOrder
 
 // CRD-8.3
 define function "Received Provider Data Cannot be Processed"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
-  Ctx."GetResourceType"(requestItem) in Ctx."UnsupportedResourceTypes"
+  Ctx.GetResourceType(requestItem) in Ctx."UnsupportedResourceTypes"
