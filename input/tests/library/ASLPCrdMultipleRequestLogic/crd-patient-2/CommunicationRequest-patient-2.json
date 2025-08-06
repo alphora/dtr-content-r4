@@ -19,7 +19,7 @@
             "contentString": "Requesting patient communication regarding test results."
         }
     ],
-        "recipient": [
+    "recipient": [
         {
             "reference": "Practitioner/Practitioner-patient-2"
         }
