@@ -80,7 +80,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "PriorAuthNeeded": 'no-auth', 
       "DetailCode": 'no-auth', 
       "DetailText": Routine."Detail Text", 
-      "DetailQualification": Routine."Qualification"(requestItem),
+      "DetailQualification": Routine."Qualification",
       "DetailDebugging": if "DebuggingEnabled" then Routine."Detail Debugging" else 'Debugging disabled',
       "DetailValue": 'info'
     },

@@ -22,7 +22,10 @@ define "Description":
 
 // CRD-7
 define function "Qualification"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
-  'Order is covered. No prior auth is required for ' + Ctx."Service Request Item Code"(requestItem).display + '.'
+  'Order is covered. No prior auth is required for ' + Ctx."Service Request Item Code"(requestItem).display
+
+define "Qualification":
+  'Order is covered. No prior auth is required for communication requests'
 
 // CRD-7
 define "Detail Text":
