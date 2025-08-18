@@ -106,11 +106,11 @@ define function GetResourceType(r Choice<FHIR.NutritionOrder, FHIR.ServiceReques
   if (r is FHIR.ServiceRequest) then
     'ServiceRequest Resource'
   else if (r is FHIR.NutritionOrder) then
-    ' NutritionOrder Resource'
+    'NutritionOrder Resource'
   else if (r is FHIR.DeviceRequest) then
-    ' DeviceRequest Resource'
+    'DeviceRequest Resource'
   else if (r is FHIR.VisionPrescription) then
-    ' VisionPrescription Resource'
+    'VisionPrescription Resource'
   else if (r is FHIR.MedicationRequest) then
     'MedicationRequest Resource'
   else if (r is FHIR.CommunicationRequest) then
