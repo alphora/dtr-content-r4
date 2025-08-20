@@ -162,20 +162,20 @@
                         {
                         "extension": [
                             {
-                            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                            "valueString": "Does patient have an other qualifying procedure request?"
+                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                              "valueString": "Does patient have an other qualifying procedure request?"
                             },
                             {
-                            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                            "valueMarkdown": "Patient has an other qualifying procedure request"
+                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                              "valueMarkdown": "Patient has an other qualifying procedure request"
                             },
                             {
-                            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                            "valueExpression": {
-                                "language": "text/cql-identifier",
-                                "expression": "Qualifying Other Procedure",
-                                "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                            }
+                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                              "valueExpression": {
+                                  "language": "text/cql-identifier",
+                                  "expression": "Qualifying Other Procedure",
+                                  "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                              }
                             }
                         ],
                         "type": "Observation",
