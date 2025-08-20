@@ -20,11 +20,11 @@ define "Description":
 
 // CRD-MedicationRequest
 define "Detail Text 9":
-  'Prior authorization requirement and coverage determination for medications are pending, subject to the medication coverage policy.'
+  'Prior authorization may be required based on the patient`s coverage policy.'
 
 // CRD-MedicationRequest
 define "Qualification 9":
-    'The requirement for prior authorization and coverage for medications are determined by the applicable policy.'
+  'Authorization and coverage depend on the applicable policy. Additional information may be needed to confirm requirements.'
 
 define "Detail Debugging":
   'Not yet implemented.'
