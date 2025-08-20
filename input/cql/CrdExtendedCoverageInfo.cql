@@ -6,7 +6,7 @@ using FHIR version '4.0.1'
 
 //include USCoreCommon
 include FHIRHelpers version '4.1.000'
-include QuestionnaireRouter
+include QuestionnaireRouter called QuestionnaireRouter
 
 context Patient
 
@@ -90,14 +90,27 @@ returns FHIR.Extension:
 
 define function "QuestionnaireExtension"(priorAuthRequired System.String, procedureCode System.Code)
 returns FHIR.Extension:
-  if priorAuthRequired in { 'auth-needed', 'conditional' } then
-    if not IsNull(QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode)) then 
+  if priorAuthRequired = 'no-auth' then
+    null as FHIR.Extension
+  else if priorAuthRequired in { 'auth-needed', 'conditional' }
+    and not IsNull(QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode)) then 
       FHIR.Extension {
         "url": FHIR.uri { "value": 'questionnaire' },
         "value": FHIR.canonical { "value": QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode) } 
       }
-    else null as FHIR.Extension
-  else null as FHIR.Extension
+  else 
+    FHIR.Extension {
+        "url": FHIR.uri { "value": 'questionnaire' },
+        "value": FHIR.string { "value": 'service codes not applicable to questionnaire' } 
+      }
+  // if priorAuthRequired in { 'auth-needed', 'conditional' } then
+  //   if not IsNull(QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode)) then 
+  //     FHIR.Extension {
+  //       "url": FHIR.uri { "value": 'questionnaire' },
+  //       "value": FHIR.canonical { "value": QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode) } 
+  //     }
+  //   else null as FHIR.Extension
+  // else null as FHIR.Extension
 
 // code = auth-needed|no-auth|gold-card|not-covered, warningOrInfo = Warning|info, qualification = {open text entry}
 define function "DetailExtension"(codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)
