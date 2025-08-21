@@ -139,9 +139,9 @@ define function CommunicationPayloadValue(cr FHIR.CommunicationRequest):
 
 define function GetCodeableConceptForCommunicationRequest(cr FHIR.CommunicationRequest):
   if exists (cr.payload p
-    where (P.content as FHIR.string) is not null
-      or (P.content as FHIR.Attachment) is not null
-      or (P.content as FHIR.Reference) is not null
+    where (p.content as FHIR.string) is not null
+      or (p.content as FHIR.Attachment) is not null
+      or (p.content as FHIR.Reference) is not null
     // where not IsNull(p.contentString)
       // or not IsNull(p.contentAttachment)
       // or not IsNull(p.contentReference)
