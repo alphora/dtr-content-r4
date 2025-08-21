@@ -25,7 +25,7 @@ define function "Qualification"(requestItem Choice<FHIR.NutritionOrder, FHIR.Ser
   'Order is covered. No prior auth is required for ' + Ctx."Service Request Item Code"(requestItem).display
 
 define "Qualification":
-  'Order is covered. No prior auth is required for communication requests'
+  'Order is covered. No prior auth is required for this request'
 
 // CRD-7
 define "Detail Text":
