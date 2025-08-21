@@ -184,6 +184,15 @@ returns FHIR.CodeableConcept:
       null as FHIR.CodeableConcept
   else if (item is FHIR.NutritionOrder) then
     (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType
+  else if (item is FHIR.MedicationRequest) then 
+    if (item as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then
+      (item as FHIR.MedicationRequest).medication as FHIR.CodeableConcept
+    else if (item as FHIR.MedicationRequest).medication is FHIR.Reference then
+      ([MedicationRequest: id ~ ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference])
+    else 
+      null as FHIR.CodeableConcept
+  else if (item is FHIR.VisionPrescription) then 
+    (item as FHIR.VisionPrescription).lensSpecification
   else null as FHIR.CodeableConcept
 
 define function GetRequester(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>)
@@ -194,6 +203,10 @@ returns List<FHIR.Reference>:
     ({ (item as FHIR.DeviceRequest).requester }) as List<FHIR.Reference>
   else if (item is FHIR.NutritionOrder) then
     ({ (item as FHIR.NutritionOrder).orderer }) as List<FHIR.Reference>
+  else if (item is FHIR.MedicationRequest) then 
+    ({ (item as FHIR.MedicationRequest).requester }) as List<FHIR.Reference>
+  else if (item is FHIR.VisionPrescription) then 
+    ({ (item as FHIR.VisionPrescription).prescriber }) as List<FHIR.Reference>
   else if (item is FHIR.CommunicationRequest) then
     ({ (item as FHIR.CommunicationRequest).requester }) as List<FHIR.Reference>
   else null as List<FHIR.Reference>
@@ -208,6 +221,12 @@ returns List<FHIR.Reference>:
   else if (item is FHIR.NutritionOrder) then
     if (IsNull((item as FHIR.NutritionOrder).orderer)) then null as List<FHIR.Reference>
     else ({ (item as FHIR.NutritionOrder).orderer }) as List<FHIR.Reference>
+  else if (item is FHIR.MedicationRequest) then
+    if (IsNull((item as FHIR.MedicationRequest).performer)) then null as List<FHIR.Reference>
+    else ({ (item as FHIR.MedicationRequest).performer }) as List<FHIR.Reference>
+  else if (item is FHIR.VisionPrescription) then
+    if (IsNull((item as FHIR.VisionPrescription).prescriber)) then null as List<FHIR.Reference>
+    else ({ (item as FHIR.VisionPrescription).prescriber }) as List<FHIR.Reference>
   else if (item is FHIR.CommunicationRequest) then 
     if (IsNull((item as FHIR.CommunicationRequest).sender)) then null as List<FHIR.Reference>
     else ({ (item as FHIR.CommunicationRequest).sender }) as List<FHIR.Reference>
