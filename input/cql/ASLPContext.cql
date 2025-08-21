@@ -75,17 +75,17 @@ define function CommunicationPayloadValue(cr FHIR.CommunicationRequest):
 define function "Service Request Item ID"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
   // GetResourceType(requestItem) + '/' + requestItem.id.value
   if GetResourceType(requestItem) = 'ServiceRequest Resource' 
-    then + 'ServiceRequest/' + requestItem.id.value
+    then 'ServiceRequest/' + requestItem.id.value
   else if GetResourceType(requestItem) = 'NutritionOrder Resource'
-    then + 'NutritionOrder/' + requestItem.id.value
+    then 'NutritionOrder/' + requestItem.id.value
   else if GetResourceType(requestItem) = 'DeviceRequest Resource'
-    then + 'DeviceRequest/' + requestItem.id.value
+    then 'DeviceRequest/' + requestItem.id.value
   else if GetResourceType(requestItem) = 'VisionPrescription Resource'
-    then + 'VisionPrescription/' + requestItem.id.value
+    then 'VisionPrescription/' + requestItem.id.value
   else if GetResourceType(requestItem) = 'MedicationRequest Resource'
-    then + 'MedicationRequest/' + requestItem.id.value
+    then 'MedicationRequest/' + requestItem.id.value
   else if GetResourceType(requestItem) = 'CommunicationRequest Resource'
-    then + 'CommunicationRequest/' + requestItem.id.value
+    then 'CommunicationRequest/' + requestItem.id.value
   else 'UnknownResource'
 
 define function GetResourceType(r Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
