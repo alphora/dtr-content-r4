@@ -87,19 +87,32 @@ returns FHIR.Extension:
 
 define function "Service Request Item ID"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
   // GetResourceType(requestItem) + '/' + requestItem.id.value
-  if GetResourceType(requestItem) = 'ServiceRequest Resource' 
+  if requestItem is FHIR.ServiceRequest 
     then 'ServiceRequest/' + requestItem.id.value
-  else if GetResourceType(requestItem) = 'NutritionOrder Resource'
-    then 'NutritionOrder/' + requestItem.id.value
-  else if GetResourceType(requestItem) = 'DeviceRequest Resource'
+  else if requestItem is FHIR.DeviceRequest
     then 'DeviceRequest/' + requestItem.id.value
-  else if GetResourceType(requestItem) = 'VisionPrescription Resource'
-    then 'VisionPrescription/' + requestItem.id.value
-  else if GetResourceType(requestItem) = 'MedicationRequest Resource'
+  else if requestItem is FHIR.NutritionOrder
+    then 'NutritionOrder/' + requestItem.id.value
+  else if requestItem is FHIR.MedicationRequest
     then 'MedicationRequest/' + requestItem.id.value
-  else if GetResourceType(requestItem) = 'CommunicationRequest Resource'
+  else if requestItem is FHIR.VisionPrescription
+    then 'VisionPrescription/' + requestItem.id.value
+  else if requestItem is FHIR.CommunicationRequest
     then 'CommunicationRequest/' + requestItem.id.value
   else 'UnknownResource'
+  // if GetResourceType(requestItem) = 'ServiceRequest Resource' 
+  //   then 'ServiceRequest/' + requestItem.id.value
+  // else if GetResourceType(requestItem) = 'NutritionOrder Resource'
+  //   then 'NutritionOrder/' + requestItem.id.value
+  // else if GetResourceType(requestItem) = 'DeviceRequest Resource'
+  //   then 'DeviceRequest/' + requestItem.id.value
+  // else if GetResourceType(requestItem) = 'VisionPrescription Resource'
+  //   then 'VisionPrescription/' + requestItem.id.value
+  // else if GetResourceType(requestItem) = 'MedicationRequest Resource'
+  //   then 'MedicationRequest/' + requestItem.id.value
+  // else if GetResourceType(requestItem) = 'CommunicationRequest Resource'
+  //   then 'CommunicationRequest/' + requestItem.id.value
+  // else 'UnknownResource'
 
 define function GetResourceType(r Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
 // returns System.String:
