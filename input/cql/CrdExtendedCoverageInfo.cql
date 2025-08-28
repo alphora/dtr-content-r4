@@ -10,40 +10,6 @@ include QuestionnaireRouter
 
 context Patient
 
-define function ExtensionPriorAuthNotNeeded(coverageId System.String, covered System.String, priorAuthRequired System.String, coverageAssertionId System.String, requestReferenceString System.String, serviceRequestCode System.Code, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)
-returns FHIR.Extension:
-  FHIR.Extension {
-    "url": FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information' },
-    "extension": ({ 
-      // payer coverage
-      "CoverageExtension"(coverageId),
-
-      // 'covered', 'not-covered', or 'conditional' (https://build.fhir.org/ig/HL7/davinci-crd/ValueSet-coverageInfo.html)
-      "CoveredExtension"(covered),
-
-      // 'auth-needed', 'no-auth', or 'conditional' (https://build.fhir.org/ig/HL7/davinci-crd/ValueSet-coveragePaDetail.html)
-      "PriorAuthNeededExtension"(priorAuthRequired),
-
-      // system generated id
-      "CoverageAssertionIdExtension"(coverageAssertionId),
-
-      // today's date
-      "TodaysDateExtension"(),
-
-      // service request id
-      "DependencyExtension"(requestReferenceString),
-
-      // detail code, warning or info, and qualification
-      "DetailExtension"(codeValue, detailText, qualification, warningOrInfo),
-
-      // Always 'admin' and 'clinical'
-      // 'admin', 'clinical', 'both', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)
-      // "DocNeeded"('admin'),
-      // "DocNeeded"('clinical'),
-      "DocNeeded"('both')
-    }) Extension where not IsNull(Extension)
-  }
-
 define function ExtensionPriorAuthNeeded(coverageId System.String, covered System.String, priorAuthRequired System.String, coverageAssertionId System.String, requestReferenceString System.String, serviceRequestCode System.Code, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)
 returns FHIR.Extension:
   FHIR.Extension {
@@ -124,7 +90,7 @@ returns FHIR.Extension:
 
 define function "QuestionnaireExtension"(priorAuthRequired System.String, procedureCode System.Code)
 returns FHIR.Extension:
-  if priorAuthRequired in { 'auth-needed' } then
+  if priorAuthRequired in { 'auth-needed', 'conditional' } then
     if not IsNull(QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode)) then 
       FHIR.Extension {
         "url": FHIR.uri { "value": 'questionnaire' },

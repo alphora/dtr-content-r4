@@ -13,5 +13,10 @@
       "reference": "Patient/crd-5-prior-auth-required",
       "display": "Peter James Chalmers"
     }
+  }, {
+    "entity": {
+      "reference": "Patient/crd-patient-2",
+      "display": "Peter James Windsor"
+    }
   } ]
 }

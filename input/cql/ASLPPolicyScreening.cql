@@ -32,6 +32,8 @@ valueset "Heart Failure Diagnosis": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.8
 valueset "COVID19 SNOMED Value Set for Muscular Dystrophy": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.3616.200.110.102.6183'
 valueset "Hypoventilation Disorder VS": 'http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1219.121'
 valueset "Moderate to Severe Pulmonary Disease VS": 'http://example.org/sdh/dtr/aslp/ValueSet/ModerateToSeverePulmonaryDisease'
+valueset "Sleep Study Procedure": 'http://terminology.smilecdr.com/cs/sleepstudy'
+valueset "Other Example Procedure": 'http://terminology.smilecdr.com/cs/priorauth'
 
 //Can't find valuesets
 code "Epworth Sleepiness Scale Code": '763254009' from "SNOMEDCT" display 'Epworth Sleepiness Scale'
@@ -193,4 +195,16 @@ define "Safe Use Of Equipment At Home Observation":
 define "Physician Evaluated Results Observation":
   null as System.Boolean
 
-    
+//sleep study procedure for non-adaptive questionnaire
+define "Sleep Study Procedures":
+  ([Procedure: "Sleep Study Procedure"])
+  
+define "Sleep Study Procedure Present":
+  exists ("Sleep Study Procedures")
+
+//procedure for adaptive questionnaire 
+define "Other Procedures":
+  ([Procedure: "Other Example Procedure"])
+  
+define "Other Procedure Present":
+  exists ("Other Procedures")

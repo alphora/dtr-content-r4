@@ -142,5 +142,10 @@
     "code": "Periodic-Limb-Movement-Disorder-(PLMD)",
     "display": "Periodic Limb Movement Disorder (PLMD)",
     "definition": "Periodic Limb Movement Disorder (PLMD)"
+  }, 
+  {
+    "code": "Qualifying-Sleep-Study-Procedure",
+    "display": "Qualifying Sleep Study Procedure",
+    "definition": "Qualifying Sleep Study Procedure"
   } ]
 }
