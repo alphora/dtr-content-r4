@@ -1,0 +1,27 @@
+{
+  "resourceType": "DeviceRequest",
+  "id": "DeviceRequest-patient-2",
+  "status": "draft",
+  "intent": "order",
+  "codeCodeableConcept": {
+    "coding": [
+        {
+            "system": "urn:oid:2.16.840.1.113883.6.285",
+            "code": "E0601",
+            "display": "CPAP Machine"
+        }
+    ],
+    "text": "CPAP Machine"
+  },
+  "authoredOn": "2023-11-21",
+  "subject": {
+      "reference": "Patient/crd-patient-2"
+  },
+  "requester": {
+      "reference": "Practitioner/Practitioner-patient-2"
+  },
+  "performer": [{
+      "reference": "Practitioner/Practitioner-patient-2"
+  }],
+  "occurrenceDateTime": "2023-08-12T10:10:10-01:00"
+}

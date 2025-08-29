@@ -18,7 +18,7 @@ HELP_USAGE
 
 tooling_jar=tooling-cli-3.1.0.jar
 input_cache_path=./input-cache
-ig_resource_path=./input/ecqm-content-r4.xml
+ig_resource_path=./input/dtr-content-r4.xml
 unattended=false
 
 while getopts hds:u flag

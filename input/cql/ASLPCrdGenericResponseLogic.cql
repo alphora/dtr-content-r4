@@ -20,8 +20,8 @@ define "DebuggingEnabled":
 define "Service Request Item List":
   "draftOrders"
 
-define "UnknownResourceType":
-  'UnknownResourceType'
+// define "UnknownResourceType":
+//   'UnknownResourceType'
         
 // CRD Matrix of values
 // Duplicated the minimum necessary for CRD-7 from ASLPCrdMultipleRequestLogic
@@ -81,30 +81,95 @@ returns FHIR.Extension:
     item."DetailQualification",
     item."DetailValue"
   )
-define function ExtensionPriorAuthNeeded(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>, covered System.String, priorAuthRequired System.String, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)
+define function ExtensionPriorAuthNeeded(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>, covered System.String, priorAuthRequired System.String, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)
 returns FHIR.Extension:
   ECI.ExtensionPriorAuthNeeded('ProviderIdValue', covered, priorAuthRequired, "Request Id", "Service Request Item ID"(requestItem), "Service Request Item Code"(requestItem), codeValue, detailText, qualification, warningOrInfo)
 
-define function "Service Request Item ID"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
-  GetResourceType(requestItem) + '/' + requestItem.id.value
+define function "Service Request Item ID"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
+  // GetResourceType(requestItem) + '/' + requestItem.id.value
+  if requestItem is FHIR.ServiceRequest 
+    then 'ServiceRequest/' + requestItem.id.value
+  else if requestItem is FHIR.DeviceRequest
+    then 'DeviceRequest/' + requestItem.id.value
+  else if requestItem is FHIR.NutritionOrder
+    then 'NutritionOrder/' + requestItem.id.value
+  else if requestItem is FHIR.MedicationRequest
+    then 'MedicationRequest/' + requestItem.id.value
+  else if requestItem is FHIR.VisionPrescription
+    then 'VisionPrescription/' + requestItem.id.value
+  else if requestItem is FHIR.CommunicationRequest
+    then 'CommunicationRequest/' + requestItem.id.value
+  else 'UnknownResource'
+  // if GetResourceType(requestItem) = 'ServiceRequest Resource' 
+  //   then 'ServiceRequest/' + requestItem.id.value
+  // else if GetResourceType(requestItem) = 'NutritionOrder Resource'
+  //   then 'NutritionOrder/' + requestItem.id.value
+  // else if GetResourceType(requestItem) = 'DeviceRequest Resource'
+  //   then 'DeviceRequest/' + requestItem.id.value
+  // else if GetResourceType(requestItem) = 'VisionPrescription Resource'
+  //   then 'VisionPrescription/' + requestItem.id.value
+  // else if GetResourceType(requestItem) = 'MedicationRequest Resource'
+  //   then 'MedicationRequest/' + requestItem.id.value
+  // else if GetResourceType(requestItem) = 'CommunicationRequest Resource'
+  //   then 'CommunicationRequest/' + requestItem.id.value
+  // else 'UnknownResource'
 
-define function "GetResourceType"(resource Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>)
-returns System.String:
-  if (resource is FHIR.ServiceRequest) then
-    'ServiceRequest'
-  else if (resource is FHIR.NutritionOrder) then
-    'NutritionOrder'
-  else if (resource is FHIR.DeviceRequest) then
-    'DeviceRequest'
-  else if (resource is FHIR.VisionPrescription) then
-    'VisionPrescription'
-  else if (resource is FHIR.MedicationRequest) then
-    'MedicationRequest'
+define function GetResourceType(r Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
+// returns System.String:
+  if (r is FHIR.ServiceRequest) then
+    'ServiceRequest Resource'
+  else if (r is FHIR.NutritionOrder) then
+    'NutritionOrder Resource'
+  else if (r is FHIR.DeviceRequest) then
+    'DeviceRequest Resource'
+  else if (r is FHIR.VisionPrescription) then
+    'VisionPrescription Resource'
+  else if (r is FHIR.MedicationRequest) then
+    'MedicationRequest Resource'
+  else if (r is FHIR.CommunicationRequest) then
+    'CommunicationRequest Resource'
   else
-    "UnknownResourceType"
+    'UnknownResourceType'
 
-define function "Service Request Item Code"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
-  FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)
+define function "Service Request Item Code"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
+  if (requestItem is FHIR.CommunicationRequest) then 
+    FHIRHelpers.ToCode(singleton from GetCodeableConceptForCommunicationRequest(requestItem).coding)
+  else 
+    FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)
+
+define function CommunicationPayloadValue(cr FHIR.CommunicationRequest):
+  if exists (cr.payload p) then
+    First(cr.payload p where not IsNull(p.content as FHIR.string)).content as FHIR.string
+  else null
+  // if exists (cr.payload P where not IsNull(P.contentString))
+  //   then First(cr.payload P where not IsNull(P.contentString)).content as FHIR.string
+  // else if exists (cr.payload P where not IsNull(P.contentReference))
+  //   then First(cr.payload P where not IsNull(P.contentReference)).content as FHIR.Reference
+  // else if exists (cr.payload P where not IsNull(P.contentAttachment))
+  //   then First(cr.payload P where not IsNull(P.contentAttachment)).content as FHIR.Reference
+  // else null
+  
+
+define function GetCodeableConceptForCommunicationRequest(cr FHIR.CommunicationRequest):
+  if exists (cr.payload p
+    where (p.content as FHIR.string) is not null
+      or (p.content as FHIR.Attachment) is not null
+      or (p.content as FHIR.Reference) is not null
+    // where not IsNull(p.contentString)
+      // or not IsNull(p.contentAttachment)
+      // or not IsNull(p.contentReference)
+  ) then
+    FHIR.CodeableConcept {
+      coding: {
+        FHIR.Coding {
+          system: FHIR.uri { value: 'http://example.org/fhir/payload-content' },
+          code: FHIR.code { value: CommunicationPayloadValue(cr) },
+          display: FHIR.string { value: CommunicationPayloadValue(cr) }
+        }
+      },
+      text: FHIR.string { value: CommunicationPayloadValue(cr) }
+    }
+  else null as FHIR.CodeableConcept
 
 define function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>)
 returns FHIR.CodeableConcept:

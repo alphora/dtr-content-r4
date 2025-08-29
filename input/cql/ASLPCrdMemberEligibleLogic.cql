@@ -28,10 +28,15 @@ define "Qualification":
 
 // CRD-2
 define "Detail Debugging":
-  'Not yet implemented.'
+  'Ctx."Payor"."Patient".id=' + Ctx."Payor"."Patient".id + Ctx.NewLine +
+  'Ctx."Payor"."Patient".birthDate=' + ToString(Ctx."Payor"."Patient".birthDate.value) + Ctx.NewLine +
+  'Ctx."Payor"."Patient".name.family=' + Combine(Ctx."Payor"."Patient".name.family, '|') + Ctx.NewLine +
+  'Ctx."Provider"."Patient".id=' + Ctx."Provider"."Patient".id + Ctx.NewLine +
+  'Ctx."Provider"."Patient".birthDate=' + ToString(Ctx."Provider"."Patient".birthDate.value) + Ctx.NewLine +
+  'Ctx."Provider"."Patient".name.family=' + Combine(Ctx."Provider"."Patient".name.family, '|') + Ctx.NewLine 
 
 // CRD-2
-define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
+define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription>):
   Ctx."ExtensionPriorAuthNeeded"(requestItem, 'conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification", 'Warning')
 
 define "Is MemberEligible":
