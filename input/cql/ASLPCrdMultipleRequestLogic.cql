@@ -191,16 +191,7 @@ define "CoverageExtensionList":
 // CRD Logic tree
 define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
 // returns Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String}:
-  if (requestItem is FHIR.CommunicationRequest) then
-    "CRD Matrix"(requestItem)."CRD-7"
-  else if (requestItem is FHIR.MedicationRequest) 
-    and (requestItem.medication in "Prior Auth ValueSet"
-      or requestItem.medication in "Sleep Study ValueSet") then 
-    "CRD Matrix"(requestItem)."CRD-5"
-  else if (requestItem is FHIR.MedicationRequest) 
-    and (requestItem.medication in "Routine Procedure Valueset") then 
-    "CRD Matrix"(requestItem)."CRD-7"
-  else if (ContextValidation."Insufficient or Ambiguous High"(requestItem)) then
+  if (ContextValidation."Insufficient or Ambiguous High"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-8"
   else if (ContextValidation."DomainResource is Empty"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-8.1"
@@ -222,6 +213,15 @@ define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
     "CRD Matrix"(requestItem)."CRD-5"
   else if (PriorAuthList."Not OnPriorAuthList"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-6"
+  else if (requestItem is FHIR.MedicationRequest) 
+    and (requestItem.medication in "Prior Auth ValueSet"
+      or requestItem.medication in "Sleep Study ValueSet") then 
+    "CRD Matrix"(requestItem)."CRD-5"
+  else if (requestItem is FHIR.MedicationRequest) 
+    and (requestItem.medication in "Routine Procedure Valueset") then 
+    "CRD Matrix"(requestItem)."CRD-7"
+  else if (requestItem is FHIR.CommunicationRequest) then
+    "CRD Matrix"(requestItem)."CRD-7"
   else
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
