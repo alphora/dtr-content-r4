@@ -101,19 +101,19 @@ define function "Not ProviderNpiMatch"(requestItem Choice<FHIR.NutritionOrder, F
 
 // TODO: Need to investigate how to handle a ServiceRequest.requester as an Organization
 define function "Requesting PractitionerRoles from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription>):
-  Ctx."Provider"."PractitionerRoles" PractitionerRole
+  Ctx."Provider"."PractitionerRoles" PR
     with (Ctx.GetRequester(requestItem)) RequesterPractitioner
-    such that RequesterPractitioner.reference.getId() ~ PractitionerRole.id.value
+    such that RequesterPractitioner.reference.getId() ~ PR.id.value
 
 define function "Requesting Practitioners from PractitionerRoles"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription>):
-  Ctx."Provider"."Practitioners" Practitioner
+  Ctx."Provider"."Practitioners" P
     with ("Requesting PractitionerRoles from ServiceRequest"(requestItem)) RequesterPractitionerRole
-    such that RequesterPractitionerRole.practitioner.reference.getId() ~ Practitioner.id.value
+    such that RequesterPractitionerRole.practitioner.reference.getId() ~ P.id.value
 
 define function "Requesting Practitioners from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription>):
-  Ctx."Provider"."Practitioners" Practitioner
+  Ctx."Provider"."Practitioners" P
     with (Ctx.GetRequester(requestItem)) RequesterPractitioner
-    such that RequesterPractitioner.reference.getId() ~ Practitioner.id.value
+    such that RequesterPractitioner.reference.getId() ~ P.id.value
 
 define function "Requesting Practitioner IDs from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription>):
   (
@@ -165,19 +165,19 @@ define function "Matching Requesting Organizations by Name & Type or NPI"(reques
         or RequestingOrganization.getNpi() ~ PayorOrg.getNpi()
 
 define function "Performing PractitionerRoles from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription>):
-  Ctx."Provider"."PractitionerRoles" PractitionerRole
+  Ctx."Provider"."PractitionerRoles" PR
     with (Ctx.GetPerformer(requestItem)) PerformerPractitioner
-    such that PerformerPractitioner.reference.getId() ~ PractitionerRole.id.value
+    such that PerformerPractitioner.reference.getId() ~ PR.id.value
 
 define function "Performing Practitioners from PractitionerRoles"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription>):
-  Ctx."Provider"."Practitioners" Practitioner
+  Ctx."Provider"."Practitioners" P
     with ("Performing PractitionerRoles from ServiceRequest"(requestItem)) PerformerPractitionerRole
-    such that PerformerPractitionerRole.practitioner.reference.getId() ~ Practitioner.id.value
+    such that PerformerPractitionerRole.practitioner.reference.getId() ~ P.id.value
 
 define function "Performing Practitioners from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription>):
-  Ctx."Provider"."Practitioners" Practitioner
+  Ctx."Provider"."Practitioners" P
     with (Ctx.GetPerformer(requestItem)) PerformerPractitioner
-    such that PerformerPractitioner.reference.getId() ~ Practitioner.id.value
+    such that PerformerPractitioner.reference.getId() ~ P.id.value
 
 define function "Performing Practitioners from Provider"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription>):
   ("Performing Practitioners from ServiceRequest"(requestItem))
