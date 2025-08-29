@@ -163,7 +163,8 @@ define function GetCodeableConceptForCommunicationRequest(cr FHIR.CommunicationR
       coding: {
         FHIR.Coding {
           system: FHIR.uri { value: 'http://example.org/fhir/payload-content' },
-          code: FHIR.code { value: CommunicationPayloadValue(cr) }
+          code: FHIR.code { value: CommunicationPayloadValue(cr) },
+          display: FHIR.string { value: CommunicationPayloadValue(cr) }
         }
       },
       text: FHIR.string { value: CommunicationPayloadValue(cr) }
