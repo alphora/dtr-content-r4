@@ -958,3 +958,59 @@ define "Approved Eligible Medical Conditions for Facility-Based Polysomnogram (P
     then "LineBreak" + '- Individual meets one of the following additional medical criteria: Diagnostic testing prior to planned hypoglossal nerve stimulator (HGNS) implantation with diagnosis of OSA, History of or clinical features associated with Central Sleep Apnea (CSA), History of or clinical features associated with narcolepsy when a MSLT is planned, History of or clinical features associated with Obesity Hypoventilation Syndrome (OHS), History of Traumatic Brain Injury (TBI) with EDS, Idiopathic central nervous system hypersomnia when a MSLT is planned, Individual or caregiver impaired to use portable monitor equipment safely at home, Mission critical profession, Moderate to severe pulmonary disease, Neuromuscular disease with associated pulmonary disease, Parasomnias, Paroxysmal arousals thought to be seizure related, Periodic Limb Movement Disorder (PLMD), or Cardiac disease'
   else
     null
+
+//Adaptive and Non-Adaptive Questionnaire components
+define "Most Recent Qualifying Sleep Study Procedure":
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Sleep Study Procedure Assertion".coding)])
+
+define "Qualifying Sleep Study Procedure":
+  if not "Most Recent Qualifying Sleep Study Procedure" is null
+    then "Most Recent Qualifying Sleep Study Procedure"
+  else 
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Sleep Study Procedure Assertion",
+      PS."Sleep Study Procedure Present",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepstudy-procedure-casefeature-definition',
+      PCF.MostRecent(PS."Sleep Study Procedures"),
+      ''
+    )
+
+define "Is Qualifying Sleep Study Procedure Value":
+  "Qualifying Sleep Study Procedure".value.value as System.Boolean
+
+define "Is Qualifying Sleep Study Procedure":
+  IsTrue("Is Qualifying Sleep Study Procedure Value")
+
+define "Not Within Qualifying Sleep Study Procedure":
+  IsFalse("Is Qualifying Sleep Study Procedure Value")
+
+define "Sleep Study Procedure Unknown":
+  IsNull("Is Qualifying Sleep Study Procedure Value")
+
+
+define "Most Recent Qualifying Other Procedure":
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Other Procedure Assertion".coding)])
+
+define "Qualifying Other Procedure":
+  if not "Most Recent Qualifying Other Procedure" is null
+    then "Most Recent Qualifying Other Procedure"
+  else 
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Other Procedure Assertion",
+      PS."Other Procedure Present",
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-other-procedure-casefeature-definition',
+      PCF.MostRecent(PS."Other Procedures"),
+      ''
+    )
+
+define "Is Qualifying Other Procedure Value":
+  "Qualifying Other Procedure".value.value as System.Boolean
+
+define "Is Qualifying Other Procedure":
+  IsTrue("Is Qualifying Other Procedure Value")
+
+define "Not Within Qualifying Other Procedure":
+  IsFalse("Is Qualifying Other Procedure Value")
+
+define "Other Procedure Unknown":
+  IsNull("Is Qualifying Other Procedure Value")

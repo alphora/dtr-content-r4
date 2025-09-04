@@ -165,7 +165,7 @@
           "extension": [
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-              "valueString": "Does patient have excessive sleepiness while driving"
+              "valueString": "Does patient have excessive sleepiness while driving?"
             },
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
@@ -189,7 +189,7 @@
           "extension": [
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-              "valueString": "Does patient snore loudly"
+              "valueString": "Does patient snore loudly?"
             },
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
@@ -213,7 +213,7 @@
           "extension": [
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-              "valueString": "Does patient have nocturnal apnea"
+              "valueString": "Does patient have nocturnal apnea?"
             },
             {
               "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
