@@ -1,7 +1,6 @@
 # Adult Sleep Studies Prior Authorization DTR Walkthrough
 
-This walkthrough guides you through setting up, building, and modifying the Adult Sleep Studies artifact library to illustrate how to author, distribute, and consume FHIR and CQL based knowledge artifacts for
-Prior Authorization - DTR.
+This walkthrough guides you through setting up, building, and modifying the Adult Sleep Studies artifact library to illustrate how to author, distribute, and consume FHIR and CQL based knowledge artifacts for Prior Authorization - DTR.
 
 ## Overview
 
@@ -10,7 +9,15 @@ The walkthrough is organized into the following sections:
 - [Adult Sleep Studies Prior Authorization DTR Walkthrough](#adult-sleep-studies-prior-authorization-dtr-walkthrough)
   - [Overview](#overview)
   - [Background](#background)
-  - [Accelerator Kit](#accelerator-kit)
+  - [Setup](#setup)
+  - [Project Layout](#project-layout)
+  - [CRD → DTR → PAS](#crd--dtr--pas)
+    - [CRD](#crd)
+    - [DTR](#dtr)
+    - [PAS](#pas)
+  - [Modifying](#modifying)
+    - [Resetting Local Files](#resetting-local-files)
+
 <!--   - [USPSTF Recommendation on Colorectal Cancer Screening](#uspstf-recommendation-on-colorectal-cancer-screening)
   - [Approach](#approach)
   - [Artifact Source](#artifact-source)
@@ -25,228 +32,89 @@ The walkthrough is organized into the following sections:
 
 This walkthrough is an illustration of FHIR- and CQL-based knowledge artifacts that provide prior authorization dtr implementations of the Humana Adult Sleep Studies Questionnaire for Prior Authorization.
 
-The artifacts are built using the [Accelerator Kit](#accelerator-kit). The walkthrough does not assume familiarity with this material, but interested readers can find more detailed information.
-
 Specifically, because the knowledge artifacts in this Artifact Library are FHIR canonical resources, the content here is built as a FHIR Implementation Guide, allowing knowledge authors to leverage the FHIR publishing toolchain to provide distribution and documentation of the artifacts.
 
-## Accelerator Kit
-  
-The Accelerator Kit is the combination of a JAVA Command Line tool named CQF Tooling and a Data Dictionary that generates the FHIR/CQL resources for the data elements defined in the Data Dictionary.  The CQF Tooling is in the form of a JAVA jar file. The Data Dictionary is in the form of a spreadsheet with a specific format.  More details can be found in the [CQF Tooling](https://github.com/cqframework/cqf-tooling) repository.
+## Setup 
 
-### CQF Tooling CLI
+- FHIR R4 server (e.g., HAPI/Smile CDR) with CRUD and $apply, $populate (SDC), $extract; $next-question if you want adaptive.
+- CQL toolchain: CQL → ELM translator and a CQL evaluator.
 
-The version of the CQF Tooling CLI currently needed to run this IG is not currently accessible via the standard method.  Temporarily use the following instructions instead:
+## Project Layout
 
-TEMPORARY INSTRUCTIONS: Due to breaking changes in this project's Data Dictionary file a specific version of the CQF Tooling must be used.  Until this issue is resolved download this [pre-built file](https://drive.google.com/file/d/1RSmztNdifWgqwMyeuFjnJTcOpiN0VjDe/view?usp=sharing) locally and copy it to the local [input-cache](input-cache) directory (you may need to create the `input-cache` folder).
-NOTE TO MAINTAINERS: once the issue is fixed delete the [pre-built file](https://drive.google.com/file/d/1RSmztNdifWgqwMyeuFjnJTcOpiN0VjDe/view?usp=sharing). 
+/input
+  /cql
+    ASLPCrdMultipleRequestLogic.cql
+  /resources
+    /library
+      ASLPCrdMultipleRequestLogic.json
+    /plandefinition
+      PlanDefinition-ASLPCrd-MultipleRequest.json
+    /questionnaire
+      questionnaire-ASLPA1.json
+    /structuredefinition
+      aslp-paa-patientage-casefeature-definition.json
+    /tests
+      /library
+        /ASLPCrdMultipleRequestLogic
+          /patient-1
+            patient-1.json
+    /vocabulary 
+      /codesystem
+      /valueset
 
-TEMPORARILY NOT-IN-USE INSTRUCTIONS
-~~CQF Tooling CLI is deployed to Maven as a JAVA jar file using the following convention: `tooling-x.y.z-SNAPSHOT-jar-with-dependencies.jar`.  A script `_updateCQFTooling` has been included in the root of this repository to download the jar file for local use.  There are Windows (.bat) and non-Windows (.sh) versions of the script.  Run the appicable script to copy the CQF Tooling locally.~~
+## CRD → DTR → PAS
 
-The Data Dictionary is a specifically formatted Excel spreadsheet.  The Data Dictionary for this project has been included directly in the repository at [input/l2/DTR.xlsx](input/l2/DTR.xlsx).  To view the contents, open the file using Microsoft Excel or equivalent.
+### CRD
 
-### Running the Accelerator Kit
+CRD (CDS Hooks order-sign) returns card pointing to DTR.
 
-The `JAVA command can be used in a terminal to run the Accelerator Kit, using the following steps:
+### DTR
 
-- ensure the JAVA CLI is installed (version 8+): https://www.java.com/en/download/help/download_options.html
-- ensure the CQF Tooling has been copied locally [CQF Tooling CLI](#cqf-tooling-cli)
-- open a terminal (in VS Code: Terminal/New Terminal)
-- in the terminal, run:
+DTR runs the artifacts.
 
-The version of the CQF Tooling CLI currently needed to run this IG is not currently accessible via the standard method.  Temporarily use the following instructions instead:
+  1. Fetch artifacts by canonical (Questionnaire, PlanDefinition, Library/ELM).
+  2. Prefill via $populate (optional).
+  3. Adaptive (optional): call $next-question iteratively.
+  4. Evaluate CQL (ELM) to compute.
+  5. Option A: Present Questionnaire to gather missing items. On submit, capture QuestionnaireResponse.
+     Option B: Call PlanDefinition/$apply to instantiate the resource and produce a Bundle of resources.
+  6. Extract (optional): $extract turns QuestionnaireResponse into FHIR resources for submission.
 
-TEMPORARY INSTRUCTIONS: 
-```
-JAVA -jar "input-cache/tooling-1.3.2-SNAPSHOT-jar-with-dependencies.jar" -ProcessAcceleratorKit -s=ASLP -pts=input/l2/DTR.xlsx -op=./ -dep="ASLP.A1 Adult Sleep Studies"
-```
+### PAS
 
-TEMPORARILY NOT-IN-USE INSTRUCTIONS
-```
-JAVA -jar "input-cache/<tooling-x.y.z-SNAPSHOT-jar-with-dependencies.jar>" -ProcessAcceleratorKit -s=ASLP -pts=input/l2/DTR.xlsx -op=./ -dep="ASLP.A1 Adult Sleep Studies"
-```
+Assemble PA request with a FHIR resource and send through your PAS intermediary to payer.
 
-NOTE: Due to errors in the CQF Tooling running the Accelerator Kit will result in changes to local files.  These changes should not be commited to the repository.   Separate from this walkthrough, the bugs in the CQF Tooling should be fixed so that running the Accelerator Kit produces the files currently in this IG.  Until this issue is resolved run [Resetting Local Files](#resetting-local-files) to remove the unwanted local file changes.
+## Modifying
 
-### Viewing the results
+Change policy criteria:
+- Update CQL, re-translate to ELM
 
-Running the Accelerator Kit results in newly created and/or updated files matching the Data Elements as specified in the DTR Data Dictionary.
+Change workflow:
+- Add/remove action in PlanDefinition, or point to different ActivityDefinition.
 
-New and/or updated files are output to the following directories:
+Revert changes:
+  - run [Resetting Local Files](#resetting-local-files)
+  - run the following:
 
-- [input/cql](input/cql)
-- [input/examples](input/examples)
-- [input/resources/questionnaire](input/resources/questionnaire)
-- [input/resources/vocabulary/valueset](input/resources/vocabulary/valueset)
+    Windows:
 
-### Modifying
+    ```
+    del "input\examples\observation-aslp-snores-in-sleep-example.json"
+    del "input\profiles\structuredefinition-aslp-snores-in-sleep.json"
+    del "input\vocabulary\valueset\valueset-aslp-ae-de2.json"
+    ```
 
-Modifications to the Adult Sleep Studies artifact library can be made by updating the DTR Data Dictionary and then running the [Running the Accelerator Kit](#running-the-accelerator-kit).
+    Non-Windows:
 
-Perform the following steps to walkthrough an example addition:
-
-- open the Sleep.Studies.Adults.Questionniare.pdf Questionnaire specification located in the `docs` folder
-- open the DTR Data Dictionary located in the `input/l2` folder using Excel (or equivalent)
-- note that the DTR Data Dictionary does not include entries for the last box on the Questionnaire "Check appropriate boxes"
-- add a new row to the DTR Data Dictionary for the "Patient snores in his/her sleep" question:
-   - note: the row specified below is similar to the existing row 3 so consider copy/paste/editing row 3 to create this new row
-   - Activity ID: ASLP.A1 Adult Sleep Studies
-   - Data element ID: ASLP.AE.DE1
-   - Data element label: Snores in Sleep
-   - Description and definition: Patient snores in his/her sleep
-   - Multiple choice: Select one
-   - Data type: Coding
-   - Quantity sub-type: N/A
-   - Validation Condition: None
-   - Editable: Yes
-   - Required R
-   - HL7 FHIR R4 – Resource: Observation.value[x]
-   - HL7 FHIR R4 - Resource Type: CodeableConcept
-   - HL7 FHIR R4 - Base Profile: http://hl7.org/fhir/us/qicore/StructureDefinition/qicore-observation
-   - HL7 FHIR R4 - Version Number: 4.0.1
-   - Custom Profile ID: ASLP Snores in Sleep
-   - Scope: ASLP
-   - Context: <blank> (Don't enter "<blank>", just leave it blank.  This is noted in case you copied row 3.  In that case you need to delete the copied value.)
-   - Selector: MostRecent
-   - FHIR Code System: http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes
- - add six new rows to the DTR Data Dictionary for the six answer options for the "Patient snores in his/her sleep" question:
-    - Option One
-      - note: the row specified below is similar to the existing row 4 so consider copy/paste/editing row 4 to create this new row
-      - Activity ID: ASLP.A1 Adult Sleep Studies
-      - Data element ID: ASLP.AE.DE2
-      - Data element label: Not Known or N/A
-      - Description and definition: Agreement Degree
-      - Multiple choice: Input Option
-      - Data type: Codes
-      - Input options: None
-      - Calculation: None
-      - Quantity sub-type: N/A
-      - Validation Condition: None
-      - Editable: Yes
-      - Required O
-      - HL7 FHIR R4 – Resource: Observation.value[x]
-      - HL7 FHIR R4 - Resource Type: CodeableConcept
-      - Binding or Custom Value Set Name or Reference: Agreement Degree
-      - Scope: ASLP
-      - FHIR Code System: http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes
-    - Option Two (note only the `Data element ID` and `Data element Label` columns vary between options so consider copy/paste/updating the existing option row)
-      - Activity ID: ASLP.A1 Adult Sleep Studies
-      - Data element ID: ASLP.AE.DE3
-      - Data element label: Strongly Disagree (Never)
-      - Description and definition: Agreement Degree
-      - Multiple choice: Input Option
-      - Data type: Codes
-      - Input options: None
-      - Calculation: None
-      - Quantity sub-type: N/A
-      - Validation Condition: None
-      - Editable: Yes
-      - Required O
-      - HL7 FHIR R4 – Resource: <blank> (Don't enter "<blank>", just leave it blank.  This is noted in case you copied Option One.  In that case you need to delete the copied value.)
-      - HL7 FHIR R4 - Resource Type: <blank> (Don't enter "<blank>", just leave it blank.  This is noted in case you copied Option One.  In that case you need to delete the copied value.)
-      - Binding or Custom Value Set Name or Reference: Agreement Degree
-      - Scope: ASLP
-      - FHIR Code System: http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes
-    - Option Three
-      - Activity ID: ASLP.A1 Adult Sleep Studies
-      - Data element ID: ASLP.AE.DE4
-      - Data element label: Disagree (<1/wk)
-      - Description and definition: Agreement Degree
-      - Multiple choice: Input Option
-      - Data type: Codes
-      - Input options: None
-      - Calculation: None
-      - Quantity sub-type: N/A
-      - Validation Condition: None
-      - Editable: Yes
-      - Required O
-      - Binding or Custom Value Set Name or Reference: Agreement Degree
-      - Scope: ASLP
-      - FHIR Code System: http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes
-    - Option Four
-      - Activity ID: ASLP.A1 Adult Sleep Studies
-      - Data element ID: ASLP.AE.DE5
-      - Data element label: Somewhat Agree (1-2/wk)
-      - Description and definition: Agreement Degree
-      - Multiple choice: Input Option
-      - Data type: Codes
-      - Input options: None
-      - Calculation: None
-      - Quantity sub-type: N/A
-      - Validation Condition: None
-      - Editable: Yes
-      - Required O
-      - Binding or Custom Value Set Name or Reference: Agreement Degree
-      - Scope: ASLP
-      - FHIR Code System: http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes
-    - Option Five
-      - Activity ID: ASLP.A1 Adult Sleep Studies
-      - Data element ID: ASLP.AE.DE6
-      - Data element label: Agree (3-4/wk)
-      - Description and definition: Agreement Degree
-      - Multiple choice: Input Option
-      - Data type: Codes
-      - Input options: None
-      - Calculation: None
-      - Quantity sub-type: N/A
-      - Validation Condition: None
-      - Editable: Yes
-      - Required O
-      - Binding or Custom Value Set Name or Reference: Agreement Degree
-      - Scope: ASLP
-      - FHIR Code System: http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes
-    - Option Six
-      - Activity ID: ASLP.A1 Adult Sleep Studies
-      - Data element ID: ASLP.AE.DE7
-      - Data element label: Strongly Agree (5-7/wk)
-      - Description and definition: Agreement Degree
-      - Multiple choice: Input Option
-      - Data type: Codes
-      - Input options: None
-      - Calculation: None
-      - Quantity sub-type: N/A
-      - Validation Condition: None
-      - Editable: Yes
-      - Required O
-      - Binding or Custom Value Set Name or Reference: Agreement Degree
-      - Scope: ASLP
-      - FHIR Code System: http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes
-   - your Data Dictionary should include new rows that look something like this (not all columns shown):
-     ![image](https://github.com/alphora/dtr-content-r4/assets/13257640/4f5d0a6e-16d5-4578-91d2-80729517f599)
-- save and close the Data Dictionary
-- run the Accelerator Kit [Running the Accelerator Kit](#running-the-accelerator-kit)
-- note:
-   - input/cql/ASLPConcepts.cql has a new concept "Snores in Sleep"
-   - input/cql/ASLPDataElements.cql has a new define "Snores in Sleep"
-   - input/resources/questionnaire/questionnaire-ASLPA1.json has a new action, linkId = 10
-   - input/vocabulary/codesystem/codesystem-aslp-codes.json has new codes for the "Snores in Sleep" answer options
-   - there are new files for the "Snores in Sleep" Data Element:
-      - input/examples/observation-aslp-snores-in-sleep-example.json
-      - input/frofiles/structuredefinition-aslp-snores-in-sleep.json
-      - input/vocabulary/valueset/valueset-aslp-ae-de2.json
-- revert the changes from this walkthrough:
-   - run [Resetting Local Files](#resetting-local-files)
-   - run the following:
-
-Windows:
-
-```
-del "input\examples\observation-aslp-snores-in-sleep-example.json"
-del "input\profiles\structuredefinition-aslp-snores-in-sleep.json"
-del "input\vocabulary\valueset\valueset-aslp-ae-de2.json"
-```
-
-Non-Windows:
-
-``` 
-rm input/examples/observation-aslp-snores-in-sleep-example.json
-rm input/profiles/structuredefinition-aslp-snores-in-sleep.json
-rm input/vocabulary/valueset/valueset-aslp-ae-de2.json
-```
+    ``` 
+    rm input/examples/observation-aslp-snores-in-sleep-example.json
+    rm input/profiles/structuredefinition-aslp-snores-in-sleep.json
+    rm input/vocabulary/valueset/valueset-aslp-ae-de2.json
+    ```
 
 ### Resetting Local Files
 
-Use the following steps to revert unwanted changes to local files after running the Accelerator kit, for example, when pracicing [Modifying](#modifying) the Adult Sleep Studies artifact library as part of this Walkthrough:
+Use the following steps to revert unwanted changes to local files.
 
 ```
 git restore .
