@@ -31,7 +31,7 @@ define "Detail Debugging":
   'Not yet implemented.'
 
 // CRD-4
-define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
+define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   Ctx."ExtensionPriorAuthNeeded"(requestItem, 'covered', 'no-auth', 'gold-card', "Detail Text", "Qualification", 'info')
 
 define "Is OrderGoldStatus":

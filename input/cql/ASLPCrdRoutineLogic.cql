@@ -21,7 +21,7 @@ define "Description":
   'Information related to whether a service is covered, not covered or requires prior auth submission' 
 
 // CRD-7
-define function "Qualification"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
+define function "Qualification"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
   'Order is covered. No prior auth is required for ' + Ctx."Service Request Item Code"(requestItem).display
 
 define "Qualification":
@@ -36,15 +36,15 @@ define "Detail Debugging":
   'Not yet implemented.'
 
 // CRD-7
-define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
+define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   Ctx."ExtensionPriorAuthNeeded"(requestItem, 'covered', 'no-auth', 'no-auth', "Detail Text", "Qualification"(requestItem), 'info')
 
-define function "Is Routine"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
+define function "Is Routine"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   exists(("Routine Service Requests"(requestItem)))
 
-define function "Not Routine"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
+define function "Not Routine"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   not (("Is Routine"(requestItem)))
 
-define function "Routine Service Requests"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
+define function "Routine Service Requests"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   ({ requestItem }) R
     where (Ctx.GetCode(R)) in "Routine Procedure Valueset"
