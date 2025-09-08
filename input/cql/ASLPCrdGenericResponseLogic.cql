@@ -10,7 +10,7 @@ include FHIRHelpers version '4.1.000'
 parameter "Request Id" System.String
 
 // NutritionOrder, ServiceRequest, DeviceRequest, MedicationRequest, VisionPrescription with /draft/ status
-parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>>
+parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>>
 
 context Patient
 
@@ -26,7 +26,7 @@ define "Service Request Item List":
 // CRD Matrix of values
 // Duplicated the minimum necessary for CRD-7 from ASLPCrdMultipleRequestLogic
 // Refactored DetailText, DetailQualification to remove dependency on ASLPCrdRoutineLogic
-define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
+define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   {
     "CRD-7": { 
       "ID": 'CRD-7',
@@ -41,7 +41,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
   }
 
 define "null Service Request Item":
-  null as Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>
+  null as Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>
 
 // CRD Static text
 define "Title":
@@ -65,12 +65,12 @@ define "CoverageExtensionList":
         "GetCoverageExtension"(RequestItem, GetCrdResult(RequestItem))
 
 // CRD Logic tree
-define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>)
+define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>)
 returns Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String}:
   // Always just return CRD-7 response
   "CRD Matrix"(requestItem)."CRD-7"
 
-define function "GetCoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>, item Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String})
+define function "GetCoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>, item Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String})
 returns FHIR.Extension:
   "ExtensionPriorAuthNeeded"(
     requestItem,
@@ -81,11 +81,11 @@ returns FHIR.Extension:
     item."DetailQualification",
     item."DetailValue"
   )
-define function ExtensionPriorAuthNeeded(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>, covered System.String, priorAuthRequired System.String, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)
+define function ExtensionPriorAuthNeeded(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>, covered System.String, priorAuthRequired System.String, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)
 returns FHIR.Extension:
   ECI.ExtensionPriorAuthNeeded('ProviderIdValue', covered, priorAuthRequired, "Request Id", "Service Request Item ID"(requestItem), "Service Request Item Code"(requestItem), codeValue, detailText, qualification, warningOrInfo)
 
-define function "Service Request Item ID"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
+define function "Service Request Item ID"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
   // GetResourceType(requestItem) + '/' + requestItem.id.value
   if requestItem is FHIR.ServiceRequest 
     then 'ServiceRequest/' + requestItem.id.value
@@ -99,6 +99,8 @@ define function "Service Request Item ID"(requestItem Choice<FHIR.NutritionOrder
     then 'VisionPrescription/' + requestItem.id.value
   else if requestItem is FHIR.CommunicationRequest
     then 'CommunicationRequest/' + requestItem.id.value
+  else if requestItem is FHIR.Appointment
+    then 'Appointment/' + requestItem.id.value
   else 'UnknownResource'
   // if GetResourceType(requestItem) = 'ServiceRequest Resource' 
   //   then 'ServiceRequest/' + requestItem.id.value
@@ -114,7 +116,7 @@ define function "Service Request Item ID"(requestItem Choice<FHIR.NutritionOrder
   //   then 'CommunicationRequest/' + requestItem.id.value
   // else 'UnknownResource'
 
-define function GetResourceType(r Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
+define function GetResourceType(r Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
 // returns System.String:
   if (r is FHIR.ServiceRequest) then
     'ServiceRequest Resource'
@@ -128,10 +130,12 @@ define function GetResourceType(r Choice<FHIR.NutritionOrder, FHIR.ServiceReques
     'MedicationRequest Resource'
   else if (r is FHIR.CommunicationRequest) then
     'CommunicationRequest Resource'
+  else if (r is FHIR.Appointment) then
+    'Appointment Resource'
   else
     'UnknownResourceType'
 
-define function "Service Request Item Code"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
+define function "Service Request Item Code"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
   if (requestItem is FHIR.CommunicationRequest) then 
     FHIRHelpers.ToCode(singleton from GetCodeableConceptForCommunicationRequest(requestItem).coding)
   else 
@@ -171,7 +175,7 @@ define function GetCodeableConceptForCommunicationRequest(cr FHIR.CommunicationR
     }
   else null as FHIR.CodeableConcept
 
-define function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>)
+define function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>)
 returns FHIR.CodeableConcept:
   if (item is FHIR.ServiceRequest) then
     (item as FHIR.ServiceRequest).code
@@ -184,4 +188,6 @@ returns FHIR.CodeableConcept:
       null as FHIR.CodeableConcept
   else if (item is FHIR.NutritionOrder) then
     (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType
+  else if (item is FHIR.Appointment) then
+    (item as FHIR.Appointment).serviceType
   else null as FHIR.CodeableConcept

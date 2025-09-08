@@ -1,4 +1,4 @@
-library ASLPCrdMedicationRequestLogic
+library ASLPCrdEvaluationLogic
 
 using FHIR version '4.0.1'
 // TODO: update to use USCore directly
@@ -10,19 +10,15 @@ include FHIRHelpers version '4.1.000'
 
 context Patient
 
-// CRD-MedicationRequest
 define "Title":
   'Prior Auth Evaluation'
 
-// CRD-MedicationRequest
 define "Description":
   'Information related to whether a service is covered, not covered or requires prior auth submission' 
 
-// CRD-MedicationRequest
 define "Detail Text 9":
   'Prior authorization may be required based on the patient`s coverage policy.'
 
-// CRD-MedicationRequest
 define "Qualification 9":
   'Authorization and coverage depend on the applicable policy. Additional information may be needed to confirm requirements.'
 
