@@ -53,8 +53,8 @@
     "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdContextValidationLogic"
   }, {
     "type": "depends-on",
-    "display": "Library MedicationRequestLogic",
-    "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdMedicationRequestLogic"
+    "display": "Library Evaluation",
+    "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdEvaluationLogic"
   }, {
     "type": "depends-on",
     "display": "Library USCoreCommon",
