@@ -34,12 +34,12 @@
     "resource": "http://example.org/sdh/dtr/aslp/Library/FHIRHelpers|4.1.000"
   }, {
     "type": "depends-on",
-    "display": "Library ContextProvider",
-    "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider"
-  }, {
-    "type": "depends-on",
     "display": "Library ContextPayor",
     "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextPayor"
+  }, {
+    "type": "depends-on",
+    "display": "Library ContextProvider",
+    "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider"
   }, {
     "type": "depends-on",
     "display": "Library ECI",
