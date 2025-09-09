@@ -1,10 +1,68 @@
 {
   "resourceType": "Library",
   "id": "ASLPCrdOrderLOBMatchLogic",
+  "contained": [ {
+    "resourceType": "Parameters",
+    "id": "options",
+    "parameter": [ {
+      "name": "translatorVersion",
+      "valueString": "3.6.0"
+    }, {
+      "name": "option",
+      "valueString": "EnableAnnotations"
+    }, {
+      "name": "option",
+      "valueString": "EnableLocators"
+    }, {
+      "name": "option",
+      "valueString": "EnableResultTypes"
+    }, {
+      "name": "option",
+      "valueString": "DisableListDemotion"
+    }, {
+      "name": "option",
+      "valueString": "DisableListPromotion"
+    }, {
+      "name": "format",
+      "valueString": "JSON"
+    }, {
+      "name": "format",
+      "valueString": "XML"
+    }, {
+      "name": "analyzeDataRequirements",
+      "valueBoolean": false
+    }, {
+      "name": "collapseDataRequirements",
+      "valueBoolean": true
+    }, {
+      "name": "compatibilityLevel",
+      "valueString": "1.5"
+    }, {
+      "name": "enableCqlOnly",
+      "valueBoolean": false
+    }, {
+      "name": "errorLevel",
+      "valueString": "Info"
+    }, {
+      "name": "signatureLevel",
+      "valueString": "All"
+    }, {
+      "name": "validateUnits",
+      "valueBoolean": true
+    }, {
+      "name": "verifyOnly",
+      "valueBoolean": false
+    } ]
+  } ],
   "extension": [ {
     "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
     "valueReference": {
       "reference": "Device/cqf-tooling"
+    }
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-cqlOptions",
+    "valueReference": {
+      "reference": "#options"
     }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdOrderLOBMatchLogic",
@@ -38,12 +96,12 @@
     "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider"
   }, {
     "type": "depends-on",
-    "display": "Library ContextProvider",
-    "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider"
-  }, {
-    "type": "depends-on",
     "display": "Library ContextPayor",
     "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextPayor"
+  }, {
+    "type": "depends-on",
+    "display": "Library ECI",
+    "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo"
   } ],
   "parameter": [ {
     "name": "Request Id",
@@ -134,28 +192,9 @@
     "type": "Patient",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/Patient" ]
   }, {
-    "type": "string",
-    "profile": [ "http://hl7.org/fhir/string" ],
-    "mustSupport": [ "value" ]
-  }, {
-    "type": "uri",
-    "profile": [ "http://hl7.org/fhir/uri" ],
-    "mustSupport": [ "value" ]
-  }, {
-    "type": "Extension",
-    "profile": [ "http://hl7.org/fhir/Extension" ],
-    "mustSupport": [ "value" ]
-  }, {
-    "type": "CodeableConcept",
-    "profile": [ "http://hl7.org/fhir/CodeableConcept" ],
-    "mustSupport": [ "coding" ]
-  }, {
     "type": "Coverage",
-    "profile": [ "http://hl7.org/fhir/Coverage" ],
+    "profile": [ "http://hl7.org/fhir/StructureDefinition/Coverage" ],
     "mustSupport": [ "id", "id.value" ]
-  }, {
-    "type": "Coverage",
-    "profile": [ "http://hl7.org/fhir/StructureDefinition/Coverage" ]
   }, {
     "type": "Practitioner",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/Practitioner" ]
@@ -164,7 +203,8 @@
     "profile": [ "http://hl7.org/fhir/StructureDefinition/PractitionerRole" ]
   }, {
     "type": "Organization",
-    "profile": [ "http://hl7.org/fhir/StructureDefinition/Organization" ]
+    "profile": [ "http://hl7.org/fhir/StructureDefinition/Organization" ],
+    "mustSupport": [ "name" ]
   } ],
   "content": [ {
     "contentType": "text/cql",
