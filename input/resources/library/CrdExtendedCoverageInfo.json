@@ -59,21 +59,10 @@
     "valueReference": {
       "reference": "Device/cqf-tooling"
     }
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-cqlOptions",
-    "valueReference": {
-      "reference": "#options"
-    }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo",
   "version": "0.1.0",
   "name": "CrdExtendedCoverageInfo",
-  "type": {
-    "coding": [ {
-      "system": "http://terminology.hl7.org/CodeSystem/library-type",
-      "code": "logic-library"
-    } ]
-  },
   "relatedArtifact": [ {
     "type": "depends-on",
     "display": "FHIR model information",

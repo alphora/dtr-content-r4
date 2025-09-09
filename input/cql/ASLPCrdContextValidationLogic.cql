@@ -59,7 +59,7 @@ define function "Request Patient does not match Context Patient"(requestItem Cho
   if requestItem is null then 
     false
   else
-    Ctx.GetSubjectID(requestItem) !~ Patient.id.value
+    Ctx.GetSubjectID(requestItem) !~ Ctx."Provider"."Patient".id.value
 
 // CRD-8.1
 define function "DomainResource is Empty"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>):
