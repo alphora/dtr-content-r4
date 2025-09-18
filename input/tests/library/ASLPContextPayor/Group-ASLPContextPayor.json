@@ -1,22 +1,22 @@
 {
   "resourceType": "Group",
-  "id": "ASLPCrdMultipleRequestLogic",
+  "id": "ASLPContextPayor",
   "extension": [ {
     "url": "http://hl7.org/fhir/StructureDefinition/artifact-testArtifact",
-    "valueCanonical": "http://ecqi.healthit.gov/ecqms/Measure/ASLPCrdMultipleRequestLogic"
+    "valueCanonical": "http://ecqi.healthit.gov/ecqms/Measure/ASLPContextPayor"
   } ],
   "active": true,
   "type": "person",
   "actual": true,
   "member": [ {
     "entity": {
-      "reference": "Patient/crd-5-prior-auth-required",
+      "reference": "Patient/crd-5-prior-auth-required-flip",
       "display": "Peter James Chalmers"
     }
   }, {
     "entity": {
-      "reference": "Patient/crd-patient-2",
-      "display": "Peter James Windsor"
+      "reference": "Patient/crd-5-prior-auth-required-flip-payor",
+      "display": "Peter James Chalmers"
     }
   } ]
 }

@@ -18,8 +18,10 @@ define function GetAdaptiveQuestionnairePlanDefinition(procedureCode System.Code
 returns System.String:
     if (procedureCode in "Sleep Study Procedure") then
         "CanonicalBase" + '/PlanDefinition/Home-Monitor-Sleep-Testing-Questionnaire'
+    // else if (procedureCode in "Other Example Procedure") then
+    //     "CanonicalBase" + '/Questionnaire/ASLPA1'
     else if (procedureCode in "Other Example Procedure") then
-        "CanonicalBase" + '/Questionnaire/ASLPA1'
+        "CanonicalBase" + '/PlanDefinition/Home-Monitor-Sleep-Testing'
     else
         null as System.String
         //Message(null, true, 'QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition', 'Error', 'Error: Adapative Questionnaire PlanDefinition not found for code ' + procedureCode.code + '. (code=' + procedureCode.code + '; system=' + procedureCode.system + ')')

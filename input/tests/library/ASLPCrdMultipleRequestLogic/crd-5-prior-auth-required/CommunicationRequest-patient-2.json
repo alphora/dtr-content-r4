@@ -1,0 +1,40 @@
+{
+    "resourceType": "CommunicationRequest",
+    "id": "CommunicationRequest-patient-2",
+    "meta": {
+        "profile": [
+            "http://hl7.org/fhir/StructureDefinition/CommunicationRequest"
+        ]
+    },
+    "status": "draft",
+    "subject": {
+        "reference": "Patient/crd-5-prior-auth-required"
+    },
+    "authoredOn": "2024-05-26",
+    "requester": {
+    "reference": "Practitioner/crd-5-prior-auth-required-payor-Practitioner-1"
+    },
+    "payload": [
+        {
+            "contentString": "Requesting patient communication regarding test results."
+        }
+    ],
+    "recipient": [
+        {
+            "reference": "Practitioner/crd-5-prior-auth-required-payor-Practitioner-1"
+        }
+    ],
+    "reasonCode": [
+        {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "281647001",
+                    "display": "Follow-up communication"
+                }
+            ],
+            "text": "Follow-up communication"
+        }
+    ],
+    "occurrenceDateTime": "2024-05-26T08:00:00.000Z"
+}

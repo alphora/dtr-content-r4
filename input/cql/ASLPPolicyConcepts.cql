@@ -297,3 +297,25 @@ define "Qualifying Periodic Limb Movement Disorder (PLMD) Assertion":
         }
     }
   }
+
+define "Qualifying Sleep Study Procedure Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Sleep-Study-Procedure' },
+            display: string { value: 'Qualifying Sleep Study Procedure' }
+        }
+    }
+  }
+
+define "Qualifying Other Procedure Assertion":
+  FHIR.CodeableConcept {
+    coding: {
+        Coding {
+            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },
+            code: code { value: 'Qualifying-Other-Procedure' },
+            display: string { value: 'Qualifying Other Procedure' }
+        }
+    }
+  }
