@@ -13,12 +13,9 @@ include ASLPCrdRoutineLogic called Routine
 include ASLPCrdOnPriorAuthListLogic called PriorAuthList
 include ASLPCrdContextValidationLogic called ContextValidation
 include ASLPCrdEvaluationLogic called Evaluation
+include QuestionnaireRouter called Router
 include USCoreCommon
 include FHIRHelpers version '4.1.000'
-
-valueset "Prior Auth ValueSet": 'http://terminology.smilecdr.com/cs/priorauth'
-valueset "Sleep Study ValueSet": 'http://terminology.smilecdr.com/cs/sleepstudy'
-valueset "Routine Procedure Valueset": 'http://terminology.smilecdr.com/cs/routine'
 
 context Patient
 
@@ -215,11 +212,11 @@ define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
   else if (PriorAuthList."Not OnPriorAuthList"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-6"
   else if (requestItem is FHIR.MedicationRequest) 
-    and (requestItem.medication in "Prior Auth ValueSet"
-      or requestItem.medication in "Sleep Study ValueSet") then 
+    and (requestItem.medication in PriorAuthList."Prior Auth Required for Procedure Valueset"
+      or requestItem.medication in Router."Sleep Study Procedure") then 
     "CRD Matrix"(requestItem)."CRD-5"
   else if (requestItem is FHIR.MedicationRequest) 
-    and (requestItem.medication in "Routine Procedure Valueset") then 
+    and (requestItem.medication in Routine."Routine Procedure Valueset") then 
     "CRD Matrix"(requestItem)."CRD-7"
   else if (requestItem is FHIR.CommunicationRequest) then
     "CRD Matrix"(requestItem)."CRD-7"
