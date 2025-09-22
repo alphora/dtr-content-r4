@@ -81,7 +81,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "PriorAuthNeeded": 'no-auth', 
       "DetailCode": 'no-auth', 
       "DetailText": Routine."Detail Text", 
-      "DetailQualification": Routine."Qualification",
+      "DetailQualification": Routine."Detail Qualification",
       "DetailDebugging": if "DebuggingEnabled" then Routine."Detail Debugging" else 'Debugging disabled',
       "DetailValue": 'info'
     },
@@ -207,10 +207,21 @@ define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
     "CRD Matrix"(requestItem)."CRD-4"
   else if (Routine."Is Routine"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-7"
-  else if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-5"
-  else if (PriorAuthList."Not OnPriorAuthList"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-6"
+  else if (requestItem is FHIR.ServiceRequest
+    or requestItem is FHIR.NutritionOrder
+    or requestItem is FHIR.DeviceRequest
+    or requestItem is FHIR.MedicationRequest
+    or requestItem is FHIR.VisionPrescription
+    or requestItem is FHIR.Appointment) then 
+      if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
+        "CRD Matrix"(requestItem)."CRD-5"
+      else if (PriorAuthList."Not OnPriorAuthList"(requestItem)) then
+        "CRD Matrix"(requestItem)."CRD-6"
+      else null
+  // else if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
+  //   "CRD Matrix"(requestItem)."CRD-5"
+  // else if (PriorAuthList."Not OnPriorAuthList"(requestItem)) then
+  //   "CRD Matrix"(requestItem)."CRD-6"
   else if (requestItem is FHIR.MedicationRequest) 
     and (requestItem.medication in PriorAuthList."Prior Auth Required for Procedure Valueset"
       or requestItem.medication in Router."Sleep Study Procedure") then 
