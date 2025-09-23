@@ -263,13 +263,15 @@ returns System.String:
   else item.subject.reference.getId()
 
 define "Service Request Item List":
-  "draftOrders"
+  // "draftOrders"
   // NOTE: these retrieves are only for local testing
-  // ([ServiceRequest]) 
-  // union ([DeviceRequest]) 
-  // union ([NutritionOrder])
-  // union ([MedicationRequest])
-  // union ([CommunicationRequest])
+  ([ServiceRequest]) 
+  union ([DeviceRequest]) 
+  union ([NutritionOrder])
+  union ([MedicationRequest])
+  union ([VisionPrescription])
+  union ([CommunicationRequest])
+  union ([Appointment])
 
 define "Payor":
   ContextPayor."Payor"
