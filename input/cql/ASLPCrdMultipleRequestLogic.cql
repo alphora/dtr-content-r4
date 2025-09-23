@@ -186,7 +186,6 @@ define "CoverageExtensionList":
         //(GetCrdResult(RequestItem)).ID + Ctx.NewLine +
         //(GetCrdResult(RequestItem)).DetailDebugging
 
-
 // CRD Logic tree
 define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
 // returns Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String}:
@@ -208,6 +207,8 @@ define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
     "CRD Matrix"(requestItem)."CRD-4"
   else if (Routine."Is Routine"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-7"
+  else if (not requestItem is FHIR.CommunicationRequest) then
+    GetCrdResultOther(requestItem)
   else if (requestItem is FHIR.CommunicationRequest) then
     GetCrdResultCommunicationRequest(requestItem)
   else if (requestItem is FHIR.Appointment) then
@@ -215,36 +216,32 @@ define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
   else if (requestItem is FHIR.MedicationRequest) then
     GetCrdResultMedicationRequest(requestItem)
   else
-    GetCrdResultOther(requestItem)
+    "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
 define function GetCrdResultCommunicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
     "CRD Matrix"(requestItem)."CRD-7"
 
 define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
-  if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-5"
-  else if (PriorAuthList."Not OnPriorAuthList"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-6"
-  else if (requestItem is FHIR.Appointment) 
-    and not exists (requestItem.basedOn) then 
+  // if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
+  //   "CRD Matrix"(requestItem)."CRD-5"
+  // else if (PriorAuthList."Not OnPriorAuthList"(requestItem)) then
+  //   "CRD Matrix"(requestItem)."CRD-6"
+  if (not exists (requestItem.basedOn)) then 
     "CRD Matrix"(requestItem)."CRD-7"
-  else if (requestItem is FHIR.Appointment) 
-    and exists (requestItem.basedOn) then 
+  else if (exists (requestItem.basedOn)) then 
     "CRD Matrix"(requestItem)."CRD-9"
   else
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
 define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
-  if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-5"
-  else if (PriorAuthList."Not OnPriorAuthList"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-6"
-  else if (requestItem is FHIR.MedicationRequest) 
-    and (requestItem.medication in PriorAuthList."Prior Auth Required for Procedure Valueset"
+  // if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
+  //   "CRD Matrix"(requestItem)."CRD-5"
+  // else if (PriorAuthList."Not OnPriorAuthList"(requestItem)) then
+  //   "CRD Matrix"(requestItem)."CRD-6"
+  if (requestItem.medication in PriorAuthList."Prior Auth Required for Procedure Valueset"
       or requestItem.medication in Router."Sleep Study Procedure") then 
     "CRD Matrix"(requestItem)."CRD-5"
-  else if (requestItem is FHIR.MedicationRequest) 
-    and (requestItem.medication in Routine."Routine Procedure Valueset") then 
+  else if (requestItem.medication in Routine."Routine Procedure Valueset") then 
     "CRD Matrix"(requestItem)."CRD-7"
   else
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
