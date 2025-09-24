@@ -269,7 +269,9 @@ define "Service Request Item List":
   // union ([DeviceRequest]) 
   // union ([NutritionOrder])
   // union ([MedicationRequest])
+  // union ([VisionPrescription])
   // union ([CommunicationRequest])
+  // union ([Appointment])
 
 define "Payor":
   ContextPayor."Payor"

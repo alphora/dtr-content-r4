@@ -157,554 +157,556 @@
                 "expression": "Is Qualifying Age"
               }
             }
-          ]
-        },
-        {
-          "title": "Has Excessive daytime sleepiness (EDS)",
-          "description": "Patient has excessive daytime sleepiness",
-          "input": [
-            {
-              "extension": [
-                {
-                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                  "valueString": "Patient has excessive daytime sleepiness?"
-                },
-                {
-                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                  "valueMarkdown": "Patient has excessive daytime sleepiness"
-                },
-                {
-                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                  "valueExpression": {
-                    "language": "text/cql-identifier",
-                    "expression": "Qualified Excessive Daytime Sleepiness",
-                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                  }
-                }
-              ],
-              "type": "Observation",
-              "profile": [
-                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-eds-screening-casefeature"
-              ]
-            }
           ],
-          "action": [
+          "action": [ 
             {
-              "title": "Does Not Have excessive daytime sleepiness",
-              "description": "The patient does not have excessive daytime sleepiness",
-              "condition": [
+              "title": "Excessive daytime sleepiness",
+              "description": "Input for whether the patient has excessive daytime sleepiness",
+              "input": [
                 {
-                  "kind": "applicability",
-                  "expression": {
-                    "language": "text/cql-identifier",
-                    "expression": "No Excessive Daytime Sleepiness"
-                  }
-                }
-              ],
-              "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-            },
-            {
-              "title": "Null or Unknown excessive daytime sleepiness",
-              "description": "Unknown answer. More Information is needed",
-              "condition": [
-                {
-                  "kind": "applicability",
-                  "expression": {
-                    "language": "text/cql-identifier",
-                    "expression": "Null Excessive Daytime Sleepiness"
-                  }
-                }
-              ],
-              "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
-            },
-            {
-              "title": "Has excessive daytime sleepiness",
-              "description": "The patient has excessive daytime sleepiness",
-              "condition": [
-                {
-                  "kind": "applicability",
-                  "expression": {
-                    "language": "text/cql-identifier",
-                    "expression": "Has Excessive Daytime Sleepiness"
-                  }
+                  "extension": [
+                    {
+                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                      "valueString": "Patient has excessive daytime sleepiness?"
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                      "valueMarkdown": "Patient has excessive daytime sleepiness"
+                    },
+                    {
+                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                      "valueExpression": {
+                        "language": "text/cql-identifier",
+                        "expression": "Qualified Excessive Daytime Sleepiness",
+                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                      }
+                    }
+                  ],
+                  "type": "Observation",
+                  "profile": [
+                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-eds-screening-casefeature"
+                  ]
                 }
               ],
               "action": [
                 {
-                  "title": "Additional Daytime Sleepiness Indicator",
-                  "description": "One or more of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping",
-                  "input": [
+                  "title": "Does Not Have excessive daytime sleepiness",
+                  "description": "The patient does not have excessive daytime sleepiness",
+                  "condition": [
                     {
-                      "extension": [
-                        {
-                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                          "valueString": "Does patient have ESS score >= 10?"
-                        },
-                        {
-                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                          "valueMarkdown": "ESS score >= 10"
-                        },
-                        {
-                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                          "valueExpression": {
-                            "language": "text/cql-identifier",
-                            "expression": "ESS Score >= 10",
-                            "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                          }
-                        }
-                      ],
-                      "type": "Observation",
-                      "profile": [
-                        "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ess-screening-casefeature"
-                      ]
-                    },
+                      "kind": "applicability",
+                      "expression": {
+                        "language": "text/cql-identifier",
+                        "expression": "No Excessive Daytime Sleepiness"
+                      }
+                    }
+                  ],
+                  "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+                },
+                {
+                  "title": "Null or Unknown excessive daytime sleepiness",
+                  "description": "Unknown answer. More Information is needed",
+                  "condition": [
                     {
-                      "extension": [
-                        {
-                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                          "valueString": "Does patient have excessive sleepiness while driving"
-                        },
-                        {
-                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                          "valueMarkdown": "Patient has Excessive sleepiness while driving"
-                        },
-                        {
-                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                          "valueExpression": {
-                            "language": "text/cql-identifier",
-                            "expression": "Qualifying Excessive Sleepiness While Driving",
-                            "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                          }
-                        }
-                      ],
-                      "type": "Observation",
-                      "profile": [
-                        "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepydriving-screening-casefeature"
-                      ]
-                    },
+                      "kind": "applicability",
+                      "expression": {
+                        "language": "text/cql-identifier",
+                        "expression": "Null Excessive Daytime Sleepiness"
+                      }
+                    }
+                  ],
+                  "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+                },
+                {
+                  "title": "Has excessive daytime sleepiness",
+                  "description": "The patient has excessive daytime sleepiness",
+                  "condition": [
                     {
-                      "extension": [
-                        {
-                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                          "valueString": "Does patient snore loudly"
-                        },
-                        {
-                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                          "valueMarkdown": "Patient snores loudly"
-                        },
-                        {
-                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                          "valueExpression": {
-                            "language": "text/cql-identifier",
-                            "expression": "Loud/Intense Snoring",
-                            "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                          }
-                        }
-                      ],
-                      "type": "Observation",
-                      "profile": [
-                        "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-loudsnoring-screening-casefeature"
-                      ]
-                    },
-                    {
-                      "extension": [
-                        {
-                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                          "valueString": "Does patient have nocturnal apnea"
-                        },
-                        {
-                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                          "valueMarkdown": "Patient has nocturnal apnea"
-                        },
-                        {
-                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                          "valueExpression": {
-                            "language": "text/cql-identifier",
-                            "expression": "Nocturnal Apnea",
-                            "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                          }
-                        }
-                      ],
-                      "type": "Observation",
-                      "profile": [
-                        "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-apnea-screening-casefeature"
-                      ]
+                      "kind": "applicability",
+                      "expression": {
+                        "language": "text/cql-identifier",
+                        "expression": "Has Excessive Daytime Sleepiness"
+                      }
                     }
                   ],
                   "action": [
                     {
-                      "title": "Has none of the additional daytime sleepiness indicators",
-                      "description": "Patient has none of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping",
-                      "condition": [
+                      "title": "Additional Daytime Sleepiness Indicator",
+                      "description": "One or more of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping",
+                      "input": [
                         {
-                          "kind": "applicability",
-                          "expression": {
-                            "language": "text/cql-identifier",
-                            "expression": "Has No Additional Daytime Sleepiness Indicators"
-                          }
-                        }
-                      ],
-                      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                    },
-                    {
-                      "title": "Null or Unknown answer",
-                      "description": "Unknown answer. More Information is needed",
-                      "condition": [
+                          "extension": [
+                            {
+                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                              "valueString": "Does patient have ESS score >= 10?"
+                            },
+                            {
+                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                              "valueMarkdown": "ESS score >= 10"
+                            },
+                            {
+                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                              "valueExpression": {
+                                "language": "text/cql-identifier",
+                                "expression": "ESS Score >= 10",
+                                "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                              }
+                            }
+                          ],
+                          "type": "Observation",
+                          "profile": [
+                            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ess-screening-casefeature"
+                          ]
+                        },
                         {
-                          "kind": "applicability",
-                          "expression": {
-                            "language": "text/cql-identifier",
-                            "expression": "Null Additional Daytime Sleepiness Indicators"
-                          }
-                        }
-                      ],
-                      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
-                    },
-                    {
-                      "title": "Has Additional Daytime Sleepiness Indicators",
-                      "description": "Patient has the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping",
-                      "condition": [
+                          "extension": [
+                            {
+                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                              "valueString": "Does patient have excessive sleepiness while driving"
+                            },
+                            {
+                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                              "valueMarkdown": "Patient has Excessive sleepiness while driving"
+                            },
+                            {
+                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                              "valueExpression": {
+                                "language": "text/cql-identifier",
+                                "expression": "Qualifying Excessive Sleepiness While Driving",
+                                "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                              }
+                            }
+                          ],
+                          "type": "Observation",
+                          "profile": [
+                            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepydriving-screening-casefeature"
+                          ]
+                        },
                         {
-                          "kind": "applicability",
-                          "expression": {
-                            "language": "text/cql-identifier",
-                            "expression": "Has Additional Daytime Sleepiness Indicators"
-                          }
+                          "extension": [
+                            {
+                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                              "valueString": "Does patient snore loudly"
+                            },
+                            {
+                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                              "valueMarkdown": "Patient snores loudly"
+                            },
+                            {
+                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                              "valueExpression": {
+                                "language": "text/cql-identifier",
+                                "expression": "Loud/Intense Snoring",
+                                "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                              }
+                            }
+                          ],
+                          "type": "Observation",
+                          "profile": [
+                            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-loudsnoring-screening-casefeature"
+                          ]
+                        },
+                        {
+                          "extension": [
+                            {
+                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                              "valueString": "Does patient have nocturnal apnea"
+                            },
+                            {
+                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                              "valueMarkdown": "Patient has nocturnal apnea"
+                            },
+                            {
+                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                              "valueExpression": {
+                                "language": "text/cql-identifier",
+                                "expression": "Nocturnal Apnea",
+                                "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                              }
+                            }
+                          ],
+                          "type": "Observation",
+                          "profile": [
+                            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-apnea-screening-casefeature"
+                          ]
                         }
                       ],
                       "action": [
                         {
-                          "title": "Absence of comorbid medical conditions",
-                          "description": "Absence of comorbid medical condition(s) that would reduce the accuracy of a home/PM sleep test",
-                          "input": [
+                          "title": "Has none of the additional daytime sleepiness indicators",
+                          "description": "Patient has none of the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping",
+                          "condition": [
                             {
-                              "extension": [
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient has neuromuscular disease with associated pulmonary disease?"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                  "valueMarkdown": "Patient has neuromuscular disease with associated pulmonary disease"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                  "valueExpression": {
-                                    "language": "text/cql-identifier",
-                                    "expression": "Qualifying Neuromuscular Disease With Associated Pulmonary Disease",
-                                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                  }
-                                }
-                              ],
-                              "type": "Observation",
-                              "profile": [
-                                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature"
-                              ]
-                            },
+                              "kind": "applicability",
+                              "expression": {
+                                "language": "text/cql-identifier",
+                                "expression": "Has No Additional Daytime Sleepiness Indicators"
+                              }
+                            }
+                          ],
+                          "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+                        },
+                        {
+                          "title": "Null or Unknown answer",
+                          "description": "Unknown answer. More Information is needed",
+                          "condition": [
                             {
-                              "extension": [
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient has Cardiac Disease?"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                  "valueMarkdown": "Patient has Cardiac Disease"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                  "valueExpression": {
-                                    "language": "text/cql-identifier",
-                                    "expression": "Qualifying Cardiac Disease",
-                                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                  }
-                                }
-                              ],
-                              "type": "Observation",
-                              "profile": [
-                                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature"
-                              ]
-                            },
+                              "kind": "applicability",
+                              "expression": {
+                                "language": "text/cql-identifier",
+                                "expression": "Null Additional Daytime Sleepiness Indicators"
+                              }
+                            }
+                          ],
+                          "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+                        },
+                        {
+                          "title": "Has Additional Daytime Sleepiness Indicators",
+                          "description": "Patient has the following additional daytime sleepiness indicators: ESS score of 10 or greater, excessive sleepiness while driving, snore loudly/intensely, witnessed nocturnal apnea, choking and/or gasping",
+                          "condition": [
                             {
-                              "extension": [
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                  "valueString": "Patient has moderate to severe pulmonary disease?"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                  "valueMarkdown": "Patient has moderate to severe pulmonary disease"
-                                },
-                                {
-                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                  "valueExpression": {
-                                    "language": "text/cql-identifier",
-                                    "expression": "Qualifying Moderate To Severe Pulmonary Disease",
-                                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                  }
-                                }
-                              ],
-                              "type": "Observation",
-                              "profile": [
-                                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature"
-                              ]
+                              "kind": "applicability",
+                              "expression": {
+                                "language": "text/cql-identifier",
+                                "expression": "Has Additional Daytime Sleepiness Indicators"
+                              }
                             }
                           ],
                           "action": [
                             {
-                              "title": "Has Applicable Comorbid Medical Conditions",
-                              "description": "Patient has one of the following eligible comorbid conditions: Moderate to severe pulmonary disease including COPD or Asthma, Neuromuscular disease with associated pulmonary disease, Cardiac Disease",
-                              "condition": [
+                              "title": "Absence of comorbid medical conditions",
+                              "description": "Absence of comorbid medical condition(s) that would reduce the accuracy of a home/PM sleep test",
+                              "input": [
                                 {
-                                  "kind": "applicability",
-                                  "expression": {
-                                    "language": "text/cql-identifier",
-                                    "expression": "Has Applicable Comorbid Medical Conditions"
-                                  }
-                                }
-                              ],
-                              "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                            },
-                            {
-                              "title": "Null or Unknown answer",
-                              "description": "Unknown answer. More Information is needed",
-                              "condition": [
+                                  "extension": [
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                      "valueString": "Patient has neuromuscular disease with associated pulmonary disease?"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                      "valueMarkdown": "Patient has neuromuscular disease with associated pulmonary disease"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                      "valueExpression": {
+                                        "language": "text/cql-identifier",
+                                        "expression": "Qualifying Neuromuscular Disease With Associated Pulmonary Disease",
+                                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                      }
+                                    }
+                                  ],
+                                  "type": "Observation",
+                                  "profile": [
+                                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature"
+                                  ]
+                                },
                                 {
-                                  "kind": "applicability",
-                                  "expression": {
-                                    "language": "text/cql-identifier",
-                                    "expression": "Null Applicable Comorbid Medical Conditions"
-                                  }
-                                }
-                              ],
-                              "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
-                            },
-                            {
-                              "title": "Has no applicable comorbid medical conditions",
-                              "description": "Has none of the following eligible comorbid conditions: Moderate to severe pulmonary disease including COPD or Asthma, Neuromuscular disease with associated pulmonary disease, Cardiac Disease",
-                              "condition": [
+                                  "extension": [
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                      "valueString": "Patient has Cardiac Disease?"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                      "valueMarkdown": "Patient has Cardiac Disease"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                      "valueExpression": {
+                                        "language": "text/cql-identifier",
+                                        "expression": "Qualifying Cardiac Disease",
+                                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                      }
+                                    }
+                                  ],
+                                  "type": "Observation",
+                                  "profile": [
+                                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature"
+                                  ]
+                                },
                                 {
-                                  "kind": "applicability",
-                                  "expression": {
-                                    "language": "text/cql-identifier",
-                                    "expression": "Has Absence Of Applicable Comorbid Medical Conditions"
-                                  }
+                                  "extension": [
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                      "valueString": "Patient has moderate to severe pulmonary disease?"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                      "valueMarkdown": "Patient has moderate to severe pulmonary disease"
+                                    },
+                                    {
+                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                      "valueExpression": {
+                                        "language": "text/cql-identifier",
+                                        "expression": "Qualifying Moderate To Severe Pulmonary Disease",
+                                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                      }
+                                    }
+                                  ],
+                                  "type": "Observation",
+                                  "profile": [
+                                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature"
+                                  ]
                                 }
                               ],
                               "action": [
                                 {
-                                  "title": "Qualified device is used",
-                                  "description": "Type II, Type III, Type IV or PAT PM device is used (Type IV PM devices must measure a minimum of 3 channels that include heartrate, oxygen saturation and respiratory analysis).",
-                                  "input": [
+                                  "title": "Has Applicable Comorbid Medical Conditions",
+                                  "description": "Patient has one of the following eligible comorbid conditions: Moderate to severe pulmonary disease including COPD or Asthma, Neuromuscular disease with associated pulmonary disease, Cardiac Disease",
+                                  "condition": [
                                     {
-                                      "extension": [
-                                        {
-                                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                          "valueString": "Patient uses a qualified device?"
-                                        },
-                                        {
-                                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                          "valueMarkdown": "Patient uses a qualified device"
-                                        },
-                                        {
-                                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                          "valueExpression": {
-                                            "language": "text/cql-identifier",
-                                            "expression": "Uses A Qualified Device",
-                                            "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                          }
-                                        }
-                                      ],
-                                      "type": "Observation",
-                                      "profile": [
-                                        "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-qualifieddevice-screening-casefeature"
-                                      ]
+                                      "kind": "applicability",
+                                      "expression": {
+                                        "language": "text/cql-identifier",
+                                        "expression": "Has Applicable Comorbid Medical Conditions"
+                                      }
+                                    }
+                                  ],
+                                  "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+                                },
+                                {
+                                  "title": "Null or Unknown answer",
+                                  "description": "Unknown answer. More Information is needed",
+                                  "condition": [
+                                    {
+                                      "kind": "applicability",
+                                      "expression": {
+                                        "language": "text/cql-identifier",
+                                        "expression": "Null Applicable Comorbid Medical Conditions"
+                                      }
+                                    }
+                                  ],
+                                  "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+                                },
+                                {
+                                  "title": "Has no applicable comorbid medical conditions",
+                                  "description": "Has none of the following eligible comorbid conditions: Moderate to severe pulmonary disease including COPD or Asthma, Neuromuscular disease with associated pulmonary disease, Cardiac Disease",
+                                  "condition": [
+                                    {
+                                      "kind": "applicability",
+                                      "expression": {
+                                        "language": "text/cql-identifier",
+                                        "expression": "Has Absence Of Applicable Comorbid Medical Conditions"
+                                      }
                                     }
                                   ],
                                   "action": [
                                     {
-                                      "title": "Does not use a qualified device",
-                                      "description": "The patient does not use Type II, Type III, Type IV or PAT PM device",
-                                      "condition": [
+                                      "title": "Qualified device is used",
+                                      "description": "Type II, Type III, Type IV or PAT PM device is used (Type IV PM devices must measure a minimum of 3 channels that include heartrate, oxygen saturation and respiratory analysis).",
+                                      "input": [
                                         {
-                                          "kind": "applicability",
-                                          "expression": {
-                                            "language": "text/cql-identifier",
-                                            "expression": "Does Not Use Qualified Device"
-                                          }
-                                        }
-                                      ],
-                                      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                                    },
-                                    {
-                                      "title": "Null or Unknown device used",
-                                      "description": "Unknown answer. More Information is needed",
-                                      "condition": [
-                                        {
-                                          "kind": "applicability",
-                                          "expression": {
-                                            "language": "text/cql-identifier",
-                                            "expression": "Unknown Device Used"
-                                          }
-                                        }
-                                      ],
-                                      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
-                                    },
-                                    {
-                                      "title": "Uses a qualified device",
-                                      "description": "The patient uses Type II, Type III, Type IV or PAT PM device",
-                                      "condition": [
-                                        {
-                                          "kind": "applicability",
-                                          "expression": {
-                                            "language": "text/cql-identifier",
-                                            "expression": "Patient Uses Qualified Device"
-                                          }
+                                          "extension": [
+                                            {
+                                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                              "valueString": "Patient uses a qualified device?"
+                                            },
+                                            {
+                                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                              "valueMarkdown": "Patient uses a qualified device"
+                                            },
+                                            {
+                                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                              "valueExpression": {
+                                                "language": "text/cql-identifier",
+                                                "expression": "Uses A Qualified Device",
+                                                "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                              }
+                                            }
+                                          ],
+                                          "type": "Observation",
+                                          "profile": [
+                                            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-qualifieddevice-screening-casefeature"
+                                          ]
                                         }
                                       ],
                                       "action": [
                                         {
-                                          "title": "Can safely use equipment at home",
-                                          "description": "Individual or caregiver has appropriate cognitive function, dexterity and mobility to use equipment safely at home",
-                                          "input": [
+                                          "title": "Does not use a qualified device",
+                                          "description": "The patient does not use Type II, Type III, Type IV or PAT PM device",
+                                          "condition": [
                                             {
-                                              "extension": [
-                                                {
-                                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                                  "valueString": "Patient can safely use equipment at home?"
-                                                },
-                                                {
-                                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                                  "valueMarkdown": "Patient can safely use equipment at home"
-                                                },
-                                                {
-                                                  "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                                  "valueExpression": {
-                                                    "language": "text/cql-identifier",
-                                                    "expression": "Safe Equipment Use At Home",
-                                                    "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                                  }
-                                                }
-                                              ],
-                                              "type": "Observation",
-                                              "profile": [
-                                                "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature"
-                                              ]
+                                              "kind": "applicability",
+                                              "expression": {
+                                                "language": "text/cql-identifier",
+                                                "expression": "Does Not Use Qualified Device"
+                                              }
+                                            }
+                                          ],
+                                          "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+                                        },
+                                        {
+                                          "title": "Null or Unknown device used",
+                                          "description": "Unknown answer. More Information is needed",
+                                          "condition": [
+                                            {
+                                              "kind": "applicability",
+                                              "expression": {
+                                                "language": "text/cql-identifier",
+                                                "expression": "Unknown Device Used"
+                                              }
+                                            }
+                                          ],
+                                          "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+                                        },
+                                        {
+                                          "title": "Uses a qualified device",
+                                          "description": "The patient uses Type II, Type III, Type IV or PAT PM device",
+                                          "condition": [
+                                            {
+                                              "kind": "applicability",
+                                              "expression": {
+                                                "language": "text/cql-identifier",
+                                                "expression": "Patient Uses Qualified Device"
+                                              }
                                             }
                                           ],
                                           "action": [
                                             {
-                                              "title": "Can not safely use equipment at home",
-                                              "description": "The patient can not safely use equipment at home",
-                                              "condition": [
-                                                {
-                                                  "kind": "applicability",
-                                                  "expression": {
-                                                    "language": "text/cql-identifier",
-                                                    "expression": "Can Not Safely Use Equipment At Home"
-                                                  }
-                                                }
-                                              ],
-                                              "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                                            },
-                                            {
-                                              "title": "Null or Unknown ability to use equipment at home",
-                                              "description": "Unknown answer. More Information is needed",
-                                              "condition": [
-                                                {
-                                                  "kind": "applicability",
-                                                  "expression": {
-                                                    "language": "text/cql-identifier",
-                                                    "expression": "Unknown Ability To Use Equipment At Home"
-                                                  }
-                                                }
-                                              ],
-                                              "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
-                                            },
-                                            {
                                               "title": "Can safely use equipment at home",
-                                              "description": "The patient can safely use equipment at home",
-                                              "condition": [
+                                              "description": "Individual or caregiver has appropriate cognitive function, dexterity and mobility to use equipment safely at home",
+                                              "input": [
                                                 {
-                                                  "kind": "applicability",
-                                                  "expression": {
-                                                    "language": "text/cql-identifier",
-                                                    "expression": "Can Safely Use Equipment At Home"
-                                                  }
+                                                  "extension": [
+                                                    {
+                                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                                      "valueString": "Patient can safely use equipment at home?"
+                                                    },
+                                                    {
+                                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                                      "valueMarkdown": "Patient can safely use equipment at home"
+                                                    },
+                                                    {
+                                                      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                                      "valueExpression": {
+                                                        "language": "text/cql-identifier",
+                                                        "expression": "Safe Equipment Use At Home",
+                                                        "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                                      }
+                                                    }
+                                                  ],
+                                                  "type": "Observation",
+                                                  "profile": [
+                                                    "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature"
+                                                  ]
                                                 }
                                               ],
                                               "action": [
                                                 {
-                                                  "title": "Physician evaluated results",
-                                                  "description": "Home sleep testing results must be evaluated by a qualified physician",
-                                                  "input": [
+                                                  "title": "Can not safely use equipment at home",
+                                                  "description": "The patient can not safely use equipment at home",
+                                                  "condition": [
                                                     {
-                                                      "extension": [
-                                                        {
-                                                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                                                          "valueString": "Patient can have physician evaluate results?"
-                                                        },
-                                                        {
-                                                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                                                          "valueMarkdown": "Patient can have physician evaluate results"
-                                                        },
-                                                        {
-                                                          "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                                                          "valueExpression": {
-                                                            "language": "text/cql-identifier",
-                                                            "expression": "Physician Evaluated Results",
-                                                            "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                                                          }
-                                                        }
-                                                      ],
-                                                      "type": "Observation",
-                                                      "profile": [
-                                                        "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature"
-                                                      ]
+                                                      "kind": "applicability",
+                                                      "expression": {
+                                                        "language": "text/cql-identifier",
+                                                        "expression": "Can Not Safely Use Equipment At Home"
+                                                      }
+                                                    }
+                                                  ],
+                                                  "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+                                                },
+                                                {
+                                                  "title": "Null or Unknown ability to use equipment at home",
+                                                  "description": "Unknown answer. More Information is needed",
+                                                  "condition": [
+                                                    {
+                                                      "kind": "applicability",
+                                                      "expression": {
+                                                        "language": "text/cql-identifier",
+                                                        "expression": "Unknown Ability To Use Equipment At Home"
+                                                      }
+                                                    }
+                                                  ],
+                                                  "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+                                                },
+                                                {
+                                                  "title": "Can safely use equipment at home",
+                                                  "description": "The patient can safely use equipment at home",
+                                                  "condition": [
+                                                    {
+                                                      "kind": "applicability",
+                                                      "expression": {
+                                                        "language": "text/cql-identifier",
+                                                        "expression": "Can Safely Use Equipment At Home"
+                                                      }
                                                     }
                                                   ],
                                                   "action": [
                                                     {
-                                                      "title": "Unable to have physician evaluate results",
-                                                      "description": "The patient is unable to have physician evaluate results of home sleep tests",
-                                                      "condition": [
+                                                      "title": "Physician evaluated results",
+                                                      "description": "Home sleep testing results must be evaluated by a qualified physician",
+                                                      "input": [
                                                         {
-                                                          "kind": "applicability",
-                                                          "expression": {
-                                                            "language": "text/cql-identifier",
-                                                            "expression": "Unable To Have Physician Evaluate Results"
-                                                          }
+                                                          "extension": [
+                                                            {
+                                                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                                              "valueString": "Patient can have physician evaluate results?"
+                                                            },
+                                                            {
+                                                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                                              "valueMarkdown": "Patient can have physician evaluate results"
+                                                            },
+                                                            {
+                                                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                                              "valueExpression": {
+                                                                "language": "text/cql-identifier",
+                                                                "expression": "Physician Evaluated Results",
+                                                                "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+                                                              }
+                                                            }
+                                                          ],
+                                                          "type": "Observation",
+                                                          "profile": [
+                                                            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature"
+                                                          ]
                                                         }
                                                       ],
-                                                      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                                                    },
-                                                    {
-                                                      "title": "Null or Unknown ability to have physician evaluate results",
-                                                      "description": "Unknown answer. More Information is needed",
-                                                      "condition": [
+                                                      "action": [
                                                         {
-                                                          "kind": "applicability",
-                                                          "expression": {
-                                                            "language": "text/cql-identifier",
-                                                            "expression": "Unknown Ability To Have Physician Evaluate Results"
-                                                          }
-                                                        }
-                                                      ],
-                                                      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
-                                                    },
-                                                    {
-                                                      "title": "Able to have physician evaluated results",
-                                                      "description": "The patient is able to have physician evaluate results of home sleep tests",
-                                                      "condition": [
+                                                          "title": "Unable to have physician evaluate results",
+                                                          "description": "The patient is unable to have physician evaluate results of home sleep tests",
+                                                          "condition": [
+                                                            {
+                                                              "kind": "applicability",
+                                                              "expression": {
+                                                                "language": "text/cql-identifier",
+                                                                "expression": "Unable To Have Physician Evaluate Results"
+                                                              }
+                                                            }
+                                                          ],
+                                                          "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+                                                        },
                                                         {
-                                                          "kind": "applicability",
-                                                          "expression": {
-                                                            "language": "text/cql-identifier",
-                                                            "expression": "Ability To Have Physician Evaluate Results"
-                                                          }
+                                                          "title": "Null or Unknown ability to have physician evaluate results",
+                                                          "description": "Unknown answer. More Information is needed",
+                                                          "condition": [
+                                                            {
+                                                              "kind": "applicability",
+                                                              "expression": {
+                                                                "language": "text/cql-identifier",
+                                                                "expression": "Unknown Ability To Have Physician Evaluate Results"
+                                                              }
+                                                            }
+                                                          ],
+                                                          "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+                                                        },
+                                                        {
+                                                          "title": "Able to have physician evaluated results",
+                                                          "description": "The patient is able to have physician evaluate results of home sleep tests",
+                                                          "condition": [
+                                                            {
+                                                              "kind": "applicability",
+                                                              "expression": {
+                                                                "language": "text/cql-identifier",
+                                                                "expression": "Ability To Have Physician Evaluate Results"
+                                                              }
+                                                            }
+                                                          ],
+                                                          "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-approved"
                                                         }
-                                                      ],
-                                                      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-approved"
+                                                      ]
                                                     }
                                                   ]
                                                 }
