@@ -222,10 +222,6 @@ define function GetCrdResultCommunicationRequest(requestItem Choice<FHIR.Nutriti
     "CRD Matrix"(requestItem)."CRD-7"
 
 define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
-  // if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
-  //   "CRD Matrix"(requestItem)."CRD-5"
-  // else if (PriorAuthList."Not OnPriorAuthList"(requestItem)) then
-  //   "CRD Matrix"(requestItem)."CRD-6"
   if (not exists (requestItem.basedOn)) then 
     "CRD Matrix"(requestItem)."CRD-7"
   else if (exists (requestItem.basedOn)) then 
@@ -234,10 +230,6 @@ define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, 
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
 define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
-  // if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
-  //   "CRD Matrix"(requestItem)."CRD-5"
-  // else if (PriorAuthList."Not OnPriorAuthList"(requestItem)) then
-  //   "CRD Matrix"(requestItem)."CRD-6"
   if (requestItem.medication in PriorAuthList."Prior Auth Required for Procedure Valueset"
       or requestItem.medication in Router."Sleep Study Procedure") then 
     "CRD Matrix"(requestItem)."CRD-5"
