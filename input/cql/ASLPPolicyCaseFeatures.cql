@@ -26,7 +26,8 @@ define function ReferenceTo(resource Choice<FHIR.Procedure,FHIR.Observation,FHIR
 define fluent function typeof(resource Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>): 
   case
     when resource is null then
-      Message(null, true, 'FHIRCommon.typeof.UnknownFHIResource', 'Error', 'Unknown resource type: resource is null')
+      // Message(null, true, 'FHIRCommon.typeof.UnknownFHIResource', 'Error', 'Unknown resource type: resource is null')
+      'Resource type not found: resource is null'
     when resource is Patient then
       'Patient'
     when resource is Condition then  
@@ -44,7 +45,8 @@ define fluent function typeof(resource Choice<FHIR.Procedure,FHIR.Observation,FH
     when resource is DeviceRequest then  
       'DeviceRequest'
     else
-      Message(null, true, 'FHIRCommon.typeof.UnknownFHIResource', 'Error', 'Unknown resource type: ' + resource.id)
+      // Message(null, true, 'FHIRCommon.typeof.UnknownFHIResource', 'Error', 'Unknown resource type: ' + resource.id)
+      'Resource type not found for:' + resource.id 
   end
 
 //NOTE: agent is to be set by the service
