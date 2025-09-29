@@ -5,7 +5,8 @@ using FHIR version '4.0.1'
 //using USCore version '3.1.1'
 
 //include USCoreCommon
-include FHIRHelpers version '4.1.000'
+// include FHIRHelpers version '4.1.000'
+include hl7.fhir.uv.cql.FHIRHelpers version ‘4.0.1’
 
 valueset "Sleep Study Procedure": 'http://terminology.smilecdr.com/cs/sleepstudy'
 valueset "Other Example Procedure": 'http://terminology.smilecdr.com/cs/priorauth'

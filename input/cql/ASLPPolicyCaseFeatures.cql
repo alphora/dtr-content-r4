@@ -4,7 +4,8 @@ using FHIR version '4.0.1'
 
 include ASLPConcepts called Cx
 include ASLPDataElements called Dx
-include FHIRHelpers version '4.1.000'
+include hl7.fhir.uv.cql.FHIRHelpers version ‘4.0.1’
+// include FHIRHelpers version '4.1.000'
 
 codesystem "ConditionClinicalStatusCodes": 'http://terminology.hl7.org/CodeSystem/condition-clinical'
 codesystem "ConditionVerificationStatusCodes": 'http://terminology.hl7.org/CodeSystem/condition-ver-status'
