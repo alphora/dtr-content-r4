@@ -16,7 +16,7 @@ HELP_USAGE
 	exit 0
 }
 
-tooling_jar=tooling-cli-3.1.0.jar
+tooling_jar=tooling-cli-3.10.0-SNAPSHOT.jar
 input_cache_path=./input-cache
 ig_resource_path=./input/dtr-content-r4.xml
 unattended=false

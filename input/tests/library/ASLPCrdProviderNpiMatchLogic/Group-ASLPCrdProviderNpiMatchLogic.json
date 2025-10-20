@@ -10,6 +10,21 @@
   "actual": true,
   "member": [ {
     "entity": {
+      "reference": "Patient/example-provider",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/provider-Patient-6",
+      "display": "Richard Cohen"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Provider-Patient-PR-Org-Mismatch",
+      "display": "Ronald McDonald"
+    }
+  }, {
+    "entity": {
       "reference": "Patient/Provider-Patient-NPI-Mismatch",
       "display": "Sofia Vanderpump"
     }
@@ -22,21 +37,6 @@
     "entity": {
       "reference": "Patient/Provider-Patient-PR-Org-Match",
       "display": "Ronald McDonald"
-    }
-  }, {
-    "entity": {
-      "reference": "Patient/example-provider",
-      "display": "Peter James Chalmers"
-    }
-  }, {
-    "entity": {
-      "reference": "Patient/Provider-Patient-PR-Org-Mismatch",
-      "display": "Ronald McDonald"
-    }
-  }, {
-    "entity": {
-      "reference": "Patient/provider-Patient-6",
-      "display": "Richard Cohen"
     }
   } ]
 }

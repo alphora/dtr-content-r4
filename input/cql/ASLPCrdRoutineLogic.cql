@@ -6,7 +6,7 @@ using FHIR version '4.0.1'
 
 include ASLPContext called Ctx
 include USCoreCommon
-include hl7.fhir.uv.cql.FHIRHelpers version ‘4.0.1’
+include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 valueset "Routine Procedure Valueset": 'http://terminology.smilecdr.com/cs/routine'
 

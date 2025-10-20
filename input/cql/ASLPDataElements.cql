@@ -3,23 +3,17 @@ library ASLPDataElements
 using USCore version '3.1.1'
 using FHIR version '4.0.1'
 
-include hl7.fhir.uv.cql.FHIRHelpers version ‘4.0.1’
+include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 include USCoreCommon called UC
 
 include SDHCommon called SC
 include ASLPConcepts called Cs
 
-parameter "Device Request" List<FHIR.DeviceRequest>
-parameter "Device Request Id" List<System.String>
-parameter "Medication Request" List<USCore.MedicationRequestProfile>
-parameter "Medication Request Id" List<System.String>
-parameter "Nutrition Order" List<FHIR.NutritionOrder>
-parameter "Nutrition Order Id" List<System.String>
-parameter "Service Request" List<FHIR.ServiceRequest>
-parameter "Service Request Id" List<System.String> 
-  // TODO: remove defaults for production use
+parameter "Coverage" FHIR.Coverage
+parameter "Request" Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Encounter>
+  // TODO: remove defaults and Id params for production use
+parameter "RequestId" List<System.String>
   default { 'required-SleepStudy', 'not-required-SleepStudy', 'SleepStudy', 'SleepStudy2' }
-parameter "Coverage Id" List<System.String>
 
 context Patient
 
@@ -78,11 +72,11 @@ define "Neck Circumference":
 
 define "Sleep Study":
   Coalesce(
-    [FHIR.ServiceRequest] SR
-      where SR.id in "Service Request Id",
-    { null as FHIR.ServiceRequest }
+    First([FHIR.ServiceRequest] SR
+      where SR.id in "RequestId"),
+    "Request" as FHIR.ServiceRequest,
+    null as FHIR.ServiceRequest
   )
-    union Coalesce("Service Request", { null as FHIR.ServiceRequest })
 
 define "Sleep Study Code":
   ("Sleep Study").code

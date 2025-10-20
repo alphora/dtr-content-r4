@@ -4,12 +4,15 @@ using FHIR version '4.0.1'
 
 include ASLPConcepts called Cx
 include ASLPDataElements called Dx
-include hl7.fhir.uv.cql.FHIRHelpers version ‘4.0.1’
+include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 include ASLPPolicyCaseFeatures called PCF
 include ASLPPolicyConcepts called AC
 include ASLPPolicyScreening called PS
 include ASLPPolicyFacilityBasedPSG called FacilityPSG
- 
+
+parameter "Coverage" FHIR.Coverage
+parameter "Request" Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Encounter>
+
 context Patient
 
 define "Most Recent Qualifying Patient Age":
@@ -195,23 +198,25 @@ define "Null Apnea":
 
 
 //RE-EXAMINE IF THIS IS OK/WORKS
-// define "Most Recent Absence Of Comorbid Medical Conditions Observation":
-//   PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Absence Of Comorbid Medical Conditions Assertion".coding)])
+define "Most Recent Absence Of Comorbid Medical Conditions Observation":
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Absence Of Comorbid Medical Conditions Assertion".coding)])
 
-// define "Qualifying Absence Of Comorbid Medical Conditions":
-//   if not "Most Recent Absence Of Comorbid Medical Conditions Observation" is null
-//     then "Most Recent Absence Of Comorbid Medical Conditions Observation"
-//   else 
-//     PCF.CaseFeatureObservation(
-//       AC."Qualifying Absence Of Comorbid Medical Conditions Assertion",
-//       "Has Absence Of Applicable Comorbid Medical Conditions",
-//       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-comorbid-screening-casefeature',
-//       PS."Evidence of Comorbid Medical Conditions", 
-//       ''
-//     )
+define "Qualifying Absence Of Comorbid Medical Conditions":
+  if not "Most Recent Absence Of Comorbid Medical Conditions Observation" is null
+    then "Most Recent Absence Of Comorbid Medical Conditions Observation"
+  else 
+    PCF.CaseFeatureObservation(
+      AC."Qualifying Absence Of Comorbid Medical Conditions Assertion",
+      //"Has Absence Of Applicable Comorbid Medical Conditions",
+      false,
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-comorbid-screening-casefeature',
+      PS."Evidence of Comorbid Medical Conditions", 
+      ''
+    )
 
-// define "Has Absence Of Comorbid Medical Conditions":
-//   "Has Absence Of Applicable Comorbid Medical Conditions" as System.Boolean
+define "Has Absence Of Comorbid Medical Conditions":
+  ("Qualifying Absence Of Comorbid Medical Conditions".value.value as System.Boolean
+    and "Has Absence Of Applicable Comorbid Medical Conditions")
 
 // define "Presence Of Comorbid Medical Conditions":
 //   not "Has Absence Of Comorbid Medical Conditions"
