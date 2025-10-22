@@ -232,7 +232,10 @@ define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, 
 define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
   if (requestItem.medication in PriorAuthList."Prior Auth Required for Procedure Valueset"
       or requestItem.medication in Router."Sleep Study Procedure") then 
-    "CRD Matrix"(requestItem)."CRD-5"
+        if not exists (OrderLOBMatch."Matching Organizations by Name") 
+        or OrderLOBMatch."Matching Organizations by Name" is null then 
+          "CRD Matrix"(requestItem)."CRD-3.2"
+      else "CRD Matrix"(requestItem)."CRD-5"
   else if (requestItem.medication in Routine."Routine Procedure Valueset") then 
     "CRD Matrix"(requestItem)."CRD-7"
   else
@@ -240,7 +243,10 @@ define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionO
 
 define function GetCrdResultOther(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
   if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-5"
+    if not exists (OrderLOBMatch."Matching Organizations by Name") 
+    or OrderLOBMatch."Matching Organizations by Name" is null then 
+      "CRD Matrix"(requestItem)."CRD-3.2"
+    else "CRD Matrix"(requestItem)."CRD-5"
   else if (PriorAuthList."Not OnPriorAuthList"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-6"
   else
