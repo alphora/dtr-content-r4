@@ -1,10 +1,9 @@
 library ASLPContext
 
+using USCore version '7.0.0'
 using FHIR version '4.0.1'
-// TODO: update to use USCore directly
-//using USCore version '3.1.1'
 
-include USCoreCommon
+include hl7.fhir.us.cql.USCoreCommon
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 include CrdExtendedCoverageInfo called ECI
 include ASLPContextProvider called ContextProvider
@@ -259,8 +258,8 @@ returns List<FHIR.Reference>:
 define function GetSubjectID(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>)
 returns System.String:
   if (item is FHIR.VisionPrescription or item is FHIR.NutritionOrder) then
-    item.patient.reference.getId()
-  else item.subject.reference.getId()
+    item.patient.reference.getValue() as System.String
+  else item.subject.reference.getValue() as System.String
 
 define "Service Request Item List":
   "draftOrders"

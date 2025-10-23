@@ -4,6 +4,474 @@
   "meta": {
     "profile": [ "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-recommendationdefinition" ]
   },
+  "contained": [ {
+    "resourceType": "Library",
+    "id": "effective-data-requirements",
+    "name": "EffectiveDataRequirements",
+    "status": "active",
+    "type": {
+      "coding": [ {
+        "system": "http://terminology.hl7.org/CodeSystem/library-type",
+        "code": "module-definition"
+      } ]
+    },
+    "relatedArtifact": [ {
+      "type": "depends-on",
+      "display": "FHIR model information",
+      "resource": "http://fhir.org/guides/cqf/common/Library/FHIR-ModelInfo|4.0.1"
+    }, {
+      "type": "depends-on",
+      "display": "Library FHIRHelpers",
+      "resource": "http://hl7.org/fhir/uv/cql/Library/FHIRHelpers|4.0.1"
+    }, {
+      "type": "depends-on",
+      "display": "Library Dx",
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPDataElements"
+    }, {
+      "type": "depends-on",
+      "display": "Library Cx",
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPConcepts"
+    }, {
+      "type": "depends-on",
+      "display": "Library SC",
+      "resource": "http://example.org/sdh/dtr/aslp/Library/SDHCommon"
+    }, {
+      "type": "depends-on",
+      "display": "Library FHIRCommon",
+      "resource": "http://hl7.org/fhir/uv/cql/Library/FHIRCommon|2.0.0"
+    }, {
+      "type": "depends-on",
+      "display": "Code system ASLP Codes",
+      "resource": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes"
+    }, {
+      "type": "depends-on",
+      "display": "Code system ConditionClinicalStatusCodes",
+      "resource": "http://terminology.hl7.org/CodeSystem/condition-clinical"
+    }, {
+      "type": "depends-on",
+      "display": "Code system ConditionVerificationStatusCodes",
+      "resource": "http://terminology.hl7.org/CodeSystem/condition-ver-status"
+    }, {
+      "type": "depends-on",
+      "display": "Value set Home Based Testing Sleep Studies Codes",
+      "resource": "http://example.org/sdh/dtr/aslp/ValueSet/aslp-a1-de2"
+    } ],
+    "parameter": [ {
+      "name": "RequestId",
+      "use": "in",
+      "min": 0,
+      "max": "*",
+      "type": "string"
+    }, {
+      "name": "Request",
+      "use": "in",
+      "min": 0,
+      "max": "1",
+      "type": "Resource"
+    }, {
+      "name": "Get Card Summary",
+      "use": "out",
+      "min": 0,
+      "max": "1",
+      "type": "string"
+    }, {
+      "name": "Get Card Detail",
+      "use": "out",
+      "min": 0,
+      "max": "1",
+      "type": "string"
+    }, {
+      "name": "Get Card Indicator",
+      "use": "out",
+      "min": 0,
+      "max": "1",
+      "type": "string"
+    }, {
+      "name": "Is Prior Auth Required",
+      "use": "out",
+      "min": 0,
+      "max": "1",
+      "type": "boolean"
+    } ],
+    "dataRequirement": [ {
+      "type": "ServiceRequest",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/ServiceRequest" ],
+      "mustSupport": [ "id", "code" ]
+    }, {
+      "type": "Condition",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Condition" ],
+      "mustSupport": [ "clinicalStatus", "verificationStatus" ]
+    }, {
+      "type": "Condition",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Condition" ],
+      "mustSupport": [ "code" ],
+      "codeFilter": [ {
+        "path": "code",
+        "code": [ {
+          "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes",
+          "code": "ASLP.A1.DE19",
+          "display": "History of Diabetes"
+        } ]
+      } ]
+    }, {
+      "type": "Condition",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Condition" ],
+      "mustSupport": [ "code" ],
+      "codeFilter": [ {
+        "path": "code",
+        "code": [ {
+          "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes",
+          "code": "ASLP.A1.DE18",
+          "display": "History of Hypertension"
+        } ]
+      } ]
+    }, {
+      "type": "Observation",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Observation" ],
+      "mustSupport": [ "code", "status", "value" ],
+      "codeFilter": [ {
+        "path": "code",
+        "code": [ {
+          "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes",
+          "code": "ASLP.A1.DE19",
+          "display": "History of Diabetes"
+        } ]
+      } ]
+    } ]
+  } ],
+  "extension": [ {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-directReferenceCode",
+    "valueCoding": {
+      "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes",
+      "code": "ASLP.A1.DE19",
+      "display": "History of Diabetes"
+    }
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-directReferenceCode",
+    "valueCoding": {
+      "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+      "code": "active"
+    }
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-directReferenceCode",
+    "valueCoding": {
+      "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+      "code": "recurrence"
+    }
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-directReferenceCode",
+    "valueCoding": {
+      "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+      "code": "relapse"
+    }
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-directReferenceCode",
+    "valueCoding": {
+      "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+      "code": "confirmed"
+    }
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-directReferenceCode",
+    "valueCoding": {
+      "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-codes",
+      "code": "ASLP.A1.DE18",
+      "display": "History of Hypertension"
+    }
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPDataElements"
+    }, {
+      "url": "name",
+      "valueString": "Sleep Study"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Sleep Study\":\n  Coalesce(\n    First([FHIR.ServiceRequest] SR\n      where SR.id in \"RequestId\"),\n    \"Request\" as FHIR.ServiceRequest,\n    null as FHIR.ServiceRequest\n  )"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 0
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPCrd"
+    }, {
+      "url": "name",
+      "valueString": "Is Sleep Study Service Request"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Is Sleep Study Service Request\":\n    Dx.\"Sleep Study\".code in Cx.\"Home Based Testing Sleep Studies Codes\""
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 1
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPDataElements"
+    }, {
+      "url": "name",
+      "valueString": "History of Diabetes"
+    }, {
+      "url": "statement",
+      "valueString": "define \"History of Diabetes\":\n  Coalesce(\n    SC.Has(\n    [FHIR.\"Condition\": Cs.\"History of Diabetes\"] C\n      where C.isActive()\n      and C.isConfirmed()\n    ),\n    SC.Has(\n      //TODO no general Observation type in USCore modelinfo\n    [FHIR.Observation: Cs.\"History of Diabetes\"] O\n      where O.status in { 'final', 'amended', 'corrected' }\n      and (convert(O.value as FHIR.Quantity) to 'mmol/L').value > 7.5\n    )\n  )"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 2
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPDataElements"
+    }, {
+      "url": "name",
+      "valueString": "History of Hypertension"
+    }, {
+      "url": "statement",
+      "valueString": "define \"History of Hypertension\":\n  SC.Has(\n    [FHIR.\"Condition\": Cs.\"History of Hypertension\"] C\n      where C.isActive()\n      and C.isConfirmed()\n  )"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 3
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPCrd"
+    }, {
+      "url": "name",
+      "valueString": "Has Comorbidities"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Has Comorbidities\":\n Dx.\"History of Diabetes\" or Dx.\"History of Hypertension\""
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 4
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPCrd"
+    }, {
+      "url": "name",
+      "valueString": "Is Prior Auth Required"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Is Prior Auth Required\":\n    \"Is Sleep Study Service Request\" and \"Has Comorbidities\""
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 5
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPCrd"
+    }, {
+      "url": "name",
+      "valueString": "Get Card Summary"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Get Card Summary\":\n  if \"Is Prior Auth Required\" then\n    'Patient requires prior authorization for a sleep study'\n  else\n    'Patient does not require prior authorization for a sleep study'"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 6
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPCrd"
+    }, {
+      "url": "name",
+      "valueString": "Rationale"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Rationale\":\n  Coalesce({\n    if Dx.\"History of Diabetes\" then 'history of diabetes' else null,\n    if Dx.\"History of Hypertension\" then 'history of hypertension' else null,\n    'no rationale provided'\n  })"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 7
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPCrd"
+    }, {
+      "url": "name",
+      "valueString": "Get Card Detail"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Get Card Detail\":\n  if \"Is Prior Auth Required\" then\n    'Patient requires prior authorization due to: ' + Rationale + '. ' +\n    'Please open your DTR application and complete Questionniare'\n  else\n    'Patient does not require prior authorization.'"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 8
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPCrd"
+    }, {
+      "url": "name",
+      "valueString": "Get Card Indicator"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Get Card Indicator\":\n  if \"Is Prior Auth Required\" then\n    'warning'\n  else\n    'info'"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 9
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "FHIRHelpers"
+    }, {
+      "url": "name",
+      "valueString": "ToConcept"
+    }, {
+      "url": "statement",
+      "valueString": "/*\n@description: Converts the given FHIR [CodeableConcept](https://hl7.org/fhir/datatypes.html#CodeableConcept) value to a CQL Concept.\n*/\ndefine function ToConcept(concept FHIR.CodeableConcept):\n    if concept is null then\n        null\n    else\n        System.Concept {\n            codes: concept.coding C return ToCode(C),\n            display: concept.text.value\n        }"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 10
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "FHIRHelpers"
+    }, {
+      "url": "name",
+      "valueString": "ToCode"
+    }, {
+      "url": "statement",
+      "valueString": "/*\n@description: Converts the given FHIR [Coding](https://hl7.org/fhir/datatypes.html#Coding) value to a CQL Code.\n*/\ndefine function ToCode(coding FHIR.Coding):\n    if coding is null then\n        null\n    else\n        System.Code {\n          code: coding.code.value,\n          system: coding.system.value,\n          version: coding.version.value,\n          display: coding.display.value\n        }"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 11
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "FHIRHelpers"
+    }, {
+      "url": "name",
+      "valueString": "ToString"
+    }, {
+      "url": "statement",
+      "valueString": "define function ToString(value string): value.value"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 12
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "SDHCommon"
+    }, {
+      "url": "name",
+      "valueString": "Has"
+    }, {
+      "url": "statement",
+      "valueString": "define function Has(value List<System.Any>):\n  if exists value then\n    true\n  else\n    false"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 13
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "FHIRCommon"
+    }, {
+      "url": "name",
+      "valueString": "isActive"
+    }, {
+      "url": "statement",
+      "valueString": "/*\n@description: Returns true if the given condition has a clinical status of active, recurrence, or relapse\n*/\ndefine fluent function isActive(condition FHIR.Condition):\n  condition.clinicalStatus ~ \"active\"\n    or condition.clinicalStatus ~ \"recurrence\"\n    or condition.clinicalStatus ~ \"relapse\""
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 14
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "FHIRCommon"
+    }, {
+      "url": "name",
+      "valueString": "isConfirmed"
+    }, {
+      "url": "statement",
+      "valueString": "/*\n@description: Returns true if the given condition has a verification status of confirmed\n*/\ndefine fluent function isConfirmed(condition FHIR.Condition):\n  condition.verificationStatus ~ \"confirmed\""
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 15
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "FHIRHelpers"
+    }, {
+      "url": "name",
+      "valueString": "ToString"
+    }, {
+      "url": "statement",
+      "valueString": "define function ToString(value ObservationStatus): value.value"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 16
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "FHIRHelpers"
+    }, {
+      "url": "name",
+      "valueString": "ToQuantity"
+    }, {
+      "url": "statement",
+      "valueString": "/*\n@description: Converts the given FHIR [Quantity](https://hl7.org/fhir/datatypes.html#Quantity) \nvalue to a CQL Quantity\n@comment: If the given quantity has a comparator specified, a runtime error is raised. If the given quantity\nhas a system other than UCUM (i.e. `http://unitsofmeasure.org`) or CQL calendar units (i.e. `http://hl7.org/fhirpath/CodeSystem/calendar-units`)\nan error is raised. For UCUM to calendar units, the `ToCalendarUnit` function is used.\n@seealso: ToCalendarUnit\n*/\ndefine function ToQuantity(quantity FHIR.Quantity):\n    case\n        when quantity is null then null\n        when quantity.value is null then null\n        when quantity.comparator is not null then\n            Message(null, true, 'FHIRHelpers.ToQuantity.ComparatorQuantityNotSupported', 'Error', 'FHIR Quantity value has a comparator and cannot be converted to a System.Quantity value.')\n        when quantity.system is null or quantity.system.value = 'http://unitsofmeasure.org'\n              or quantity.system.value = 'http://hl7.org/fhirpath/CodeSystem/calendar-units' then\n            System.Quantity { value: quantity.value.value, unit: ToCalendarUnit(Coalesce(quantity.code.value, quantity.unit.value, '1')) }\n        else\n            Message(null, true, 'FHIRHelpers.ToQuantity.InvalidFHIRQuantity', 'Error', 'Invalid FHIR Quantity code: ' & quantity.unit.value & ' (' & quantity.system.value & '|' & quantity.code.value & ')')\n    end"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 17
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "FHIRHelpers"
+    }, {
+      "url": "name",
+      "valueString": "ToCalendarUnit"
+    }, {
+      "url": "statement",
+      "valueString": "/*\n@description: Converts a UCUM definite duration unit to a CQL calendar duration\nunit using conversions specified in the [quantities](https://cql.hl7.org/02-authorsguide.html#quantities) \ntopic of the CQL specification.\n@comment: Note that for durations above days (or weeks), the conversion is understood to be approximate\n*/\ndefine function ToCalendarUnit(unit System.String):\n    case unit\n        when 'ms' then 'millisecond'\n        when 's' then 'second'\n        when 'min' then 'minute'\n        when 'h' then 'hour'\n        when 'd' then 'day'\n        when 'wk' then 'week'\n        when 'mo' then 'month'\n        when 'a' then 'year'\n        else unit\n    end"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 18
+    } ]
+  }, {
+    "id": "effective-data-requirements",
+    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
+    "valueCanonical": "#effective-data-requirements"
+  }, {
+    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
+    "valueReference": {
+      "reference": "Device/cqf-tooling"
+    }
+  } ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd",
   "identifier": [ {
     "use": "official",
@@ -20,6 +488,7 @@
   },
   "status": "draft",
   "experimental": true,
+  "date": "2025-10-23T08:49:56-06:00",
   "useContext": [ {
     "code": {
       "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",

@@ -1,10 +1,9 @@
 library CrdExtendedCoverageInfo
 
+using USCore version '7.0.0'
 using FHIR version '4.0.1'
-// TODO: update to use USCore directly
-//using USCore version '3.1.1'
 
-include USCoreCommon
+include hl7.fhir.us.cql.USCoreCommon
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 include QuestionnaireRouter called QuestionnaireRouter
 

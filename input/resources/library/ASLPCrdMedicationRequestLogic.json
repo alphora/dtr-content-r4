@@ -84,7 +84,7 @@
   }, {
     "type": "depends-on",
     "display": "Library USCoreCommon",
-    "resource": "http://example.org/sdh/dtr/aslp/Library/USCoreCommon"
+    "resource": "http://hl7.org/fhir/us/cql/Library/USCoreCommon|1.0.0"
   }, {
     "type": "depends-on",
     "display": "Library FHIRHelpers",

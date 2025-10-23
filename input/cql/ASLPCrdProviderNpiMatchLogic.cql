@@ -1,11 +1,10 @@
 library ASLPCrdProviderNpiMatchLogic
 
+using USCore version '7.0.0'
 using FHIR version '4.0.1'
-// TODO: update to use USCore directly
-//using USCore version '3.1.1'
 
 include ASLPContext called Ctx
-include USCoreCommon
+include hl7.fhir.us.cql.USCoreCommon
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
  
 context Patient
@@ -41,7 +40,7 @@ define function "Detail Debugging"(requestItem Choice<FHIR.NutritionOrder, FHIR.
 
 define function "Requesting PractitionerRoles from ServiceRequest Output"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   ("Requesting PractitionerRoles from ServiceRequest"(requestItem)) RequesterPractitionerRole
-    return RequesterPractitionerRole.practitioner.reference.getId()
+    return RequesterPractitionerRole.practitioner.reference.value
  
 define function "Requesting Practitioners from Provider NPI included in Requesting Practitioners from Payor NPI"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   ("Requesting Practitioners from Provider"(requestItem)).npi() // X
@@ -103,28 +102,28 @@ define function "Not ProviderNpiMatch"(requestItem Choice<FHIR.NutritionOrder, F
 define function "Requesting PractitionerRoles from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   Ctx."Provider"."PractitionerRoles" PR
     with (Ctx.GetRequester(requestItem)) RequesterPractitioner
-    such that RequesterPractitioner.reference.getId() ~ PR.id.value
+    such that RequesterPractitioner.reference.value ~ PR.id.value
 
 define function "Requesting Practitioners from PractitionerRoles"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   Ctx."Provider"."Practitioners" P
     with ("Requesting PractitionerRoles from ServiceRequest"(requestItem)) RequesterPractitionerRole
-    such that RequesterPractitionerRole.practitioner.reference.getId() ~ P.id.value
+    such that RequesterPractitionerRole.practitioner.reference.value ~ P.id.value
 
 define function "Requesting Practitioners from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   Ctx."Provider"."Practitioners" P
     with (Ctx.GetRequester(requestItem)) RequesterPractitioner
-    such that RequesterPractitioner.reference.getId() ~ P.id.value
+    such that RequesterPractitioner.reference.value ~ P.id.value
 
 define function "Requesting Practitioner IDs from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   (
     ("Requesting PractitionerRoles from ServiceRequest"(requestItem)) RequesterPractitionerRole
-    return RequesterPractitionerRole.practitioner.reference.getId()
+    return RequesterPractitionerRole.practitioner.reference.value
   )
   union
   (
     (Ctx.GetRequester(requestItem)) RequesterPractitioner
       return if (PositionOf('Practitioner/', RequesterPractitioner.reference) >= 0) 
-        then RequesterPractitioner.reference.getId()
+        then RequesterPractitioner.reference.value
         else null
   ) item where not IsNull(item)
 
@@ -146,12 +145,12 @@ define function "Requesting Practitioners from Payor"(requestItem Choice<FHIR.Nu
 define function "Requesting PractitionerRoles"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   Ctx."Payor"."PractitionerRoles" PractitionerRole
     with ("Requesting Practitioners from Payor"(requestItem)) RequesterPractitioner
-    such that PractitionerRole.practitioner.reference.getId() ~ RequesterPractitioner.id.value
+    such that PractitionerRole.practitioner.reference.value ~ RequesterPractitioner.id.value
 
 define function "Requesting Organizations associated with a PracitionerRole"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   Ctx."Payor"."Organizations" Organization
     with ("Requesting PractitionerRoles"(requestItem)) RequestPractRole
-    such that RequestPractRole.organization.reference.getId() ~ Organization.id.value
+    such that RequestPractRole.organization.reference.value ~ Organization.id.value
 
 define function "Requesting Organizations"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   "Requesting Organizations associated with a PracitionerRole"(requestItem)
@@ -167,17 +166,17 @@ define function "Matching Requesting Organizations by Name & Type or NPI"(reques
 define function "Performing PractitionerRoles from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   Ctx."Provider"."PractitionerRoles" PR
     with (Ctx.GetPerformer(requestItem)) PerformerPractitioner
-    such that PerformerPractitioner.reference.getId() ~ PR.id.value
+    such that PerformerPractitioner.reference.value ~ PR.id.value
 
 define function "Performing Practitioners from PractitionerRoles"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   Ctx."Provider"."Practitioners" P
     with ("Performing PractitionerRoles from ServiceRequest"(requestItem)) PerformerPractitionerRole
-    such that PerformerPractitionerRole.practitioner.reference.getId() ~ P.id.value
+    such that PerformerPractitionerRole.practitioner.reference.value ~ P.id.value
 
 define function "Performing Practitioners from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   Ctx."Provider"."Practitioners" P
     with (Ctx.GetPerformer(requestItem)) PerformerPractitioner
-    such that PerformerPractitioner.reference.getId() ~ P.id.value
+    such that PerformerPractitioner.reference.value ~ P.id.value
 
 define function "Performing Practitioners from Provider"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   ("Performing Practitioners from ServiceRequest"(requestItem))
@@ -191,23 +190,23 @@ define function "Performing Practitioners from Payor"(requestItem Choice<FHIR.Nu
 define function "Performing PractitionerRoles from Payor"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   Ctx."Payor"."PractitionerRoles" PractitionerRole
     with ("Performing Practitioners from Payor"(requestItem)) Practitioner
-    such that PractitionerRole.practitioner.reference.getId() ~ Practitioner.id.value
+    such that PractitionerRole.practitioner.reference.value ~ Practitioner.id.value
 
 define function "Performing Practitioners via PracitionerRoles"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   Ctx."Provider"."Practitioners" Practitioner
     with ("Performing PractitionerRoles from Payor"(requestItem)) PractitionerRole
-    such that PractitionerRole.practitioner.reference.getId() ~ Practitioner.id.value
+    such that PractitionerRole.practitioner.reference.value ~ Practitioner.id.value
 
 define function "Performing Practitioner IDs from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   (
     ("Performing PractitionerRoles from ServiceRequest"(requestItem)) PerformerPractitionerRole
-      return PerformerPractitionerRole.practitioner.reference.getId()
+      return PerformerPractitionerRole.practitioner.reference.value
   )
   union
   (
     (Ctx.GetPerformer(requestItem)) PerformerPractitioner
       return if (PositionOf('Practitioner/', PerformerPractitioner.reference) >= 0) 
-        then PerformerPractitioner.reference.getId()
+        then PerformerPractitioner.reference.value
         else null
   ) item where not IsNull(item)
 
@@ -220,12 +219,12 @@ define function "All Performing Practitioners Found"(requestItem Choice<FHIR.Nut
 define function "Payor Organization via Performing PracitionerRole"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   Ctx."Payor"."Organizations" Organization
     with ("Performing PractitionerRoles from Payor"(requestItem)) PractitionerRole
-    such that PractitionerRole.organization.reference.getId() ~ Organization.id.value
+    such that PractitionerRole.organization.reference.value ~ Organization.id.value
 
 define function "Performing Organizations associated with a PracitionerRole"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   Ctx."Payor"."Organizations" Organization
   with ("Performing PractitionerRoles from Payor"(requestItem)) PractitionerRole
-  such that PractitionerRole.organization.reference.getId() ~ Organization.id.value
+  such that PractitionerRole.organization.reference.value ~ Organization.id.value
 
 define function "Performing Organizations"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   "Performing Organizations associated with a PracitionerRole"(requestItem)
@@ -244,4 +243,4 @@ define "Payor References by Coverage.payor":
 define "Payor Organization from Provider Coverage for Patient":
   Ctx."Provider"."Organizations" O
     with "Payor References by Coverage.payor" R
-    such that R.getId() = O.id.value
+    such that R = O.id.value
