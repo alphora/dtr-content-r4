@@ -1,0 +1,18 @@
+{
+  "resourceType": "ActivityDefinition",
+  "id": "ASLPSubmitQuestionnaire",
+  "url": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPSubmitQuestionnaire",
+  "name": "ASLPSubmitQuestionnaire",
+  "title": "Submit Questionnaire",
+  "status": "draft",
+  "description": "Create a task to submit a Questionnaire.",
+  "kind": "Task",
+  "code": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type-cs",
+        "code": "send-message"
+      }
+    ]
+  }
+}

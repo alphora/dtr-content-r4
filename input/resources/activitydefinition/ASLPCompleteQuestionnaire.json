@@ -1,0 +1,18 @@
+{
+  "resourceType": "ActivityDefinition",
+  "id": "ASLPCompleteQuestionnaire",
+  "url": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCompleteQuestionnaire",
+  "name": "ASLPCompleteQuestionnaire",
+  "title": "Complete Questionnaire",
+  "status": "draft",
+  "description": "Create a task to complete a Questionnaire.",
+  "kind": "Task",
+  "code": {
+    "coding": [
+      {
+        "system": "http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-activity-type-cs",
+        "code": "collect-information"
+      }
+    ]
+  }
+}

@@ -4,7 +4,7 @@ using FHIR version '4.0.1'
 
 include ASLPConcepts called Cx
 include ASLPDataElements called Dx
-include FHIRHelpers version '4.1.000'
+include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 include ASLPPolicyCaseFeatures called PCF
  
 codesystem "ICD10": 'http://hl7.org/fhir/sid/icd-10-cm' 

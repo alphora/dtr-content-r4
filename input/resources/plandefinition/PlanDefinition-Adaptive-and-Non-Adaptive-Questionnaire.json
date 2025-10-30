@@ -2,241 +2,693 @@
   "resourceType": "PlanDefinition",
   "id": "Adaptive-and-Non-Adaptive-Questionnaire",
   "meta": {
-    "profile": [
-      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishableplandefinition"
-    ]
+    "profile": [ "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishableplandefinition" ]
   },
-  "extension": [
-    {
-      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
-      "valueCode": "shareable"
+  "contained": [ {
+    "resourceType": "Library",
+    "id": "effective-data-requirements",
+    "name": "EffectiveDataRequirements",
+    "status": "active",
+    "type": {
+      "coding": [ {
+        "system": "http://terminology.hl7.org/CodeSystem/library-type",
+        "code": "module-definition"
+      } ]
     },
-    {
-      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
-      "valueCode": "computable"
-    },
-    {
-      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
-      "valueCode": "executable"
-    },
-    {
-      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
-      "valueCode": "publishable"
-    },
-    {
-      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
-      "valueCode": "structured"
-    },
-    {
-      "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
-      "valueReference": {
-        "reference": "Device/cqf-tooling"
-      }
-    },
-    {
-      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-questionnaire-generate",
-      "valueBoolean": true
+    "relatedArtifact": [ {
+      "type": "depends-on",
+      "display": "FHIR model information",
+      "resource": "http://fhir.org/guides/cqf/common/Library/FHIR-ModelInfo|4.0.1"
+    }, {
+      "type": "depends-on",
+      "display": "Library PCF",
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyCaseFeatures"
+    }, {
+      "type": "depends-on",
+      "display": "Library FHIRHelpers",
+      "resource": "http://hl7.org/fhir/uv/cql/Library/FHIRHelpers|4.0.1"
+    }, {
+      "type": "depends-on",
+      "display": "Library AC",
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyConcepts"
+    }, {
+      "type": "depends-on",
+      "display": "Library PS",
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyScreening"
+    }, {
+      "type": "depends-on",
+      "display": "Value set Sleep Study Procedure",
+      "resource": "http://terminology.smilecdr.com/cs/sleepstudy"
+    }, {
+      "type": "depends-on",
+      "display": "Value set Other Example Procedure",
+      "resource": "http://terminology.smilecdr.com/cs/priorauth"
+    } ],
+    "parameter": [ {
+      "name": "Is Qualifying Sleep Study Procedure",
+      "use": "out",
+      "min": 0,
+      "max": "1",
+      "type": "boolean"
+    }, {
+      "name": "Not Within Qualifying Sleep Study Procedure",
+      "use": "out",
+      "min": 0,
+      "max": "1",
+      "type": "boolean"
+    }, {
+      "name": "Sleep Study Procedure Unknown",
+      "use": "out",
+      "min": 0,
+      "max": "1",
+      "type": "boolean"
+    }, {
+      "name": "Other Procedure Unknown",
+      "use": "out",
+      "min": 0,
+      "max": "1",
+      "type": "boolean"
+    }, {
+      "name": "Is Qualifying Other Procedure",
+      "use": "out",
+      "min": 0,
+      "max": "1",
+      "type": "boolean"
+    }, {
+      "name": "Not Within Qualifying Other Procedure",
+      "use": "out",
+      "min": 0,
+      "max": "1",
+      "type": "boolean"
+    } ],
+    "dataRequirement": [ {
+      "type": "Observation",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Observation" ],
+      "mustSupport": [ "code" ],
+      "codeFilter": [ {
+        "path": "code"
+      } ]
+    }, {
+      "type": "Observation",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Observation" ],
+      "mustSupport": [ "value", "value.value" ]
+    }, {
+      "type": "Patient",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Patient" ]
+    }, {
+      "type": "Procedure",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Procedure" ],
+      "mustSupport": [ "code" ],
+      "codeFilter": [ {
+        "path": "code",
+        "valueSet": "http://terminology.smilecdr.com/cs/sleepstudy"
+      } ]
+    }, {
+      "type": "Procedure",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Procedure" ],
+      "mustSupport": [ "code" ],
+      "codeFilter": [ {
+        "path": "code",
+        "valueSet": "http://terminology.smilecdr.com/cs/priorauth"
+      } ]
+    } ]
+  } ],
+  "extension": [ {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "shareable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "computable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "publishable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "structured"
+  }, {
+    "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
+    "valueReference": {
+      "reference": "Device/cqf-tooling"
     }
-  ],
-  "identifier": [
-    {
-      "use": "official",
-      "value": "Adaptive-and-Non-Adaptive-Questionnaire"
-    }
-  ],
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-questionnaire-generate",
+    "valueBoolean": true
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyConcepts"
+    }, {
+      "url": "name",
+      "valueString": "Qualifying Sleep Study Procedure Assertion"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Qualifying Sleep Study Procedure Assertion\":\n  FHIR.CodeableConcept {\n    coding: {\n        Coding {\n            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },\n            code: code { value: 'Qualifying-Sleep-Study-Procedure' },\n            display: string { value: 'Qualifying Sleep Study Procedure' }\n        }\n    }\n  }"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 0
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Most Recent Qualifying Sleep Study Procedure"
+    }, {
+      "url": "statement",
+      "valueString": "//Adaptive and Non-Adaptive Questionnaire components\ndefine \"Most Recent Qualifying Sleep Study Procedure\":\n  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Sleep Study Procedure Assertion\".coding)])"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 1
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyScreening"
+    }, {
+      "url": "name",
+      "valueString": "Sleep Study Procedures"
+    }, {
+      "url": "statement",
+      "valueString": "//sleep study procedure for non-adaptive questionnaire\ndefine \"Sleep Study Procedures\":\n  ([Procedure: \"Sleep Study Procedure\"])"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 2
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyScreening"
+    }, {
+      "url": "name",
+      "valueString": "Sleep Study Procedure Present"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Sleep Study Procedure Present\":\n  exists (\"Sleep Study Procedures\")"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 3
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Qualifying Sleep Study Procedure"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Qualifying Sleep Study Procedure\":\n  if not \"Most Recent Qualifying Sleep Study Procedure\" is null\n    then \"Most Recent Qualifying Sleep Study Procedure\"\n  else \n    PCF.CaseFeatureObservation(\n      AC.\"Qualifying Sleep Study Procedure Assertion\",\n      PS.\"Sleep Study Procedure Present\",\n      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepstudy-procedure-casefeature-definition',\n      PCF.MostRecent(PS.\"Sleep Study Procedures\"),\n      ''\n    )"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 4
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Is Qualifying Sleep Study Procedure Value"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Is Qualifying Sleep Study Procedure Value\":\n  \"Qualifying Sleep Study Procedure\".value.value as System.Boolean"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 5
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Is Qualifying Sleep Study Procedure"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Is Qualifying Sleep Study Procedure\":\n  IsTrue(\"Is Qualifying Sleep Study Procedure Value\")"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 6
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Not Within Qualifying Sleep Study Procedure"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Not Within Qualifying Sleep Study Procedure\":\n  IsFalse(\"Is Qualifying Sleep Study Procedure Value\")"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 7
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Sleep Study Procedure Unknown"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Sleep Study Procedure Unknown\":\n  IsNull(\"Is Qualifying Sleep Study Procedure Value\")"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 8
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyConcepts"
+    }, {
+      "url": "name",
+      "valueString": "Qualifying Other Procedure Assertion"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Qualifying Other Procedure Assertion\":\n  FHIR.CodeableConcept {\n    coding: {\n        Coding {\n            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },\n            code: code { value: 'Qualifying-Other-Procedure' },\n            display: string { value: 'Qualifying Other Procedure' }\n        }\n    }\n  }"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 9
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Most Recent Qualifying Other Procedure"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Most Recent Qualifying Other Procedure\":\n  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Other Procedure Assertion\".coding)])"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 10
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyScreening"
+    }, {
+      "url": "name",
+      "valueString": "Other Procedures"
+    }, {
+      "url": "statement",
+      "valueString": "//procedure for adaptive questionnaire \ndefine \"Other Procedures\":\n  ([Procedure: \"Other Example Procedure\"])"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 11
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyScreening"
+    }, {
+      "url": "name",
+      "valueString": "Other Procedure Present"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Other Procedure Present\":\n  exists (\"Other Procedures\")"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 12
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Qualifying Other Procedure"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Qualifying Other Procedure\":\n  if not \"Most Recent Qualifying Other Procedure\" is null\n    then \"Most Recent Qualifying Other Procedure\"\n  else \n    PCF.CaseFeatureObservation(\n      AC.\"Qualifying Other Procedure Assertion\",\n      PS.\"Other Procedure Present\",\n      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-other-procedure-casefeature-definition',\n      PCF.MostRecent(PS.\"Other Procedures\"),\n      ''\n    )"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 13
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Is Qualifying Other Procedure Value"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Is Qualifying Other Procedure Value\":\n  \"Qualifying Other Procedure\".value.value as System.Boolean"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 14
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Other Procedure Unknown"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Other Procedure Unknown\":\n  IsNull(\"Is Qualifying Other Procedure Value\")"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 15
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Is Qualifying Other Procedure"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Is Qualifying Other Procedure\":\n  IsTrue(\"Is Qualifying Other Procedure Value\")"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 16
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Not Within Qualifying Other Procedure"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Not Within Qualifying Other Procedure\":\n  IsFalse(\"Is Qualifying Other Procedure Value\")"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 17
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyCaseFeatures"
+    }, {
+      "url": "name",
+      "valueString": "MostRecent"
+    }, {
+      "url": "statement",
+      "valueString": "/*\ndefine function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String, evidences List<Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>>, evidenceText System.String):\n  if evidences is FHIR.Procedure\n    then CaseFeatureObservation(code, value, Now(), profile, evidences as FHIR.Procedure, evidenceText)\n  else if evidence is FHIR.Observation\n    then CaseFeatureObservation(code, value, Now(), profile, evidence as FHIR.Observation, evidenceText)\n  else if evidence is FHIR.Coverage then\n    CaseFeatureObservation(code, value, Now(), profile, evidence as FHIR.Coverage, evidenceText)\n  else if evidence is FHIR.Organization then\n    CaseFeatureObservation(code, value, Now(), profile, evidence as FHIR.Organization, evidenceText)\n  else if evidence is FHIR.Condition then\n    CaseFeatureObservation(code, value, Now(), profile, evidence as FHIR.Condition, evidenceText)\n  else if evidence is FHIR.Patient then\n    CaseFeatureObservation(code, value, Now(), profile, evidence as FHIR.Patient, evidenceText)\n  else \n    Message(null, true, 'FHIRCommon.CaseFeatureObservation.UnknownFHIResource', 'Error', 'Unknown Resource Type') //should it be ASLPPOlicyCaseFeatures.CaseFeatureObservation instead of FHIRCommon.CaseFeatureObservation\n*/\n\n/*\ndefine function MostRecentConditionOrObservation(value List<Choice<FHIR.Observation, FHIR.Condition>>):\n  First(\n    value v\n      let mro: MostRecentObservation((value v where v is Observation)),\n        mrc: MostRecentCondition((value v where v is Condition))\n      return \n        if (mro.effective as FHIR.dateTime > mrc.onset.start) then\n          mro\n        else\n          mrc\n  )\n\ndefine function MostRecentObservation(value List<FHIR.Observation>):\n  First(\n    value Observation\n      sort by effective descending\n  )\n\ndefine function MostRecentCondition(value List<FHIR.Condition>):\n  First(\n    value Observation\n      sort by onset.start descending\n  )\n*/\n\n//TODO: POC only (need to consider all the Observation considerations)\ndefine function MostRecent(value List<FHIR.Observation>):\n  First(\n    value Observation\n      sort by effective descending\n  )"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 18
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "FHIRHelpers"
+    }, {
+      "url": "name",
+      "valueString": "ToCode"
+    }, {
+      "url": "statement",
+      "valueString": "/*\n@description: Converts the given FHIR [Coding](https://hl7.org/fhir/datatypes.html#Coding) value to a CQL Code.\n*/\ndefine function ToCode(coding FHIR.Coding):\n    if coding is null then\n        null\n    else\n        System.Code {\n          code: coding.code.value,\n          system: coding.system.value,\n          version: coding.version.value,\n          display: coding.display.value\n        }"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 19
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyCaseFeatures"
+    }, {
+      "url": "name",
+      "valueString": "CaseFeatureObservation"
+    }, {
+      "url": "statement",
+      "valueString": "define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String, evidences Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>, evidenceText System.String):\n  if evidences is null then\n    CaseFeatureObservation(code, value, Now(), profile, null as List<FHIR.Observation>, evidenceText)\n  else \n    CaseFeatureObservation(code, value, Now(), profile, {evidences}, evidenceText)"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 20
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyCaseFeatures"
+    }, {
+      "url": "name",
+      "valueString": "CaseFeatureObservation"
+    }, {
+      "url": "statement",
+      "valueString": "//NOTE: agent is to be set by the service\n//Inference resource should be built by CQL.  Need example.\n//Application Assertion resource should be built by the application.  Example in test data.\n\n//TODO: need to use a choice for other Observation value types\n// consider if using an extension for the evidenceText is correct\n// TODO: what should happen when there's no evidence?\ndefine function CaseFeatureObservation(\n    code FHIR.CodeableConcept,\n    value System.Boolean,\n    effective System.DateTime,\n    profile System.String, \n    evidences List<Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>>,\n    evidenceText System.String\n):\n  if code is null or value is null \n    then null as Observation\n  else\n    if evidences is null \n      then Observation {\n        id: id { value: 'cf-' + code.coding[0].code},\n        meta: Meta { profile: { canonical { value: profile } } },\n        extension: { \n            Extension { \n              url: url { value: 'http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-instantiatesCaseFeature' }, //change this to aslp\n              value: uri { value: profile } \n              } \n        },\n        code: code,\n        effective: dateTime { value: Coalesce(effective, Now()) },\n        issued: instant { value: Now()},\n        subject: ReferenceTo(Patient),\n        status: ObservationStatus { value: 'preliminary' }, //should this be preliminary??\n        value: boolean { value: value }\n      }\n  else\n    Observation {\n        id: id { value: 'cf-' + First(evidences).id },\n        meta: Meta { profile: {canonical { value: profile } } },\n        extension: { \n          Extension {\n            url: url { value: 'http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-instantiatesCaseFeature' }, //change this to aslp\n            value: uri { value: profile }\n            }\n        },\n        contained: {\n          CreateProvenence( evidences, evidenceText )\n        },\n        code: code,\n        effective: dateTime { value: Coalesce(effective, Now() ) },\n        issued: instant { value: Now() },\n        subject: ReferenceTo(Patient),\n        status: ObservationStatus { value: 'preliminary' }, //should this be preliminary\n        value: boolean { value: value }\n    }"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 21
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "FHIRHelpers"
+    }, {
+      "url": "name",
+      "valueString": "ToString"
+    }, {
+      "url": "statement",
+      "valueString": "define function ToString(value string): value.value"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 22
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyCaseFeatures"
+    }, {
+      "url": "name",
+      "valueString": "ReferenceTo"
+    }, {
+      "url": "statement",
+      "valueString": "//IMPORTANT NOTE: This was taken from demo-content-r4. May need edits\n \ndefine function ReferenceTo(resource Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>):\n  Reference { reference: string { value: resource.typeof() + '/' + resource.id } }"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 23
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyCaseFeatures"
+    }, {
+      "url": "name",
+      "valueString": "typeof"
+    }, {
+      "url": "statement",
+      "valueString": "//TODO: flesh out other types of resources\ndefine fluent function typeof(resource Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>): \n  case\n    when resource is null then\n      // Message(null, true, 'FHIRCommon.typeof.UnknownFHIResource', 'Error', 'Unknown resource type: resource is null')\n      'Resource type not found: resource is null'\n    when resource is Patient then\n      'Patient'\n    when resource is Condition then  \n      'Condition'\n    when resource is Observation then  \n      'Observation'\n    when resource is Procedure then  \n      'Procedure'\n    when resource is Coverage then  \n      'Coverage'\n    when resource is Encounter then  \n      'Encounter'\n    when resource is Organization then  \n      'Organization'\n    when resource is DeviceRequest then  \n      'DeviceRequest'\n    else\n      // Message(null, true, 'FHIRCommon.typeof.UnknownFHIResource', 'Error', 'Unknown resource type: ' + resource.id)\n      'Resource type not found for:' + resource.id \n  end"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 24
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyCaseFeatures"
+    }, {
+      "url": "name",
+      "valueString": "CreateProvenence"
+    }, {
+      "url": "statement",
+      "valueString": "define function CreateProvenence( evidences List<Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>>, evidenceText System.String ):\n  Provenance {\n    id: id { value: 'prov-' + First(evidences).id },\n    extension: { \n      Extension { \n        url: url { \n          value: 'http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-casefeature-evidence-text' \n        }, \n        value: markdown { \n          value: evidenceText \n        } \n      } \n    },\n    target: { \n      Reference { reference: string { value: 'Observation/cf-' + First(evidences).id } } \n    },\n    occurred: dateTime { value: Now() },\n    recorded: instant { value: Now() },\n    entity: ((evidences e where e is not null) evidence return \n      FHIR.Provenance.Entity { \n        role: FHIR.ProvenanceEntityRole { value: 'derivation' },\n        what: ReferenceTo(evidence)\n      })\n    // agent: {\n    //     FHIR.Provenance.Agent {\n    //         who: Reference { reference: string {value: agent }} //Should this be \"Humana\"? \n    //     }\n    // }\n  }"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 25
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyCaseFeatures"
+    }, {
+      "url": "name",
+      "valueString": "MostRecent"
+    }, {
+      "url": "statement",
+      "valueString": "//TODO: POC only (need to consider all the Procedure considerations)\ndefine function MostRecent(value List<FHIR.Procedure>):\n  First(\n    value Procedure\n      sort by performed.start descending\n  )"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 26
+    } ]
+  }, {
+    "id": "effective-data-requirements",
+    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
+    "valueCanonical": "#effective-data-requirements"
+  } ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/Adaptive-and-Non-Adaptive-Questionnaire",
+  "identifier": [ {
+    "use": "official",
+    "value": "Adaptive-and-Non-Adaptive-Questionnaire"
+  } ],
   "version": "1.0.0",
   "status": "draft",
   "experimental": true,
-  "useContext": [
-    {
-      "code": {
-        "code": "task",
-        "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
-        "display": "Workflow Task"
-      },
-      "valueCodeableConcept": {
-        "coding": [
-          {
-            "code": "ASLP.PAS",
-            "system": "http://fhir.org/guides/nachc/hiv-cds/CodeSystem/activity-codes",
-            "display": "Prior Auth Adjudication"
-          }
-        ]
-      }
-    }
-  ],
+  "date": "2025-10-30T10:40:05-06:00",
   "publisher": "Smile Digital Health",
-  "jurisdiction": [
-    {
-      "coding": [
-        {
-          "version": "4.0.1",
-          "system": "http://hl7.org/fhir/ValueSet/iso3166-1-3",
-          "code": "USA",
-          "display": "United States of America"
-        }
-      ]
+  "useContext": [ {
+    "code": {
+      "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+      "code": "task",
+      "display": "Workflow Task"
+    },
+    "valueCodeableConcept": {
+      "coding": [ {
+        "system": "http://fhir.org/guides/nachc/hiv-cds/CodeSystem/activity-codes",
+        "code": "ASLP.PAS",
+        "display": "Prior Auth Adjudication"
+      } ]
     }
-  ],
+  } ],
+  "jurisdiction": [ {
+    "coding": [ {
+      "system": "http://hl7.org/fhir/ValueSet/iso3166-1-3",
+      "version": "4.0.1",
+      "code": "USA",
+      "display": "United States of America"
+    } ]
+  } ],
   "usage": "This is to be used in conjunction with a patient-facing FHIR application.",
-  "library": [
-    "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-  ],
-  "action": [
-    {
-      "title": "Qualifying Sleep Study Procedure",
-      "description": "Input for whether the patient has a sleep study procedure request.",
-      "input": [
-        {
-          "extension": [
-            {
-              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-              "valueString": "Does patient have a sleep study procedure request?"
-            },
-            {
-              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-              "valueMarkdown": "The patient has a sleep study procedure request"
-            },
-            {
-              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-              "valueExpression": {
-                "language": "text/cql-identifier",
-                "expression": "Qualifying Sleep Study Procedure",
-                "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-              }
+  "library": [ "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA" ],
+  "action": [ {
+    "title": "Qualifying Sleep Study Procedure",
+    "description": "Input for whether the patient has a sleep study procedure request.",
+    "input": [ {
+      "extension": [ {
+        "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+        "valueString": "Does patient have a sleep study procedure request?"
+      }, {
+        "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+        "valueMarkdown": "The patient has a sleep study procedure request"
+      }, {
+        "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+        "valueExpression": {
+          "language": "text/cql-identifier",
+          "expression": "Qualifying Sleep Study Procedure",
+          "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
+        }
+      } ],
+      "type": "Observation",
+      "profile": [ "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepstudy-procedure-casefeature-definition" ]
+    } ],
+    "action": [ {
+      "title": "Is Qualifying Sleep Study Procedure",
+      "description": "The patient has a qualifying sleep study procedure request.",
+      "condition": [ {
+        "kind": "applicability",
+        "expression": {
+          "language": "text/cql-identifier",
+          "expression": "Is Qualifying Sleep Study Procedure"
+        }
+      } ],
+      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/Home-Monitor-Sleep-Testing-Questionnaire"
+    }, {
+      "title": "Sleep Study Procedure Unknown",
+      "description": "The sleep study procedure is unknown. More Information is needed.",
+      "condition": [ {
+        "kind": "applicability",
+        "expression": {
+          "language": "text/cql-identifier",
+          "expression": "Sleep Study Procedure Unknown"
+        }
+      } ],
+      "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
+    }, {
+      "title": "Is Not Qualifying Sleep Study Procedure",
+      "description": "The patient does not have a qualifying sleep study procedure request.",
+      "condition": [ {
+        "kind": "applicability",
+        "expression": {
+          "language": "text/cql-identifier",
+          "expression": "Not Within Qualifying Sleep Study Procedure"
+        }
+      } ],
+      "action": [ {
+        "title": "Qualifying Other Procedure",
+        "description": "Input for whether the patient has an other qualifying procedure request.",
+        "input": [ {
+          "extension": [ {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+            "valueString": "Does patient have an other qualifying procedure request?"
+          }, {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+            "valueMarkdown": "Patient has an other qualifying procedure request"
+          }, {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+            "valueExpression": {
+              "language": "text/cql-identifier",
+              "expression": "Qualifying Other Procedure",
+              "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
             }
-          ],
+          } ],
           "type": "Observation",
-          "profile": [
-            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepstudy-procedure-casefeature-definition"
-          ]
-        }
-      ],
-      "action": [
-        {
-          "title": "Is Qualifying Sleep Study Procedure",
-          "description": "The patient has a qualifying sleep study procedure request.",
-          "condition": [
-            {
-              "kind": "applicability",
-              "expression": {
-                "language": "text/cql-identifier",
-                "expression": "Is Qualifying Sleep Study Procedure"
-              }
+          "profile": [ "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-other-procedure-casefeature-definition" ]
+        } ],
+        "action": [ {
+          "title": "Is Qualifying Other Procedure",
+          "description": "The patient has an other qualifying procedure request.",
+          "condition": [ {
+            "kind": "applicability",
+            "expression": {
+              "language": "text/cql-identifier",
+              "expression": "Is Qualifying Other Procedure"
             }
-          ], 
-          "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/Home-Monitor-Sleep-Testing-Questionnaire"
-        },
-        {
-          "title": "Sleep Study Procedure Unknown",
-          "description": "The sleep study procedure is unknown. More Information is needed.",
-          "condition": [
-            {
-              "kind": "applicability",
-              "expression": {
-                "language": "text/cql-identifier",
-                "expression": "Sleep Study Procedure Unknown"
-              }
+          } ],
+          "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/Home-Monitor-Sleep-Testing"
+        }, {
+          "title": "Other Procedure Unknown",
+          "description": "The other procedure is unknown. More Information is needed.",
+          "condition": [ {
+            "kind": "applicability",
+            "expression": {
+              "language": "text/cql-identifier",
+              "expression": "Other Procedure Unknown"
             }
-          ],
+          } ],
           "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
-        },
-        {
-          "title": "Is Not Qualifying Sleep Study Procedure",
-          "description": "The patient does not have a qualifying sleep study procedure request.",
-          "condition": [
-                {
-                    "kind": "applicability",
-                    "expression": {
-                        "language": "text/cql-identifier",
-                        "expression": "Not Within Qualifying Sleep Study Procedure"
-                    }
-                }
-            ],
-            "action": [
-                {
-                  "title": "Qualifying Other Procedure",
-                  "description": "Input for whether the patient has an other qualifying procedure request.",
-                  "input": [
-                        {
-                        "extension": [
-                            {
-                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
-                              "valueString": "Does patient have an other qualifying procedure request?"
-                            },
-                            {
-                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
-                              "valueMarkdown": "Patient has an other qualifying procedure request"
-                            },
-                            {
-                              "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
-                              "valueExpression": {
-                                  "language": "text/cql-identifier",
-                                  "expression": "Qualifying Other Procedure",
-                                  "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
-                              }
-                            }
-                        ],
-                        "type": "Observation",
-                        "profile": [
-                            "http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-other-procedure-casefeature-definition"
-                        ]
-                        }
-                    ],
-                    "action": [
-                        {
-                            "title": "Is Qualifying Other Procedure",
-                            "description": "The patient has an other qualifying procedure request.",
-                            "condition": [
-                                {
-                                "kind": "applicability",
-                                "expression": {
-                                    "language": "text/cql-identifier",
-                                    "expression": "Is Qualifying Other Procedure"
-                                }
-                                }
-                            ], 
-                            "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/Home-Monitor-Sleep-Testing"
-                        },
-                        {
-                            "title": "Other Procedure Unknown",
-                            "description": "The other procedure is unknown. More Information is needed.",
-                            "condition": [
-                                {
-                                "kind": "applicability",
-                                "expression": {
-                                    "language": "text/cql-identifier",
-                                    "expression": "Other Procedure Unknown"
-                                }
-                                }
-                            ],
-                            "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-temp-not-approved"
-                        },
-                        {
-                            "title": "Is Not Qualifying Other Procedure",
-                            "description": "The patient does not have an other qualifying procedure request.",
-                            "condition": [
-                                {
-                                "kind": "applicability",
-                                "expression": {
-                                    "language": "text/cql-identifier",
-                                    "expression": "Not Within Qualifying Other Procedure"
-                                }
-                                }
-                            ],
-                            "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
-                        }
-                    ]
-                }
-            ]
-        }
-      ]
-    }
-  ]
+        }, {
+          "title": "Is Not Qualifying Other Procedure",
+          "description": "The patient does not have an other qualifying procedure request.",
+          "condition": [ {
+            "kind": "applicability",
+            "expression": {
+              "language": "text/cql-identifier",
+              "expression": "Not Within Qualifying Other Procedure"
+            }
+          } ],
+          "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/aslp-pa-adj-not-approved"
+        } ]
+      } ]
+    } ]
+  } ]
 }
-            
-
-
-
-    

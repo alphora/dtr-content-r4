@@ -1,11 +1,9 @@
 library ASLPCrdGenericResponseLogic
 
 using FHIR version '4.0.1'
-// TODO: update to use USCore directly
-//using USCore version '3.1.1'
 
 include CrdExtendedCoverageInfo called ECI
-include FHIRHelpers version '4.1.000'
+include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 parameter "Request Id" System.String
 

@@ -1,10 +1,8 @@
 library ASLPContextProvider
 
 using FHIR version '4.0.1'
-// TODO: update to use USCore directly
-//using USCore version '3.1.1'
 
-include FHIRHelpers version '4.1.000'
+include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 codesystem "Payor Identifier CodeSystem": 'http://terminology.hl7.org/CodeSystem/organization-type'
 

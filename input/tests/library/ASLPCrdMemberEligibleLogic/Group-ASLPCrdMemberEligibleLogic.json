@@ -10,6 +10,11 @@
   "actual": true,
   "member": [ {
     "entity": {
+      "reference": "Patient/example-provider",
+      "display": "Peter James Chalmers"
+    }
+  }, {
+    "entity": {
       "reference": "Patient/Provider-Patient-DOB-Mismatch",
       "display": "Eleanor James"
     }
@@ -17,11 +22,6 @@
     "entity": {
       "reference": "Patient/Provider-Patient-DOB-Match",
       "display": "Eleanor James"
-    }
-  }, {
-    "entity": {
-      "reference": "Patient/example-provider",
-      "display": "Peter James Chalmers"
     }
   }, {
     "entity": {

@@ -4,7 +4,7 @@ using FHIR version '4.0.1'
 
 include ASLPConcepts called Cx
 include ASLPDataElements called Dx
-include FHIRHelpers version '4.1.000'
+include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 context Patient
 
@@ -15,7 +15,7 @@ define "Has Comorbidities":
  Dx."History of Diabetes" or Dx."History of Hypertension"
 
 define "Is Sleep Study Service Request":
-    exists (Dx."Sleep Study" S where S.code in Cx."Home Based Testing Sleep Studies Codes")
+    Dx."Sleep Study".code in Cx."Home Based Testing Sleep Studies Codes"
 
 define "Get Card Summary":
   if "Is Prior Auth Required" then

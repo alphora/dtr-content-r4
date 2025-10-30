@@ -1,55 +1,53 @@
 library ASLPDataElements
 
-using USCore version '3.1.1'
+using USCore version '7.0.0'
 using FHIR version '4.0.1'
 
-include FHIRHelpers version '4.1.000'
-include USCoreCommon called UC
+include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
+include hl7.fhir.uv.cql.FHIRCommon version '2.0.0'
+include hl7.fhir.us.cql.USCoreCommon
+include hl7.fhir.us.cql.USCoreElements called UCE
 
 include SDHCommon called SC
 include ASLPConcepts called Cs
 
-parameter "Device Request" List<FHIR.DeviceRequest>
-parameter "Device Request Id" List<System.String>
-parameter "Medication Request" List<USCore.MedicationRequestProfile>
-parameter "Medication Request Id" List<System.String>
-parameter "Nutrition Order" List<FHIR.NutritionOrder>
-parameter "Nutrition Order Id" List<System.String>
-parameter "Service Request" List<FHIR.ServiceRequest>
-parameter "Service Request Id" List<System.String> 
-  // TODO: remove defaults for production use
+parameter "Coverage" FHIR.Coverage
+parameter "Request" Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Encounter>
+  // TODO: remove defaults and Id params for production use
+parameter "RequestId" List<System.String>
   default { 'required-SleepStudy', 'not-required-SleepStudy', 'SleepStudy', 'SleepStudy2' }
-parameter "Coverage Id" List<System.String>
 
 context Patient
 
 define "BMI":
   convert(
-    UC.MostRecent(
-      [USCore."observation-bmi"] B
+    Last(
+      UCE."All Body Mass Index Measurements" B
         where B.status in { 'final', 'amended', 'corrected' }
-    ).value
+        sort by effective
+    ).value as FHIR.Quantity
   ) to 'kg/m2' 
 
 define "Diagnosis of Obstructive Sleep Apnea":
-  UC.MostRecent(
-  [USCore."Condition": Cs."Diagnosis of Obstructive Sleep Apnea Codes"] C 
+  (
+  [FHIR."Condition": Cs."Diagnosis of Obstructive Sleep Apnea Codes"] C
     where C.isActive()
     and C.isConfirmed()
-  ).code
+  ).mostRecent().code
 
 define "Height":
   convert(
-    UC.MostRecent(
-      [USCore."observation-bodyheight"] BH
+    Last(
+      UCE."All Body Height Measurements" BH
         where BH.status in { 'final', 'amended', 'corrected' }
-    ).value 
+        sort by effective
+    ).value
   ) to '[in_i]'
 
 define "History of Diabetes":
   Coalesce(
     SC.Has(
-    [USCore."Condition": Cs."History of Diabetes"] C
+    [FHIR."Condition": Cs."History of Diabetes"] C
       where C.isActive()
       and C.isConfirmed()
     ),
@@ -63,7 +61,7 @@ define "History of Diabetes":
 
 define "History of Hypertension":
   SC.Has(
-    [USCore."Condition": Cs."History of Hypertension"] C
+    [FHIR."Condition": Cs."History of Hypertension"] C
       where C.isActive()
       and C.isConfirmed()
   )
@@ -78,11 +76,11 @@ define "Neck Circumference":
 
 define "Sleep Study":
   Coalesce(
-    [FHIR.ServiceRequest] SR
-      where SR.id in "Service Request Id",
-    { null as FHIR.ServiceRequest }
+    First([FHIR.ServiceRequest] SR
+      where SR.id in "RequestId"),
+    "Request" as FHIR.ServiceRequest,
+    null as FHIR.ServiceRequest
   )
-    union Coalesce("Service Request", { null as FHIR.ServiceRequest })
 
 define "Sleep Study Code":
   ("Sleep Study").code
@@ -92,8 +90,9 @@ define "Sleep Study Date":
 
 define "Weight":
   convert(
-    UC.MostRecent(
-      [USCore."observation-bodyweight"] W
+    Last(
+      UCE."All Body Weight Measurements" W
         where W.status in { 'final', 'amended', 'corrected' }
+        sort by effective
     ).value 
   ) to '[lb_av]'

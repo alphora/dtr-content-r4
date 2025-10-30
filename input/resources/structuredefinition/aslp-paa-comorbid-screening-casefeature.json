@@ -37,7 +37,7 @@
       "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
       "valueExpression": {
         "language": "text/cql-identifier",
-        "expression": "Qualifying Absence Of Comorbid Medical Observations",
+        "expression": "Qualifying Absence Of Comorbid Medical Conditions",
         "reference": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA"
       }
     }
@@ -73,8 +73,8 @@
       {
         "id": "Observation.code",
         "path": "Observation.code",
-        "short": "Qualifying Absence Of Comorbid Medical Observations",
-        "definition": "Qualifying Absence Of Comorbid Medical Observations",
+        "short": "Qualifying Absence Of Comorbid Medical Conditions",
+        "definition": "Qualifying Absence Of Comorbid Medical Conditions",
         "min": 1,
         "max": "1",
         "type": [
@@ -87,8 +87,8 @@
           "coding": [
             {
               "system": "http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes",
-              "code": "Absence-Of-Comorbid-Observations",
-              "display": "Qualifying Absence Of Comorbid Medical Observations"
+              "code": "Absence-Of-Comorbid-Conditions",
+              "display": "Qualifying Absence Of Comorbid Medical Conditions"
             }
           ]
         }
@@ -96,8 +96,8 @@
       {
         "id": "Observation.value[x]",
         "path": "Observation.value[x]",
-        "short": "Patient has moderate to severe pulmonary disease, neuromuscular disease with associated pulmonary disease, or cardiac disease?",
-        "definition": "Patient has moderate to severe pulmonary disease, neuromuscular disease with associated pulmonary disease, or cardiac disease?",
+        "short": "Patient does not have moderate to severe pulmonary disease, neuromuscular disease with associated pulmonary disease, or cardiac disease?",
+        "definition": "Patient does not have moderate to severe pulmonary disease, neuromuscular disease with associated pulmonary disease, or cardiac disease?",
         "min": 1,
         "max": "1",
         "type": [

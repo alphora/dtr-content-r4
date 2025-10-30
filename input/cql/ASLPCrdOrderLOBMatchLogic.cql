@@ -1,12 +1,11 @@
 library ASLPCrdOrderLOBMatchLogic
 
+using USCore version '7.0.0'
 using FHIR version '4.0.1'
-// TODO: update to use USCore directly
-//using USCore version '3.1.1'
 
 include ASLPContext called Ctx
-include USCoreCommon
-include FHIRHelpers version '4.1.000'
+include hl7.fhir.us.cql.USCoreCommon
+include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 context Patient
 
@@ -50,7 +49,7 @@ define "Provider References by Coverage.payor":
 define "Provider Organizations by Coverage.payor":
   Ctx."Provider"."Organizations" O
     with "Provider References by Coverage.payor" R
-    such that R.getId() = O.id.value
+    such that R = O.id.value
 
 define "Payor References by Coverage.payor":
   flatten(Ctx."Payor"."Coverages" C return C.payor.reference.value)
@@ -58,7 +57,7 @@ define "Payor References by Coverage.payor":
 define "Payor Organizations by Coverage.payor":
   Ctx."Payor"."Organizations" O
     with "Payor References by Coverage.payor" R
-    such that R.getId() = O.id.value
+    such that R = O.id.value
 
 define "Matching Organizations by Name":
   "Provider Organizations by Coverage.payor" ProviderPayorOrg
