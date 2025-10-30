@@ -2476,7 +2476,7 @@
       "valueString": "GetCrdResultOther"
     }, {
       "url": "statement",
-      "valueString": "define function GetCrdResultOther(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):\n  if (PriorAuthList.\"Is OnPriorAuthList\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-5\"\n  else if (PriorAuthList.\"Not OnPriorAuthList\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-6\"\n  else\n    \"CRD Matrix\"(requestItem).\"CRD-UnexpectedError\""
+      "valueString": "define function GetCrdResultOther(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):\n  if (PriorAuthList.\"Is OnPriorAuthList\"(requestItem)) then\n    if not exists (OrderLOBMatch.\"Matching Organizations by Name\") \n    or OrderLOBMatch.\"Matching Organizations by Name\" is null then \n      \"CRD Matrix\"(requestItem).\"CRD-3.2\"\n    else \"CRD Matrix\"(requestItem).\"CRD-5\"\n  else if (PriorAuthList.\"Not OnPriorAuthList\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-6\"\n  else\n    \"CRD Matrix\"(requestItem).\"CRD-UnexpectedError\""
     }, {
       "url": "displaySequence",
       "valueInteger": 150
@@ -2566,7 +2566,7 @@
       "valueString": "GetCrdResultMedicationRequest"
     }, {
       "url": "statement",
-      "valueString": "define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):\n  if (requestItem.medication in PriorAuthList.\"Prior Auth Required for Procedure Valueset\"\n      or requestItem.medication in Router.\"Sleep Study Procedure\") then \n    \"CRD Matrix\"(requestItem).\"CRD-5\"\n  else if (requestItem.medication in Routine.\"Routine Procedure Valueset\") then \n    \"CRD Matrix\"(requestItem).\"CRD-7\"\n  else\n    \"CRD Matrix\"(requestItem).\"CRD-UnexpectedError\""
+      "valueString": "define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):\n  if (requestItem.medication in PriorAuthList.\"Prior Auth Required for Procedure Valueset\"\n      or requestItem.medication in Router.\"Sleep Study Procedure\") then \n        if not exists (OrderLOBMatch.\"Matching Organizations by Name\") \n        or OrderLOBMatch.\"Matching Organizations by Name\" is null then \n          \"CRD Matrix\"(requestItem).\"CRD-3.2\"\n      else \"CRD Matrix\"(requestItem).\"CRD-5\"\n  else if (requestItem.medication in Routine.\"Routine Procedure Valueset\") then \n    \"CRD Matrix\"(requestItem).\"CRD-7\"\n  else\n    \"CRD Matrix\"(requestItem).\"CRD-UnexpectedError\""
     }, {
       "url": "displaySequence",
       "valueInteger": 156
@@ -2575,11 +2575,6 @@
     "id": "effective-data-requirements",
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
-  }, {
-    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
-    "valueReference": {
-      "reference": "Device/cqf-tooling"
-    }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-MultipleRequest",
   "identifier": [ {
@@ -2597,7 +2592,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2025-10-23T08:49:56-06:00",
+  "date": "2025-10-30T10:40:04-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MultipleRequest",
   "useContext": [ {
