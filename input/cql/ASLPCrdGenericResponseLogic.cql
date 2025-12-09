@@ -8,7 +8,8 @@ include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 parameter "Request Id" System.String
 
 // NutritionOrder, ServiceRequest, DeviceRequest, MedicationRequest, VisionPrescription with /draft/ status
-parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>>
+parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>
+parameter "appointments" List<FHIR.Appointment>
 
 context Patient
 
@@ -17,6 +18,9 @@ define "DebuggingEnabled":
 
 define "Service Request Item List":
   "draftOrders"
+
+define "Appointments List": 
+  "appointments"
 
 // define "UnknownResourceType":
 //   'UnknownResourceType'
@@ -50,17 +54,20 @@ define "Description":
   'Information related to whether a service is covered, not covered or requires prior auth submission'
   
 define "CoverageExtensionList":
-  if "Service Request Item List" is null then
+  if "Service Request Item List" is null 
+    and "Appointments List" is null then
     { 
       "GetCoverageExtension"(
         "null Service Request Item", 
         GetCrdResult("null Service Request Item")
       ) 
     }
-  else
-    "Service Request Item List" RequestItem
-      return all
+  else if "Service Request Item List" RequestItem then 
+    return all
         "GetCoverageExtension"(RequestItem, GetCrdResult(RequestItem))
+  else "Appointments List" appointment
+    return all 
+        "GetCoverageExtension"(appointment, GetCrdResult(appointment))
 
 // CRD Logic tree
 define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>)
