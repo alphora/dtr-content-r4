@@ -54,18 +54,20 @@ define "Description":
   'Information related to whether a service is covered, not covered or requires prior auth submission'
   
 define "CoverageExtensionList":
-  if "Service Request Item List" is null 
-    and "Appointments List" is null then
+  if (not exists ("Service Request Item List")
+    and not exists ("Appointments List")) then
     { 
       "GetCoverageExtension"(
         "null Service Request Item", 
         GetCrdResult("null Service Request Item")
       ) 
     }
-  else if "Service Request Item List" RequestItem then 
+  else if exists ("Service Request Item List") then 
+    from "Service Request Item List" request 
     return all
-        "GetCoverageExtension"(RequestItem, GetCrdResult(RequestItem))
-  else "Appointments List" appointment
+        "GetCoverageExtension"(request, GetCrdResult(request))
+  else 
+    from "Appointments List" appointment
     return all 
         "GetCoverageExtension"(appointment, GetCrdResult(appointment))
 
