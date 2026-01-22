@@ -24,10 +24,10 @@
       "valueString": "DisableListPromotion"
     }, {
       "name": "format",
-      "valueString": "JSON"
+      "valueString": "XML"
     }, {
       "name": "format",
-      "valueString": "XML"
+      "valueString": "JSON"
     }, {
       "name": "analyzeDataRequirements",
       "valueBoolean": false
