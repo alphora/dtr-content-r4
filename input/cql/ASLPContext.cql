@@ -262,8 +262,7 @@ returns System.String:
   else if (item is FHIR.VisionPrescription or item is FHIR.NutritionOrder) then
     item.patient.reference.getValue() as System.String
   else if (item is FHIR.Appointment) then 
-    from item.participant P 
-    return P.actor.getValue() as System.String
+    First(item.participant).actor.getValue() as System.String
   else item.subject.reference.getValue() as System.String
 
 define "Service Request Item List":
