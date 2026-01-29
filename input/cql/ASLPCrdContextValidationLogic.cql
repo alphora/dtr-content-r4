@@ -23,7 +23,7 @@ define "Detail Text 8":
 
 // CRD-8 // detail.qualification
 define "Qualification 8":
-  'Unable to process due to incomplete/ambiguous information. Please submit a prior auth form.'
+  'Unable to process due to incomplete/information. Please submit a prior auth form.'
 
 // CRD-8.1 // detail.code.text
 define "Detail Text 8.1":
