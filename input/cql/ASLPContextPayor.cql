@@ -54,4 +54,7 @@ define "All Payor PractitionerRoles":
   [PractitionerRole]
 
 define "All Payor Organizations":
-  [Organization]
+  [Organization] O 
+    with "All Payor Coverages" C 
+    such that exists (C.payor P 
+      where P.reference = 'Organization/' + O.id)
