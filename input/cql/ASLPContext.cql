@@ -258,8 +258,12 @@ returns List<FHIR.Reference>:
 
 define function GetSubjectID(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>)
 returns System.String:
-  if (item is FHIR.VisionPrescription or item is FHIR.NutritionOrder) then
+  if (item is FHIR.ServiceRequest) then 
+    item.subject.reference.getValue() as System.String
+  else if (item is FHIR.VisionPrescription or item is FHIR.NutritionOrder) then
     item.patient.reference.getValue() as System.String
+  else if (item is FHIR.Appointment) then 
+    First(item.participant).actor.getValue() as System.String
   else item.subject.reference.getValue() as System.String
 
 define "Service Request Item List":

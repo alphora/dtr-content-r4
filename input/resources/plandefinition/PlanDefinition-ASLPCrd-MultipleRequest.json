@@ -1726,7 +1726,7 @@
       "valueString": "GetSubjectID"
     }, {
       "url": "statement",
-      "valueString": "define function GetSubjectID(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>)\nreturns System.String:\n  if (item is FHIR.VisionPrescription or item is FHIR.NutritionOrder) then\n    item.patient.reference.getValue() as System.String\n  else item.subject.reference.getValue() as System.String"
+      "valueString": "define function GetSubjectID(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>)\nreturns System.String:\n  if (item is FHIR.ServiceRequest) then \n    item.subject.reference.getValue() as System.String\n  else if (item is FHIR.VisionPrescription or item is FHIR.NutritionOrder) then\n    item.patient.reference.getValue() as System.String\n  else if (item is FHIR.Appointment) then \n    from item.participant P \n    return P.actor.getValue() as System.String\n  else item.subject.reference.getValue() as System.String"
     }, {
       "url": "displaySequence",
       "valueInteger": 100
@@ -2575,11 +2575,6 @@
     "id": "effective-data-requirements",
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
-  }, {
-    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
-    "valueReference": {
-      "reference": "Device/cqf-tooling"
-    }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-MultipleRequest",
   "identifier": [ {
@@ -2597,7 +2592,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-01-08T16:01:34-06:00",
+  "date": "2026-01-22T10:01:24-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MultipleRequest",
   "useContext": [ {
