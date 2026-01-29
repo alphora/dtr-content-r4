@@ -63,7 +63,7 @@ define "CoverageExtensionList":
       ) 
     }
   else if exists ("Service Request Item List") then 
-    from "Service Request Item List" request 
+   "Service Request Item List" request 
     return all
         "GetCoverageExtension"(request, GetCrdResult(request))
   else 
