@@ -16,7 +16,8 @@ code "Payor Code": 'pay' from "Payor Identifier CodeSystem" display 'Payor'
 code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
 
 // NutritionOrder, ServiceRequest, DeviceRequest, MedicationRequest, VisionPrescription with /draft/ status
-parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>>
+parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>
+parameter "appointments" List<FHIR.Appointment>
 
 parameter "Request Id" System.String
   // NOTE: defaults should not be used in production
@@ -270,7 +271,9 @@ define "Service Request Item List":
   // union ([MedicationRequest])
   // union ([VisionPrescription])
   // union ([CommunicationRequest])
-  // union ([Appointment])
+
+define "Appointments List": 
+  "appointments"
 
 define "Payor":
   ContextPayor."Payor"

@@ -169,21 +169,27 @@ define "null Service Request Item":
 
 // CRD Coverage Extensions
 define "CoverageExtensionList":
-  if Ctx."Service Request Item List" is null 
-    or not exists (Ctx."Service Request Item List") then
-    { 
-      "GetCoverageExtension"(
-        "null Service Request Item", 
-        GetCrdResult("null Service Request Item")
-      ) 
-    }
-  else
-    Ctx."Service Request Item List" RequestItem
+  if ((Ctx."Service Request Item List" is null 
+    or not exists (Ctx."Service Request Item List"))
+    and (Ctx."Appointments List" is null 
+    or not exists (Ctx."Appointments List")) then
+      { 
+        "GetCoverageExtension"(
+          "null Service Request Item", 
+          GetCrdResult("null Service Request Item")
+        ) 
+      }
+  else if exists (Ctx."Service Request Item List") then
+     Ctx."Service Request Item List" request
       return all
-        "GetCoverageExtension"(RequestItem, GetCrdResult(RequestItem))
+        "GetCoverageExtension"(request, GetCrdResult(request))
         // TESTING OUTPUT
         //(GetCrdResult(RequestItem)).ID + Ctx.NewLine +
         //(GetCrdResult(RequestItem)).DetailDebugging
+  else 
+     Ctx."Appointments List" appointment
+      return all 
+        "GetCoverageExtension"(appointment, GetCrdResult(appointment))
 
 // CRD Logic tree
 define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
