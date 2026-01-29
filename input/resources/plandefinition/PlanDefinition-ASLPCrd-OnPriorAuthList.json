@@ -940,11 +940,6 @@
     "id": "effective-data-requirements",
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
-  }, {
-    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
-    "valueReference": {
-      "reference": "Device/cqf-tooling"
-    }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-OnPriorAuthList",
   "identifier": [ {
@@ -962,7 +957,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-01-22T10:01:24-06:00",
+  "date": "2026-01-29T13:06:38-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-OnPriorAuthList",
   "useContext": [ {

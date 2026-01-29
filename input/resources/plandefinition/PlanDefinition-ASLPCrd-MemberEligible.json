@@ -466,7 +466,7 @@
       "valueString": "Payor"
     }, {
       "url": "statement",
-      "valueString": "// NOTE: these retrieves are only for local testing\n  // ([ServiceRequest]) \n  // union ([DeviceRequest]) \n  // union ([NutritionOrder])\n  // union ([MedicationRequest])\n  // union ([VisionPrescription])\n  // union ([CommunicationRequest])\n  // union ([Appointment])\n\ndefine \"Payor\":\n  ContextPayor.\"Payor\""
+      "valueString": "define \"Payor\":\n  ContextPayor.\"Payor\""
     }, {
       "url": "displaySequence",
       "valueInteger": 19
@@ -1015,11 +1015,6 @@
     "id": "effective-data-requirements",
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
-  }, {
-    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
-    "valueReference": {
-      "reference": "Device/cqf-tooling"
-    }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-MemberEligible",
   "identifier": [ {
@@ -1037,7 +1032,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-01-22T10:01:24-06:00",
+  "date": "2026-01-29T13:06:38-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MemberEligible",
   "useContext": [ {

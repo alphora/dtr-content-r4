@@ -16,7 +16,7 @@ code "Payor Code": 'pay' from "Payor Identifier CodeSystem" display 'Payor'
 code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
 
 // NutritionOrder, ServiceRequest, DeviceRequest, MedicationRequest, VisionPrescription with /draft/ status
-parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>
+parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>>
 parameter "appointments" List<FHIR.Appointment>
 
 parameter "Request Id" System.String
