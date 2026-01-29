@@ -67,7 +67,7 @@ define "CoverageExtensionList":
     return all
         "GetCoverageExtension"(request, GetCrdResult(request))
   else 
-    from "Appointments List" appointment
+    "Appointments List" appointment
     return all 
         "GetCoverageExtension"(appointment, GetCrdResult(appointment))
 
