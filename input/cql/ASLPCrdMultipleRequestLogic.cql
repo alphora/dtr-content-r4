@@ -186,7 +186,7 @@ define "CoverageExtensionList":
         //(GetCrdResult(RequestItem)).ID + Ctx.NewLine +
         //(GetCrdResult(RequestItem)).DetailDebugging
   else 
-      from Ctx."Appointments List" appointment
+     Ctx."Appointments List" appointment
       return all 
         "GetCoverageExtension"(appointment, GetCrdResult(appointment))
 
