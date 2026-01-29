@@ -45,13 +45,19 @@ define "Payor Patient":
   First([Patient])
 
 define "All Payor Coverages":
-  [Coverage]
-
+  [Coverage] 
+  
 define "All Payor Practitioners":
-  [Practitioner]
+  [Practitioner] Prac 
+    where exists "All Payor PractitionerRoles" PR 
+      where exists "All Payor Organizations" O
+        where PR.practitioner.reference = 'Practitioner/' + Prac.id
+        and PR.organization.reference = 'Organization/' + O.id
 
 define "All Payor PractitionerRoles":
-  [PractitionerRole]
+  [PractitionerRole] PR
+  with "All Payor Organizations" O 
+  such that PR.organization.reference = 'Organization/' + O.id
 
 define "All Payor Organizations":
   [Organization] O 
