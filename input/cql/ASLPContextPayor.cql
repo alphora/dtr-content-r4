@@ -49,10 +49,8 @@ define "All Payor Coverages":
   
 define "All Payor Practitioners":
   [Practitioner] Prac 
-    where exists "All Payor PractitionerRoles" PR 
-      where exists "All Payor Organizations" O
-        where PR.practitioner.reference = 'Practitioner/' + Prac.id
-        and PR.organization.reference = 'Organization/' + O.id
+    with "All Payor PractitionerRoles" PR 
+        such that PR.practitioner.reference = 'Practitioner/' + Prac.id
 
 define "All Payor PractitionerRoles":
   [PractitionerRole] PR
