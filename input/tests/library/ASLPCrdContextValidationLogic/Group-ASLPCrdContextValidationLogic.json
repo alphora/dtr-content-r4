@@ -1,0 +1,11 @@
+{
+  "resourceType": "Group",
+  "id": "ASLPCrdContextValidationLogic",
+  "extension": [ {
+    "url": "http://hl7.org/fhir/StructureDefinition/artifact-testArtifact",
+    "valueCanonical": "http://ecqi.healthit.gov/ecqms/Measure/ASLPCrdContextValidationLogic"
+  } ],
+  "active": true,
+  "type": "person",
+  "actual": true
+}
