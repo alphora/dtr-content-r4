@@ -28,6 +28,10 @@
       "display": "Library FHIRHelpers",
       "resource": "http://hl7.org/fhir/uv/cql/Library/FHIRHelpers|4.0.1"
     }, {
+    "type": "depends-on",
+    "display": "Library USCore",
+    "resource": "http://hl7.org/fhir/Library/uscore-7.0.0-model-definition|7.0.0"
+    }, {
       "type": "depends-on",
       "display": "Library AC",
       "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyConcepts"

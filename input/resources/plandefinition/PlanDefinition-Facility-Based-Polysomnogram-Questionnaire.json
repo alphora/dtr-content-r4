@@ -19,6 +19,10 @@
       "type": "depends-on",
       "display": "FHIR model information",
       "resource": "http://fhir.org/guides/cqf/common/Library/FHIR-ModelInfo|4.0.1"
+    }, {
+    "type": "depends-on",
+    "display": "Library USCore",
+    "resource": "http://hl7.org/fhir/Library/uscore-7.0.0-model-definition|7.0.0"
     } ]
   } ],
   "extension": [ {
