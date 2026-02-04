@@ -1,4 +1,16 @@
 {
   "java.jdt.ls.java.home": "/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home",
-  "java.home": "/Library/Java/JavaVirtualMachines/adoptopenjdk-17.0.8+7/Contents/Home"
+  "java.home": "/Library/Java/JavaVirtualMachines/adoptopenjdk-17.0.8+7/Contents/Home", 
+  "json.validate.enable": true,
+  "json.schemas": [
+    {
+      "fileMatch": [
+        "input/vocabulary/valueset/*.json"
+      ],
+      "schema": {
+        "$schema": "http://json-schema.org/draft-07/schema#",
+        "type": "object"
+      }
+    }
+  ]
 }

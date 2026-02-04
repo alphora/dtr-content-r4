@@ -20,10 +20,6 @@
       "display": "USCore model information",
       "resource": "http://hl7.org/fhir/Library/USCore-ModelInfo"
     }, {
-    "type": "depends-on",
-    "display": "Library USCore",
-    "resource": "http://hl7.org/fhir/Library/uscore-7.0.0-model-definition|7.0.0"
-    }, {
       "type": "depends-on",
       "display": "FHIR model information",
       "resource": "http://fhir.org/guides/cqf/common/Library/FHIR-ModelInfo|4.0.1"
@@ -111,16 +107,19 @@
     }, {
       "type": "Coverage",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Coverage" ],
-      "mustSupport": [ "id", "id.value" ]
+      "mustSupport": [ "id", "id.value", "payor" ]
     }, {
       "type": "Practitioner",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/Practitioner" ]
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Practitioner" ],
+      "mustSupport": [ "id" ]
     }, {
       "type": "PractitionerRole",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/PractitionerRole" ]
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/PractitionerRole" ],
+      "mustSupport": [ "practitioner", "practitioner.reference", "organization", "organization.reference" ]
     }, {
       "type": "Organization",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/Organization" ]
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Organization" ],
+      "mustSupport": [ "id" ]
     }, {
       "type": "Bundle",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Bundle" ],
@@ -407,10 +406,10 @@
       "valueString": "ASLPContextPayor"
     }, {
       "url": "name",
-      "valueString": "All Payor Practitioners"
+      "valueString": "All Payor Organizations"
     }, {
       "url": "statement",
-      "valueString": "define \"All Payor Practitioners\":\n  [Practitioner]"
+      "valueString": "define \"All Payor Organizations\":\n  [Organization] O \n    with \"All Payor Coverages\" C \n    such that exists (C.payor P \n      where P.reference = 'Organization/' + O.id)"
     }, {
       "url": "displaySequence",
       "valueInteger": 15
@@ -425,7 +424,7 @@
       "valueString": "All Payor PractitionerRoles"
     }, {
       "url": "statement",
-      "valueString": "define \"All Payor PractitionerRoles\":\n  [PractitionerRole]"
+      "valueString": "define \"All Payor PractitionerRoles\":\n  [PractitionerRole] PR\n  with \"All Payor Organizations\" O \n  such that PR.organization.reference = 'Organization/' + O.id"
     }, {
       "url": "displaySequence",
       "valueInteger": 16
@@ -437,10 +436,10 @@
       "valueString": "ASLPContextPayor"
     }, {
       "url": "name",
-      "valueString": "All Payor Organizations"
+      "valueString": "All Payor Practitioners"
     }, {
       "url": "statement",
-      "valueString": "define \"All Payor Organizations\":\n  [Organization]"
+      "valueString": "define \"All Payor Practitioners\":\n  [Practitioner] Prac \n    with \"All Payor PractitionerRoles\" PR \n        such that PR.practitioner.reference = 'Practitioner/' + Prac.id"
     }, {
       "url": "displaySequence",
       "valueInteger": 17
@@ -1041,7 +1040,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-01-30T11:53:39-06:00",
+  "date": "2026-02-04T09:12:51-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MemberEligible",
   "useContext": [ {

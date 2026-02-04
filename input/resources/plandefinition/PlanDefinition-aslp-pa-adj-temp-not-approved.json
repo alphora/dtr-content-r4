@@ -28,10 +28,6 @@
       "display": "Library FHIRHelpers",
       "resource": "http://hl7.org/fhir/uv/cql/Library/FHIRHelpers|4.0.1"
     }, {
-    "type": "depends-on",
-    "display": "Library USCore",
-    "resource": "http://hl7.org/fhir/Library/uscore-7.0.0-model-definition|7.0.0"
-    }, {
       "type": "depends-on",
       "display": "Library AC",
       "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyConcepts"
@@ -2483,7 +2479,7 @@
   "version": "1.0.0",
   "status": "draft",
   "experimental": true,
-  "date": "2026-01-30T11:53:39-06:00",
+  "date": "2026-02-04T09:12:51-06:00",
   "publisher": "Smile Digital Health",
   "useContext": [ {
     "code": {
