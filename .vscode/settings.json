@@ -12,5 +12,6 @@
         "type": "object"
       }
     }
-  ]
+  ], 
+  "editor.colorDecorators": false
 }
