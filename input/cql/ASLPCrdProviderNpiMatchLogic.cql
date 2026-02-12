@@ -4,7 +4,6 @@ using USCore version '7.0.0'
 using FHIR version '4.0.1'
 
 include ASLPContext called Ctx
-include hl7.fhir.us.cql.USCoreCommon version '1.0.0'
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
  
 context Patient
