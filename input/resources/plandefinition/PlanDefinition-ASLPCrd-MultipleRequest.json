@@ -17,6 +17,10 @@
     },
     "relatedArtifact": [ {
       "type": "depends-on",
+      "display": "USCore model information",
+      "resource": "http://hl7.org/fhir/Library/USCore-ModelInfo"
+    }, {
+      "type": "depends-on",
       "display": "FHIR model information",
       "resource": "http://fhir.org/guides/cqf/common/Library/FHIR-ModelInfo|4.0.1"
     }, {
@@ -2594,11 +2598,6 @@
     "id": "effective-data-requirements",
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
-  }, {
-    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
-    "valueReference": {
-      "reference": "Device/cqf-tooling"
-    }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-MultipleRequest",
   "identifier": [ {
@@ -2616,7 +2615,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-02-04T09:12:51-06:00",
+  "date": "2026-02-12T08:54:42-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MultipleRequest",
   "useContext": [ {

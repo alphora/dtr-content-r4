@@ -5,7 +5,7 @@ using FHIR version '4.0.1'
 
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 include hl7.fhir.uv.cql.FHIRCommon version '2.0.0'
-include hl7.fhir.us.cql.USCoreCommon
+include hl7.fhir.us.cql.USCoreCommon version '1.0.0'
 include hl7.fhir.us.cql.USCoreElements called UCE
 
 include SDHCommon called SC

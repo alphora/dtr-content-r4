@@ -13,7 +13,7 @@ include ASLPCrdOnPriorAuthListLogic called PriorAuthList
 include ASLPCrdContextValidationLogic called ContextValidation
 include ASLPCrdEvaluationLogic called Evaluation
 include QuestionnaireRouter called Router
-include hl7.fhir.us.cql.USCoreCommon
+include hl7.fhir.us.cql.USCoreCommon version '1.0.0'
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 context Patient
