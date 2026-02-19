@@ -83,12 +83,8 @@
     "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContext"
   }, {
     "type": "depends-on",
-    "display": "Library USCoreCommon",
-    "resource": "http://hl7.org/fhir/us/cql/Library/USCoreCommon|1.0.0"
-  }, {
-    "type": "depends-on",
-    "display": "Library FHIRHelpers",
-    "resource": "http://example.org/sdh/dtr/aslp/Library/FHIRHelpers|4.1.000"
+    "display": "Library USCore",
+    "resource": "http://hl7.org/fhir/Library/uscore-7.0.0-model-definition|7.0.0"
   } ],
   "parameter": [ {
     "name": "Patient",
