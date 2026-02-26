@@ -7,7 +7,6 @@
     "DisableListPromotion"
   ],
   "formats":[
-    "XML",
     "JSON"
   ],
   "validateUnits":true,

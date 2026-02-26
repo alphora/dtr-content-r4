@@ -1,4 +1,4 @@
-library ASLPDataElements
+library ASLPDataElements version '0.1.0'
 
 using USCore version '7.0.0'
 using FHIR version '4.0.1'

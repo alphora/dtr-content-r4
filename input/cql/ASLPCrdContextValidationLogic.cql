@@ -1,9 +1,9 @@
-library ASLPCrdContextValidationLogic
+library ASLPCrdContextValidationLogic version '0.1.0'
 
 using USCore version '7.0.0'
 using FHIR version '4.0.1'
 
-include ASLPContext called Ctx
+include ASLPContext version '0.1.0' called Ctx
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 context Patient
