@@ -26,15 +26,19 @@
     }, {
       "type": "depends-on",
       "display": "Library Dx",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPDataElements"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPDataElements|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library Cx",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPConcepts"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPConcepts|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library SC",
       "resource": "http://example.org/sdh/dtr/aslp/Library/SDHCommon"
+    }, {
+      "type": "depends-on",
+      "display": "Library Cs",
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPConcepts"
     }, {
       "type": "depends-on",
       "display": "Library FHIRCommon",
@@ -484,6 +488,7 @@
   "status": "draft",
   "experimental": true,
   "date": "2026-03-03T09:04:33-06:00",
+  "date": "2026-02-26T09:41:12-06:00",
   "useContext": [ {
     "code": {
       "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",

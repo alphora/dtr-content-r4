@@ -1,9 +1,9 @@
-library ASLPCrdRoutineLogic
+library ASLPCrdRoutineLogic version '0.1.0'
 
 using USCore version '7.0.0'
 using FHIR version '4.0.1'
 
-include ASLPContext called Ctx
+include ASLPContext version '0.1.0' called Ctx
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 valueset "Routine Procedure Valueset": 'http://terminology.smilecdr.com/cs/routine'

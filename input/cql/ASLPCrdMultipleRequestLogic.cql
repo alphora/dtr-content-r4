@@ -1,18 +1,18 @@
-library ASLPCrdMultipleRequestLogic
+library ASLPCrdMultipleRequestLogic version '0.1.0'
 
 using USCore version '7.0.0'
 using FHIR version '4.0.1'
 
-include ASLPContext called Ctx
-include ASLPCrdMemberEligibleLogic called MemberEligible
-include ASLPCrdOrderLOBMatchLogic called OrderLOBMatch
-include ASLPCrdProviderNpiMatchLogic called NpiMatch
-include ASLPCrdOrderGoldStatusLogic called GoldCard
-include ASLPCrdRoutineLogic called Routine
-include ASLPCrdOnPriorAuthListLogic called PriorAuthList
-include ASLPCrdContextValidationLogic called ContextValidation
-include ASLPCrdEvaluationLogic called Evaluation
-include QuestionnaireRouter called Router
+include ASLPContext version '0.1.0' called Ctx
+include ASLPCrdMemberEligibleLogic version '0.1.0' called MemberEligible
+include ASLPCrdOrderLOBMatchLogic version '0.1.0' called OrderLOBMatch
+include ASLPCrdProviderNpiMatchLogic version '0.1.0' called NpiMatch
+include ASLPCrdOrderGoldStatusLogic version '0.1.0' called GoldCard
+include ASLPCrdRoutineLogic version '0.1.0' called Routine
+include ASLPCrdOnPriorAuthListLogic version '0.1.0' called PriorAuthList
+include ASLPCrdContextValidationLogic version '0.1.0' called ContextValidation
+include ASLPCrdEvaluationLogic version '0.1.0' called Evaluation
+include QuestionnaireRouter version '0.1.0' called Router
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 context Patient

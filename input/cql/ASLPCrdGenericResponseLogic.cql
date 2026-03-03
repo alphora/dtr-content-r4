@@ -1,14 +1,14 @@
-library ASLPCrdGenericResponseLogic
+library ASLPCrdGenericResponseLogic version '0.1.0'
 
 using FHIR version '4.0.1'
 
-include CrdExtendedCoverageInfo called ECI
+include CrdExtendedCoverageInfo version '0.1.0' called ECI
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 parameter "Request Id" System.String
 
 // NutritionOrder, ServiceRequest, DeviceRequest, MedicationRequest, VisionPrescription with /draft/ status
-parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>
+parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>>
 parameter "appointments" List<FHIR.Appointment>
 
 context Patient

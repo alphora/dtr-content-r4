@@ -1,12 +1,12 @@
-library ASLPContext
+library ASLPContext version '0.1.0'
 
 using USCore version '7.0.0'
 using FHIR version '4.0.1'
 
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
-include CrdExtendedCoverageInfo called ECI
-include ASLPContextProvider called ContextProvider
-include ASLPContextPayor called ContextPayor
+include CrdExtendedCoverageInfo version '0.1.0' called ECI
+include ASLPContextProvider version '0.1.0' called ContextProvider
+include ASLPContextPayor version '0.1.0' called ContextPayor
 
 codesystem "Relationship Role": 'http://terminology.hl7.org/CodeSystem/v3-RoleCode'
 codesystem "Payor Identifier CodeSystem": 'http://terminology.hl7.org/CodeSystem/organization-type'

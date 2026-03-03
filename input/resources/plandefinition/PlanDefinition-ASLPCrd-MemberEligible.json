@@ -26,19 +26,19 @@
     }, {
       "type": "depends-on",
       "display": "Library Ctx",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContext"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContext|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library ECI",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library QuestionnaireRouter",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/QuestionnaireRouter"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/QuestionnaireRouter|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library ContextProvider",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library FHIRHelpers",
@@ -46,7 +46,7 @@
     }, {
       "type": "depends-on",
       "display": "Library ContextPayor",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextPayor"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextPayor|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Code system Payor Identifier CodeSystem",
@@ -1035,7 +1035,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-03-03T09:04:33-06:00",
+  "date": "2026-02-26T09:41:12-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MemberEligible",
   "useContext": [ {
