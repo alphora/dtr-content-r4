@@ -171,14 +171,14 @@ define "null Service Request Item":
 define "CoverageExtensionList":
   if ((Ctx."Service Request Item List" is null 
     or not exists (Ctx."Service Request Item List"))
-    and (Ctx."Appointments List" is null 
-    or not exists (Ctx."Appointments List")) then
-      { 
-        "GetCoverageExtension"(
-          "null Service Request Item", 
-          GetCrdResult("null Service Request Item")
-        ) 
-      }
+      and (Ctx."Appointments List" is null 
+      or not exists (Ctx."Appointments List"))) then
+        { 
+          "GetCoverageExtension"(
+            "null Service Request Item", 
+            GetCrdResult("null Service Request Item")
+          ) 
+        }
   else if exists (Ctx."Service Request Item List") then
      Ctx."Service Request Item List" request
       return all
@@ -212,14 +212,14 @@ define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
     "CRD Matrix"(requestItem)."CRD-4"
   else if (Routine."Is Routine"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-7"
-  else if (not requestItem is FHIR.CommunicationRequest) then
-    GetCrdResultOther(requestItem)
   else if (requestItem is FHIR.CommunicationRequest) then
     GetCrdResultCommunicationRequest(requestItem)
   else if (requestItem is FHIR.Appointment) then
     GetCrdResultAppointment(requestItem)
   else if (requestItem is FHIR.MedicationRequest) then
     GetCrdResultMedicationRequest(requestItem)
+  else if (not requestItem is FHIR.CommunicationRequest) then
+    GetCrdResultOther(requestItem)
   else
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
