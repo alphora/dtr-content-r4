@@ -831,6 +831,11 @@
     "id": "effective-data-requirements",
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
+  }, {
+    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
+    "valueReference": {
+      "reference": "Device/cqf-tooling"
+    }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-OrderGoldStatus",
   "identifier": [ {
@@ -848,7 +853,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2025-10-30T10:40:04-06:00",
+  "date": "2026-03-10T21:20:51-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-OrderGoldStatus",
   "useContext": [ {

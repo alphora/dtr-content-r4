@@ -10,33 +10,18 @@
   "actual": true,
   "member": [ {
     "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-4",
+      "display": "Mariah Robertson"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-3",
+      "display": "Beatrice Smith"
+    }
+  }, {
+    "entity": {
       "reference": "Patient/Patient-FacilityBasedPSG-test-case-2",
       "display": "Will Witherspoon"
-    }
-  }, {
-    "entity": {
-      "reference": "Patient/Patient-FacilityBasedPSG-test-case-10",
-      "display": "Elizabeth Rodriguez"
-    }
-  }, {
-    "entity": {
-      "reference": "Patient/Patient-FacilityBasedPSG-test-case-7",
-      "display": "Martin Davis"
-    }
-  }, {
-    "entity": {
-      "reference": "Patient/Patient-FacilityBasedPSG-test-case-1",
-      "display": "Drake Smith"
-    }
-  }, {
-    "entity": {
-      "reference": "Patient/Patient-FacilityBasedPSG-test-case-6",
-      "display": "Rebecca Williams"
-    }
-  }, {
-    "entity": {
-      "reference": "Patient/Patient-FacilityBasedPSG-test-case-8",
-      "display": "Charlotte Davis"
     }
   }, {
     "entity": {
@@ -45,8 +30,8 @@
     }
   }, {
     "entity": {
-      "reference": "Patient/Patient-FacilityBasedPSG-test-case-4",
-      "display": "Mariah Robertson"
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-10",
+      "display": "Elizabeth Rodriguez"
     }
   }, {
     "entity": {
@@ -55,8 +40,23 @@
     }
   }, {
     "entity": {
-      "reference": "Patient/Patient-FacilityBasedPSG-test-case-3",
-      "display": "Beatrice Smith"
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-7",
+      "display": "Martin Davis"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-6",
+      "display": "Rebecca Williams"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-1",
+      "display": "Drake Smith"
+    }
+  }, {
+    "entity": {
+      "reference": "Patient/Patient-FacilityBasedPSG-test-case-8",
+      "display": "Charlotte Davis"
     }
   } ]
 }
