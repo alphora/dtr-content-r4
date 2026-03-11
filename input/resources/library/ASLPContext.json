@@ -76,24 +76,20 @@
   },
   "relatedArtifact": [ {
     "type": "depends-on",
-    "display": "Library USCoreCommon",
-    "resource": "http://hl7.org/fhir/us/cql/Library/USCoreCommon"
-  }, {
-    "type": "depends-on",
     "display": "Library FHIRHelpers",
     "resource": "http://hl7.org/fhir/uv/cql/Library/FHIRHelpers|4.0.1"
   }, {
     "type": "depends-on",
     "display": "Library ECI",
-    "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo"
+    "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo|0.1.0"
   }, {
     "type": "depends-on",
     "display": "Library ContextProvider",
-    "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider"
+    "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider|0.1.0"
   }, {
     "type": "depends-on",
     "display": "Library ContextPayor",
-    "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextPayor"
+    "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextPayor|0.1.0"
   }, {
     "type": "depends-on",
     "display": "Code system Relationship Role",

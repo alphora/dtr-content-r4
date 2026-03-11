@@ -26,19 +26,19 @@
     }, {
       "type": "depends-on",
       "display": "Library Ctx",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContext"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContext|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library ECI",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library QuestionnaireRouter",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/QuestionnaireRouter"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/QuestionnaireRouter|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library ContextProvider",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library FHIRHelpers",
@@ -46,39 +46,39 @@
     }, {
       "type": "depends-on",
       "display": "Library ContextValidation",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdContextValidationLogic"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdContextValidationLogic|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library ContextPayor",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextPayor"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextPayor|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library MemberEligible",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdMemberEligibleLogic"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdMemberEligibleLogic|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library OrderLOBMatch",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdOrderLOBMatchLogic"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdOrderLOBMatchLogic|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library NpiMatch",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdProviderNpiMatchLogic"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdProviderNpiMatchLogic|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library GoldCard",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdOrderGoldStatusLogic"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdOrderGoldStatusLogic|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library Routine",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdRoutineLogic"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdRoutineLogic|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library PriorAuthList",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdOnPriorAuthListLogic"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdOnPriorAuthListLogic|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library Evaluation",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdEvaluationLogic"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdEvaluationLogic|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Code system Payor Identifier CodeSystem",
@@ -153,17 +153,19 @@
     }, {
       "type": "Coverage",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Coverage" ],
-      "mustSupport": [ "id", "id.value" ]
+      "mustSupport": [ "id", "id.value", "payor" ]
     }, {
       "type": "Practitioner",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/Practitioner" ]
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Practitioner" ],
+      "mustSupport": [ "id" ]
     }, {
       "type": "PractitionerRole",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/PractitionerRole" ]
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/PractitionerRole" ],
+      "mustSupport": [ "practitioner", "practitioner.reference", "organization", "organization.reference" ]
     }, {
       "type": "Organization",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Organization" ],
-      "mustSupport": [ "name", "type" ]
+      "mustSupport": [ "id", "name", "type" ]
     }, {
       "type": "Bundle",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Bundle" ],
@@ -256,6 +258,21 @@
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
     "extension": [ {
       "url": "libraryName",
+      "valueString": "ASLPContext"
+    }, {
+      "url": "name",
+      "valueString": "Appointments List"
+    }, {
+      "url": "statement",
+      "valueString": "// NOTE: these retrieves are only for local testing\n  // ([ServiceRequest]) \n  // union ([DeviceRequest]) \n  // union ([NutritionOrder])\n  // union ([MedicationRequest])\n  // union ([VisionPrescription])\n  // union ([CommunicationRequest])\n\ndefine \"Appointments List\": \n  \"appointments\""
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 1
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
       "valueString": "QuestionnaireRouter"
     }, {
       "url": "name",
@@ -265,6 +282,7 @@
       "valueString": "define \"CanonicalBase\": 'http://example.org/sdh/dtr/aslp'"
     }, {
       "url": "displaySequence",
+      "valueInteger": 2
       "valueInteger": 2
     } ]
   }, {
@@ -281,6 +299,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 3
+      "valueInteger": 3
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -295,6 +314,7 @@
       "valueString": "define \"All Provider Coverages\":\n  [Coverage] item where IsPayorResource(item) = false"
     }, {
       "url": "displaySequence",
+      "valueInteger": 4
       "valueInteger": 4
     } ]
   }, {
@@ -311,6 +331,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 5
+      "valueInteger": 5
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -325,6 +346,7 @@
       "valueString": "define \"All Provider PractitionerRoles\":\n  [PractitionerRole] item where IsPayorResource(item) = false"
     }, {
       "url": "displaySequence",
+      "valueInteger": 6
       "valueInteger": 6
     } ]
   }, {
@@ -341,6 +363,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 7
+      "valueInteger": 7
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -355,6 +378,7 @@
       "valueString": "define \"Provider\":\n  if (Count(\"Provider Context\".entry) >= 1) then \n    {\n      \"Patient\": First((\"Provider Context\".entry.resource PayorResource return if (PayorResource is Patient) then PayorResource as FHIR.Patient else null as FHIR.Patient) I where I is not null),\n      \"Coverages\": (\"Provider Context\".entry.resource PayorResource return if (PayorResource is Coverage) then PayorResource as FHIR.Coverage else null as FHIR.Coverage) I where I is not null,\n      \"Practitioners\": (\"Provider Context\".entry.resource PayorResource return if (PayorResource is Practitioner) then PayorResource as FHIR.Practitioner else null as FHIR.Practitioner) I where I is not null,\n      \"PractitionerRoles\": (\"Provider Context\".entry.resource PayorResource return if (PayorResource is PractitionerRole) then PayorResource as FHIR.PractitionerRole else null as FHIR.PractitionerRole) I where I is not null,\n      \"Organizations\": (\"Provider Context\".entry.resource PayorResource return if (PayorResource is Organization) then PayorResource as FHIR.Organization else null as FHIR.Organization) I where I is not null\n    }\n  // This section is only for local CQL vs code plugin testing\n  else\n    {\n      \"Patient\": \"Provider Patient\",\n      \"Coverages\": \"All Provider Coverages\",\n      \"Practitioners\": \"All Provider Practitioners\",\n      \"PractitionerRoles\": \"All Provider PractitionerRoles\",\n      \"Organizations\": \"All Provider Organizations\"\n    }"
     }, {
       "url": "displaySequence",
+      "valueInteger": 8
       "valueInteger": 8
     } ]
   }, {
@@ -371,6 +395,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 9
+      "valueInteger": 9
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -385,6 +410,7 @@
       "valueString": "define \"DebuggingEnabled\": \n  false"
     }, {
       "url": "displaySequence",
+      "valueInteger": 10
       "valueInteger": 10
     } ]
   }, {
@@ -401,6 +427,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 11
+      "valueInteger": 11
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -415,6 +442,7 @@
       "valueString": "define \"null Service Request Item\":\n  null as Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>"
     }, {
       "url": "displaySequence",
+      "valueInteger": 12
       "valueInteger": 12
     } ]
   }, {
@@ -431,6 +459,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 13
+      "valueInteger": 13
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -445,6 +474,7 @@
       "valueString": "define \"Payor Patient\":\n  First([Patient])"
     }, {
       "url": "displaySequence",
+      "valueInteger": 14
       "valueInteger": 14
     } ]
   }, {
@@ -461,6 +491,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 15
+      "valueInteger": 15
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -476,6 +507,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 16
+      "valueInteger": 16
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -484,12 +516,13 @@
       "valueString": "ASLPContextPayor"
     }, {
       "url": "name",
-      "valueString": "All Payor Practitioners"
+      "valueString": "All Payor Organizations"
     }, {
       "url": "statement",
-      "valueString": "define \"All Payor Practitioners\":\n  [Practitioner]"
+      "valueString": "define \"All Payor Organizations\":\n  [Organization] O \n    with \"All Payor Coverages\" C \n    such that exists (C.payor P \n      where P.reference = 'Organization/' + O.id)"
     }, {
       "url": "displaySequence",
+      "valueInteger": 17
       "valueInteger": 17
     } ]
   }, {
@@ -502,9 +535,10 @@
       "valueString": "All Payor PractitionerRoles"
     }, {
       "url": "statement",
-      "valueString": "define \"All Payor PractitionerRoles\":\n  [PractitionerRole]"
+      "valueString": "define \"All Payor PractitionerRoles\":\n  [PractitionerRole] PR\n  with \"All Payor Organizations\" O \n  such that PR.organization.reference = 'Organization/' + O.id"
     }, {
       "url": "displaySequence",
+      "valueInteger": 18
       "valueInteger": 18
     } ]
   }, {
@@ -514,12 +548,13 @@
       "valueString": "ASLPContextPayor"
     }, {
       "url": "name",
-      "valueString": "All Payor Organizations"
+      "valueString": "All Payor Practitioners"
     }, {
       "url": "statement",
-      "valueString": "define \"All Payor Organizations\":\n  [Organization]"
+      "valueString": "define \"All Payor Practitioners\":\n  [Practitioner] Prac \n    with \"All Payor PractitionerRoles\" PR \n        such that PR.practitioner.reference = 'Practitioner/' + Prac.id"
     }, {
       "url": "displaySequence",
+      "valueInteger": 19
       "valueInteger": 19
     } ]
   }, {
@@ -536,6 +571,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 20
+      "valueInteger": 20
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -548,8 +584,10 @@
     }, {
       "url": "statement",
       "valueString": "define \"Payor\":\n  ContextPayor.\"Payor\""
+      "valueString": "define \"Payor\":\n  ContextPayor.\"Payor\""
     }, {
       "url": "displaySequence",
+      "valueInteger": 21
       "valueInteger": 21
     } ]
   }, {
@@ -566,6 +604,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 22
+      "valueInteger": 22
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -580,6 +619,7 @@
       "valueString": "// CRD-2\ndefine \"Detail Text\":\n  'Member Not Found'"
     }, {
       "url": "displaySequence",
+      "valueInteger": 23
       "valueInteger": 23
     } ]
   }, {
@@ -596,6 +636,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 24
+      "valueInteger": 24
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -610,6 +651,7 @@
       "valueString": "// CRD-2\ndefine \"Detail Debugging\":\n  'Ctx.\"Payor\".\"Patient\".id=' + Ctx.\"Payor\".\"Patient\".id + Ctx.NewLine +\n  'Ctx.\"Payor\".\"Patient\".birthDate=' + ToString(Ctx.\"Payor\".\"Patient\".birthDate.value) + Ctx.NewLine +\n  'Ctx.\"Payor\".\"Patient\".name.family=' + Combine(Ctx.\"Payor\".\"Patient\".name.family, '|') + Ctx.NewLine +\n  'Ctx.\"Provider\".\"Patient\".id=' + Ctx.\"Provider\".\"Patient\".id + Ctx.NewLine +\n  'Ctx.\"Provider\".\"Patient\".birthDate=' + ToString(Ctx.\"Provider\".\"Patient\".birthDate.value) + Ctx.NewLine +\n  'Ctx.\"Provider\".\"Patient\".name.family=' + Combine(Ctx.\"Provider\".\"Patient\".name.family, '|') + Ctx.NewLine"
     }, {
       "url": "displaySequence",
+      "valueInteger": 25
       "valueInteger": 25
     } ]
   }, {
@@ -626,6 +668,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 26
+      "valueInteger": 26
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -640,6 +683,7 @@
       "valueString": "// CRD-3.2\ndefine \"Qualification\":\n  'Line of Business MisMatch. Prior authorization submission is required.'"
     }, {
       "url": "displaySequence",
+      "valueInteger": 27
       "valueInteger": 27
     } ]
   }, {
@@ -656,6 +700,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 28
+      "valueInteger": 28
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -670,6 +715,7 @@
       "valueString": "define \"Provider Organizations by Coverage.payor\":\n  Ctx.\"Provider\".\"Organizations\" O\n    with \"Provider References by Coverage.payor\" R\n    such that R = O.id.value"
     }, {
       "url": "displaySequence",
+      "valueInteger": 29
       "valueInteger": 29
     } ]
   }, {
@@ -686,6 +732,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 30
+      "valueInteger": 30
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -700,6 +747,7 @@
       "valueString": "define \"Payor Organizations by Coverage.payor\":\n  Ctx.\"Payor\".\"Organizations\" O\n    with \"Payor References by Coverage.payor\" R\n    such that R = O.id.value"
     }, {
       "url": "displaySequence",
+      "valueInteger": 31
       "valueInteger": 31
     } ]
   }, {
@@ -716,6 +764,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 32
+      "valueInteger": 32
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -730,6 +779,7 @@
       "valueString": "define \"Is OrderLOBMatch\":\n  exists(\"Matching Organizations by Name\")"
     }, {
       "url": "displaySequence",
+      "valueInteger": 33
       "valueInteger": 33
     } ]
   }, {
@@ -746,6 +796,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 34
+      "valueInteger": 34
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -760,6 +811,7 @@
       "valueString": "// Y\n\n// CRD-3.1\ndefine \"Detail Text\":\n  'Provider Not in Network'"
     }, {
       "url": "displaySequence",
+      "valueInteger": 35
       "valueInteger": 35
     } ]
   }, {
@@ -776,6 +828,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 36
+      "valueInteger": 36
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -790,6 +843,7 @@
       "valueString": "define \"Payor References by Coverage.payor\":\n  flatten(Ctx.\"Provider\".\"Coverages\" C return C.payor.reference.value)"
     }, {
       "url": "displaySequence",
+      "valueInteger": 37
       "valueInteger": 37
     } ]
   }, {
@@ -806,6 +860,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 38
+      "valueInteger": 38
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -820,6 +875,7 @@
       "valueString": "// CRD-4\ndefine \"Detail Text\":\n  'Provider is Gold Carded'"
     }, {
       "url": "displaySequence",
+      "valueInteger": 39
       "valueInteger": 39
     } ]
   }, {
@@ -836,6 +892,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 40
+      "valueInteger": 40
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -850,6 +907,7 @@
       "valueString": "// CRD-4\ndefine \"Detail Debugging\":\n  'Not yet implemented.'"
     }, {
       "url": "displaySequence",
+      "valueInteger": 41
       "valueInteger": 41
     } ]
   }, {
@@ -866,6 +924,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 42
+      "valueInteger": 42
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -880,6 +939,7 @@
       "valueString": "define \"Detail Qualification\":\n  'Order is covered. No prior auth is required for this request'"
     }, {
       "url": "displaySequence",
+      "valueInteger": 43
       "valueInteger": 43
     } ]
   }, {
@@ -896,6 +956,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 44
+      "valueInteger": 44
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -910,6 +971,7 @@
       "valueString": "// CRD-6\ndefine \"Detail Text-NotFound\":\n  'Code Not Found'"
     }, {
       "url": "displaySequence",
+      "valueInteger": 45
       "valueInteger": 45
     } ]
   }, {
@@ -926,6 +988,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 46
+      "valueInteger": 46
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -940,6 +1003,7 @@
       "valueString": "// CRD-5\ndefine \"Detail Text\":\n  'Prior Authorization Required'"
     }, {
       "url": "displaySequence",
+      "valueInteger": 47
       "valueInteger": 47
     } ]
   }, {
@@ -956,6 +1020,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 48
+      "valueInteger": 48
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -967,9 +1032,10 @@
       "valueString": "Qualification 8"
     }, {
       "url": "statement",
-      "valueString": "// CRD-8 // detail.qualification\ndefine \"Qualification 8\":\n  'Unable to process due to incomplete/ambiguous information. Please submit a prior auth form.'"
+      "valueString": "// CRD-8 // detail.qualification\ndefine \"Qualification 8\":\n  'Unable to process due to incomplete/information. Please submit a prior auth form.'"
     }, {
       "url": "displaySequence",
+      "valueInteger": 49
       "valueInteger": 49
     } ]
   }, {
@@ -986,6 +1052,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 50
+      "valueInteger": 50
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1000,6 +1067,7 @@
       "valueString": "// CRD-8.1 // detail.code.text\ndefine \"Detail Text 8.1\":\n  'Error has occurred. No order found.'"
     }, {
       "url": "displaySequence",
+      "valueInteger": 51
       "valueInteger": 51
     } ]
   }, {
@@ -1016,6 +1084,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 52
+      "valueInteger": 52
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1030,6 +1099,7 @@
       "valueString": "// CRD-8.3 // detail.code.text\ndefine \"Detail Text 8.3\":\n  'Unable to Process Request electronically.'"
     }, {
       "url": "displaySequence",
+      "valueInteger": 53
       "valueInteger": 53
     } ]
   }, {
@@ -1046,6 +1116,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 54
+      "valueInteger": 54
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1060,6 +1131,7 @@
       "valueString": "define \"Detail Text 9\":\n  'Prior authorization may be required based on the patient`s coverage policy.'"
     }, {
       "url": "displaySequence",
+      "valueInteger": 55
       "valueInteger": 55
     } ]
   }, {
@@ -1076,6 +1148,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 56
+      "valueInteger": 56
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1090,6 +1163,7 @@
       "valueString": "define \"Detail Debugging\":\n  'Not yet implemented.'"
     }, {
       "url": "displaySequence",
+      "valueInteger": 57
       "valueInteger": 57
     } ]
   }, {
@@ -1106,6 +1180,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 58
+      "valueInteger": 58
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1120,6 +1195,7 @@
       "valueString": "// Compares the two lists of Family Name strings, and returns true if at least one Family Name matches\ndefine \"Last Name Match\":\n  // New logic - Any last name intersection \n  exists(Ctx.\"Payor\".\"Patient\".name.family intersect Ctx.\"Provider\".\"Patient\".name.family)"
     }, {
       "url": "displaySequence",
+      "valueInteger": 59
       "valueInteger": 59
     } ]
   }, {
@@ -1136,6 +1212,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 60
+      "valueInteger": 60
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1150,6 +1227,7 @@
       "valueString": "define \"Is MemberEligible\":\n  \"Last Name Match\" and \"DOB Match\""
     }, {
       "url": "displaySequence",
+      "valueInteger": 61
       "valueInteger": 61
     } ]
   }, {
@@ -1166,6 +1244,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 62
+      "valueInteger": 62
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1180,6 +1259,7 @@
       "valueString": "define \"Not OrderLOBMatch\":\n  not (\"Is OrderLOBMatch\")"
     }, {
       "url": "displaySequence",
+      "valueInteger": 63
       "valueInteger": 63
     } ]
   }, {
@@ -1196,6 +1276,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 64
+      "valueInteger": 64
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1210,6 +1291,7 @@
       "valueString": "// CRD Coverage Extensions\ndefine \"CoverageExtensionList\":\n  if ((Ctx.\"Service Request Item List\" is null \n    or not exists (Ctx.\"Service Request Item List\"))\n      and (Ctx.\"Appointments List\" is null \n      or not exists (Ctx.\"Appointments List\"))) then\n        { \n          \"GetCoverageExtension\"(\n            \"null Service Request Item\", \n            GetCrdResult(\"null Service Request Item\")\n          ) \n        }\n  else if exists (Ctx.\"Service Request Item List\") then\n     Ctx.\"Service Request Item List\" request\n      return all\n        \"GetCoverageExtension\"(request, GetCrdResult(request))\n        // TESTING OUTPUT\n        //(GetCrdResult(RequestItem)).ID + Ctx.NewLine +\n        //(GetCrdResult(RequestItem)).DetailDebugging\n  else \n     Ctx.\"Appointments List\" appointment\n      return all \n        \"GetCoverageExtension\"(appointment, GetCrdResult(appointment))"
     }, {
       "url": "displaySequence",
+      "valueInteger": 65
       "valueInteger": 65
     } ]
   }, {
@@ -1226,6 +1308,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 66
+      "valueInteger": 66
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1240,6 +1323,7 @@
       "valueString": "// CRD Static text\ndefine \"Title\":\n  'Prior Auth Evaluation'"
     }, {
       "url": "displaySequence",
+      "valueInteger": 67
       "valueInteger": 67
     } ]
   }, {
@@ -1256,6 +1340,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 68
+      "valueInteger": 68
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1270,6 +1355,7 @@
       "valueString": "define function ExtensionPriorAuthNeeded(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>, covered System.String, priorAuthRequired System.String, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)\nreturns FHIR.Extension:\n  ECI.ExtensionPriorAuthNeeded(ContextProvider.\"Provider Coverage\".id.value, covered, priorAuthRequired, \"System Generated Id\"(requestItem), \"Service Request Item ID\"(requestItem), \"Service Request Item Code\"(requestItem), codeValue, detailText, qualification, warningOrInfo)"
     }, {
       "url": "displaySequence",
+      "valueInteger": 69
       "valueInteger": 69
     } ]
   }, {
@@ -1286,6 +1372,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 70
+      "valueInteger": 70
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1300,6 +1387,7 @@
       "valueString": "define function \"CoverageExtension\"(coverageId System.String)\nreturns FHIR.Extension:\n  if IsNull(coverageId) then null as FHIR.Extension\n  else\n    FHIR.Extension {\n      \"url\": FHIR.uri { \"value\": 'coverage' },\n      \"value\": FHIR.Reference {\n        \"reference\": FHIR.string { \"value\": 'Coverage/' + coverageId }\n      }\n    }"
     }, {
       "url": "displaySequence",
+      "valueInteger": 71
       "valueInteger": 71
     } ]
   }, {
@@ -1316,6 +1404,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 72
+      "valueInteger": 72
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1330,6 +1419,7 @@
       "valueString": "define function \"PriorAuthNeededExtension\"(priorAuthRequired System.String)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'pa-needed' },\n    \"value\": FHIR.code { \"value\": priorAuthRequired }\n  }"
     }, {
       "url": "displaySequence",
+      "valueInteger": 73
       "valueInteger": 73
     } ]
   }, {
@@ -1346,6 +1436,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 74
+      "valueInteger": 74
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1360,6 +1451,7 @@
       "valueString": "define function \"TodaysDateExtension\"()\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'date' },\n    \"value\": FHIR.date { \"value\": Today() }\n  }"
     }, {
       "url": "displaySequence",
+      "valueInteger": 75
       "valueInteger": 75
     } ]
   }, {
@@ -1376,6 +1468,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 76
+      "valueInteger": 76
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1390,6 +1483,7 @@
       "valueString": "define function GetAdaptiveQuestionnairePlanDefinition(procedureCode System.Code) \nreturns System.String:\n    if (procedureCode in \"Sleep Study Procedure\") then\n        \"CanonicalBase\" + '/PlanDefinition/Home-Monitor-Sleep-Testing-Questionnaire'\n    // else if (procedureCode in \"Other Example Procedure\") then\n    //     \"CanonicalBase\" + '/Questionnaire/ASLPA1'\n    else if (procedureCode in \"Other Example Procedure\") then\n        \"CanonicalBase\" + '/PlanDefinition/Home-Monitor-Sleep-Testing'\n    else\n        null as System.String"
     }, {
       "url": "displaySequence",
+      "valueInteger": 77
       "valueInteger": 77
     } ]
   }, {
@@ -1406,6 +1500,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 78
+      "valueInteger": 78
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1420,6 +1515,7 @@
       "valueString": "// if priorAuthRequired in { 'auth-needed', 'conditional' } then\n  //   if not IsNull(QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode)) then \n  //     FHIR.Extension {\n  //       \"url\": FHIR.uri { \"value\": 'questionnaire' },\n  //       \"value\": FHIR.canonical { \"value\": QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode) } \n  //     }\n  //   else null as FHIR.Extension\n  // else null as FHIR.Extension\n\n// code = auth-needed|no-auth|gold-card|not-covered, warningOrInfo = Warning|info, qualification = {open text entry}\ndefine function \"DetailExtension\"(codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'detail' },\n    \"extension\": {\n      if (codeValue = 'auth-needed') then \"DetailCodeAuthRequired\"(detailText)\n      else if (codeValue = 'no-auth') then \"DetailCodeAuthNotRequired\"(detailText)\n      else if (codeValue = 'gold-card') then \"DetailCodeGoldCard\"(detailText)\n      else if (codeValue = 'not-covered') then \"DetailCodeNoCoverage\"(detailText)\n      else if (codeValue = 'coverage-info') then \"DetailCodeCoverageInfo\"(detailText)\n      else \"DetailCode\"('http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp', codeValue, 'Unknown display', detailText),\n\n      FHIR.Extension {\n        \"url\": FHIR.uri { \"value\": 'value' },\n        \"value\": FHIR.string { \"value\": warningOrInfo }\n      },\n      FHIR.Extension {\n        \"url\": FHIR.uri { \"value\": 'qualification' },\n        \"value\": FHIR.string { \"value\": qualification }\n      }\n    }\n  }"
     }, {
       "url": "displaySequence",
+      "valueInteger": 79
       "valueInteger": 79
     } ]
   }, {
@@ -1436,6 +1532,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 80
+      "valueInteger": 80
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1450,6 +1547,7 @@
       "valueString": "define function \"DetailCode\"(system System.String, value System.String, displayText System.String, text System.String)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'code' },\n    \"value\": FHIR.CodeableConcept { \n      \"coding\": {\n        FHIR.Coding {\n          system: FHIR.uri { \"value\": system },\n          code: FHIR.code { \"value\": value },\n          display: FHIR.string { \"value\": displayText }\n        }\n      },\n      \"text\": FHIR.string { \"value\": text }\n    }\n  }"
     }, {
       "url": "displaySequence",
+      "valueInteger": 81
       "valueInteger": 81
     } ]
   }, {
@@ -1466,6 +1564,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 82
+      "valueInteger": 82
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1480,6 +1579,7 @@
       "valueString": "define function \"DetailCodeGoldCard\"(displayText System.String)\nreturns FHIR.Extension:\n  \"DetailCode\"('http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp', 'gold-card', 'Gold Card', displayText)"
     }, {
       "url": "displaySequence",
+      "valueInteger": 83
       "valueInteger": 83
     } ]
   }, {
@@ -1496,6 +1596,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 84
+      "valueInteger": 84
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1510,6 +1611,7 @@
       "valueString": "define function \"DetailCodeCoverageInfo\"(displayText System.String)\nreturns FHIR.Extension:\n  \"DetailCode\"('http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp', 'coverage-info', 'Coverage Information', displayText)"
     }, {
       "url": "displaySequence",
+      "valueInteger": 85
       "valueInteger": 85
     } ]
   }, {
@@ -1526,6 +1628,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 86
+      "valueInteger": 86
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1540,6 +1643,7 @@
       "valueString": "define function IsPayorResource(resource Resource)\nreturns System.Boolean:\n  TagExists(resource, \"Payor Code\")"
     }, {
       "url": "displaySequence",
+      "valueInteger": 87
       "valueInteger": 87
     } ]
   }, {
@@ -1556,6 +1660,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 88
+      "valueInteger": 88
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1570,6 +1675,7 @@
       "valueString": "define function \"System Generated Id\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):\n  Coalesce(\n    (First(\n      requestItem.extension E\n        where E.url = 'https://smiledigitalhealth.com/priorauth/smile-crd-assertion-id'\n        return E\n    )).value as FHIR.string,\n    \"Request Id\"\n  )"
     }, {
       "url": "displaySequence",
+      "valueInteger": 89
       "valueInteger": 89
     } ]
   }, {
@@ -1586,6 +1692,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 90
+      "valueInteger": 90
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1600,6 +1707,7 @@
       "valueString": "define function ToString(value uri): value.value"
     }, {
       "url": "displaySequence",
+      "valueInteger": 91
       "valueInteger": 91
     } ]
   }, {
@@ -1616,6 +1724,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 92
+      "valueInteger": 92
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1630,6 +1739,7 @@
       "valueString": "define function \"Service Request Item Code\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):\n  if (requestItem is FHIR.CommunicationRequest) then \n    FHIRHelpers.ToCode(singleton from GetCodeableConceptForCommunicationRequest(requestItem).coding)\n  else \n    FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)"
     }, {
       "url": "displaySequence",
+      "valueInteger": 93
       "valueInteger": 93
     } ]
   }, {
@@ -1646,6 +1756,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 94
+      "valueInteger": 94
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1660,6 +1771,7 @@
       "valueString": "define function GetCodeableConceptForCommunicationRequest(cr FHIR.CommunicationRequest):\n  if exists (cr.payload P\n    // where not IsNull(p.contentString)\n    // or not IsNull(p.contentAttachment)\n    // or not IsNull(p.contentReference)\n    where (P.content as FHIR.string) is not null\n      or (P.content as FHIR.Attachment) is not null\n      or (P.content as FHIR.Reference) is not null\n  ) then\n    FHIR.CodeableConcept {\n      coding: {\n        FHIR.Coding {\n          system: FHIR.uri { value: 'http://example.org/fhir/payload-content' },\n          code: FHIR.code { value: CommunicationPayloadValue(cr) },\n          display: FHIR.string { value: CommunicationPayloadValue(cr) }\n        }\n      },\n      text: FHIR.string { value: CommunicationPayloadValue(cr) }\n    }\n  else null as FHIR.CodeableConcept"
     }, {
       "url": "displaySequence",
+      "valueInteger": 95
       "valueInteger": 95
     } ]
   }, {
@@ -1676,6 +1788,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 96
+      "valueInteger": 96
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1690,6 +1803,7 @@
       "valueString": "// Option 1 (not feasible short-term): Use related context retrieve\n// give me the patient that is the beneficiary of this coverage\n// even then you'd still have to get to the coverage\n\n// Option 2 (short-term): Consider payor/provider as single source \n// Use a meta.tag approach to distinguish payor/provider\n// 1) Need to re-map all references from Payor Patient id to Provider Patient id (Observation, Condition, etc, etc)\n// IDEA 1:\n// RelatedPerson resource to represent the Payer Patient\n// Payor Coverage resource remapped to reference the Provider Patient (just like all other resources: Observation, Condition, etc)\n\n// IDEA 2: downside to this is that patient/coverage matching heuristic won't work in CQL\n// Single source expects a merged patient for payor/provider\n// Also expects a merged Coverage as well, since Coverage.beneficiary is 1..1 Patient reference\n\n// need a architecture design question on how to solve longer term\n\ndefine function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>)\nreturns FHIR.CodeableConcept:\n  if (item is FHIR.ServiceRequest) then\n    (item as FHIR.ServiceRequest).code\n  else if (item is FHIR.DeviceRequest) then\n    if (item as FHIR.DeviceRequest).code is FHIR.CodeableConcept then\n      (item as FHIR.DeviceRequest).code as FHIR.CodeableConcept\n    else if (item as FHIR.DeviceRequest).code is FHIR.Reference then\n      ([Device: id ~ ((item as FHIR.DeviceRequest).code as FHIR.Reference).reference]).type\n    else \n      null as FHIR.CodeableConcept\n  else if (item is FHIR.NutritionOrder) then\n    (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType\n  else if (item is FHIR.MedicationRequest) then \n    if (item as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then\n      (item as FHIR.MedicationRequest).medication as FHIR.CodeableConcept\n    else if (item as FHIR.MedicationRequest).medication is FHIR.Reference then\n      ([MedicationRequest: id ~ ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference])\n    else \n      null as FHIR.CodeableConcept\n  else if (item is FHIR.VisionPrescription) then \n    (item as FHIR.VisionPrescription).lensSpecification\n  else if (item is FHIR.Appointment) then \n    (item as FHIR.Appointment).serviceType\n  else null as FHIR.CodeableConcept"
     }, {
       "url": "displaySequence",
+      "valueInteger": 97
       "valueInteger": 97
     } ]
   }, {
@@ -1706,6 +1820,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 98
+      "valueInteger": 98
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1721,6 +1836,7 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 99
+      "valueInteger": 99
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1735,6 +1851,7 @@
       "valueString": "define function \"Request Patient does not match Context Patient\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):\n  if requestItem is null then \n    false\n  else\n    Ctx.GetSubjectID(requestItem) !~ Ctx.\"Provider\".\"Patient\".id.value"
     }, {
       "url": "displaySequence",
+      "valueInteger": 100
       "valueInteger": 100
     } ]
   }, {
@@ -2596,6 +2713,11 @@
     "id": "effective-data-requirements",
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
+  }, {
+    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
+    "valueReference": {
+      "reference": "Device/cqf-tooling"
+    }
   }, {
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
     "valueReference": {

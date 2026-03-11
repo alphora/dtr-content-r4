@@ -1,4 +1,4 @@
-library ASLPConcepts
+library ASLPConcepts version '0.1.0'
 
 codesystem "ICD-10": 'http://hl7.org/fhir/sid/icd-10'
 codesystem "SNOMED-CT": 'http://snomed.info/sct'

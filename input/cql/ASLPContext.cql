@@ -1,13 +1,12 @@
-library ASLPContext
+library ASLPContext version '0.1.0'
 
 using USCore version '7.0.0'
 using FHIR version '4.0.1'
 
-include hl7.fhir.us.cql.USCoreCommon
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
-include CrdExtendedCoverageInfo called ECI
-include ASLPContextProvider called ContextProvider
-include ASLPContextPayor called ContextPayor
+include CrdExtendedCoverageInfo version '0.1.0' called ECI
+include ASLPContextProvider version '0.1.0' called ContextProvider
+include ASLPContextPayor version '0.1.0' called ContextPayor
 
 codesystem "Relationship Role": 'http://terminology.hl7.org/CodeSystem/v3-RoleCode'
 codesystem "Payor Identifier CodeSystem": 'http://terminology.hl7.org/CodeSystem/organization-type'
@@ -258,9 +257,13 @@ returns List<FHIR.Reference>:
 
 define function GetSubjectID(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>)
 returns System.String:
-  if (item is FHIR.VisionPrescription or item is FHIR.NutritionOrder) then
-    item.patient.reference.getValue() as System.String
-  else item.subject.reference.getValue() as System.String
+  if (item is FHIR.ServiceRequest) then 
+    item.subject.reference.value as System.String
+  else if (item is FHIR.VisionPrescription or item is FHIR.NutritionOrder) then
+    item.patient.reference.value as System.String
+  else if (item is FHIR.Appointment) then 
+    First(item.participant).actor.reference.value as System.String
+  else item.subject.reference.value as System.String
 
 define "Service Request Item List":
   "draftOrders"

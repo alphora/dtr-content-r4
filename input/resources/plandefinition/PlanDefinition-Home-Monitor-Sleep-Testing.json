@@ -22,7 +22,7 @@
     }, {
       "type": "depends-on",
       "display": "Library PCF",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyCaseFeatures"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyCaseFeatures|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library FHIRHelpers",
@@ -30,15 +30,15 @@
     }, {
       "type": "depends-on",
       "display": "Library AC",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyConcepts"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyConcepts|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library PS",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyScreening"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyScreening|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library FacilityPSG",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyFacilityBasedPSG"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyFacilityBasedPSG|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Code system ObservationStatusCodes",

@@ -26,15 +26,19 @@
     }, {
       "type": "depends-on",
       "display": "Library Dx",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPDataElements"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPDataElements|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library Cx",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPConcepts"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPConcepts|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library SC",
       "resource": "http://example.org/sdh/dtr/aslp/Library/SDHCommon"
+    }, {
+      "type": "depends-on",
+      "display": "Library Cs",
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPConcepts"
     }, {
       "type": "depends-on",
       "display": "Library FHIRCommon",

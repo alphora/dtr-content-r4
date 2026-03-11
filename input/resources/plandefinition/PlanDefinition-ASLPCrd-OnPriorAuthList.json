@@ -26,19 +26,19 @@
     }, {
       "type": "depends-on",
       "display": "Library Ctx",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContext"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContext|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library ECI",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library QuestionnaireRouter",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/QuestionnaireRouter"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/QuestionnaireRouter|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library ContextProvider",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library FHIRHelpers",
@@ -913,13 +913,28 @@
       "valueString": "ASLPCrdOnPriorAuthListLogic"
     }, {
       "url": "name",
+      "valueString": "Is OnPriorAuthList"
+    }, {
+      "url": "statement",
+      "valueString": "define function \"Is OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  exists((\"Prior Auth Required Service Requests\"(requestItem)))"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 49
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPCrdOnPriorAuthListLogic"
+    }, {
+      "url": "name",
       "valueString": "CoverageExtension"
     }, {
       "url": "statement",
       "valueString": "// CRD-5\ndefine function \"CoverageExtension\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"ExtensionPriorAuthNeeded\"(requestItem, 'conditional', 'auth-needed', 'auth-needed', \"Detail Text\", \"Qualification\"(requestItem), 'Warning')"
     }, {
       "url": "displaySequence",
-      "valueInteger": 49
+      "valueInteger": 50
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -934,7 +949,7 @@
       "valueString": "// CRD-5\ndefine function \"Qualification\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  'Prior authorization is required for ' + Ctx.\"Service Request Item Code\"(requestItem).display"
     }, {
       "url": "displaySequence",
-      "valueInteger": 50
+      "valueInteger": 51
     } ]
   }, {
     "id": "effective-data-requirements",
@@ -962,7 +977,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-03-10T21:20:51-06:00",
+  "date": "2026-03-05T17:19:39-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-OnPriorAuthList",
   "useContext": [ {

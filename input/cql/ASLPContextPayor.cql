@@ -1,4 +1,4 @@
-library ASLPContextPayor
+library ASLPContextPayor version '0.1.0'
 
 using FHIR version '4.0.1'
 
@@ -45,13 +45,20 @@ define "Payor Patient":
   First([Patient])
 
 define "All Payor Coverages":
-  [Coverage]
-
+  [Coverage] 
+  
 define "All Payor Practitioners":
-  [Practitioner]
+  [Practitioner] Prac 
+    with "All Payor PractitionerRoles" PR 
+        such that PR.practitioner.reference = 'Practitioner/' + Prac.id
 
 define "All Payor PractitionerRoles":
-  [PractitionerRole]
+  [PractitionerRole] PR
+  with "All Payor Organizations" O 
+  such that PR.organization.reference = 'Organization/' + O.id
 
 define "All Payor Organizations":
-  [Organization]
+  [Organization] O 
+    with "All Payor Coverages" C 
+    such that exists (C.payor P 
+      where P.reference = 'Organization/' + O.id)
