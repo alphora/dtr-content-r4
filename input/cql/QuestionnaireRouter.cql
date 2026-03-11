@@ -1,9 +1,8 @@
-library QuestionnaireRouter
+library QuestionnaireRouter version '0.1.0'
 
 using USCore version '7.0.0'
 using FHIR version '4.0.1'
 
-include hl7.fhir.us.cql.USCoreCommon
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 valueset "Sleep Study Procedure": 'http://terminology.smilecdr.com/cs/sleepstudy'

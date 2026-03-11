@@ -1,9 +1,9 @@
-library ASLPPolicyCaseFeatures
+library ASLPPolicyCaseFeatures version '0.1.0'
 
 using FHIR version '4.0.1'
 
-include ASLPConcepts called Cx
-include ASLPDataElements called Dx
+include ASLPConcepts version '0.1.0' called Cx
+include ASLPDataElements version '0.1.0' called Dx
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 codesystem "ConditionClinicalStatusCodes": 'http://terminology.hl7.org/CodeSystem/condition-clinical'

@@ -1,14 +1,14 @@
-library ASLPPolicyPAA
+library ASLPPolicyPAA version '0.1.0'
 
 using FHIR version '4.0.1'
 
-include ASLPConcepts called Cx
-include ASLPDataElements called Dx
+include ASLPConcepts version '0.1.0' called Cx
+include ASLPDataElements version '0.1.0' called Dx
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
-include ASLPPolicyCaseFeatures called PCF
-include ASLPPolicyConcepts called AC
-include ASLPPolicyScreening called PS
-include ASLPPolicyFacilityBasedPSG called FacilityPSG
+include ASLPPolicyCaseFeatures version '0.1.0' called PCF
+include ASLPPolicyConcepts version '0.1.0' called AC
+include ASLPPolicyScreening version '0.1.0' called PS
+include ASLPPolicyFacilityBasedPSG version '0.1.0' called FacilityPSG
 
 parameter "Coverage" FHIR.Coverage
 parameter "Request" Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Encounter>

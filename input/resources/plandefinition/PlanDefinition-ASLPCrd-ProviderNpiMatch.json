@@ -26,11 +26,11 @@
     }, {
       "type": "depends-on",
       "display": "Library Ctx",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContext"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContext|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library ContextProvider",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library FHIRHelpers",
@@ -38,15 +38,15 @@
     }, {
       "type": "depends-on",
       "display": "Library ContextPayor",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextPayor"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextPayor|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library ECI",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/CrdExtendedCoverageInfo|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Library QuestionnaireRouter",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/QuestionnaireRouter"
+      "resource": "http://example.org/sdh/dtr/aslp/Library/QuestionnaireRouter|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Code system Payor Identifier CodeSystem",
@@ -1275,6 +1275,21 @@
     }, {
       "url": "displaySequence",
       "valueInteger": 73
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPCrdProviderNpiMatchLogic"
+    }, {
+      "url": "name",
+      "valueString": "Is ProviderNpiMatch"
+    }, {
+      "url": "statement",
+      "valueString": "define function \"Is ProviderNpiMatch\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  // 1. The requesting provider must be in the payer system.\n  // 2. AND All performing providers from the provider's system must match a performing provider from the payer's system. \n  //    NOTE: This step can be skipped if there are no performing providers. \n  \"Requesting Provider Match\"(requestItem)\n    and \"Performing Provider Match\"(requestItem)"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 74
     } ]
   }, {
     "id": "effective-data-requirements",
