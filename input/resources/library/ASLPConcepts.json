@@ -26,6 +26,9 @@
       "name": "format",
       "valueString": "JSON"
     }, {
+      "name": "format",
+      "valueString": "XML"
+    }, {
       "name": "analyzeDataRequirements",
       "valueBoolean": false
     }, {
