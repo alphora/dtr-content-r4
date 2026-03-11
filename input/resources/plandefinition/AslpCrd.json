@@ -470,6 +470,11 @@
     "id": "effective-data-requirements",
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
+  }, {
+    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
+    "valueReference": {
+      "reference": "Device/cqf-tooling"
+    }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd",
   "identifier": [ {
@@ -487,8 +492,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-03-03T09:04:33-06:00",
-  "date": "2026-02-26T09:41:12-06:00",
+  "date": "2026-03-10T21:20:51-06:00",
   "useContext": [ {
     "code": {
       "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",

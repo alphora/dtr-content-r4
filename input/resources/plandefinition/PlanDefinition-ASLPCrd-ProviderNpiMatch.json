@@ -1300,6 +1300,11 @@
     "valueReference": {
       "reference": "Device/cqf-tooling"
     }
+  }, {
+    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
+    "valueReference": {
+      "reference": "Device/cqf-tooling"
+    }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-ProviderNpiMatch",
   "identifier": [ {
@@ -1317,7 +1322,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-03-05T17:19:39-06:00",
+  "date": "2026-03-10T21:20:51-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-ProviderNpiMatch",
   "useContext": [ {
