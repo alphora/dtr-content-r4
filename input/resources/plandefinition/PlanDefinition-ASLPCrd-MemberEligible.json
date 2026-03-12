@@ -1018,6 +1018,11 @@
     "id": "effective-data-requirements",
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
+  }, {
+    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
+    "valueReference": {
+      "reference": "Device/cqf-tooling"
+    }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-MemberEligible",
   "identifier": [ {
@@ -1035,7 +1040,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-03-11T10:13:47-06:00",
+  "date": "2026-03-11T22:32:28-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MemberEligible",
   "useContext": [ {
