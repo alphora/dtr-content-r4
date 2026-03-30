@@ -669,7 +669,7 @@
       "valueString": "Provider Organizations by Coverage.payor"
     }, {
       "url": "statement",
-      "valueString": "define \"Provider Organizations by Coverage.payor\":\n  Ctx.\"Provider\".\"Organizations\" O\n    with \"Provider References by Coverage.payor\" R\n    such that R = O.id.value"
+      "valueString": "define \"Provider Organizations by Coverage.payor\":\n  Ctx.\"Provider\".\"Organizations\" O\n    with \"Provider References by Coverage.payor\" R\n    such that R = 'Organization/' + O.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 29
@@ -699,7 +699,7 @@
       "valueString": "Payor Organizations by Coverage.payor"
     }, {
       "url": "statement",
-      "valueString": "define \"Payor Organizations by Coverage.payor\":\n  Ctx.\"Payor\".\"Organizations\" O\n    with \"Payor References by Coverage.payor\" R\n    such that R = O.id.value"
+      "valueString": "define \"Payor Organizations by Coverage.payor\":\n  Ctx.\"Payor\".\"Organizations\" O\n    with \"Payor References by Coverage.payor\" R\n    such that R = 'Organization/' + O.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 31
@@ -804,7 +804,7 @@
       "valueString": "Payor Organization from Provider Coverage for Patient"
     }, {
       "url": "statement",
-      "valueString": "define \"Payor Organization from Provider Coverage for Patient\":\n  Ctx.\"Provider\".\"Organizations\" O\n    with \"Payor References by Coverage.payor\" R\n    such that R = O.id.value"
+      "valueString": "define \"Payor Organization from Provider Coverage for Patient\":\n  Ctx.\"Provider\".\"Organizations\" O\n    with \"Payor References by Coverage.payor\" R\n    such that R = 'Organization/' + O.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 38
@@ -1749,7 +1749,7 @@
       "valueString": "GetSubjectID"
     }, {
       "url": "statement",
-      "valueString": "define function GetSubjectID(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>)\nreturns System.String:\n  if (item is FHIR.ServiceRequest) then \n    item.subject.reference.value as System.String\n  else if (item is FHIR.VisionPrescription or item is FHIR.NutritionOrder) then\n    item.patient.reference.value as System.String\n  else if (item is FHIR.Appointment) then \n    First(item.participant).actor.reference.value as System.String\n  else item.subject.reference.value as System.String"
+      "valueString": "define function GetSubjectID(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>)\nreturns System.String:\n  if (item is FHIR.ServiceRequest) then\n    Last(Split(item.subject.reference.value, '/'))\n  else if (item is FHIR.VisionPrescription or item is FHIR.NutritionOrder) then\n    Last(Split(item.patient.reference.value, '/'))\n  else if (item is FHIR.Appointment) then\n    Last(Split(First(item.participant).actor.reference.value, '/'))\n  else Last(Split(item.subject.reference.value, '/'))"
     }, {
       "url": "displaySequence",
       "valueInteger": 101
@@ -1884,7 +1884,7 @@
       "valueString": "Requesting Organizations associated with a PracitionerRole"
     }, {
       "url": "statement",
-      "valueString": "define function \"Requesting Organizations associated with a PracitionerRole\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Payor\".\"Organizations\" Organization\n    with (\"Requesting PractitionerRoles\"(requestItem)) RequestPractRole\n    such that RequestPractRole.organization.reference.value ~ Organization.id.value"
+      "valueString": "define function \"Requesting Organizations associated with a PracitionerRole\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Payor\".\"Organizations\" Organization\n    with (\"Requesting PractitionerRoles\"(requestItem)) RequestPractRole\n    such that RequestPractRole.organization.reference.value ~ 'Organization/' + Organization.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 110
@@ -1899,7 +1899,7 @@
       "valueString": "Requesting PractitionerRoles"
     }, {
       "url": "statement",
-      "valueString": "define function \"Requesting PractitionerRoles\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Payor\".\"PractitionerRoles\" PractitionerRole\n    with (\"Requesting Practitioners from Payor\"(requestItem)) RequesterPractitioner\n    such that PractitionerRole.practitioner.reference.value ~ RequesterPractitioner.id.value"
+      "valueString": "define function \"Requesting PractitionerRoles\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Payor\".\"PractitionerRoles\" PractitionerRole\n    with (\"Requesting Practitioners from Payor\"(requestItem)) RequesterPractitioner\n    such that PractitionerRole.practitioner.reference.value ~ 'Practitioner/' + RequesterPractitioner.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 111
@@ -1944,7 +1944,7 @@
       "valueString": "Requesting Practitioners from ServiceRequest"
     }, {
       "url": "statement",
-      "valueString": "define function \"Requesting Practitioners from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Provider\".\"Practitioners\" P\n    with (Ctx.GetRequester(requestItem)) RequesterPractitioner\n    such that RequesterPractitioner.reference.value ~ P.id.value"
+      "valueString": "define function \"Requesting Practitioners from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Provider\".\"Practitioners\" P\n    with (Ctx.GetRequester(requestItem)) RequesterPractitioner\n    such that RequesterPractitioner.reference.value ~ 'Practitioner/' + P.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 114
@@ -1974,7 +1974,7 @@
       "valueString": "Requesting Practitioners from PractitionerRoles"
     }, {
       "url": "statement",
-      "valueString": "define function \"Requesting Practitioners from PractitionerRoles\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Provider\".\"Practitioners\" P\n    with (\"Requesting PractitionerRoles from ServiceRequest\"(requestItem)) RequesterPractitionerRole\n    such that RequesterPractitionerRole.practitioner.reference.value ~ P.id.value"
+      "valueString": "define function \"Requesting Practitioners from PractitionerRoles\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Provider\".\"Practitioners\" P\n    with (\"Requesting PractitionerRoles from ServiceRequest\"(requestItem)) RequesterPractitionerRole\n    such that RequesterPractitionerRole.practitioner.reference.value ~ 'Practitioner/' + P.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 116
@@ -1989,7 +1989,7 @@
       "valueString": "Requesting PractitionerRoles from ServiceRequest"
     }, {
       "url": "statement",
-      "valueString": "// TODO: Need to investigate how to handle a ServiceRequest.requester as an Organization\ndefine function \"Requesting PractitionerRoles from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Provider\".\"PractitionerRoles\" PR\n    with (Ctx.GetRequester(requestItem)) RequesterPractitioner\n    such that RequesterPractitioner.reference.value ~ PR.id.value"
+      "valueString": "// TODO: Need to investigate how to handle a ServiceRequest.requester as an Organization\ndefine function \"Requesting PractitionerRoles from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Provider\".\"PractitionerRoles\" PR\n    with (Ctx.GetRequester(requestItem)) RequesterPractitioner\n    such that RequesterPractitioner.reference.value ~ 'PractitionerRole/' + PR.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 117
@@ -2064,7 +2064,7 @@
       "valueString": "Performing Organizations associated with a PracitionerRole"
     }, {
       "url": "statement",
-      "valueString": "define function \"Performing Organizations associated with a PracitionerRole\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Payor\".\"Organizations\" Organization\n  with (\"Performing PractitionerRoles from Payor\"(requestItem)) PractitionerRole\n  such that PractitionerRole.organization.reference.value ~ Organization.id.value"
+      "valueString": "define function \"Performing Organizations associated with a PracitionerRole\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Payor\".\"Organizations\" Organization\n  with (\"Performing PractitionerRoles from Payor\"(requestItem)) PractitionerRole\n  such that PractitionerRole.organization.reference.value ~ 'Organization/' + Organization.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 122
@@ -2079,7 +2079,7 @@
       "valueString": "Performing PractitionerRoles from Payor"
     }, {
       "url": "statement",
-      "valueString": "define function \"Performing PractitionerRoles from Payor\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Payor\".\"PractitionerRoles\" PractitionerRole\n    with (\"Performing Practitioners from Payor\"(requestItem)) Practitioner\n    such that PractitionerRole.practitioner.reference.value ~ Practitioner.id.value"
+      "valueString": "define function \"Performing PractitionerRoles from Payor\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Payor\".\"PractitionerRoles\" PractitionerRole\n    with (\"Performing Practitioners from Payor\"(requestItem)) Practitioner\n    such that PractitionerRole.practitioner.reference.value ~ 'Practitioner/' + Practitioner.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 123
@@ -2124,7 +2124,7 @@
       "valueString": "Performing Practitioners from ServiceRequest"
     }, {
       "url": "statement",
-      "valueString": "define function \"Performing Practitioners from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Provider\".\"Practitioners\" P\n    with (Ctx.GetPerformer(requestItem)) PerformerPractitioner\n    such that PerformerPractitioner.reference.value ~ P.id.value"
+      "valueString": "define function \"Performing Practitioners from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Provider\".\"Practitioners\" P\n    with (Ctx.GetPerformer(requestItem)) PerformerPractitioner\n    such that PerformerPractitioner.reference.value ~ 'Practitioner/' + P.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 126
@@ -2154,7 +2154,7 @@
       "valueString": "Performing Practitioners from PractitionerRoles"
     }, {
       "url": "statement",
-      "valueString": "define function \"Performing Practitioners from PractitionerRoles\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Provider\".\"Practitioners\" P\n    with (\"Performing PractitionerRoles from ServiceRequest\"(requestItem)) PerformerPractitionerRole\n    such that PerformerPractitionerRole.practitioner.reference.value ~ P.id.value"
+      "valueString": "define function \"Performing Practitioners from PractitionerRoles\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Provider\".\"Practitioners\" P\n    with (\"Performing PractitionerRoles from ServiceRequest\"(requestItem)) PerformerPractitionerRole\n    such that PerformerPractitionerRole.practitioner.reference.value ~ 'Practitioner/' + P.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 128
@@ -2169,7 +2169,7 @@
       "valueString": "Performing PractitionerRoles from ServiceRequest"
     }, {
       "url": "statement",
-      "valueString": "define function \"Performing PractitionerRoles from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Provider\".\"PractitionerRoles\" PR\n    with (Ctx.GetPerformer(requestItem)) PerformerPractitioner\n    such that PerformerPractitioner.reference.value ~ PR.id.value"
+      "valueString": "define function \"Performing PractitionerRoles from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  Ctx.\"Provider\".\"PractitionerRoles\" PR\n    with (Ctx.GetPerformer(requestItem)) PerformerPractitioner\n    such that PerformerPractitioner.reference.value ~ 'PractitionerRole/' + PR.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 129
@@ -2229,7 +2229,7 @@
       "valueString": "Requesting Practitioner IDs from ServiceRequest"
     }, {
       "url": "statement",
-      "valueString": "define function \"Requesting Practitioner IDs from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  (\n    (\"Requesting PractitionerRoles from ServiceRequest\"(requestItem)) RequesterPractitionerRole\n    return RequesterPractitionerRole.practitioner.reference.value\n  )\n  union\n  (\n    (Ctx.GetRequester(requestItem)) RequesterPractitioner\n      return if (PositionOf('Practitioner/', RequesterPractitioner.reference) >= 0) \n        then RequesterPractitioner.reference.value\n        else null\n  ) item where not IsNull(item)"
+      "valueString": "define function \"Requesting Practitioner IDs from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  (\n    (\"Requesting PractitionerRoles from ServiceRequest\"(requestItem)) RequesterPractitionerRole\n    return Last(Split(RequesterPractitionerRole.practitioner.reference.value, '/'))\n  )\n  union\n  (\n    (Ctx.GetRequester(requestItem)) RequesterPractitioner\n      return if (PositionOf('Practitioner/', RequesterPractitioner.reference) >= 0)\n        then Last(Split(RequesterPractitioner.reference.value, '/'))\n        else null\n  ) item where not IsNull(item)"
     }, {
       "url": "displaySequence",
       "valueInteger": 133
@@ -2274,7 +2274,7 @@
       "valueString": "Performing Practitioner IDs from ServiceRequest"
     }, {
       "url": "statement",
-      "valueString": "define function \"Performing Practitioner IDs from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  (\n    (\"Performing PractitionerRoles from ServiceRequest\"(requestItem)) PerformerPractitionerRole\n      return PerformerPractitionerRole.practitioner.reference.value\n  )\n  union\n  (\n    (Ctx.GetPerformer(requestItem)) PerformerPractitioner\n      return if (PositionOf('Practitioner/', PerformerPractitioner.reference) >= 0) \n        then PerformerPractitioner.reference.value\n        else null\n  ) item where not IsNull(item)"
+      "valueString": "define function \"Performing Practitioner IDs from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  (\n    (\"Performing PractitionerRoles from ServiceRequest\"(requestItem)) PerformerPractitionerRole\n      return Last(Split(PerformerPractitionerRole.practitioner.reference.value, '/'))\n  )\n  union\n  (\n    (Ctx.GetPerformer(requestItem)) PerformerPractitioner\n      return if (PositionOf('Practitioner/', PerformerPractitioner.reference) >= 0)\n        then Last(Split(PerformerPractitioner.reference.value, '/'))\n        else null\n  ) item where not IsNull(item)"
     }, {
       "url": "displaySequence",
       "valueInteger": 136
@@ -2583,11 +2583,6 @@
     "id": "effective-data-requirements",
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
-  }, {
-    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
-    "valueReference": {
-      "reference": "Device/cqf-tooling"
-    }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-MultipleRequest",
   "identifier": [ {
@@ -2605,7 +2600,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-03-11T22:32:28-06:00",
+  "date": "2026-03-30T10:00:32-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MultipleRequest",
   "useContext": [ {

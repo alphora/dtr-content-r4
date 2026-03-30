@@ -257,13 +257,13 @@ returns List<FHIR.Reference>:
 
 define function GetSubjectID(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>)
 returns System.String:
-  if (item is FHIR.ServiceRequest) then 
-    item.subject.reference.value as System.String
+  if (item is FHIR.ServiceRequest) then
+    Last(Split(item.subject.reference.value, '/'))
   else if (item is FHIR.VisionPrescription or item is FHIR.NutritionOrder) then
-    item.patient.reference.value as System.String
-  else if (item is FHIR.Appointment) then 
-    First(item.participant).actor.reference.value as System.String
-  else item.subject.reference.value as System.String
+    Last(Split(item.patient.reference.value, '/'))
+  else if (item is FHIR.Appointment) then
+    Last(Split(First(item.participant).actor.reference.value, '/'))
+  else Last(Split(item.subject.reference.value, '/'))
 
 define "Service Request Item List":
   "draftOrders"
