@@ -72,10 +72,3 @@ flowchart TD
 | 10 | **CRD-5** | On Prior Auth List | "Prior authorization required" | `SR.code` | valueset `http://terminology.smilecdr.com/cs/priorauth-grouper` | `SR.code in "Prior Auth Required for Procedure Grouper"` | `auth-needed` | `conditional` |
 | 11 | **CRD-6** | Code Not Found | "Code not recognized — contact payer" | `SR.code` | same valueset — not found | `NOT in` prior auth list | `conditional` | `not-covered` |
 
-### Notes on open bugs (⚠️)
-
-| CRD | Bug | Fix |
-|-----|-----|-----|
-| CRD-8 | `SR.subject.reference` returns `"Patient/provider-patient-1"` but comparison is against bare `"provider-patient-1"` | Strip `Patient/` prefix in `GetSubjectID()` or at comparison site |
-| CRD-3.2 | `R = O.id.value` where `R` is `"Organization/provider-payorganization-1"` and `O.id.value` is `"provider-payorganization-1"` | Change to `R = 'Organization/' + O.id.value` in `ASLPCrdOrderLOBMatchLogic.cql:51` |
-| CRD-3.2b | `PractitionerRole.practitioner.reference.value` is `"Practitioner/payer-practitioner-pp2"` compared against `Practitioner.id.value` which is `"payer-practitioner-pp2"` | Change to `'Practitioner/' + RequesterPractitioner.id.value` in `ASLPCrdProviderNpiMatchLogic.cql:147` |
