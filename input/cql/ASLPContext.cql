@@ -18,6 +18,7 @@ code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
 parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>>
 parameter "dispatchedOrders" List<FHIR.Reference>
 parameter "appointments" List<FHIR.Appointment>
+parameter "fulfillmentTasks" List<FHIR.Task>
 
 parameter "Request Id" System.String
   // NOTE: defaults should not be used in production
@@ -266,9 +267,7 @@ returns System.String:
     First(item.participant).actor.reference.value as System.String
   else item.subject.reference.value as System.String
 
-define function RefString(
-  r Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>
-) returns System.String:
+define function ToRefString(r Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>):
   case
     when r is FHIR.MedicationRequest then 'MedicationRequest/' + (r as FHIR.MedicationRequest).id.value
     when r is FHIR.NutritionOrder then 'NutritionOrder/' + (r as FHIR.NutritionOrder).id.value
@@ -278,6 +277,14 @@ define function RefString(
     when r is FHIR.CommunicationRequest then 'CommunicationRequest/' + (r as FHIR.CommunicationRequest).id.value
     else null
   end
+
+define function TaskReferencesDispatchedOrder(T FHIR.Task):
+  exists (
+    "Dispatched Order References" R
+      where
+        (T.focus.reference is not null and T.focus.reference.value = R)
+        or exists (T.basedOn B where B.reference.value = R)
+  )
 
 define "Service Request Item List":
   "draftOrders"
@@ -290,11 +297,21 @@ define "Service Request Item List":
   // union ([CommunicationRequest])
 
 define "Dispatched Orders List": 
-  "dispatchedOrders" D 
-    where exists (
-      ("Service Request Item List") S
-        where D.reference.value = RefString(S)
-    )
+  "dispatchedOrders" 
+
+define "Fulfillment Tasks For Dispatched Orders":
+  ("fulfillmentTasks") T
+    where TaskReferencesDispatchedOrder(T)
+
+define "Orders To Evaluate": 
+  if exists ("Dispatched Orders List") 
+  or exists ("Fulfillment Tasks For Dispatched Orders") then
+    ("Service Request Item List") S
+      where exists ("Dispatched Orders List" D 
+        where D.reference.value = ToRefString(S)
+      )
+  else
+    "Service Request Item List"
 
 define "Appointments List": 
   "appointments"
