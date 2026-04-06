@@ -16,6 +16,7 @@ code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
 
 // NutritionOrder, ServiceRequest, DeviceRequest, MedicationRequest, VisionPrescription with /draft/ status
 parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>>
+parameter "dispatchedOrders" List<FHIR.Reference>
 parameter "appointments" List<FHIR.Appointment>
 
 parameter "Request Id" System.String
@@ -265,6 +266,19 @@ returns System.String:
     First(item.participant).actor.reference.value as System.String
   else item.subject.reference.value as System.String
 
+define function RefString(
+  r Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>
+) returns System.String:
+  case
+    when r is FHIR.MedicationRequest then 'MedicationRequest/' + (r as FHIR.MedicationRequest).id.value
+    when r is FHIR.NutritionOrder then 'NutritionOrder/' + (r as FHIR.NutritionOrder).id.value
+    when r is FHIR.ServiceRequest then 'ServiceRequest/' + (r as FHIR.ServiceRequest).id.value
+    when r is FHIR.DeviceRequest then 'DeviceRequest/' + (r as FHIR.DeviceRequest).id.value
+    when r is FHIR.VisionPrescription then 'VisionPrescription/' + (r as FHIR.VisionPrescription).id.value
+    when r is FHIR.CommunicationRequest then 'CommunicationRequest/' + (r as FHIR.CommunicationRequest).id.value
+    else null
+  end
+
 define "Service Request Item List":
   "draftOrders"
   // NOTE: these retrieves are only for local testing
@@ -274,6 +288,13 @@ define "Service Request Item List":
   // union ([MedicationRequest])
   // union ([VisionPrescription])
   // union ([CommunicationRequest])
+
+define "Dispatched Orders List": 
+  "dispatchedOrders" D 
+    where exists (
+      ("Service Request Item List") S
+        where D.reference.value = RefString(S)
+    )
 
 define "Appointments List": 
   "appointments"

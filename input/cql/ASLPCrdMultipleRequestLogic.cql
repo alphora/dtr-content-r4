@@ -171,7 +171,10 @@ define "CoverageExtensionList":
   if ((Ctx."Service Request Item List" is null 
     or not exists (Ctx."Service Request Item List"))
       and (Ctx."Appointments List" is null 
-      or not exists (Ctx."Appointments List"))) then
+      or not exists (Ctx."Appointments List"))
+        and (Ctx."Dispatched Orders List" is null 
+        or not exists (Ctx."Dispatched Orders List"))
+  ) then
         { 
           "GetCoverageExtension"(
             "null Service Request Item", 
@@ -179,12 +182,16 @@ define "CoverageExtensionList":
           ) 
         }
   else if exists (Ctx."Service Request Item List") then
-     Ctx."Service Request Item List" request
+    Ctx."Service Request Item List" request
       return all
         "GetCoverageExtension"(request, GetCrdResult(request))
         // TESTING OUTPUT
         //(GetCrdResult(RequestItem)).ID + Ctx.NewLine +
         //(GetCrdResult(RequestItem)).DetailDebugging
+  else if exists (Ctx."Dispatched Orders List") then 
+    Ctx."Dispatched Orders List" request 
+      return all
+        "GetCoverageExtension"(request, GetCrdResult(request))
   else 
      Ctx."Appointments List" appointment
       return all 
