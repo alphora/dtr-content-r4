@@ -49,6 +49,10 @@
           {
             "code": "90999",
             "display": "DIALYSIS PROCEDURE"
+          },
+          {
+            "code": "92015",
+            "display": "Refraction and basic ophthalmological exam"
           }
         ]
       },
