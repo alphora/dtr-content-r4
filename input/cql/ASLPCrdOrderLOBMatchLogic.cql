@@ -48,7 +48,7 @@ define "Provider References by Coverage.payor":
 define "Provider Organizations by Coverage.payor":
   Ctx."Provider"."Organizations" O
     with "Provider References by Coverage.payor" R
-    such that R = O.id.value
+    such that R = 'Organization/' + O.id.value
 
 define "Payor References by Coverage.payor":
   flatten(Ctx."Payor"."Coverages" C return C.payor.reference.value)
@@ -56,7 +56,7 @@ define "Payor References by Coverage.payor":
 define "Payor Organizations by Coverage.payor":
   Ctx."Payor"."Organizations" O
     with "Payor References by Coverage.payor" R
-    such that R = O.id.value
+    such that R = 'Organization/' + O.id.value
 
 define "Matching Organizations by Name":
   "Provider Organizations by Coverage.payor" ProviderPayorOrg

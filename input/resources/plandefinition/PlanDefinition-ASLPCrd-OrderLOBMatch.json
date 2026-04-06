@@ -319,7 +319,7 @@
       "valueString": "Provider Organizations by Coverage.payor"
     }, {
       "url": "statement",
-      "valueString": "define \"Provider Organizations by Coverage.payor\":\n  Ctx.\"Provider\".\"Organizations\" O\n    with \"Provider References by Coverage.payor\" R\n    such that R = O.id.value"
+      "valueString": "define \"Provider Organizations by Coverage.payor\":\n  Ctx.\"Provider\".\"Organizations\" O\n    with \"Provider References by Coverage.payor\" R\n    such that R = 'Organization/' + O.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 9
@@ -469,7 +469,7 @@
       "valueString": "Payor Organizations by Coverage.payor"
     }, {
       "url": "statement",
-      "valueString": "define \"Payor Organizations by Coverage.payor\":\n  Ctx.\"Payor\".\"Organizations\" O\n    with \"Payor References by Coverage.payor\" R\n    such that R = O.id.value"
+      "valueString": "define \"Payor Organizations by Coverage.payor\":\n  Ctx.\"Payor\".\"Organizations\" O\n    with \"Payor References by Coverage.payor\" R\n    such that R = 'Organization/' + O.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 19
@@ -1048,11 +1048,6 @@
     "id": "effective-data-requirements",
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
-  }, {
-    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
-    "valueReference": {
-      "reference": "Device/cqf-tooling"
-    }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-OrderLOBMatch",
   "identifier": [ {
