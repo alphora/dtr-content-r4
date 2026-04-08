@@ -896,7 +896,7 @@
       "valueString": "ExtensionPriorAuthNeeded"
     }, {
       "url": "statement",
-      "valueString": "define function ExtensionPriorAuthNeeded(coverageId System.String, covered System.String, priorAuthRequired System.String, coverageAssertionId System.String, requestReferenceString System.String, serviceRequestCode System.Code, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information' },\n    \"extension\": ({ \n      // payer coverage\n      \"CoverageExtension\"(coverageId),\n\n      // 'covered', 'not-covered', or 'conditional' (https://build.fhir.org/ig/HL7/davinci-crd/ValueSet-coverageInfo.html)\n      \"CoveredExtension\"(covered),\n\n      // 'auth-needed', 'no-auth', or 'conditional' (https://build.fhir.org/ig/HL7/davinci-crd/ValueSet-coveragePaDetail.html)\n      \"PriorAuthNeededExtension\"(priorAuthRequired),\n\n      // system generated id\n      \"CoverageAssertionIdExtension\"(coverageAssertionId),\n\n      // today's date\n      \"TodaysDateExtension\"(),\n\n      // questionnaire canonical extension based on the service request code\n      // requires a valueset per canonical questionnaire\n      \"QuestionnaireExtension\"(priorAuthRequired, serviceRequestCode),\n\n      // service request id\n      \"DependencyExtension\"(requestReferenceString),\n\n      // detail code, warning or info, and qualification\n      \"DetailExtension\"(codeValue, detailText, qualification, warningOrInfo),\n\n      // Always 'admin' and 'clinical'\n      // 'admin', 'clinical', 'both', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)\n      // \"DocNeeded\"('admin'),\n      // \"DocNeeded\"('clinical'),\n      \"DocNeeded\"('both')\n    }) Extension where not IsNull(Extension)\n  }"
+      "valueString": "define function ExtensionPriorAuthNeeded(coverageId System.String, covered System.String, priorAuthRequired System.String, coverageAssertionId System.String, requestReferenceString System.String, serviceRequestCode System.Code, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information' },\n    \"extension\": ({ \n      // payer coverage\n      \"CoverageExtension\"(coverageId),\n\n      // 'covered', 'not-covered', or 'conditional' (https://build.fhir.org/ig/HL7/davinci-crd/ValueSet-coverageInfo.html)\n      \"CoveredExtension\"(covered),\n\n      // 'auth-needed', 'no-auth', or 'conditional' (https://build.fhir.org/ig/HL7/davinci-crd/ValueSet-coveragePaDetail.html)\n      \"PriorAuthNeededExtension\"(priorAuthRequired),\n\n      // system generated id\n      \"CoverageAssertionIdExtension\"(coverageAssertionId),\n\n      // today's date\n      \"TodaysDateExtension\"(),\n\n      // questionnaire canonical extension based on the service request code\n      // requires a valueset per canonical questionnaire\n      \"QuestionnaireExtension\"(priorAuthRequired, serviceRequestCode),\n\n      // service request id\n      \"DependencyExtension\"(requestReferenceString),\n\n      // detail code, warning or info, and qualification\n      \"DetailExtension\"(codeValue, detailText, qualification, warningOrInfo),\n\n      // Always 'admin' and 'clinical'\n      // 'admin', 'clinical', 'both', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)\n      // \"DocNeeded\"('admin'),\n      // \"DocNeeded\"('clinical'),\n      \"DocNeeded\"('both')\n    }) \n    // Extension where not IsNull(Extension)\n  }"
     }, {
       "url": "displaySequence",
       "valueInteger": 48
@@ -911,7 +911,7 @@
       "valueString": "CoverageExtension"
     }, {
       "url": "statement",
-      "valueString": "define function \"CoverageExtension\"(coverageId System.String)\nreturns FHIR.Extension:\n  if IsNull(coverageId) then null as FHIR.Extension\n  else\n    FHIR.Extension {\n      \"url\": FHIR.uri { \"value\": 'coverage' },\n      \"value\": FHIR.Reference {\n        \"reference\": FHIR.string { \"value\": 'Coverage/' + coverageId }\n      }\n    }"
+      "valueString": "define function \"CoverageExtension\"(coverageId System.String)\nreturns FHIR.Extension:\n  // if IsNull(coverageId) then null as FHIR.Extension\n  // else\n    FHIR.Extension {\n      \"url\": FHIR.uri { \"value\": 'coverage' },\n      \"value\": FHIR.Reference {\n          \"reference\": FHIR.string { \n              \"value\": \n                  if IsNull(coverageId) or coverageId = '' then 'Coverage not available'\n                  else 'Coverage/' + coverageId\n          }\n        // \"reference\": FHIR.string { \"value\": 'Coverage/' + coverageId }\n      }\n    }"
     }, {
       "url": "displaySequence",
       "valueInteger": 49
@@ -926,7 +926,7 @@
       "valueString": "CoveredExtension"
     }, {
       "url": "statement",
-      "valueString": "define function \"CoveredExtension\"(covered System.String)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'covered' },\n    \"value\": FHIR.code { \"value\": covered }\n  }"
+      "valueString": "define function \"CoveredExtension\"(covered System.String)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'covered' },\n    \"value\": FHIR.code { \"value\": if IsNull(covered) or covered = '' then 'conditional' else covered }\n  }"
     }, {
       "url": "displaySequence",
       "valueInteger": 50
@@ -941,7 +941,7 @@
       "valueString": "PriorAuthNeededExtension"
     }, {
       "url": "statement",
-      "valueString": "define function \"PriorAuthNeededExtension\"(priorAuthRequired System.String)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'pa-needed' },\n    \"value\": FHIR.code { \"value\": priorAuthRequired }\n  }"
+      "valueString": "define function \"PriorAuthNeededExtension\"(priorAuthRequired System.String)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'pa-needed' },\n    \"value\": FHIR.code { \"value\": if IsNull(priorAuthRequired) or priorAuthRequired = '' then 'conditional' else priorAuthRequired }\n  }"
     }, {
       "url": "displaySequence",
       "valueInteger": 51
@@ -986,7 +986,7 @@
       "valueString": "QuestionnaireExtension"
     }, {
       "url": "statement",
-      "valueString": "define function \"QuestionnaireExtension\"(priorAuthRequired System.String, procedureCode System.Code)\nreturns FHIR.Extension:\n  if priorAuthRequired = 'no-auth' then\n    null as FHIR.Extension\n  else if priorAuthRequired in { 'auth-needed', 'conditional' }\n    and not IsNull(QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode)) then \n      FHIR.Extension {\n        \"url\": FHIR.uri { \"value\": 'questionnaire' },\n        \"value\": FHIR.canonical { \"value\": QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode) } \n      }\n  else \n    FHIR.Extension {\n        \"url\": FHIR.uri { \"value\": 'questionnaire' },\n        \"value\": FHIR.string { \"value\": 'service codes not applicable to questionnaire' } \n      }"
+      "valueString": "define function \"QuestionnaireExtension\"(priorAuthRequired System.String, procedureCode System.Code)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'questionnaire' },\n    \"value\": FHIR.string {\n      \"value\":\n        case\n          when priorAuthRequired = 'no-auth' then\n            'N/A'\n          when priorAuthRequired in { 'auth-needed', 'conditional' } then\n            Coalesce(\n              QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode),\n              'service codes not applicable to questionnaire'\n            )\n          else\n            'service codes not applicable to questionnaire'\n        end\n    }\n  }"
     }, {
       "url": "displaySequence",
       "valueInteger": 54
@@ -1016,7 +1016,7 @@
       "valueString": "DependencyExtension"
     }, {
       "url": "statement",
-      "valueString": "define function \"DependencyExtension\"(requestReferenceString System.String)\nreturns FHIR.Extension:\n  if IsNull(requestReferenceString) then null as FHIR.Extension\n  else\n    FHIR.Extension {\n      \"url\": FHIR.uri { \"value\": 'dependency' },\n      \"value\": FHIR.Reference {\n        \"reference\": FHIR.string { \"value\": requestReferenceString }\n      }\n    }"
+      "valueString": "define function \"DependencyExtension\"(requestReferenceString System.String)\nreturns FHIR.Extension:\n  // if IsNull(requestReferenceString) then null as FHIR.Extension\n  // else\n    FHIR.Extension {\n      \"url\": FHIR.uri { \"value\": 'dependency' },\n      \"value\": FHIR.Reference {\n        // \"reference\": FHIR.string { \"value\": requestReferenceString }\n          \"reference\": FHIR.string { \n              \"value\": \n                  if IsNull(requestReferenceString) or requestReferenceString = '' then 'N/A'\n                  else requestReferenceString\n            }\n      }\n    }"
     }, {
       "url": "displaySequence",
       "valueInteger": 56
@@ -1031,7 +1031,7 @@
       "valueString": "DetailExtension"
     }, {
       "url": "statement",
-      "valueString": "// if priorAuthRequired in { 'auth-needed', 'conditional' } then\n  //   if not IsNull(QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode)) then \n  //     FHIR.Extension {\n  //       \"url\": FHIR.uri { \"value\": 'questionnaire' },\n  //       \"value\": FHIR.canonical { \"value\": QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode) } \n  //     }\n  //   else null as FHIR.Extension\n  // else null as FHIR.Extension\n\n// code = auth-needed|no-auth|gold-card|not-covered, warningOrInfo = Warning|info, qualification = {open text entry}\ndefine function \"DetailExtension\"(codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'detail' },\n    \"extension\": {\n      if (codeValue = 'auth-needed') then \"DetailCodeAuthRequired\"(detailText)\n      else if (codeValue = 'no-auth') then \"DetailCodeAuthNotRequired\"(detailText)\n      else if (codeValue = 'gold-card') then \"DetailCodeGoldCard\"(detailText)\n      else if (codeValue = 'not-covered') then \"DetailCodeNoCoverage\"(detailText)\n      else if (codeValue = 'coverage-info') then \"DetailCodeCoverageInfo\"(detailText)\n      else \"DetailCode\"('http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp', codeValue, 'Unknown display', detailText),\n\n      FHIR.Extension {\n        \"url\": FHIR.uri { \"value\": 'value' },\n        \"value\": FHIR.string { \"value\": warningOrInfo }\n      },\n      FHIR.Extension {\n        \"url\": FHIR.uri { \"value\": 'qualification' },\n        \"value\": FHIR.string { \"value\": qualification }\n      }\n    }\n  }"
+      "valueString": "// if priorAuthRequired = 'no-auth' then\n  //   null as FHIR.Extension\n  // else if priorAuthRequired in { 'auth-needed', 'conditional' }\n  //   and not IsNull(QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode)) then \n  //     FHIR.Extension {\n  //       \"url\": FHIR.uri { \"value\": 'questionnaire' },\n  //       \"value\": FHIR.canonical { \"value\": QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode) } \n  //     }\n  // else \n  //   FHIR.Extension {\n  //       \"url\": FHIR.uri { \"value\": 'questionnaire' },\n  //       \"value\": FHIR.string { \"value\": 'service codes not applicable to questionnaire' } \n  //     }\n\n// code = auth-needed|no-auth|gold-card|not-covered, warningOrInfo = Warning|info, qualification = {open text entry}\ndefine function \"DetailExtension\"(codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'detail' },\n    \"extension\": {\n      if (codeValue = 'auth-needed') then \"DetailCodeAuthRequired\"(detailText)\n      else if (codeValue = 'no-auth') then \"DetailCodeAuthNotRequired\"(detailText)\n      else if (codeValue = 'gold-card') then \"DetailCodeGoldCard\"(detailText)\n      else if (codeValue = 'not-covered') then \"DetailCodeNoCoverage\"(detailText)\n      else if (codeValue = 'coverage-info') then \"DetailCodeCoverageInfo\"(detailText)\n      else \"DetailCode\"(\n        'http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp', \n        if IsNull(codeValue) or codeValue = '' then 'coverage-info' else codeValue, \n        'Unknown display', \n        if IsNull(detailText) or detailText = '' then 'N/A' else detailText\n      ),\n      // else \"DetailCode\"('http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp', codeValue, 'Unknown display', detailText),\n\n      FHIR.Extension {\n        \"url\": FHIR.uri { \"value\": 'value' },\n        // \"value\": FHIR.string { \"value\": warningOrInfo }\n        \"value\": FHIR.string { \"value\": if IsNull(warningOrInfo) or warningOrInfo = '' then 'N/A' else warningOrInfo }\n      },\n\n      FHIR.Extension {\n        \"url\": FHIR.uri { \"value\": 'qualification' },\n        // \"value\": FHIR.string { \"value\": qualification }\n        \"value\": FHIR.string { \"value\": if IsNull(qualification) or qualification = '' then 'N/A' else qualification }\n      }\n    }\n  }"
     }, {
       "url": "displaySequence",
       "valueInteger": 57
@@ -1136,7 +1136,7 @@
       "valueString": "DocNeeded"
     }, {
       "url": "statement",
-      "valueString": "define function \"DocNeeded\"(valueCode System.String)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'doc-needed' },\n    \"value\": FHIR.code {\n      \"value\": valueCode\n    }\n  }"
+      "valueString": "define function \"DocNeeded\"(valueCode System.String)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'doc-needed' },\n    \"value\": FHIR.code {\n      // \"value\": valueCode\n        \"value\": if IsNull(valueCode) or valueCode = '' then 'conditional' else valueCode\n    }\n  }"
     }, {
       "url": "displaySequence",
       "valueInteger": 64
@@ -1295,6 +1295,11 @@
     "id": "effective-data-requirements",
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
+  }, {
+    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
+    "valueReference": {
+      "reference": "Device/cqf-tooling"
+    }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-ProviderNpiMatch",
   "identifier": [ {
@@ -1312,7 +1317,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-04-07T07:34:37-06:00",
+  "date": "2026-04-08T13:53:39-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-ProviderNpiMatch",
   "useContext": [ {
