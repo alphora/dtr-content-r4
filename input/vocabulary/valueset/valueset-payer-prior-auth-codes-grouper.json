@@ -88,6 +88,11 @@
                 "display": "Laryngeal function studies (ie, aerodynamic testing and acoustic testing)"
             },
             {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "92015",
+                "display": "Refraction and basic ophthalmological exam"
+            },
+            {
                 "system": "urn:oid:2.16.840.1.113883.6.285",
                 "code": "E1399",
                 "display": "Durable medical equipment, miscellaneous"
