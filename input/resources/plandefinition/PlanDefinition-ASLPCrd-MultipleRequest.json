@@ -1284,7 +1284,7 @@
       "valueString": "ExtensionPriorAuthNeeded"
     }, {
       "url": "statement",
-      "valueString": "define function ExtensionPriorAuthNeeded(coverageId System.String, covered System.String, priorAuthRequired System.String, coverageAssertionId System.String, requestReferenceString System.String, serviceRequestCode System.Code, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information' },\n    \"extension\": ({ \n      // payer coverage\n      \"CoverageExtension\"(coverageId),\n\n      // 'covered', 'not-covered', or 'conditional' (https://build.fhir.org/ig/HL7/davinci-crd/ValueSet-coverageInfo.html)\n      \"CoveredExtension\"(covered),\n\n      // 'auth-needed', 'no-auth', or 'conditional' (https://build.fhir.org/ig/HL7/davinci-crd/ValueSet-coveragePaDetail.html)\n      \"PriorAuthNeededExtension\"(priorAuthRequired),\n\n      // system generated id\n      \"CoverageAssertionIdExtension\"(coverageAssertionId),\n\n      // today's date\n      \"TodaysDateExtension\"(),\n\n      // questionnaire canonical extension based on the service request code\n      // requires a valueset per canonical questionnaire\n      \"QuestionnaireExtension\"(priorAuthRequired, serviceRequestCode),\n\n      // service request id\n      \"DependencyExtension\"(requestReferenceString),\n\n      // detail code, warning or info, and qualification\n      \"DetailExtension\"(codeValue, detailText, qualification, warningOrInfo),\n\n      // Always 'admin' and 'clinical'\n      // 'admin', 'clinical', 'both', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)\n      // \"DocNeeded\"('admin'),\n      // \"DocNeeded\"('clinical'),\n      \"DocNeeded\"('both')\n    }) \n    // Extension where not IsNull(Extension)\n  }"
+      "valueString": "define function ExtensionPriorAuthNeeded(coverageId System.String, covered System.String, priorAuthRequired System.String, coverageAssertionId System.String, requestReferenceString System.String, serviceRequestCode System.Code, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information' },\n    \"extension\": ({ \n      // payer coverage\n      \"CoverageExtension\"(coverageId),\n\n      // 'covered', 'not-covered', or 'conditional' (https://build.fhir.org/ig/HL7/davinci-crd/ValueSet-coverageInfo.html)\n      \"CoveredExtension\"(covered),\n\n      // 'auth-needed', 'no-auth', or 'conditional' (https://build.fhir.org/ig/HL7/davinci-crd/ValueSet-coveragePaDetail.html)\n      \"PriorAuthNeededExtension\"(priorAuthRequired),\n\n      // system generated id\n      \"CoverageAssertionIdExtension\"(coverageAssertionId),\n\n      // today's date\n      \"TodaysDateExtension\"(),\n\n      // questionnaire canonical extension based on the service request code\n      // requires a valueset per canonical questionnaire\n      \"QuestionnaireExtension\"(priorAuthRequired, serviceRequestCode),\n\n      // service request id\n      \"DependencyExtension\"(requestReferenceString),\n\n      // detail code, warning or info, and qualification\n      \"DetailExtension\"(codeValue, detailText, qualification, warningOrInfo),\n\n      // Always 'admin' and 'clinical'\n      // 'admin', 'clinical', 'both', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)\n      // \"DocNeeded\"('admin'),\n      // \"DocNeeded\"('clinical'),\n      \"DocNeeded\"('both')\n    }) Extension where not IsNull(Extension)\n  }"
     }, {
       "url": "displaySequence",
       "valueInteger": 70
@@ -1374,7 +1374,7 @@
       "valueString": "QuestionnaireExtension"
     }, {
       "url": "statement",
-      "valueString": "define function \"QuestionnaireExtension\"(priorAuthRequired System.String, procedureCode System.Code)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'questionnaire' },\n    \"value\": FHIR.string {\n      \"value\":\n        case\n          when priorAuthRequired = 'no-auth' then\n            'N/A'\n          when priorAuthRequired in { 'auth-needed', 'conditional' } then\n            Coalesce(\n              QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode),\n              'service codes not applicable to questionnaire'\n            )\n          else\n            'service codes not applicable to questionnaire'\n        end\n    }\n  }"
+      "valueString": "define function \"QuestionnaireExtension\"(priorAuthRequired System.String, procedureCode System.Code)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'questionnaire' },\n    \"value\": FHIR.canonical {\n      \"value\":\n        case\n          when priorAuthRequired in { 'auth-needed', 'conditional' } then\n            Coalesce(\n              QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode),\n              'http://example.org/fhir/PlanDefinition/questionnaire-not-found'\n            )\n          else\n            'http://example.org/fhir/PlanDefinition/not-applicable'\n        end\n    }\n  }"
     }, {
       "url": "displaySequence",
       "valueInteger": 76
@@ -2583,11 +2583,6 @@
     "id": "effective-data-requirements",
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
-  }, {
-    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
-    "valueReference": {
-      "reference": "Device/cqf-tooling"
-    }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-MultipleRequest",
   "identifier": [ {
@@ -2605,7 +2600,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-04-08T13:53:39-06:00",
+  "date": "2026-04-09T11:57:44-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MultipleRequest",
   "useContext": [ {
