@@ -43,8 +43,7 @@ returns FHIR.Extension:
       // "DocNeeded"('admin'),
       // "DocNeeded"('clinical'),
       "DocNeeded"('both')
-    }) 
-    // Extension where not IsNull(Extension)
+    }) Extension where not IsNull(Extension)
   }
 
 define function "CoverageExtension"(coverageId System.String)
@@ -96,18 +95,16 @@ define function "QuestionnaireExtension"(priorAuthRequired System.String, proced
 returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'questionnaire' },
-    "value": FHIR.string {
+    "value": FHIR.canonical {
       "value":
         case
-          when priorAuthRequired = 'no-auth' then
-            'N/A'
           when priorAuthRequired in { 'auth-needed', 'conditional' } then
             Coalesce(
               QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode),
-              'service codes not applicable to questionnaire'
+              'http://example.org/fhir/PlanDefinition/questionnaire-not-found'
             )
           else
-            'service codes not applicable to questionnaire'
+            'http://example.org/fhir/PlanDefinition/not-applicable'
         end
     }
   }
