@@ -1,0 +1,173 @@
+{
+  "library": "ASLPCrdMultipleRequestLogic",
+  "testCases": [
+    {
+      "patient": "crd-5-prior-auth-required-payor",
+      "description": "CRD-5: Prior authorization required for sleep study",
+      "providerDir": "ASLPContext/crd-5-prior-auth-required",
+      "payorDir": "ASLPContext/crd-5-prior-auth-required-payor",
+      "expectedCrd": [
+        {
+          "covered": "conditional",
+          "paNeeded": "auth-needed",
+          "detailText": "Prior Authorization Required",
+          "qualification": "Prior authorization is required for Pathology Test"
+        }
+      ]
+    },
+    {
+      "patient": "crd-7-routine-code-payor",
+      "description": "CRD-7: Routine code - no prior auth required",
+      "providerDir": "ASLPContext/crd-7-routine-code",
+      "payorDir": "ASLPContext/crd-7-routine-code-payor",
+      "expectedCrd": [
+        {
+          "covered": "covered",
+          "paNeeded": "no-auth",
+          "detailText": "Prior Authorization Not Required",
+          "qualification": "Order is covered. No prior auth is required for this request"
+        }
+      ]
+    },
+    {
+      "patient": "crd-4-gold-card-payor",
+      "description": "CRD-4: Gold card - code not found",
+      "providerDir": "ASLPContext/crd-4-gold-card",
+      "payorDir": "ASLPContext/crd-4-gold-card-payor",
+      "expectedCrd": [
+        {
+          "covered": "not-covered",
+          "paNeeded": "conditional",
+          "detailText": "Code Not Found",
+          "qualification": "Home sleep apnea testing (HSAT) is not a recognized procedure electronically. Please contact the payer for further information."
+        }
+      ]
+    },
+    {
+      "patient": "crd-2-dob-mismatch-payor",
+      "description": "CRD-2: DOB mismatch - member not found",
+      "providerDir": "ASLPContext/crd-2-dob-mismatch",
+      "payorDir": "ASLPContext/crd-2-dob-mismatch-payor",
+      "expectedCrd": [
+        {
+          "covered": "conditional",
+          "paNeeded": "auth-needed",
+          "detailText": "Member Not Found",
+          "qualification": "The member cannot be found. You can submit a PA request as an exception."
+        }
+      ]
+    },
+    {
+      "patient": "crd-2-last-name-mismatch-payor",
+      "description": "CRD-2: Last name mismatch - member not found",
+      "providerDir": "ASLPContext/crd-2-last-name-mismatch",
+      "payorDir": "ASLPContext/crd-2-last-name-mismatch-payor",
+      "expectedCrd": [
+        {
+          "covered": "conditional",
+          "paNeeded": "auth-needed",
+          "detailText": "Member Not Found",
+          "qualification": "The member cannot be found. You can submit a PA request as an exception."
+        }
+      ]
+    },
+    {
+      "patient": "crd-3-1-req-npi-missing-payor",
+      "description": "CRD-3-1: Requesting NPI missing - provider not in network",
+      "providerDir": "ASLPContext/crd-3-1-req-npi-missing",
+      "payorDir": "ASLPContext/crd-3-1-req-npi-missing-payor",
+      "expectedCrd": [
+        {
+          "covered": "conditional",
+          "paNeeded": "auth-needed",
+          "detailText": "Provider Not in Network",
+          "qualification": "Provider is not in the network. You can submit a PA request as an exception."
+        }
+      ]
+    },
+    {
+      "patient": "crd-3-1b-practitioner-missing-payor",
+      "description": "CRD-3-1b: Practitioner missing - provider not in network",
+      "providerDir": "ASLPContext/crd-3-1b-practitioner-missing",
+      "payorDir": "ASLPContext/crd-3-1b-practitioner-missing-payor",
+      "expectedCrd": [
+        {
+          "covered": "conditional",
+          "paNeeded": "auth-needed",
+          "detailText": "Provider Not in Network",
+          "qualification": "Provider is not in the network. You can submit a PA request as an exception."
+        }
+      ]
+    },
+    {
+      "patient": "crd-3-1c-practitioner-missing-payor",
+      "description": "CRD-3-1c: Practitioner missing variant - provider not in network",
+      "providerDir": "ASLPContext/crd-3-1c-practitioner-missing",
+      "payorDir": "ASLPContext/crd-3-1c-practitioner-missing-payor",
+      "expectedCrd": [
+        {
+          "covered": "conditional",
+          "paNeeded": "auth-needed",
+          "detailText": "Provider Not in Network",
+          "qualification": "Provider is not in the network. You can submit a PA request as an exception."
+        }
+      ]
+    },
+    {
+      "patient": "crd-3-2-org-name-mismatch-payor",
+      "description": "CRD-3-2: Org name mismatch - LOB mismatch",
+      "providerDir": "ASLPContext/crd-3-2-org-name-mismatch",
+      "payorDir": "ASLPContext/crd-3-2-org-name-mismatch-payor",
+      "expectedCrd": [
+        {
+          "covered": "conditional",
+          "paNeeded": "auth-needed",
+          "detailText": "Line Of Business Mismatch",
+          "qualification": "Line of Business MisMatch. Prior authorization submission is required."
+        }
+      ]
+    },
+    {
+      "patient": "crd-3-2b-org-not-linked-payor",
+      "description": "CRD-3-2b: Org not linked - provider not in network",
+      "providerDir": "ASLPContext/crd-3-2b-org-not-linked",
+      "payorDir": "ASLPContext/crd-3-2b-org-not-linked-payor",
+      "expectedCrd": [
+        {
+          "covered": "conditional",
+          "paNeeded": "auth-needed",
+          "detailText": "Provider Not in Network",
+          "qualification": "Provider is not in the network. You can submit a PA request as an exception."
+        }
+      ]
+    },
+    {
+      "patient": "crd-6-prior-auth-code-not-found-payor",
+      "description": "CRD-6: Code not on prior auth list",
+      "providerDir": "ASLPContext/crd-6-prior-auth-code-not-found",
+      "payorDir": "ASLPContext/crd-6-prior-auth-code-not-found-payor",
+      "expectedCrd": [
+        {
+          "covered": "not-covered",
+          "paNeeded": "conditional",
+          "detailText": "Code Not Found",
+          "qualification": "Cognitive test by HC pro is not a recognized procedure electronically. Please contact the payer for further information."
+        }
+      ]
+    },
+    {
+      "patient": "crd-8-multiple-coverage-payor",
+      "description": "CRD-8: Multiple coverage - member not found",
+      "providerDir": "ASLPContext/crd-8-multiple-coverage",
+      "payorDir": "ASLPContext/crd-8-multiple-coverage-payor",
+      "expectedCrd": [
+        {
+          "covered": "conditional",
+          "paNeeded": "auth-needed",
+          "detailText": "Member Not Found",
+          "qualification": "The member cannot be found. You can submit a PA request as an exception."
+        }
+      ]
+    }
+  ]
+}
