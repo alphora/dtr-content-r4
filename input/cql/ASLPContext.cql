@@ -258,7 +258,7 @@ returns List<FHIR.Reference>:
 define function GetSubjectID(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>)
 returns System.String:
   if (item is FHIR.ServiceRequest) then
-    Last(Split(item.subject.reference.value, '/'))
+    item.subject.reference.value as System.String
   else if (item is FHIR.VisionPrescription or item is FHIR.NutritionOrder) then
     Last(Split(item.patient.reference.value, '/'))
   else if (item is FHIR.Appointment) then

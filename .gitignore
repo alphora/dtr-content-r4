@@ -13,3 +13,4 @@ input/tests/*/*/*-bundle.json
 *.bkp
 fsh-generated/
 gofsh/
+cql-js-tests/node_modules
