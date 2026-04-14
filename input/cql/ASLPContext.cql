@@ -210,10 +210,11 @@ returns FHIR.CodeableConcept:
       null as FHIR.CodeableConcept
   else if (item is FHIR.VisionPrescription) then 
     First(
-      ((item as FHIR.VisionPrescription).lensSpecification LS 
-        return LS.product) P
-          where P is not null
-          and exists (P.coding)
+      (((item as FHIR.VisionPrescription).lensSpecification) LS
+        where LS.product is not null
+          and exists (LS.product.coding)
+        return LS.product
+      )
     )
   else if (item is FHIR.Appointment) then 
     (item as FHIR.Appointment).serviceType
