@@ -63,4 +63,4 @@ define function "Not OnPriorAuthList"(requestItem Choice<FHIR.NutritionOrder, FH
 
 define function "Prior Auth Required Service Requests"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   ({ requestItem }) R
-    where (Ctx.GetCode(R)) in "Prior Auth Required for Procedure Grouper"
+    where (Ctx.GetCode(R)).coding in "Prior Auth Required for Procedure Grouper"
