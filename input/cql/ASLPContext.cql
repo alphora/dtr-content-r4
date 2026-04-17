@@ -214,7 +214,7 @@ returns FHIR.CodeableConcept:
       ([MedicationRequest: id ~ ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference])
     else 
       null as FHIR.CodeableConcept
-  else if (item is FHIR.VisionPrescription) then \
+  else if (item is FHIR.VisionPrescription) then
     if First(
         (((item as FHIR.VisionPrescription).lensSpecification) LS
           where LS.product is not null 
