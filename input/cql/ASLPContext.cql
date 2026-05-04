@@ -214,17 +214,32 @@ returns FHIR.CodeableConcept:
       ([MedicationRequest: id ~ ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference])
     else 
       null as FHIR.CodeableConcept
-  else if (item is FHIR.VisionPrescription) then
-    if First(((item as FHIR.VisionPrescription).lensSpecification) LS
-      where LS.product is not null 
-      and exists (LS.product.coding) 
-    ).product is FHIR.CodeableConcept then
-        First(((item as FHIR.VisionPrescription).lensSpecification) LS
-          where LS.product is not null 
-          and exists (LS.product.coding) 
-        ).product as FHIR.CodeableConcept 
-    else 
-      null as FHIR.CodeableConcept
+  else if (item is FHIR.VisionPrescription) then 
+    if exists (((item as FHIR.VisionPrescription).lensSpecification) LS 
+      where exists (LS.extension E 
+        where E.url = 'http://example.org/fhir/billing-options'
+        or E.url.value = 'BillingOptions'
+      )
+    ) then 
+      First(
+        (((item as FHIR.VisionPrescription).lensSpecification) LS
+          where exists (LS.extension E 
+            where (
+              E.url = 'http://example.org/fhir/billing-options'
+              or E.url.value = 'BillingOptions'
+            )
+            and E.value as FHIR.CodeableConcept is not null
+          return (E.value as FHIR.CodeableConcept)
+        )
+      ))
+    else
+      First(
+        (((item as FHIR.VisionPrescription).lensSpecification) LS
+          where LS.product is not null
+            and exists (LS.product.coding)
+          return LS.product
+        )
+      )
   else if (item is FHIR.Appointment) then 
     if First(
         ((item as FHIR.Appointment).serviceType) S
