@@ -1689,7 +1689,7 @@
       "valueString": "GetCode"
     }, {
       "url": "statement",
-      "valueString": "// Option 1 (not feasible short-term): Use related context retrieve\n// give me the patient that is the beneficiary of this coverage\n// even then you'd still have to get to the coverage\n\n// Option 2 (short-term): Consider payor/provider as single source \n// Use a meta.tag approach to distinguish payor/provider\n// 1) Need to re-map all references from Payor Patient id to Provider Patient id (Observation, Condition, etc, etc)\n// IDEA 1:\n// RelatedPerson resource to represent the Payer Patient\n// Payor Coverage resource remapped to reference the Provider Patient (just like all other resources: Observation, Condition, etc)\n\n// IDEA 2: downside to this is that patient/coverage matching heuristic won't work in CQL\n// Single source expects a merged patient for payor/provider\n// Also expects a merged Coverage as well, since Coverage.beneficiary is 1..1 Patient reference\n\n// need a architecture design question on how to solve longer term\n\ndefine function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>)\nreturns FHIR.CodeableConcept:\n  if (item is FHIR.ServiceRequest) then\n    (item as FHIR.ServiceRequest).code\n  else if (item is FHIR.DeviceRequest) then\n    if (item as FHIR.DeviceRequest).code is FHIR.CodeableConcept then\n      (item as FHIR.DeviceRequest).code as FHIR.CodeableConcept\n    else if (item as FHIR.DeviceRequest).code is FHIR.Reference then\n      ([Device: id ~ ((item as FHIR.DeviceRequest).code as FHIR.Reference).reference]).type\n    else \n      null as FHIR.CodeableConcept\n  else if (item is FHIR.NutritionOrder) then\n    (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType\n  else if (item is FHIR.MedicationRequest) then \n    if (item as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then\n      (item as FHIR.MedicationRequest).medication as FHIR.CodeableConcept\n    else if (item as FHIR.MedicationRequest).medication is FHIR.Reference then\n      ([MedicationRequest: id ~ ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference])\n    else \n      null as FHIR.CodeableConcept\n  else if (item is FHIR.VisionPrescription) then \n    First(\n      (((item as FHIR.VisionPrescription).lensSpecification) LS\n        where LS.product is not null\n          and exists (LS.product.coding)\n        return LS.product\n      )\n    )\n  else if (item is FHIR.Appointment) then \n    (item as FHIR.Appointment).serviceType\n  else null as FHIR.CodeableConcept"
+      "valueString": "// Option 1 (not feasible short-term): Use related context retrieve\n// give me the patient that is the beneficiary of this coverage\n// even then you'd still have to get to the coverage\n\n// Option 2 (short-term): Consider payor/provider as single source \n// Use a meta.tag approach to distinguish payor/provider\n// 1) Need to re-map all references from Payor Patient id to Provider Patient id (Observation, Condition, etc, etc)\n// IDEA 1:\n// RelatedPerson resource to represent the Payer Patient\n// Payor Coverage resource remapped to reference the Provider Patient (just like all other resources: Observation, Condition, etc)\n\n// IDEA 2: downside to this is that patient/coverage matching heuristic won't work in CQL\n// Single source expects a merged patient for payor/provider\n// Also expects a merged Coverage as well, since Coverage.beneficiary is 1..1 Patient reference\n\n// need a architecture design question on how to solve longer term\n\ndefine function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>)\nreturns FHIR.CodeableConcept:\n  if (item is FHIR.ServiceRequest) then\n    if (item as FHIR.ServiceRequest).code is FHIR.CodeableConcept then \n      (item as FHIR.ServiceRequest).code as FHIR.CodeableConcept \n    else \n      null as FHIR.CodeableConcept\n  else if (item is FHIR.DeviceRequest) then\n    if (item as FHIR.DeviceRequest).code is FHIR.CodeableConcept then\n      (item as FHIR.DeviceRequest).code as FHIR.CodeableConcept\n    else if (item as FHIR.DeviceRequest).code is FHIR.Reference then\n      ([Device: id ~ ((item as FHIR.DeviceRequest).code as FHIR.Reference).reference]).type\n    else \n      null as FHIR.CodeableConcept\n  else if (item is FHIR.NutritionOrder) then\n    if (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType is FHIR.CodeableConcept then \n      (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType as FHIR.CodeableConcept\n    else \n      null as FHIR.CodeableConcept\n  else if (item is FHIR.MedicationRequest) then \n    if (item as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then\n      (item as FHIR.MedicationRequest).medication as FHIR.CodeableConcept\n    else if (item as FHIR.MedicationRequest).medication is FHIR.Reference then\n      ([MedicationRequest: id ~ ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference])\n    else \n      null as FHIR.CodeableConcept\n  else if (item is FHIR.VisionPrescription) then \n    if exists (((item as FHIR.VisionPrescription).lensSpecification) LS \n      where exists (LS.extension E \n        where E.url = 'http://example.org/fhir/billing-options'\n        or E.url.value = 'BillingOptions'\n      )\n    ) then \n      First(\n        (((item as FHIR.VisionPrescription).lensSpecification) LS\n          where exists (LS.extension E \n            where (\n              E.url = 'http://example.org/fhir/billing-options'\n              or E.url.value = 'BillingOptions'\n            )\n            and E.value as FHIR.CodeableConcept is not null\n          return (E.value as FHIR.CodeableConcept)\n        )\n      ))\n    else\n      First(\n        (((item as FHIR.VisionPrescription).lensSpecification) LS\n          where LS.product is not null\n            and exists (LS.product.coding)\n          return LS.product\n        )\n      )\n  else if (item is FHIR.Appointment) then \n    if First(\n        ((item as FHIR.Appointment).serviceType) S\n          where S is not null\n      ) is FHIR.CodeableConcept then \n        First(\n          ((item as FHIR.Appointment).serviceType) S\n            where S is not null\n        ) as FHIR.CodeableConcept\n    else \n      null as FHIR.CodeableConcept\n  else null as FHIR.CodeableConcept"
     }, {
       "url": "displaySequence",
       "valueInteger": 97
@@ -2544,7 +2544,7 @@
       "valueString": "Is OnPriorAuthList"
     }, {
       "url": "statement",
-      "valueString": "define function \"Is OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  (\"Prior Auth Required Service Request\"(requestItem)) is not null"
+      "valueString": "define function \"Is OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  exists (\"Prior Auth Required Service Requests\"(requestItem))"
     }, {
       "url": "displaySequence",
       "valueInteger": 154
@@ -2556,7 +2556,7 @@
       "valueString": "ASLPCrdOnPriorAuthListLogic"
     }, {
       "url": "name",
-      "valueString": "Prior Auth Required Service Request"
+      "valueString": "Prior Auth Required Service Requests"
     }, {
       "url": "statement",
       "valueString": "define function \"Prior Auth Required Service Requests\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  ({ requestItem }) R\n    where (Ctx.GetCode(R)) in \"Prior Auth Required for Procedure Grouper\"\n    or (Ctx.GetCode(R)).coding.display in \"Prior Auth Required for Procedure Grouper\""
@@ -2583,11 +2583,6 @@
     "id": "effective-data-requirements",
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
-  }, {
-    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
-    "valueReference": {
-      "reference": "Device/cqf-tooling"
-    }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-MultipleRequest",
   "identifier": [ {
@@ -2605,7 +2600,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-05-04T15:54:56-06:00",
+  "date": "2026-05-04T16:38:43-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MultipleRequest",
   "useContext": [ {
