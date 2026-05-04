@@ -209,13 +209,31 @@ returns FHIR.CodeableConcept:
     else 
       null as FHIR.CodeableConcept
   else if (item is FHIR.VisionPrescription) then 
-    First(
-      (((item as FHIR.VisionPrescription).lensSpecification) LS
-        where LS.product is not null
-          and exists (LS.product.coding)
-        return LS.product
+    if exists (((item as FHIR.VisionPrescription).lensSpecification) LS 
+      where exists (LS.extension E 
+        where E.url = 'http://example.org/fhir/billing-options'
+        or E.url.value = 'BillingOptions'
       )
-    )
+    ) then 
+      First(
+        (((item as FHIR.VisionPrescription).lensSpecification) LS
+          where exists (LS.extension E 
+            where (
+              E.url = 'http://example.org/fhir/billing-options'
+              or E.url.value = 'BillingOptions'
+            )
+            and E.value as FHIR.CodeableConcept is not null
+          return (E.value as FHIR.CodeableConcept)
+        )
+      ))
+    else
+      First(
+        (((item as FHIR.VisionPrescription).lensSpecification) LS
+          where LS.product is not null
+            and exists (LS.product.coding)
+          return LS.product
+        )
+      )
   else if (item is FHIR.Appointment) then 
     (item as FHIR.Appointment).serviceType
   else null as FHIR.CodeableConcept
