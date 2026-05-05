@@ -65,3 +65,5 @@ define function "Prior Auth Required Service Requests"(requestItem Choice<FHIR.N
   ({ requestItem }) R
     where (Ctx.GetCode(R)) in "Prior Auth Required for Procedure Grouper"
     or (Ctx.GetCode(R)).coding.display in "Prior Auth Required for Procedure Grouper"
+    or (Ctx.GetCode(R)) in "Prior Auth Required for Procedure Valueset"
+    or (Ctx.GetCode(R)).coding.display in "Prior Auth Required for Procedure Valueset"

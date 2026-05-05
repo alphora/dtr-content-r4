@@ -224,14 +224,12 @@ returns FHIR.CodeableConcept:
       First(
         (((item as FHIR.VisionPrescription).lensSpecification) LS
           where exists (LS.extension E 
-            where (
-              E.url = 'http://example.org/fhir/billing-options'
-              or E.url.value = 'BillingOptions'
-            )
+            where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
             and E.value as FHIR.CodeableConcept is not null
           return (E.value as FHIR.CodeableConcept)
+          )
         )
-      ))
+      )
     else
       First(
         (((item as FHIR.VisionPrescription).lensSpecification) LS
