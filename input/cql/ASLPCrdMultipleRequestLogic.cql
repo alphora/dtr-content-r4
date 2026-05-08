@@ -238,7 +238,9 @@ define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, 
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
 define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
-  if requestItem.medication is FHIR.CodeableConcept then 
+  if BillingOptionExtensionPresent(requestItem) then 
+    "CRD Matrix"(requestItem)."CRD-7"
+  else if requestItem.medication is FHIR.CodeableConcept then 
     if ((requestItem.medication as FHIR.CodeableConcept) in "Prior Auth Required for Procedure Valueset"
     or (requestItem.medication as FHIR.CodeableConcept) in "Sleep Study Procedure") then 
         if not exists (OrderLOBMatch."Matching Organizations by Name") 
@@ -262,6 +264,20 @@ define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionO
         "CRD Matrix"(requestItem)."CRD-UnexpectedError"
   else 
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
+
+define function BillingOptionExtensionPresent(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
+  if requestItem is FHIR.MedicationRequest then 
+      ((requestItem as FHIR.MedicationRequest).medication) is FHIR.CodeableConcept
+      and exists ((((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension) E 
+        where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+      )
+  else if requestItem is FHIR.VisionPrescription then 
+      exists (requestItem.lensSpecification LS 
+        where exists (LS.extension E 
+          where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+        )
+      )
+  else null
 
 define function GetCrdResultOther(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
   if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
