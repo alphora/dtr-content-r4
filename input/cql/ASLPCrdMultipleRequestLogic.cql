@@ -252,18 +252,32 @@ define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionO
     else 
         "CRD Matrix"(requestItem)."CRD-UnexpectedError"
   else if requestItem.medication is FHIR.Reference then 
-    if ((requestItem.medication as FHIR.Reference).display in "Prior Auth Required for Procedure Valueset"
-    or (requestItem.medication as FHIR.Reference).display in "Sleep Study Procedure") then 
-        if not exists (OrderLOBMatch."Matching Organizations by Name") 
-        or OrderLOBMatch."Matching Organizations by Name" is null then 
-          "CRD Matrix"(requestItem)."CRD-3.2"
-        else "CRD Matrix"(requestItem)."CRD-5"
-    else if (requestItem.medication as FHIR.Reference).display in "Routine Procedure Valueset" then 
-        "CRD Matrix"(requestItem)."CRD-7"
+    if exists ([Medication] M 
+      where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
+    ) then 
+        if exists ([Medication] M 
+          where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
+          and (
+            M.code in "Prior Auth Required for Procedure Valueset"
+            or M.code in "Sleep Study Procedure"
+          )
+        ) then 
+            if not exists (OrderLOBMatch."Matching Organizations by Name") 
+            or OrderLOBMatch."Matching Organizations by Name" is null then 
+              "CRD Matrix"(requestItem)."CRD-3.2"
+            else "CRD Matrix"(requestItem)."CRD-5"
+        else if exists ([Medication] M 
+          where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
+          and M.code in "Routine Procedure Valueset"
+        ) then 
+            "CRD Matrix"(requestItem)."CRD-7"
+        else 
+          "CRD Matrix"(requestItem)."CRD-UnexpectedError"
     else 
-        "CRD Matrix"(requestItem)."CRD-UnexpectedError"
+      "CRD Matrix"(requestItem)."CRD-UnexpectedError"
   else 
-    "CRD Matrix"(requestItem)."CRD-UnexpectedError"
+    'Code Not Found'
+    // "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
 define function BillingOptionExtensionPresent(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
   if requestItem is FHIR.MedicationRequest then 
