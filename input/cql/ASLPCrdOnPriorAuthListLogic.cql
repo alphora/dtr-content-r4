@@ -56,7 +56,7 @@ define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR
   Ctx."ExtensionPriorAuthNeeded"(requestItem, 'conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification"(requestItem), 'Warning')
 
 define function "Is OnPriorAuthList"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
-  exists ("Prior Auth Required Service Requests"(requestItem))
+  ("Prior Auth Required Service Requests"(requestItem)) is not null
 
 define function "Not OnPriorAuthList"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   not (("Is OnPriorAuthList"(requestItem)))
