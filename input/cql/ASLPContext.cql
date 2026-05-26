@@ -215,30 +215,33 @@ returns FHIR.CodeableConcept:
     else 
       null as FHIR.CodeableConcept
   else if (item is FHIR.VisionPrescription) then 
-    if exists (((item as FHIR.VisionPrescription).lensSpecification) LS 
-      where exists (LS.extension E 
+    if exists ((item as FHIR.VisionPrescription).lensSpecification) LS 
+      where exists ((LS.extension) E 
         where E.url = 'http://example.org/fhir/billing-options'
-        or E.url.value = 'BillingOptions'
       )
-    ) then 
-      First(
-        (((item as FHIR.VisionPrescription).lensSpecification) LS
-          where exists (LS.extension E 
-            where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
-            and E.value as FHIR.CodeableConcept is not null
-          return (E.value as FHIR.CodeableConcept)
-          )
+     then 
+        First(
+          (
+            ((item as FHIR.VisionPrescription).lensSpecification) LS
+              return First(
+                (LS.extension) E
+                  where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+                    and (E.value as FHIR.CodeableConcept) is not null
+                  return (E.value as FHIR.CodeableConcept)
+              )
+          ) CC
+            where CC is not null
         )
-      )
     else if exists (((item as FHIR.VisionPrescription).lensSpecification) LS
         where LS.product is not null
         and exists (LS.product.coding)
     ) then 
       First(
-        (((item as FHIR.VisionPrescription).lensSpecification) LS
-          where LS.product is not null
-          and exists (LS.product.coding)
-          return LS.product
+        (
+          ((item as FHIR.VisionPrescription).lensSpecification) LS
+            where LS.product is not null
+              and exists (LS.product.coding)
+            return LS.product
         )
       )
     else

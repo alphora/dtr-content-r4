@@ -43,10 +43,7 @@ define "Not OrderLOBMatch":
   not ("Is OrderLOBMatch")
 
 define "Provider References by Coverage.payor":
-  Coalesce(
-    (Ctx."Provider"."Coverages" C return C.payor.reference.value),
-    flatten(Ctx."Provider"."Coverages" C return C.payor.reference.value)
-  )
+  flatten(Ctx."Provider"."Coverages" C return C.payor.reference)
 
 define "Provider Organizations by Coverage.payor":
   Ctx."Provider"."Organizations" O
