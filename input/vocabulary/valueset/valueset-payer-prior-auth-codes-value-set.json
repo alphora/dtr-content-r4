@@ -17,7 +17,11 @@
           {
               "system": "http://www.ama-assn.org/go/cpt",
               "concept": [
-                  {
+                    {
+                        "code": "92015",
+                        "display": "Refraction and basic ophthalmological exam"
+                    },
+                    {
                       "code": "55250",
                       "display": "Vasectomy, unilateral or bilateral (separate procedure), including postoperative semen"
                   },
