@@ -14,5 +14,49 @@
         "code": "collect-information"
       }
     ]
-  }
+  }, 
+  "dynamicValue": [
+    {
+      "path": "status",
+      "expression": {
+        "language": "text/fhirpath",
+        "expression": "'requested'"
+      }
+    },
+    {
+      "path": "intent",
+      "expression": {
+        "language": "text/fhirpath",
+        "expression": "'order'"
+      }
+    },
+    {
+      "path": "businessStatus",
+      "expression": {
+        "language": "text/fhirpath",
+        "expression": "AdjudicationOutcome"
+      }
+    },
+    {
+      "path": "statusReason",
+      "expression": {
+        "language": "text/fhirpath",
+        "expression": "AdjudicationRationale"
+      }
+    },
+    {
+      "path": "reasonCode",
+      "expression": {
+        "language": "text/fhirpath",
+        "expression": "AdjudicationReasonCodes"
+      }
+    }, 
+    {
+      "path": "input",
+      "expression": {
+        "language": "text/cql-identifier",
+        "expression": "QuestionnaireInput"
+      }
+    }
+  ]
 }

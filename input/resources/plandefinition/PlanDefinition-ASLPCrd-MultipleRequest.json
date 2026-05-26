@@ -2655,5 +2655,19 @@
         "expression": "CoverageExtensionList"
       }
     } ]
-  } ]
+  },
+  {
+    "title": "Submit Prior Authorization Questionnaire",
+    "description": "Submit a questionnaire for prior authorization",
+    "condition": [
+      {
+        "kind": "applicability",
+        "expression": {
+          "language": "text/cql-identifier",
+          "expression": "RequiresPriorAuthSubmission"
+        }
+      }
+    ],
+    "definitionCanonical": "http://example.org/sdh/dtr/aslp/PlanDefinition/Home-Monitor-Sleep-Testing"
+  } ] 
 }
