@@ -17,9 +17,9 @@ include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 codesystem "AdjudicationOutcomes": 'https://codesystem.x12.org/005010/306'
 
-code "A1": 'A1' from "AdjudicationOutcomes" display 'A1'
-code "A3": 'A3' from "AdjudicationOutcomes" display 'Denied'
-code "A4": 'A4' from "AdjudicationOutcomes" display 'Pended'
+code "Approved": 'A1' from "AdjudicationOutcomes" display 'Approved'
+code "Denied": 'A3' from "AdjudicationOutcomes" display 'Denied'
+code "Pended": 'A4' from "AdjudicationOutcomes" display 'Pended'
 
 context Patient
 
@@ -276,36 +276,47 @@ returns FHIR.Extension:
 
 //Questionnaire elements
 define "RequiresPriorAuthSubmission":
-  from "CoverageExtensionList" ExtList 
-  where (
-    ExtList.extension[2].value.value = 'auth-needed'
-    or ExtList.extension[2].value.value = 'conditional'
+  exists (
+    "CoverageExtensionList" ExtList 
+    where exists (
+      ExtList.extension E
+      where E.url.value = 'pa-needed'
+        and (E.value.value = 'auth-needed' or E.value.value = 'conditional')
+    )
   )
-  return true
 
 //Created by Claude 3.7 Sonnet
 define "AdjudicationOutcome":
   from "CoverageExtensionList" ExtList
-  return all
-    GetAdjudicationOutcome(ExtList)
+  return GetAdjudicationOutcome(ExtList)
 
 define "AdjudicationRationale":
   from "CoverageExtensionList" ExtList
-  return all
-    GetAdjudicationRationale(ExtList)
+  return GetAdjudicationRationale(ExtList)
 
 define "AdjudicationReasonCodes": 
   from "CoverageExtensionList" ExtList
-  return all
-    GetAdjudicationReasonCodes(ExtList)
+  return GetAdjudicationReasonCodes(ExtList)
 
-define "QuestionnaireInput": 
+define "QuestionnaireTaskInput":
   from "CoverageExtensionList" ExtList
-  return all
-    GetQuestionnaireInput(ExtList)
+  let questionnaireExt: GetQuestionnaireInput(ExtList)
+  where questionnaireExt is not null
+  return FHIR.Task.Input {
+    type: FHIR.CodeableConcept {
+      coding: {
+        FHIR.Coding {
+          system: FHIR.uri { value: 'http://loinc.org' },
+          code: FHIR.code { value: '102089-0' },
+          display: FHIR.string { value: 'Documentation request from payers and providers using a questionnaire for administrative and clinical data exchange' }
+        }
+      }
+    },
+    value: FHIR.string { value: 'http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCompleteQuestionnaire' }
+  }
 
-define function GetAdjudicationOutcome(ext FHIR.Extension):
-  if IsApproved(ext) then 
+define function GetAdjudicationOutcome(extension FHIR.Extension):
+  if IsApproved(extension) then
     FHIR.CodeableConcept {
       coding: {
         FHIR.Coding {
@@ -315,7 +326,7 @@ define function GetAdjudicationOutcome(ext FHIR.Extension):
         }
       }
     }
-  else if IsDenied(ext) then 
+  else if IsDenied(extension) then 
     FHIR.CodeableConcept {
       coding: {
         FHIR.Coding {
@@ -336,23 +347,23 @@ define function GetAdjudicationOutcome(ext FHIR.Extension):
       }
     }
 
-define function GetAdjudicationRationale(ext FHIR.Extension):
-  if IsPended(ext) then
+define function GetAdjudicationRationale(extension FHIR.Extension):
+  if IsPended(extension) then
     FHIR.CodeableConcept {
       text: FHIR.string { value: 'Additional patient clinical information is required to complete prior authorization review' }
     }
-  else if IsDenied(ext) then
+  else if IsDenied(extension) then
     FHIR.CodeableConcept {
       text: FHIR.string { value: 'Service is not covered under the current benefit plan' }
     }
-  else if IsApproved(ext) then
+  else if IsApproved(extension) then
     FHIR.CodeableConcept {
       text: FHIR.string { value: 'Service has been approved for coverage' }
     }
   else null
 
-define function GetAdjudicationReasonCodes(ext FHIR.Extension):
-  if IsPended(ext) then
+define function GetAdjudicationReasonCodes(extension FHIR.Extension):
+  if IsPended(extension) then
     {
       FHIR.CodeableConcept {
         coding: {
@@ -364,7 +375,7 @@ define function GetAdjudicationReasonCodes(ext FHIR.Extension):
         }
       }
     }
-  else if IsDenied(ext) then
+  else if IsDenied(extension) then
     {
       FHIR.CodeableConcept {
         coding: {
@@ -389,8 +400,8 @@ define function GetAdjudicationReasonCodes(ext FHIR.Extension):
       }
     }
 
-define function GetQuestionnaireInput(ext FHIR.Extension):
-  if IsPended(ext) then
+define function GetQuestionnaireInput(extension FHIR.Extension):
+  if IsPended(extension) then
     FHIR.Extension {
       "url": FHIR.uri { "value": 'https://loinc.org/valid-hl7-attachment-requests/' },
       "value": FHIR.CodeableConcept { 
@@ -406,23 +417,23 @@ define function GetQuestionnaireInput(ext FHIR.Extension):
     }
   else null
 
-define function IsPended(ext FHIR.Extension): 
-  if ext.extension[1].url.value = 'covered' then 
-    if ext.extension[1].value.value = 'conditional' then 
-      true
-    else false 
-  else false 
+define function IsPended(extension FHIR.Extension): 
+  exists (
+    extension.extension E
+    where E.url.value = 'covered' 
+      and E.value.value = 'conditional'
+  )
 
-define function IsApproved(ext FHIR.Extension):
-  if ext.extension[1].url.value = 'covered' then 
-    if ext.extension[1].value.value = 'covered' then 
-      true
-    else false 
-  else false
+define function IsApproved(extension FHIR.Extension):
+  exists (
+    extension.extension E
+    where E.url.value = 'covered' 
+      and E.value.value = 'covered'
+  )
 
-define function IsDenied(ext FHIR.Extension):
-  if ext.extension[1].url.value = 'covered' then 
-    if ext.extension[1].value.value = 'not-covered' then 
-      true
-    else false 
-  else false
+define function IsDenied(extension FHIR.Extension):
+  exists (
+    extension.extension E
+    where E.url.value = 'covered' 
+      and E.value.value = 'not-covered'
+  )

@@ -33,21 +33,21 @@
     {
       "path": "businessStatus",
       "expression": {
-        "language": "text/fhirpath",
+        "language": "text/cql-identifier",
         "expression": "AdjudicationOutcome"
       }
     },
     {
       "path": "statusReason",
       "expression": {
-        "language": "text/fhirpath",
+        "language": "text/cql-identifier",
         "expression": "AdjudicationRationale"
       }
     },
     {
       "path": "reasonCode",
       "expression": {
-        "language": "text/fhirpath",
+        "language": "text/cql-identifier",
         "expression": "AdjudicationReasonCodes"
       }
     }, 
@@ -55,7 +55,7 @@
       "path": "input",
       "expression": {
         "language": "text/cql-identifier",
-        "expression": "QuestionnaireInput"
+        "expression": "QuestionnaireTaskInput"
       }
     }
   ]
