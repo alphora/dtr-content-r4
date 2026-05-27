@@ -1,6 +1,6 @@
 library ASLPCrdMultipleRequestLogic version '0.1.0'
 
-using USCore version '7.0.0'
+// using USCore version '7.0.0'
 using FHIR version '4.0.1'
 
 include ASLPContext version '0.1.0' called Ctx
@@ -287,16 +287,19 @@ define "RequiresPriorAuthSubmission":
 
 //Created by Claude 3.7 Sonnet
 define "AdjudicationOutcome":
-  from "CoverageExtensionList" ExtList
-  return GetAdjudicationOutcome(ExtList)
+  GetAdjudicationOutcome(First("CoverageExtensionList"))
+  // from "CoverageExtensionList" ExtList
+  // return GetAdjudicationOutcome(ExtList)
 
 define "AdjudicationRationale":
-  from "CoverageExtensionList" ExtList
-  return GetAdjudicationRationale(ExtList)
+  GetAdjudicationRationale(First("CoverageExtensionList"))
+  // from "CoverageExtensionList" ExtList
+  // return GetAdjudicationRationale(ExtList)
 
 define "AdjudicationReasonCodes": 
-  from "CoverageExtensionList" ExtList
-  return GetAdjudicationReasonCodes(ExtList)
+  GetAdjudicationReasonCodes(First("CoverageExtensionList"))
+  // from "CoverageExtensionList" ExtList
+  // return GetAdjudicationReasonCodes(ExtList)
 
 define "QuestionnaireTaskInput":
   from "CoverageExtensionList" ExtList
@@ -312,11 +315,13 @@ define "QuestionnaireTaskInput":
         }
       }
     },
-    value: FHIR.string { value: 'http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCompleteQuestionnaire' }
+    value: FHIR.canonical { value: 'http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCompleteQuestionnaire' }
   }
 
 define function GetAdjudicationOutcome(extension FHIR.Extension):
-  if IsApproved(extension) then
+  if extension is null then
+    null 
+  else if IsApproved(extension) then
     FHIR.CodeableConcept {
       coding: {
         FHIR.Coding {
@@ -348,7 +353,9 @@ define function GetAdjudicationOutcome(extension FHIR.Extension):
     }
 
 define function GetAdjudicationRationale(extension FHIR.Extension):
-  if IsPended(extension) then
+  if extension is null then 
+    null 
+  else if IsPended(extension) then
     FHIR.CodeableConcept {
       text: FHIR.string { value: 'Additional patient clinical information is required to complete prior authorization review' }
     }
@@ -363,7 +370,9 @@ define function GetAdjudicationRationale(extension FHIR.Extension):
   else null
 
 define function GetAdjudicationReasonCodes(extension FHIR.Extension):
-  if IsPended(extension) then
+  if extension is null then 
+    null 
+  else if IsPended(extension) then
     {
       FHIR.CodeableConcept {
         coding: {
@@ -401,7 +410,9 @@ define function GetAdjudicationReasonCodes(extension FHIR.Extension):
     }
 
 define function GetQuestionnaireInput(extension FHIR.Extension):
-  if IsPended(extension) then
+  if extension is null then 
+    null 
+  else if IsPended(extension) then
     FHIR.Extension {
       "url": FHIR.uri { "value": 'https://loinc.org/valid-hl7-attachment-requests/' },
       "value": FHIR.CodeableConcept { 
@@ -418,21 +429,27 @@ define function GetQuestionnaireInput(extension FHIR.Extension):
   else null
 
 define function IsPended(extension FHIR.Extension): 
-  exists (
+  if extension is null then 
+    null 
+  else exists (
     extension.extension E
     where E.url.value = 'covered' 
       and E.value.value = 'conditional'
   )
 
 define function IsApproved(extension FHIR.Extension):
-  exists (
+  if extension is null then 
+    null 
+  else exists (
     extension.extension E
     where E.url.value = 'covered' 
       and E.value.value = 'covered'
   )
 
 define function IsDenied(extension FHIR.Extension):
-  exists (
+  if extension is null then 
+    null 
+  else exists (
     extension.extension E
     where E.url.value = 'covered' 
       and E.value.value = 'not-covered'
