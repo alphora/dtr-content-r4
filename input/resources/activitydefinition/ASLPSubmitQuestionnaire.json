@@ -6,6 +6,9 @@
   "title": "Submit Questionnaire",
   "status": "draft",
   "description": "Create a task to submit a Questionnaire.",
+  "library": [
+    "http://example.org/sdh/dtr/aslp/Library/ASLPCrdMultipleRequestLogic"
+  ],
   "kind": "Task",
   "code": {
     "coding": [

@@ -6,6 +6,9 @@
   "title": "Complete Questionnaire",
   "status": "draft",
   "description": "Create a task to complete a Questionnaire.",
+  "library": [
+    "http://example.org/sdh/dtr/aslp/Library/ASLPCrdMultipleRequestLogic"
+  ],
   "kind": "Task",
   "code": {
     "coding": [
