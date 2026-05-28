@@ -55,10 +55,10 @@
       }
     }, 
     {
-      "path": "input",
+      "path": "extension",
       "expression": {
         "language": "text/cql-identifier",
-        "expression": "QuestionnaireTaskInput"
+        "expression": "QuestionnaireExtensionForTask"
       }
     }
   ]

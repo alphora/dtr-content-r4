@@ -301,22 +301,39 @@ define "AdjudicationReasonCodes":
   // from "CoverageExtensionList" ExtList
   // return GetAdjudicationReasonCodes(ExtList)
 
-define "QuestionnaireTaskInput":
-  from "CoverageExtensionList" ExtList
-  let questionnaireExt: GetQuestionnaireInput(ExtList)
-  where questionnaireExt is not null
-  return FHIR.Task.Input {
-    type: FHIR.CodeableConcept {
-      coding: {
-        FHIR.Coding {
-          system: FHIR.uri { value: 'http://loinc.org' },
-          code: FHIR.code { value: '102089-0' },
-          display: FHIR.string { value: 'Documentation request from payers and providers using a questionnaire for administrative and clinical data exchange' }
+define "QuestionnaireExtensionForTask":
+  if (exists "CoverageExtensionList" ExtList
+    where GetQuestionnaireInput(ExtList) is not null) then  
+      // FHIR.Extension {
+      //   url: FHIR.uri { value: 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire' },
+      //   value: FHIR.canonical { 
+      //     value: 'http://example.org/sdh/dtr/aslp/PlanDefinition/Home-Monitor-Sleep-Testing'
+      //   }
+      // }
+      {
+        FHIR.Extension {
+          url: FHIR.uri { value: 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire' },
+          value: FHIR.canonical { 
+            value: 'http://example.org/sdh/dtr/aslp/PlanDefinition/Home-Monitor-Sleep-Testing'
+          }
+        },
+        FHIR.Extension {
+          url: FHIR.uri { value: 'http://hl7.org/fhir/StructureDefinition/task-input-type' },
+          value: FHIR.CodeableConcept {
+            coding: {
+              FHIR.Coding {
+                system: FHIR.uri { value: 'http://loinc.org' },
+                code: FHIR.code { value: '102089-0' },
+                display: FHIR.string { 
+                  value: 'Documentation request from payers and providers' 
+                }
+              }
+            }
+          }
         }
-      }
-    },
-    value: FHIR.canonical { value: 'http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCompleteQuestionnaire' }
-  }
+    }
+  else 
+    null
 
 define function GetAdjudicationOutcome(extension FHIR.Extension):
   if extension is null then
