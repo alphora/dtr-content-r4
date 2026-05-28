@@ -2565,7 +2565,7 @@
       "valueString": "Is OnPriorAuthList"
     }, {
       "url": "statement",
-      "valueString": "define function \"Is OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  exists((\"Prior Auth Required Service Requests\"(requestItem)))"
+      "valueString": "define function \"Is OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  (\"Prior Auth Required Service Requests\"(requestItem)) is null"
     }, {
       "url": "displaySequence",
       "valueInteger": 155
@@ -2580,7 +2580,7 @@
       "valueString": "Prior Auth Required Service Requests"
     }, {
       "url": "statement",
-      "valueString": "define function \"Prior Auth Required Service Requests\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  ({ requestItem }) R\n    where (Ctx.GetCode(R)) in \"Prior Auth Required for Procedure Grouper\""
+      "valueString": "define function \"Prior Auth Required Service Requests\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  requestItem R\n    where (Ctx.GetCode(R)) in \"Prior Auth Required for Procedure Grouper\"\n    or (Ctx.GetCode(R)) in \"Prior Auth Required for Procedure Valueset\""
     }, {
       "url": "displaySequence",
       "valueInteger": 156
@@ -2604,6 +2604,11 @@
     "id": "effective-data-requirements",
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
+  }, {
+    "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-softwaresystem",
+    "valueReference": {
+      "reference": "Device/cqf-tooling"
+    }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-MultipleRequest",
   "identifier": [ {
@@ -2621,7 +2626,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-05-28T14:10:36-06:00",
+  "date": "2026-05-28T15:02:29-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MultipleRequest",
   "useContext": [ {
