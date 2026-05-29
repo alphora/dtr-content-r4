@@ -330,6 +330,20 @@ define "QuestionnaireExtensionForTask":
               }
             }
           }
+        }, 
+        FHIR.Extension {
+          url: FHIR.uri { value: 'https://loinc.org/valid-hl7-attachment-requests/' },
+          value: FHIR.CodeableConcept {
+            coding: {
+              FHIR.Coding {
+                system: FHIR.uri { value: 'http://loinc.org' },
+                code: FHIR.code { value: '18776-5' },
+                display: FHIR.string { 
+                  value: 'Plan of Care note' 
+                }
+              }
+            }
+          }
         }
     }
   else 
