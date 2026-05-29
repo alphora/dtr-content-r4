@@ -15,6 +15,7 @@ code "Payor Code": 'pay' from "Payor Identifier CodeSystem" display 'Payor'
 code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
 
 // NutritionOrder, ServiceRequest, DeviceRequest, MedicationRequest, VisionPrescription with /draft/ status
+parameter "hookType" System.String
 parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>>
 parameter "dispatchedOrders" List<FHIR.Reference>
 parameter "appointments" List<FHIR.Appointment>
@@ -312,12 +313,8 @@ define "Fulfillment Tasks For Dispatched Orders":
     where TaskReferencesDispatchedOrder(T)
 
 define "Orders To Evaluate": 
-  if exists ("Dispatched Orders List") 
-  or exists ("Fulfillment Tasks For Dispatched Orders") then
-    ("Service Request Item List") S
-      where exists ("Dispatched Orders List" D 
-        where D.reference.value = ToRefString(S)
-      )
+  if ("hookType" = 'order-dispatch') then 
+    "Dispatched Orders List"
   else
     "Service Request Item List"
 
