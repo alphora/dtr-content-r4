@@ -282,8 +282,8 @@ define function TaskReferencesDispatchedOrder(T FHIR.Task):
   exists (
     "Dispatched Order References" R
       where
-        (T.focus.reference is not null and T.focus.reference.value = R)
-        or exists (T.basedOn B where B.reference.value = R)
+        (T.focus.reference is not null and T.focus.reference = R)
+        or exists (T.basedOn B where B.reference = R)
   )
 
 define "Service Request Item List":
@@ -297,7 +297,15 @@ define "Service Request Item List":
   // union ([CommunicationRequest])
 
 define "Dispatched Orders List": 
-  "dispatchedOrders" 
+  "dispatchedOrders" D  
+    where exists ("Service Request Item List" S 
+      where EndsWith(D.reference, S.id.value)
+    )
+
+define "Dispatched Order References":
+  from "dispatchedOrders" D
+  where D.reference is not null 
+  return D.reference
 
 define "Fulfillment Tasks For Dispatched Orders":
   ("fulfillmentTasks") T
