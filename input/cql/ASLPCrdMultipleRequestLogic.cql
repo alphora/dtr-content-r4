@@ -301,87 +301,54 @@ define "AdjudicationReasonCodes":
   // from "CoverageExtensionList" ExtList
   // return GetAdjudicationReasonCodes(ExtList)
 
-define "CompleteQuestionnaireForTask":
+define "QuestionnaireExtensionForTask":
   if First("CoverageExtensionList") is null then 
       null 
-  else if IsPended(First("CoverageExtensionList")) then
-    FHIR.Task {
-      status: FHIR.TaskStatus { value: 'requested' },
-      intent: FHIR.TaskIntent { value: 'order' },
-      input: { 
-        {
-          type: FHIR.CodeableConcept {
-            coding: { FHIR.Coding { 
-              system: FHIR.uri { value: 'http://hl7.org/fhir/uv/sdc/CodeSystem/temp' }, 
-              code: FHIR.code { value: 'questionnaire' } 
-            } }
-          },
-          value: FHIR.canonical { value: 'http://example.org/cdex-questionnaire-example1' }
-        },
-        {
-          type: FHIR.CodeableConcept {
-            coding: { FHIR.Coding { 
-              system: FHIR.uri { value: 'http://hl7.org/fhir/uv/sdc/CodeSystem/temp' }, 
-              code: FHIR.code { value: 'attachment' } 
-            } }
-          },
-          value: FHIR.CodeableConcept {
-            coding: { FHIR.Coding { 
-              system: FHIR.uri { value: 'http://loinc.org' }, 
-              code: FHIR.code { value: '11506-3' } 
-            } },
-            text: FHIR.string { value: 'Progress notes' }
+  else if IsPended(First("CoverageExtensionList")) then 
+    {
+      FHIR.Extension {
+        url: FHIR.uri { value: 'http://hl7.org/fhir/uv/sdc/CodeSystem/temp' },
+        value: FHIR.canonical { 
+          value: 'http://example.org/cdex-questionnaire-example1'
+        }
+      },
+      FHIR.Extension {
+        url: FHIR.uri { value: 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire' },
+        value: FHIR.canonical { 
+          value: 'http://example.org/sdh/dtr/aslp/PlanDefinition/Home-Monitor-Sleep-Testing'
+        }
+      },
+      FHIR.Extension {
+        url: FHIR.uri { value: 'http://hl7.org/fhir/StructureDefinition/task-input-type' },
+        value: FHIR.CodeableConcept {
+          coding: {
+            FHIR.Coding {
+              system: FHIR.uri { value: 'http://loinc.org' },
+              code: FHIR.code { value: '102089-0' },
+              display: FHIR.string { 
+                value: 'Documentation request from payers and providers' 
+              }
+            }
+          }
+        }
+      }, 
+      FHIR.Extension {
+        url: FHIR.uri { value: 'https://loinc.org/valid-hl7-attachment-requests/' },
+        value: FHIR.CodeableConcept {
+          coding: {
+            FHIR.Coding {
+              system: FHIR.uri { value: 'http://loinc.org' },
+              code: FHIR.code { value: '11506-3' },
+              display: FHIR.string { 
+                value: 'Progress notes' 
+              }
+            }
           }
         }
       }
-    }
-  else null
-  // if (exists "CoverageExtensionList" ExtList
-  //   where GetQuestionnaireInput(ExtList) is not null) then  
-  //     // FHIR.Extension {
-  //     //   url: FHIR.uri { value: 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire' },
-  //     //   value: FHIR.canonical { 
-  //     //     value: 'http://example.org/sdh/dtr/aslp/PlanDefinition/Home-Monitor-Sleep-Testing'
-  //     //   }
-  //     // }
-  //     {
-  //       FHIR.Extension {
-  //         url: FHIR.uri { value: 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire' },
-  //         value: FHIR.canonical { 
-  //           value: 'http://example.org/sdh/dtr/aslp/PlanDefinition/Home-Monitor-Sleep-Testing'
-  //         }
-  //       },
-  //       FHIR.Extension {
-  //         url: FHIR.uri { value: 'http://hl7.org/fhir/StructureDefinition/task-input-type' },
-  //         value: FHIR.CodeableConcept {
-  //           coding: {
-  //             FHIR.Coding {
-  //               system: FHIR.uri { value: 'http://loinc.org' },
-  //               code: FHIR.code { value: '102089-0' },
-  //               display: FHIR.string { 
-  //                 value: 'Documentation request from payers and providers' 
-  //               }
-  //             }
-  //           }
-  //         }
-  //       }, 
-  //       FHIR.Extension {
-  //         url: FHIR.uri { value: 'https://loinc.org/valid-hl7-attachment-requests/' },
-  //         value: FHIR.CodeableConcept {
-  //           coding: {
-  //             FHIR.Coding {
-  //               system: FHIR.uri { value: 'http://loinc.org' },
-  //               code: FHIR.code { value: '18776-5' },
-  //               display: FHIR.string { 
-  //                 value: 'Plan of Care note' 
-  //               }
-  //             }
-  //           }
-  //         }
-  //       }
-  //   }
-  // else 
-  //   null
+  }
+  else 
+    null
 
 define function GetAdjudicationOutcome(extension FHIR.Extension):
   if extension is null then
