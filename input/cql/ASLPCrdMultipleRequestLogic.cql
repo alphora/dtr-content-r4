@@ -168,19 +168,24 @@ define "null Service Request Item":
 
 // CRD Coverage Extensions
 define "CoverageExtensionList":
-  if exists (Ctx."selections") then
-    ((Ctx."Service Request Item List") SR
-      where exists ((Ctx."selections") S
-        where S.reference.value ~ Ctx.GetOrderReference(SR)
-      )
-    ) request
-      return all
-        "GetCoverageExtension"(request, GetCrdResult(request))
-        // TESTING OUTPUT
-        //(GetCrdResult(RequestItem)).ID + Ctx.NewLine +
-        //(GetCrdResult(RequestItem)).DetailDebugging
+  if exists (Ctx."Service Request Item List") then
+    if exists (Ctx."selections") then
+      ((Ctx."Service Request Item List") SR
+        where exists ((Ctx."selections") S
+          where S.reference.value ~ Ctx.GetOrderReference(SR)
+        )
+      ) request
+          return all
+            "GetCoverageExtension"(request, GetCrdResult(request))
+            // TESTING OUTPUT
+            //(GetCrdResult(RequestItem)).ID + Ctx.NewLine +
+            //(GetCrdResult(RequestItem)).DetailDebugging
+    else 
+      Ctx."Service Request Item List" request 
+        return all
+            "GetCoverageExtension"(request, GetCrdResult(request))
   else if exists (Ctx."Appointments List") then
-     Ctx."Appointments List" appointment
+    Ctx."Appointments List" appointment
       return all 
         "GetCoverageExtension"(appointment, GetCrdResult(appointment))
   else 

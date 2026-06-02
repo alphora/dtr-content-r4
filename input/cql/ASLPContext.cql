@@ -286,12 +286,6 @@ define function GetOrderReference(
 define "Service Request Item List":
   "draftOrders"
   // NOTE: these retrieves are only for local testing
-  // ([ServiceRequest]) 
-  // union ([DeviceRequest]) 
-  // union ([NutritionOrder])
-  // union ([MedicationRequest])
-  // union ([VisionPrescription])
-  // union ([CommunicationRequest])
   
 define "Appointments List": 
   "appointments"
