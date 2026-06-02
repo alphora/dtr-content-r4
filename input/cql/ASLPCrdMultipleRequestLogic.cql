@@ -250,7 +250,7 @@ define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionO
     else if (requestItem.medication as FHIR.CodeableConcept) in "Routine Procedure Valueset" then 
         "CRD Matrix"(requestItem)."CRD-7"
     else 
-        "CRD Matrix"(requestItem)."CRD-UnexpectedError"
+        'Code Not Found'
   else if requestItem.medication is FHIR.Reference then 
     if exists ([Medication] M 
       where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
@@ -272,12 +272,11 @@ define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionO
         ) then 
             "CRD Matrix"(requestItem)."CRD-7"
         else 
-          "CRD Matrix"(requestItem)."CRD-UnexpectedError"
+          'Code Not Found'
     else 
       "CRD Matrix"(requestItem)."CRD-UnexpectedError"
   else 
-    'Code Not Found'
-    // "CRD Matrix"(requestItem)."CRD-UnexpectedError"
+    "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
 define function BillingOptionExtensionPresent(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
   if requestItem is FHIR.MedicationRequest then 
