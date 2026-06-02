@@ -16,8 +16,8 @@ code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
 
 // NutritionOrder, ServiceRequest, DeviceRequest, MedicationRequest, VisionPrescription with /draft/ status
 parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>>
+parameter "selections" List<FHIR.Reference> 
 parameter "appointments" List<FHIR.Appointment>
-
 parameter "Request Id" System.String
   // NOTE: defaults should not be used in production
   //default 'generated-id-default-value'
@@ -210,8 +210,8 @@ returns FHIR.CodeableConcept:
       null as FHIR.CodeableConcept
   else if (item is FHIR.VisionPrescription) then 
     First(
-      ((item as FHIR.VisionPrescription).lensSpecification LS 
-        return LS.product) P
+      ((item as FHIR.VisionPrescription).lensSpecification) LS 
+        return (LS.product) P
           where P is not null
           and exists (P.coding)
     )
@@ -270,6 +270,19 @@ returns System.String:
     Last(Split(First(item.participant).actor.reference.value, '/'))
   else Last(Split(item.subject.reference.value, '/'))
 
+define function GetOrderReference(
+  order Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest>
+):
+  case
+    when order is FHIR.ServiceRequest then 'ServiceRequest/' + order.id.value
+    when order is FHIR.DeviceRequest then 'DeviceRequest/' + order.id.value
+    when order is FHIR.MedicationRequest then 'MedicationRequest/' + order.id.value
+    when order is FHIR.NutritionOrder then 'NutritionOrder/' + order.id.value
+    when order is FHIR.VisionPrescription then 'VisionPrescription/' + order.id.value
+    when order is FHIR.CommunicationRequest then 'CommunicationRequest/' + order.id.value
+    else null
+  end
+
 define "Service Request Item List":
   "draftOrders"
   // NOTE: these retrieves are only for local testing
@@ -279,7 +292,7 @@ define "Service Request Item List":
   // union ([MedicationRequest])
   // union ([VisionPrescription])
   // union ([CommunicationRequest])
-
+  
 define "Appointments List": 
   "appointments"
 
