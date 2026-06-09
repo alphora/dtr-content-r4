@@ -246,6 +246,10 @@
       "type": "CommunicationRequest",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/CommunicationRequest" ],
       "mustSupport": [ "requester", "content", "sender" ]
+    }, {
+      "type": "Medication",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Medication" ],
+      "mustSupport": [ "id", "code" ]
     } ]
   } ],
   "extension": [ {
@@ -2665,13 +2669,28 @@
       "valueString": "ASLPCrdMultipleRequestLogic"
     }, {
       "url": "name",
+      "valueString": "BillingOptionExtensionPresent"
+    }, {
+      "url": "statement",
+      "valueString": "define function BillingOptionExtensionPresent(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):\n  if requestItem is FHIR.MedicationRequest then \n      ((requestItem as FHIR.MedicationRequest).medication) is FHIR.CodeableConcept\n      and exists ((((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension) E \n        where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n      )\n  else if requestItem is FHIR.VisionPrescription then \n      exists (requestItem.lensSpecification LS \n        where exists (LS.extension E \n          where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n        )\n      )\n  else null"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 153
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPCrdMultipleRequestLogic"
+    }, {
+      "url": "name",
       "valueString": "GetCrdResultOther"
     }, {
       "url": "statement",
       "valueString": "define function GetCrdResultOther(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if (PriorAuthList.\"Is OnPriorAuthList\"(requestItem)) then\n    if not exists (OrderLOBMatch.\"Matching Organizations by Name\") \n    or OrderLOBMatch.\"Matching Organizations by Name\" is null then \n      \"CRD Matrix\"(requestItem).\"CRD-3.2\"\n    else \"CRD Matrix\"(requestItem).\"CRD-5\"\n  else if (PriorAuthList.\"Not OnPriorAuthList\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-6\"\n  else\n    \"CRD Matrix\"(requestItem).\"CRD-UnexpectedError\""
     }, {
       "url": "displaySequence",
-      "valueInteger": 158
+      "valueInteger": 154
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2686,7 +2705,7 @@
       "valueString": "define function \"Is OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  \"Prior Auth Required Service Requests\"(requestItem) is not null"
     }, {
       "url": "displaySequence",
-      "valueInteger": 159
+      "valueInteger": 155
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2701,7 +2720,7 @@
       "valueString": "define function \"Prior Auth Required Service Requests\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):\n  ( requestItem ) R\n    where (Ctx.GetCode(R)) in \"Prior Auth Required for Procedure Grouper\"\n    or (Ctx.GetCode(R)) in \"Prior Auth Required for Procedure Valueset\""
     }, {
       "url": "displaySequence",
-      "valueInteger": 160
+      "valueInteger": 156
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2716,37 +2735,7 @@
       "valueString": "define function \"Not OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  not ((\"Is OnPriorAuthList\"(requestItem)))"
     }, {
       "url": "displaySequence",
-      "valueInteger": 161
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPContext"
-    }, {
-      "url": "name",
-      "valueString": "TaskReferencesDispatchedOrder"
-    }, {
-      "url": "statement",
-      "valueString": "define function TaskReferencesDispatchedOrder(T FHIR.Task):\n  exists (\n    \"Dispatched Order References\" R\n      where\n        (T.focus.reference is not null and T.focus.reference = R)\n        or exists (T.basedOn B where B.reference = R)\n  )"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 162
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPContext"
-    }, {
-      "url": "name",
-      "valueString": "ConvertReferenceToOrder"
-    }, {
-      "url": "statement",
-      "valueString": "define function ConvertReferenceToOrder(ref FHIR.Reference):\n  First(\n    \"Service Request Item List\" S \n      where S.id.value = Last(Split(ref.reference.value, '/'))\n  )"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 163
+      "valueInteger": 157
     } ]
   }, {
     "id": "effective-data-requirements",

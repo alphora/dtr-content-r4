@@ -17,6 +17,10 @@ include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 codesystem "AdjudicationOutcomes": 'https://codesystem.x12.org/005010/306'
 
+valueset "Prior Auth Required for Procedure Valueset": 'http://terminology.smilecdr.com/cs/priorauth'
+valueset "Sleep Study Procedure": 'http://terminology.smilecdr.com/cs/sleepstudy'
+valueset "Routine Procedure Valueset": 'http://terminology.smilecdr.com/cs/routine'
+
 code "Approved": 'A1' from "AdjudicationOutcomes" display 'Approved'
 code "Denied": 'A3' from "AdjudicationOutcomes" display 'Denied'
 code "Pended": 'A4' from "AdjudicationOutcomes" display 'Pended'
@@ -246,16 +250,59 @@ define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, 
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
 define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
-  if (requestItem.medication in PriorAuthList."Prior Auth Required for Procedure Valueset"
-      or requestItem.medication in Router."Sleep Study Procedure") then 
+  if BillingOptionExtensionPresent(requestItem) then 
+    "CRD Matrix"(requestItem)."CRD-7"
+  else if requestItem.medication is FHIR.CodeableConcept then 
+    if ((requestItem.medication as FHIR.CodeableConcept) in "Prior Auth Required for Procedure Valueset"
+    or (requestItem.medication as FHIR.CodeableConcept) in "Sleep Study Procedure") then 
         if not exists (OrderLOBMatch."Matching Organizations by Name") 
         or OrderLOBMatch."Matching Organizations by Name" is null then 
           "CRD Matrix"(requestItem)."CRD-3.2"
-      else "CRD Matrix"(requestItem)."CRD-5"
-  else if (requestItem.medication in Routine."Routine Procedure Valueset") then 
-    "CRD Matrix"(requestItem)."CRD-7"
-  else
+        else "CRD Matrix"(requestItem)."CRD-5"
+    else if (requestItem.medication as FHIR.CodeableConcept) in "Routine Procedure Valueset" then 
+        "CRD Matrix"(requestItem)."CRD-7"
+    else 
+        'Code Not Found'
+  else if requestItem.medication is FHIR.Reference then 
+    if exists ([Medication] M 
+      where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
+    ) then 
+        if exists ([Medication] M 
+          where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
+          and (
+            M.code in "Prior Auth Required for Procedure Valueset"
+            or M.code in "Sleep Study Procedure"
+          )
+        ) then 
+            if not exists (OrderLOBMatch."Matching Organizations by Name") 
+            or OrderLOBMatch."Matching Organizations by Name" is null then 
+              "CRD Matrix"(requestItem)."CRD-3.2"
+            else "CRD Matrix"(requestItem)."CRD-5"
+        else if exists ([Medication] M 
+          where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
+          and M.code in "Routine Procedure Valueset"
+        ) then 
+            "CRD Matrix"(requestItem)."CRD-7"
+        else 
+          'Code Not Found'
+    else 
+      "CRD Matrix"(requestItem)."CRD-UnexpectedError"
+  else 
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
+
+define function BillingOptionExtensionPresent(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
+  if requestItem is FHIR.MedicationRequest then 
+      ((requestItem as FHIR.MedicationRequest).medication) is FHIR.CodeableConcept
+      and exists ((((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension) E 
+        where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+      )
+  else if requestItem is FHIR.VisionPrescription then 
+      exists (requestItem.lensSpecification LS 
+        where exists (LS.extension E 
+          where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+        )
+      )
+  else null
 
 define function GetCrdResultOther(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
