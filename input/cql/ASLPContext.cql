@@ -191,7 +191,10 @@ returns System.String:
 define function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>)
 returns FHIR.CodeableConcept:
   if (item is FHIR.ServiceRequest) then
-    (item as FHIR.ServiceRequest).code
+    if (item as FHIR.ServiceRequest).code is FHIR.CodeableConcept then 
+      (item as FHIR.ServiceRequest).code as FHIR.CodeableConcept 
+    else 
+      null as FHIR.CodeableConcept
   else if (item is FHIR.DeviceRequest) then
     if (item as FHIR.DeviceRequest).code is FHIR.CodeableConcept then
       (item as FHIR.DeviceRequest).code as FHIR.CodeableConcept
@@ -200,7 +203,10 @@ returns FHIR.CodeableConcept:
     else 
       null as FHIR.CodeableConcept
   else if (item is FHIR.NutritionOrder) then
-    (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType
+    if (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType is FHIR.CodeableConcept then 
+      (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType as FHIR.CodeableConcept
+    else 
+      null as FHIR.CodeableConcept
   else if (item is FHIR.MedicationRequest) then 
     if (item as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then
       (item as FHIR.MedicationRequest).medication as FHIR.CodeableConcept
@@ -209,14 +215,48 @@ returns FHIR.CodeableConcept:
     else 
       null as FHIR.CodeableConcept
   else if (item is FHIR.VisionPrescription) then 
-    First(
-      ((item as FHIR.VisionPrescription).lensSpecification) LS 
-        return (LS.product) P
-          where P is not null
-          and exists (P.coding)
-    )
+    if exists ((item as FHIR.VisionPrescription).lensSpecification) LS 
+      where exists ((LS.extension) E 
+        where E.url = 'http://example.org/fhir/billing-options'
+      )
+     then 
+        First(
+          (
+            ((item as FHIR.VisionPrescription).lensSpecification) LS
+              return First(
+                (LS.extension) E
+                  where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+                    and (E.value as FHIR.CodeableConcept) is not null
+                  return (E.value as FHIR.CodeableConcept)
+              )
+          ) CC
+            where CC is not null
+        )
+    else if exists (((item as FHIR.VisionPrescription).lensSpecification) LS
+        where LS.product is not null
+        and exists (LS.product.coding)
+    ) then 
+      First(
+        (
+          ((item as FHIR.VisionPrescription).lensSpecification) LS
+            where LS.product is not null
+              and exists (LS.product.coding)
+            return LS.product
+        )
+      )
+    else
+      null as FHIR.CodeableConcept
   else if (item is FHIR.Appointment) then 
-    (item as FHIR.Appointment).serviceType
+    if First(
+        ((item as FHIR.Appointment).serviceType) S
+          where S is not null
+      ) is FHIR.CodeableConcept then 
+        First(
+          ((item as FHIR.Appointment).serviceType) S
+            where S is not null
+        ) as FHIR.CodeableConcept
+    else 
+      null as FHIR.CodeableConcept
   else null as FHIR.CodeableConcept
 
 define function GetRequester(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>)

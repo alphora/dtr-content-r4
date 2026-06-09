@@ -38,11 +38,11 @@ define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR
   Ctx."ExtensionPriorAuthNeeded"(requestItem, 'covered', 'no-auth', 'no-auth', "Detail Text", "Qualification"(requestItem), 'info')
 
 define function "Is Routine"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
-  exists(("Routine Service Requests"(requestItem)))
+  "Routine Service Requests"(requestItem) is not null
 
 define function "Not Routine"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
   not (("Is Routine"(requestItem)))
 
 define function "Routine Service Requests"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
-  ({ requestItem }) R
+  requestItem R
     where (Ctx.GetCode(R)) in "Routine Procedure Valueset"
