@@ -488,7 +488,7 @@ define function GetAdjudicationReasonCodes(extension FHIR.Extension):
       FHIR.CodeableConcept {
         coding: {
           FHIR.Coding {
-            system: FHIR.uri { value: 'http://example.com/CodeSystem/reason-codes' },
+            system: FHIR.uri { value: 'https://codesystem.x12.org/external/886' },
             code: FHIR.code { value: '0U' },
             display: FHIR.string { value: 'Additional Patient Information Required' }
           }
@@ -500,7 +500,7 @@ define function GetAdjudicationReasonCodes(extension FHIR.Extension):
       FHIR.CodeableConcept {
         coding: {
           FHIR.Coding {
-            system: FHIR.uri { value: 'http://example.com/CodeSystem/reason-codes' },
+            system: FHIR.uri { value: 'https://codesystem.x12.org/external/886' },
             code: FHIR.code { value: '0M' },
             display: FHIR.string { value: 'Non-covered Service' }
           }
@@ -512,7 +512,7 @@ define function GetAdjudicationReasonCodes(extension FHIR.Extension):
       FHIR.CodeableConcept {
         coding: {
           FHIR.Coding {
-            system: FHIR.uri { value: 'http://example.com/CodeSystem/reason-codes' },
+            system: FHIR.uri { value: 'https://codesystem.x12.org/external/886' },
             code: FHIR.code { value: '0N' },
             display: FHIR.string { value: 'Covered Service' }
           }
