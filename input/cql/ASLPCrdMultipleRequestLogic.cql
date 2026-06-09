@@ -21,7 +21,7 @@ define "DebuggingEnabled":
   false
         
 // CRD Matrix of values
-define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
+define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):
   {
     "CRD-2": {
       "ID": 'CRD-2',
@@ -164,26 +164,28 @@ define "Description":
   'Information related to whether a service is covered, not covered or requires prior auth submission'
 
 define "null Service Request Item":
-  null as Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>
+  null as Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>
 
 // CRD Coverage Extensions
 define "CoverageExtensionList":
-  if exists (Ctx."Service Request Item List") then
-    if exists (Ctx."selections") then
-      ((Ctx."Service Request Item List") SR
-        where exists ((Ctx."selections") S
-          where S.reference.value ~ Ctx.GetOrderReference(SR)
-        )
-      ) request
-          return all
-            "GetCoverageExtension"(request, GetCrdResult(request))
-            // TESTING OUTPUT
-            //(GetCrdResult(RequestItem)).ID + Ctx.NewLine +
-            //(GetCrdResult(RequestItem)).DetailDebugging
-    else 
-      Ctx."Service Request Item List" request 
+  if exists (Ctx."selections") then
+    ((Ctx."Service Request Item List") SR
+      where exists ((Ctx."selections") S
+        where S.reference.value ~ Ctx.GetOrderReference(SR)
+      )
+    ) request
         return all
-            "GetCoverageExtension"(request, GetCrdResult(request))
+          "GetCoverageExtension"(request, GetCrdResult(request))
+          // TESTING OUTPUT
+          //(GetCrdResult(RequestItem)).ID + Ctx.NewLine +
+          //(GetCrdResult(RequestItem)).DetailDebugging
+  else if exists (Ctx."Orders To Process") then
+    (Ctx."Orders To Process") request
+      return all
+        "GetCoverageExtension"(request, GetCrdResult(request))
+        // TESTING OUTPUT
+        //(GetCrdResult(RequestItem)).ID + Ctx.NewLine +
+        //(GetCrdResult(RequestItem)).DetailDebugging
   else if exists (Ctx."Appointments List") then
     Ctx."Appointments List" appointment
       return all 
@@ -195,7 +197,7 @@ define "CoverageExtensionList":
     ) 
     
 // CRD Logic tree
-define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
+define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Reference, FHIR.Task>):
 // returns Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String}:
   if (ContextValidation."Insufficient or Ambiguous High"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-8"
@@ -226,10 +228,10 @@ define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
   else
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
-define function GetCrdResultCommunicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
+define function GetCrdResultCommunicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
     "CRD Matrix"(requestItem)."CRD-7"
 
-define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
+define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   if (not exists (requestItem.basedOn)) then 
     "CRD Matrix"(requestItem)."CRD-7"
   else if (exists (requestItem.basedOn)) then 
@@ -237,7 +239,7 @@ define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, 
   else
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
-define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
+define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   if (requestItem.medication in PriorAuthList."Prior Auth Required for Procedure Valueset"
       or requestItem.medication in Router."Sleep Study Procedure") then 
         if not exists (OrderLOBMatch."Matching Organizations by Name") 
@@ -249,7 +251,7 @@ define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionO
   else
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
-define function GetCrdResultOther(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
+define function GetCrdResultOther(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
     if not exists (OrderLOBMatch."Matching Organizations by Name") 
     or OrderLOBMatch."Matching Organizations by Name" is null then 
@@ -260,7 +262,7 @@ define function GetCrdResultOther(requestItem Choice<FHIR.NutritionOrder, FHIR.S
   else
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
-define function "GetCoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>, item Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String})
+define function "GetCoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Reference, FHIR.Task>, item Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String})
 returns FHIR.Extension:
   Ctx."ExtensionPriorAuthNeeded"(
     requestItem,

@@ -92,17 +92,35 @@
     "resource": "http://terminology.hl7.org/CodeSystem/organization-type"
   } ],
   "parameter": [ {
+    "name": "hookType",
+    "use": "in",
+    "min": 0,
+    "max": "1",
+    "type": "string"
+  }, {
     "name": "draftOrders",
     "use": "in",
     "min": 0,
     "max": "*",
     "type": "Resource"
   }, {
+    "name": "dispatchedOrders",
+    "use": "in",
+    "min": 0,
+    "max": "*",
+    "type": "Reference"
+  }, {
     "name": "appointments",
     "use": "in",
     "min": 0,
     "max": "*",
     "type": "Appointment"
+  }, {
+    "name": "fulfillmentTasks",
+    "use": "in",
+    "min": 0,
+    "max": "*",
+    "type": "Task"
   }, {
     "name": "Request Id",
     "use": "in",
@@ -134,7 +152,31 @@
     "max": "1",
     "type": "Coverage"
   }, {
+    "name": "Dispatched Order References",
+    "use": "out",
+    "min": 0,
+    "max": "*",
+    "type": "string"
+  }, {
     "name": "Service Request Item List",
+    "use": "out",
+    "min": 0,
+    "max": "*",
+    "type": "Resource"
+  }, {
+    "name": "Dispatched Orders List",
+    "use": "out",
+    "min": 0,
+    "max": "*",
+    "type": "Resource"
+  }, {
+    "name": "Fulfillment Tasks For Dispatched Orders",
+    "use": "out",
+    "min": 0,
+    "max": "*",
+    "type": "Task"
+  }, {
+    "name": "Orders To Process",
     "use": "out",
     "min": 0,
     "max": "*",
@@ -172,11 +214,11 @@
   }, {
     "type": "ServiceRequest",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/ServiceRequest" ],
-    "mustSupport": [ "code", "requester", "performer" ]
+    "mustSupport": [ "code", "requester", "performer", "id", "id.value" ]
   }, {
     "type": "DeviceRequest",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/DeviceRequest" ],
-    "mustSupport": [ "code", "requester", "performer" ]
+    "mustSupport": [ "code", "requester", "performer", "id", "id.value" ]
   }, {
     "type": "Device",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/Device" ],
@@ -187,7 +229,7 @@
   }, {
     "type": "NutritionOrder",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/NutritionOrder" ],
-    "mustSupport": [ "enteralFormula", "enteralFormula.baseFormulaType", "orderer" ]
+    "mustSupport": [ "enteralFormula", "enteralFormula.baseFormulaType", "orderer", "id", "id.value" ]
   }, {
     "type": "MedicationRequest",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/MedicationRequest" ],
@@ -198,19 +240,23 @@
   }, {
     "type": "MedicationRequest",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/MedicationRequest" ],
-    "mustSupport": [ "medication", "requester", "performer" ]
+    "mustSupport": [ "medication", "requester", "performer", "id", "id.value" ]
   }, {
     "type": "VisionPrescription",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/VisionPrescription" ],
-    "mustSupport": [ "lensSpecification", "prescriber" ]
+    "mustSupport": [ "lensSpecification", "prescriber", "id", "id.value" ]
   }, {
     "type": "Appointment",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/Appointment" ],
     "mustSupport": [ "serviceType", "participant" ]
   }, {
+    "type": "Task",
+    "profile": [ "http://hl7.org/fhir/StructureDefinition/Task" ],
+    "mustSupport": [ "code", "reference", "id", "id.value", "focus", "focus.reference" ]
+  }, {
     "type": "CommunicationRequest",
     "profile": [ "http://hl7.org/fhir/StructureDefinition/CommunicationRequest" ],
-    "mustSupport": [ "requester", "content", "sender" ]
+    "mustSupport": [ "requester", "content", "sender", "id", "id.value" ]
   } ],
   "content": [ {
     "contentType": "text/cql",
