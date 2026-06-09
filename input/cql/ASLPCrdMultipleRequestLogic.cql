@@ -252,43 +252,69 @@ define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, 
 define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   if BillingOptionExtensionPresent(requestItem) then 
     "CRD Matrix"(requestItem)."CRD-7"
-  else if requestItem.medication is FHIR.CodeableConcept then 
-    if ((requestItem.medication as FHIR.CodeableConcept) in "Prior Auth Required for Procedure Valueset"
-    or (requestItem.medication as FHIR.CodeableConcept) in "Sleep Study Procedure") then 
-        if not exists (OrderLOBMatch."Matching Organizations by Name") 
-        or OrderLOBMatch."Matching Organizations by Name" is null then 
-          "CRD Matrix"(requestItem)."CRD-3.2"
-        else "CRD Matrix"(requestItem)."CRD-5"
-    else if (requestItem.medication as FHIR.CodeableConcept) in "Routine Procedure Valueset" then 
-        "CRD Matrix"(requestItem)."CRD-7"
-    else 
-        'Code Not Found'
-  else if requestItem.medication is FHIR.Reference then 
-    if exists ([Medication] M 
-      where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
-    ) then 
-        if exists ([Medication] M 
-          where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
-          and (
-            M.code in "Prior Auth Required for Procedure Valueset"
-            or M.code in "Sleep Study Procedure"
-          )
-        ) then 
+  else if (((requestItem.medication as FHIR.CodeableConcept) is not null) or ((requestItem.medication as FHIR.Reference) is not null)) then
+    if requestItem.medication is FHIR.CodeableConcept then 
+      if (
+        (exists ((requestItem.medication as FHIR.CodeableConcept).coding) c 
+          where c in "Prior Auth Required for Procedure Valueset")
+        or (exists ((requestItem.medication as FHIR.CodeableConcept).coding) c 
+          where c in "Sleep Study Procedure")
+        or (requestItem.medication as FHIR.CodeableConcept).text in "Prior Auth Required for Procedure Valueset"
+        or (requestItem.medication as FHIR.CodeableConcept).text in "Sleep Study Procedure"
+      ) then 
             if not exists (OrderLOBMatch."Matching Organizations by Name") 
             or OrderLOBMatch."Matching Organizations by Name" is null then 
               "CRD Matrix"(requestItem)."CRD-3.2"
             else "CRD Matrix"(requestItem)."CRD-5"
-        else if exists ([Medication] M 
-          where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
-          and M.code in "Routine Procedure Valueset"
-        ) then 
-            "CRD Matrix"(requestItem)."CRD-7"
-        else 
+      else if (
+        exists (((requestItem.medication as FHIR.CodeableConcept).coding) c 
+          where c in "Routine Procedure Valueset"
+        )
+        or (requestItem.medication as FHIR.CodeableConcept).text in "Routine Procedure Valueset"
+      ) then 
+          "CRD Matrix"(requestItem)."CRD-7"
+      else 
           'Code Not Found'
+    else if requestItem.medication is FHIR.Reference then 
+      if exists ([Medication] M 
+        where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
+      ) then 
+          if exists ([Medication] M 
+            where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
+              and (
+                exists ((M.code.coding) c 
+                  where c in "Prior Auth Required for Procedure Valueset"
+                )
+                or exists ((M.code.coding) c 
+                  where c in "Sleep Study Procedure"
+                )
+                or M.code.text in "Prior Auth Required for Procedure Valueset"
+                or M.code.text in "Sleep Study Procedure"
+              )
+          ) then 
+              if not exists (OrderLOBMatch."Matching Organizations by Name") 
+              or OrderLOBMatch."Matching Organizations by Name" is null then 
+                "CRD Matrix"(requestItem)."CRD-3.2"
+              else "CRD Matrix"(requestItem)."CRD-5"
+          else if exists ([Medication] M 
+            where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
+              and (
+                exists ((M.code.coding) c 
+                  where c in "Routine Procedure Valueset"
+                )
+                or M.code.text in "Routine Procedure Valueset"
+              )
+          ) then 
+              "CRD Matrix"(requestItem)."CRD-7"
+          else 
+            'Code Not Found'
+      else 
+        // "CRD Matrix"(requestItem)."CRD-UnexpectedError"
+        'Medication resource not found'
     else 
       "CRD Matrix"(requestItem)."CRD-UnexpectedError"
   else 
-    "CRD Matrix"(requestItem)."CRD-UnexpectedError"
+    'Code Not Found'
 
 define function BillingOptionExtensionPresent(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
   if requestItem is FHIR.MedicationRequest then 
