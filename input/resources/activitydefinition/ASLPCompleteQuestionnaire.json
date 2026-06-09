@@ -6,6 +6,9 @@
   "title": "Complete Questionnaire",
   "status": "draft",
   "description": "Create a task to complete a Questionnaire.",
+  "library": [
+    "http://example.org/sdh/dtr/aslp/Library/ASLPCrdMultipleRequestLogic"
+  ],
   "kind": "Task",
   "code": {
     "coding": [
@@ -14,5 +17,49 @@
         "code": "collect-information"
       }
     ]
-  }
+  }, 
+  "dynamicValue": [
+    {
+      "path": "status",
+      "expression": {
+        "language": "text/fhirpath",
+        "expression": "'requested'"
+      }
+    },
+    {
+      "path": "intent",
+      "expression": {
+        "language": "text/fhirpath",
+        "expression": "'order'"
+      }
+    },
+    {
+      "path": "businessStatus",
+      "expression": {
+        "language": "text/cql-identifier",
+        "expression": "AdjudicationOutcome"
+      }
+    },
+    {
+      "path": "statusReason",
+      "expression": {
+        "language": "text/cql-identifier",
+        "expression": "AdjudicationRationale"
+      }
+    },
+    {
+      "path": "reasonCode",
+      "expression": {
+        "language": "text/cql-identifier",
+        "expression": "AdjudicationReasonCodes"
+      }
+    }, 
+    {
+      "path": "extension",
+      "expression": {
+        "language": "text/cql-identifier",
+        "expression": "QuestionnaireExtensionForTask"
+      }
+    }
+  ]
 }

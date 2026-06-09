@@ -15,6 +15,12 @@ include ASLPCrdEvaluationLogic version '0.1.0' called Evaluation
 include QuestionnaireRouter version '0.1.0' called Router
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
+codesystem "AdjudicationOutcomes": 'https://codesystem.x12.org/005010/306'
+
+code "Approved": 'A1' from "AdjudicationOutcomes" display 'Approved'
+code "Denied": 'A3' from "AdjudicationOutcomes" display 'Denied'
+code "Pended": 'A4' from "AdjudicationOutcomes" display 'Pended'
+
 context Patient
 
 define "DebuggingEnabled": 
@@ -272,4 +278,198 @@ returns FHIR.Extension:
     item."DetailText", 
     if "DebuggingEnabled" then item."DetailQualification" + Ctx.NewLine + '--- DEBUGGING ---' + Ctx.NewLine + item."DetailDebugging" else item."DetailQualification",
     item."DetailValue"
+  )
+
+//Questionnaire elements
+define "RequiresPriorAuthSubmission":
+  exists (
+    "CoverageExtensionList" ExtList 
+    where exists (
+      ExtList.extension E
+      where E.url.value = 'pa-needed'
+        and (E.value.value = 'auth-needed' or E.value.value = 'conditional')
+    )
+  )
+
+//Created by Claude 3.7 Sonnet
+define "AdjudicationOutcome":
+  GetAdjudicationOutcome(First("CoverageExtensionList"))
+  // from "CoverageExtensionList" ExtList
+  // return GetAdjudicationOutcome(ExtList)
+
+define "AdjudicationRationale":
+  GetAdjudicationRationale(First("CoverageExtensionList"))
+  // from "CoverageExtensionList" ExtList
+  // return GetAdjudicationRationale(ExtList)
+
+define "AdjudicationReasonCodes":
+  GetAdjudicationReasonCodes(First("CoverageExtensionList"))
+  // from "CoverageExtensionList" ExtList
+  // return GetAdjudicationReasonCodes(ExtList)
+
+define "QuestionnaireExtensionForTask":
+  if First("CoverageExtensionList") is null then 
+      null 
+  else if IsPended(First("CoverageExtensionList")) then 
+    {
+      FHIR.Extension {
+        url: FHIR.uri { value: 'http://hl7.org/fhir/uv/sdc/CodeSystem/temp' },
+        value: FHIR.canonical { 
+          value: 'http://example.org/cdex-questionnaire-example1'
+        }
+      },
+      FHIR.Extension {
+        url: FHIR.uri { value: 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire' },
+        value: FHIR.canonical { 
+          value: 'http://example.org/sdh/dtr/aslp/Questionnaire/ASLPCrd-MultipleRequest"'
+        }
+      },
+      FHIR.Extension {
+        url: FHIR.uri { value: 'http://hl7.org/fhir/StructureDefinition/task-input-type' },
+        value: FHIR.CodeableConcept {
+          coding: {
+            FHIR.Coding {
+              system: FHIR.uri { value: 'http://loinc.org' },
+              code: FHIR.code { value: '102089-0' },
+              display: FHIR.string { 
+                value: 'Documentation request from payers and providers' 
+              }
+            }
+          }
+        }
+      }, 
+      FHIR.Extension {
+        url: FHIR.uri { value: 'https://loinc.org/valid-hl7-attachment-requests/' },
+        value: FHIR.CodeableConcept {
+          coding: {
+            FHIR.Coding {
+              system: FHIR.uri { value: 'http://loinc.org' },
+              code: FHIR.code { value: '11506-3' },
+              display: FHIR.string { 
+                value: 'Progress notes' 
+              }
+            }
+          }
+        }
+      }
+  }
+  else 
+    null
+
+define function GetAdjudicationOutcome(extension FHIR.Extension):
+  if extension is null then
+    null 
+  else if IsApproved(extension) then
+    FHIR.CodeableConcept {
+      coding: {
+        FHIR.Coding {
+          system: FHIR.uri { value: 'http://example.com/CodeSystem/adjudication-outcomes' },
+          code: FHIR.code { value: 'A1' },
+          display: FHIR.string { value: 'Approved' }
+        }
+      }
+    }
+  else if IsDenied(extension) then 
+    FHIR.CodeableConcept {
+      coding: {
+        FHIR.Coding {
+          system: FHIR.uri { value: 'http://example.com/CodeSystem/adjudication-outcomes' },
+          code: FHIR.code { value: 'A3' },
+          display: FHIR.string { value: 'Denied' }
+        }
+      }
+    }
+  else
+    FHIR.CodeableConcept {
+      coding: {
+        FHIR.Coding {
+          system: FHIR.uri { value: 'http://example.com/CodeSystem/adjudication-outcomes' },
+          code: FHIR.code { value: 'A4' },
+          display: FHIR.string { value: 'Pended' }
+        }
+      }
+    }
+
+define function GetAdjudicationRationale(extension FHIR.Extension):
+  if extension is null then 
+    null 
+  else if IsPended(extension) then
+    FHIR.CodeableConcept {
+      text: FHIR.string { value: 'Additional patient clinical information is required to complete prior authorization review' }
+    }
+  else if IsDenied(extension) then
+    FHIR.CodeableConcept {
+      text: FHIR.string { value: 'Service is not covered under the current benefit plan' }
+    }
+  else if IsApproved(extension) then
+    FHIR.CodeableConcept {
+      text: FHIR.string { value: 'Service has been approved for coverage' }
+    }
+  else null
+
+define function GetAdjudicationReasonCodes(extension FHIR.Extension):
+  if extension is null then 
+    null 
+  else if IsPended(extension) then
+    {
+      FHIR.CodeableConcept {
+        coding: {
+          FHIR.Coding {
+            system: FHIR.uri { value: 'http://example.com/CodeSystem/reason-codes' },
+            code: FHIR.code { value: '0U' },
+            display: FHIR.string { value: 'Additional Patient Information Required' }
+          }
+        }
+      }
+    }
+  else if IsDenied(extension) then
+    {
+      FHIR.CodeableConcept {
+        coding: {
+          FHIR.Coding {
+            system: FHIR.uri { value: 'http://example.com/CodeSystem/reason-codes' },
+            code: FHIR.code { value: '0M' },
+            display: FHIR.string { value: 'Non-covered Service' }
+          }
+        }
+      }
+    }
+  else 
+    {
+      FHIR.CodeableConcept {
+        coding: {
+          FHIR.Coding {
+            system: FHIR.uri { value: 'http://example.com/CodeSystem/reason-codes' },
+            code: FHIR.code { value: '0N' },
+            display: FHIR.string { value: 'Covered Service' }
+          }
+        }
+      }
+    }
+
+define function IsPended(extension FHIR.Extension): 
+  if extension is null then 
+    null 
+  else exists (
+    extension.extension E
+    where E.url.value = 'covered' 
+      and E.value.value = 'conditional'
+  )
+
+define function IsApproved(extension FHIR.Extension):
+  if extension is null then 
+    null 
+  else exists (
+    extension.extension E
+    where E.url.value = 'covered' 
+      and E.value.value = 'covered'
+  )
+
+define function IsDenied(extension FHIR.Extension):
+  if extension is null then 
+    null 
+  else exists (
+    extension.extension E
+    where E.url.value = 'covered' 
+      and E.value.value = 'not-covered'
   )
