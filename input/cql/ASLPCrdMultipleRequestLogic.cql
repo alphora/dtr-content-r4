@@ -245,7 +245,47 @@ define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, 
   if (not exists (requestItem.basedOn)) then 
     "CRD Matrix"(requestItem)."CRD-7"
   else if (exists (requestItem.basedOn)) then 
-    "CRD Matrix"(requestItem)."CRD-9"
+    if exists (requestItem.serviceType) then 
+      if exists ((requestItem.serviceType) S
+        where exists ((S.coding) c 
+          where c in "Prior Auth Required for Procedure Valueset"
+          or c in "Sleep Study Procedure"
+        )
+      ) then 
+        "CRD Matrix"(requestItem)."CRD-5"
+      else if exists ((requestItem.serviceType) S
+        where exists ((S.coding) c 
+          where c in "Routine Procedure Valueset"
+        )
+      ) then 
+        "CRD Matrix"(requestItem)."CRD-7"
+      else 
+        'Code Not Found'
+    else if exists (requestItem.basedOn) then 
+      if exists ((requestItem.basedOn) B
+        where exists ([ServiceRequest] SR 
+          where B.reference = 'ServiceRequest' + SR.id
+            and exists ((SR.code.coding) c
+              where c in "Prior Auth Required for Procedure Valueset"
+              or c in "Sleep Study Procedure"
+            )
+        )
+      ) then 
+        "CRD Matrix"(requestItem)."CRD-5"
+      else if exists ((requestItem.basedOn) B
+        where exists ([ServiceRequest] SR 
+          where B.reference = 'ServiceRequest' + SR.id
+            and exists ((SR.code.coding) c
+              where c in "Routine Procedure Valueset"
+            )
+        )
+      ) then 
+        "CRD Matrix"(requestItem)."CRD-7"
+      else 
+        'Code Not Found'
+    else 
+      // "CRD Matrix"(requestItem)."CRD-9"
+      "CRD Matrix"(requestItem)."CRD-UnexpectedError"
   else
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
