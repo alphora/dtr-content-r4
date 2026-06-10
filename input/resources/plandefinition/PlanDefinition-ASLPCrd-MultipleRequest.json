@@ -203,7 +203,7 @@
     }, {
       "type": "ServiceRequest",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/ServiceRequest" ],
-      "mustSupport": [ "code", "requester", "performer" ]
+      "mustSupport": [ "code", "requester", "performer", "id", "code.coding" ]
     }, {
       "type": "DeviceRequest",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/DeviceRequest" ],
@@ -2627,7 +2627,7 @@
       "valueString": "GetCrdResultAppointment"
     }, {
       "url": "statement",
-      "valueString": "define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if (not exists (requestItem.basedOn)) then \n    \"CRD Matrix\"(requestItem).\"CRD-7\"\n  else if (exists (requestItem.basedOn)) then \n    \"CRD Matrix\"(requestItem).\"CRD-9\"\n  else\n    \"CRD Matrix\"(requestItem).\"CRD-UnexpectedError\""
+      "valueString": "define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if (not exists (requestItem.basedOn)) then \n    \"CRD Matrix\"(requestItem).\"CRD-7\"\n  else if (exists (requestItem.basedOn)) then \n    if exists (requestItem.serviceType) then \n      if exists ((requestItem.serviceType) S\n        where exists ((S.coding) c \n          where c in \"Prior Auth Required for Procedure Valueset\"\n          or c in \"Sleep Study Procedure\"\n        )\n      ) then \n        \"CRD Matrix\"(requestItem).\"CRD-5\"\n      else if exists ((requestItem.serviceType) S\n        where exists ((S.coding) c \n          where c in \"Routine Procedure Valueset\"\n        )\n      ) then \n        \"CRD Matrix\"(requestItem).\"CRD-7\"\n      else \n        'Code Not Found'\n    else if exists (requestItem.basedOn) then \n      if exists ((requestItem.basedOn) B\n        where exists ([ServiceRequest] SR \n          where B.reference = 'ServiceRequest' + SR.id\n            and exists ((SR.code.coding) c\n              where c in \"Prior Auth Required for Procedure Valueset\"\n              or c in \"Sleep Study Procedure\"\n            )\n        )\n      ) then \n        \"CRD Matrix\"(requestItem).\"CRD-5\"\n      else if exists ((requestItem.basedOn) B\n        where exists ([ServiceRequest] SR \n          where B.reference = 'ServiceRequest' + SR.id\n            and exists ((SR.code.coding) c\n              where c in \"Routine Procedure Valueset\"\n            )\n        )\n      ) then \n        \"CRD Matrix\"(requestItem).\"CRD-7\"\n      else \n        'Code Not Found'\n    else \n      // \"CRD Matrix\"(requestItem).\"CRD-9\"\n      \"CRD Matrix\"(requestItem).\"CRD-UnexpectedError\"\n  else\n    \"CRD Matrix\"(requestItem).\"CRD-UnexpectedError\""
     }, {
       "url": "displaySequence",
       "valueInteger": 157
@@ -2773,7 +2773,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-06-09T14:42:26-06:00",
+  "date": "2026-06-10T11:01:59-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MultipleRequest",
   "useContext": [ {
