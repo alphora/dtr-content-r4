@@ -178,29 +178,34 @@ define "null Service Request Item":
 
 // CRD Coverage Extensions
 define "CoverageExtensionList":
-  if exists (Ctx."selections") then
-    ((Ctx."Service Request Item List") SR
-      where exists ((Ctx."selections") S
-        where S.reference.value ~ Ctx.GetOrderReference(SR)
-      )
-    ) request
-        return all
-          "GetCoverageExtension"(request, GetCrdResult(request))
-          // TESTING OUTPUT
-          //(GetCrdResult(RequestItem)).ID + Ctx.NewLine +
-          //(GetCrdResult(RequestItem)).DetailDebugging
-  else if exists (Ctx."Orders To Process") then
-    (Ctx."Orders To Process") request
+  if exists (Ctx."Selections Orders List") then
+    Ctx."Selections Orders List" request
       return all
         "GetCoverageExtension"(request, GetCrdResult(request))
         // TESTING OUTPUT
         //(GetCrdResult(RequestItem)).ID + Ctx.NewLine +
         //(GetCrdResult(RequestItem)).DetailDebugging
+  else if exists (Ctx."Dispatched Orders List") then
+    if exists Ctx."Fulfillment Tasks For Dispatched Orders" then
+      Ctx."Fulfillment Tasks For Dispatched Orders" request
+        return all
+          "GetCoverageExtension"(request, GetCrdResult(request))
+          // TESTING OUTPUT
+          //(GetCrdResult(RequestItem)).ID + Ctx.NewLine +
+          //(GetCrdResult(RequestItem)).DetailDebugging
+    else 
+      Ctx."Dispatched Orders List" request 
+        return all
+          "GetCoverageExtension"(request, GetCrdResult(request))
   else if exists (Ctx."Appointments List") then
     Ctx."Appointments List" appointment
       return all 
         "GetCoverageExtension"(appointment, GetCrdResult(appointment))
-  else 
+  else if exists Ctx."Service Request Item List" then 
+    Ctx."Service Request Item List" request 
+      return all 
+        "GetCoverageExtension"(request, GetCrdResult(request))
+  else
     "GetCoverageExtension"(
       "null Service Request Item", 
       GetCrdResult("null Service Request Item")

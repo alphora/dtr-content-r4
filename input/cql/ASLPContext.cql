@@ -16,11 +16,10 @@ code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
 
 // NutritionOrder, ServiceRequest, DeviceRequest, MedicationRequest, VisionPrescription with /draft/ status
 parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Task>>
-parameter "selections" List<FHIR.Reference> 
-parameter "dispatchedOrders" List<FHIR.Reference>
-parameter "appointments" List<FHIR.Appointment>
-parameter "hookType" System.String
+parameter "selections" List<System.String> 
+parameter "dispatchedOrders" List<System.String>
 parameter "fulfillmentTasks" List<FHIR.Task>
+parameter "appointments" List<FHIR.Appointment>
 parameter "Request Id" System.String
   // NOTE: defaults should not be used in production
   //default 'generated-id-default-value'
@@ -350,47 +349,56 @@ define function ToRefString(r Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, F
     else null
   end
 
+define function GetOrderFromDraftOrders(ref System.String):
+  if (not exists "Service Request Item List") then 
+    'No draftOrders exist.'
+  else 
+    "Service Request Item List" S 
+      where S.id.value = Split(ref, '/').last()
+
 define function TaskReferencesDispatchedOrder(T FHIR.Task):
   exists (
-    "Dispatched Order References" R
+    "Dispatched Orders List" D
       where
-        (T.focus.reference is not null and T.focus.reference = R)
-        or exists (T.basedOn B where B.reference = R)
+        (T.focus.reference is not null 
+          and Split(T.focus.reference, '/').last() = D.id)
+        or exists ((T.basedOn) B 
+          where Split(B.reference, '/').last() = D.id)
   )
 
-define function ConvertReferenceToOrder(ref FHIR.Reference):
-  First(
-    "Service Request Item List" S 
-      where S.id.value = Last(Split(ref.reference.value, '/'))
-  )
-
-define "Service Request Item List":
-  "draftOrders"
-  // NOTE: these retrieves are only for local testing
+define "Selections Orders List":
+  if (exists "selections") then
+    from "selections" S
+    where GetOrderFromDraftOrders(S) is not null
+    return GetOrderFromDraftOrders(S)
+  else 
+    'A selection from draftOrders does not exist.'
 
 define "Dispatched Orders List": 
-  from "dispatchedOrders" D  
-  where ConvertReferenceToOrder(D) is not null
-  return ConvertReferenceToOrder(D)
-
-define "Dispatched Order References":
-  from "dispatchedOrders" D
-  where D.reference is not null 
-  return D.reference
-
+  if (exists "dispatchedOrders") then
+    from "dispatchedOrders" D
+    where GetOrderFromDraftOrders(D) is not null
+    return GetOrderFromDraftOrders(D)
+  else 
+    'A dispatched order from draftOrders does not exist.'
+    
 define "Fulfillment Tasks For Dispatched Orders":
   ("fulfillmentTasks") T
     where TaskReferencesDispatchedOrder(T)
 
-define "Orders To Process": 
-  if ("hookType" = 'order-dispatch'
-    and not exists "Fulfillment Tasks For Dispatched Orders") then 
-      "Dispatched Orders List"
-  else if ("hookType" = 'order-dispatch'
-    and exists "Fulfillment Tasks For Dispatched Orders") then 
-      "Fulfillment Tasks For Dispatched Orders"
-  else
-      "Service Request Item List"
+// define "Orders To Process": 
+//   if ("hookType" = 'order-dispatch'
+//     and not exists "Fulfillment Tasks For Dispatched Orders") then 
+//       "Dispatched Orders List"
+//   else if ("hookType" = 'order-dispatch'
+//     and exists "Fulfillment Tasks For Dispatched Orders") then 
+//       "Fulfillment Tasks For Dispatched Orders"
+//   else
+//       "Service Request Item List"
+
+define "Service Request Item List":
+  "draftOrders"
+  // NOTE: these retrieves are only for local testing
 
 define "Appointments List": 
   "appointments"
