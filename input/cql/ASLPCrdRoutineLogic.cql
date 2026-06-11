@@ -45,4 +45,7 @@ define function "Not Routine"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servi
 
 define function "Routine Service Requests"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):
   requestItem R
-    where (Ctx.GetCode(R)) in "Routine Procedure Valueset"
+    where Ctx.GetCode(R) is not null
+      and exists ((Ctx.GetCode(R).coding) c 
+        where c in "Routine Procedure Valueset"
+      )
