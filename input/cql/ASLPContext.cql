@@ -3,7 +3,7 @@ library ASLPContext version '0.1.0'
 using USCore version '7.0.0'
 using FHIR version '4.0.1'
 
-include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
+include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1' called FHIRHelpers 
 include CrdExtendedCoverageInfo version '0.1.0' called ECI
 include ASLPContextProvider version '0.1.0' called ContextProvider
 include ASLPContextPayor version '0.1.0' called ContextPayor
@@ -349,52 +349,38 @@ define function ToRefString(r Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, F
     else null
   end
 
-define function GetOrderFromDraftOrders(ref System.String):
-  if (not exists "Service Request Item List") then 
-    'No draftOrders exist.'
-  else 
-    "Service Request Item List" S 
-      where S.id.value = Split(ref, '/').last()
+define function GetOrderFromDraftOrders(list List<System.String>):
+  "Service Request Item List" S 
+    where exists ((list) L
+      where Split(L, '/').last() = S.id.value
+    )
 
 define function TaskReferencesDispatchedOrder(T FHIR.Task):
-  exists (
-    "Dispatched Orders List" D
-      where
-        (T.focus.reference is not null 
-          and Split(T.focus.reference, '/').last() = D.id)
-        or exists ((T.basedOn) B 
-          where Split(B.reference, '/').last() = D.id)
+  exists (("Dispatched Orders List") D
+    where 
+      (T.focus is not null 
+        and Split(FHIRHelpers.ToString(T.focus.reference), '/').last() = D.id.value
+      )
+      or exists ((T.basedOn) B 
+        where Split(FHIRHelpers.ToString(B.reference), '/').last() = D.id.value
+      )
   )
 
 define "Selections Orders List":
   if (exists "selections") then
-    from "selections" S
-    where GetOrderFromDraftOrders(S) is not null
-    return GetOrderFromDraftOrders(S)
+    GetOrderFromDraftOrders("selections")
   else 
-    'A selection from draftOrders does not exist.'
+    "Service Request Item List"
 
 define "Dispatched Orders List": 
   if (exists "dispatchedOrders") then
-    from "dispatchedOrders" D
-    where GetOrderFromDraftOrders(D) is not null
-    return GetOrderFromDraftOrders(D)
+    GetOrderFromDraftOrders("dispatchedOrders")
   else 
-    'A dispatched order from draftOrders does not exist.'
+    "Service Request Item List"
     
 define "Fulfillment Tasks For Dispatched Orders":
-  ("fulfillmentTasks") T
+  "fulfillmentTasks" T
     where TaskReferencesDispatchedOrder(T)
-
-// define "Orders To Process": 
-//   if ("hookType" = 'order-dispatch'
-//     and not exists "Fulfillment Tasks For Dispatched Orders") then 
-//       "Dispatched Orders List"
-//   else if ("hookType" = 'order-dispatch'
-//     and exists "Fulfillment Tasks For Dispatched Orders") then 
-//       "Fulfillment Tasks For Dispatched Orders"
-//   else
-//       "Service Request Item List"
 
 define "Service Request Item List":
   "draftOrders"
