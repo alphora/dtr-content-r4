@@ -431,12 +431,6 @@ define "QuestionnaireExtensionForTask":
   else if IsPended(First("CoverageExtensionList")) then 
     {
       FHIR.Extension {
-        url: FHIR.uri { value: 'http://hl7.org/fhir/uv/sdc/CodeSystem/temp' },
-        value: FHIR.canonical { 
-          value: 'http://example.org/cdex-questionnaire-example1'
-        }
-      },
-      FHIR.Extension {
         url: FHIR.uri { value: 'http://hl7.org/fhir/uv/sdc/StructureDefinition/sdc-questionnaire' },
         value: FHIR.canonical { 
           value: 'http://example.org/sdh/dtr/aslp/Questionnaire/ASLPCrd-MultipleRequest'
