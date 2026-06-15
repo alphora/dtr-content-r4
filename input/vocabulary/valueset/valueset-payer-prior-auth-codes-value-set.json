@@ -115,7 +115,11 @@
           {
               "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
               "concept": [
-                  {
+                    {
+                        "code": "V2101",
+                        "display": "Single vision lens, per eye, plastic"
+                    },
+                    {
                       "code": "C8918",
                       "display": "Magnetic resonance angiography with contrast, pelvis"
                   },
