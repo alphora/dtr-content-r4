@@ -223,7 +223,7 @@ returns FHIR.CodeableConcept:
   else if (item is FHIR.VisionPrescription) then 
     if exists ((item as FHIR.VisionPrescription).lensSpecification) LS 
       where exists ((LS.extension) E 
-        where E.url = 'http://example.org/fhir/billing-options'
+        where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
       )
      then 
         First(
