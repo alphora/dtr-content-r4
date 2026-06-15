@@ -144,7 +144,7 @@ returns FHIR.Extension:
       FHIR.Extension {
         "url": FHIR.uri { "value": 'value' },
         // "value": FHIR.string { "value": warningOrInfo }
-        "value": FHIR.string { "value": if IsNull(warningOrInfoValue) or warningOrInfoValue = '' then 'N/A' else warningOrInfoValue }
+        "value": FHIR.string { "value": if IsNull(warningOrInfoValue) or warningOrInfoValue = '' then 'info' else warningOrInfoValue }
       },
 
       FHIR.Extension {
