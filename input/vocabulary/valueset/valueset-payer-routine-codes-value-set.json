@@ -57,51 +57,6 @@
         ]
       },
       {
-        "system": "urn:oid:2.16.840.1.113883.6.285",
-        "concept": [
-          {
-            "code": "V5008",
-            "display": "Hearing screening"
-          },
-          {
-            "code": "G0202",
-            "display": "Screening mammography"
-          },
-          {
-            "code": "G0438",
-            "display": "first annual wellness visit"
-          },
-          {
-            "code": "E0607",
-            "display": "Home blood glucose monitor"
-          },
-          {
-            "code": "E0130",
-            "display": "Walker, rigid (pickup), adjustable or fixed height"
-          },
-          {
-            "code": "A4253",
-            "display": "Blood glucose test or reagent strips for home blood glucose monitor, per 50"
-          },
-          {
-            "code": "A4670",
-            "display": "Automatic blood pressure monitor"
-          },
-          {
-              "code": "E0607",
-              "display": "Home blood glucose monitor"
-          },
-          {
-              "code": "E0130",
-              "display": "Walker, rigid (pickup), adjustable or fixed height"
-          },
-          {
-              "code": "A4253",
-              "display": "Blood glucose test or reagent strips for home blood glucose monitor, per 50"
-          }
-        ]
-      },
-      {
           "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
           "concept": [
             {
