@@ -675,7 +675,7 @@
       "valueString": "npi"
     }, {
       "url": "statement",
-      "valueString": "define fluent function npi(items List<Choice<Practitioner, Organization>>)\nreturns List<System.String>:\n  items I\n    return GetIdentifier(I, 'http://hl7.org/fhir/sid/us-npi')"
+      "valueString": "define fluent function npi(items List<Choice<FHIR.Practitioner, FHIR.Organization>>)\nreturns List<System.String>:\n  items I\n    return GetIdentifier(I, 'http://hl7.org/fhir/sid/us-npi')"
     }, {
       "url": "displaySequence",
       "valueInteger": 33
@@ -690,7 +690,7 @@
       "valueString": "GetIdentifier"
     }, {
       "url": "statement",
-      "valueString": "define function GetIdentifier(item Choice<Practitioner, Organization>, url System.String)\nreturns System.String:\n  singleton from\n  (\n    item.identifier I\n      where I.system.value ~ url\n      return I.value.value\n  )"
+      "valueString": "// define function GetIdentifier(item Choice<FHIR.Practitioner, FHIR.Organization>, url System.String)\n// returns System.String:\n//   singleton from\n//   (\n//     item.identifier I\n//       where I.system.value ~ url\n//       return I.value.value\n//   )\n\ndefine function GetIdentifier(item Choice<FHIR.Practitioner, FHIR.Organization>, url System.String)\nreturns System.String:\n  First(\n    item.identifier I\n      where I.system.value ~ url\n      return I.value.value\n  )"
     }, {
       "url": "displaySequence",
       "valueInteger": 34
@@ -720,7 +720,7 @@
       "valueString": "getNpi"
     }, {
       "url": "statement",
-      "valueString": "define fluent function getNpi(item Choice<Practitioner, Organization>)\nreturns System.String:\n  GetIdentifier(item, 'http://hl7.org/fhir/sid/us-npi')"
+      "valueString": "define fluent function getNpi(item Choice<FHIR.Practitioner, FHIR.Organization>)\nreturns System.String:\n  GetIdentifier(item, 'http://hl7.org/fhir/sid/us-npi')"
     }, {
       "url": "displaySequence",
       "valueInteger": 36
@@ -780,7 +780,7 @@
       "valueString": "Performing PractitionerRoles from ServiceRequest"
     }, {
       "url": "statement",
-      "valueString": "define function \"Performing PractitionerRoles from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"Provider\".\"PractitionerRoles\" PR\n    with (Ctx.GetPerformer(requestItem)) PerformerPractitioner\n    such that PerformerPractitioner.reference.value ~ 'PractitionerRole/' + PR.id.value"
+      "valueString": "// or (RequestingOrganization.name ~ PayorOrg.name and RequestingOrganization.type ~ PayorOrg.type)\n        // or RequestingOrganization.getNpi() ~ PayorOrg.getNpi()\n\ndefine function \"Performing PractitionerRoles from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"Provider\".\"PractitionerRoles\" PR\n    with (Ctx.GetPerformer(requestItem)) PerformerPractitioner\n    such that PerformerPractitioner.reference.value ~ 'PractitionerRole/' + PR.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 40
@@ -1316,7 +1316,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-06-16T12:35:53-06:00",
+  "date": "2026-06-16T14:19:34-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-ProviderNpiMatch",
   "useContext": [ {

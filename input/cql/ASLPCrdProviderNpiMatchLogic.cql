@@ -159,8 +159,10 @@ define function "Matching Requesting Organizations by Name & Type or NPI"(reques
     with "Payor Organization from Provider Coverage for Patient" PayorOrg
     such that 
       (RequestingOrganization.name ~ PayorOrg.name)
-        or (RequestingOrganization.name ~ PayorOrg.name and RequestingOrganization.type ~ PayorOrg.type)
-        or RequestingOrganization.getNpi() ~ PayorOrg.getNpi()
+      and (RequestingOrganization.type ~ PayorOrg.type)
+      and RequestingOrganization.getNpi() ~ PayorOrg.getNpi()
+        // or (RequestingOrganization.name ~ PayorOrg.name and RequestingOrganization.type ~ PayorOrg.type)
+        // or RequestingOrganization.getNpi() ~ PayorOrg.getNpi()
 
 define function "Performing PractitionerRoles from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):
   Ctx."Provider"."PractitionerRoles" PR
@@ -233,8 +235,10 @@ define function "Matching Performing Organizations by Name & Type or NPI"(reques
     with "Payor Organization from Provider Coverage for Patient" PayorOrg
     such that 
       PerformingOrganization.name ~ PayorOrg.name
-        or (PerformingOrganization.name ~ PayorOrg.name and PerformingOrganization.type ~ PayorOrg.type)
-        or PerformingOrganization.getNpi() ~ PayorOrg.getNpi()
+      and PerformingOrganization.getNpi() ~ PayorOrg.getNpi()
+      and PerformingOrganization.type ~ PayorOrg.type
+        // or (PerformingOrganization.name ~ PayorOrg.name and PerformingOrganization.type ~ PayorOrg.type)
+        // or PerformingOrganization.getNpi() ~ PayorOrg.getNpi()
 
 define "Payor References by Coverage.payor":
   flatten(Ctx."Provider"."Coverages" C return C.payor.reference.value)

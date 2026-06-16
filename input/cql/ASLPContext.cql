@@ -159,21 +159,29 @@ define function IsPayorResource(resource Resource):
 // returns System.Boolean:
   TagExists(resource, "Payor Code")
 
-define function GetIdentifier(item Choice<Practitioner, Organization>, url System.String)
+// define function GetIdentifier(item Choice<FHIR.Practitioner, FHIR.Organization>, url System.String)
+// returns System.String:
+//   singleton from
+//   (
+//     item.identifier I
+//       where I.system.value ~ url
+//       return I.value.value
+//   )
+
+define function GetIdentifier(item Choice<FHIR.Practitioner, FHIR.Organization>, url System.String)
 returns System.String:
-  singleton from
-  (
+  First(
     item.identifier I
       where I.system.value ~ url
       return I.value.value
   )
 
-define fluent function npi(items List<Choice<Practitioner, Organization>>)
+define fluent function npi(items List<Choice<FHIR.Practitioner, FHIR.Organization>>)
 returns List<System.String>:
   items I
     return GetIdentifier(I, 'http://hl7.org/fhir/sid/us-npi')
 
-define fluent function getNpi(item Choice<Practitioner, Organization>)
+define fluent function getNpi(item Choice<FHIR.Practitioner, FHIR.Organization>)
 returns System.String:
   GetIdentifier(item, 'http://hl7.org/fhir/sid/us-npi')
 

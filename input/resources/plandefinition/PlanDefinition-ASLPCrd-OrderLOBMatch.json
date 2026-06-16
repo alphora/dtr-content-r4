@@ -33,12 +33,12 @@
       "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextProvider|0.1.0"
     }, {
       "type": "depends-on",
-      "display": "Library FHIRHelpers",
-      "resource": "http://hl7.org/fhir/uv/cql/Library/FHIRHelpers|4.0.1"
-    }, {
-      "type": "depends-on",
       "display": "Library ContextPayor",
       "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPContextPayor|0.1.0"
+    }, {
+      "type": "depends-on",
+      "display": "Library FHIRHelpers",
+      "resource": "http://hl7.org/fhir/uv/cql/Library/FHIRHelpers|4.0.1"
     }, {
       "type": "depends-on",
       "display": "Library ECI",
@@ -308,7 +308,7 @@
       "valueString": "Provider References by Coverage.payor"
     }, {
       "url": "statement",
-      "valueString": "define \"Provider References by Coverage.payor\":\n  flatten(Ctx.\"Provider\".\"Coverages\" C return C.payor.reference)"
+      "valueString": "define \"Provider References by Coverage.payor\":\n  flatten(Ctx.\"Provider\".\"Coverages\" C return C.payor.reference.value)"
     }, {
       "url": "displaySequence",
       "valueInteger": 8
@@ -1069,7 +1069,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-06-16T12:35:53-06:00",
+  "date": "2026-06-16T14:19:34-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-OrderLOBMatch",
   "useContext": [ {
