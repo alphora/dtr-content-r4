@@ -164,7 +164,7 @@
     "max": "*",
     "type": "Extension"
   }, {
-    "name": "RequiresPriorAuthSubmission",
+    "name": "PriorAuthSubmissionRequisite",
     "use": "out",
     "min": 0,
     "max": "1",

@@ -399,15 +399,14 @@ returns FHIR.Extension:
   )
 
 //Questionnaire elements
-define "RequiresPriorAuthSubmission":
-  exists (
-    "CoverageExtensionList" ExtList 
+define "PriorAuthSubmissionRequisite":
+  from "CoverageExtensionList" ExtList 
     where exists (
       ExtList.extension E
       where E.url.value = 'pa-needed'
         and (E.value.value = 'auth-needed' or E.value.value = 'conditional')
     )
-  )
+  return 'pa-needed or conditional'
 
 //Created by Claude 3.7 Sonnet
 define "AdjudicationOutcome":
