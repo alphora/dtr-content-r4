@@ -74,6 +74,27 @@
                       "display": "Home sleep test (HST) with type IV portable monitor, unattended; minimum of 3 channels"
                   }
               ]
+          }, 
+          {
+            "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+            "concept": [
+                  {
+                      "code": "E1399",
+                      "display": "Durable medical equipment, miscellaneous"
+                  },
+                  {
+                      "code": "G0398",
+                      "display": "Home sleep study test (HST) with type II portable monitor, unattended; minimum of 7 channels: EEG, EOG, EMG, ECG/heart rate, airflow, respiratory effort and oxygen saturation"
+                  },
+                  {
+                      "code": "G0399",
+                      "display": "Home sleep test (HST) with type III portable monitor, unattended; minimum of 4 channels: 2 respiratory movement/airflow, 1 ECG/heart rate and 1 oxygen saturation"
+                  },
+                  {
+                      "code": "G0400",
+                      "display": "Home sleep test (HST) with type IV portable monitor, unattended; minimum of 3 channels"
+                  }
+              ]
           }
       ]
   }
