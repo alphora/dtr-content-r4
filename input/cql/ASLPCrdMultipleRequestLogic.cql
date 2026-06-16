@@ -265,7 +265,7 @@ define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, 
       ) then 
         "CRD Matrix"(requestItem)."CRD-7"
       else 
-        'Code Not Found'
+        "CRD Matrix"(requestItem)."CRD-6"
     else if exists (requestItem.basedOn) then 
       if exists ((requestItem.basedOn) B
         where exists ([ServiceRequest] SR 
@@ -287,7 +287,7 @@ define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, 
       ) then 
         "CRD Matrix"(requestItem)."CRD-7"
       else 
-        'Code Not Found'
+        "CRD Matrix"(requestItem)."CRD-6"
     else 
       // "CRD Matrix"(requestItem)."CRD-9"
       "CRD Matrix"(requestItem)."CRD-UnexpectedError"
@@ -296,30 +296,30 @@ define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, 
 
 define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   if BillingOptionExtensionPresent(requestItem) then 
-    "CRD Matrix"(requestItem)."CRD-7"
+    if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
+      "CRD Matrix"(requestItem)."CRD-5"
+    else "CRD Matrix"(requestItem)."CRD-6"
   else if (((requestItem.medication as FHIR.CodeableConcept) is not null) or ((requestItem.medication as FHIR.Reference) is not null)) then
     if requestItem.medication is FHIR.CodeableConcept then 
       if (
-        (exists ((requestItem.medication as FHIR.CodeableConcept).coding) c 
-          where c in "Prior Auth Required for Procedure Valueset")
-        or (exists ((requestItem.medication as FHIR.CodeableConcept).coding) c 
-          where c in "Sleep Study Procedure")
-        or (requestItem.medication as FHIR.CodeableConcept).text in "Prior Auth Required for Procedure Valueset"
-        or (requestItem.medication as FHIR.CodeableConcept).text in "Sleep Study Procedure"
-      ) then 
-            if not exists (OrderLOBMatch."Matching Organizations by Name") 
-            or OrderLOBMatch."Matching Organizations by Name" is null then 
-              "CRD Matrix"(requestItem)."CRD-3.2"
-            else "CRD Matrix"(requestItem)."CRD-5"
-      else if (
-        exists (((requestItem.medication as FHIR.CodeableConcept).coding) c 
-          where c in "Routine Procedure Valueset"
+        PriorAuthList."Not OnPriorAuthList"(requestItem)
+        or (
+          Ctx.GetCode(requestItem) is not null
+          and exists ((Ctx.GetCode(requestItem).coding) c 
+            where not (c in  "Sleep Study Procedure"))
         )
-        or (requestItem.medication as FHIR.CodeableConcept).text in "Routine Procedure Valueset"
       ) then 
-          "CRD Matrix"(requestItem)."CRD-7"
+        "CRD Matrix"(requestItem)."CRD-6"
+            // if not exists (OrderLOBMatch."Matching Organizations by Name") 
+            // or OrderLOBMatch."Matching Organizations by Name" is null then 
+            //   "CRD Matrix"(requestItem)."CRD-3.2"
+            // else "CRD Matrix"(requestItem)."CRD-6"
+      else if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
+        "CRD Matrix"(requestItem)."CRD-5"
+      else if (Routine."Is Routine"(requestItem)) then 
+        "CRD Matrix"(requestItem)."CRD-7"
       else 
-          'Code Not Found'
+        "CRD Matrix"(requestItem)."CRD-6"
     else if requestItem.medication is FHIR.Reference then 
       if exists ([Medication] M 
         where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
@@ -333,8 +333,6 @@ define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionO
                 or exists ((M.code.coding) c 
                   where c in "Sleep Study Procedure"
                 )
-                or M.code.text in "Prior Auth Required for Procedure Valueset"
-                or M.code.text in "Sleep Study Procedure"
               )
           ) then 
               if not exists (OrderLOBMatch."Matching Organizations by Name") 
@@ -343,36 +341,75 @@ define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionO
               else "CRD Matrix"(requestItem)."CRD-5"
           else if exists ([Medication] M 
             where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
-              and (
-                exists ((M.code.coding) c 
-                  where c in "Routine Procedure Valueset"
-                )
-                or M.code.text in "Routine Procedure Valueset"
+              and exists ((M.code.coding) c 
+                where c in "Routine Procedure Valueset"
               )
           ) then 
               "CRD Matrix"(requestItem)."CRD-7"
           else 
-            'Code Not Found'
+            "CRD Matrix"(requestItem)."CRD-6"
       else 
         // "CRD Matrix"(requestItem)."CRD-UnexpectedError"
-        'Medication resource not found'
+        "CRD Matrix"(requestItem)."CRD-6"
     else 
       "CRD Matrix"(requestItem)."CRD-UnexpectedError"
   else 
-    'Code Not Found'
+    "CRD Matrix"(requestItem)."CRD-6"
 
-define function BillingOptionExtensionPresent(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
+define function BillingOptionExtensionPresent(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   if requestItem is FHIR.MedicationRequest then 
-      ((requestItem as FHIR.MedicationRequest).medication) is FHIR.CodeableConcept
-      and exists ((((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension) E 
+    ((requestItem as FHIR.MedicationRequest).medication) is FHIR.CodeableConcept
+    and exists ((((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension) E 
+      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+    )
+  else if requestItem is FHIR.VisionPrescription then 
+    exists (requestItem.lensSpecification LS 
+      where exists (LS.extension E 
         where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
       )
-  else if requestItem is FHIR.VisionPrescription then 
-      exists (requestItem.lensSpecification LS 
-        where exists (LS.extension E 
-          where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+    )
+  else if requestItem is FHIR.ServiceRequest then 
+    exists (requestItem.extension E
+      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+    )
+  else if requestItem is FHIR.NutritionOrder then 
+    exists (
+      requestItem.oralDiet.extension E
+        where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+    )
+    or exists (
+      requestItem.supplement S
+        where exists (
+          S.extension E
+            where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
         )
-      )
+    )
+    or exists (
+      requestItem.enteralFormula.extension E
+        where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+    )
+  else if requestItem is FHIR.DeviceRequest then
+    exists (requestItem.extension E
+      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+    )
+  else if requestItem is FHIR.CommunicationRequest then 
+    exists (requestItem.payload.extension E
+      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+    )
+    or exists (requestItem.extension E
+      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+    )
+  else if requestItem is FHIR.Appointment then 
+    exists (requestItem.extension E
+      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+    )
+  else if requestItem is FHIR.Task then 
+    exists (requestItem.input.extension E
+      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+    )
+    or exists (requestItem.extension E
+      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+    )
   else null
 
 define function GetCrdResultOther(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
