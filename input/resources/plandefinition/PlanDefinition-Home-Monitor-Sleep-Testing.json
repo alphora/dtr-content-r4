@@ -2347,7 +2347,8 @@
   } ],
   "usage": "This is to be used in conjunction with a patient-facing FHIR application.",
   "library": [ "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyPAA" ],
-  "action": [ {
+  "action": [
+  {
     "extension": [ {
       "url": "http://hl7.org/fhir/StructureDefinition/cqf-applicabilityBehavior",
       "valueString": "any"
@@ -2503,7 +2504,7 @@
               "valueString": "any"
             } ],
             "title": "Qualified device is used",
-            "description": "Type II, Type III, Type IV or PAT PM device is used (Type IV PM devices must measure a minimum of 3 channels that include heartrate, oxygen saturation and respiratory analysis).",
+            "description": "Type II, Type III, Type IV or PAT PM device is used.",
             "condition": [ {
               "kind": "applicability",
               "expression": {
@@ -2572,32 +2573,88 @@
                   "title": "Submit Questionnaire",
                   "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPSubmitQuestionnaire"
                 } ]
-              }, {
-                "title": "Complete Questionnaire",
-                "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCompleteQuestionnaire"
+              },
+              {
+                "title": "Submit Questionnaire",
+                "condition": [ {
+                  "kind": "applicability",
+                  "expression": {
+                    "language": "text/cql-identifier",
+                    "expression": "Unable To Have Physician Evaluate Results"
+                  }
+                } ],
+                "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPSubmitQuestionnaire"
               } ]
-            }, {
+            },
+            {
               "title": "Complete Questionnaire",
+              "condition": [ {
+                "kind": "applicability",
+                "expression": {
+                  "language": "text/cql-identifier",
+                  "expression": "Can Not Safely Use Equipment At Home"
+                }
+              } ],
               "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCompleteQuestionnaire"
             } ]
-          }, {
+          },
+          {
             "title": "Complete Questionnaire",
+            "condition": [ {
+              "kind": "applicability",
+              "expression": {
+                "language": "text/cql-identifier",
+                "expression": "Does Not Use Qualified Device"
+              }
+            } ],
             "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCompleteQuestionnaire"
           } ]
-        }, {
+        },
+        {
           "title": "Complete Questionnaire",
+          "condition": [ {
+            "kind": "applicability",
+            "expression": {
+              "language": "text/cql-identifier",
+              "expression": "Has Applicable Comorbid Medical Conditions"
+            }
+          } ],
           "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCompleteQuestionnaire"
         } ]
-      }, {
+      },
+      {
         "title": "Complete Questionnaire",
+        "condition": [ {
+          "kind": "applicability",
+          "expression": {
+            "language": "text/cql-identifier",
+            "expression": "Has No Additional Daytime Sleepiness Indicators"
+          }
+        } ],
         "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCompleteQuestionnaire"
       } ]
-    }, {
+    },
+    {
       "title": "Complete Questionnaire",
+      "condition": [ {
+        "kind": "applicability",
+        "expression": {
+          "language": "text/cql-identifier",
+          "expression": "No Excessive Daytime Sleepiness"
+        }
+      } ],
       "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCompleteQuestionnaire"
     } ]
-  }, {
+  },
+  {
     "title": "Complete Questionnaire",
+    "condition": [ {
+      "kind": "applicability",
+      "expression": {
+        "language": "text/cql-identifier",
+        "expression": "Not Within Qualifying Age"
+      }
+    } ],
     "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCompleteQuestionnaire"
-  } ]
-}
+  }
+] }
