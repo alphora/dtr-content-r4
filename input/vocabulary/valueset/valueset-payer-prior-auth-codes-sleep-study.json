@@ -76,7 +76,7 @@
               ]
           }, 
           {
-            "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+            "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
             "concept": [
                   {
                       "code": "E1399",
