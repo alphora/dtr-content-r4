@@ -292,7 +292,7 @@ returns List<FHIR.Reference>:
   else if (item is FHIR.Appointment) then
     ((item as FHIR.Appointment).participant.actor) as List<FHIR.Reference>
   else if (item is FHIR.Task) then
-    null as List<FHIR.Reference>
+    ({ (item as FHIR.Task).for }) as List<FHIR.Reference>
   else null as List<FHIR.Reference>
 
 define function GetPerformer(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>)
