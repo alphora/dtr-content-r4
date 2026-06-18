@@ -351,59 +351,42 @@ define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionO
   else 
     "CRD Matrix"(requestItem)."CRD-6"
 
+define function hasBillingExtension(exts List<FHIR.Extension>) returns System.Boolean:
+  exists(
+    exts E 
+      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+  )
+
 define function BillingOptionExtensionPresent(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   if requestItem is FHIR.MedicationRequest then 
     ((requestItem as FHIR.MedicationRequest).medication) is FHIR.CodeableConcept
-    and exists ((((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension) E 
-      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
-    )
+    and hasBillingExtension(((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension)
   else if requestItem is FHIR.VisionPrescription then 
-    exists (requestItem.lensSpecification LS 
-      where exists (LS.extension E 
-        where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
-      )
+    exists (((requestItem as FHIR.VisionPrescription).lensSpecification) LS 
+      where hasBillingExtension(LS.extension)
     )
   else if requestItem is FHIR.ServiceRequest then 
-    exists (requestItem.extension E
-      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
-    )
+    hasBillingExtension((requestItem as FHIR.ServiceRequest).extension)
   else if requestItem is FHIR.NutritionOrder then 
-    exists (
-      requestItem.oralDiet.extension E
-        where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
-    )
+    hasBillingExtension((requestItem as FHIR.NutritionOrder).oralDiet.extension)
+    or hasBillingExtension((requestItem as FHIR.NutritionOrder).enteralFormula.extension)
     or exists (
-      requestItem.supplement S
-        where exists (
-          S.extension E
-            where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
-        )
-    )
-    or exists (
-      requestItem.enteralFormula.extension E
-        where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+      ((requestItem as FHIR.NutritionOrder).supplement) S
+        where hasBillingExtension(S.extension)
     )
   else if requestItem is FHIR.DeviceRequest then
-    exists (requestItem.extension E
-      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
-    )
+    hasBillingExtension((requestItem as FHIR.DeviceRequest).extension)
   else if requestItem is FHIR.CommunicationRequest then 
-    exists (requestItem.payload.extension E
-      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
-    )
-    or exists (requestItem.extension E
-      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+    hasBillingExtension((requestItem as FHIR.CommunicationRequest).extension)
+    or exists (((requestItem as FHIR.CommunicationRequest).payload) P
+      where hasBillingExtension(P.extension)
     )
   else if requestItem is FHIR.Appointment then 
-    exists (requestItem.extension E
-      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
-    )
+    hasBillingExtension((requestItem as FHIR.Appointment).extension)
   else if requestItem is FHIR.Task then 
-    exists (requestItem.input.extension E
-      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
-    )
-    or exists (requestItem.extension E
-      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+    hasBillingExtension((requestItem as FHIR.Task).extension)
+    or exists (((requestItem as FHIR.Task).input) I
+      where hasBillingExtension(I.extension)
     )
   else null
 
