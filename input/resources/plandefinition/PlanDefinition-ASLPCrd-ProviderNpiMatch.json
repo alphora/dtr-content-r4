@@ -148,16 +148,16 @@
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Appointment" ],
       "mustSupport": [ "participant", "serviceType" ]
     }, {
+      "type": "Task",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Task" ],
+      "mustSupport": [ "for", "code" ]
+    }, {
       "type": "Device",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Device" ],
       "mustSupport": [ "id", "type" ],
       "codeFilter": [ {
         "path": "id"
       } ]
-    }, {
-      "type": "Task",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/Task" ],
-      "mustSupport": [ "code" ]
     } ]
   } ],
   "extension": [ {
@@ -600,7 +600,7 @@
       "valueString": "GetRequester"
     }, {
       "url": "statement",
-      "valueString": "define function GetRequester(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>)\nreturns List<FHIR.Reference>:\n  if (item is FHIR.ServiceRequest) then\n    ({ (item as FHIR.ServiceRequest).requester }) as List<FHIR.Reference>\n  else if (item is FHIR.DeviceRequest) then\n    ({ (item as FHIR.DeviceRequest).requester }) as List<FHIR.Reference>\n  else if (item is FHIR.NutritionOrder) then\n    ({ (item as FHIR.NutritionOrder).orderer }) as List<FHIR.Reference>\n  else if (item is FHIR.MedicationRequest) then \n    ({ (item as FHIR.MedicationRequest).requester }) as List<FHIR.Reference>\n  else if (item is FHIR.VisionPrescription) then \n    ({ (item as FHIR.VisionPrescription).prescriber }) as List<FHIR.Reference>\n  else if (item is FHIR.CommunicationRequest) then\n    ({ (item as FHIR.CommunicationRequest).requester }) as List<FHIR.Reference>\n  else if (item is FHIR.Appointment) then\n    ((item as FHIR.Appointment).participant.actor) as List<FHIR.Reference>\n  else if (item is FHIR.Task) then\n    null as List<FHIR.Reference>\n  else null as List<FHIR.Reference>"
+      "valueString": "define function GetRequester(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>)\nreturns List<FHIR.Reference>:\n  if (item is FHIR.ServiceRequest) then\n    ({ (item as FHIR.ServiceRequest).requester }) as List<FHIR.Reference>\n  else if (item is FHIR.DeviceRequest) then\n    ({ (item as FHIR.DeviceRequest).requester }) as List<FHIR.Reference>\n  else if (item is FHIR.NutritionOrder) then\n    ({ (item as FHIR.NutritionOrder).orderer }) as List<FHIR.Reference>\n  else if (item is FHIR.MedicationRequest) then \n    ({ (item as FHIR.MedicationRequest).requester }) as List<FHIR.Reference>\n  else if (item is FHIR.VisionPrescription) then \n    ({ (item as FHIR.VisionPrescription).prescriber }) as List<FHIR.Reference>\n  else if (item is FHIR.CommunicationRequest) then\n    ({ (item as FHIR.CommunicationRequest).requester }) as List<FHIR.Reference>\n  else if (item is FHIR.Appointment) then\n    ((item as FHIR.Appointment).participant.actor) as List<FHIR.Reference>\n  else if (item is FHIR.Task) then\n    ({ (item as FHIR.Task).for }) as List<FHIR.Reference>\n  else null as List<FHIR.Reference>"
     }, {
       "url": "displaySequence",
       "valueInteger": 28
@@ -1316,7 +1316,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-06-17T07:01:14-06:00",
+  "date": "2026-06-18T07:53:37-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-ProviderNpiMatch",
   "useContext": [ {

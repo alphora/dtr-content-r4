@@ -197,11 +197,11 @@
     }, {
       "type": "ServiceRequest",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/ServiceRequest" ],
-      "mustSupport": [ "code", "requester", "performer", "id", "code.coding" ]
+      "mustSupport": [ "code", "requester", "performer", "id", "code.coding", "extension" ]
     }, {
       "type": "DeviceRequest",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/DeviceRequest" ],
-      "mustSupport": [ "code", "requester", "performer" ]
+      "mustSupport": [ "code", "requester", "performer", "extension" ]
     }, {
       "type": "Device",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Device" ],
@@ -212,7 +212,7 @@
     }, {
       "type": "NutritionOrder",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/NutritionOrder" ],
-      "mustSupport": [ "enteralFormula", "enteralFormula.baseFormulaType", "orderer" ]
+      "mustSupport": [ "enteralFormula", "enteralFormula.baseFormulaType", "orderer", "oralDiet", "oralDiet.extension", "enteralFormula.extension", "supplement" ]
     }, {
       "type": "MedicationRequest",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/MedicationRequest" ],
@@ -231,15 +231,15 @@
     }, {
       "type": "Appointment",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Appointment" ],
-      "mustSupport": [ "serviceType", "participant" ]
+      "mustSupport": [ "serviceType", "participant", "extension" ]
     }, {
       "type": "Task",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Task" ],
-      "mustSupport": [ "code", "focus", "focus.reference", "basedOn" ]
+      "mustSupport": [ "code", "for", "extension", "input", "focus", "focus.reference", "basedOn" ]
     }, {
       "type": "CommunicationRequest",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/CommunicationRequest" ],
-      "mustSupport": [ "requester", "content", "sender" ]
+      "mustSupport": [ "requester", "content", "sender", "extension", "payload" ]
     }, {
       "type": "Medication",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Medication" ],
@@ -2066,7 +2066,7 @@
       "valueString": "GetRequester"
     }, {
       "url": "statement",
-      "valueString": "define function GetRequester(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>)\nreturns List<FHIR.Reference>:\n  if (item is FHIR.ServiceRequest) then\n    ({ (item as FHIR.ServiceRequest).requester }) as List<FHIR.Reference>\n  else if (item is FHIR.DeviceRequest) then\n    ({ (item as FHIR.DeviceRequest).requester }) as List<FHIR.Reference>\n  else if (item is FHIR.NutritionOrder) then\n    ({ (item as FHIR.NutritionOrder).orderer }) as List<FHIR.Reference>\n  else if (item is FHIR.MedicationRequest) then \n    ({ (item as FHIR.MedicationRequest).requester }) as List<FHIR.Reference>\n  else if (item is FHIR.VisionPrescription) then \n    ({ (item as FHIR.VisionPrescription).prescriber }) as List<FHIR.Reference>\n  else if (item is FHIR.CommunicationRequest) then\n    ({ (item as FHIR.CommunicationRequest).requester }) as List<FHIR.Reference>\n  else if (item is FHIR.Appointment) then\n    ((item as FHIR.Appointment).participant.actor) as List<FHIR.Reference>\n  else if (item is FHIR.Task) then\n    null as List<FHIR.Reference>\n  else null as List<FHIR.Reference>"
+      "valueString": "define function GetRequester(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>)\nreturns List<FHIR.Reference>:\n  if (item is FHIR.ServiceRequest) then\n    ({ (item as FHIR.ServiceRequest).requester }) as List<FHIR.Reference>\n  else if (item is FHIR.DeviceRequest) then\n    ({ (item as FHIR.DeviceRequest).requester }) as List<FHIR.Reference>\n  else if (item is FHIR.NutritionOrder) then\n    ({ (item as FHIR.NutritionOrder).orderer }) as List<FHIR.Reference>\n  else if (item is FHIR.MedicationRequest) then \n    ({ (item as FHIR.MedicationRequest).requester }) as List<FHIR.Reference>\n  else if (item is FHIR.VisionPrescription) then \n    ({ (item as FHIR.VisionPrescription).prescriber }) as List<FHIR.Reference>\n  else if (item is FHIR.CommunicationRequest) then\n    ({ (item as FHIR.CommunicationRequest).requester }) as List<FHIR.Reference>\n  else if (item is FHIR.Appointment) then\n    ((item as FHIR.Appointment).participant.actor) as List<FHIR.Reference>\n  else if (item is FHIR.Task) then\n    ({ (item as FHIR.Task).for }) as List<FHIR.Reference>\n  else null as List<FHIR.Reference>"
     }, {
       "url": "displaySequence",
       "valueInteger": 120
@@ -2651,10 +2651,25 @@
       "valueString": "BillingOptionExtensionPresent"
     }, {
       "url": "statement",
-      "valueString": "define function BillingOptionExtensionPresent(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if requestItem is FHIR.MedicationRequest then \n    ((requestItem as FHIR.MedicationRequest).medication) is FHIR.CodeableConcept\n    and exists ((((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension) E \n      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n    )\n  else if requestItem is FHIR.VisionPrescription then \n    exists (requestItem.lensSpecification LS \n      where exists (LS.extension E \n        where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n      )\n    )\n  else if requestItem is FHIR.ServiceRequest then \n    exists (requestItem.extension E\n      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n    )\n  else if requestItem is FHIR.NutritionOrder then \n    exists (\n      requestItem.oralDiet.extension E\n        where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n    )\n    or exists (\n      requestItem.supplement S\n        where exists (\n          S.extension E\n            where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n        )\n    )\n    or exists (\n      requestItem.enteralFormula.extension E\n        where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n    )\n  else if requestItem is FHIR.DeviceRequest then\n    exists (requestItem.extension E\n      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n    )\n  else if requestItem is FHIR.CommunicationRequest then \n    exists (requestItem.payload.extension E\n      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n    )\n    or exists (requestItem.extension E\n      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n    )\n  else if requestItem is FHIR.Appointment then \n    exists (requestItem.extension E\n      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n    )\n  else if requestItem is FHIR.Task then \n    exists (requestItem.input.extension E\n      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n    )\n    or exists (requestItem.extension E\n      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n    )\n  else null"
+      "valueString": "define function BillingOptionExtensionPresent(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if requestItem is FHIR.MedicationRequest then \n    ((requestItem as FHIR.MedicationRequest).medication) is FHIR.CodeableConcept\n    and hasBillingExtension(((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension)\n  else if requestItem is FHIR.VisionPrescription then \n    exists (((requestItem as FHIR.VisionPrescription).lensSpecification) LS \n      where hasBillingExtension(LS.extension)\n    )\n  else if requestItem is FHIR.ServiceRequest then \n    hasBillingExtension((requestItem as FHIR.ServiceRequest).extension)\n  else if requestItem is FHIR.NutritionOrder then \n    hasBillingExtension((requestItem as FHIR.NutritionOrder).oralDiet.extension)\n    or hasBillingExtension((requestItem as FHIR.NutritionOrder).enteralFormula.extension)\n    or exists (\n      ((requestItem as FHIR.NutritionOrder).supplement) S\n        where hasBillingExtension(S.extension)\n    )\n  else if requestItem is FHIR.DeviceRequest then\n    hasBillingExtension((requestItem as FHIR.DeviceRequest).extension)\n  else if requestItem is FHIR.CommunicationRequest then \n    hasBillingExtension((requestItem as FHIR.CommunicationRequest).extension)\n    or exists (((requestItem as FHIR.CommunicationRequest).payload) P\n      where hasBillingExtension(P.extension)\n    )\n  else if requestItem is FHIR.Appointment then \n    hasBillingExtension((requestItem as FHIR.Appointment).extension)\n  else if requestItem is FHIR.Task then \n    hasBillingExtension((requestItem as FHIR.Task).extension)\n    or exists (((requestItem as FHIR.Task).input) I\n      where hasBillingExtension(I.extension)\n    )\n  else null"
     }, {
       "url": "displaySequence",
       "valueInteger": 159
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPCrdMultipleRequestLogic"
+    }, {
+      "url": "name",
+      "valueString": "hasBillingExtension"
+    }, {
+      "url": "statement",
+      "valueString": "define function hasBillingExtension(exts List<FHIR.Extension>) returns System.Boolean:\n  exists(\n    exts E \n      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n  )"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 160
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2669,7 +2684,7 @@
       "valueString": "define function \"Not OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  not ((\"Is OnPriorAuthList\"(requestItem)))"
     }, {
       "url": "displaySequence",
-      "valueInteger": 160
+      "valueInteger": 161
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2684,7 +2699,7 @@
       "valueString": "define function GetCrdResultOther(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if (PriorAuthList.\"Is OnPriorAuthList\"(requestItem)) then\n    if not exists (OrderLOBMatch.\"Matching Organizations by Name\") \n    or OrderLOBMatch.\"Matching Organizations by Name\" is null then \n      \"CRD Matrix\"(requestItem).\"CRD-3.2\"\n    else \"CRD Matrix\"(requestItem).\"CRD-5\"\n  else if (PriorAuthList.\"Not OnPriorAuthList\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-6\"\n  else\n    \"CRD Matrix\"(requestItem).\"CRD-UnexpectedError\""
     }, {
       "url": "displaySequence",
-      "valueInteger": 161
+      "valueInteger": 162
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2699,7 +2714,7 @@
       "valueString": "define function TaskReferencesDispatchedOrder(T FHIR.Task):\n  exists ((\"Dispatched Orders List\") D\n    where \n      (T.focus is not null \n        and Split(FHIRHelpers.ToString(T.focus.reference), '/').last() = D.id.value\n      )\n      or exists ((T.basedOn) B \n        where Split(FHIRHelpers.ToString(B.reference), '/').last() = D.id.value\n      )\n  )"
     }, {
       "url": "displaySequence",
-      "valueInteger": 162
+      "valueInteger": 163
     } ]
   }, {
     "id": "effective-data-requirements",
@@ -2722,7 +2737,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-06-17T07:01:13-06:00",
+  "date": "2026-06-18T07:53:37-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MultipleRequest",
   "useContext": [ {
