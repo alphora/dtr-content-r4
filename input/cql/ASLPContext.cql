@@ -229,35 +229,34 @@ returns FHIR.CodeableConcept:
     else 
       null as FHIR.CodeableConcept
   else if (item is FHIR.VisionPrescription) then 
-    if exists ((item as FHIR.VisionPrescription).lensSpecification) LS 
+    if (exists ((item as FHIR.VisionPrescription).lensSpecification) LS 
       where exists ((LS.extension) E 
         where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
       )
-     then 
-        First(
-          (
-            ((item as FHIR.VisionPrescription).lensSpecification) LS
-              return First(
-                (LS.extension) E
-                  where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
-                    and (E.value as FHIR.CodeableConcept) is not null
-                  return (E.value as FHIR.CodeableConcept)
-              )
-          ) CC
-            where CC is not null
-        )
-    else if exists (((item as FHIR.VisionPrescription).lensSpecification) LS
-        where LS.product is not null
-        and exists (LS.product.coding)
     ) then 
-      First(
-        (
-          ((item as FHIR.VisionPrescription).lensSpecification) LS
-            where LS.product is not null
-              and exists (LS.product.coding)
-            return LS.product
-        )
-      )
+        First(
+          from ((item as FHIR.VisionPrescription).lensSpecification) LS 
+          let billingExt: First(
+              (LS.extension) E
+                where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+                  and E.value is not null
+          )
+            where billingExt is not null
+          return billingExt.value as FHIR.CodeableConcept
+        )         
+    else if exists ((item as FHIR.VisionPrescription).lensSpecification) LS
+      where not exists ((LS.extension) E 
+        where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+      ) then
+          First(
+            from ((item as FHIR.VisionPrescription).lensSpecification) LS 
+              where exists ((LS.extension) E 
+                where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+              )
+              and LS.product is not null
+            return 
+              LS.product
+          )
     else
       null as FHIR.CodeableConcept
   else if (item is FHIR.Appointment) then 
