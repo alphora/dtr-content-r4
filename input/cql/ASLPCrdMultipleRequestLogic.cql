@@ -270,18 +270,14 @@ define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, 
     else 
       "CRD Matrix"(requestItem)."CRD-6"  
   else if exists (requestItem.serviceType) then 
-    if exists ((requestItem.serviceType) S 
-      where exists ((S.coding) c 
-        where c in "Sleep Study Procedure"
-        or c in "Prior Auth Required for Procedure Valueset"
-      )
-    ) then 
+    if (
+        PriorAuthList."Is OnPriorAuthList"(requestItem)
+        or exists ((Ctx.GetCode(requestItem).coding) c
+          where c in "Sleep Study Procedure"
+        )
+    ) then
       "CRD Matrix"(requestItem)."CRD-5"
-    else if exists ((requestItem.serviceType) S 
-      where exists ((S.coding) c 
-        where c in "Routine Procedure Valueset"
-      )
-    ) then 
+    else if Routine."Is Routine"(requestItem) then 
       "CRD Matrix"(requestItem)."CRD-7"
     else 
       "CRD Matrix"(requestItem)."CRD-6"

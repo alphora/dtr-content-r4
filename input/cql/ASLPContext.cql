@@ -260,14 +260,8 @@ returns FHIR.CodeableConcept:
     else
       null as FHIR.CodeableConcept
   else if (item is FHIR.Appointment) then 
-    if First(
-        ((item as FHIR.Appointment).serviceType) S
-          where S is not null
-      ) is FHIR.CodeableConcept then 
-        First(
-          ((item as FHIR.Appointment).serviceType) S
-            where S is not null
-        ) as FHIR.CodeableConcept
+    if exists ((item as FHIR.Appointment).serviceType) then 
+      First((item as FHIR.Appointment).serviceType)
     else 
       null as FHIR.CodeableConcept
   else if (item is FHIR.Task) then 
