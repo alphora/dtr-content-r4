@@ -277,65 +277,45 @@ define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, 
 
 define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   if BillingOptionExtensionPresent(requestItem) then 
-    if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
+    if (PriorAuthList."Is OnPriorAuthList"(requestItem)
+      or exists ((Ctx.GetCode(requestItem).coding) c 
+        where c in "Sleep Study Procedure"
+      )
+    ) then
       "CRD Matrix"(requestItem)."CRD-5"
-    else "CRD Matrix"(requestItem)."CRD-6"
-  else if (((requestItem.medication as FHIR.CodeableConcept) is not null) or ((requestItem.medication as FHIR.Reference) is not null)) then
-    if requestItem.medication is FHIR.CodeableConcept then 
-      if (
-        PriorAuthList."Not OnPriorAuthList"(requestItem)
-        or (
-          Ctx.GetCode(requestItem) is not null
-          and exists ((Ctx.GetCode(requestItem).coding) c 
-            where not (c in  "Sleep Study Procedure"))
-        )
-      ) then 
-        "CRD Matrix"(requestItem)."CRD-6"
-            // if not exists (OrderLOBMatch."Matching Organizations by Name") 
-            // or OrderLOBMatch."Matching Organizations by Name" is null then 
-            //   "CRD Matrix"(requestItem)."CRD-3.2"
-            // else "CRD Matrix"(requestItem)."CRD-6"
-      else if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
-        "CRD Matrix"(requestItem)."CRD-5"
-      else if (Routine."Is Routine"(requestItem)) then 
-        "CRD Matrix"(requestItem)."CRD-7"
-      else 
-        "CRD Matrix"(requestItem)."CRD-6"
-    else if requestItem.medication is FHIR.Reference then 
-      if exists ([Medication] M 
-        where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
-      ) then 
-          if exists ([Medication] M 
-            where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
-              and (
-                exists ((M.code.coding) c 
-                  where c in "Prior Auth Required for Procedure Valueset"
-                )
-                or exists ((M.code.coding) c 
-                  where c in "Sleep Study Procedure"
-                )
-              )
-          ) then 
-              if not exists (OrderLOBMatch."Matching Organizations by Name") 
-              or OrderLOBMatch."Matching Organizations by Name" is null then 
-                "CRD Matrix"(requestItem)."CRD-3.2"
-              else "CRD Matrix"(requestItem)."CRD-5"
-          else if exists ([Medication] M 
-            where (requestItem.medication as FHIR.Reference).reference = 'Medication/' + M.id 
-              and exists ((M.code.coding) c 
-                where c in "Routine Procedure Valueset"
-              )
-          ) then 
-              "CRD Matrix"(requestItem)."CRD-7"
-          else 
-            "CRD Matrix"(requestItem)."CRD-6"
-      else 
-        // "CRD Matrix"(requestItem)."CRD-UnexpectedError"
-        "CRD Matrix"(requestItem)."CRD-6"
+    else if (Routine."Is Routine"(requestItem)) then 
+      "CRD Matrix"(requestItem)."CRD-7"
     else 
-      "CRD Matrix"(requestItem)."CRD-UnexpectedError"
+      "CRD Matrix"(requestItem)."CRD-6"
+  else if (((requestItem.medication as FHIR.CodeableConcept) is not null) or ((requestItem.medication as FHIR.Reference) is not null)) then
+    if (PriorAuthList."Is OnPriorAuthList"(requestItem)
+      or exists ((Ctx.GetCode(requestItem).coding) c 
+        where c in "Sleep Study Procedure"
+      )
+    ) then
+        if not exists (OrderLOBMatch."Matching Organizations by Name") 
+        or OrderLOBMatch."Matching Organizations by Name" is null then 
+          "CRD Matrix"(requestItem)."CRD-3.2"
+        else 
+          "CRD Matrix"(requestItem)."CRD-5"
+    else if (
+      PriorAuthList."Not OnPriorAuthList"(requestItem)
+      or exists ((Ctx.GetCode(requestItem).coding) c 
+        where not (c in "Sleep Study Procedure")
+      )
+    ) then 
+      "CRD Matrix"(requestItem)."CRD-6"
+          // if not exists (OrderLOBMatch."Matching Organizations by Name") 
+          // or OrderLOBMatch."Matching Organizations by Name" is null then 
+          //   "CRD Matrix"(requestItem)."CRD-3.2"
+          // else "CRD Matrix"(requestItem)."CRD-6"
+    else if (Routine."Is Routine"(requestItem)) then 
+      "CRD Matrix"(requestItem)."CRD-7"
+    else 
+      "CRD Matrix"(requestItem)."CRD-6"
   else 
     "CRD Matrix"(requestItem)."CRD-6"
+    // "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
 define function hasBillingExtension(exts List<FHIR.Extension>) returns System.Boolean:
   exists(
