@@ -262,6 +262,14 @@ returns FHIR.CodeableConcept:
   else if (item is FHIR.Appointment) then 
     if exists ((item as FHIR.Appointment).serviceType) then 
       First((item as FHIR.Appointment).serviceType)
+    else if exists ((item as FHIR.Appointment).basedOn) then 
+      from ([ServiceRequest]) SR
+        where exists (((item as FHIR.Appointment).basedOn) b 
+            where b.reference.value = 'ServiceRequest/' + SR.id 
+            or EndsWith(b.reference.value, '/' + SR.id)
+        )
+      return 
+        SR.code
     else 
       null as FHIR.CodeableConcept
   else if (item is FHIR.Task) then 
