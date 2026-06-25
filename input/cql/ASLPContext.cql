@@ -225,7 +225,15 @@ returns FHIR.CodeableConcept:
     if (item as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then
       (item as FHIR.MedicationRequest).medication as FHIR.CodeableConcept
     else if (item as FHIR.MedicationRequest).medication is FHIR.Reference then
-      ([MedicationRequest: id ~ ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference])
+      if exists ([Medication]) then 
+        from [Medication] M 
+          where not IsNull(((item as FHIR.MedicationRequest).medication as FHIR.Reference) ref 
+            where ref.reference = 'Medication/' + M.id
+          )
+        return M.code
+      else 
+        null as FHIR.CodeableConcept
+      // ([MedicationRequest: id ~ ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference])
     else 
       null as FHIR.CodeableConcept
   else if (item is FHIR.VisionPrescription) then 
@@ -263,13 +271,16 @@ returns FHIR.CodeableConcept:
     if exists ((item as FHIR.Appointment).serviceType) then 
       First((item as FHIR.Appointment).serviceType)
     else if exists ((item as FHIR.Appointment).basedOn) then 
-      from ([ServiceRequest]) SR
-        where exists (((item as FHIR.Appointment).basedOn) b 
-            where b.reference.value = 'ServiceRequest/' + SR.id 
-            or EndsWith(b.reference.value, '/' + SR.id)
-        )
-      return 
-        SR.code
+      if exists ([ServiceRequest]) then
+        from ([ServiceRequest]) SR
+          where exists (((item as FHIR.Appointment).basedOn) b 
+              where b.reference.value = 'ServiceRequest/' + SR.id 
+              or EndsWith(b.reference.value, '/' + SR.id)
+          )
+        return 
+          SR.code
+      else 
+        null as FHIR.CodeableConcept
     else 
       null as FHIR.CodeableConcept
   else if (item is FHIR.Task) then 
