@@ -1954,7 +1954,7 @@
       "valueString": "Matching Requesting Organizations by Name & Type or NPI"
     }, {
       "url": "statement",
-      "valueString": "define function \"Matching Requesting Organizations by Name & Type or NPI\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n (\"Requesting Organizations\"(requestItem)) RequestingOrganization\n    with \"Payor Organization from Provider Coverage for Patient\" PayorOrg\n    such that \n      (RequestingOrganization.name ~ PayorOrg.name)\n      and (RequestingOrganization.type ~ PayorOrg.type)\n      and RequestingOrganization.getNpi() ~ PayorOrg.getNpi()"
+      "valueString": "define function \"Matching Requesting Organizations by Name & Type or NPI\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n (\"Requesting Organizations\"(requestItem)) RequestingOrganization\n    with \"Payor Organization from Provider Coverage for Patient\" PayorOrg\n    such that (\n      RequestingOrganization.getNpi() ~ PayorOrg.getNpi()\n      or (\n        (RequestingOrganization.name ~ PayorOrg.name)\n        and (RequestingOrganization.type ~ PayorOrg.type)\n      )\n    )"
     }, {
       "url": "displaySequence",
       "valueInteger": 113
@@ -2134,7 +2134,7 @@
       "valueString": "Matching Performing Organizations by Name & Type or NPI"
     }, {
       "url": "statement",
-      "valueString": "define function \"Matching Performing Organizations by Name & Type or NPI\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  (\"Performing Organizations\"(requestItem)) PerformingOrganization\n    with \"Payor Organization from Provider Coverage for Patient\" PayorOrg\n    such that \n      PerformingOrganization.name ~ PayorOrg.name\n      and PerformingOrganization.getNpi() ~ PayorOrg.getNpi()\n      and PerformingOrganization.type ~ PayorOrg.type"
+      "valueString": "define function \"Matching Performing Organizations by Name & Type or NPI\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  (\"Performing Organizations\"(requestItem)) PerformingOrganization\n    with \"Payor Organization from Provider Coverage for Patient\" PayorOrg\n    such that \n      PerformingOrganization.getNpi() ~ PayorOrg.getNpi()\n      or (\n        PerformingOrganization.name ~ PayorOrg.name \n        and PerformingOrganization.type ~ PayorOrg.type\n      )"
     }, {
       "url": "displaySequence",
       "valueInteger": 125
@@ -2730,7 +2730,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-06-25T10:38:54-06:00",
+  "date": "2026-07-07T12:28:21-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MultipleRequest",
   "useContext": [ {
