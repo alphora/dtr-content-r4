@@ -157,10 +157,13 @@ define function "Requesting Organizations"(requestItem Choice<FHIR.NutritionOrde
 define function "Matching Requesting Organizations by Name & Type or NPI"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):
  ("Requesting Organizations"(requestItem)) RequestingOrganization
     with "Payor Organization from Provider Coverage for Patient" PayorOrg
-    such that 
-      (RequestingOrganization.name ~ PayorOrg.name)
-      and (RequestingOrganization.type ~ PayorOrg.type)
-      and RequestingOrganization.getNpi() ~ PayorOrg.getNpi()
+    such that (
+      RequestingOrganization.getNpi() ~ PayorOrg.getNpi()
+      or (
+        (RequestingOrganization.name ~ PayorOrg.name)
+        and (RequestingOrganization.type ~ PayorOrg.type)
+      )
+    )
         // or (RequestingOrganization.name ~ PayorOrg.name and RequestingOrganization.type ~ PayorOrg.type)
         // or RequestingOrganization.getNpi() ~ PayorOrg.getNpi()
 
@@ -234,9 +237,11 @@ define function "Matching Performing Organizations by Name & Type or NPI"(reques
   ("Performing Organizations"(requestItem)) PerformingOrganization
     with "Payor Organization from Provider Coverage for Patient" PayorOrg
     such that 
-      PerformingOrganization.name ~ PayorOrg.name
-      and PerformingOrganization.getNpi() ~ PayorOrg.getNpi()
-      and PerformingOrganization.type ~ PayorOrg.type
+      PerformingOrganization.getNpi() ~ PayorOrg.getNpi()
+      or (
+        PerformingOrganization.name ~ PayorOrg.name 
+        and PerformingOrganization.type ~ PayorOrg.type
+      )
         // or (PerformingOrganization.name ~ PayorOrg.name and PerformingOrganization.type ~ PayorOrg.type)
         // or PerformingOrganization.getNpi() ~ PayorOrg.getNpi()
 
