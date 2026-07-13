@@ -158,13 +158,13 @@
     "max": "*",
     "type": "Resource"
   }, {
-    "name": "Dispatched Orders List",
+    "name": "Selections Orders List",
     "use": "out",
     "min": 0,
     "max": "*",
     "type": "Resource"
   }, {
-    "name": "Selections Orders List",
+    "name": "Dispatched Orders List",
     "use": "out",
     "min": 0,
     "max": "*",

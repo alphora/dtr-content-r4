@@ -369,32 +369,32 @@ define function ToRefString(r Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, F
     else null
   end
 
-define function GetOrderFromDraftOrders(list List<System.String>):
+define function GetOrdersFromDraftOrders(list List<System.String>):
   "Service Request Item List" S 
     where exists ((list) L
       where Split(L, '/').last() = S.id.value
     )
 
 define function TaskReferencesDispatchedOrder(T FHIR.Task):
-  exists (("Dispatched Orders List") D
+  exists (("dispatchedOrders") D
     where 
       (T.focus is not null 
-        and Split(FHIRHelpers.ToString(T.focus.reference), '/').last() = D.id.value
+        and Split(FHIRHelpers.ToString(T.focus.reference), '/').last() = Split(D, '/').last()
       )
       or exists ((T.basedOn) B 
-        where Split(FHIRHelpers.ToString(B.reference), '/').last() = D.id.value
+        where Split(FHIRHelpers.ToString(B.reference), '/').last() = Split(D, '/').last()
       )
   )
 
 define "Selections Orders List":
   if (exists "selections") then
-    GetOrderFromDraftOrders("selections")
+    GetOrdersFromDraftOrders("selections")
   else 
     "Service Request Item List"
 
 define "Dispatched Orders List": 
   if (exists "dispatchedOrders") then
-    GetOrderFromDraftOrders("dispatchedOrders")
+    GetOrdersFromDraftOrders("dispatchedOrders")
   else 
     "Service Request Item List"
     

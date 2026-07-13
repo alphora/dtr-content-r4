@@ -274,7 +274,7 @@
       "valueString": "Selections Orders List"
     }, {
       "url": "statement",
-      "valueString": "define \"Selections Orders List\":\n  if (exists \"selections\") then\n    GetOrderFromDraftOrders(\"selections\")\n  else \n    \"Service Request Item List\""
+      "valueString": "define \"Selections Orders List\":\n  if (exists \"selections\") then\n    GetOrdersFromDraftOrders(\"selections\")\n  else \n    \"Service Request Item List\""
     }, {
       "url": "displaySequence",
       "valueInteger": 1
@@ -1219,7 +1219,7 @@
       "valueString": "Dispatched Orders List"
     }, {
       "url": "statement",
-      "valueString": "define \"Dispatched Orders List\": \n  if (exists \"dispatchedOrders\") then\n    GetOrderFromDraftOrders(\"dispatchedOrders\")\n  else \n    \"Service Request Item List\""
+      "valueString": "define \"Dispatched Orders List\": \n  if (exists \"dispatchedOrders\") then\n    GetOrdersFromDraftOrders(\"dispatchedOrders\")\n  else \n    \"Service Request Item List\""
     }, {
       "url": "displaySequence",
       "valueInteger": 64
@@ -1336,10 +1336,10 @@
       "valueString": "ASLPContext"
     }, {
       "url": "name",
-      "valueString": "GetOrderFromDraftOrders"
+      "valueString": "GetOrdersFromDraftOrders"
     }, {
       "url": "statement",
-      "valueString": "define function GetOrderFromDraftOrders(list List<System.String>):\n  \"Service Request Item List\" S \n    where exists ((list) L\n      where Split(L, '/').last() = S.id.value\n    )"
+      "valueString": "define function GetOrdersFromDraftOrders(list List<System.String>):\n  \"Service Request Item List\" S \n    where exists ((list) L\n      where Split(L, '/').last() = S.id.value\n    )"
     }, {
       "url": "displaySequence",
       "valueInteger": 72
@@ -2704,7 +2704,7 @@
       "valueString": "TaskReferencesDispatchedOrder"
     }, {
       "url": "statement",
-      "valueString": "define function TaskReferencesDispatchedOrder(T FHIR.Task):\n  exists ((\"Dispatched Orders List\") D\n    where \n      (T.focus is not null \n        and Split(FHIRHelpers.ToString(T.focus.reference), '/').last() = D.id.value\n      )\n      or exists ((T.basedOn) B \n        where Split(FHIRHelpers.ToString(B.reference), '/').last() = D.id.value\n      )\n  )"
+      "valueString": "define function TaskReferencesDispatchedOrder(T FHIR.Task):\n  exists ((\"dispatchedOrders\") D\n    where \n      (T.focus is not null \n        and Split(FHIRHelpers.ToString(T.focus.reference), '/').last() = Split(D, '/').last()\n      )\n      or exists ((T.basedOn) B \n        where Split(FHIRHelpers.ToString(B.reference), '/').last() = Split(D, '/').last()\n      )\n  )"
     }, {
       "url": "displaySequence",
       "valueInteger": 163
