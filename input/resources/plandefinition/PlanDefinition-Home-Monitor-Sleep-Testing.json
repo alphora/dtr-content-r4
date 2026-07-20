@@ -33,12 +33,12 @@
       "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyConcepts|0.1.0"
     }, {
       "type": "depends-on",
-      "display": "Library FacilityPSG",
-      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyFacilityBasedPSG|0.1.0"
-    }, {
-      "type": "depends-on",
       "display": "Library PS",
       "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyScreening|0.1.0"
+    }, {
+      "type": "depends-on",
+      "display": "Library FacilityPSG",
+      "resource": "http://example.org/sdh/dtr/aslp/Library/ASLPPolicyFacilityBasedPSG|0.1.0"
     }, {
       "type": "depends-on",
       "display": "Code system ConditionVerificationStatusCodes",
@@ -129,13 +129,13 @@
       "resource": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1078.769"
     } ],
     "parameter": [ {
-      "name": "Has Applicable Comorbid Medical Conditions",
+      "name": "Unable To Have Physician Evaluate Results",
       "use": "out",
       "min": 0,
       "max": "1",
       "type": "boolean"
     }, {
-      "name": "Unable To Have Physician Evaluate Results",
+      "name": "Has Applicable Comorbid Medical Conditions",
       "use": "out",
       "min": 0,
       "max": "1",
@@ -189,6 +189,12 @@
       "max": "1",
       "type": "boolean"
     }, {
+      "name": "Has Absence Of Applicable Comorbid Medical Conditions",
+      "use": "out",
+      "min": 0,
+      "max": "1",
+      "type": "boolean"
+    }, {
       "name": "Has No Additional Daytime Sleepiness Indicators",
       "use": "out",
       "min": 0,
@@ -208,6 +214,56 @@
       "type": "boolean"
     } ],
     "dataRequirement": [ {
+      "type": "Observation",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Observation" ],
+      "mustSupport": [ "code", "value", "status" ],
+      "codeFilter": [ {
+        "path": "code",
+        "valueSet": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1047.258"
+      } ]
+    }, {
+      "type": "Observation",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Observation" ],
+      "mustSupport": [ "code", "status" ],
+      "codeFilter": [ {
+        "path": "code",
+        "valueSet": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1219.124"
+      } ]
+    }, {
+      "type": "Observation",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Observation" ],
+      "mustSupport": [ "code", "value", "value.unit", "status" ],
+      "codeFilter": [ {
+        "path": "code",
+        "valueSet": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.3616.200.110.102.5002"
+      } ]
+    }, {
+      "type": "Observation",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Observation" ],
+      "mustSupport": [ "code", "status" ],
+      "codeFilter": [ {
+        "path": "code"
+      } ]
+    }, {
+      "type": "Observation",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Observation" ],
+      "mustSupport": [ "value", "status", "value.value" ]
+    }, {
+      "type": "Observation",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Observation" ],
+      "mustSupport": [ "code", "status", "value" ],
+      "codeFilter": [ {
+        "path": "code",
+        "code": [ {
+          "system": "http://snomed.info/sct",
+          "code": "763254009",
+          "display": "Epworth Sleepiness Scale"
+        } ]
+      } ]
+    }, {
+      "type": "Patient",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Patient" ]
+    }, {
       "type": "Condition",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Condition" ],
       "mustSupport": [ "code", "onset", "verificationStatus", "clinicalStatus" ],
@@ -487,56 +543,6 @@
         "valueSet": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1078.769"
       } ]
     }, {
-      "type": "Patient",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/Patient" ]
-    }, {
-      "type": "Observation",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/Observation" ],
-      "mustSupport": [ "code", "value", "status" ],
-      "codeFilter": [ {
-        "path": "code",
-        "valueSet": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1047.258"
-      } ]
-    }, {
-      "type": "Observation",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/Observation" ],
-      "mustSupport": [ "code", "status" ],
-      "codeFilter": [ {
-        "path": "code",
-        "valueSet": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1219.124"
-      } ]
-    }, {
-      "type": "Observation",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/Observation" ],
-      "mustSupport": [ "code", "value", "value.unit", "status" ],
-      "codeFilter": [ {
-        "path": "code",
-        "valueSet": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.3616.200.110.102.5002"
-      } ]
-    }, {
-      "type": "Observation",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/Observation" ],
-      "mustSupport": [ "code", "status" ],
-      "codeFilter": [ {
-        "path": "code"
-      } ]
-    }, {
-      "type": "Observation",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/Observation" ],
-      "mustSupport": [ "value", "status", "value.value" ]
-    }, {
-      "type": "Observation",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/Observation" ],
-      "mustSupport": [ "code", "status", "value" ],
-      "codeFilter": [ {
-        "path": "code",
-        "code": [ {
-          "system": "http://snomed.info/sct",
-          "code": "763254009",
-          "display": "Epworth Sleepiness Scale"
-        } ]
-      } ]
-    }, {
       "type": "DeviceRequest",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/DeviceRequest" ],
       "mustSupport": [ "code", "status", "intent" ],
@@ -731,433 +737,13 @@
       "valueString": "ASLPPolicyConcepts"
     }, {
       "url": "name",
-      "valueString": "Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion\":\n  FHIR.CodeableConcept {\n    coding: {\n        Coding {\n            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },\n            code: code { value: 'Neuromuscular-Disease-With-Pulmonary-Disease' },\n            display: string { value: 'Qualifying Neuromuscular Disease With Associated Pulmonary Disease' }\n        }\n    }\n  }"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 0
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyPAA"
-    }, {
-      "url": "name",
-      "valueString": "Most Recent Neuromuscular Disease With Pulmonary Disease"
-    }, {
-      "url": "statement",
-      "valueString": "// define \"Has Moderate To Severe Pulmonary Disease Including COPD or Asthma\":\n//   \"Has Moderate To Severe Pulmonary Disease Including COPD\"\n//     or \"Has Moderate To Severe Pulmonary Disease Including Asthma\"\n\n//Do I still need the COPD and the asthma part??\n// define \"Most Recent Pulmonary Disease Including COPD\":\n//   PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion Including COPD Assertion\".coding)])\n\n// define \"Qualifying Moderate To Severe Pulmonary Disease Including COPD\":\n//   if not \"Most Recent Pulmonary Disease Including COPD\" is null\n//     then \"Most Recent Pulmonary Disease Including COPD\"\n//   else \n//     PCF.CaseFeatureObservation(\n//       AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion Including COPD Assertion\",\n//       PS.\"Has Diagnosed COPD\",\n//       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithcopd-screening-casefeature',\n//       PCF.MostRecent(PS.\"Diagnosed COPD\"),\n//       ''\n//     )\n\n// define \"Has Moderate To Severe Pulmonary Disease Including COPD\":\n//   \"Qualifying Moderate To Severe Pulmonary Disease Including COPD\".value.value as System.Boolean\n\n// define \"No Moderate To Severe Pulmonary Disease Including COPD\":\n//   not \"Has Moderate To Severe Pulmonary Disease Including COPD\"\n\n// define \"Null Pulmonary Disease Including COPD\":\n//   \"Has Moderate To Severe Pulmonary Disease Including COPD\" is null\n\n// //Do I still need the COPD and the asthma part??\n// define \"Most Recent Pulmonary Disease Including Asthma\":\n//   PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion Including Asthma Assertion\".coding)])\n\n// define \"Qualifying Moderate To Severe Pulmonary Disease Including Asthma\":\n//   if not \"Most Recent Pulmonary Disease Including Asthma\" is null\n//     then \"Most Recent Pulmonary Disease Including Asthma\"\n//   else\n//     PCF.CaseFeatureObservation(\n//       AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion Including Asthma Assertion\",\n//       PS.\"Has Diagnosed Asthma\",\n//       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithasthma-screening-casefeature',\n//       PCF.MostRecent(PS.\"Diagnosed Asthma\"),\n//       ''\n//     )\n\n// define \"Has Moderate To Severe Pulmonary Disease Including Asthma\":\n//   \"Most Recent Pulmonary Disease Including Asthma\".value.value as System.Boolean\n\n// define \"No Moderate To Severe Pulmonary Disease Including Asthma\":\n//   not \"Has Moderate To Severe Pulmonary Disease Including Asthma\"\n\n// define \"Null Pulmonary Disease Including Asthma\":\n//   \"Has Moderate To Severe Pulmonary Disease Including Asthma\" is null\n\n//Neuromuscular Disease\ndefine \"Most Recent Neuromuscular Disease With Pulmonary Disease\":\n  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion\".coding)])"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 1
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyFacilityBasedPSG"
-    }, {
-      "url": "name",
-      "valueString": "Neuromuscular Disease With Associated Pulmonary Disease"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Neuromuscular Disease With Associated Pulmonary Disease\":\n    (([Condition: \"Neuromuscular Disease\"]).active().confirmed()) Neuromuscular\n        where exists(([Condition: \"Disorder of lung (disorder)\"]).active().confirmed()) Pulmonary\n            where Pulmonary.onset after Neuromuscular.onset"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 2
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyFacilityBasedPSG"
-    }, {
-      "url": "name",
-      "valueString": "Previous Stroke With Residual Respiratory Effects"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Previous Stroke With Residual Respiratory Effects\":\n    (([Condition: \"History of cerebrovascular accident with residual deficit (situation)\"]).active().confirmed()) Stroke\n        where exists(([Condition: \"Respiratory distress (finding)\"]).active().confirmed()) R\n            where R.onset after Stroke.onset"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 3
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyFacilityBasedPSG"
-    }, {
-      "url": "name",
-      "valueString": "Neuromuscular Disease Diagnosis With Associated Pulmonary Disease"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Neuromuscular Disease Diagnosis With Associated Pulmonary Disease\":\n    \"Neuromuscular Disease With Associated Pulmonary Disease\"\n    union ([Condition: \"Amyotrophic lateral sclerosis (disorder)\"]).active().confirmed()\n    union ([Condition: \"Multiple sclerosis (disorder)\"]).active().confirmed()\n    union ([Condition: \"Myotonic dystrophy (disorder)\"]).active().confirmed()\n    union ([Condition: \"Parkinson's disease (Disorders)\"]).active().confirmed()\n    union \"Previous Stroke With Residual Respiratory Effects\"\n    union ([Condition: \"Spina Bifida (Disorders)\"]).active().confirmed()\n    union ([Condition: \"Epilepsy control poor (finding)\"]).active().confirmed()\n    union ([Condition: \"Duchenne muscular dystrophy (disorder)\"]).active().confirmed()\n    union ([Condition: \"Spinal muscular atrophy (disorder)\"]).active().confirmed()\n    union ([Condition: \"Myasthenia gravis (disorder)\"]).active().confirmed()\n    union ([Condition: \"Guillain Barré syndrome (Disorders)\"]).active().confirmed()\n    union ([Condition: \"Poliomyelitis (Disorders)\"]).active().confirmed()\n    union ([Condition: \"Friedreich ataxia (disorder)\"]).active().confirmed()\n    union ([Condition: \"Autosomal recessive muscular dystrophy with limb girdle distribution (disorder)\"]).active().confirmed()"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 4
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyFacilityBasedPSG"
-    }, {
-      "url": "name",
-      "valueString": "Has Neuromuscular Disease With Associated Pulmonary Disease"
-    }, {
-      "url": "statement",
-      "valueString": "//Neuromuscular disease with associated pulmonary disease including, but not limited to: amyotrophic lateral sclerosis, multiple sclerosis, myotonic dystrophy, Parkinson's, previous stroke with residual respiratory effects, spina bifida, or uncontrolled epilepsy\ndefine \"Has Neuromuscular Disease With Associated Pulmonary Disease\":\n    exists(\"Neuromuscular Disease Diagnosis With Associated Pulmonary Disease\")"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 5
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyPAA"
-    }, {
-      "url": "name",
-      "valueString": "Qualifying Neuromuscular Disease With Associated Pulmonary Disease"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Qualifying Neuromuscular Disease With Associated Pulmonary Disease\":\n  if not \"Most Recent Neuromuscular Disease With Pulmonary Disease\" is null\n    then \"Most Recent Neuromuscular Disease With Pulmonary Disease\"\n  else\n    PCF.CaseFeatureObservation(\n      AC.\"Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion\",\n      FacilityPSG.\"Has Neuromuscular Disease With Associated Pulmonary Disease\",\n      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature',\n      PCF.MostRecent(FacilityPSG.\"Neuromuscular Disease Diagnosis With Associated Pulmonary Disease\"),\n      ''\n    )"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 6
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyPAA"
-    }, {
-      "url": "name",
-      "valueString": "Has Neuromuscular Disease With Associated Pulmonary Disease Value"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Has Neuromuscular Disease With Associated Pulmonary Disease Value\":\n  \"Qualifying Neuromuscular Disease With Associated Pulmonary Disease\".value.value as System.Boolean"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 7
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyConcepts"
-    }, {
-      "url": "name",
-      "valueString": "Qualifying Cardiac Disease Assertion"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Qualifying Cardiac Disease Assertion\":\n  FHIR.CodeableConcept {\n    coding: {\n        Coding {\n            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },\n            code: code { value: 'Qualifying-Cardiac-Disease' },\n            display: string { value: 'Qualifying Cardiac Disease' }\n        }\n    }\n  }"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 8
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyPAA"
-    }, {
-      "url": "name",
-      "valueString": "Most Recent Cardiac Disease Observation"
-    }, {
-      "url": "statement",
-      "valueString": "//Cardiac Disease\ndefine \"Most Recent Cardiac Disease Observation\":\n  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Cardiac Disease Assertion\".coding)])"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 9
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyFacilityBasedPSG"
-    }, {
-      "url": "name",
-      "valueString": "Qualifying Cardiac Disease"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Qualifying Cardiac Disease\":\n  ([Condition: \"Chronic Heart Failure (CHF)\"]).active().confirmed()\n  union ([Condition: \"Pulmonary Hypertension Disorder\"]).active().confirmed()\n  union ([Condition: \"Cardiac Arrhythmias\"])"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 10
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyFacilityBasedPSG"
-    }, {
-      "url": "name",
-      "valueString": "LVEF < 45 Observed"
-    }, {
-      "url": "statement",
-      "valueString": "define \"LVEF < 45 Observed\":\n    ([Observation: \"LVEF Assessment\"]) LVEF\n        where LVEF.value < 45 '%'"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 11
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyFacilityBasedPSG"
-    }, {
-      "url": "name",
-      "valueString": "Has Cardiac Disease"
-    }, {
-      "url": "statement",
-      "valueString": "//cardiac disease\ndefine \"Has Cardiac Disease\":\n    exists(\"Qualifying Cardiac Disease\")\n        or exists(\"LVEF < 45 Observed\")"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 12
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyPAA"
-    }, {
-      "url": "name",
-      "valueString": "Qualifying Cardiac Disease"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Qualifying Cardiac Disease\":\n  if not \"Most Recent Cardiac Disease Observation\" is null\n    then \"Most Recent Cardiac Disease Observation\"\n  else \n    PCF.CaseFeatureObservation(\n      AC.\"Qualifying Cardiac Disease Assertion\",\n      FacilityPSG.\"Has Cardiac Disease\",\n      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature',\n      PCF.MostRecent(FacilityPSG.\"Qualifying Cardiac Disease\"),\n      ''\n    )"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 13
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyPAA"
-    }, {
-      "url": "name",
-      "valueString": "Has Cardiac Disease Value"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Has Cardiac Disease Value\":\n  \"Qualifying Cardiac Disease\".value.value as System.Boolean"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 14
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyConcepts"
-    }, {
-      "url": "name",
-      "valueString": "Qualifying Moderate To Severe Pulmonary Disease Assertion"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Qualifying Moderate To Severe Pulmonary Disease Assertion\":\n  FHIR.CodeableConcept {\n    coding: {\n        Coding {\n            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },\n            code: code { value: 'Moderate-To-Severe-Pulmonary-Disease' },\n            display: string { value: 'Qualifying Moderate To Severe Pulmonary Disease' }\n        }\n    }\n  }"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 15
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyPAA"
-    }, {
-      "url": "name",
-      "valueString": "Most Recent Moderate To Severe Pulmonary Disease"
-    }, {
-      "url": "statement",
-      "valueString": "//Pulmonary Disease\ndefine \"Most Recent Moderate To Severe Pulmonary Disease\":\n  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion\".coding)])"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 16
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyFacilityBasedPSG"
-    }, {
-      "url": "name",
-      "valueString": "Moderate to Severe Lung Disorder"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Moderate to Severe Lung Disorder\":\n    (([Condition: \"Disorder of lung (disorder)\"]).active().confirmed()) PulmonaryDisease\n        where exists(PulmonaryDisease.severity.coding) severity\n            where severity.code = '6736007'\n                or severity.display = 'Moderate'\n                or severity.code = '24484000'\n                or severity.display = 'Severe'"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 17
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyFacilityBasedPSG"
-    }, {
-      "url": "name",
-      "valueString": "Most Recent FEV1"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Most Recent FEV1\":\n    PCF.MostRecent(\n        ([Observation: \"Forced Expiratory Volume in One Second (FEV1)Forced Vital Capacity (FVC) Measurement\"])\n    )"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 18
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyFacilityBasedPSG"
-    }, {
-      "url": "name",
-      "valueString": "Most Recent FEV1 < 60"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Most Recent FEV1 < 60\":\n    \"Most Recent FEV1\".value < 60 '%'"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 19
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyFacilityBasedPSG"
-    }, {
-      "url": "name",
-      "valueString": "COPD With FEV1 < 60, Home Oxygen Use, Or Hypoventilation"
-    }, {
-      "url": "statement",
-      "valueString": "define \"COPD With FEV1 < 60, Home Oxygen Use, Or Hypoventilation\":\n    (([Condition: \"Chronic Obstructive Lung Disease (COPD)\"]).active().confirmed()) COPD\n        where \"Most Recent FEV1 < 60\"\n            or exists([DeviceRequest: \"Home oxygen supply (finding)\"])\n            or exists([Condition: \"Hypoventilation Disorder\"]).active().confirmed()\n            or exists(([Observation: \"Arterial Blood Gases PaCO2\"]) CO2\n                where CO2.value >= 45 \n                    and CO2.value.unit = 'mmHg'\n            )"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 20
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyFacilityBasedPSG"
-    }, {
-      "url": "name",
-      "valueString": "Nocturnal or Uncontrolled Asthma"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Nocturnal or Uncontrolled Asthma\":\n    ([Condition: \"Uncontrolled or severe asthma\"]).active().confirmed()\n    union ([Condition: \"Asthma disturbing sleep (finding)\"]).active().confirmed()"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 21
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyFacilityBasedPSG"
-    }, {
-      "url": "name",
-      "valueString": "Qualifying Moderate To Severe Pulmonary Disease"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Qualifying Moderate To Severe Pulmonary Disease\":\n    \"Moderate to Severe Lung Disorder\"\n    union \"COPD With FEV1 < 60, Home Oxygen Use, Or Hypoventilation\"\n    union \"Nocturnal or Uncontrolled Asthma\""
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 22
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyFacilityBasedPSG"
-    }, {
-      "url": "name",
-      "valueString": "Has Moderate To Severe Pulmonary Disease"
-    }, {
-      "url": "statement",
-      "valueString": "//Moderate to severe pulmonary disease\ndefine \"Has Moderate To Severe Pulmonary Disease\":\n  exists(\"Qualifying Moderate To Severe Pulmonary Disease\")"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 23
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyPAA"
-    }, {
-      "url": "name",
-      "valueString": "Qualifying Moderate To Severe Pulmonary Disease"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Qualifying Moderate To Severe Pulmonary Disease\":\n  if not \"Most Recent Moderate To Severe Pulmonary Disease\" is null\n    then \"Most Recent Moderate To Severe Pulmonary Disease\"\n  else\n    PCF.CaseFeatureObservation(\n      AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion\",\n      FacilityPSG.\"Has Moderate To Severe Pulmonary Disease\", //Is this right? or should it be obs of only pulmonary disease??\n      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature',\n      PCF.MostRecent(FacilityPSG.\"Qualifying Moderate To Severe Pulmonary Disease\"),\n      ''\n    )"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 24
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyPAA"
-    }, {
-      "url": "name",
-      "valueString": "Has Moderate To Severe Pulmonary Disease Value"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Has Moderate To Severe Pulmonary Disease Value\":\n  \"Qualifying Moderate To Severe Pulmonary Disease\".value.value as System.Boolean"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 25
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyPAA"
-    }, {
-      "url": "name",
-      "valueString": "Has Applicable Comorbid Medical Conditions Value"
-    }, {
-      "url": "statement",
-      "valueString": "// define \"Presence Of Comorbid Medical Conditions\":\n//   not \"Has Absence Of Comorbid Medical Conditions\"\n\n// define \"Null Presence of Comorbid Medical Conditions\":\n//   \"Has Absence Of Comorbid Medical Conditions\" is null\n\n//Eligible Comorbid Medical Conditions Criteria\ndefine \"Has Applicable Comorbid Medical Conditions Value\":\n  (\"Has Neuromuscular Disease With Associated Pulmonary Disease Value\"\n    or \"Has Cardiac Disease Value\"\n    or \"Has Moderate To Severe Pulmonary Disease Value\")"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 26
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyPAA"
-    }, {
-      "url": "name",
-      "valueString": "Has Applicable Comorbid Medical Conditions"
-    }, {
-      "url": "statement",
-      "valueString": "define \"Has Applicable Comorbid Medical Conditions\":\n  IsTrue(\"Has Applicable Comorbid Medical Conditions Value\")"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 27
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyConcepts"
-    }, {
-      "url": "name",
       "valueString": "Physician Evaluated Results Assertion"
     }, {
       "url": "statement",
       "valueString": "define \"Physician Evaluated Results Assertion\":\n  FHIR.CodeableConcept {\n    coding: {\n        Coding {\n            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },\n            code: code { value: 'Physician-Evaluate-Results' },\n            display: string { value: 'Physician Evaluated Results' }\n        }\n    }\n  }"
     }, {
       "url": "displaySequence",
-      "valueInteger": 28
+      "valueInteger": 0
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1172,7 +758,7 @@
       "valueString": "//Physician Evaluated Results\ndefine \"Most Recent Physician Evaluated Observation\":\n  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Physician Evaluated Results Assertion\".coding)])"
     }, {
       "url": "displaySequence",
-      "valueInteger": 29
+      "valueInteger": 1
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1187,7 +773,7 @@
       "valueString": "//physician evaluation\ndefine \"Physician Evaluated Results Observation\":\n  null as System.Boolean"
     }, {
       "url": "displaySequence",
-      "valueInteger": 30
+      "valueInteger": 2
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1202,7 +788,7 @@
       "valueString": "define \"Physician Evaluated Results\":\n  if not \"Most Recent Physician Evaluated Observation\" is null\n    then \"Most Recent Physician Evaluated Observation\"\n  else \n    PCF.CaseFeatureObservation(\n      AC.\"Physician Evaluated Results Assertion\",\n      PS.\"Physician Evaluated Results Observation\",\n      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature'\n    )"
     }, {
       "url": "displaySequence",
-      "valueInteger": 31
+      "valueInteger": 3
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1217,7 +803,7 @@
       "valueString": "define \"Ability To Have Physician Evaluate Results Value\":\n  \"Physician Evaluated Results\".value.value as System.Boolean"
     }, {
       "url": "displaySequence",
-      "valueInteger": 32
+      "valueInteger": 4
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1230,6 +816,426 @@
     }, {
       "url": "statement",
       "valueString": "define \"Unable To Have Physician Evaluate Results\":\n  IsFalse(\"Ability To Have Physician Evaluate Results Value\")"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 5
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyConcepts"
+    }, {
+      "url": "name",
+      "valueString": "Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion\":\n  FHIR.CodeableConcept {\n    coding: {\n        Coding {\n            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },\n            code: code { value: 'Neuromuscular-Disease-With-Pulmonary-Disease' },\n            display: string { value: 'Qualifying Neuromuscular Disease With Associated Pulmonary Disease' }\n        }\n    }\n  }"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 6
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Most Recent Neuromuscular Disease With Pulmonary Disease"
+    }, {
+      "url": "statement",
+      "valueString": "// define \"Has Moderate To Severe Pulmonary Disease Including COPD or Asthma\":\n//   \"Has Moderate To Severe Pulmonary Disease Including COPD\"\n//     or \"Has Moderate To Severe Pulmonary Disease Including Asthma\"\n\n//Do I still need the COPD and the asthma part??\n// define \"Most Recent Pulmonary Disease Including COPD\":\n//   PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion Including COPD Assertion\".coding)])\n\n// define \"Qualifying Moderate To Severe Pulmonary Disease Including COPD\":\n//   if not \"Most Recent Pulmonary Disease Including COPD\" is null\n//     then \"Most Recent Pulmonary Disease Including COPD\"\n//   else \n//     PCF.CaseFeatureObservation(\n//       AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion Including COPD Assertion\",\n//       PS.\"Has Diagnosed COPD\",\n//       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithcopd-screening-casefeature',\n//       PCF.MostRecent(PS.\"Diagnosed COPD\"),\n//       ''\n//     )\n\n// define \"Has Moderate To Severe Pulmonary Disease Including COPD\":\n//   \"Qualifying Moderate To Severe Pulmonary Disease Including COPD\".value.value as System.Boolean\n\n// define \"No Moderate To Severe Pulmonary Disease Including COPD\":\n//   not \"Has Moderate To Severe Pulmonary Disease Including COPD\"\n\n// define \"Null Pulmonary Disease Including COPD\":\n//   \"Has Moderate To Severe Pulmonary Disease Including COPD\" is null\n\n// //Do I still need the COPD and the asthma part??\n// define \"Most Recent Pulmonary Disease Including Asthma\":\n//   PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion Including Asthma Assertion\".coding)])\n\n// define \"Qualifying Moderate To Severe Pulmonary Disease Including Asthma\":\n//   if not \"Most Recent Pulmonary Disease Including Asthma\" is null\n//     then \"Most Recent Pulmonary Disease Including Asthma\"\n//   else\n//     PCF.CaseFeatureObservation(\n//       AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion Including Asthma Assertion\",\n//       PS.\"Has Diagnosed Asthma\",\n//       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithasthma-screening-casefeature',\n//       PCF.MostRecent(PS.\"Diagnosed Asthma\"),\n//       ''\n//     )\n\n// define \"Has Moderate To Severe Pulmonary Disease Including Asthma\":\n//   \"Most Recent Pulmonary Disease Including Asthma\".value.value as System.Boolean\n\n// define \"No Moderate To Severe Pulmonary Disease Including Asthma\":\n//   not \"Has Moderate To Severe Pulmonary Disease Including Asthma\"\n\n// define \"Null Pulmonary Disease Including Asthma\":\n//   \"Has Moderate To Severe Pulmonary Disease Including Asthma\" is null\n\n//Neuromuscular Disease\ndefine \"Most Recent Neuromuscular Disease With Pulmonary Disease\":\n  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion\".coding)])"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 7
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyFacilityBasedPSG"
+    }, {
+      "url": "name",
+      "valueString": "Neuromuscular Disease With Associated Pulmonary Disease"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Neuromuscular Disease With Associated Pulmonary Disease\":\n    (([Condition: \"Neuromuscular Disease\"]).active().confirmed()) Neuromuscular\n        where exists(([Condition: \"Disorder of lung (disorder)\"]).active().confirmed()) Pulmonary\n            where Pulmonary.onset after Neuromuscular.onset"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 8
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyFacilityBasedPSG"
+    }, {
+      "url": "name",
+      "valueString": "Previous Stroke With Residual Respiratory Effects"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Previous Stroke With Residual Respiratory Effects\":\n    (([Condition: \"History of cerebrovascular accident with residual deficit (situation)\"]).active().confirmed()) Stroke\n        where exists(([Condition: \"Respiratory distress (finding)\"]).active().confirmed()) R\n            where R.onset after Stroke.onset"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 9
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyFacilityBasedPSG"
+    }, {
+      "url": "name",
+      "valueString": "Neuromuscular Disease Diagnosis With Associated Pulmonary Disease"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Neuromuscular Disease Diagnosis With Associated Pulmonary Disease\":\n    \"Neuromuscular Disease With Associated Pulmonary Disease\"\n    union ([Condition: \"Amyotrophic lateral sclerosis (disorder)\"]).active().confirmed()\n    union ([Condition: \"Multiple sclerosis (disorder)\"]).active().confirmed()\n    union ([Condition: \"Myotonic dystrophy (disorder)\"]).active().confirmed()\n    union ([Condition: \"Parkinson's disease (Disorders)\"]).active().confirmed()\n    union \"Previous Stroke With Residual Respiratory Effects\"\n    union ([Condition: \"Spina Bifida (Disorders)\"]).active().confirmed()\n    union ([Condition: \"Epilepsy control poor (finding)\"]).active().confirmed()\n    union ([Condition: \"Duchenne muscular dystrophy (disorder)\"]).active().confirmed()\n    union ([Condition: \"Spinal muscular atrophy (disorder)\"]).active().confirmed()\n    union ([Condition: \"Myasthenia gravis (disorder)\"]).active().confirmed()\n    union ([Condition: \"Guillain Barré syndrome (Disorders)\"]).active().confirmed()\n    union ([Condition: \"Poliomyelitis (Disorders)\"]).active().confirmed()\n    union ([Condition: \"Friedreich ataxia (disorder)\"]).active().confirmed()\n    union ([Condition: \"Autosomal recessive muscular dystrophy with limb girdle distribution (disorder)\"]).active().confirmed()"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 10
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyFacilityBasedPSG"
+    }, {
+      "url": "name",
+      "valueString": "Has Neuromuscular Disease With Associated Pulmonary Disease"
+    }, {
+      "url": "statement",
+      "valueString": "//Neuromuscular disease with associated pulmonary disease including, but not limited to: amyotrophic lateral sclerosis, multiple sclerosis, myotonic dystrophy, Parkinson's, previous stroke with residual respiratory effects, spina bifida, or uncontrolled epilepsy\ndefine \"Has Neuromuscular Disease With Associated Pulmonary Disease\":\n    exists(\"Neuromuscular Disease Diagnosis With Associated Pulmonary Disease\")"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 11
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Qualifying Neuromuscular Disease With Associated Pulmonary Disease"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Qualifying Neuromuscular Disease With Associated Pulmonary Disease\":\n  if not \"Most Recent Neuromuscular Disease With Pulmonary Disease\" is null\n    then \"Most Recent Neuromuscular Disease With Pulmonary Disease\"\n  else\n    PCF.CaseFeatureObservation(\n      AC.\"Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion\",\n      FacilityPSG.\"Has Neuromuscular Disease With Associated Pulmonary Disease\",\n      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature',\n      PCF.MostRecent(FacilityPSG.\"Neuromuscular Disease Diagnosis With Associated Pulmonary Disease\"),\n      ''\n    )"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 12
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Has Neuromuscular Disease With Associated Pulmonary Disease Value"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Has Neuromuscular Disease With Associated Pulmonary Disease Value\":\n  \"Qualifying Neuromuscular Disease With Associated Pulmonary Disease\".value.value as System.Boolean"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 13
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyConcepts"
+    }, {
+      "url": "name",
+      "valueString": "Qualifying Cardiac Disease Assertion"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Qualifying Cardiac Disease Assertion\":\n  FHIR.CodeableConcept {\n    coding: {\n        Coding {\n            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },\n            code: code { value: 'Qualifying-Cardiac-Disease' },\n            display: string { value: 'Qualifying Cardiac Disease' }\n        }\n    }\n  }"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 14
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Most Recent Cardiac Disease Observation"
+    }, {
+      "url": "statement",
+      "valueString": "//Cardiac Disease\ndefine \"Most Recent Cardiac Disease Observation\":\n  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Cardiac Disease Assertion\".coding)])"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 15
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyFacilityBasedPSG"
+    }, {
+      "url": "name",
+      "valueString": "Qualifying Cardiac Disease"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Qualifying Cardiac Disease\":\n  ([Condition: \"Chronic Heart Failure (CHF)\"]).active().confirmed()\n  union ([Condition: \"Pulmonary Hypertension Disorder\"]).active().confirmed()\n  union ([Condition: \"Cardiac Arrhythmias\"])"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 16
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyFacilityBasedPSG"
+    }, {
+      "url": "name",
+      "valueString": "LVEF < 45 Observed"
+    }, {
+      "url": "statement",
+      "valueString": "define \"LVEF < 45 Observed\":\n    ([Observation: \"LVEF Assessment\"]) LVEF\n        where LVEF.value < 45 '%'"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 17
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyFacilityBasedPSG"
+    }, {
+      "url": "name",
+      "valueString": "Has Cardiac Disease"
+    }, {
+      "url": "statement",
+      "valueString": "//cardiac disease\ndefine \"Has Cardiac Disease\":\n    exists(\"Qualifying Cardiac Disease\")\n        or exists(\"LVEF < 45 Observed\")"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 18
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Qualifying Cardiac Disease"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Qualifying Cardiac Disease\":\n  if not \"Most Recent Cardiac Disease Observation\" is null\n    then \"Most Recent Cardiac Disease Observation\"\n  else \n    PCF.CaseFeatureObservation(\n      AC.\"Qualifying Cardiac Disease Assertion\",\n      FacilityPSG.\"Has Cardiac Disease\",\n      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature',\n      PCF.MostRecent(FacilityPSG.\"Qualifying Cardiac Disease\"),\n      ''\n    )"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 19
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Has Cardiac Disease Value"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Has Cardiac Disease Value\":\n  \"Qualifying Cardiac Disease\".value.value as System.Boolean"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 20
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyConcepts"
+    }, {
+      "url": "name",
+      "valueString": "Qualifying Moderate To Severe Pulmonary Disease Assertion"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Qualifying Moderate To Severe Pulmonary Disease Assertion\":\n  FHIR.CodeableConcept {\n    coding: {\n        Coding {\n            system: uri { value: 'http://example.org/sdh/dtr/aslp/CodeSystem/aslp-paa-screening-codes' },\n            code: code { value: 'Moderate-To-Severe-Pulmonary-Disease' },\n            display: string { value: 'Qualifying Moderate To Severe Pulmonary Disease' }\n        }\n    }\n  }"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 21
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Most Recent Moderate To Severe Pulmonary Disease"
+    }, {
+      "url": "statement",
+      "valueString": "//Pulmonary Disease\ndefine \"Most Recent Moderate To Severe Pulmonary Disease\":\n  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion\".coding)])"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 22
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyFacilityBasedPSG"
+    }, {
+      "url": "name",
+      "valueString": "Moderate to Severe Lung Disorder"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Moderate to Severe Lung Disorder\":\n    (([Condition: \"Disorder of lung (disorder)\"]).active().confirmed()) PulmonaryDisease\n        where exists(PulmonaryDisease.severity.coding) severity\n            where severity.code = '6736007'\n                or severity.display = 'Moderate'\n                or severity.code = '24484000'\n                or severity.display = 'Severe'"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 23
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyFacilityBasedPSG"
+    }, {
+      "url": "name",
+      "valueString": "Most Recent FEV1"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Most Recent FEV1\":\n    PCF.MostRecent(\n        ([Observation: \"Forced Expiratory Volume in One Second (FEV1)Forced Vital Capacity (FVC) Measurement\"])\n    )"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 24
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyFacilityBasedPSG"
+    }, {
+      "url": "name",
+      "valueString": "Most Recent FEV1 < 60"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Most Recent FEV1 < 60\":\n    \"Most Recent FEV1\".value < 60 '%'"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 25
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyFacilityBasedPSG"
+    }, {
+      "url": "name",
+      "valueString": "COPD With FEV1 < 60, Home Oxygen Use, Or Hypoventilation"
+    }, {
+      "url": "statement",
+      "valueString": "define \"COPD With FEV1 < 60, Home Oxygen Use, Or Hypoventilation\":\n    (([Condition: \"Chronic Obstructive Lung Disease (COPD)\"]).active().confirmed()) COPD\n        where \"Most Recent FEV1 < 60\"\n            or exists([DeviceRequest: \"Home oxygen supply (finding)\"])\n            or exists([Condition: \"Hypoventilation Disorder\"]).active().confirmed()\n            or exists(([Observation: \"Arterial Blood Gases PaCO2\"]) CO2\n                where CO2.value >= 45 \n                    and CO2.value.unit = 'mmHg'\n            )"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 26
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyFacilityBasedPSG"
+    }, {
+      "url": "name",
+      "valueString": "Nocturnal or Uncontrolled Asthma"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Nocturnal or Uncontrolled Asthma\":\n    ([Condition: \"Uncontrolled or severe asthma\"]).active().confirmed()\n    union ([Condition: \"Asthma disturbing sleep (finding)\"]).active().confirmed()"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 27
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyFacilityBasedPSG"
+    }, {
+      "url": "name",
+      "valueString": "Qualifying Moderate To Severe Pulmonary Disease"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Qualifying Moderate To Severe Pulmonary Disease\":\n    \"Moderate to Severe Lung Disorder\"\n    union \"COPD With FEV1 < 60, Home Oxygen Use, Or Hypoventilation\"\n    union \"Nocturnal or Uncontrolled Asthma\""
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 28
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyFacilityBasedPSG"
+    }, {
+      "url": "name",
+      "valueString": "Has Moderate To Severe Pulmonary Disease"
+    }, {
+      "url": "statement",
+      "valueString": "//Moderate to severe pulmonary disease\ndefine \"Has Moderate To Severe Pulmonary Disease\":\n  exists(\"Qualifying Moderate To Severe Pulmonary Disease\")"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 29
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Qualifying Moderate To Severe Pulmonary Disease"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Qualifying Moderate To Severe Pulmonary Disease\":\n  if not \"Most Recent Moderate To Severe Pulmonary Disease\" is null\n    then \"Most Recent Moderate To Severe Pulmonary Disease\"\n  else\n    PCF.CaseFeatureObservation(\n      AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion\",\n      FacilityPSG.\"Has Moderate To Severe Pulmonary Disease\", //Is this right? or should it be obs of only pulmonary disease??\n      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature',\n      PCF.MostRecent(FacilityPSG.\"Qualifying Moderate To Severe Pulmonary Disease\"),\n      ''\n    )"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 30
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Has Moderate To Severe Pulmonary Disease Value"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Has Moderate To Severe Pulmonary Disease Value\":\n  \"Qualifying Moderate To Severe Pulmonary Disease\".value.value as System.Boolean"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 31
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Has Applicable Comorbid Medical Conditions Value"
+    }, {
+      "url": "statement",
+      "valueString": "// define \"Presence Of Comorbid Medical Conditions\":\n//   not \"Has Absence Of Comorbid Medical Conditions\"\n\n// define \"Null Presence of Comorbid Medical Conditions\":\n//   \"Has Absence Of Comorbid Medical Conditions\" is null\n\n//Eligible Comorbid Medical Conditions Criteria\ndefine \"Has Applicable Comorbid Medical Conditions Value\":\n  (\"Has Neuromuscular Disease With Associated Pulmonary Disease Value\"\n    or \"Has Cardiac Disease Value\"\n    or \"Has Moderate To Severe Pulmonary Disease Value\")"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 32
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
+      "valueString": "Has Applicable Comorbid Medical Conditions"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Has Applicable Comorbid Medical Conditions\":\n  IsTrue(\"Has Applicable Comorbid Medical Conditions Value\")"
     }, {
       "url": "displaySequence",
       "valueInteger": 33
@@ -2066,13 +2072,28 @@
       "valueString": "ASLPPolicyPAA"
     }, {
       "url": "name",
+      "valueString": "Has Absence Of Applicable Comorbid Medical Conditions"
+    }, {
+      "url": "statement",
+      "valueString": "define \"Has Absence Of Applicable Comorbid Medical Conditions\":\n  IsFalse(\"Has Applicable Comorbid Medical Conditions Value\")"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 89
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyPAA"
+    }, {
+      "url": "name",
       "valueString": "Has No Additional Daytime Sleepiness Indicators"
     }, {
       "url": "statement",
       "valueString": "define \"Has No Additional Daytime Sleepiness Indicators\":\n  IsFalse(\"Has Additional Daytime Sleepiness Indicators Value\")"
     }, {
       "url": "displaySequence",
-      "valueInteger": 89
+      "valueInteger": 90
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2087,7 +2108,7 @@
       "valueString": "define \"Can Not Safely Use Equipment At Home\":\n  IsFalse(\"Can Safely Use Equipment At Home Value\")"
     }, {
       "url": "displaySequence",
-      "valueInteger": 90
+      "valueInteger": 91
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2102,217 +2123,7 @@
       "valueString": "define \"Has Excessive Daytime Sleepiness\":\n  IsTrue(\"Has Excessive Daytime Sleepiness Value\")"
     }, {
       "url": "displaySequence",
-      "valueInteger": 91
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyCaseFeatures"
-    }, {
-      "url": "name",
-      "valueString": "MostRecent"
-    }, {
-      "url": "statement",
-      "valueString": "//TODO: POC only (need to consider all the Condition considerations)\ndefine function MostRecent(value List<FHIR.Condition>):\n  First(\n    value Condition\n      sort by recordedDate descending\n  )"
-    }, {
-      "url": "displaySequence",
       "valueInteger": 92
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "FHIRHelpers"
-    }, {
-      "url": "name",
-      "valueString": "ToCode"
-    }, {
-      "url": "statement",
-      "valueString": "/*\n@description: Converts the given FHIR [Coding](https://hl7.org/fhir/datatypes.html#Coding) value to a CQL Code.\n*/\ndefine function ToCode(coding FHIR.Coding):\n    if coding is null then\n        null\n    else\n        System.Code {\n          code: coding.code.value,\n          system: coding.system.value,\n          version: coding.version.value,\n          display: coding.display.value\n        }"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 93
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyCaseFeatures"
-    }, {
-      "url": "name",
-      "valueString": "CaseFeatureObservation"
-    }, {
-      "url": "statement",
-      "valueString": "define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String, evidences Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>, evidenceText System.String):\n  if evidences is null then\n    CaseFeatureObservation(code, value, Now(), profile, null as List<FHIR.Observation>, evidenceText)\n  else \n    CaseFeatureObservation(code, value, Now(), profile, {evidences}, evidenceText)"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 94
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyCaseFeatures"
-    }, {
-      "url": "name",
-      "valueString": "CaseFeatureObservation"
-    }, {
-      "url": "statement",
-      "valueString": "//NOTE: agent is to be set by the service\n//Inference resource should be built by CQL.  Need example.\n//Application Assertion resource should be built by the application.  Example in test data.\n\n//TODO: need to use a choice for other Observation value types\n// consider if using an extension for the evidenceText is correct\n// TODO: what should happen when there's no evidence?\ndefine function CaseFeatureObservation(\n    code FHIR.CodeableConcept,\n    value System.Boolean,\n    effective System.DateTime,\n    profile System.String, \n    evidences List<Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>>,\n    evidenceText System.String\n):\n  if code is null or value is null \n    then null as Observation\n  else\n    if evidences is null \n      then Observation {\n        id: id { value: 'cf-' + code.coding[0].code},\n        meta: Meta { profile: { canonical { value: profile } } },\n        extension: { \n            Extension { \n              url: url { value: 'http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-instantiatesCaseFeature' }, //change this to aslp\n              value: uri { value: profile } \n              } \n        },\n        code: code,\n        effective: dateTime { value: Coalesce(effective, Now()) },\n        issued: instant { value: Now()},\n        subject: ReferenceTo(Patient),\n        status: ObservationStatus { value: 'preliminary' }, //should this be preliminary??\n        value: boolean { value: value }\n      }\n  else\n    Observation {\n        id: id { value: 'cf-' + First(evidences).id },\n        meta: Meta { profile: {canonical { value: profile } } },\n        extension: { \n          Extension {\n            url: url { value: 'http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-instantiatesCaseFeature' }, //change this to aslp\n            value: uri { value: profile }\n            }\n        },\n        contained: {\n          CreateProvenence( evidences, evidenceText )\n        },\n        code: code,\n        effective: dateTime { value: Coalesce(effective, Now() ) },\n        issued: instant { value: Now() },\n        subject: ReferenceTo(Patient),\n        status: ObservationStatus { value: 'preliminary' }, //should this be preliminary\n        value: boolean { value: value }\n    }"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 95
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "FHIRHelpers"
-    }, {
-      "url": "name",
-      "valueString": "ToString"
-    }, {
-      "url": "statement",
-      "valueString": "define function ToString(value string): value.value"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 96
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyCaseFeatures"
-    }, {
-      "url": "name",
-      "valueString": "ReferenceTo"
-    }, {
-      "url": "statement",
-      "valueString": "//IMPORTANT NOTE: This was taken from demo-content-r4. May need edits\n \ndefine function ReferenceTo(resource Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>):\n  Reference { reference: string { value: resource.typeof() + '/' + resource.id } }"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 97
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyCaseFeatures"
-    }, {
-      "url": "name",
-      "valueString": "typeof"
-    }, {
-      "url": "statement",
-      "valueString": "//TODO: flesh out other types of resources\ndefine fluent function typeof(resource Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>): \n  case\n    when resource is null then\n      // Message(null, true, 'FHIRCommon.typeof.UnknownFHIResource', 'Error', 'Unknown resource type: resource is null')\n      'Resource type not found: resource is null'\n    when resource is Patient then\n      'Patient'\n    when resource is Condition then  \n      'Condition'\n    when resource is Observation then  \n      'Observation'\n    when resource is Procedure then  \n      'Procedure'\n    when resource is Coverage then  \n      'Coverage'\n    when resource is Encounter then  \n      'Encounter'\n    when resource is Organization then  \n      'Organization'\n    when resource is DeviceRequest then  \n      'DeviceRequest'\n    else\n      // Message(null, true, 'FHIRCommon.typeof.UnknownFHIResource', 'Error', 'Unknown resource type: ' + resource.id)\n      'Resource type not found for:' + resource.id \n  end"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 98
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyCaseFeatures"
-    }, {
-      "url": "name",
-      "valueString": "CreateProvenence"
-    }, {
-      "url": "statement",
-      "valueString": "define function CreateProvenence( evidences List<Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>>, evidenceText System.String ):\n  Provenance {\n    id: id { value: 'prov-' + First(evidences).id },\n    extension: { \n      Extension { \n        url: url { \n          value: 'http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-casefeature-evidence-text' \n        }, \n        value: markdown { \n          value: evidenceText \n        } \n      } \n    },\n    target: { \n      Reference { reference: string { value: 'Observation/cf-' + First(evidences).id } } \n    },\n    occurred: dateTime { value: Now() },\n    recorded: instant { value: Now() },\n    entity: ((evidences e where e is not null) evidence return \n      FHIR.Provenance.Entity { \n        role: FHIR.ProvenanceEntityRole { value: 'derivation' },\n        what: ReferenceTo(evidence)\n      })\n    // agent: {\n    //     FHIR.Provenance.Agent {\n    //         who: Reference { reference: string {value: agent }} //Should this be \"Humana\"? \n    //     }\n    // }\n  }"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 99
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyCaseFeatures"
-    }, {
-      "url": "name",
-      "valueString": "confirmed"
-    }, {
-      "url": "statement",
-      "valueString": "define fluent function confirmed(conditions List<FHIR.Condition>):\n  conditions C\n    where C.verificationStatus ~ \"confirmed\""
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 100
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "FHIRHelpers"
-    }, {
-      "url": "name",
-      "valueString": "ToConcept"
-    }, {
-      "url": "statement",
-      "valueString": "/*\n@description: Converts the given FHIR [CodeableConcept](https://hl7.org/fhir/datatypes.html#CodeableConcept) value to a CQL Concept.\n*/\ndefine function ToConcept(concept FHIR.CodeableConcept):\n    if concept is null then\n        null\n    else\n        System.Concept {\n            codes: concept.coding C return ToCode(C),\n            display: concept.text.value\n        }"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 101
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPPolicyCaseFeatures"
-    }, {
-      "url": "name",
-      "valueString": "active"
-    }, {
-      "url": "statement",
-      "valueString": "//Condition and Observation status fluent functions\ndefine fluent function active(conditions List<FHIR.Condition>):\n  conditions C\n    where C.clinicalStatus ~ \"active\""
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 102
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "FHIRHelpers"
-    }, {
-      "url": "name",
-      "valueString": "ToDateTime"
-    }, {
-      "url": "statement",
-      "valueString": "define function ToDateTime(value dateTime): value.value"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 103
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "FHIRHelpers"
-    }, {
-      "url": "name",
-      "valueString": "ToQuantity"
-    }, {
-      "url": "statement",
-      "valueString": "/*\n@description: Converts the given FHIR [Quantity](https://hl7.org/fhir/datatypes.html#Quantity) \nvalue to a CQL Quantity\n@comment: If the given quantity has a comparator specified, a runtime error is raised. If the given quantity\nhas a system other than UCUM (i.e. `http://unitsofmeasure.org`) or CQL calendar units (i.e. `http://hl7.org/fhirpath/CodeSystem/calendar-units`)\nan error is raised. For UCUM to calendar units, the `ToCalendarUnit` function is used.\n@seealso: ToCalendarUnit\n*/\ndefine function ToQuantity(quantity FHIR.Quantity):\n    case\n        when quantity is null then null\n        when quantity.value is null then null\n        when quantity.comparator is not null then\n            Message(null, true, 'FHIRHelpers.ToQuantity.ComparatorQuantityNotSupported', 'Error', 'FHIR Quantity value has a comparator and cannot be converted to a System.Quantity value.')\n        when quantity.system is null or quantity.system.value = 'http://unitsofmeasure.org'\n              or quantity.system.value = 'http://hl7.org/fhirpath/CodeSystem/calendar-units' then\n            System.Quantity { value: quantity.value.value, unit: ToCalendarUnit(Coalesce(quantity.code.value, quantity.unit.value, '1')) }\n        else\n            Message(null, true, 'FHIRHelpers.ToQuantity.InvalidFHIRQuantity', 'Error', 'Invalid FHIR Quantity code: ' & quantity.unit.value & ' (' & quantity.system.value & '|' & quantity.code.value & ')')\n    end"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 104
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "FHIRHelpers"
-    }, {
-      "url": "name",
-      "valueString": "ToCalendarUnit"
-    }, {
-      "url": "statement",
-      "valueString": "/*\n@description: Converts a UCUM definite duration unit to a CQL calendar duration\nunit using conversions specified in the [quantities](https://cql.hl7.org/02-authorsguide.html#quantities) \ntopic of the CQL specification.\n@comment: Note that for durations above days (or weeks), the conversion is understood to be approximate\n*/\ndefine function ToCalendarUnit(unit System.String):\n    case unit\n        when 'ms' then 'millisecond'\n        when 's' then 'second'\n        when 'min' then 'minute'\n        when 'h' then 'hour'\n        when 'd' then 'day'\n        when 'wk' then 'week'\n        when 'mo' then 'month'\n        when 'a' then 'year'\n        else unit\n    end"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 105
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2327,7 +2138,7 @@
       "valueString": "/*\ndefine function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String, evidences List<Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>>, evidenceText System.String):\n  if evidences is FHIR.Procedure\n    then CaseFeatureObservation(code, value, Now(), profile, evidences as FHIR.Procedure, evidenceText)\n  else if evidence is FHIR.Observation\n    then CaseFeatureObservation(code, value, Now(), profile, evidence as FHIR.Observation, evidenceText)\n  else if evidence is FHIR.Coverage then\n    CaseFeatureObservation(code, value, Now(), profile, evidence as FHIR.Coverage, evidenceText)\n  else if evidence is FHIR.Organization then\n    CaseFeatureObservation(code, value, Now(), profile, evidence as FHIR.Organization, evidenceText)\n  else if evidence is FHIR.Condition then\n    CaseFeatureObservation(code, value, Now(), profile, evidence as FHIR.Condition, evidenceText)\n  else if evidence is FHIR.Patient then\n    CaseFeatureObservation(code, value, Now(), profile, evidence as FHIR.Patient, evidenceText)\n  else \n    Message(null, true, 'FHIRCommon.CaseFeatureObservation.UnknownFHIResource', 'Error', 'Unknown Resource Type') //should it be ASLPPOlicyCaseFeatures.CaseFeatureObservation instead of FHIRCommon.CaseFeatureObservation\n*/\n\n/*\ndefine function MostRecentConditionOrObservation(value List<Choice<FHIR.Observation, FHIR.Condition>>):\n  First(\n    value v\n      let mro: MostRecentObservation((value v where v is Observation)),\n        mrc: MostRecentCondition((value v where v is Condition))\n      return \n        if (mro.effective as FHIR.dateTime > mrc.onset.start) then\n          mro\n        else\n          mrc\n  )\n\ndefine function MostRecentObservation(value List<FHIR.Observation>):\n  First(\n    value Observation\n      sort by effective descending\n  )\n\ndefine function MostRecentCondition(value List<FHIR.Condition>):\n  First(\n    value Observation\n      sort by onset.start descending\n  )\n*/\n\n//TODO: POC only (need to consider all the Observation considerations)\ndefine function MostRecent(value List<FHIR.Observation>):\n  First(\n    value Observation\n      sort by effective descending\n  )"
     }, {
       "url": "displaySequence",
-      "valueInteger": 106
+      "valueInteger": 93
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2336,13 +2147,13 @@
       "valueString": "FHIRHelpers"
     }, {
       "url": "name",
-      "valueString": "ToInteger"
+      "valueString": "ToCode"
     }, {
       "url": "statement",
-      "valueString": "define function ToInteger(value integer): value.value"
+      "valueString": "/*\n@description: Converts the given FHIR [Coding](https://hl7.org/fhir/datatypes.html#Coding) value to a CQL Code.\n*/\ndefine function ToCode(coding FHIR.Coding):\n    if coding is null then\n        null\n    else\n        System.Code {\n          code: coding.code.value,\n          system: coding.system.value,\n          version: coding.version.value,\n          display: coding.display.value\n        }"
     }, {
       "url": "displaySequence",
-      "valueInteger": 107
+      "valueInteger": 94
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2357,7 +2168,22 @@
       "valueString": "define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String):\n  CaseFeatureObservation(code, value, Now(), profile, null as List<FHIR.Observation>, '')"
     }, {
       "url": "displaySequence",
-      "valueInteger": 108
+      "valueInteger": 95
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyCaseFeatures"
+    }, {
+      "url": "name",
+      "valueString": "CaseFeatureObservation"
+    }, {
+      "url": "statement",
+      "valueString": "//NOTE: agent is to be set by the service\n//Inference resource should be built by CQL.  Need example.\n//Application Assertion resource should be built by the application.  Example in test data.\n\n//TODO: need to use a choice for other Observation value types\n// consider if using an extension for the evidenceText is correct\n// TODO: what should happen when there's no evidence?\ndefine function CaseFeatureObservation(\n    code FHIR.CodeableConcept,\n    value System.Boolean,\n    effective System.DateTime,\n    profile System.String, \n    evidences List<Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>>,\n    evidenceText System.String\n):\n  if code is null or value is null \n    then null as Observation\n  else\n    if evidences is null \n      then Observation {\n        id: id { value: 'cf-' + code.coding[0].code},\n        meta: Meta { profile: { canonical { value: profile } } },\n        extension: { \n            Extension { \n              url: url { value: 'http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-instantiatesCaseFeature' }, //change this to aslp\n              value: uri { value: profile } \n              } \n        },\n        code: code,\n        effective: dateTime { value: Coalesce(effective, Now()) },\n        issued: instant { value: Now()},\n        subject: ReferenceTo(Patient),\n        status: ObservationStatus { value: 'preliminary' }, //should this be preliminary??\n        value: boolean { value: value }\n      }\n  else\n    Observation {\n        id: id { value: 'cf-' + First(evidences).id },\n        meta: Meta { profile: {canonical { value: profile } } },\n        extension: { \n          Extension {\n            url: url { value: 'http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-instantiatesCaseFeature' }, //change this to aslp\n            value: uri { value: profile }\n            }\n        },\n        contained: {\n          CreateProvenence( evidences, evidenceText )\n        },\n        code: code,\n        effective: dateTime { value: Coalesce(effective, Now() ) },\n        issued: instant { value: Now() },\n        subject: ReferenceTo(Patient),\n        status: ObservationStatus { value: 'preliminary' }, //should this be preliminary\n        value: boolean { value: value }\n    }"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 96
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2369,7 +2195,187 @@
       "valueString": "ToString"
     }, {
       "url": "statement",
-      "valueString": "define function ToString(value DeviceRequestStatus): value.value"
+      "valueString": "define function ToString(value string): value.value"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 97
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyCaseFeatures"
+    }, {
+      "url": "name",
+      "valueString": "ReferenceTo"
+    }, {
+      "url": "statement",
+      "valueString": "//IMPORTANT NOTE: This was taken from demo-content-r4. May need edits\n \ndefine function ReferenceTo(resource Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>):\n  Reference { reference: string { value: resource.typeof() + '/' + resource.id } }"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 98
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyCaseFeatures"
+    }, {
+      "url": "name",
+      "valueString": "typeof"
+    }, {
+      "url": "statement",
+      "valueString": "//TODO: flesh out other types of resources\ndefine fluent function typeof(resource Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>): \n  case\n    when resource is null then\n      // Message(null, true, 'FHIRCommon.typeof.UnknownFHIResource', 'Error', 'Unknown resource type: resource is null')\n      'Resource type not found: resource is null'\n    when resource is Patient then\n      'Patient'\n    when resource is Condition then  \n      'Condition'\n    when resource is Observation then  \n      'Observation'\n    when resource is Procedure then  \n      'Procedure'\n    when resource is Coverage then  \n      'Coverage'\n    when resource is Encounter then  \n      'Encounter'\n    when resource is Organization then  \n      'Organization'\n    when resource is DeviceRequest then  \n      'DeviceRequest'\n    else\n      // Message(null, true, 'FHIRCommon.typeof.UnknownFHIResource', 'Error', 'Unknown resource type: ' + resource.id)\n      'Resource type not found for:' + resource.id \n  end"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 99
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyCaseFeatures"
+    }, {
+      "url": "name",
+      "valueString": "CreateProvenence"
+    }, {
+      "url": "statement",
+      "valueString": "define function CreateProvenence( evidences List<Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>>, evidenceText System.String ):\n  Provenance {\n    id: id { value: 'prov-' + First(evidences).id },\n    extension: { \n      Extension { \n        url: url { \n          value: 'http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-casefeature-evidence-text' \n        }, \n        value: markdown { \n          value: evidenceText \n        } \n      } \n    },\n    target: { \n      Reference { reference: string { value: 'Observation/cf-' + First(evidences).id } } \n    },\n    occurred: dateTime { value: Now() },\n    recorded: instant { value: Now() },\n    entity: ((evidences e where e is not null) evidence return \n      FHIR.Provenance.Entity { \n        role: FHIR.ProvenanceEntityRole { value: 'derivation' },\n        what: ReferenceTo(evidence)\n      })\n    // agent: {\n    //     FHIR.Provenance.Agent {\n    //         who: Reference { reference: string {value: agent }} //Should this be \"Humana\"? \n    //     }\n    // }\n  }"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 100
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyCaseFeatures"
+    }, {
+      "url": "name",
+      "valueString": "MostRecent"
+    }, {
+      "url": "statement",
+      "valueString": "//TODO: POC only (need to consider all the Condition considerations)\ndefine function MostRecent(value List<FHIR.Condition>):\n  First(\n    value Condition\n      sort by recordedDate descending\n  )"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 101
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyCaseFeatures"
+    }, {
+      "url": "name",
+      "valueString": "CaseFeatureObservation"
+    }, {
+      "url": "statement",
+      "valueString": "define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String, evidences Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>, evidenceText System.String):\n  if evidences is null then\n    CaseFeatureObservation(code, value, Now(), profile, null as List<FHIR.Observation>, evidenceText)\n  else \n    CaseFeatureObservation(code, value, Now(), profile, {evidences}, evidenceText)"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 102
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyCaseFeatures"
+    }, {
+      "url": "name",
+      "valueString": "confirmed"
+    }, {
+      "url": "statement",
+      "valueString": "define fluent function confirmed(conditions List<FHIR.Condition>):\n  conditions C\n    where C.verificationStatus ~ \"confirmed\""
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 103
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "FHIRHelpers"
+    }, {
+      "url": "name",
+      "valueString": "ToConcept"
+    }, {
+      "url": "statement",
+      "valueString": "/*\n@description: Converts the given FHIR [CodeableConcept](https://hl7.org/fhir/datatypes.html#CodeableConcept) value to a CQL Concept.\n*/\ndefine function ToConcept(concept FHIR.CodeableConcept):\n    if concept is null then\n        null\n    else\n        System.Concept {\n            codes: concept.coding C return ToCode(C),\n            display: concept.text.value\n        }"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 104
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPPolicyCaseFeatures"
+    }, {
+      "url": "name",
+      "valueString": "active"
+    }, {
+      "url": "statement",
+      "valueString": "//Condition and Observation status fluent functions\ndefine fluent function active(conditions List<FHIR.Condition>):\n  conditions C\n    where C.clinicalStatus ~ \"active\""
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 105
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "FHIRHelpers"
+    }, {
+      "url": "name",
+      "valueString": "ToDateTime"
+    }, {
+      "url": "statement",
+      "valueString": "define function ToDateTime(value dateTime): value.value"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 106
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "FHIRHelpers"
+    }, {
+      "url": "name",
+      "valueString": "ToQuantity"
+    }, {
+      "url": "statement",
+      "valueString": "/*\n@description: Converts the given FHIR [Quantity](https://hl7.org/fhir/datatypes.html#Quantity) \nvalue to a CQL Quantity\n@comment: If the given quantity has a comparator specified, a runtime error is raised. If the given quantity\nhas a system other than UCUM (i.e. `http://unitsofmeasure.org`) or CQL calendar units (i.e. `http://hl7.org/fhirpath/CodeSystem/calendar-units`)\nan error is raised. For UCUM to calendar units, the `ToCalendarUnit` function is used.\n@seealso: ToCalendarUnit\n*/\ndefine function ToQuantity(quantity FHIR.Quantity):\n    case\n        when quantity is null then null\n        when quantity.value is null then null\n        when quantity.comparator is not null then\n            Message(null, true, 'FHIRHelpers.ToQuantity.ComparatorQuantityNotSupported', 'Error', 'FHIR Quantity value has a comparator and cannot be converted to a System.Quantity value.')\n        when quantity.system is null or quantity.system.value = 'http://unitsofmeasure.org'\n              or quantity.system.value = 'http://hl7.org/fhirpath/CodeSystem/calendar-units' then\n            System.Quantity { value: quantity.value.value, unit: ToCalendarUnit(Coalesce(quantity.code.value, quantity.unit.value, '1')) }\n        else\n            Message(null, true, 'FHIRHelpers.ToQuantity.InvalidFHIRQuantity', 'Error', 'Invalid FHIR Quantity code: ' & quantity.unit.value & ' (' & quantity.system.value & '|' & quantity.code.value & ')')\n    end"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 107
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "FHIRHelpers"
+    }, {
+      "url": "name",
+      "valueString": "ToCalendarUnit"
+    }, {
+      "url": "statement",
+      "valueString": "/*\n@description: Converts a UCUM definite duration unit to a CQL calendar duration\nunit using conversions specified in the [quantities](https://cql.hl7.org/02-authorsguide.html#quantities) \ntopic of the CQL specification.\n@comment: Note that for durations above days (or weeks), the conversion is understood to be approximate\n*/\ndefine function ToCalendarUnit(unit System.String):\n    case unit\n        when 'ms' then 'millisecond'\n        when 's' then 'second'\n        when 'min' then 'minute'\n        when 'h' then 'hour'\n        when 'd' then 'day'\n        when 'wk' then 'week'\n        when 'mo' then 'month'\n        when 'a' then 'year'\n        else unit\n    end"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 108
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "FHIRHelpers"
+    }, {
+      "url": "name",
+      "valueString": "ToInteger"
+    }, {
+      "url": "statement",
+      "valueString": "define function ToInteger(value integer): value.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 109
@@ -2384,10 +2390,25 @@
       "valueString": "ToString"
     }, {
       "url": "statement",
-      "valueString": "define function ToString(value RequestIntent): value.value"
+      "valueString": "define function ToString(value DeviceRequestStatus): value.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 110
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "FHIRHelpers"
+    }, {
+      "url": "name",
+      "valueString": "ToString"
+    }, {
+      "url": "statement",
+      "valueString": "define function ToString(value RequestIntent): value.value"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 111
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2402,7 +2423,7 @@
       "valueString": "//TODO: POC only (need to consider all the ServiceRequest considerations)\ndefine function MostRecent(value List<FHIR.DeviceRequest>):\n  First(\n    value DeviceRequest\n      sort by authoredOn descending\n  )"
     }, {
       "url": "displaySequence",
-      "valueInteger": 111
+      "valueInteger": 112
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2417,7 +2438,7 @@
       "valueString": "define fluent function resulted(observations List<FHIR.Observation>):\n  observations observation\n    where observation.status ~ \"observation-final\".code\n      or observation.status ~ \"observation-amended\".code\n      or observation.status ~ \"observation-corrected\".code"
     }, {
       "url": "displaySequence",
-      "valueInteger": 112
+      "valueInteger": 113
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2432,7 +2453,7 @@
       "valueString": "define function ToString(value ObservationStatus): value.value"
     }, {
       "url": "displaySequence",
-      "valueInteger": 113
+      "valueInteger": 114
     } ]
   }, {
     "id": "effective-data-requirements",
@@ -2447,7 +2468,7 @@
   "version": "1.0.0",
   "status": "draft",
   "experimental": true,
-  "date": "2026-07-13T09:44:19-06:00",
+  "date": "2026-07-20T13:20:34-06:00",
   "publisher": "Smile Digital Health",
   "useContext": [ {
     "code": {
@@ -2589,7 +2610,7 @@
             "kind": "applicability",
             "expression": {
               "language": "text/cql-identifier",
-              "expression": "Has Applicable Comorbid Medical Conditions"
+              "expression": "Has Absence Of Applicable Comorbid Medical Conditions"
             }
           } ],
           "input": [ {
@@ -2707,7 +2728,7 @@
                     "expression": "Unable To Have Physician Evaluate Results"
                   }
                 } ],
-                "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPSubmitQuestionnaire"
+                "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCompleteQuestionnaire"
               } ]
             }, {
               "title": "Complete Questionnaire",
