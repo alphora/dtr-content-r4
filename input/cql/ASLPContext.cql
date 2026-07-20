@@ -45,8 +45,25 @@ define "Provider Coverage":
 define function "Service Request Item Code"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   if (requestItem is FHIR.CommunicationRequest) then 
     FHIRHelpers.ToCode(singleton from GetCodeableConceptForCommunicationRequest(requestItem).coding)
+  else if (requestItem is FHIR.MedicationRequest) then
+    if (requestItem as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then
+      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)
+    else if (requestItem as FHIR.MedicationRequest).medication is FHIR.Reference then
+      System.Code { display: GetMedicationDisplay(requestItem as FHIR.MedicationRequest) }
+    else 
+      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)
   else 
     FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)
+
+define function GetMedicationDisplay(medicationRequest FHIR.MedicationRequest):
+  FHIRHelpers.ToString(
+    First(
+      (First (
+        [Medication] M
+          where FHIRHelpers.ToString((medicationRequest.medication as FHIR.Reference).reference) ='Medication/' + FHIRHelpers.ToString(M.id) 
+      )).code.coding
+    ).display
+  )
 
 define function GetCodeableConceptForCommunicationRequest(cr FHIR.CommunicationRequest):
   if exists (cr.payload P
@@ -226,11 +243,11 @@ returns FHIR.CodeableConcept:
       (item as FHIR.MedicationRequest).medication as FHIR.CodeableConcept
     else if (item as FHIR.MedicationRequest).medication is FHIR.Reference then
       if exists ([Medication]) then 
-        from [Medication] M 
-          where not IsNull(((item as FHIR.MedicationRequest).medication as FHIR.Reference) ref 
-            where ref.reference = 'Medication/' + M.id
-          )
-        return M.code
+          from [Medication] M 
+            where ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference = 'Medication/' + M.id
+            or ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference = 'Medication/' + FHIRHelpers.ToString(M.id)
+            // or M.id in ref.reference
+          return M.code
       else 
         null as FHIR.CodeableConcept
       // ([MedicationRequest: id ~ ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference])
