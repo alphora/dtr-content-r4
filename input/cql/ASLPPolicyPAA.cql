@@ -207,16 +207,15 @@ define "Qualifying Absence Of Comorbid Medical Conditions":
   else 
     PCF.CaseFeatureObservation(
       AC."Qualifying Absence Of Comorbid Medical Conditions Assertion",
-      //"Has Absence Of Applicable Comorbid Medical Conditions",
-      false,
+      PS."Has No Comorbid Medical Conditions",
       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-comorbid-screening-casefeature',
-      PS."Evidence of Comorbid Medical Conditions", 
+      PCF.MostRecentObsOrCond(PS."Absence of Comorbid Medical Conditions"), 
       ''
     )
 
-define "Has Absence Of Comorbid Medical Conditions":
-  ("Qualifying Absence Of Comorbid Medical Conditions".value.value as System.Boolean
-    and "Has Absence Of Applicable Comorbid Medical Conditions")
+define "Has Absence Of Comorbid Medical Conditions Value":
+  "Qualifying Absence Of Comorbid Medical Conditions".value.value as System.Boolean
+    // and "Has Absence Of Applicable Comorbid Medical Conditions")
 
 // define "Presence Of Comorbid Medical Conditions":
 //   not "Has Absence Of Comorbid Medical Conditions"
@@ -224,20 +223,19 @@ define "Has Absence Of Comorbid Medical Conditions":
 // define "Null Presence of Comorbid Medical Conditions":
 //   "Has Absence Of Comorbid Medical Conditions" is null
 
-//Eligible Comorbid Medical Conditions Criteria
-define "Has Applicable Comorbid Medical Conditions Value":
-  ("Has Neuromuscular Disease With Associated Pulmonary Disease Value"
-    or "Has Cardiac Disease Value"
-    or "Has Moderate To Severe Pulmonary Disease Value")
+// define "Has Applicable Comorbid Medical Conditions Value":
+  // ("Has Neuromuscular Disease With Associated Pulmonary Disease Value"
+  //   or "Has Cardiac Disease Value"
+  //   or "Has Moderate To Severe Pulmonary Disease Value")
 
 define "Has Applicable Comorbid Medical Conditions":
-  IsTrue("Has Applicable Comorbid Medical Conditions Value")
+  IsFalse("Has Absence Of Comorbid Medical Conditions Value")
 
 define "Has Absence Of Applicable Comorbid Medical Conditions":
-  IsFalse("Has Applicable Comorbid Medical Conditions Value")
+  IsTrue("Has Absence Of Comorbid Medical Conditions Value")
 
 define "Null Applicable Comorbid Medical Conditions":
-  IsNull("Has Applicable Comorbid Medical Conditions Value")
+  IsNull("Has Absence Of Comorbid Medical Conditions Value")
 
 //Pulmonary Disease
 define "Most Recent Moderate To Severe Pulmonary Disease":
@@ -841,8 +839,8 @@ define "Temporarily Not Approved":
       if "Age Unknown" then 'Please enter the following: Patient Age' else null, 
       "Null EDS",
       "Null Comorbid Medical Conditions",
-      "Null Home Criteria"
-      "Null Eligible Medical Condition for Facility-Based Polysomnogram (PSG)"
+      "Null Home Criteria",
+      "Null Eligible Medical Conditions for Facility-Based Polysomnogram (PSG)"
     )
 
 define "Null EDS":

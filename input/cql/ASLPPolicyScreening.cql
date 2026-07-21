@@ -100,6 +100,9 @@ define "Evidence of Comorbid Medical Conditions":
     union "Pulmonary Disease Diagnosis"
     union "Qualifying Cardiac Disease"
 
+define "Absence of Comorbid Medical Conditions":
+  "Evidence of Comorbid Medical Conditions"
+
 define "Has Comorbid Medical Conditions":
   "Has Moderate To Severe Pulmonary Disease"
     or "Neuromuscular Disease With Associated Pulmonary Disease"
@@ -118,7 +121,7 @@ define "Has Moderate To Severe Pulmonary Disease":
     or ("Has Diagnosed Asthma")
 
 define "Qualifying Moderate To Severe Pulmonary Disease":
-  ([Observation: "Moderate to Severe Pulmonary Disease VS"]).resulted() 
+  ([Condition: "Moderate to Severe Pulmonary Disease VS"]).active().confirmed()
 
 //COPD
 define "Has Diagnosed COPD":
