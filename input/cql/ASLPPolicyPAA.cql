@@ -321,7 +321,7 @@ define "Null Pulmonary Disease":
 
 //Neuromuscular Disease
 define "Most Recent Neuromuscular Disease With Pulmonary Disease":
-  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion".coding)])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion".coding)])
 
 define "Qualifying Neuromuscular Disease With Associated Pulmonary Disease":
   if not "Most Recent Neuromuscular Disease With Pulmonary Disease" is null
@@ -349,7 +349,7 @@ define "Null Neuromuscular Disease With Associated Pulmonary Disease":
 
 //Cardiac Disease
 define "Most Recent Cardiac Disease Observation":
-  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Cardiac Disease Assertion".coding)])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Cardiac Disease Assertion".coding)])
 
 define "Qualifying Cardiac Disease":
   if not "Most Recent Cardiac Disease Observation" is null
@@ -416,7 +416,9 @@ define "Safe Equipment Use At Home":
     PCF.CaseFeatureObservation(
       AC."Safe Equipment Use At Home Assertion",
       PS."Safe Use Of Equipment At Home Observation",
-      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature'
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature',
+      PCF.MostRecent(PS."Safe Equipment Use At Home"),
+      ''
     )
 
 define "Can Safely Use Equipment At Home Value":
@@ -442,7 +444,9 @@ define "Physician Evaluated Results":
     PCF.CaseFeatureObservation(
       AC."Physician Evaluated Results Assertion",
       PS."Physician Evaluated Results Observation",
-      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature'
+      'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature', 
+      PCF.MostRecent(PS."Ability For Physician To Evaluate Results"),
+      ''
     )
 
 define "Ability To Have Physician Evaluate Results Value":
@@ -514,7 +518,7 @@ define "Null Diagnostic Testing Prior to Planned HGNS Implantation With Diagnosi
 
 //Central Sleep Apnea (CSA)
 define "Most Recent Central Sleep Apnea Diagnosis":
-  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Central Sleep Apnea (CSA) Assertion".coding)])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Central Sleep Apnea (CSA) Assertion".coding)])
 
 define "Qualifying Central Sleep Apnea (CSA)":
   if not "Most Recent Central Sleep Apnea Diagnosis" is null
@@ -542,7 +546,7 @@ define "Null Central Sleep Apnea (CSA)":
 
 //Features associated with narcolepsy when a multiple sleep latency test (MSLT) is planned
 define "Most Recent Feature Associated With Narcolepsy When a MSLT is Planned":
-  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Features Associated With Narcolepsy When a MSLT is Planned Assertion".coding)])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Features Associated With Narcolepsy When a MSLT is Planned Assertion".coding)])
 
 define "Qualifying Feature Associated With Narcolepsy":
   if not "Most Recent Feature Associated With Narcolepsy When a MSLT is Planned" is null
@@ -568,7 +572,7 @@ define "Unknown Features Associated With Narcolepsy When MSLT is Planned":
 
 //Obesity Hypoventilation Syndrome (OHS)
 define "Most Recent Diagnosis of Obesity Hypoventilation Syndrome (OHS)":
-  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Obesity Hypoventilation Syndrome (OHS) Assertion".coding)])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Obesity Hypoventilation Syndrome (OHS) Assertion".coding)])
 
 define "Qualifying Obesity Hypoventilation Syndrome (OHS)":
   if not "Most Recent Diagnosis of Obesity Hypoventilation Syndrome (OHS)" is null
@@ -594,7 +598,7 @@ define "Unknown Obesity Hypoventilation Syndrome (OHS)":
 
 //Traumatic Brain Injury (TBI) with EDS 
 define "Most Recent Diagnosis of Traumatic Brain Injury (TBI) with EDS":
-  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Traumatic Brain Injury (TBI) with EDS Assertion".coding)])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Traumatic Brain Injury (TBI) with EDS Assertion".coding)])
 
 define "Qualifying Traumatic Brain Injury (TBI) with EDS":
   if not "Most Recent Diagnosis of Traumatic Brain Injury (TBI) with EDS" is null
@@ -620,7 +624,7 @@ define "Unknown History of Traumatic Brain Injury (TBI) with Excessive Daytime S
 
 //Idiopathic central nervous system hypersomnia when multiple sleep latency test (MSLT) is planned
 define "Most Recent Diagnosis of Idiopathic Central Nervous System Hypersomnia":
-  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Idiopathic Central Nervous System Hypersomnia Assertion".coding)])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Idiopathic Central Nervous System Hypersomnia Assertion".coding)])
 
 define "Qualifying Idiopathic Central Nervous System Hypersomnia":
   if not "Most Recent Diagnosis of Idiopathic Central Nervous System Hypersomnia" is null
@@ -702,7 +706,7 @@ define "Unknown Profession or Unknown Whether Profession is Mission Critical":
 
 //Parasomnias
 define "Most Recent Parasomnia":
-  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Parasomnia Assertion".coding)])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Parasomnia Assertion".coding)])
 
 define "Qualifying Parasomnia":
   if not "Most Recent Parasomnia" is null
@@ -730,7 +734,7 @@ define "Unknown Parasomnia":
 
 //Paroxysmal arousals 
 define "Most Recent Paroxysmal Arousal":
-  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Paroxysmal Arousals Assertion".coding)])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Paroxysmal Arousals Assertion".coding)])
 
 define "Qualifying Paroxysmal Arousal or Other Sleep Disruptions Thought to be Seizure Related":
   if not "Most Recent Paroxysmal Arousal" is null
@@ -758,7 +762,7 @@ define "Unknown Paroxysmal Arousals or Other Sleep Disruptions Thought to be Sei
 
 //Periodic Limb Movement Disorder (PLMD)
 define "Most Recent Periodic Limb Movement Disorder":
-  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC."Qualifying Periodic Limb Movement Disorder (PLMD) Assertion".coding)])
+  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC."Qualifying Periodic Limb Movement Disorder (PLMD) Assertion".coding)])
 
 define "Qualifying Periodic Limb Movement Disorder":
   if not "Most Recent Periodic Limb Movement Disorder" is null
@@ -911,14 +915,14 @@ define "Null Eligible Medical Conditions for Facility-Based Polysomnogram (PSG)"
 //Approved Response
 define "Approved Detail":
   'Prior Authorization APPROVED.'
-    + "LineBreak" + 'Reasoning:'
-    + "Approved Age"
-    + "Approved EDS"
-    + "Approved Comorbid Conditions Absence"
-    + "Approved Qualified Device"
-    + "Approved Home Use"
-    + "Approved Physician Evaluated Results"
-    + "Approved Eligible Medical Conditions for Facility-Based Polysomnogram (PSG)"
+    & "LineBreak" + 'Reasoning:'
+    & "Approved Age"
+    & "Approved EDS"
+    & "Approved Comorbid Conditions Absence"
+    & "Approved Qualified Device"
+    & "Approved Home Use"
+    & "Approved Physician Evaluated Results"
+    & "Approved Eligible Medical Conditions for Facility-Based Polysomnogram (PSG)"
 
 define "Approved Age":
   if "Is Qualifying Age"
