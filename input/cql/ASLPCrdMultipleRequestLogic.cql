@@ -15,7 +15,7 @@ include ASLPCrdEvaluationLogic version '0.1.0' called Evaluation
 include QuestionnaireRouter version '0.1.0' called Router
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
-codesystem "AdjudicationOutcomes": 'https://codesystem.x12.org/005010/306'
+codesystem "AdjudicationOutcomes": 'https://codesystem.x12.org/005010/306' 
 
 valueset "Prior Auth Required for Procedure Valueset": 'http://terminology.smilecdr.com/cs/priorauth'
 valueset "Sleep Study Procedure": 'http://terminology.smilecdr.com/cs/sleepstudy'
@@ -381,13 +381,14 @@ returns FHIR.Extension:
 
 //Questionnaire elements
 define "PriorAuthSubmissionRequisite":
-  from "CoverageExtensionList" ExtList 
-    where exists (
-      ExtList.extension E
-      where E.url.value = 'pa-needed'
-        and (E.value.value = 'auth-needed' or E.value.value = 'conditional')
-    )
-  return 'pa-needed or conditional'
+  exists (
+    "CoverageExtensionList" ExtList
+      where exists (
+        ExtList.extension E
+          where E.url.value = 'pa-needed'
+            and (E.value.value = 'auth-needed' or E.value.value = 'conditional')
+      )
+  )
 
 //Created by Claude 3.7 Sonnet
 define "AdjudicationOutcome":
@@ -477,7 +478,7 @@ define function GetAdjudicationOutcome(extension FHIR.Extension):
     FHIR.CodeableConcept {
       coding: { 
         FHIR.Coding {
-          system: FHIR.uri { value: 'http://example.com/CodeSystem/adjudication-outcomes' },
+          system: FHIR.uri { value: 'https://codesystem.x12.org/005010/306' },
           code: FHIR.code { value: 'A1' },
           display: FHIR.string { value: 'Approved' }
         }
@@ -487,7 +488,7 @@ define function GetAdjudicationOutcome(extension FHIR.Extension):
     FHIR.CodeableConcept {
       coding: {
         FHIR.Coding {
-          system: FHIR.uri { value: 'http://example.com/CodeSystem/adjudication-outcomes' },
+          system: FHIR.uri { value: 'https://codesystem.x12.org/005010/306' },
           code: FHIR.code { value: 'A3' },
           display: FHIR.string { value: 'Denied' }
         }
@@ -497,7 +498,7 @@ define function GetAdjudicationOutcome(extension FHIR.Extension):
     FHIR.CodeableConcept {
       coding: {
         FHIR.Coding {
-          system: FHIR.uri { value: 'http://example.com/CodeSystem/adjudication-outcomes' },
+          system: FHIR.uri { value: 'https://codesystem.x12.org/005010/306' },
           code: FHIR.code { value: 'A4' },
           display: FHIR.string { value: 'Pended' }
         }
