@@ -146,8 +146,8 @@
       "name": "PriorAuthSubmissionRequisite",
       "use": "out",
       "min": 0,
-      "max": "*",
-      "type": "string"
+      "max": "1",
+      "type": "boolean"
     }, {
       "name": "CoverageExtensionList",
       "use": "out",
@@ -1294,7 +1294,7 @@
       "valueString": "PriorAuthSubmissionRequisite"
     }, {
       "url": "statement",
-      "valueString": "//Questionnaire elements\ndefine \"PriorAuthSubmissionRequisite\":\n  from \"CoverageExtensionList\" ExtList \n    where exists (\n      ExtList.extension E\n      where E.url.value = 'pa-needed'\n        and (E.value.value = 'auth-needed' or E.value.value = 'conditional')\n    )\n  return 'pa-needed or conditional'"
+      "valueString": "//Questionnaire elements\ndefine \"PriorAuthSubmissionRequisite\":\n  exists (\n    \"CoverageExtensionList\" ExtList\n      where exists (\n        ExtList.extension E\n          where E.url.value = 'pa-needed'\n            and (E.value.value = 'auth-needed' or E.value.value = 'conditional')\n      )\n  )"
     }, {
       "url": "displaySequence",
       "valueInteger": 69
@@ -2745,7 +2745,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-07-20T13:20:34-06:00",
+  "date": "2026-07-23T07:11:02-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MultipleRequest",
   "useContext": [ {

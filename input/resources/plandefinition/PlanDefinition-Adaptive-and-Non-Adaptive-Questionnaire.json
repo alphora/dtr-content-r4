@@ -171,7 +171,7 @@
       "valueString": "Sleep Study Procedures"
     }, {
       "url": "statement",
-      "valueString": "//sleep study procedure for non-adaptive questionnaire\ndefine \"Sleep Study Procedures\":\n  ([Procedure: \"Sleep Study Procedure\"])"
+      "valueString": "// [Observation] Obs \n  //   where exists ((Obs.code.coding) c \n  //     where FHIRHelpers.ToCode(c) ~ \"Under care of doctor (finding)\"\n  //   )\n\n//sleep study procedure for non-adaptive questionnaire\ndefine \"Sleep Study Procedures\":\n  ([Procedure: \"Sleep Study Procedure\"])"
     }, {
       "url": "displaySequence",
       "valueInteger": 2
@@ -549,7 +549,7 @@
   "version": "1.0.0",
   "status": "draft",
   "experimental": true,
-  "date": "2026-07-20T13:20:35-06:00",
+  "date": "2026-07-23T07:11:02-06:00",
   "publisher": "Smile Digital Health",
   "useContext": [ {
     "code": {
