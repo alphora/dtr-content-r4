@@ -562,7 +562,7 @@ define function GetAdjudicationReasonCodes(extension FHIR.Extension):
       }
     }
 
-define function IsPended(extension FHIR.Extension): 
+define function IsPended(extension FHIR.Extension):
   if extension is null then 
     null 
   else exists (

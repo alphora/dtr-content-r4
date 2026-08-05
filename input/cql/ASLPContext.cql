@@ -230,7 +230,15 @@ returns FHIR.CodeableConcept:
     if (item as FHIR.DeviceRequest).code is FHIR.CodeableConcept then
       (item as FHIR.DeviceRequest).code as FHIR.CodeableConcept
     else if (item as FHIR.DeviceRequest).code is FHIR.Reference then
-      ([Device: id ~ ((item as FHIR.DeviceRequest).code as FHIR.Reference).reference]).type
+      if exists ([Device]) then
+        from [Device] D
+            where ((item as FHIR.DeviceRequest).code as FHIR.Reference).reference = 'Device/' + D.id
+            or ((item as FHIR.DeviceRequest).code as FHIR.Reference).reference = 'Device/' + FHIRHelpers.ToString(D.id)
+            // or D.id in ref.reference
+        return D.type
+      else
+        null as FHIR.CodeableConcept
+      // ([Device: id ~ ((item as FHIR.DeviceRequest).code as FHIR.Reference).reference]).type
     else 
       null as FHIR.CodeableConcept
   else if (item is FHIR.NutritionOrder) then
@@ -289,13 +297,15 @@ returns FHIR.CodeableConcept:
       First((item as FHIR.Appointment).serviceType)
     else if exists ((item as FHIR.Appointment).basedOn) then 
       if exists ([ServiceRequest]) then
-        from ([ServiceRequest]) SR
-          where exists (((item as FHIR.Appointment).basedOn) b 
-              where b.reference.value = 'ServiceRequest/' + SR.id 
-              or EndsWith(b.reference.value, '/' + SR.id)
-          )
-        return 
-          SR.code
+        First(
+          from ([ServiceRequest]) SR
+            where exists (((item as FHIR.Appointment).basedOn) b 
+                where b.reference.value = 'ServiceRequest/' + SR.id 
+                or EndsWith(b.reference.value, '/' + SR.id)
+            )
+          return 
+            SR.code
+        )
       else 
         null as FHIR.CodeableConcept
     else 
