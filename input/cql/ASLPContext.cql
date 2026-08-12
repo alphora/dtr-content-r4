@@ -251,11 +251,13 @@ returns FHIR.CodeableConcept:
       (item as FHIR.MedicationRequest).medication as FHIR.CodeableConcept
     else if (item as FHIR.MedicationRequest).medication is FHIR.Reference then
       if exists ([Medication]) then 
-          from [Medication] M 
+          First(
+            from [Medication] M 
             where ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference = 'Medication/' + M.id
             or ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference = 'Medication/' + FHIRHelpers.ToString(M.id)
             // or M.id in ref.reference
-          return M.code
+            return M.code
+          )
       else 
         null as FHIR.CodeableConcept
       // ([MedicationRequest: id ~ ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference])
