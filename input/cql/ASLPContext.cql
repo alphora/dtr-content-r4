@@ -219,7 +219,7 @@ returns System.String:
 
 // need a architecture design question on how to solve longer term
 
-define function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>)
+define function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>)
 returns FHIR.CodeableConcept:
   if (item is FHIR.ServiceRequest) then
     if (item as FHIR.ServiceRequest).code is FHIR.CodeableConcept then 
@@ -293,21 +293,21 @@ returns FHIR.CodeableConcept:
     else
       null as FHIR.CodeableConcept
   else if (item is FHIR.Appointment) then 
-    if exists ((item as FHIR.Appointment).serviceType) then 
-      First((item as FHIR.Appointment).serviceType)
-    else if exists ((item as FHIR.Appointment).basedOn) then 
+    if exists ((item as FHIR.Appointment).basedOn) then 
       if exists ([ServiceRequest]) then
         First(
           from ([ServiceRequest]) SR
             where exists (((item as FHIR.Appointment).basedOn) b 
-                where b.reference.value = 'ServiceRequest/' + SR.id 
-                or EndsWith(b.reference.value, '/' + SR.id)
+                where b.reference = 'ServiceRequest/' + SR.id 
+                or EndsWith(b.reference, '/' + SR.id)
             )
           return 
             SR.code
         )
       else 
         null as FHIR.CodeableConcept
+    else if exists ((item as FHIR.Appointment).serviceType) then 
+      First((item as FHIR.Appointment).serviceType)
     else 
       null as FHIR.CodeableConcept
   else if (item is FHIR.Task) then 
