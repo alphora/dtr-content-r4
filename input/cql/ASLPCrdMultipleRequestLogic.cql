@@ -247,19 +247,7 @@ define function GetCrdResultCommunicationRequest(requestItem Choice<FHIR.Nutriti
     "CRD Matrix"(requestItem)."CRD-7"
 
 define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
-  if exists (requestItem.serviceType) then 
-    if (
-      PriorAuthList."Is OnPriorAuthList"(requestItem)
-      or exists ((Ctx.GetCode(requestItem).coding) c
-        where c in "Sleep Study Procedure"
-      )
-    ) then
-      "CRD Matrix"(requestItem)."CRD-5"
-    else if Routine."Is Routine"(requestItem) then 
-      "CRD Matrix"(requestItem)."CRD-7"
-    else 
-      "CRD Matrix"(requestItem)."CRD-6"
-  else if exists (requestItem.basedOn) then 
+  if exists (requestItem.basedOn) then 
     if (
       PriorAuthList."Is OnPriorAuthList"(requestItem)
       or exists ((Ctx.GetCode(requestItem).coding) c
@@ -271,9 +259,22 @@ define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, 
       "CRD Matrix"(requestItem)."CRD-7"
     else 
       "CRD Matrix"(requestItem)."CRD-6"  
+  // else if exists (requestItem.serviceType) then 
+    // if (
+    //   PriorAuthList."Is OnPriorAuthList"(requestItem)
+    //   or exists ((Ctx.GetCode(requestItem).coding) c
+    //     where c in "Sleep Study Procedure"
+    //   )
+    // ) then
+    //   "CRD Matrix"(requestItem)."CRD-5"
+    // else if Routine."Is Routine"(requestItem) then 
+    //   "CRD Matrix"(requestItem)."CRD-7"
+    // else 
+    //   "CRD Matrix"(requestItem)."CRD-6"
   else 
     // "CRD Matrix"(requestItem)."CRD-9"
-    "CRD Matrix"(requestItem)."CRD-UnexpectedError"
+    // "CRD Matrix"(requestItem)."CRD-UnexpectedError"
+    "CRD Matrix"(requestItem)."CRD-7"
 
 define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   if BillingOptionExtensionPresent(requestItem) then 
