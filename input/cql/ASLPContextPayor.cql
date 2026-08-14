@@ -7,15 +7,13 @@ include ASLPConcepts version '0.1.0' called ASLPConcepts
 
 context Patient
 
-define IsLocalTesting: false
-
 define "Payor Coverage":
   // NOTE: per PA team, the Coverage is just the first matching coverage
   //       - at some point we may return a "ambiguous data" response if there is > 1 Coverage
   First("All Payor Coverages")
 
 define "Payor":
-  if (IsLocalTesting) then
+  if (ASLPConcepts.IsLocalTesting) then
     {
       "Patient": "Payor Patient",
       "Coverages": { First("All Payor Coverages" item where ASLPConcepts.IsPayorResource(item) = true) },

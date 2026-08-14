@@ -46,7 +46,7 @@ define "Provider":
       "Organizations": ("Provider Context".entry.resource PayorResource return if (PayorResource is Organization) then PayorResource as FHIR.Organization else null as FHIR.Organization) I where I is not null
     }
   // This section is only for local CQL vs code plugin testing
-  else
+  else //if (ASLPConcepts.IsLocalTesting) then
     {
       "Patient": "Provider Patient",
       "Coverages": "All Provider Coverages",

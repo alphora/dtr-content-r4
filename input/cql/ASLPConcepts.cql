@@ -33,6 +33,8 @@ code "Payor Code": 'pay' from "Payor Identifier CodeSystem" display 'Payor'
 
 context Patient
 
+define IsLocalTesting: false
+
 define function IsPayorResource(resource Resource)
 returns System.Boolean:
   TagExists(resource, "Payor Code")
