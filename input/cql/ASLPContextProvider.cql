@@ -3,10 +3,7 @@ library ASLPContextProvider version '0.1.0'
 using FHIR version '4.0.1'
 
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
-
-codesystem "Payor Identifier CodeSystem": 'http://terminology.hl7.org/CodeSystem/organization-type'
-
-code "Payor Code": 'pay' from "Payor Identifier CodeSystem" display 'Payor'
+include ASLPConcepts version '0.1.0' called ASLPConcepts
 
 // TODO: separate this into different parameters
 // parameter "Provider Patient" FHIR.Patient
@@ -36,23 +33,6 @@ parameter "Provider Context" FHIR.Bundle
 
 context Patient
 
-define function IsPayorResource(resource Resource)
-returns System.Boolean:
-  TagExists(resource, "Payor Code")
-
-define function TagExists(resource Resource, value System.Code)
-returns System.Boolean:
-  if (exists(resource.meta.tag.system)) then
-    AnyTrue(
-      resource.meta.tag Tag
-        return 
-          if Tag.system.value ~ value.system and Tag.code.value ~ value.code then 
-            true 
-          else 
-            false
-    )
-  else false
-
 define "Provider Coverage":
   First("Provider"."Coverages")
 
@@ -80,13 +60,13 @@ define "Provider Patient":
   First([Patient])
 
 define "All Provider Coverages":
-  [Coverage] item where IsPayorResource(item) = false
+  [Coverage] item where ASLPConcepts.IsPayorResource(item) = false
 
 define "All Provider Practitioners":
-  [Practitioner] item where IsPayorResource(item) = false
+  [Practitioner] item where ASLPConcepts.IsPayorResource(item) = false
 
 define "All Provider PractitionerRoles":
-  [PractitionerRole] item where IsPayorResource(item) = false
+  [PractitionerRole] item where ASLPConcepts.IsPayorResource(item) = false
 
 define "All Provider Organizations":
-  [Organization] item where IsPayorResource(item) = false
+  [Organization] item where ASLPConcepts.IsPayorResource(item) = false

@@ -3,29 +3,11 @@ library ASLPContextPayor version '0.1.0'
 using FHIR version '4.0.1'
 
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
-
-codesystem "Payor Identifier CodeSystem": 'http://terminology.hl7.org/CodeSystem/organization-type'
-
-code "Payor Code": 'pay' from "Payor Identifier CodeSystem" display 'Payor'
+include ASLPConcepts version '0.1.0' called ASLPConcepts
 
 context Patient
 
-define function IsPayorResource(resource Resource)
-returns System.Boolean:
-  TagExists(resource, "Payor Code")
-
-define function TagExists(resource Resource, value System.Code)
-returns System.Boolean:
-  if (exists(resource.meta.tag.system)) then
-    AnyTrue(
-      resource.meta.tag Tag
-        return 
-          if Tag.system.value ~ value.system and Tag.code.value ~ value.code then 
-            true 
-          else 
-            false
-    )
-  else false
+define IsLocalTesting: true
 
 define "Payor Coverage":
   // NOTE: per PA team, the Coverage is just the first matching coverage
@@ -33,13 +15,22 @@ define "Payor Coverage":
   First("All Payor Coverages")
 
 define "Payor":
-  {
-    "Patient": "Payor Patient",
-    "Coverages": { "Payor Coverage" },
-    "Practitioners": "All Payor Practitioners",
-    "PractitionerRoles": "All Payor PractitionerRoles",
-    "Organizations": "All Payor Organizations"
-  }
+  if (IsLocalTesting) then
+    {
+      "Patient": "Payor Patient",
+      "Coverages": { First("All Payor Coverages" item where ASLPConcepts.IsPayorResource(item) = true) },
+      "Practitioners": "All Payor Practitioners" item where ASLPConcepts.IsPayorResource(item) = true,
+      "PractitionerRoles": "All Payor PractitionerRoles" item where ASLPConcepts.IsPayorResource(item) = true,
+      "Organizations": "All Payor Organizations" item where ASLPConcepts.IsPayorResource(item) = true
+    }
+  else 
+    {
+      "Patient": "Payor Patient",
+      "Coverages": { "Payor Coverage" },
+      "Practitioners": "All Payor Practitioners",
+      "PractitionerRoles": "All Payor PractitionerRoles",
+      "Organizations": "All Payor Organizations"
+    }
 
 define "Payor Patient":
   First([Patient])
@@ -55,10 +46,10 @@ define "All Payor Practitioners":
 define "All Payor PractitionerRoles":
   [PractitionerRole] PR
   with "All Payor Organizations" O 
-  such that PR.organization.reference = 'Organization/' + O.id
+    such that PR.organization.reference = 'Organization/' + O.id
 
 define "All Payor Organizations":
   [Organization] O 
     with "All Payor Coverages" C 
-    such that exists (C.payor P 
-      where P.reference = 'Organization/' + O.id)
+      such that exists (C.payor P 
+        where P.reference = 'Organization/' + O.id)

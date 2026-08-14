@@ -7,11 +7,10 @@ include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1' called FHIRHelpers
 include CrdExtendedCoverageInfo version '0.1.0' called ECI
 include ASLPContextProvider version '0.1.0' called ContextProvider
 include ASLPContextPayor version '0.1.0' called ContextPayor
+include ASLPConcepts version '0.1.0' called ASLPConcepts
 
 codesystem "Relationship Role": 'http://terminology.hl7.org/CodeSystem/v3-RoleCode'
-codesystem "Payor Identifier CodeSystem": 'http://terminology.hl7.org/CodeSystem/organization-type'
 
-code "Payor Code": 'pay' from "Payor Identifier CodeSystem" display 'Payor'
 code "Relationship Self Code": 'ONESELF' from "Relationship Role" display 'Self'
 
 // NutritionOrder, ServiceRequest, DeviceRequest, MedicationRequest, VisionPrescription with /draft/ status
@@ -39,7 +38,7 @@ define "Provider Coverage":
   // NOTE: per PA team, the Coverage is just the first matching coverage
   //       - at some point we may return a "ambiguous data" response if there is > 1 Coverage
   First(
-    [Coverage] item where IsPayorResource(item) = false
+    [Coverage] item where ASLPConcepts.IsPayorResource(item) = false
   )
 
 define function "Service Request Item Code"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
@@ -158,23 +157,6 @@ define function "System Generated Id"(requestItem Choice<FHIR.NutritionOrder, FH
 define function ExtensionPriorAuthNeeded(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>, covered System.String, priorAuthRequired System.String, codeValue System.String, detailText System.String, qualification System.String, warningOrInfo System.String)
 returns FHIR.Extension:
   ECI.ExtensionPriorAuthNeeded(ContextProvider."Provider Coverage".id.value, covered, priorAuthRequired, "System Generated Id"(requestItem), "Service Request Item ID"(requestItem), "Service Request Item Code"(requestItem), codeValue, detailText, qualification, warningOrInfo)
-
-define function TagExists(resource Resource, value System.Code):
-// returns System.Boolean:
-  if (exists(resource.meta.tag.system)) then
-    AnyTrue(
-      resource.meta.tag Tag
-        return 
-          if Tag.system.value ~ value.system and Tag.code.value ~ value.code then 
-            true 
-          else 
-            false
-    )
-  else false
-  
-define function IsPayorResource(resource Resource):
-// returns System.Boolean:
-  TagExists(resource, "Payor Code")
 
 // define function GetIdentifier(item Choice<FHIR.Practitioner, FHIR.Organization>, url System.String)
 // returns System.String:
@@ -430,8 +412,9 @@ define "Fulfillment Tasks For Dispatched Orders":
     where TaskReferencesDispatchedOrder(T)
 
 define "Service Request Item List":
-  "draftOrders"
+  //"draftOrders"
   // NOTE: these retrieves are only for local testing
+  [ServiceRequest]
 
 define "Appointments List": 
   "appointments"
