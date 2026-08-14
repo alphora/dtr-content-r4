@@ -177,8 +177,9 @@ returns System.String:
 
 define fluent function npi(items List<Choice<FHIR.Practitioner, FHIR.Organization>>)
 returns List<System.String>:
-  items I
+  (items I
     return GetIdentifier(I, 'http://hl7.org/fhir/sid/us-npi')
+  ) v where not IsNull(v)
 
 define fluent function getNpi(item Choice<FHIR.Practitioner, FHIR.Organization>)
 returns System.String:
