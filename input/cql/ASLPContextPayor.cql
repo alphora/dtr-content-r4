@@ -7,7 +7,7 @@ include ASLPConcepts version '0.1.0' called ASLPConcepts
 
 context Patient
 
-define IsLocalTesting: true
+define IsLocalTesting: false
 
 define "Payor Coverage":
   // NOTE: per PA team, the Coverage is just the first matching coverage
