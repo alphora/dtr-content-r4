@@ -384,10 +384,12 @@ returns FHIR.Extension:
 define "PriorAuthSubmissionRequisite":
   exists (
     "CoverageExtensionList" ExtList
-      where exists (
-        ExtList.extension E
+      where exists (ExtList.extension E
           where E.url.value = 'pa-needed'
-            and (E.value.value = 'auth-needed' or E.value.value = 'conditional')
+            and (
+              E.value.value = 'auth-needed' 
+              or E.value.value = 'conditional'
+            )
       )
   )
 
