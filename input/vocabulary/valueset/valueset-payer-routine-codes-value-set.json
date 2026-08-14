@@ -147,5 +147,63 @@
           ]
         }
     ]
-  }
+  },
+  "expansion": {
+        "identifier": "routine-codes-value-set-2026-08-13T11:04:22-06:00",
+        "timestamp": "2026-08-13T11:04:22-06:00",
+        "total": 10,
+        "offset": 0,
+        "contains": [
+            {
+            "system": "http://www.ama-assn.org/go/cpt",
+            "code": "93010",
+            "display": "ELECTROCARDIOGRAM REPORT"
+          },
+          {
+            "system": "http://www.ama-assn.org/go/cpt",
+            "code": "85025",
+            "display": "COMPLETE CBC W/AUTO DIFF WBC"
+          },
+          {
+            "system": "http://www.ama-assn.org/go/cpt",
+            "code": "99397",
+            "display": "preventive exam if you are over age 65"
+          },
+          {
+            "system": "http://www.ama-assn.org/go/cpt",
+            "code": "36415",
+            "display": "ROUTINE VENIPUNCTURE"
+          },
+          {
+            "system": "http://www.ama-assn.org/go/cpt",
+            "code": "80053",
+            "display": "Comprehensive Metabolic Panel"
+          },
+          {
+            "system": "http://www.ama-assn.org/go/cpt",
+            "code": "95810",
+            "display": "Polysomnography; age 6 years or older, sleep staging with 4 or more additional parameters of sleep, attended by a technologist"
+          },
+          {
+            "system": "http://www.ama-assn.org/go/cpt",
+            "code": "94762",
+            "display": "Noninvasive ear or pulse oximetry for oxygen saturation; by continuous overnight monitoring (separate procedure)"
+          },
+          {
+            "system": "http://www.ama-assn.org/go/cpt",
+            "code": "92520",
+            "display": "Laryngeal function studies (ie, aerodynamic testing and acoustic testing)"
+          },
+          {
+            "system": "http://www.ama-assn.org/go/cpt",
+            "code": "90999",
+            "display": "DIALYSIS PROCEDURE"
+          },
+          {
+            "system": "http://www.ama-assn.org/go/cpt",
+            "code": "92015",
+            "display": "Refraction and basic ophthalmological exam"
+          }
+        ]
+    }
 }

@@ -97,5 +97,68 @@
               ]
           }
       ]
-  }
+  },
+  "expansion": {
+        "identifier": "sleepstudy-codes-value-set-2026-08-13T11:04:22-06:00",
+        "timestamp": "2026-08-13T11:04:22-06:00",
+        "total": 11,
+        "offset": 0,
+        "contains": [
+                {
+                    "system": "http://www.ama-assn.org/go/cpt",
+                    "code": "95800",
+                    "display": "Sleep study, unattended, simultaneous recording; heart rate, oxygen saturation, respiratory analysis (eg, by airflow or peripheral arterial tone), and sleep time"
+                },
+                {
+                    "system": "http://www.ama-assn.org/go/cpt",
+                    "code": "95801",
+                    "display": "Sleep study, unattended, simultaneous recording; minimum of heart rate, oxygen saturation, and respiratory analysis (eg, by airflow or peripheral arterial tone)"
+                },
+                {
+                    "system": "http://www.ama-assn.org/go/cpt",
+                    "code": "95803",
+                    "display": "Actigraphy testing, recording, analysis, interpretation, and report (minimum of 72 hours to 14 consecutive days of recording)"
+                },
+                {
+                    "system": "http://www.ama-assn.org/go/cpt",
+                    "code": "95805",
+                    "display": "Multiple sleep latency or maintenance of wakefulness testing, recording, analysis and interpretation of physiological measurements of sleep during multiple trials to assess sleepiness"
+                },
+                {
+                    "system": "http://www.ama-assn.org/go/cpt",
+                    "code": "95806",
+                    "display": "Sleep study, unattended, simultaneous recording of, heart rate, oxygen saturation, respiratory airflow, and respiratory effort (eg, thoracoabdominal movement)"
+                },
+                {
+                    "system": "http://www.ama-assn.org/go/cpt",
+                    "code": "95807",
+                    "display": "Sleep study, simultaneous recording of ventilation, respiratory effort, ECG or heart rate, and oxygen saturation, attended by a technologist"
+                },
+                {
+                    "system": "http://www.ama-assn.org/go/cpt",
+                    "code": "95808",
+                    "display": "Polysomnography; any age, sleep staging with 1-3 additional parameters of sleep, attended by a technologist"
+                },
+                {
+                    "system": "http://www.ama-assn.org/go/cpt",
+                    "code": "95810",
+                    "display": "Polysomnography; age 6 years or older, sleep staging with 4 or more additional parameters of sleep, attended by a technologist"
+                },
+                {
+                    "system": "http://www.ama-assn.org/go/cpt",
+                    "code": "95811",
+                    "display": "Polysomnography; age 6 years or older, sleep staging with 4 or more additional parameters of sleep, with initiation of continuous positive airway pressure therapy or bilevel ventilation, attended by a technologist"
+                },
+                {
+                    "system": "http://www.ama-assn.org/go/cpt",
+                    "code": "94762",
+                    "display": "Noninvasive ear or pulse oximetry for oxygen saturation; by continuous overnight monitoring (separate procedure)"
+                },
+                {
+                    "system": "http://www.ama-assn.org/go/cpt",
+                    "code": "92520",
+                    "display": "Laryngeal function studies (ie, aerodynamic testing and acoustic testing)"
+                }
+        ]
+    }
 }
