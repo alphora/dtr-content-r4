@@ -412,7 +412,7 @@ define "AdjudicationReasonCodes":
 define "QuestionnaireExtensionForTask":
   if First("CoverageExtensionList") is null then 
       null 
-  else if IsPended(First("CoverageExtensionList")) then 
+  else if IsConditionalPended(First("CoverageExtensionList")) then 
     FHIR.Extension {
       "url": FHIR.uri { "value": 'http://example.org/fhir/StructureDefinition/tasks' },
       "extension": ( {
@@ -497,6 +497,26 @@ define function GetAdjudicationOutcome(extension FHIR.Extension):
         }
       }
     }
+  else if IsConditionalApproved(extension) then 
+    FHIR.CodeableConcept {
+      coding: { 
+        FHIR.Coding {
+          system: FHIR.uri { value: 'https://codesystem.x12.org/005010/306' },
+          code: FHIR.code { value: 'A1' },
+          display: FHIR.string { value: 'Approved' }
+        }
+      }
+    }
+  else if IsConditionalDenied(extension) then 
+    FHIR.CodeableConcept {
+      coding: {
+        FHIR.Coding {
+          system: FHIR.uri { value: 'https://codesystem.x12.org/005010/306' },
+          code: FHIR.code { value: 'A3' },
+          display: FHIR.string { value: 'Denied' }
+        }
+      }
+    }
   else
     FHIR.CodeableConcept {
       coding: {
@@ -511,10 +531,6 @@ define function GetAdjudicationOutcome(extension FHIR.Extension):
 define function GetAdjudicationRationale(extension FHIR.Extension):
   if extension is null then 
     null 
-  else if IsPended(extension) then
-    FHIR.CodeableConcept {
-      text: FHIR.string { value: 'Additional patient clinical information is required to complete prior authorization review' }
-    }
   else if IsDenied(extension) then
     FHIR.CodeableConcept {
       text: FHIR.string { value: 'Service is not covered under the current benefit plan' }
@@ -523,23 +539,23 @@ define function GetAdjudicationRationale(extension FHIR.Extension):
     FHIR.CodeableConcept {
       text: FHIR.string { value: 'Service has been approved for coverage' }
     }
+  else if IsConditionalPended(extension) then
+    FHIR.CodeableConcept {
+      text: FHIR.string { value: 'Additional patient clinical information is required to complete prior authorization review' }
+    }
+  else if IsConditionalApproved(extension) then 
+    FHIR.CodeableConcept {
+      text: FHIR.string { value: 'Service has been approved for coverage' }
+    }
+  else if IsConditionalDenied(extension) then 
+    FHIR.CodeableConcept {
+      text: FHIR.string { value: 'Service is not covered under the current benefit plan' }
+    }
   else null
 
 define function GetAdjudicationReasonCodes(extension FHIR.Extension):
   if extension is null then 
     null 
-  else if IsPended(extension) then
-    {
-      FHIR.CodeableConcept {
-        coding: {
-          FHIR.Coding {
-            system: FHIR.uri { value: 'https://codesystem.x12.org/external/886' },
-            code: FHIR.code { value: '0U' },
-            display: FHIR.string { value: 'Additional Patient Information Required' }
-          }
-        }
-      }
-    }
   else if IsDenied(extension) then
     {
       FHIR.CodeableConcept {
@@ -552,7 +568,7 @@ define function GetAdjudicationReasonCodes(extension FHIR.Extension):
         }
       }
     }
-  else 
+  else if IsApproved(extension) then
     {
       FHIR.CodeableConcept {
         coding: {
@@ -564,15 +580,44 @@ define function GetAdjudicationReasonCodes(extension FHIR.Extension):
         }
       }
     }
-
-define function IsPended(extension FHIR.Extension):
-  if extension is null then 
+  else if IsConditionalPended(extension) then
+    {
+      FHIR.CodeableConcept {
+        coding: {
+          FHIR.Coding {
+            system: FHIR.uri { value: 'https://codesystem.x12.org/external/886' },
+            code: FHIR.code { value: '0U' },
+            display: FHIR.string { value: 'Additional Patient Information Required' }
+          }
+        }
+      }
+    }
+  else if IsConditionalApproved(extension) then 
+    {
+      FHIR.CodeableConcept {
+        coding: {
+          FHIR.Coding {
+            system: FHIR.uri { value: 'https://codesystem.x12.org/external/886' },
+            code: FHIR.code { value: '0N' },
+            display: FHIR.string { value: 'Covered Service' }
+          }
+        }
+      }
+    }
+  else if IsConditionalDenied(extension) then 
+    {
+      FHIR.CodeableConcept {
+        coding: {
+          FHIR.Coding {
+            system: FHIR.uri { value: 'https://codesystem.x12.org/external/886' },
+            code: FHIR.code { value: '0M' },
+            display: FHIR.string { value: 'Non-covered Service' }
+          }
+        }
+      }
+    }
+  else 
     null 
-  else exists (
-    extension.extension E
-    where E.url.value = 'covered' 
-      and E.value.value = 'conditional'
-  )
 
 define function IsApproved(extension FHIR.Extension):
   if extension is null then 
@@ -591,3 +636,146 @@ define function IsDenied(extension FHIR.Extension):
     where E.url.value = 'covered' 
       and E.value.value = 'not-covered'
   )
+
+define function IsConditionalPended(extension FHIR.Extension):
+  if extension is null then 
+    null 
+  else 
+    exists (
+      extension.extension E
+      where E.url.value = 'covered' 
+        and E.value.value = 'conditional'
+    )
+    and not exists ([QuestionnaireResponse])
+
+define function IsConditionalApproved(extension FHIR.Extension):
+  if extension is null then 
+    null 
+  else 
+    exists (
+      extension.extension E
+      where E.url.value = 'covered' 
+        and E.value.value = 'conditional'
+    )
+    and exists (([QuestionnaireResponse]) QR
+      where exists ((QR.item) I
+        where I.definition is not null 
+        and I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature'
+        and exists ((I.item) i 
+          where exists ((i.answer) a 
+            where a.value = true
+          )
+        )
+      )
+    )
+
+define function IsConditionalDenied(extension FHIR.Extension):
+  if extension is null then 
+    null 
+  else 
+    exists (
+      extension.extension E
+      where E.url.value = 'covered' 
+        and E.value.value = 'conditional'
+    )
+    and exists (([QuestionnaireResponse]) QR
+      where exists ((QR.item) I
+        where I.definition is not null 
+        and (
+          (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-patientage-casefeature-definition'
+            and exists ((I.item) i 
+              where exists ((i.answer) a 
+                where a.value = false
+              )
+            )
+          )
+          or (
+            (
+              I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ess-screening-casefeature'
+              and exists ((I.item) i 
+                where exists ((i.answer) a 
+                  where a.value = false
+                )
+              )
+            ) 
+            and (
+              I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepydriving-screening-casefeature'
+              and exists ((I.item) i 
+                where exists ((i.answer) a 
+                  where a.value = false
+                )
+              )
+            ) 
+            and (
+              I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-loudsnoring-screening-casefeature'
+              and exists ((I.item) i 
+                where exists ((i.answer) a 
+                  where a.value = false
+                )
+              )
+            ) 
+            and (
+              I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-apnea-screening-casefeature'
+              and exists ((I.item) i 
+                where exists ((i.answer) a 
+                  where a.value = false
+                )
+              )
+            ) 
+          )
+          or (
+            (
+              I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature'
+              and exists ((I.item) i 
+                where exists ((i.answer) a 
+                  where a.value = true
+                )
+              )
+            )
+            or 
+            (
+              I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature'
+              and exists ((I.item) i 
+                where exists ((i.answer) a 
+                  where a.value = true
+                )
+              )
+            )
+            or
+            (
+              I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature'
+              and exists ((I.item) i 
+                where exists ((i.answer) a 
+                  where a.value = true
+                )
+              )
+            )
+          )
+          or (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-qualifieddevice-screening-casefeatur'
+            and exists ((I.item) i 
+              where exists ((i.answer) a 
+                where a.value = false
+              )
+            )
+          )
+          or (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature'
+              and exists ((I.item) i 
+                where exists ((i.answer) a 
+                  where a.value = false
+                )
+              )
+          )
+          or (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature'
+              and exists ((I.item) i 
+                where exists ((i.answer) a 
+                  where a.value = false
+                )
+              )
+          )
+        )
+      )
+    )
