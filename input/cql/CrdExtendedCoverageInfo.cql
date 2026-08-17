@@ -43,7 +43,7 @@ returns FHIR.Extension:
       // "DocNeeded"('admin'),
       // "DocNeeded"('clinical'),
       "DocNeeded"('both')
-    }) Extension where not IsNull(Extension)
+    }) Ext where not IsNull(Ext)
   }
 
 define function "CoverageExtension"(coverageIdValue System.String)

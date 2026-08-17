@@ -202,7 +202,7 @@ returns System.String:
 
 // need a architecture design question on how to solve longer term
 
-define function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>)
+define function GetCode(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>)
 returns FHIR.CodeableConcept:
   if (item is FHIR.ServiceRequest) then
     if (item as FHIR.ServiceRequest).code is FHIR.CodeableConcept then 
@@ -234,11 +234,13 @@ returns FHIR.CodeableConcept:
       (item as FHIR.MedicationRequest).medication as FHIR.CodeableConcept
     else if (item as FHIR.MedicationRequest).medication is FHIR.Reference then
       if exists ([Medication]) then 
-          from [Medication] M 
+          First(
+            from [Medication] M 
             where ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference = 'Medication/' + M.id
             or ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference = 'Medication/' + FHIRHelpers.ToString(M.id)
             // or M.id in ref.reference
-          return M.code
+            return M.code
+          )
       else 
         null as FHIR.CodeableConcept
       // ([MedicationRequest: id ~ ((item as FHIR.MedicationRequest).medication as FHIR.Reference).reference])
@@ -276,21 +278,21 @@ returns FHIR.CodeableConcept:
     else
       null as FHIR.CodeableConcept
   else if (item is FHIR.Appointment) then 
-    if exists ((item as FHIR.Appointment).serviceType) then 
-      First((item as FHIR.Appointment).serviceType)
-    else if exists ((item as FHIR.Appointment).basedOn) then 
+    if exists ((item as FHIR.Appointment).basedOn) then 
       if exists ([ServiceRequest]) then
         First(
           from ([ServiceRequest]) SR
             where exists (((item as FHIR.Appointment).basedOn) b 
-                where b.reference.value = 'ServiceRequest/' + SR.id 
-                or EndsWith(b.reference.value, '/' + SR.id)
+                where b.reference = 'ServiceRequest/' + SR.id 
+                or EndsWith(b.reference, '/' + SR.id)
             )
           return 
             SR.code
         )
       else 
         null as FHIR.CodeableConcept
+    else if exists ((item as FHIR.Appointment).serviceType) then 
+      First((item as FHIR.Appointment).serviceType)
     else 
       null as FHIR.CodeableConcept
   else if (item is FHIR.Task) then 

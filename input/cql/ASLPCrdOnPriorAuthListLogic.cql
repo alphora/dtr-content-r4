@@ -56,15 +56,18 @@ define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR
   Ctx."ExtensionPriorAuthNeeded"(requestItem, 'conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification"(requestItem), 'Warning')
 
 define function "Is OnPriorAuthList"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
-  "Prior Auth Required Service Requests"(requestItem) is not null
+  Ctx.GetCode(requestItem) is not null
+    and exists (Ctx.GetCode(requestItem).coding) c 
+      where c in "Prior Auth Required for Procedure Valueset"
+      or c in "Prior Auth Required for Procedure Grouper"
 
 define function "Not OnPriorAuthList"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   not (("Is OnPriorAuthList"(requestItem)))
 
-define function "Prior Auth Required Service Requests"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
-  requestItem R
-    where Ctx.GetCode(R) is not null
-      and exists ((Ctx.GetCode(R).coding) c 
-        where c in "Prior Auth Required for Procedure Valueset"
-        or c in "Prior Auth Required for Procedure Grouper"
-      )
+// define function "Prior Auth Required Service Requests"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
+//   requestItem R
+//     where Ctx.GetCode(R) is not null
+//       and exists ((Ctx.GetCode(R).coding) c 
+//         where c in "Prior Auth Required for Procedure Valueset"
+//         or c in "Prior Auth Required for Procedure Grouper"
+//       )
