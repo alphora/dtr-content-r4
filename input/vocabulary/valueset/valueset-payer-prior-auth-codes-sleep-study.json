@@ -101,7 +101,7 @@
   "expansion": {
         "identifier": "sleepstudy-codes-value-set-2026-08-13T11:04:22-06:00",
         "timestamp": "2026-08-13T11:04:22-06:00",
-        "total": 11,
+        "total": 19,
         "offset": 0,
         "contains": [
                 {
@@ -158,6 +158,46 @@
                     "system": "http://www.ama-assn.org/go/cpt",
                     "code": "92520",
                     "display": "Laryngeal function studies (ie, aerodynamic testing and acoustic testing)"
+                },
+                {
+                    "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                    "code": "E1399",
+                    "display": "Durable medical equipment, miscellaneous"
+                },
+                {
+                    "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                    "code": "G0398",
+                    "display": "Home sleep study test (HST) with type II portable monitor, unattended; minimum of 7 channels: EEG, EOG, EMG, ECG/heart rate, airflow, respiratory effort and oxygen saturation"
+                },
+                {
+                    "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                    "code": "G0399",
+                    "display": "Home sleep test (HST) with type III portable monitor, unattended; minimum of 4 channels: 2 respiratory movement/airflow, 1 ECG/heart rate and 1 oxygen saturation"
+                },
+                {
+                    "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                    "code": "G0400",
+                    "display": "Home sleep test (HST) with type IV portable monitor, unattended; minimum of 3 channels"
+                },
+                {
+                    "system": "urn:oid:2.16.840.1.113883.6.285",
+                    "code": "E1399",
+                    "display": "Durable medical equipment, miscellaneous"
+                },
+                {
+                    "system": "urn:oid:2.16.840.1.113883.6.285",
+                    "code": "G0398",
+                    "display": "Home sleep study test (HST) with type II portable monitor, unattended; minimum of 7 channels: EEG, EOG, EMG, ECG/heart rate, airflow, respiratory effort and oxygen saturation"
+                },
+                {
+                    "system": "urn:oid:2.16.840.1.113883.6.285",
+                    "code": "G0399",
+                    "display": "Home sleep test (HST) with type III portable monitor, unattended; minimum of 4 channels: 2 respiratory movement/airflow, 1 ECG/heart rate and 1 oxygen saturation"
+                },
+                {
+                    "system": "urn:oid:2.16.840.1.113883.6.285",
+                    "code": "G0400",
+                    "display": "Home sleep test (HST) with type IV portable monitor, unattended; minimum of 3 channels"
                 }
         ]
     }

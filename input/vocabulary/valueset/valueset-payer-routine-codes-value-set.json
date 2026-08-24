@@ -154,7 +154,7 @@
         "total": 10,
         "offset": 0,
         "contains": [
-            {
+          {
             "system": "http://www.ama-assn.org/go/cpt",
             "code": "93010",
             "display": "ELECTROCARDIOGRAM REPORT"
@@ -203,6 +203,106 @@
             "system": "http://www.ama-assn.org/go/cpt",
             "code": "92015",
             "display": "Refraction and basic ophthalmological exam"
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.6.285",
+            "code": "V5008",
+            "display": "Hearing screening"
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.6.285",
+            "code": "G0202",
+            "display": "Screening mammography"
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.6.285",
+            "code": "G0438",
+            "display": "first annual wellness visit"
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.6.285",
+            "code": "E0607",
+            "display": "Home blood glucose monitor"
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.6.285",
+            "code": "E0130",
+            "display": "Walker, rigid (pickup), adjustable or fixed height"
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.6.285",
+            "code": "A4253",
+            "display": "Blood glucose test or reagent strips for home blood glucose monitor, per 50"
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.6.285",
+            "code": "A4670",
+            "display": "Automatic blood pressure monitor"
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.6.285",
+            "code": "E0607",
+            "display": "Home blood glucose monitor"
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.6.285",
+            "code": "E0130",
+            "display": "Walker, rigid (pickup), adjustable or fixed height"
+          },
+          {
+            "system": "urn:oid:2.16.840.1.113883.6.285",
+            "code": "A4253",
+            "display": "Blood glucose test or reagent strips for home blood glucose monitor, per 50"
+          },
+          {
+            "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+            "code": "V5008",
+            "display": "Hearing screening"
+          },
+          {
+            "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+            "code": "G0202",
+            "display": "Screening mammography"
+          },
+          {
+            "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+            "code": "G0438",
+            "display": "first annual wellness visit"
+          },
+          {
+            "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+            "code": "E0607",
+            "display": "Home blood glucose monitor"
+          },
+          {
+            "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+            "code": "E0130",
+            "display": "Walker, rigid (pickup), adjustable or fixed height"
+          },
+          {
+            "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+            "code": "A4253",
+            "display": "Blood glucose test or reagent strips for home blood glucose monitor, per 50"
+          },
+          {
+            "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+            "code": "A4670",
+            "display": "Automatic blood pressure monitor"
+          },
+          {
+            "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+            "code": "E0607",
+            "display": "Home blood glucose monitor"
+          },
+          {
+            "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+            "code": "E0130",
+            "display": "Walker, rigid (pickup), adjustable or fixed height"
+          },
+          {
+            "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+            "code": "A4253",
+            "display": "Blood glucose test or reagent strips for home blood glucose monitor, per 50"
           }
         ]
     }
