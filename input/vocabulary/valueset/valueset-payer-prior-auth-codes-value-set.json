@@ -215,6 +215,11 @@
             },
             {
                 "system": "http://www.ama-assn.org/go/cpt",
+                "code": "95806",
+                "display": "Sleep study, unattended, simultaneous recording of, heart rate, oxygen saturation, respiratory airflow, and respiratory effort (eg, thoracoabdominal movement)"
+            },
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
                 "code": "95811",
                 "display": "Polysomnography; age 6 years or older, sleep staging with 4 or more additional parameters of sleep, with initiation of continuous positive airway pressure therapy or bilevel ventilation, attended by a technologist"
             },
