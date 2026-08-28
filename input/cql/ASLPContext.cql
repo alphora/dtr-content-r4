@@ -49,7 +49,12 @@ define function "Service Request Item Code"(requestItem Choice<FHIR.NutritionOrd
     if (requestItem as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then
       FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)
     else if (requestItem as FHIR.MedicationRequest).medication is FHIR.Reference then
-      System.Code { display: GetMedicationDisplay(requestItem as FHIR.MedicationRequest) }
+      First(([Medication]) M
+        where ((requestItem as FHIR.MedicationRequest).medication as FHIR.Reference).reference = 'Medication/' + M.id
+        or ((requestItem as FHIR.MedicationRequest).medication as FHIR.Reference).reference = 'Medication/' + FHIRHelpers.ToString(M.id)
+        return 
+          FHIRHelpers.ToCode(singleton from M.code.coding)
+      )
     else 
       FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)
   else 
