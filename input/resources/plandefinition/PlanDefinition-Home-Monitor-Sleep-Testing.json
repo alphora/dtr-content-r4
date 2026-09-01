@@ -2116,7 +2116,7 @@
   "version": "1.0.0",
   "status": "draft",
   "experimental": true,
-  "date": "2026-08-28T10:13:48-06:00",
+  "date": "2026-09-01T09:09:59-06:00",
   "publisher": "Smile Digital Health",
   "useContext": [ {
     "code": {
@@ -2368,7 +2368,7 @@
                   "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPSubmitQuestionnaire"
                 } ]
               }, {
-                "title": "Submit Questionnaire",
+                "title": "Complete Questionnaire",
                 "condition": [ {
                   "kind": "applicability",
                   "expression": {

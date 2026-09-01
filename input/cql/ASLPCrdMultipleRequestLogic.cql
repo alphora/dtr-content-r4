@@ -393,121 +393,13 @@ define "PriorAuthSubmissionRequisite":
       )
   )
 
-//Created by Claude 3.7 Sonnet
-define "AdjudicationOutcome":
-  GetAdjudicationOutcome(First("CoverageExtensionList"))
-  // from "CoverageExtensionList" ExtList
-  // return GetAdjudicationOutcome(ExtList)
-
-define "AdjudicationRationale":
-  GetAdjudicationRationale(First("CoverageExtensionList"))
-  // from "CoverageExtensionList" ExtList
-  // return GetAdjudicationRationale(ExtList)
-
-define "AdjudicationReasonCodes":
-  GetAdjudicationReasonCodes(First("CoverageExtensionList"))
-  // from "CoverageExtensionList" ExtList
-  // return GetAdjudicationReasonCodes(ExtList)
-
-define "QuestionnaireExtensionForTask":
-  if First("CoverageExtensionList") is null then 
-      null 
-  else if IsConditionalPended(First("CoverageExtensionList")) then 
-    FHIR.Extension {
-      "url": FHIR.uri { "value": 'http://hl7.org/fhir/StructureDefinition/task-input-type' },
-      "extension": ( {
-        FHIR.Extension {
-          "url": FHIR.uri { "value": 'questionnaire documentation' },
-          "extension": ( {
-            FHIR.Extension {
-              "url": FHIR.uri { "value": 'code' },
-              "value": FHIR.CodeableConcept {
-                  "coding": {
-                    FHIR.Coding {
-                      "system": FHIR.uri { "value": 'http://loinc.org' },
-                      "code": FHIR.code { "value": '102089-0' },
-                      "display": FHIR.string { 
-                        "value": 'Documentation request from payers and providers' 
-                      }
-                    }
-                  }
-              }
-            },
-            FHIR.Extension {
-              "url": FHIR.uri { "value": 'questionnaire' },
-              "value": FHIR.canonical { "value": 'http://example.org/sdh/dtr/aslp/Questionnaire/ASLPCrd-MultipleRequest' }
-            }
-          } )
-        },
-        FHIR.Extension {
-          "url": FHIR.uri { "value": 'attachment-documentation' },
-          "extension": ( {
-            FHIR.Extension {
-              "url": FHIR.uri { "value": 'code' },
-              "value": FHIR.CodeableConcept {
-                  "coding": {
-                    FHIR.Coding {
-                      "system": FHIR.uri { "value": 'http://loinc.org' },
-                      "code": FHIR.code { "value": '11506-3' },
-                      "display": FHIR.string { 
-                        "value": 'Progress notes' 
-                      }
-                    }
-                  }
-              }
-            }
-          } )
-        }
-      } )
-    }
-  else 
-    null
-
-define function GetOrderReference(extension FHIR.Extension):
-  First(
-    from extension.extension E 
-    where E.url = 'dependency'
-    return (E.value as FHIR.Reference).reference
-  )
-    
-define function GetAdjudicationOutcome(extension FHIR.Extension):
-  if extension is null then
-    null 
-  else if IsApproved(extension) then
-    FHIR.CodeableConcept {
-      coding: { 
-        FHIR.Coding {
-          system: FHIR.uri { value: 'https://codesystem.x12.org/005010/306' },
-          code: FHIR.code { value: 'A1' },
-          display: FHIR.string { value: 'Approved' }
-        }
-      }
-    }
-  else if IsDenied(extension) then 
+//Approved and denied adjudication outcomes and rationales
+define "AdjudicationOutcomeForApprovedOrDenied":
+  if "Denied Case" then 
     FHIR.CodeableConcept {
       coding: {
         FHIR.Coding {
-          system: FHIR.uri { value: 'https://codesystem.x12.org/005010/306' },
-          code: FHIR.code { value: 'A3' },
-          display: FHIR.string { value: 'Denied' }
-        }
-      }
-    }
-  else if IsConditionalApproved(extension) then 
-    FHIR.CodeableConcept {
-      coding: { 
-        FHIR.Coding {
-          system: FHIR.uri { value: 'https://codesystem.x12.org/005010/306' },
-          code: FHIR.code { value: 'A1' },
-          display: FHIR.string { value: 'Approved' }
-        }
-      }
-    }
-  else if IsConditionalDenied(extension) then 
-    FHIR.CodeableConcept {
-      coding: {
-        FHIR.Coding {
-          system: FHIR.uri { value: 'https://codesystem.x12.org/005010/306' },
+          system: FHIR.uri { value: 'http://example.com/CodeSystem/adjudication-outcomes' },
           code: FHIR.code { value: 'A3' },
           display: FHIR.string { value: 'Denied' }
         }
@@ -515,263 +407,218 @@ define function GetAdjudicationOutcome(extension FHIR.Extension):
     }
   else
     FHIR.CodeableConcept {
+      coding: { 
+        FHIR.Coding {
+          system: FHIR.uri { value: 'http://example.com/CodeSystem/adjudication-outcomes' },
+          code: FHIR.code { value: 'A1' },
+          display: FHIR.string { value: 'Approved' }
+        }
+      }
+    }
+
+define "AdjudicationRationaleForApprovedOrDenied":
+  if "Denied Case" then
+    FHIR.CodeableConcept {
+      text: FHIR.string { value: 'Service is not covered under the current benefit plan' }
+    }
+  else 
+    FHIR.CodeableConcept {
+      text: FHIR.string { value: 'Service has been approved for coverage' }
+    }
+
+define "AdjudicationReasonCodeForDenied":
+  if "Denied Case" then
+    FHIR.CodeableConcept {
       coding: {
         FHIR.Coding {
-          system: FHIR.uri { value: 'https://codesystem.x12.org/005010/306' },
-          code: FHIR.code { value: 'A4' },
-          display: FHIR.string { value: 'Pended' }
-        }
-      }
-    }
-
-define function GetAdjudicationRationale(extension FHIR.Extension):
-  if extension is null then 
-    null 
-  else if IsDenied(extension) then
-    FHIR.CodeableConcept {
-      text: FHIR.string { value: 'Service is not covered under the current benefit plan' }
-    }
-  else if IsApproved(extension) then
-    FHIR.CodeableConcept {
-      text: FHIR.string { value: 'Service has been approved for coverage' }
-    }
-  else if IsConditionalPended(extension) then
-    FHIR.CodeableConcept {
-      text: FHIR.string { value: 'Additional patient clinical information is required to complete prior authorization review' }
-    }
-  else if IsConditionalApproved(extension) then 
-    FHIR.CodeableConcept {
-      text: FHIR.string { value: 'Service has been approved for coverage' }
-    }
-  else if IsConditionalDenied(extension) then 
-    FHIR.CodeableConcept {
-      text: FHIR.string { value: 'Service is not covered under the current benefit plan' }
-    }
-  else null
-
-define function GetAdjudicationReasonCodes(extension FHIR.Extension):
-  if extension is null then 
-    null 
-  else if IsDenied(extension) then
-    {
-      FHIR.CodeableConcept {
-        coding: {
-          FHIR.Coding {
-            system: FHIR.uri { value: 'https://codesystem.x12.org/external/886' },
-            code: FHIR.code { value: '0M' },
-            display: FHIR.string { value: 'Non-covered Service' }
-          }
-        }
-      }
-    }
-  else if IsApproved(extension) then
-    {
-      FHIR.CodeableConcept {
-        coding: {
-          FHIR.Coding {
-            system: FHIR.uri { value: 'https://codesystem.x12.org/external/886' },
-            code: FHIR.code { value: '0N' },
-            display: FHIR.string { value: 'Covered Service' }
-          }
-        }
-      }
-    }
-  else if IsConditionalPended(extension) then
-    {
-      FHIR.CodeableConcept {
-        coding: {
-          FHIR.Coding {
-            system: FHIR.uri { value: 'https://codesystem.x12.org/external/886' },
-            code: FHIR.code { value: '0U' },
-            display: FHIR.string { value: 'Additional Patient Information Required' }
-          }
-        }
-      }
-    }
-  else if IsConditionalApproved(extension) then 
-    {
-      FHIR.CodeableConcept {
-        coding: {
-          FHIR.Coding {
-            system: FHIR.uri { value: 'https://codesystem.x12.org/external/886' },
-            code: FHIR.code { value: '0N' },
-            display: FHIR.string { value: 'Covered Service' }
-          }
-        }
-      }
-    }
-  else if IsConditionalDenied(extension) then 
-    {
-      FHIR.CodeableConcept {
-        coding: {
-          FHIR.Coding {
-            system: FHIR.uri { value: 'https://codesystem.x12.org/external/886' },
-            code: FHIR.code { value: '0M' },
-            display: FHIR.string { value: 'Non-covered Service' }
-          }
+          system: FHIR.uri { value: 'http://example.com/CodeSystem/reason-codes' },
+          code: FHIR.code { value: '0M' },
+          display: FHIR.string { value: 'Non-covered Service' }
         }
       }
     }
   else 
-    null 
+    null
 
-define function IsApproved(extension FHIR.Extension):
-  if extension is null then 
-    null 
-  else exists (
-    extension.extension E
-    where E.url.value = 'covered' 
-      and E.value.value = 'covered'
-  )
-
-define function IsDenied(extension FHIR.Extension):
-  if extension is null then 
-    null 
-  else exists (
-    extension.extension E
-    where E.url.value = 'covered' 
-      and E.value.value = 'not-covered'
-  )
-
-define function IsConditionalPended(extension FHIR.Extension):
-  if extension is null then 
-    null 
-  else 
-    exists (
-      extension.extension E
-      where E.url.value = 'covered' 
-        and E.value.value = 'conditional'
-    )
-    and not exists ([QuestionnaireResponse])
-
-define function IsConditionalApproved(extension FHIR.Extension):
-  if extension is null then 
-    null 
-  else 
-    exists (
-      extension.extension E
-      where E.url.value = 'covered' 
-        and E.value.value = 'conditional'
-    )
-    and exists (([QuestionnaireResponse]) QR
-      where exists ((QR.item) I
-        where I.definition is not null 
-        and I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature'
-        and exists ((I.item) i 
-          where exists ((i.answer) a 
-            where a.value = true
+define "Denied Case":
+  exists ([QuestionnaireResponse] QR
+    where exists (QR.item I
+      where (
+        I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-patientage-casefeature-definition'
+        and exists (I.item i 
+          where exists (i.answer A
+            where A.value = false
+          )
+        )
+      )
+      or (
+        I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-eds-screening-casefeature'
+        and exists (I.item i 
+          where exists (i.answer A
+            where A.value = false
+          )
+        )
+      )
+      or (
+        (
+          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ess-screening-casefeature'
+          and exists (I.item i 
+            where exists (i.answer A
+              where A.value = false
+            )
+          )
+        )
+        or (
+          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepydriving-screening-casefeature'
+          and exists (I.item i 
+            where exists (i.answer A
+              where A.value = false
+            )
+          )
+        )
+        or (
+          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-loudsnoring-screening-casefeature'
+          and exists (I.item i 
+            where exists (i.answer A
+              where A.value = false
+            )
+          )
+        )
+        or (
+          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-apnea-screening-casefeature'
+          and exists (I.item i 
+            where exists (i.answer A
+              where A.value = false
+            )
+          )
+        )
+      )
+      or (
+        (
+          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature'
+          and exists (I.item i 
+            where exists (i.answer A
+              where A.value = true
+            )
+          )
+        )
+        or (
+          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature'
+          and exists (I.item i 
+            where exists (i.answer A
+              where A.value = true
+            )
+          )
+        )
+        or (
+          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature'
+          and exists (I.item i 
+            where exists (i.answer A
+              where A.value = true
+            )
+          )
+        )
+      )
+      or (
+        I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-qualifieddevice-screening-casefeature'
+        and exists (I.item i 
+          where exists (i.answer A
+            where A.value = false
+          )
+        )
+      )
+      or (
+        I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature'
+        and exists (I.item i 
+          where exists (i.answer A
+            where A.value = false
+          )
+        )
+      )
+      or (
+        I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature'
+        and exists (I.item i 
+          where exists (i.answer A
+            where A.value = false
           )
         )
       )
     )
+  )
 
-define function IsConditionalDenied(extension FHIR.Extension):
-  if extension is null then 
-    null 
-  else 
-    exists (
-      extension.extension E
-      where E.url.value = 'covered' 
-        and E.value.value = 'conditional'
-    )
-    and exists (([QuestionnaireResponse]) QR
-      where exists ((QR.item) I
-        where I.definition is not null 
-        and (
-          (
-            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-patientage-casefeature-definition'
-            and exists ((I.item) i 
-              where exists ((i.answer) a 
-                where a.value = false
-              )
-            )
-          )
-          or (
-            (
-              I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ess-screening-casefeature'
-              and exists ((I.item) i 
-                where exists ((i.answer) a 
-                  where a.value = false
-                )
-              )
-            ) 
-            and (
-              I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepydriving-screening-casefeature'
-              and exists ((I.item) i 
-                where exists ((i.answer) a 
-                  where a.value = false
-                )
-              )
-            ) 
-            and (
-              I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-loudsnoring-screening-casefeature'
-              and exists ((I.item) i 
-                where exists ((i.answer) a 
-                  where a.value = false
-                )
-              )
-            ) 
-            and (
-              I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-apnea-screening-casefeature'
-              and exists ((I.item) i 
-                where exists ((i.answer) a 
-                  where a.value = false
-                )
-              )
-            ) 
-          )
-          or (
-            (
-              I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature'
-              and exists ((I.item) i 
-                where exists ((i.answer) a 
-                  where a.value = true
-                )
-              )
-            )
-            or 
-            (
-              I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature'
-              and exists ((I.item) i 
-                where exists ((i.answer) a 
-                  where a.value = true
-                )
-              )
-            )
-            or
-            (
-              I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature'
-              and exists ((I.item) i 
-                where exists ((i.answer) a 
-                  where a.value = true
-                )
-              )
-            )
-          )
-          or (
-            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-qualifieddevice-screening-casefeatur'
-            and exists ((I.item) i 
-              where exists ((i.answer) a 
-                where a.value = false
-              )
-            )
-          )
-          or (
-            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature'
-              and exists ((I.item) i 
-                where exists ((i.answer) a 
-                  where a.value = false
-                )
-              )
-          )
-          or (
-            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature'
-              and exists ((I.item) i 
-                where exists ((i.answer) a 
-                  where a.value = false
-                )
-              )
-          )
-        )
-      )
-    )
+//Pended adjudication outcome and rationale
+define "AdjudicationOutcomeForPended":
+  FHIR.CodeableConcept {
+    coding: {
+      FHIR.Coding {
+        system: FHIR.uri { value: 'http://example.com/CodeSystem/adjudication-outcomes' },
+        code: FHIR.code { value: 'A4' },
+        display: FHIR.string { value: 'Pended' }
+      }
+    }
+  }
+
+define "AdjudicationRationaleForPended":
+  FHIR.CodeableConcept {
+    text: FHIR.string { value: 'Additional patient clinical information is required to complete prior authorization review' }
+  }
+
+define "AdjudicationReasonCodesForPended":
+  FHIR.CodeableConcept {
+    coding: {
+      FHIR.Coding {
+        system: FHIR.uri { value: 'http://example.com/CodeSystem/reason-codes' },
+        code: FHIR.code { value: '0U' },
+        display: FHIR.string { value: 'Additional Patient Information Required' }
+      }
+    }
+  }
+
+define "QuestionnaireExtensionForTaskForPended":
+  FHIR.Extension {
+    "url": FHIR.uri { "value": 'http://hl7.org/fhir/StructureDefinition/task-input-type' },
+    "extension": ( {
+      FHIR.Extension {
+        "url": FHIR.uri { "value": 'questionnaire documentation' },
+        "extension": ( {
+          FHIR.Extension {
+            "url": FHIR.uri { "value": 'code' },
+            "value": FHIR.CodeableConcept {
+                "coding": {
+                  FHIR.Coding {
+                    "system": FHIR.uri { "value": 'http://loinc.org' },
+                    "code": FHIR.code { "value": '102089-0' },
+                    "display": FHIR.string { 
+                      "value": 'Documentation request from payers and providers' 
+                    }
+                  }
+                }
+            }
+          },
+          FHIR.Extension {
+            "url": FHIR.uri { "value": 'questionnaire' },
+            "value": FHIR.canonical { "value": 'http://example.org/sdh/dtr/aslp/Questionnaire/ASLPCrd-MultipleRequest' }
+          }
+        } )
+      },
+      FHIR.Extension {
+        "url": FHIR.uri { "value": 'attachment-documentation' },
+        "extension": ( {
+          FHIR.Extension {
+            "url": FHIR.uri { "value": 'code' },
+            "value": FHIR.CodeableConcept {
+                "coding": {
+                  FHIR.Coding {
+                    "system": FHIR.uri { "value": 'http://loinc.org' },
+                    "code": FHIR.code { "value": '11506-3' },
+                    "display": FHIR.string { 
+                      "value": 'Progress notes' 
+                    }
+                  }
+                }
+            }
+          }
+        } )
+      }
+    } )
+  }
