@@ -926,13 +926,6 @@
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Condition" ],
       "mustSupport": [ "code", "verificationStatus", "clinicalStatus", "onset" ],
       "codeFilter": [ {
-        "path": "code"
-      } ]
-    }, {
-      "type": "Condition",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/Condition" ],
-      "mustSupport": [ "code", "verificationStatus", "clinicalStatus", "onset" ],
-      "codeFilter": [ {
         "path": "code",
         "valueSet": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113762.1.4.1235.246"
       } ]
@@ -1073,11 +1066,6 @@
   }, {
     "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
     "valueCode": "structured"
-  }, {
-    "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
-    "valueReference": {
-      "reference": "Device/cqf-tooling"
-    }
   }, {
     "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-questionnaire-generate",
     "valueBoolean": true
@@ -1629,7 +1617,7 @@
       "valueString": "Most Recent Central Sleep Apnea Diagnosis"
     }, {
       "url": "statement",
-      "valueString": "//Central Sleep Apnea (CSA)\ndefine \"Most Recent Central Sleep Apnea Diagnosis\":\n  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Central Sleep Apnea (CSA) Assertion\".coding)])"
+      "valueString": "//Central Sleep Apnea (CSA)\ndefine \"Most Recent Central Sleep Apnea Diagnosis\":\n  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Central Sleep Apnea (CSA) Assertion\".coding)])"
     }, {
       "url": "displaySequence",
       "valueInteger": 8
@@ -1719,7 +1707,7 @@
       "valueString": "Most Recent Feature Associated With Narcolepsy When a MSLT is Planned"
     }, {
       "url": "statement",
-      "valueString": "//Features associated with narcolepsy when a multiple sleep latency test (MSLT) is planned\ndefine \"Most Recent Feature Associated With Narcolepsy When a MSLT is Planned\":\n  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Features Associated With Narcolepsy When a MSLT is Planned Assertion\".coding)])"
+      "valueString": "//Features associated with narcolepsy when a multiple sleep latency test (MSLT) is planned\ndefine \"Most Recent Feature Associated With Narcolepsy When a MSLT is Planned\":\n  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Features Associated With Narcolepsy When a MSLT is Planned Assertion\".coding)])"
     }, {
       "url": "displaySequence",
       "valueInteger": 14
@@ -1794,7 +1782,7 @@
       "valueString": "Most Recent Diagnosis of Obesity Hypoventilation Syndrome (OHS)"
     }, {
       "url": "statement",
-      "valueString": "//Obesity Hypoventilation Syndrome (OHS)\ndefine \"Most Recent Diagnosis of Obesity Hypoventilation Syndrome (OHS)\":\n  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Obesity Hypoventilation Syndrome (OHS) Assertion\".coding)])"
+      "valueString": "//Obesity Hypoventilation Syndrome (OHS)\ndefine \"Most Recent Diagnosis of Obesity Hypoventilation Syndrome (OHS)\":\n  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Obesity Hypoventilation Syndrome (OHS) Assertion\".coding)])"
     }, {
       "url": "displaySequence",
       "valueInteger": 19
@@ -1884,7 +1872,7 @@
       "valueString": "Most Recent Diagnosis of Traumatic Brain Injury (TBI) with EDS"
     }, {
       "url": "statement",
-      "valueString": "//Traumatic Brain Injury (TBI) with EDS \ndefine \"Most Recent Diagnosis of Traumatic Brain Injury (TBI) with EDS\":\n  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Traumatic Brain Injury (TBI) with EDS Assertion\".coding)])"
+      "valueString": "//Traumatic Brain Injury (TBI) with EDS \ndefine \"Most Recent Diagnosis of Traumatic Brain Injury (TBI) with EDS\":\n  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Traumatic Brain Injury (TBI) with EDS Assertion\".coding)])"
     }, {
       "url": "displaySequence",
       "valueInteger": 25
@@ -1959,7 +1947,7 @@
       "valueString": "Most Recent Diagnosis of Idiopathic Central Nervous System Hypersomnia"
     }, {
       "url": "statement",
-      "valueString": "//Idiopathic central nervous system hypersomnia when multiple sleep latency test (MSLT) is planned\ndefine \"Most Recent Diagnosis of Idiopathic Central Nervous System Hypersomnia\":\n  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Idiopathic Central Nervous System Hypersomnia Assertion\".coding)])"
+      "valueString": "//Idiopathic central nervous system hypersomnia when multiple sleep latency test (MSLT) is planned\ndefine \"Most Recent Diagnosis of Idiopathic Central Nervous System Hypersomnia\":\n  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Idiopathic Central Nervous System Hypersomnia Assertion\".coding)])"
     }, {
       "url": "displaySequence",
       "valueInteger": 30
@@ -2379,7 +2367,7 @@
       "valueString": "Most Recent Neuromuscular Disease With Pulmonary Disease"
     }, {
       "url": "statement",
-      "valueString": "// define \"Has Moderate To Severe Pulmonary Disease Including COPD or Asthma\":\n//   \"Has Moderate To Severe Pulmonary Disease Including COPD\"\n//     or \"Has Moderate To Severe Pulmonary Disease Including Asthma\"\n\n//Do I still need the COPD and the asthma part??\n// define \"Most Recent Pulmonary Disease Including COPD\":\n//   PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion Including COPD Assertion\".coding)])\n\n// define \"Qualifying Moderate To Severe Pulmonary Disease Including COPD\":\n//   if not \"Most Recent Pulmonary Disease Including COPD\" is null\n//     then \"Most Recent Pulmonary Disease Including COPD\"\n//   else \n//     PCF.CaseFeatureObservation(\n//       AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion Including COPD Assertion\",\n//       PS.\"Has Diagnosed COPD\",\n//       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithcopd-screening-casefeature',\n//       PCF.MostRecent(PS.\"Diagnosed COPD\"),\n//       ''\n//     )\n\n// define \"Has Moderate To Severe Pulmonary Disease Including COPD\":\n//   \"Qualifying Moderate To Severe Pulmonary Disease Including COPD\".value.value as System.Boolean\n\n// define \"No Moderate To Severe Pulmonary Disease Including COPD\":\n//   not \"Has Moderate To Severe Pulmonary Disease Including COPD\"\n\n// define \"Null Pulmonary Disease Including COPD\":\n//   \"Has Moderate To Severe Pulmonary Disease Including COPD\" is null\n\n// //Do I still need the COPD and the asthma part??\n// define \"Most Recent Pulmonary Disease Including Asthma\":\n//   PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion Including Asthma Assertion\".coding)])\n\n// define \"Qualifying Moderate To Severe Pulmonary Disease Including Asthma\":\n//   if not \"Most Recent Pulmonary Disease Including Asthma\" is null\n//     then \"Most Recent Pulmonary Disease Including Asthma\"\n//   else\n//     PCF.CaseFeatureObservation(\n//       AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion Including Asthma Assertion\",\n//       PS.\"Has Diagnosed Asthma\",\n//       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithasthma-screening-casefeature',\n//       PCF.MostRecent(PS.\"Diagnosed Asthma\"),\n//       ''\n//     )\n\n// define \"Has Moderate To Severe Pulmonary Disease Including Asthma\":\n//   \"Most Recent Pulmonary Disease Including Asthma\".value.value as System.Boolean\n\n// define \"No Moderate To Severe Pulmonary Disease Including Asthma\":\n//   not \"Has Moderate To Severe Pulmonary Disease Including Asthma\"\n\n// define \"Null Pulmonary Disease Including Asthma\":\n//   \"Has Moderate To Severe Pulmonary Disease Including Asthma\" is null\n\n//Neuromuscular Disease\ndefine \"Most Recent Neuromuscular Disease With Pulmonary Disease\":\n  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion\".coding)])"
+      "valueString": "// define \"Has Moderate To Severe Pulmonary Disease Including COPD or Asthma\":\n//   \"Has Moderate To Severe Pulmonary Disease Including COPD\"\n//     or \"Has Moderate To Severe Pulmonary Disease Including Asthma\"\n\n//Do I still need the COPD and the asthma part??\n// define \"Most Recent Pulmonary Disease Including COPD\":\n//   PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion Including COPD Assertion\".coding)])\n\n// define \"Qualifying Moderate To Severe Pulmonary Disease Including COPD\":\n//   if not \"Most Recent Pulmonary Disease Including COPD\" is null\n//     then \"Most Recent Pulmonary Disease Including COPD\"\n//   else \n//     PCF.CaseFeatureObservation(\n//       AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion Including COPD Assertion\",\n//       PS.\"Has Diagnosed COPD\",\n//       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithcopd-screening-casefeature',\n//       PCF.MostRecent(PS.\"Diagnosed COPD\"),\n//       ''\n//     )\n\n// define \"Has Moderate To Severe Pulmonary Disease Including COPD\":\n//   \"Qualifying Moderate To Severe Pulmonary Disease Including COPD\".value.value as System.Boolean\n\n// define \"No Moderate To Severe Pulmonary Disease Including COPD\":\n//   not \"Has Moderate To Severe Pulmonary Disease Including COPD\"\n\n// define \"Null Pulmonary Disease Including COPD\":\n//   \"Has Moderate To Severe Pulmonary Disease Including COPD\" is null\n\n// //Do I still need the COPD and the asthma part??\n// define \"Most Recent Pulmonary Disease Including Asthma\":\n//   PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion Including Asthma Assertion\".coding)])\n\n// define \"Qualifying Moderate To Severe Pulmonary Disease Including Asthma\":\n//   if not \"Most Recent Pulmonary Disease Including Asthma\" is null\n//     then \"Most Recent Pulmonary Disease Including Asthma\"\n//   else\n//     PCF.CaseFeatureObservation(\n//       AC.\"Qualifying Moderate To Severe Pulmonary Disease Assertion Including Asthma Assertion\",\n//       PS.\"Has Diagnosed Asthma\",\n//       'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-pulmonarywithasthma-screening-casefeature',\n//       PCF.MostRecent(PS.\"Diagnosed Asthma\"),\n//       ''\n//     )\n\n// define \"Has Moderate To Severe Pulmonary Disease Including Asthma\":\n//   \"Most Recent Pulmonary Disease Including Asthma\".value.value as System.Boolean\n\n// define \"No Moderate To Severe Pulmonary Disease Including Asthma\":\n//   not \"Has Moderate To Severe Pulmonary Disease Including Asthma\"\n\n// define \"Null Pulmonary Disease Including Asthma\":\n//   \"Has Moderate To Severe Pulmonary Disease Including Asthma\" is null\n\n//Neuromuscular Disease\ndefine \"Most Recent Neuromuscular Disease With Pulmonary Disease\":\n  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Neuromuscular Disease With Associated Pulmonary Disease Assertion\".coding)])"
     }, {
       "url": "displaySequence",
       "valueInteger": 58
@@ -2499,7 +2487,7 @@
       "valueString": "Most Recent Parasomnia"
     }, {
       "url": "statement",
-      "valueString": "//Parasomnias\ndefine \"Most Recent Parasomnia\":\n  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Parasomnia Assertion\".coding)])"
+      "valueString": "//Parasomnias\ndefine \"Most Recent Parasomnia\":\n  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Parasomnia Assertion\".coding)])"
     }, {
       "url": "displaySequence",
       "valueInteger": 66
@@ -2589,7 +2577,7 @@
       "valueString": "Most Recent Paroxysmal Arousal"
     }, {
       "url": "statement",
-      "valueString": "//Paroxysmal arousals \ndefine \"Most Recent Paroxysmal Arousal\":\n  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Paroxysmal Arousals Assertion\".coding)])"
+      "valueString": "//Paroxysmal arousals \ndefine \"Most Recent Paroxysmal Arousal\":\n  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Paroxysmal Arousals Assertion\".coding)])"
     }, {
       "url": "displaySequence",
       "valueInteger": 72
@@ -2679,7 +2667,7 @@
       "valueString": "Most Recent Periodic Limb Movement Disorder"
     }, {
       "url": "statement",
-      "valueString": "//Periodic Limb Movement Disorder (PLMD)\ndefine \"Most Recent Periodic Limb Movement Disorder\":\n  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Periodic Limb Movement Disorder (PLMD) Assertion\".coding)])"
+      "valueString": "//Periodic Limb Movement Disorder (PLMD)\ndefine \"Most Recent Periodic Limb Movement Disorder\":\n  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Periodic Limb Movement Disorder (PLMD) Assertion\".coding)])"
     }, {
       "url": "displaySequence",
       "valueInteger": 78
@@ -2769,7 +2757,7 @@
       "valueString": "Most Recent Cardiac Disease Observation"
     }, {
       "url": "statement",
-      "valueString": "//Cardiac Disease\ndefine \"Most Recent Cardiac Disease Observation\":\n  PCF.MostRecent([Condition: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Cardiac Disease Assertion\".coding)])"
+      "valueString": "//Cardiac Disease\ndefine \"Most Recent Cardiac Disease Observation\":\n  PCF.MostRecent([Observation: FHIRHelpers.ToCode(singleton from AC.\"Qualifying Cardiac Disease Assertion\".coding)])"
     }, {
       "url": "displaySequence",
       "valueInteger": 84
@@ -3786,10 +3774,10 @@
       "valueString": "ASLPPolicyCaseFeatures"
     }, {
       "url": "name",
-      "valueString": "MostRecent"
+      "valueString": "CaseFeatureObservation"
     }, {
       "url": "statement",
-      "valueString": "//TODO: POC only (need to consider all the Condition considerations)\ndefine function MostRecent(value List<FHIR.Condition>):\n  First(\n    value Condition\n      sort by recordedDate descending\n  )"
+      "valueString": "define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String, evidences Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>, evidenceText System.String):\n  if evidences is null then\n    CaseFeatureObservation(code, value, Now(), profile, null as List<FHIR.Observation>, evidenceText)\n  else \n    CaseFeatureObservation(code, value, Now(), profile, {evidences}, evidenceText)"
     }, {
       "url": "displaySequence",
       "valueInteger": 152
@@ -3801,10 +3789,10 @@
       "valueString": "ASLPPolicyCaseFeatures"
     }, {
       "url": "name",
-      "valueString": "CaseFeatureObservation"
+      "valueString": "MostRecent"
     }, {
       "url": "statement",
-      "valueString": "define function CaseFeatureObservation( code FHIR.CodeableConcept, value System.Boolean, profile System.String, evidences Choice<FHIR.Procedure,FHIR.Observation,FHIR.Organization,FHIR.Coverage,FHIR.Condition,FHIR.Patient,FHIR.DeviceRequest>, evidenceText System.String):\n  if evidences is null then\n    CaseFeatureObservation(code, value, Now(), profile, null as List<FHIR.Observation>, evidenceText)\n  else \n    CaseFeatureObservation(code, value, Now(), profile, {evidences}, evidenceText)"
+      "valueString": "//TODO: POC only (need to consider all the Condition considerations)\ndefine function MostRecent(value List<FHIR.Condition>):\n  First(\n    value Condition\n      sort by recordedDate descending\n  )"
     }, {
       "url": "displaySequence",
       "valueInteger": 153
@@ -3927,7 +3915,7 @@
   "version": "1.0.0",
   "status": "draft",
   "experimental": true,
-  "date": "2026-04-14T13:11:46-06:00",
+  "date": "2026-09-03T07:53:13-06:00",
   "publisher": "Smile Digital Health",
   "useContext": [ {
     "code": {

@@ -129,11 +129,6 @@
     "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
     "valueCode": "structured"
   }, {
-    "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
-    "valueReference": {
-      "reference": "Device/cqf-tooling"
-    }
-  }, {
     "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-questionnaire-generate",
     "valueBoolean": true
   }, {
@@ -176,7 +171,7 @@
       "valueString": "Sleep Study Procedures"
     }, {
       "url": "statement",
-      "valueString": "//sleep study procedure for non-adaptive questionnaire\ndefine \"Sleep Study Procedures\":\n  ([Procedure: \"Sleep Study Procedure\"])"
+      "valueString": "// [Observation] Obs \n  //   where exists ((Obs.code.coding) c \n  //     where FHIRHelpers.ToCode(c) ~ \"Under care of doctor (finding)\"\n  //   )\n\n//sleep study procedure for non-adaptive questionnaire\ndefine \"Sleep Study Procedures\":\n  ([Procedure: \"Sleep Study Procedure\"])"
     }, {
       "url": "displaySequence",
       "valueInteger": 2
@@ -554,7 +549,7 @@
   "version": "1.0.0",
   "status": "draft",
   "experimental": true,
-  "date": "2026-04-14T13:11:47-06:00",
+  "date": "2026-09-03T07:53:13-06:00",
   "publisher": "Smile Digital Health",
   "useContext": [ {
     "code": {

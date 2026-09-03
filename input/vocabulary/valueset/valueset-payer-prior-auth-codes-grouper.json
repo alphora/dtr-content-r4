@@ -115,7 +115,7 @@
             {
                 "system": "http://www.ama-assn.org/go/cpt",
                 "code": "55250",
-                "display": "Vasectomy, unilateral or bilateral (separate procedure), including postoperative semen"
+                "display": "Vasectomy, unilateral or bilateral (separate procedure), including postoperative semen examination(s)"
             },
             {
                 "system": "http://www.ama-assn.org/go/cpt",
@@ -193,57 +193,57 @@
                 "display": "Blood glucose test or reagent strips for home blood glucose monitor, per 50"
             },
             {
-                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
                 "code": "C8918",
                 "display": "Magnetic resonance angiography with contrast, pelvis"
             },
             {
-                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
                 "code": "G0398",
                 "display": "Home sleep study test (hst) with type ii portable monitor, unattended; minimum of 7 channels: eeg, eog, emg, ecg/heart rate, airflow, respiratory effort and oxygen saturation"
             },
             {
-                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
                 "code": "G0122",
                 "display": "Colorectal cancer screening; barium enema"
             },
             {
-                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
                 "code": "G0219",
                 "display": "Pet imaging whole body; melanoma for non-covered indications"
             },
             {
-                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
                 "code": "E0601",
                 "display": "CPAP Machine"
             },
             {
-                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
                 "code": "E1093",
                 "display": "heavy duty wheelchair, detachable arms desk or full length arms, swing away detachable footrests"
             },
             {
-                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
                 "code": "E0574",
                 "display": "Ultrasonic/electronic aerosol generator with small volume nebulizer"
             },
             {
-                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
                 "code": "E0430",
                 "display": "Portable gaseous oxygen system, purchase; includes regulator, flowmeter, humidifier, cannula or mask, and tubing"
             },
             {
-                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
                 "code": "E0607",
                 "display": "Home blood glucose monitor"
             },
             {
-                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
                 "code": "E0130",
                 "display": "Walker, rigid (pickup), adjustable or fixed height"
             },
             {
-                "system": "https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
+                "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
                 "code": "A4253",
                 "display": "Blood glucose test or reagent strips for home blood glucose monitor, per 50"
             }

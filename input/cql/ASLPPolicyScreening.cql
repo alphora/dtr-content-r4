@@ -38,6 +38,8 @@ valueset "Other Example Procedure": 'http://terminology.smilecdr.com/cs/prioraut
 //Can't find valuesets
 code "Epworth Sleepiness Scale Code": '763254009' from "SNOMEDCT" display 'Epworth Sleepiness Scale'
 code "Snoring code": 'R06.83' from "ICD10" display 'Snoring' //Can't find a code for loud snoring
+code "Complies with safety precaution (finding)": '1156445000' from "SNOMEDCT" display 'Complies with safety precaution (finding)'
+code "Under care of doctor (finding)": '305450004' from "SNOMEDCT" display 'Under care of doctor (finding)'
 
 context Patient
 
@@ -100,6 +102,9 @@ define "Evidence of Comorbid Medical Conditions":
     union "Pulmonary Disease Diagnosis"
     union "Qualifying Cardiac Disease"
 
+define "Absence of Comorbid Medical Conditions":
+  "Evidence of Comorbid Medical Conditions"
+
 define "Has Comorbid Medical Conditions":
   "Has Moderate To Severe Pulmonary Disease"
     or "Neuromuscular Disease With Associated Pulmonary Disease"
@@ -118,7 +123,7 @@ define "Has Moderate To Severe Pulmonary Disease":
     or ("Has Diagnosed Asthma")
 
 define "Qualifying Moderate To Severe Pulmonary Disease":
-  ([Observation: "Moderate to Severe Pulmonary Disease VS"]).resulted() 
+  ([Condition: "Moderate to Severe Pulmonary Disease VS"]).active().confirmed()
 
 //COPD
 define "Has Diagnosed COPD":
@@ -189,11 +194,27 @@ define "Qualified Device Request":
 
 //safe home use
 define "Safe Use Of Equipment At Home Observation":
-  null as System.Boolean
+  exists "Safe Equipment Use At Home"
+  // null as System.Boolean
+
+define "Safe Equipment Use At Home":
+  [Observation: "Complies with safety precaution (finding)"]
+  // [Observation] Obs 
+  //   where exists ((Obs.code.coding) c 
+  //     where FHIRHelpers.ToCode(c) ~ "Complies with safety precaution (finding)"
+  //   )
 
 //physician evaluation
 define "Physician Evaluated Results Observation":
-  null as System.Boolean
+  // null as System.Boolean
+    exists "Ability For Physician To Evaluate Results"
+
+define "Ability For Physician To Evaluate Results":
+  [Observation: "Under care of doctor (finding)"]
+  // [Observation] Obs 
+  //   where exists ((Obs.code.coding) c 
+  //     where FHIRHelpers.ToCode(c) ~ "Under care of doctor (finding)"
+  //   )
 
 //sleep study procedure for non-adaptive questionnaire
 define "Sleep Study Procedures":
