@@ -438,30 +438,14 @@ define "AdjudicationReasonCodeForDenied":
       }
     }
   else 
-    null
+    null as FHIR.CodeableConcept
 
 define "Denied Case":
   exists ([QuestionnaireResponse] QR
     where exists (QR.item I
       where (
-        I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-patientage-casefeature-definition'
-        and exists (I.item i 
-          where exists (i.answer A
-            where A.value = false
-          )
-        )
-      )
-      or (
-        I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-eds-screening-casefeature'
-        and exists (I.item i 
-          where exists (i.answer A
-            where A.value = false
-          )
-        )
-      )
-      or (
         (
-          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ess-screening-casefeature'
+          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-patientage-casefeature-definition'
           and exists (I.item i 
             where exists (i.answer A
               where A.value = false
@@ -469,7 +453,7 @@ define "Denied Case":
           )
         )
         or (
-          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepydriving-screening-casefeature'
+          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-eds-screening-casefeature'
           and exists (I.item i 
             where exists (i.answer A
               where A.value = false
@@ -477,7 +461,67 @@ define "Denied Case":
           )
         )
         or (
-          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-loudsnoring-screening-casefeature'
+          (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ess-screening-casefeature'
+            and exists (I.item i 
+              where exists (i.answer A
+                where A.value = false
+              )
+            )
+          )
+          and (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepydriving-screening-casefeature'
+            and exists (I.item i 
+              where exists (i.answer A
+                where A.value = false
+              )
+            )
+          )
+          and (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-loudsnoring-screening-casefeature'
+            and exists (I.item i 
+              where exists (i.answer A
+                where A.value = false
+              )
+            )
+          )
+          and (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-apnea-screening-casefeature'
+            and exists (I.item i 
+              where exists (i.answer A
+                where A.value = false
+              )
+            )
+          )
+        )
+        or (
+          (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature'
+            and exists (I.item i 
+              where exists (i.answer A
+                where A.value = true
+              )
+            )
+          )
+          or (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature'
+            and exists (I.item i 
+              where exists (i.answer A
+                where A.value = true
+              )
+            )
+          )
+          or (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature'
+            and exists (I.item i 
+              where exists (i.answer A
+                where A.value = true
+              )
+            )
+          )
+        )
+        or (
+          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-qualifieddevice-screening-casefeature'
           and exists (I.item i 
             where exists (i.answer A
               where A.value = false
@@ -485,61 +529,19 @@ define "Denied Case":
           )
         )
         or (
-          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-apnea-screening-casefeature'
+          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature'
           and exists (I.item i 
             where exists (i.answer A
               where A.value = false
             )
           )
         )
-      )
-      or (
-        (
-          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature'
-          and exists (I.item i 
-            where exists (i.answer A
-              where A.value = true
-            )
-          )
-        )
         or (
-          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature'
+          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature'
           and exists (I.item i 
             where exists (i.answer A
-              where A.value = true
+              where A.value = false
             )
-          )
-        )
-        or (
-          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature'
-          and exists (I.item i 
-            where exists (i.answer A
-              where A.value = true
-            )
-          )
-        )
-      )
-      or (
-        I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-qualifieddevice-screening-casefeature'
-        and exists (I.item i 
-          where exists (i.answer A
-            where A.value = false
-          )
-        )
-      )
-      or (
-        I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature'
-        and exists (I.item i 
-          where exists (i.answer A
-            where A.value = false
-          )
-        )
-      )
-      or (
-        I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature'
-        and exists (I.item i 
-          where exists (i.answer A
-            where A.value = false
           )
         )
       )
@@ -579,7 +581,7 @@ define "QuestionnaireExtensionForTaskForPended":
     "url": FHIR.uri { "value": 'http://hl7.org/fhir/StructureDefinition/task-input-type' },
     "extension": ( {
       FHIR.Extension {
-        "url": FHIR.uri { "value": 'questionnaire documentation' },
+        "url": FHIR.uri { "value": 'questionnaire-documentation' },
         "extension": ( {
           FHIR.Extension {
             "url": FHIR.uri { "value": 'code' },
