@@ -764,7 +764,7 @@
       "valueString": "Service Request Item Code"
     }, {
       "url": "statement",
-      "valueString": "define function \"Service Request Item Code\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if (requestItem is FHIR.CommunicationRequest) then \n    FHIRHelpers.ToCode(singleton from GetCodeableConceptForCommunicationRequest(requestItem).coding)\n  else if (requestItem is FHIR.MedicationRequest) then\n    if (requestItem as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then\n      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)\n    else if (requestItem as FHIR.MedicationRequest).medication is FHIR.Reference then\n      System.Code { display: GetMedicationDisplay(requestItem as FHIR.MedicationRequest) }\n    else \n      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)\n  else \n    FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)"
+      "valueString": "define function \"Service Request Item Code\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if (requestItem is FHIR.CommunicationRequest) then \n    FHIRHelpers.ToCode(singleton from GetCodeableConceptForCommunicationRequest(requestItem).coding)\n  else if (requestItem is FHIR.MedicationRequest) then\n    if (requestItem as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then\n      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)\n    else if (requestItem as FHIR.MedicationRequest).medication is FHIR.Reference then\n      First(([Medication]) M\n        where ((requestItem as FHIR.MedicationRequest).medication as FHIR.Reference).reference = 'Medication/' + M.id\n        or ((requestItem as FHIR.MedicationRequest).medication as FHIR.Reference).reference = 'Medication/' + FHIRHelpers.ToString(M.id)\n        return \n          FHIRHelpers.ToCode(singleton from M.code.coding)\n      )\n    else \n      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)\n  else \n    FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)"
     }, {
       "url": "displaySequence",
       "valueInteger": 39
@@ -833,31 +833,16 @@
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
     "extension": [ {
       "url": "libraryName",
-      "valueString": "ASLPContext"
-    }, {
-      "url": "name",
-      "valueString": "GetMedicationDisplay"
-    }, {
-      "url": "statement",
-      "valueString": "define function GetMedicationDisplay(medicationRequest FHIR.MedicationRequest):\n  FHIRHelpers.ToString(\n    First(\n      (First (\n        [Medication] M\n          where FHIRHelpers.ToString((medicationRequest.medication as FHIR.Reference).reference) ='Medication/' + FHIRHelpers.ToString(M.id) \n      )).code.coding\n    ).display\n  )"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 44
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
       "valueString": "ASLPCrdOnPriorAuthListLogic"
     }, {
       "url": "name",
       "valueString": "Qualification-NotFound"
     }, {
       "url": "statement",
-      "valueString": "// CRD-6\ndefine function \"Qualification-NotFound\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"Service Request Item Code\"(requestItem).display + ' is not a recognized procedure electronically. Please contact the payer for further information.'"
+      "valueString": "// CRD-6\ndefine function \"Qualification-NotFound\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  from (Ctx.\"Service Request Item Code\"(requestItem)) c\n  return \n    if IsNull(c.display) or c.display = '' then 'The procedure code is not a recognized procedure electronically. Please contact the payer for further information.'\n    else c.display + ' is not a recognized procedure electronically. Please contact the payer for further information.'"
     }, {
       "url": "displaySequence",
-      "valueInteger": 45
+      "valueInteger": 44
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -872,7 +857,7 @@
       "valueString": "define function \"Is OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  Ctx.GetCode(requestItem) is not null\n    and exists (Ctx.GetCode(requestItem).coding) c \n      where c in \"Prior Auth Required for Procedure Valueset\"\n      or c in \"Prior Auth Required for Procedure Grouper\""
     }, {
       "url": "displaySequence",
-      "valueInteger": 46
+      "valueInteger": 45
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -887,7 +872,7 @@
       "valueString": "define function \"Not OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  not ((\"Is OnPriorAuthList\"(requestItem)))"
     }, {
       "url": "displaySequence",
-      "valueInteger": 47
+      "valueInteger": 46
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -902,7 +887,7 @@
       "valueString": "define function \"Is OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  Ctx.GetCode(requestItem) is not null\n    and exists (Ctx.GetCode(requestItem).coding) c \n      where c in \"Prior Auth Required for Procedure Valueset\"\n      or c in \"Prior Auth Required for Procedure Grouper\""
     }, {
       "url": "displaySequence",
-      "valueInteger": 48
+      "valueInteger": 47
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -917,7 +902,7 @@
       "valueString": "// CRD-5\ndefine function \"CoverageExtension\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"ExtensionPriorAuthNeeded\"(requestItem, 'conditional', 'auth-needed', 'auth-needed', \"Detail Text\", \"Qualification\"(requestItem), 'Warning')"
     }, {
       "url": "displaySequence",
-      "valueInteger": 49
+      "valueInteger": 48
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -932,7 +917,7 @@
       "valueString": "// CRD-5\ndefine function \"Qualification\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest,FHIR.Appointment, FHIR.Task>):\n  'Prior authorization is required for ' + Ctx.\"Service Request Item Code\"(requestItem).display"
     }, {
       "url": "displaySequence",
-      "valueInteger": 50
+      "valueInteger": 49
     } ]
   }, {
     "id": "effective-data-requirements",

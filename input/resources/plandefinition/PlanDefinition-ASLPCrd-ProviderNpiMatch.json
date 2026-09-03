@@ -1194,7 +1194,7 @@
       "valueString": "Service Request Item Code"
     }, {
       "url": "statement",
-      "valueString": "define function \"Service Request Item Code\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if (requestItem is FHIR.CommunicationRequest) then \n    FHIRHelpers.ToCode(singleton from GetCodeableConceptForCommunicationRequest(requestItem).coding)\n  else if (requestItem is FHIR.MedicationRequest) then\n    if (requestItem as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then\n      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)\n    else if (requestItem as FHIR.MedicationRequest).medication is FHIR.Reference then\n      System.Code { display: GetMedicationDisplay(requestItem as FHIR.MedicationRequest) }\n    else \n      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)\n  else \n    FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)"
+      "valueString": "define function \"Service Request Item Code\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if (requestItem is FHIR.CommunicationRequest) then \n    FHIRHelpers.ToCode(singleton from GetCodeableConceptForCommunicationRequest(requestItem).coding)\n  else if (requestItem is FHIR.MedicationRequest) then\n    if (requestItem as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then\n      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)\n    else if (requestItem as FHIR.MedicationRequest).medication is FHIR.Reference then\n      First(([Medication]) M\n        where ((requestItem as FHIR.MedicationRequest).medication as FHIR.Reference).reference = 'Medication/' + M.id\n        or ((requestItem as FHIR.MedicationRequest).medication as FHIR.Reference).reference = 'Medication/' + FHIRHelpers.ToString(M.id)\n        return \n          FHIRHelpers.ToCode(singleton from M.code.coding)\n      )\n    else \n      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)\n  else \n    FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)"
     }, {
       "url": "displaySequence",
       "valueInteger": 68
@@ -1263,21 +1263,6 @@
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
     "extension": [ {
       "url": "libraryName",
-      "valueString": "ASLPContext"
-    }, {
-      "url": "name",
-      "valueString": "GetMedicationDisplay"
-    }, {
-      "url": "statement",
-      "valueString": "define function GetMedicationDisplay(medicationRequest FHIR.MedicationRequest):\n  FHIRHelpers.ToString(\n    First(\n      (First (\n        [Medication] M\n          where FHIRHelpers.ToString((medicationRequest.medication as FHIR.Reference).reference) ='Medication/' + FHIRHelpers.ToString(M.id) \n      )).code.coding\n    ).display\n  )"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 73
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
       "valueString": "ASLPCrdProviderNpiMatchLogic"
     }, {
       "url": "name",
@@ -1287,7 +1272,7 @@
       "valueString": "define function \"Not ProviderNpiMatch\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  not (\"Is ProviderNpiMatch\"(requestItem))"
     }, {
       "url": "displaySequence",
-      "valueInteger": 74
+      "valueInteger": 73
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -1302,7 +1287,7 @@
       "valueString": "define function \"Is ProviderNpiMatch\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  // 1. The requesting provider must be in the payer system.\n  // 2. AND All performing providers from the provider's system must match a performing provider from the payer's system. \n  //    NOTE: This step can be skipped if there are no performing providers. \n  \"Requesting Provider Match\"(requestItem)\n    and \"Performing Provider Match\"(requestItem)"
     }, {
       "url": "displaySequence",
-      "valueInteger": 75
+      "valueInteger": 74
     } ]
   }, {
     "id": "effective-data-requirements",
