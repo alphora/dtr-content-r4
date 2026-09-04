@@ -42,7 +42,9 @@ returns FHIR.Extension:
       // 'admin', 'clinical', 'both', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)
       // "DocNeeded"('admin'),
       // "DocNeeded"('clinical'),
-      "DocNeeded"('both')
+      "DocNeeded"(priorAuthRequiredValue),
+
+      "DocPurpose"(priorAuthRequiredValue)
     }) Ext where not IsNull(Ext)
   }
 
@@ -207,12 +209,27 @@ returns FHIR.Extension:
       }
     }
 
-define function "DocNeeded"(valueCode System.String)
+define function "DocNeeded"(priorAuthRequiredValue System.String)
+returns choice<FHIR.Extension, List<FHIR.Extension>>:
+  if "PriorAuthNeededExtension"(priorAuthRequiredValue).value.value in { 'no-auth', 'conditional' } then
+    null as FHIR.Extension
+  else
+    "Doc Needed Values" V
+    return 
+      FHIR.Extension {
+        "url": FHIR.uri { "value": 'doc-needed' },
+        "value": FHIR.code { "value": V }
+      }
+
+define "Doc Needed Values":
+  {'admin', 'clinical'}
+
+define function "DocPurpose"(priorAuthRequiredValue System.String)
 returns FHIR.Extension:
-  FHIR.Extension {
-    "url": FHIR.uri { "value": 'doc-needed' },
-    "value": FHIR.code {
-      // "value": valueCode
-        "value": if IsNull(valueCode) or valueCode = '' then 'conditional' else valueCode
+  if "PriorAuthNeededExtension"(priorAuthRequiredValue).value.value = 'auth-needed' then
+    FHIR.Extension {
+      "url": FHIR.uri { "value": 'doc-purpose' },
+      "value": FHIR.code { "value": 'withpa' }
     }
-  }
+  else 
+    null as FHIR.Extension
