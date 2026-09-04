@@ -16,6 +16,9 @@ returns FHIR.Extension:
       // payer coverage
       "CoverageExtension"(coverageIdValue),
 
+      // expiry date after which assertion is no longer valid 
+      "ExpiryDateExtension"(coverageIdValue),
+
       // 'covered', 'not-covered', or 'conditional' (https://build.fhir.org/ig/HL7/davinci-crd/ValueSet-coverageInfo.html)
       "CoveredExtension"(coveredValue),
 
@@ -44,6 +47,7 @@ returns FHIR.Extension:
       // "DocNeeded"('clinical'),
       "DocNeeded"(priorAuthRequiredValue),
 
+      // Purpose of requested documentation
       "DocPurpose"(priorAuthRequiredValue)
     }) Ext where not IsNull(Ext)
   }
@@ -63,6 +67,23 @@ returns FHIR.Extension:
         // "reference": FHIR.string { "value": 'Coverage/' + coverageIdValue }
       }
     }
+
+define function "ExpiryDateExtension"(coverageIdValue System.String)
+returns FHIR.Extension:
+  FHIR.Extension {
+    "url": FHIR.uri { "value": 'expiry-date' },
+    "value": FHIR.date { 
+      "value": 
+        if IsNull(coverageIdValue) or coverageIdValue = '' then 
+          null 
+        else  
+          First(
+            from [Coverage] C
+            where C.id = coverageIdValue
+            return date from FHIRHelpers.ToDateTime(C.period.end)
+          )
+      }
+  }
 
 define function "CoveredExtension"(coveredValue System.String)
 returns FHIR.Extension:
@@ -210,9 +231,9 @@ returns FHIR.Extension:
     }
 
 define function "DocNeeded"(priorAuthRequiredValue System.String)
-returns choice<FHIR.Extension, List<FHIR.Extension>>:
+returns List<FHIR.Extension>:
   if "PriorAuthNeededExtension"(priorAuthRequiredValue).value.value in { 'no-auth', 'conditional' } then
-    null as FHIR.Extension
+    {} as List<FHIR.Extension>
   else
     "Doc Needed Values" V
     return 
