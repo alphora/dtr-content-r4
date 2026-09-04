@@ -31,6 +31,9 @@ returns FHIR.Extension:
       // today's date
       "TodaysDateExtension"(),
 
+      // Required to be populated whenever one or more of covered, pa-needed, or doc-needed is set to conditional
+      "InfoNeeded"(detailTextValue),
+
       // questionnaire canonical extension based on the service request code
       // requires a valueset per canonical questionnaire
       "QuestionnaireExtension"(priorAuthRequiredValue, serviceRequestCode),
@@ -113,6 +116,52 @@ returns FHIR.Extension:
     "url": FHIR.uri { "value": 'date' },
     "value": FHIR.date { "value": Today() }
   }
+
+define function "InfoNeeded"(detailTextValue System.String)
+returns List<FHIR.Extension>:
+  if detailTextValue = 'Member Not Found' then
+    {
+      FHIR.Extension {
+        "url": FHIR.uri { "value": 'info-needed' },
+        "value": FHIR.string { "value": 'OTH' }
+      }
+    }
+  else if detailTextValue = 'Provider Not in Network' then
+    {
+      FHIR.Extension {
+        "url": FHIR.uri { "value": 'info-needed' },
+        "value": FHIR.string { "value": 'performer' }
+      }
+    }
+  else if detailTextValue = 'Line Of Business Mismatch' then
+    {
+      FHIR.Extension {
+        "url": FHIR.uri { "value": 'info-needed' },
+        "value": FHIR.string { "value": 'OTH' }
+      }
+    }
+  else if detailTextValue = 'Prior Authorization Required' then
+    "InfoNeededValues1" V
+    return 
+      FHIR.Extension {
+        "url": FHIR.uri { "value": 'info-needed' },
+        "value": FHIR.string { "value": V }
+      }
+  else if detailTextValue = 'Submit Prior Authorization Form' then
+    "InfoNeededValues2" V
+    return 
+      FHIR.Extension {
+        "url": FHIR.uri { "value": 'info-needed' },
+        "value": FHIR.string { "value": V }
+      }
+  else
+    {} as List<FHIR.Extension>
+
+define "InfoNeededValues1":
+  {'performer', 'location', 'timeframe'}
+
+define "InfoNeededValues2":
+  {'performer', 'location', 'timeframe', 'detail-code'}
 
 define function "QuestionnaireExtension"(priorAuthRequiredValue System.String, procedureCode System.Code)
 returns FHIR.Extension:
