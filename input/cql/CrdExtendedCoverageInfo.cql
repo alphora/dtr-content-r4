@@ -42,6 +42,7 @@ returns FHIR.Extension:
       "DependencyExtension"(requestRefString),
 
       // detail code, warning or info, and qualification
+      // mandatory category for classification of coverage guidance items
       "DetailExtension"(detailCodeValue, detailTextValue, qualificationValue, warningOrInfoValue),
 
       // Indicates the service or procedure code under evaluation
@@ -138,16 +139,11 @@ returns FHIR.Extension:
         "coding": {
           FHIR.Coding {
             system: FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp'},
-            code: FHIR.code { 
-              "value": 
-                "GetReasonCode"(qualificationValue)
-            },
-            display: FHIR.string { 
-              "value": 
-                "GetReasonDisplay"(qualificationValue)
-            }
+            code: FHIR.code { "value": "GetReasonCode"(qualificationValue) },
+            display: FHIR.string { "value": "GetReasonDisplay"(qualificationValue) }
           }
-        }
+        },
+        "text": FHIR.string { "value": "GetReasonText"(qualificationValue) }
       }
     }
 
@@ -168,6 +164,19 @@ returns FHIR.string:
     'Authorization needed out-of-network'
   else 
     'Coverage not found'
+
+define function "GetReasonText"(qualificationValue System.String)
+returns FHIR.string:
+  if qualificationValue = 'The member cannot be found. You can submit a PA request as an exception.' then 
+    'Member Not Found. You can submit a PA request as an exception.'
+  else if qualificationValue = 'Provider is not in the network. You can submit a PA request as an exception.' then 
+    'Provider is not in the network. You can submit a PA request as an exception.'
+  else if qualificationValue = 'Line of Business MisMatch. Prior authorization submission is required.' then 
+    'Line of Business Mismatch. Prior authorization submission is required.'
+  else if qualificationValue = 'Unable to process due to incomplete/information. Please submit a prior auth form.' then
+    'Unable to process due to incomplete/ambiguous information. Please submit a prior auth form.'
+  else 
+    Ctx."Service Request Item Code"(requestItem).display + ' is not a recognized procedure.'
 
 define function "InfoNeeded"(detailTextValue System.String)
 returns List<FHIR.Extension>:
