@@ -261,6 +261,17 @@ returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'detail' },
     "extension": {
+      if qualificationValue = 'Order is covered. No prior auth is required for this request' then 
+        FHIR.Extension {
+          "url": FHIR.uri { "value": 'category' },
+          "value": FHIR.code { "value": 'cat-decisional' }
+        }
+      else 
+        FHIR.Extension {
+          "url": FHIR.uri { "value": 'category' },
+          "value": FHIR.code { "value": 'cat-limitation' }
+        },
+      
       if (detailCodeValue = 'auth-needed') then "DetailCodeAuthRequired"(detailTextValue)
       else if (detailCodeValue = 'no-auth') then "DetailCodeAuthNotRequired"(detailTextValue)
       else if (detailCodeValue = 'gold-card') then "DetailCodeGoldCard"(detailTextValue)
