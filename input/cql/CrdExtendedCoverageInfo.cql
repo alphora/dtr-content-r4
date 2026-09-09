@@ -32,6 +32,9 @@ returns FHIR.Extension:
       // today's date
       "TodaysDateExtension"(),
 
+      // may be omitted if no matching ValueSet code exists
+      "ReasonExtension"(qualificationValue),
+
       // Required to be populated whenever one or more of covered, pa-needed, or doc-needed is set to conditional
       "InfoNeeded"(detailTextValue),
 
@@ -121,6 +124,50 @@ returns FHIR.Extension:
     "url": FHIR.uri { "value": 'date' },
     "value": FHIR.date { "value": Today() }
   }
+
+define function "ReasonExtension"(qualificationValue System.String)
+returns FHIR.Extension:
+  if IsNull(qualificationValue) 
+  or qualificationValue = 'Prior authorization is required for ' + Ctx."Service Request Item Code"(requestItem).display
+  or qualificationValue = 'Order is covered. No prior auth is required for this request' then 
+    null as FHIR.Extension
+  else
+    FHIR.Extension {
+      "url": FHIR.uri { "value": 'reason' },
+      "value": FHIR.CodeableConcept { 
+        "coding": {
+          FHIR.Coding {
+            system: FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp'},
+            code: FHIR.code { 
+              "value": 
+                "GetReasonCode"(qualificationValue)
+            },
+            display: FHIR.string { 
+              "value": 
+                "GetReasonDisplay"(qualificationValue)
+            }
+          }
+        }
+      }
+    }
+
+define function "GetReasonCode"(qualificationValue System.String)
+returns FHIR.code:
+  if qualificationValue = 'The member cannot be found. You can submit a PA request as an exception.' then 
+    'no-member-found'
+  else if qualificationValue = 'Provider is not in the network. You can submit a PA request as an exception.' then 
+    'auth-out-network'
+  else 
+    'coverage-not-found'
+
+define function "GetReasonDisplay"(qualificationValue System.String)
+returns FHIR.string:
+  if qualificationValue = 'The member cannot be found. You can submit a PA request as an exception.' then 
+    'Member not found'
+  else if qualificationValue = 'Provider is not in the network. You can submit a PA request as an exception.' then 
+    'Authorization needed out-of-network'
+  else 
+    'Coverage not found'
 
 define function "InfoNeeded"(detailTextValue System.String)
 returns List<FHIR.Extension>:
@@ -319,14 +366,14 @@ returns FHIR.Extension:
           system: FHIR.uri { "value": 'http://www.ama-assn.org/go/cpt'},
           code: FHIR.code { 
             "value": 
-              "Get Order Code"(requestRefString)
+              "GetOrderCode"(requestRefString)
           }
         }
       }
     }
   }
 
-define function "Get Order Code"(requestRefString System.String)
+define function "GetOrderCode"(requestRefString System.String)
 returns FHIR.code:
   if Split(requestRefString, '/')[0] = 'ServiceRequest' then
     First(
