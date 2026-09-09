@@ -5,6 +5,7 @@ using FHIR version '4.0.1'
 
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 include QuestionnaireRouter version '0.1.0' called QuestionnaireRouter
+include ASLPContext version '0.1.0' called Ctx
 
 context Patient
 
@@ -34,15 +35,14 @@ returns FHIR.Extension:
       // Required to be populated whenever one or more of covered, pa-needed, or doc-needed is set to conditional
       "InfoNeeded"(detailTextValue),
 
-      // questionnaire canonical extension based on the service request code
-      // requires a valueset per canonical questionnaire
-      "QuestionnaireExtension"(priorAuthRequiredValue, serviceRequestCode),
-
       // service request id
       "DependencyExtension"(requestRefString),
 
       // detail code, warning or info, and qualification
       "DetailExtension"(detailCodeValue, detailTextValue, qualificationValue, warningOrInfoValue),
+
+      // Indicates the service or procedure code under evaluation
+      "BillingCode"(requestRefString),
 
       // Always 'admin' and 'clinical'
       // 'admin', 'clinical', 'both', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)
@@ -51,7 +51,12 @@ returns FHIR.Extension:
       "DocNeeded"(priorAuthRequiredValue),
 
       // Purpose of requested documentation
-      "DocPurpose"(priorAuthRequiredValue)
+      "DocPurpose"(priorAuthRequiredValue),
+
+      // questionnaire canonical extension based on the service request code
+      // requires a valueset per canonical questionnaire
+      "QuestionnaireExtension"(priorAuthRequiredValue, serviceRequestCode)
+
     }) Ext where not IsNull(Ext)
   }
 
@@ -303,3 +308,73 @@ returns FHIR.Extension:
     }
   else 
     null as FHIR.Extension
+
+define function "BillingCode"(requestRefString System.String)
+returns FHIR.Extension:
+  FHIR.Extension {
+    "url": FHIR.uri { "value": 'billingCode' },
+    "value": FHIR.CodeableConcept { 
+      "coding": {
+        FHIR.Coding {
+          system: FHIR.uri { "value": 'http://www.ama-assn.org/go/cpt'},
+          code: FHIR.code { 
+            "value": 
+              "Get Order Code"(requestRefString)
+          }
+        }
+      }
+    }
+  }
+
+define function "Get Order Code"(requestRefString System.String)
+returns FHIR.code:
+  if Split(requestRefString, '/')[0] = 'ServiceRequest' then
+    First(
+      from [ServiceRequest] SR
+        where SR.id = Split(requestRefString, '/')[1]
+      return SR.code.coding[0].code
+    )
+  else if Split(requestRefString, '/')[0] = 'MedicationRequest' then
+    First(
+      from [MedicationRequest] MR
+        where MR.id = Split(requestRefString, '/')[1]
+      return Ctx.GetCode(MR).coding[0].code
+    )
+  else if Split(requestRefString, '/')[0] = 'NutritionOrder' then
+    First(
+      from [NutritionOrder] NO
+        where NO.id = Split(requestRefString, '/')[1]
+      return Ctx.GetCode(NO).coding[0].code
+    )
+  else if Split(requestRefString, '/')[0] = 'DeviceRequest' then
+    First(
+      from [DeviceRequest] DR
+        where DR.id = Split(requestRefString, '/')[1]
+      return Ctx.GetCode(DR).coding[0].code
+    )
+  else if Split(requestRefString, '/')[0] = 'VisionPrescription' then
+    First(
+      from [VisionPrescription] VP
+        where VP.id = Split(requestRefString, '/')[1]
+      return Ctx.GetCode(VP).coding[0].code
+    )
+  else if Split(requestRefString, '/')[0] = 'CommunicationRequest' then
+    First(
+      from [CommunicationRequest] CR
+        where CR.id = Split(requestRefString, '/')[1]
+      return Ctx.GetCode(CR).coding[0].code
+    )
+  else if Split(requestRefString, '/')[0] = 'Task' then
+    First(
+      from [Task] T
+        where T.id = Split(requestRefString, '/')[1]
+      return Ctx.GetCode(T).coding[0].code
+    )
+  else if Split(requestRefString, '/')[0] = 'Appointment' then
+    First(
+      from [Appointment] A
+        where A.id = Split(requestRefString, '/')[1]
+      return Ctx.GetCode(A).coding[0].code
+    )
+  else 
+    null as FHIR.code
