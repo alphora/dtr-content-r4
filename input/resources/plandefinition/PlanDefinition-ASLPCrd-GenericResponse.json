@@ -31,14 +31,6 @@
       "type": "depends-on",
       "display": "Library FHIRHelpers",
       "resource": "http://hl7.org/fhir/uv/cql/Library/FHIRHelpers|4.0.1"
-    }, {
-      "type": "depends-on",
-      "display": "Value set Sleep Study Procedure",
-      "resource": "http://terminology.smilecdr.com/cs/sleepstudy"
-    }, {
-      "type": "depends-on",
-      "display": "Value set Other Example Procedure",
-      "resource": "http://terminology.smilecdr.com/cs/priorauth"
     } ],
     "parameter": [ {
       "name": "draftOrders",
@@ -359,7 +351,7 @@
       "valueString": "GetAdaptiveQuestionnairePlanDefinition"
     }, {
       "url": "statement",
-      "valueString": "define function GetAdaptiveQuestionnairePlanDefinition(procedureCode System.Code) \nreturns System.String:\n    if (procedureCode in \"Sleep Study Procedure\") then\n        \"CanonicalBase\" + '/PlanDefinition/Home-Monitor-Sleep-Testing-Questionnaire'\n    // else if (procedureCode in \"Other Example Procedure\") then\n    //     \"CanonicalBase\" + '/Questionnaire/ASLPA1'\n    else if (procedureCode in \"Other Example Procedure\") then\n        \"CanonicalBase\" + '/PlanDefinition/Home-Monitor-Sleep-Testing'\n    else\n        null as System.String"
+      "valueString": "define function GetAdaptiveQuestionnairePlanDefinition(procedureCode System.Code) \nreturns System.String:\n    // if (procedureCode in \"Sleep Study Procedure\") then\n    //     \"CanonicalBase\" + '/PlanDefinition/Home-Monitor-Sleep-Testing-Questionnaire'\n    if (\n        (procedureCode.system = 'http://www.ama-assn.org/go/cpt' and procedureCode.code in {\n            '95800','95801','95803','95805','95806','95807','95808','95810','95811','94762','92520' }\n        )\n        or (procedureCode.system = 'urn:oid:2.16.840.1.113883.6.285' and procedureCode.code in {\n            'E1399','G0398','G0399','G0400' }\n        )\n        or (procedureCode.system = 'http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets' and procedureCode.code in {\n            'E1399','G0398','G0399','G0400' }\n        )\n    ) then \n      \"CanonicalBase\" + '/PlanDefinition/Home-Monitor-Sleep-Testing-Questionnaire'\n    // else if (procedureCode in \"Other Example Procedure\") then\n    //     \"CanonicalBase\" + '/Questionnaire/ASLPA1'\n    // else if (procedureCode in \"Other Example Procedure\") then\n    //     \"CanonicalBase\" + '/PlanDefinition/Home-Monitor-Sleep-Testing'\n    else if (\n        (procedureCode.system = 'http://www.ama-assn.org/go/cpt' and procedureCode.code in {\n            '92015','55250','86999','86849','84591','81001','95805','95811','95803','95807','87299' }\n        )\n        or (procedureCode.system = 'urn:oid:2.16.840.1.113883.6.285' and procedureCode.code in {\n            'C8918','G0398','G0122','G0219','E0601','E1093','E0574','E0430','E0607','E0130','A4253' }\n        )\n        or (procedureCode.system = 'http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets' and procedureCode.code in {\n            'C8918','G0398','G0122','G0219','E0601','E1093','E0574','E0430','E0607','E0130','A4253' }\n        ) \n    ) then \n        \"CanonicalBase\" + '/PlanDefinition/Home-Monitor-Sleep-Testing'\n    else\n        null as System.String"
     }, {
       "url": "displaySequence",
       "valueInteger": 16
@@ -655,7 +647,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-09-23T12:29:55-06:00",
+  "date": "2026-09-23T12:47:03-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-GenericResponse",
   "useContext": [ {
