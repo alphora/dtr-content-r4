@@ -347,6 +347,11 @@
                 "system": "http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets",
                 "code": "A4253",
                 "display": "Blood glucose test or reagent strips for home blood glucose monitor, per 50"
+            },
+            {
+                "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+                "code": "1654920",
+                "display": "Dapagliflozin"
             }
         ]
     }
