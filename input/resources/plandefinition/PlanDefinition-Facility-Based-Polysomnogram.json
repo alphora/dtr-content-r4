@@ -1074,11 +1074,6 @@
     "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
     "valueCode": "structured"
   }, {
-    "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
-    "valueReference": {
-      "reference": "Device/cqf-tooling"
-    }
-  }, {
     "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-questionnaire-generate",
     "valueBoolean": true
   }, {
@@ -3927,7 +3922,7 @@
   "version": "1.0.0",
   "status": "draft",
   "experimental": true,
-  "date": "2026-04-14T13:11:46-06:00",
+  "date": "2026-09-25T15:50:35-06:00",
   "publisher": "Smile Digital Health",
   "useContext": [ {
     "code": {

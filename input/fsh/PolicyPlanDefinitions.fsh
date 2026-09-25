@@ -70,9 +70,6 @@ RuleSet: CommonProperties(value)
   * url = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel"
   * valueCode = #structured
 * extension[+]
-  * url = "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem"
-  * valueReference = Reference(Device/cqf-tooling)
-* extension[+]
   * url = "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-questionnaire-generate"
   * valueBoolean = true
 * identifier[+]
