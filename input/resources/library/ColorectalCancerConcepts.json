@@ -1,7 +1,6 @@
 {
   "resourceType": "Library",
   "id": "ColorectalCancerConcepts",
-  
   "url": "http://example.org/sdh/demo/Library/ColorectalCancerConcepts",
   "name": "ColorectalCancerConcepts",
   "relatedArtifact": [ {

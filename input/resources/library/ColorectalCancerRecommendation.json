@@ -1,7 +1,6 @@
 {
   "resourceType": "Library",
   "id": "ColorectalCancerRecommendation",
-  
   "url": "http://example.org/sdh/demo/Library/ColorectalCancerRecommendation",
   "name": "ColorectalCancerRecommendation",
   "relatedArtifact": [ {

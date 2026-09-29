@@ -1,7 +1,6 @@
 {
   "resourceType": "Library",
   "id": "AdultOutpatientEncountersFHIR4",
-  
   "url": "http://example.org/sdh/demo/Library/AdultOutpatientEncountersFHIR4",
   "version": "2.2.000",
   "name": "AdultOutpatientEncountersFHIR4",

@@ -26,7 +26,7 @@
     {
       "url" : "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
       "valueCode" : "structured"
-    }
+    },
     {
       "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
       "valueExpression": {

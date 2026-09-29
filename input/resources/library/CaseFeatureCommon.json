@@ -54,7 +54,7 @@
       "valueBoolean": false
     } ]
   } ],
-  "extension": [  {
+  "extension": [ {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-cqlOptions",
     "valueReference": {
       "reference": "#options"

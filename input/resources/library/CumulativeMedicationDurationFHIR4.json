@@ -1,7 +1,6 @@
 {
   "resourceType": "Library",
   "id": "CumulativeMedicationDurationFHIR4",
-  
   "url": "http://example.org/sdh/demo/Library/CumulativeMedicationDurationFHIR4",
   "version": "1.0.000",
   "name": "CumulativeMedicationDurationFHIR4",

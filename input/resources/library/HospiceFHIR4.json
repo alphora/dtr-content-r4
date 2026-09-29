@@ -1,7 +1,6 @@
 {
   "resourceType": "Library",
   "id": "HospiceFHIR4",
-  
   "url": "http://example.org/sdh/demo/Library/HospiceFHIR4",
   "version": "2.3.000",
   "name": "HospiceFHIR4",

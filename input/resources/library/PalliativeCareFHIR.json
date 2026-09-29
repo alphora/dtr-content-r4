@@ -1,7 +1,6 @@
 {
   "resourceType": "Library",
   "id": "PalliativeCareFHIR",
-  
   "url": "http://example.org/sdh/demo/Library/PalliativeCareFHIR",
   "version": "0.6.000",
   "name": "PalliativeCareFHIR",

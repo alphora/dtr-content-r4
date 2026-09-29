@@ -1,7 +1,6 @@
 {
   "resourceType": "Library",
   "id": "ColorectalCancerScreeningsFHIR",
-  
   "url": "http://example.org/sdh/demo/Library/ColorectalCancerScreeningsFHIR",
   "version": "0.0.003",
   "name": "ColorectalCancerScreeningsFHIR",
