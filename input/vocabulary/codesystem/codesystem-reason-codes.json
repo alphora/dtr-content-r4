@@ -1,0 +1,25 @@
+{
+  "resourceType": "CodeSystem",
+  "id": "codesystem-reason-codes",
+  "url": "http://example.com/CodeSystem/reason-codes",
+  "name": "ReasonCodes",
+  "status": "active",
+  "content": "complete",
+  "concept": [
+    {
+      "code": "0U",
+      "display": "Additional Patient Information Required",
+      "definition": "Additional Patient Information Required"
+    },
+    {
+      "code": "0M",
+      "display": "Non-covered Service",
+      "definition": "Non-covered Service"
+    },
+    {
+      "code": "0N",
+      "display": "Covered Service",
+      "definition": "Covered Service"
+    }
+  ]
+}

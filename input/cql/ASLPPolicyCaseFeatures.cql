@@ -233,6 +233,26 @@ define function MostRecent(value List<FHIR.DeviceRequest>):
       sort by authoredOn descending
   )
 
+define function MostRecentObsOrCond(value List<Choice<FHIR.Observation, FHIR.Condition>>):
+  First(
+    (
+      from value v
+        return {
+          value: v,
+          sortKey:
+            if v is FHIR.Observation then
+              FHIRHelpers.ToDateTime((v as FHIR.Observation).effective as FHIR.dateTime)
+            else if v is FHIR.Condition then
+              Coalesce(
+                FHIRHelpers.ToDateTime((v as FHIR.Condition).onset as FHIR.dateTime),
+                FHIRHelpers.ToDateTime(((v as FHIR.Condition).onset as FHIR.Period)."start")
+              )
+            else null
+        }
+    ) T
+      sort by sortKey descending
+  ).value
+
 define function CodingEvidence(concept FHIR.CodeableConcept):
   Coalesce(
     'Evidence: coding ' + 
