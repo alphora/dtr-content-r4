@@ -1,0 +1,29 @@
+{
+  "resourceType": "SearchParameter",
+  "id": "MeasureReport-type",
+  "url": "http://example.org/sdh/demo/SearchParameter/MeasureReport-type",
+  "version": "0.0.1",
+  "name": "type",
+  "status": "active",
+  "date": "2023-12-28T07:31:20+00:00",
+  "publisher": "Smile Digital Health",
+  "description": "This parameter, of type token, specifies the kind of MeasureReport.",
+  "jurisdiction": [
+    {
+      "coding": [
+        {
+          "system": "urn:iso:std:iso:3166",
+          "code": "US",
+          "display": "United States of America"
+        }
+      ]
+    }
+  ],
+  "code": "type",
+  "base": [
+    "MeasureReport"
+  ],
+  "type": "token",
+  "expression": "MeasureReport.type",
+  "xpathUsage": "normal"
+}

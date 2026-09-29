@@ -1,0 +1,799 @@
+{
+    "resourceType": "Bundle",
+    "id": "e413fa74-efc7-4f92-8f73-9c069eccd334",
+    "meta": {
+        "profile": [
+            "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/gaps-bundle-deqm"
+        ]
+    },
+    "identifier": {
+        "system": "urn:ietf:rfc:3986",
+        "value": "urn:uuid:a68133df-2532-4da1-80f1-14d5820616b7"
+    },
+    "type": "document",
+    "timestamp": "2023-12-28T23:07:25.475+00:00",
+    "entry": [
+        {
+            "fullUrl": "http://localhost:8000/Composition/3b92ff03-cca5-48cb-a780-bb5d88d33b57",
+            "resource": {
+                "resourceType": "Composition",
+                "id": "3b92ff03-cca5-48cb-a780-bb5d88d33b57",
+                "meta": {
+                    "profile": [
+                        "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/gaps-composition-deqm"
+                    ]
+                },
+                "identifier": {
+                    "system": "urn:ietf:rfc:3986",
+                    "value": "urn:uuid:07987606-0587-46b5-8014-aa2053d4aa25"
+                },
+                "status": "final",
+                "type": {
+                    "coding": [
+                        {
+                            "system": "http://loinc.org",
+                            "code": "96315-7",
+                            "display": "Gaps in care report"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+                },
+                "date": "2023-12-28T23:07:25+00:00",
+                "author": [
+                    {
+                        "reference": "Organization/alphora-author"
+                    }
+                ],
+                "title": "Care Gap Report for nocoverageconcern-sedconcern-sigcomp",
+                "section": [
+                    {
+                        "id": "609f3585-be9a-4d5a-8169-ed3962a09951",
+                        "title": "Colorectal Cancer ScreeningFHIR",
+                        "focus": {
+                            "reference": "MeasureReport/918ddcda-0f22-4861-a049-d9f4b05a73d5"
+                        },
+                        "text": {
+                            "status": "generated",
+                            "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p>Issues detected.  See DetectedIssue/74a2ed0c-4ed8-435c-b3ef-50202bda381d for details.</p></div>"
+                        },
+                        "entry": [
+                            {
+                                "reference": "DetectedIssue/74a2ed0c-4ed8-435c-b3ef-50202bda381d"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8000/MeasureReport/918ddcda-0f22-4861-a049-d9f4b05a73d5",
+            "resource": {
+                "resourceType": "MeasureReport",
+                "id": "918ddcda-0f22-4861-a049-d9f4b05a73d5",
+                "meta": {
+                    "profile": [
+                        "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/indv-measurereport-deqm"
+                    ]
+                },
+                "language": "en",
+                "contained": [
+                    {
+                        "resourceType": "Observation",
+                        "id": "a1dd3b34-f8e9-4e22-99a8-d333a3c52a33",
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/StructureDefinition/cqf-measureInfo",
+                                "extension": [
+                                    {
+                                        "url": "measure",
+                                        "valueCanonical": "http://example.org/sdh/demo/Measure/ColorectalCancerScreeningsFHIR"
+                                    }
+                                ]
+                            }
+                        ],
+                        "status": "final",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/measure-data-usage",
+                                    "code": "supplemental-data"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "code": "F"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "resourceType": "Observation",
+                        "id": "010fefac-7cf4-475e-b567-af3987254f28",
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/StructureDefinition/cqf-measureInfo",
+                                "extension": [
+                                    {
+                                        "url": "measure",
+                                        "valueCanonical": "http://example.org/sdh/demo/Measure/ColorectalCancerScreeningsFHIR"
+                                    }
+                                ]
+                            }
+                        ],
+                        "status": "final",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/measure-data-usage",
+                                    "code": "supplemental-data"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "code": "2135-2"
+                                }
+                            ]
+                        }
+                    },
+                    {
+                        "resourceType": "Observation",
+                        "id": "bf294e77-4a09-485c-8ea0-70bc79779b87",
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/StructureDefinition/cqf-measureInfo",
+                                "extension": [
+                                    {
+                                        "url": "measure",
+                                        "valueCanonical": "http://example.org/sdh/demo/Measure/ColorectalCancerScreeningsFHIR"
+                                    }
+                                ]
+                            }
+                        ],
+                        "status": "final",
+                        "code": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/measure-data-usage",
+                                    "code": "supplemental-data"
+                                }
+                            ]
+                        },
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "code": "2028-9"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MeasureReport.population.description",
+                        "valueString": "Percentage of adults 50-75 years of age who had appropriate screening for colorectal cancer"
+                    },
+                    {
+                        "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MeasureReport.supplementalDataElement.reference",
+                        "valueReference": {
+                            "extension": [
+                                {
+                                    "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                    "valueString": "5C3ACF2A-15D2-44A0-A83D-F4FCC3E2F27A"
+                                }
+                            ],
+                            "reference": "#bf294e77-4a09-485c-8ea0-70bc79779b87"
+                        }
+                    },
+                    {
+                        "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MeasureReport.supplementalDataElement.reference",
+                        "valueReference": {
+                            "extension": [
+                                {
+                                    "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                    "valueString": "8114BAD7-FAC8-4E22-91CB-33BC3DDB9986"
+                                }
+                            ],
+                            "reference": "#a1dd3b34-f8e9-4e22-99a8-d333a3c52a33"
+                        }
+                    },
+                    {
+                        "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MeasureReport.supplementalDataElement.reference",
+                        "valueReference": {
+                            "extension": [
+                                {
+                                    "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                    "valueString": "9CB0299E-74B0-4425-8758-52D6FC0F979C"
+                                }
+                            ],
+                            "reference": "#010fefac-7cf4-475e-b567-af3987254f28"
+                        }
+                    }
+                ],
+                "status": "complete",
+                "type": "individual",
+                "measure": "http://example.org/sdh/demo/Measure/ColorectalCancerScreeningsFHIR|0.0.003",
+                "subject": {
+                    "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+                },
+                "date": "2023-12-28T23:07:25+00:00",
+                "reporter": {
+                    "reference": "alphora"
+                },
+                "period": {
+                    "start": "2024-01-01T00:00:00+00:00",
+                    "end": "2024-06-01T23:59:59+00:00"
+                },
+                "improvementNotation": {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/measure-improvement-notation",
+                            "code": "increase"
+                        }
+                    ]
+                },
+                "group": [
+                    {
+                        "population": [
+                            {
+                                "id": "178DA8D8-0694-4B88-8FFE-42CE671EEE35",
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                                            "code": "initial-population",
+                                            "display": "Initial Population"
+                                        }
+                                    ]
+                                },
+                                "count": 1
+                            },
+                            {
+                                "id": "0AC3911A-2ADC-4DA4-BEBF-545FF8D6D819",
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                                            "code": "denominator",
+                                            "display": "Denominator"
+                                        }
+                                    ]
+                                },
+                                "count": 1
+                            },
+                            {
+                                "id": "67EABB9C-ADCF-4593-A8DA-35FF25DA594C",
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                                            "code": "denominator-exclusion",
+                                            "display": "Denominator Exclusion"
+                                        }
+                                    ]
+                                },
+                                "count": 0
+                            },
+                            {
+                                "id": "14B66980-07F4-4872-83AF-C425C379B971",
+                                "code": {
+                                    "coding": [
+                                        {
+                                            "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                                            "code": "numerator",
+                                            "display": "Numerator"
+                                        }
+                                    ]
+                                },
+                                "count": 0
+                            }
+                        ],
+                        "measureScore": {
+                            "value": 0.0
+                        }
+                    }
+                ],
+                "evaluatedResource": [
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                "valueString": "178DA8D8-0694-4B88-8FFE-42CE671EEE35"
+                            },
+                            {
+                                "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                "valueString": "0AC3911A-2ADC-4DA4-BEBF-545FF8D6D819"
+                            },
+                            {
+                                "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                "valueString": "67EABB9C-ADCF-4593-A8DA-35FF25DA594C"
+                            }
+                        ],
+                        "reference": "Encounter/nocoverageconcern-sedconcern-sigcomp"
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                "valueString": "178DA8D8-0694-4B88-8FFE-42CE671EEE35"
+                            },
+                            {
+                                "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                "valueString": "0AC3911A-2ADC-4DA4-BEBF-545FF8D6D819"
+                            },
+                            {
+                                "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                "valueString": "67EABB9C-ADCF-4593-A8DA-35FF25DA594C"
+                            }
+                        ],
+                        "reference": "Encounter/nocoverageconcern-sedconcern-sigcomp-expiring"
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                "valueString": "14B66980-07F4-4872-83AF-C425C379B971"
+                            }
+                        ],
+                        "reference": "Procedure/nocoverageconcern-sedconcern-sigcomp-prior-screening"
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                "valueString": "178DA8D8-0694-4B88-8FFE-42CE671EEE35"
+                            },
+                            {
+                                "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                "valueString": "0AC3911A-2ADC-4DA4-BEBF-545FF8D6D819"
+                            },
+                            {
+                                "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                "valueString": "67EABB9C-ADCF-4593-A8DA-35FF25DA594C"
+                            }
+                        ],
+                        "reference": "Encounter/nocoverageconcern-sedconcern-sigcomp-prior-screening"
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                "valueString": "178DA8D8-0694-4B88-8FFE-42CE671EEE35"
+                            },
+                            {
+                                "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                "valueString": "0AC3911A-2ADC-4DA4-BEBF-545FF8D6D819"
+                            },
+                            {
+                                "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                "valueString": "67EABB9C-ADCF-4593-A8DA-35FF25DA594C"
+                            },
+                            {
+                                "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                "valueString": "9CB0299E-74B0-4425-8758-52D6FC0F979C"
+                            },
+                            {
+                                "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                "valueString": "5C3ACF2A-15D2-44A0-A83D-F4FCC3E2F27A"
+                            },
+                            {
+                                "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                                "valueString": "8114BAD7-FAC8-4E22-91CB-33BC3DDB9986"
+                            }
+                        ],
+                        "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8000/DetectedIssue/74a2ed0c-4ed8-435c-b3ef-50202bda381d",
+            "resource": {
+                "resourceType": "DetectedIssue",
+                "id": "74a2ed0c-4ed8-435c-b3ef-50202bda381d",
+                "meta": {
+                    "profile": [
+                        "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/gaps-detectedissue-deqm"
+                    ]
+                },
+                "modifierExtension": [
+                    {
+                        "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-gapStatus",
+                        "valueCodeableConcept": {
+                            "coding": [
+                                {
+                                    "system": "http://hl7.org/fhir/us/davinci-deqm/CodeSystem/gaps-status",
+                                    "code": "open-gap",
+                                    "display": "Open Gap"
+                                }
+                            ]
+                        }
+                    }
+                ],
+                "identifier": [
+                    {
+                        "system": "urn:ietf:rfc:3986",
+                        "value": "urn:uuid:a5689e19-9b97-4e58-872a-0e3499142ab8"
+                    }
+                ],
+                "status": "final",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                            "code": "CAREGAP",
+                            "display": "Care Gaps"
+                        }
+                    ]
+                },
+                "patient": {
+                    "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+                },
+                "evidence": [
+                    {
+                        "detail": [
+                            {
+                                "reference": "MeasureReport/918ddcda-0f22-4861-a049-d9f4b05a73d5"
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8000/Organization/alphora-author",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "alphora-author",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2023-12-01T02:28:57.788+00:00",
+                    "source": "#NrZz6ITtHbxCzdu6",
+                    "profile": [
+                        "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/organization-deqm"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                                    "code": "TAX",
+                                    "display": "Tax ID number"
+                                }
+                            ]
+                        },
+                        "system": "urn:oid:2.16.840.1.113883.4.4",
+                        "value": "12345678910",
+                        "assigner": {
+                            "display": "www.irs.gov"
+                        }
+                    }
+                ],
+                "active": true,
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "alphora-author",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "(+1) 401-555-1313"
+                    }
+                ],
+                "address": [
+                    {
+                        "line": [
+                            "737 Lakewood Street"
+                        ],
+                        "city": "Warwick",
+                        "state": "RI",
+                        "postalCode": "02886",
+                        "country": "USA"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8000/Organization/alphora",
+            "resource": {
+                "resourceType": "Organization",
+                "id": "alphora",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2023-12-01T02:28:57.788+00:00",
+                    "source": "#NrZz6ITtHbxCzdu6",
+                    "profile": [
+                        "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/organization-deqm"
+                    ]
+                },
+                "identifier": [
+                    {
+                        "use": "official",
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                                    "code": "TAX",
+                                    "display": "Tax ID number"
+                                }
+                            ]
+                        },
+                        "system": "urn:oid:2.16.840.1.113883.4.4",
+                        "value": "123456789",
+                        "assigner": {
+                            "display": "www.irs.gov"
+                        }
+                    }
+                ],
+                "active": true,
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                                "code": "prov",
+                                "display": "Healthcare Provider"
+                            }
+                        ]
+                    }
+                ],
+                "name": "alphora",
+                "telecom": [
+                    {
+                        "system": "phone",
+                        "value": "(+1) 401-555-1212"
+                    }
+                ],
+                "address": [
+                    {
+                        "line": [
+                            "73 Lakewood Street"
+                        ],
+                        "city": "Warwick",
+                        "state": "RI",
+                        "postalCode": "02886",
+                        "country": "USA"
+                    }
+                ]
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8000/Encounter/nocoverageconcern-sedconcern-sigcomp",
+            "resource": {
+                "resourceType": "Encounter",
+                "id": "nocoverageconcern-sedconcern-sigcomp",
+                "meta": {
+                    "versionId": "2",
+                    "lastUpdated": "2023-12-28T00:57:19.020+00:00",
+                    "source": "#hJQcbuqnduZKHNbb",
+                    "profile": [
+                        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+                    ]
+                },
+                "status": "finished",
+                "class": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                    "code": "AMB",
+                    "display": "ambulatory"
+                },
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://www.ama-assn.org/go/cpt",
+                                "code": "99201",
+                                "display": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family."
+                            }
+                        ]
+                    }
+                ],
+                "subject": {
+                    "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+                },
+                "period": {
+                    "start": "2024-01-01T09:00:00-06:00",
+                    "end": "2024-01-01T14:00:00-06:00"
+                }
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8000/Encounter/nocoverageconcern-sedconcern-sigcomp-expiring",
+            "resource": {
+                "resourceType": "Encounter",
+                "id": "nocoverageconcern-sedconcern-sigcomp-expiring",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2023-12-01T02:28:32.750+00:00",
+                    "source": "#DexFQ1etoWJCmznw",
+                    "profile": [
+                        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+                    ]
+                },
+                "status": "finished",
+                "class": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                    "code": "AMB",
+                    "display": "ambulatory"
+                },
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://www.ama-assn.org/go/cpt",
+                                "code": "99201",
+                                "display": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family."
+                            }
+                        ]
+                    }
+                ],
+                "subject": {
+                    "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+                },
+                "period": {
+                    "start": "2013-05-01T10:00:00-06:00",
+                    "end": "2013-05-01T12:00:00-06:00"
+                }
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8000/Procedure/nocoverageconcern-sedconcern-sigcomp-prior-screening",
+            "resource": {
+                "resourceType": "Procedure",
+                "id": "nocoverageconcern-sedconcern-sigcomp-prior-screening",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2023-12-28T00:52:58.109+00:00",
+                    "source": "#fE9rMc6XFUIjiJy0",
+                    "profile": [
+                        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
+                    ]
+                },
+                "status": "completed",
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://www.ama-assn.org/go/cpt",
+                            "code": "44388",
+                            "display": "Colonoscopy through stoma; with ablation of tumor(s), polyp(s), or other lesion(s) not amenable to removal by hot biopsy forceps, bipolar cautery or snare technique"
+                        }
+                    ]
+                },
+                "subject": {
+                    "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+                },
+                "encounter": {
+                    "reference": "Encounter/nocoverageconcern-sedconcern-sigcomp-prior-screening"
+                },
+                "performedPeriod": {
+                    "start": "2014-04-01T10:00:00-06:00",
+                    "end": "2014-04-01T12:00:00-06:00"
+                }
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8000/Encounter/nocoverageconcern-sedconcern-sigcomp-prior-screening",
+            "resource": {
+                "resourceType": "Encounter",
+                "id": "nocoverageconcern-sedconcern-sigcomp-prior-screening",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2023-12-28T00:52:58.109+00:00",
+                    "source": "#fE9rMc6XFUIjiJy0",
+                    "profile": [
+                        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-encounter"
+                    ]
+                },
+                "status": "finished",
+                "class": {
+                    "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                    "code": "AMB",
+                    "display": "ambulatory"
+                },
+                "type": [
+                    {
+                        "coding": [
+                            {
+                                "system": "http://www.ama-assn.org/go/cpt",
+                                "code": "99201",
+                                "display": "Office or other outpatient visit for the evaluation and management of a new patient, which requires these 3 key components: A problem focused history; A problem focused examination; Straightforward medical decision making. Counseling and/or coordination of care with other physicians, other qualified health care professionals, or agencies are provided consistent with the nature of the problem(s) and the patient's and/or family's needs. Usually, the presenting problem(s) are self limited or minor. Typically, 10 minutes are spent face-to-face with the patient and/or family."
+                            }
+                        ]
+                    }
+                ],
+                "subject": {
+                    "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+                },
+                "period": {
+                    "start": "2014-04-01T09:00:00-06:00",
+                    "end": "2014-04-01T13:00:00-06:00"
+                }
+            }
+        },
+        {
+            "fullUrl": "http://localhost:8000/Patient/nocoverageconcern-sedconcern-sigcomp",
+            "resource": {
+                "resourceType": "Patient",
+                "id": "nocoverageconcern-sedconcern-sigcomp",
+                "meta": {
+                    "versionId": "1",
+                    "lastUpdated": "2023-12-01T02:28:32.750+00:00",
+                    "source": "#DexFQ1etoWJCmznw",
+                    "profile": [
+                        "http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"
+                    ]
+                },
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+                        "extension": [
+                            {
+                                "url": "ombCategory",
+                                "valueCoding": {
+                                    "system": "urn:oid:2.16.840.1.113883.6.238",
+                                    "code": "2028-9",
+                                    "display": "Asian"
+                                }
+                            }
+                        ]
+                    },
+                    {
+                        "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-ethnicity",
+                        "extension": [
+                            {
+                                "url": "ombCategory",
+                                "valueCoding": {
+                                    "system": "urn:oid:2.16.840.1.113883.6.238",
+                                    "code": "2135-2",
+                                    "display": "Hispanic or Latino"
+                                }
+                            }
+                        ]
+                    }
+                ],
+                "identifier": [
+                    {
+                        "use": "usual",
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                                    "code": "MR",
+                                    "display": "Medical Record Number"
+                                }
+                            ]
+                        },
+                        "system": "http://hospital.smarthealthit.org",
+                        "value": "999999975"
+                    }
+                ],
+                "name": [
+                    {
+                        "text": "Agnes Herman",
+                        "family": "Herman",
+                        "given": [
+                            "Agnes"
+                        ]
+                    }
+                ],
+                "gender": "female",
+                "birthDate": "1969-02-16"
+            }
+        }
+    ]
+}

@@ -1,0 +1,26 @@
+{
+    "resourceType": "SearchParameter",
+    "id": "Bundle-composition-patient-identifier",
+    "url": "http://example.org/SearchParameter/Bundle-composition-patient-identifier",
+    "version": "0.0.1",
+    "name": "composition.patient.identifier",
+    "date": "2023-12-28T07:31:20+00:00",
+    "publisher": "Smile Digital Health",
+    "description": "This parameter, of type token, specifies the identifier of the subject if it's a patient.",
+    "jurisdiction": [
+      {
+        "coding": [
+          {
+            "system": "urn:iso:std:iso:3166",
+            "code": "US",
+            "display": "United States of America"
+          }
+        ]
+      }
+    ],
+    "status": "active",
+    "code": "composition.patient.identifier",
+    "base": [ "Bundle" ],
+    "type": "token",
+    "expression": "Bundle.entry[0].resource.as(Composition).subject.resolve().as(Patient).identifier"
+  }

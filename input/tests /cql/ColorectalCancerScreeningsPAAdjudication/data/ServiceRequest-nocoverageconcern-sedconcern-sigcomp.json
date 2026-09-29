@@ -1,0 +1,95 @@
+{
+    "resourceType": "ServiceRequest",
+    "id": "Colonoscopy",
+    "extension": [
+      {
+        "url": "http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information",
+        "extension": [
+          {
+            "url": "doc-needed",
+            "valueCode": "clinical"
+          },
+          {
+            "url": "doc-purpose",
+            "valueCode": "withpa"
+          },
+          {
+            "url": "questionnaire",
+            "valueCanonical": "http://example.org/some-payer/Questionnaire/cc-cds-colonoscopy%7C0.0.1"
+          },
+          {
+            "url": "coverage",
+            "valueReference": {
+              "reference": "Coverage/nocoverageconcern-sedconcern-sigcomp"
+            }
+          },
+          {
+            "url": "covered",
+            "valueCode": "covered"
+          },
+          {
+            "url": "pa-needed",
+            "valueCode": "auth-needed"
+          },
+          {
+            "url": "date",
+            "valueDateTime": "2024-02-14T00:00:00.000Z"
+          },
+          {
+            "url": "billingCode",
+            "valueCoding": {
+              "system": "http://snomed.info/sct",
+              "code": "73761001",
+              "display": "Colonoscopy (procedure)"
+            }
+          },
+          {
+            "url": "detail",
+            "extension": [
+              {
+                "url": "code",
+                "valueCodeableConcept": {
+                  "coding": [
+                    {
+                      "system": "http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp",
+                      "code": "auth-needed",
+                      "display": "Prior Authorization Needed"
+                    }
+                  ],
+                  "text": "Prior Authorization Required"
+                }
+              },
+              {
+                "url": "value",
+                "valueString": "Warning"
+              },
+              {
+                "url": "qualification",
+                "valueString": "Prior authorization is required for Colonoscopy"
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "instantiatesCanonical": [
+      "http://example.org/sdh/demo/ActivityDefinition/cc-cds-colonoscopy%7C0.0.1"
+    ],
+    "status": "draft",
+    "intent": "proposal",
+    "authoredOn": "2024-02-19T00:00:00Z",
+    "doNotPerform": false,
+    "code": {
+      "coding": [
+        {
+          "system": "http://snomed.info/sct",
+          "code": "73761001",
+          "display": "Colonoscopy (procedure)"
+        }
+      ],
+      "text": "Referral to service (procedure)"
+    },
+    "subject": {
+      "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+    }
+  }

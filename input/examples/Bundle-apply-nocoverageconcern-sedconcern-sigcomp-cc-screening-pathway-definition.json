@@ -1,0 +1,643 @@
+{
+    "resourceType": "Bundle",
+    "id": "apply-nss-cc-screening-pathway-definition",
+    "type": "collection",
+    "entry": [
+        {
+            "resource": {
+                "resourceType": "RequestGroup",
+                "id": "cc-screening-pathway-definition",
+                "meta": {
+                    "profile": [
+                        "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-strategy"
+                    ]
+                },
+                "instantiatesCanonical": [
+                    "http://example.org/sdh/demo/PlanDefinition/cc-screening-pathway-definition|0.0.1",
+                    "http://example.org/sdh/demo/PlanDefinition/cc-screening-strategy-definition|0.0.3",
+                    "http://example.org/sdh/demo/PlanDefinition/cc-screening-decisiontree-definition|0.0.2",
+                    "http://example.org/sdh/demo/PlanDefinition/cc-screening-recommendation-definition-ct-colonography|0.0.3"
+                ],
+                "status": "draft",
+                "intent": "proposal",
+                "subject": {
+                    "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+                },
+                "action": [
+                    {
+                        "title": "Colorectal Cancer Screening",
+                        "description": "A strategy for colorectal cancer screening.",
+                        "code": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-common-process-cs",
+                                        "code": "guideline-based-care"
+                                    }
+                                ]
+                            }
+                        ],
+                        "resource": {
+                            "reference": "RequestGroup/cc-screening-strategy-definition"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "ServiceRequest",
+                "id": "cc-cds-fecal-immunochemical-test-dna",
+                "meta": {
+                    "versionId": "1",
+                    "profile": [
+                        "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-servicerequest"
+                    ]
+                },
+                "instantiatesCanonical": [
+                    "http://example.org/sdh/demo/ActivityDefinition/cc-cds-fecal-immunochemical-test-dna"
+                ],
+                "status": "draft",
+                "intent": "proposal",
+                "authoredOn": "2024-02-19T00:00:00Z",
+                "doNotPerform": false,
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "457591000124105",
+                            "display": "Stool DNA-based colorectal cancer screening (procedure)"
+                        }
+                    ],
+                    "text": "Referral to service (procedure)"
+                },
+                "subject": {
+                    "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "ServiceRequest",
+                "id": "cc-cds-colonoscopy",
+                "meta": {
+                    "versionId": "1",
+                    "profile": [
+                        "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-servicerequest"
+                    ]
+                },
+                "instantiatesCanonical": [
+                    "http://example.org/sdh/demo/ActivityDefinition/cc-cds-colonoscopy"
+                ],
+                "status": "draft",
+                "intent": "proposal",
+                "authoredOn": "2024-02-19T00:00:00Z",
+                "doNotPerform": false,
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "73761001",
+                            "display": "Colonoscopy (procedure)"
+                        }
+                    ],
+                    "text": "Referral to service (procedure)"
+                },
+                "subject": {
+                    "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "ServiceRequest",
+                "id": "cc-cds-ct-colonography",
+                "meta": {
+                    "versionId": "1",
+                    "profile": [
+                        "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-servicerequest"
+                    ]
+                },
+                "instantiatesCanonical": [
+                    "http://example.org/sdh/demo/ActivityDefinition/cc-cds-ct-colonography"
+                ],
+                "status": "draft",
+                "intent": "proposal",
+                "authoredOn": "2024-02-19T00:00:00Z",
+                "doNotPerform": false,
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "418714002",
+                            "display": "Virtual computed tomography colonoscopy (procedure)"
+                        }
+                    ],
+                    "text": "Referral to service (procedure)"
+                },
+                "subject": {
+                    "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "ServiceRequest",
+                "id": "cc-cds-flexible-fiberoptic-sigmoidoscopy",
+                "meta": {
+                    "versionId": "1",
+                    "profile": [
+                        "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-servicerequest"
+                    ]
+                },
+                "instantiatesCanonical": [
+                    "http://example.org/sdh/demo/ActivityDefinition/cc-cds-flexible-fiberoptic-sigmoidoscopy"
+                ],
+                "status": "draft",
+                "intent": "proposal",
+                "authoredOn": "2024-02-19T00:00:00Z",
+                "doNotPerform": false,
+                "code": {
+                    "coding": [
+                        {
+                            "system": "http://snomed.info/sct",
+                            "code": "44441009",
+                            "display": "Flexible fiberoptic sigmoidoscopy (procedure)"
+                        }
+                    ],
+                    "text": "Referral to service (procedure)"
+                },
+                "subject": {
+                    "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+                }
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "RequestGroup",
+                "id": "cc-screening-recommendation-definition-ct-colonography",
+                "meta": {
+                    "profile": [
+                        "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-strategy"
+                    ]
+                },
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-rationale",
+                        "valueString": "CARE GAP REASON: No qualifying Colorectal Cancer Screening has been performed.<br /><br />- Has insurance and cost is not a great concern <a href=https://projectathon.smilecdr.com/fhir_request/DocumentReference/ccs-coverage-concern>[1]</a><br />- Sedation concern (Evidence: coding ICD10-J44.9 CHRONIC OBSTRUCTIVE PULMONARY DISEASE, UNSPECIFIED) <a href=https://projectathon.smilecdr.com/fhir_request/DocumentReference/ccs-sedation-concern>[2]</a><br />- Invasive procedure concern (Evidence: coding ICD10-Z98.0 INTESTINAL BYPASS AND ANASTOMOSIS STATUS) <a href=https://projectathon.smilecdr.com/fhir_request/DocumentReference/ccs-invasive-procedure-concern>[3]</a>"
+                    }
+                ],
+                "instantiatesCanonical": [
+                    "http://example.org/sdh/demo/PlanDefinition/cc-screening-recommendation-definition-ct-colonography|0.0.3"
+                ],
+                "status": "draft",
+                "intent": "proposal",
+                "subject": {
+                    "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+                },
+                "action": [
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-option-selected",
+                                "valueBoolean": false
+                            },
+                            {
+                                "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-option-recommended",
+                                "valueBoolean": false
+                            }
+                        ],
+                        "title": "Fecal Immunochemical Test DNA Recommendation",
+                        "description": "Provides a recommendation for a patient with concerns about their coverage.",
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/action-type",
+                                    "code": "create",
+                                    "display": "Create"
+                                }
+                            ]
+                        },
+                        "resource": {
+                            "reference": "ServiceRequest/cc-cds-fecal-immunochemical-test-dna"
+                        }
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-option-selected",
+                                "valueBoolean": false
+                            },
+                            {
+                                "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-option-recommended",
+                                "valueBoolean": false
+                            }
+                        ],
+                        "title": "Colonoscopy Recommendation",
+                        "description": "Provides a recommendation for a patient where sedation is not a concern, without an invasive procedure complication.",
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/action-type",
+                                    "code": "create",
+                                    "display": "Create"
+                                }
+                            ]
+                        },
+                        "resource": {
+                            "reference": "ServiceRequest/cc-cds-colonoscopy"
+                        }
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-option-selected",
+                                "valueBoolean": false
+                            },
+                            {
+                                "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-option-recommended",
+                                "valueBoolean": true
+                            }
+                        ],
+                        "title": "CT Colonography Recommendation",
+                        "description": "Provides a recommendation for a patient where sedation is a concern, with an evasive procedure complication.",
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/action-type",
+                                    "code": "create",
+                                    "display": "Create"
+                                }
+                            ]
+                        },
+                        "resource": {
+                            "reference": "ServiceRequest/cc-cds-ct-colonography"
+                        }
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-option-selected",
+                                "valueBoolean": false
+                            },
+                            {
+                                "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-option-recommended",
+                                "valueBoolean": false
+                            }
+                        ],
+                        "title": "Flexible Fiberoptic Sigmoidoscopy Recommendation",
+                        "description": "Provides a recommendation for a patient where an sedation is a concern, without an invasive procedure concern.",
+                        "type": {
+                            "coding": [
+                                {
+                                    "system": "http://terminology.hl7.org/CodeSystem/action-type",
+                                    "code": "create",
+                                    "display": "Create"
+                                }
+                            ]
+                        },
+                        "resource": {
+                            "reference": "ServiceRequest/cc-cds-flexible-fiberoptic-sigmoidoscopy"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "RequestGroup",
+                "id": "cc-screening-decisiontree-definition",
+                "meta": {
+                    "profile": [
+                        "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-strategy"
+                    ]
+                },
+                "instantiatesCanonical": [
+                    "http://example.org/sdh/demo/PlanDefinition/cc-screening-decisiontree-definition|0.0.2",
+                    "http://example.org/sdh/demo/PlanDefinition/cc-screening-recommendation-definition-ct-colonography|0.0.3"
+                ],
+                "status": "draft",
+                "intent": "proposal",
+                "subject": {
+                    "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+                },
+                "action": [
+                    {
+                        "title": "Coverage Concern Input",
+                        "description": "Input for whether there is a concern with coverage for the patient.",
+                        "action": [
+                            {
+                                "title": "No Coverage Concern",
+                                "description": "There is not a concern with coverage for the patient.",
+                                "condition": [
+                                    {
+                                        "kind": "applicability",
+                                        "expression": {
+                                            "language": "text/cql-identifier",
+                                            "expression": "No Coverage Concern"
+                                        }
+                                    }
+                                ],
+                                "action": [
+                                    {
+                                        "title": "Sedation Concern Input",
+                                        "description": "Input for whether there is a concern with sedation for the patient.",
+                                        "action": [
+                                            {
+                                                "title": "Sedation Concern",
+                                                "description": "There is a concern with sedating the patient.",
+                                                "condition": [
+                                                    {
+                                                        "kind": "applicability",
+                                                        "expression": {
+                                                            "language": "text/cql-identifier",
+                                                            "expression": "Has Sedation Concern"
+                                                        }
+                                                    }
+                                                ],
+                                                "action": [
+                                                    {
+                                                        "title": "Sigmoidoscopy Complication Input",
+                                                        "description": "Input for whether there is a complication with a Sigmoidoscopy procedure for the patient.",
+                                                        "action": [
+                                                            {
+                                                                "title": "Sigmoidoscopy Complication",
+                                                                "description": "There is a concern with complications in performing a sigmoidoscopy.",
+                                                                "condition": [
+                                                                    {
+                                                                        "kind": "applicability",
+                                                                        "expression": {
+                                                                            "language": "text/cql-identifier",
+                                                                            "expression": "Has Sigmoidoscopy Complications"
+                                                                        }
+                                                                    }
+                                                                ],
+                                                                "resource": {
+                                                                    "reference": "RequestGroup/cc-screening-recommendation-definition-ct-colonography"
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                ]
+                                            }
+                                        ]
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "RequestGroup",
+                "id": "cc-screening-strategy-definition",
+                "meta": {
+                    "profile": [
+                        "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-strategy"
+                    ]
+                },
+                "instantiatesCanonical": [
+                    "http://example.org/sdh/demo/PlanDefinition/cc-screening-strategy-definition|0.0.3",
+                    "http://example.org/sdh/demo/PlanDefinition/cc-screening-decisiontree-definition|0.0.2",
+                    "http://example.org/sdh/demo/PlanDefinition/cc-screening-recommendation-definition-ct-colonography|0.0.3"
+                ],
+                "status": "draft",
+                "intent": "proposal",
+                "subject": {
+                    "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+                },
+                "action": [
+                    {
+                        "title": "Colorectal Cancer Screening Recommendation",
+                        "description": "A colorectal cancer screening recommendation is applicable for the patient.",
+                        "code": [
+                            {
+                                "coding": [
+                                    {
+                                        "system": "http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-common-process-cs",
+                                        "code": "guideline-based-care"
+                                    }
+                                ]
+                            }
+                        ],
+                        "condition": [
+                            {
+                                "kind": "applicability",
+                                "expression": {
+                                    "description": "Determine if a recommendation for colorectal cancer screening is appropriate for the patient.",
+                                    "language": "text/cql-identifier",
+                                    "expression": "Inclusion Criteria"
+                                }
+                            }
+                        ],
+                        "resource": {
+                            "reference": "RequestGroup/cc-screening-decisiontree-definition"
+                        }
+                    }
+                ]
+            }
+        },
+        {
+            "resource": {
+                "resourceType": "Questionnaire",
+                "id": "cc-screening-pathway-definition",
+                "item": [
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                "valueMarkdown": "There is a concern with coverage for the patient.  For example, the patient does not have insurance coverage."
+                            }
+                        ],
+                        "linkId": "1",
+                        "definition": "http://example.org/sdh/demo/StructureDefinition/coverage-concern-casefeature-definition#Observation",
+                        "text": "Coverage Concern?",
+                        "type": "group",
+                        "item": [
+                            {
+                                "extension": [
+                                    {
+                                        "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                                        "valueBoolean": true
+                                    }
+                                ],
+                                "linkId": "1.1",
+                                "definition": "http://example.org/sdh/demo/StructureDefinition/coverage-concern-casefeature-definition#Observation.code.coding.system",
+                                "text": "Observation.code.coding.system",
+                                "type": "url",
+                                "required": true,
+                                "readOnly": true,
+                                "initial": [
+                                    {
+                                        "valueUri": "http://example.org/sdh/demo/CodeSystem/cc-screening-codes"
+                                    }
+                                ]
+                            },
+                            {
+                                "extension": [
+                                    {
+                                        "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                                        "valueBoolean": true
+                                    }
+                                ],
+                                "linkId": "1.2",
+                                "definition": "http://example.org/sdh/demo/StructureDefinition/coverage-concern-casefeature-definition#Observation.code.coding.code",
+                                "text": "Observation.code.coding.code",
+                                "type": "string",
+                                "required": true,
+                                "readOnly": true,
+                                "initial": [
+                                    {
+                                        "valueString": "coverage-concern"
+                                    }
+                                ]
+                            },
+                            {
+                                "linkId": "1.3",
+                                "definition": "http://example.org/sdh/demo/StructureDefinition/coverage-concern-casefeature-definition#Observation.value[x]",
+                                "text": "Coverage Concern",
+                                "type": "boolean",
+                                "required": true,
+                                "initial": [
+                                    {
+                                        "valueBoolean": false
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                "valueMarkdown": "There is a concern with sedating the patient.  For example, the patient has a medical history that presents a risk for sedation."
+                            }
+                        ],
+                        "linkId": "2",
+                        "definition": "http://example.org/sdh/demo/StructureDefinition/sedation-concern-casefeature-definition#Observation",
+                        "text": "Sedation Concern?",
+                        "type": "group",
+                        "item": [
+                            {
+                                "extension": [
+                                    {
+                                        "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                                        "valueBoolean": true
+                                    }
+                                ],
+                                "linkId": "2.1",
+                                "definition": "http://example.org/sdh/demo/StructureDefinition/sedation-concern-casefeature-definition#Observation.code.coding.system",
+                                "text": "Observation.code.coding.system",
+                                "type": "url",
+                                "required": true,
+                                "readOnly": true,
+                                "initial": [
+                                    {
+                                        "valueUri": "http://example.org/sdh/demo/CodeSystem/cc-screening-codes"
+                                    }
+                                ]
+                            },
+                            {
+                                "extension": [
+                                    {
+                                        "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                                        "valueBoolean": true
+                                    }
+                                ],
+                                "linkId": "2.2",
+                                "definition": "http://example.org/sdh/demo/StructureDefinition/sedation-concern-casefeature-definition#Observation.code.coding.code",
+                                "text": "Observation.code.coding.code",
+                                "type": "string",
+                                "required": true,
+                                "readOnly": true,
+                                "initial": [
+                                    {
+                                        "valueString": "sedation-concern"
+                                    }
+                                ]
+                            },
+                            {
+                                "linkId": "2.3",
+                                "definition": "http://example.org/sdh/demo/StructureDefinition/sedation-concern-casefeature-definition#Observation.value[x]",
+                                "text": "Sedation Concern",
+                                "type": "boolean",
+                                "required": true,
+                                "initial": [
+                                    {
+                                        "valueBoolean": true
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "extension": [
+                            {
+                                "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                "valueMarkdown": "There is a concern with complications in performing a sigmoidoscopy.  For example, the patient has a medical history that presents a risk for an invasive procedure."
+                            }
+                        ],
+                        "linkId": "3",
+                        "definition": "http://example.org/sdh/demo/StructureDefinition/sigmoidoscopy-complication-casefeature-definition#Observation",
+                        "text": "Sigmoidoscopy Complication?",
+                        "type": "group",
+                        "item": [
+                            {
+                                "extension": [
+                                    {
+                                        "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                                        "valueBoolean": true
+                                    }
+                                ],
+                                "linkId": "3.1",
+                                "definition": "http://example.org/sdh/demo/StructureDefinition/sigmoidoscopy-complication-casefeature-definition#Observation.code.coding.system",
+                                "text": "Observation.code.coding.system",
+                                "type": "url",
+                                "required": true,
+                                "readOnly": true,
+                                "initial": [
+                                    {
+                                        "valueUri": "http://example.org/sdh/demo/CodeSystem/cc-screening-codes"
+                                    }
+                                ]
+                            },
+                            {
+                                "extension": [
+                                    {
+                                        "url": "http://hl7.org/fhir/StructureDefinition/questionnaire-hidden",
+                                        "valueBoolean": true
+                                    }
+                                ],
+                                "linkId": "3.2",
+                                "definition": "http://example.org/sdh/demo/StructureDefinition/sigmoidoscopy-complication-casefeature-definition#Observation.code.coding.code",
+                                "text": "Observation.code.coding.code",
+                                "type": "string",
+                                "required": true,
+                                "readOnly": true,
+                                "initial": [
+                                    {
+                                        "valueString": "sigmoidoscopy-complication"
+                                    }
+                                ]
+                            },
+                            {
+                                "linkId": "3.3",
+                                "definition": "http://example.org/sdh/demo/StructureDefinition/sigmoidoscopy-complication-casefeature-definition#Observation.value[x]",
+                                "text": "Sigmoidoscopy Complication",
+                                "type": "boolean",
+                                "required": true,
+                                "initial": [
+                                    {
+                                        "valueBoolean": true
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    ]
+}

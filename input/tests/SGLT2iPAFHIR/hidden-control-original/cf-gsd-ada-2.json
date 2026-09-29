@@ -1,0 +1,48 @@
+{
+    "resourceType": "Observation",
+    "meta": {
+        "profile": [
+            "http://example.org/cdosdh/demo/StructureDefinition/cpg-casefeature-gsd-ada"
+        ]
+    },
+    "id": "cf-gsd-ada-2",
+    "extension": [
+        {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-instantiatesCaseFeature",
+            "valueCanonical": "http://hl7.org/fhir/uv/cpg/demo/StructureDefinition/cpg-casefeature-gsd-ada"
+        },
+        {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-casefeature-cp-role",
+            "valueCodeableConcept": {
+                "coding": [
+                    {
+                        "system": "http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-casefeature-cp-role",
+                        "code": "pathway-event"
+                    }
+                ]
+            }
+        }
+    ],
+    "status": "registered",
+    "code": {
+        "coding": [
+            {
+                "system": "http://example.org/cdosdh/demo/CodeSystem/hedis-gap-demo",
+                "code": "high-risk",
+                "display": "A1c"
+            }
+        ]
+    },
+    "subject": {
+        "reference": "Patient/hidden-control"
+    },
+    "effectivePeriod": {
+        "start": "2023-12-16T00:00:00Z"
+    },
+    "valueQuantity": {
+        "value": 8.9,
+        "unit": "percent",
+        "system": "http://unitsofmeasure.org",
+        "code": "percent"
+    }
+}

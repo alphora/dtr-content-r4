@@ -1,0 +1,25 @@
+{
+    "resourceType": "ValueSet",
+    "id": "colon-procedure-complication-conditions",
+    "url": "http://example.org/sdh/demo/ValueSet/ColonProcedureComplicationConditions",
+    "identifier": [ {
+      "system": "urn:ietf:rfc:3986",
+      "value": "colon-procedure-complication-conditions"
+    } ],
+    "version": "0.0.1",
+    "name": "ColonProcedureComplicationConditions",
+    "title": "Colon Procedure Complication Conditions",
+    "status": "active",
+    "experimental": true,
+    "publisher": "SmileCDR",
+    "expansion": {
+      "identifier": "20230411",
+      "timestamp": "2023-04-11T16:11:28-06:00",
+      "contains": [ {
+        "system": "http://www.cms.gov/Medicare/Coding/ICD10",
+        "code": "Z98.0",
+        "version": "2023",
+        "display": "INTESTINAL BYPASS AND ANASTOMOSIS STATUS"
+      } ]
+    }
+  }

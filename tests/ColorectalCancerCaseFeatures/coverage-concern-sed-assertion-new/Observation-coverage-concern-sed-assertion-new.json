@@ -1,0 +1,56 @@
+{
+    "resourceType": "Observation",
+    "id": "coverage-concern-sed-assertion-new",
+    "meta": {
+        "profile": [
+            "http://example.org/sdh/demo/StructureDefinition/sigmoidoscopy-complication-casefeature-definition"
+        ]
+    },
+    "contained": [
+        {
+            "resourceType": "Provenance",
+            "id": "prov-coverage-concern-sed-assertion-new",
+            "extension": [
+                {
+                    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-casefeature-evidence-text",
+                    "valueMarkdown": "Evidence: user asserted"
+                }
+            ],
+            "target": [
+                {
+                    "reference": "Observation/coverage-concern-sed-assertion-new"
+                }
+            ],
+            "occurredDateTime": "2024-01-05T16:06:28.817+00:00",
+            "recorded": "2024-01-05T16:06:28.817+00:00",
+            "agent": [
+                {
+                    "who": {
+                        "reference": "Practitioner/provider-app-user"
+                    }
+                }
+            ]
+        }
+    ],
+    "extension": [
+        {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-instantiatesCaseFeature",
+            "valueUri": "http://example.org/sdh/demo/StructureDefinition/sigmoidoscopy-complication-casefeature-definition"
+        }
+    ],
+    "status": "preliminary",
+    "code": {
+        "coding": [
+            {
+                "system": "http://example.org/sdh/demo/CodeSystem/cc-screening-codes",
+                "code": "sedation-concern"
+            }
+        ]
+    },
+    "subject": {
+        "reference": "Patient/coverage-concern-sed-assertion-new"
+    },
+    "effectiveDateTime": "2024-01-05T16:06:28.817+00:00",
+    "issued": "2024-01-05T16:06:28.817+00:00",
+    "valueBoolean": true
+}

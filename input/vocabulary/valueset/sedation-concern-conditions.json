@@ -1,0 +1,25 @@
+{
+    "resourceType": "ValueSet",
+    "id": "sedation-concern-conditions",
+    "url": "http://example.org/sdh/demo/ValueSet/SedationConcernConditions",
+    "identifier": [ {
+      "system": "urn:ietf:rfc:3986",
+      "value": "sedation-concern-conditions"
+    } ],
+    "version": "0.0.1",
+    "name": "SedationConcernConditions",
+    "title": "Sedation Concern Conditions",
+    "status": "active",
+    "experimental": true,
+    "publisher": "SmileCDR",
+    "expansion": {
+      "identifier": "20230411",
+      "timestamp": "2023-04-11T16:11:28-06:00",
+      "contains": [ {
+        "system": "http://www.cms.gov/Medicare/Coding/ICD10",
+        "code": "J44.9",
+        "version": "2023",
+        "display": "CHRONIC OBSTRUCTIVE PULMONARY DISEASE, UNSPECIFIED"
+      } ]
+    }
+  }

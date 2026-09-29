@@ -1,0 +1,296 @@
+{
+    "resourceType": "MeasureReport",
+    "id": "8b6ae16c-9cee-4672-80a2-ab351bf44fb8",
+    "language": "en",
+    "contained": [
+        {
+            "resourceType": "Observation",
+            "id": "bda54de1-c54b-4c03-85cd-759efa8682c5",
+            "extension": [
+                {
+                    "url": "http://hl7.org/fhir/StructureDefinition/cqf-measureInfo",
+                    "extension": [
+                        {
+                            "url": "measure",
+                            "valueCanonical": "http://example.org/sdh/demo/Measure/ColorectalCancerScreeningsFHIR"
+                        }
+                    ]
+                }
+            ],
+            "status": "final",
+            "code": {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-data-usage",
+                        "code": "supplemental-data"
+                    }
+                ]
+            },
+            "valueCodeableConcept": {
+                "coding": [
+                    {
+                        "code": "M"
+                    }
+                ]
+            }
+        },
+        {
+            "resourceType": "Observation",
+            "id": "f8644377-8aba-4122-b939-743dca111a8d",
+            "extension": [
+                {
+                    "url": "http://hl7.org/fhir/StructureDefinition/cqf-measureInfo",
+                    "extension": [
+                        {
+                            "url": "measure",
+                            "valueCanonical": "http://example.org/sdh/demo/Measure/ColorectalCancerScreeningsFHIR"
+                        }
+                    ]
+                }
+            ],
+            "status": "final",
+            "code": {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-data-usage",
+                        "code": "supplemental-data"
+                    }
+                ]
+            },
+            "valueCodeableConcept": {
+                "coding": [
+                    {
+                        "code": "2028-9"
+                    }
+                ]
+            }
+        },
+        {
+            "resourceType": "Observation",
+            "id": "c49ef211-a8a4-4a16-8580-741aba14717a",
+            "extension": [
+                {
+                    "url": "http://hl7.org/fhir/StructureDefinition/cqf-measureInfo",
+                    "extension": [
+                        {
+                            "url": "measure",
+                            "valueCanonical": "http://example.org/sdh/demo/Measure/ColorectalCancerScreeningsFHIR"
+                        }
+                    ]
+                }
+            ],
+            "status": "final",
+            "code": {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/measure-data-usage",
+                        "code": "supplemental-data"
+                    }
+                ]
+            },
+            "valueCodeableConcept": {
+                "coding": [
+                    {
+                        "code": "2135-2"
+                    }
+                ]
+            }
+        }
+    ],
+    "extension": [
+        {
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MeasureReport.population.description",
+            "valueString": "Percentage of adults 50-75 years of age who had appropriate screening for colorectal cancer"
+        },
+        {
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MeasureReport.supplementalDataElement.reference",
+            "valueReference": {
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                        "valueString": "8114BAD7-FAC8-4E22-91CB-33BC3DDB9986"
+                    }
+                ],
+                "reference": "#bda54de1-c54b-4c03-85cd-759efa8682c5"
+            }
+        },
+        {
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MeasureReport.supplementalDataElement.reference",
+            "valueReference": {
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                        "valueString": "5C3ACF2A-15D2-44A0-A83D-F4FCC3E2F27A"
+                    }
+                ],
+                "reference": "#f8644377-8aba-4122-b939-743dca111a8d"
+            }
+        },
+        {
+            "url": "http://hl7.org/fhir/5.0/StructureDefinition/extension-MeasureReport.supplementalDataElement.reference",
+            "valueReference": {
+                "extension": [
+                    {
+                        "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                        "valueString": "9CB0299E-74B0-4425-8758-52D6FC0F979C"
+                    }
+                ],
+                "reference": "#c49ef211-a8a4-4a16-8580-741aba14717a"
+            }
+        }
+    ],
+    "status": "complete",
+    "type": "individual",
+    "measure": "http://example.org/sdh/demo/Measure/ColorectalCancerScreeningsFHIR|0.0.003",
+    "subject": {
+        "reference": "Patient/nocovconcern-nosedconcern-nocolonscopycomp"
+    },
+    "date": "2023-12-29T03:35:24+00:00",
+    "period": {
+        "start": "2024-01-01T00:00:00+00:00",
+        "end": "2024-06-01T23:59:59+00:00"
+    },
+    "improvementNotation": {
+        "coding": [
+            {
+                "system": "http://terminology.hl7.org/CodeSystem/measure-improvement-notation",
+                "code": "increase"
+            }
+        ]
+    },
+    "group": [
+        {
+            "population": [
+                {
+                    "id": "178DA8D8-0694-4B88-8FFE-42CE671EEE35",
+                    "code": {
+                        "coding": [
+                            {
+                                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                                "code": "initial-population",
+                                "display": "Initial Population"
+                            }
+                        ]
+                    },
+                    "count": 1
+                },
+                {
+                    "id": "0AC3911A-2ADC-4DA4-BEBF-545FF8D6D819",
+                    "code": {
+                        "coding": [
+                            {
+                                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                                "code": "denominator",
+                                "display": "Denominator"
+                            }
+                        ]
+                    },
+                    "count": 1
+                },
+                {
+                    "id": "67EABB9C-ADCF-4593-A8DA-35FF25DA594C",
+                    "code": {
+                        "coding": [
+                            {
+                                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                                "code": "denominator-exclusion",
+                                "display": "Denominator Exclusion"
+                            }
+                        ]
+                    },
+                    "count": 0
+                },
+                {
+                    "id": "14B66980-07F4-4872-83AF-C425C379B971",
+                    "code": {
+                        "coding": [
+                            {
+                                "system": "http://terminology.hl7.org/CodeSystem/measure-population",
+                                "code": "numerator",
+                                "display": "Numerator"
+                            }
+                        ]
+                    },
+                    "count": 0
+                }
+            ],
+            "measureScore": {
+                "value": 0.0
+            }
+        }
+    ],
+    "evaluatedResource": [
+        {
+            "extension": [
+                {
+                    "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                    "valueString": "14B66980-07F4-4872-83AF-C425C379B971"
+                }
+            ],
+            "reference": "Procedure/nocovconcern-nosedconcern-nocolonscopycomp-expiring"
+        },
+        {
+            "extension": [
+                {
+                    "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                    "valueString": "178DA8D8-0694-4B88-8FFE-42CE671EEE35"
+                },
+                {
+                    "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                    "valueString": "0AC3911A-2ADC-4DA4-BEBF-545FF8D6D819"
+                },
+                {
+                    "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                    "valueString": "67EABB9C-ADCF-4593-A8DA-35FF25DA594C"
+                },
+                {
+                    "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                    "valueString": "9CB0299E-74B0-4425-8758-52D6FC0F979C"
+                },
+                {
+                    "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                    "valueString": "5C3ACF2A-15D2-44A0-A83D-F4FCC3E2F27A"
+                },
+                {
+                    "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                    "valueString": "8114BAD7-FAC8-4E22-91CB-33BC3DDB9986"
+                }
+            ],
+            "reference": "Patient/nocovconcern-nosedconcern-nocolonscopycomp"
+        },
+        {
+            "extension": [
+                {
+                    "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                    "valueString": "178DA8D8-0694-4B88-8FFE-42CE671EEE35"
+                },
+                {
+                    "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                    "valueString": "0AC3911A-2ADC-4DA4-BEBF-545FF8D6D819"
+                },
+                {
+                    "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                    "valueString": "67EABB9C-ADCF-4593-A8DA-35FF25DA594C"
+                }
+            ],
+            "reference": "Encounter/nocovconcern-nosedconcern-nocolonscopycomp"
+        },
+        {
+            "extension": [
+                {
+                    "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                    "valueString": "178DA8D8-0694-4B88-8FFE-42CE671EEE35"
+                },
+                {
+                    "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                    "valueString": "0AC3911A-2ADC-4DA4-BEBF-545FF8D6D819"
+                },
+                {
+                    "url": "http://hl7.org/fhir/us/davinci-deqm/StructureDefinition/extension-criteriaReference",
+                    "valueString": "67EABB9C-ADCF-4593-A8DA-35FF25DA594C"
+                }
+            ],
+            "reference": "Encounter/nocovconcern-nosedconcern-nocolonscopycomp-expiring"
+        }
+    ]
+}

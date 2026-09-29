@@ -1,0 +1,46 @@
+{
+    "resourceType": "Condition",
+    "id": "dialysis-5",
+    "clinicalStatus": {
+        "coding": [
+            {
+                "code": "active",
+                "system": "http://terminology.hl7.org/CodeSystem/condition-clinical",
+                "display": "Active"
+            }
+        ]
+    },
+    "verificationStatus": {
+        "coding": [
+            {
+                "code": "confirmed",
+                "system": "http://terminology.hl7.org/CodeSystem/condition-ver-status",
+                "display": "Confirmed"
+            }
+        ]
+    },
+    "category": [
+        {
+            "coding": [
+                {
+                    "code": "encounter-diagnosis",
+                    "system": "http://terminology.hl7.org/CodeSystem/condition-category",
+                    "display": "Encounter Diagnosis"
+                }
+            ]
+        }
+    ],
+    "code": {
+        "coding": [
+            {
+                "code": "105502003",
+                "system": "http://snomed.info/sct",
+                "display": "Dependence on renal dialysis (finding)"
+            }
+        ]
+    },
+    "subject": {
+        "reference": "Patient/Patient-5"
+    },
+    "onsetDateTime": "2024-12-11T11:30:00-07:00"
+}

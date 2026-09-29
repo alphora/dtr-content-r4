@@ -1,0 +1,112 @@
+{
+  "resourceType": "StructureDefinition",
+  "id": "sglt2i-two-qualifying-uacr-casefeature-definition",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishablecasefeature"
+    ]
+  },
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+      "valueCode": "shareable"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+      "valueCode": "computable"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+      "valueCode": "executable"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+      "valueCode": "publishable"
+    },
+    {
+      "url" : "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+      "valueCode" : "structured"
+    },
+    {
+      "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
+      "valueReference": {
+        "reference": "Device/cqf-tooling"
+      }
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+      "valueExpression": {
+        "language": "text/cql-identifier",
+        "expression": "Qualifying Two uACR > 30 With Dates 3 Months Apart",
+        "reference": "http://example.org/sdh/demo/sglt2i/Library/SGLT2iPACaseFeatures"
+      }
+    }
+  ],
+  "url": "http://example.org/sdh/demo/sglt2i/StructureDefinition/sglt2i-two-qualifying-uacr-casefeature-definition",
+  "name": "TwouACR>30",
+  "title": "Two uACR > 30 With Dates 3 Months Apart",
+  "status": "draft",
+  "experimental": true,
+  "description": "Two uACR > 30 with dates 3 months apart.",
+  "useContext": [
+    {
+      "code": {
+        "system": "http://terminology.hl7.org/CodeSystem/usage-context-type",
+        "code": "task",
+        "display": "Workflow Task"
+      }
+    }
+  ],
+  "fhirVersion": "4.0.1",
+  "kind": "resource",
+  "abstract": false,
+  "type": "Observation",
+  "baseDefinition": "http://hl7.org/fhir/StructureDefinition/Observation",
+  "derivation": "constraint",
+  "differential": {
+    "element": [
+      {
+        "id": "Observation",
+        "path": "Observation",
+        "mustSupport": false
+      },
+      {
+        "id": "Observation.code",
+        "path": "Observation.code",
+        "short": "Qualifying Two uACR > 30 With Dates 3 Months Apart",
+        "definition": "Qualifying Two uACR > 30 With Dates 3 Months Apart",
+        "min": 1,
+        "max": "1",
+        "type": [
+          {
+            "code": "CodeableConcept"
+          }
+        ],
+        "mustSupport": true,
+        "patternCodeableConcept": {
+          "coding": [
+            {
+              "system": "http://example.org/sdh/demo/CodeSystem/diabetes-sglt2i-screening-codes",
+              "code": "qualifying-two-uacr-greater-than-30",
+              "display": "Qualifying Two uACR > 30 With Dates 3 Months Apart"
+            }
+          ]
+        }
+      },
+      {
+        "id": "Observation.value[x]",
+        "path": "Observation.value[x]",
+        "short": "Does patient have two uACR > 30 with dates 3 months apart?",
+        "definition": "Does patient have two uACR > 30 with dates 3 months apart?",
+        "min": 1,
+        "max": "1",
+        "type": [
+          {
+            "code": "boolean"
+          }
+        ],
+        "mustSupport": true
+      }
+    ]
+  }
+}

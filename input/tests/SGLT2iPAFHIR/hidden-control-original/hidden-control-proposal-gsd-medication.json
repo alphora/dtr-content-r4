@@ -1,0 +1,22 @@
+{
+  "resourceType": "MedicationRequest",
+  "id": "hidden-control-proposal-gsd-medication",
+  "meta": {
+    "profile": ["http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-medicationrequest"]
+  },
+  "status": "draft",
+  "intent": "order",
+  "priority": "urgent",
+  "medicationCodeableConcept": {
+    "coding": [
+      {
+        "system": "http://www.nlm.nih.gov/research/umls/rxnorm",
+        "code": "1654920",
+        "display": "Dapagliflozin"
+      }
+    ]
+  },
+  "subject": {
+    "reference": "Patient/hidden-control"
+  }
+}

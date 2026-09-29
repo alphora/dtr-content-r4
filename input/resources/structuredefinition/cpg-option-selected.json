@@ -1,0 +1,63 @@
+{
+    "resourceType" : "StructureDefinition",
+    "id" : "cpg-option-selected",
+    "url" : "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-option-selected",
+    "version" : "1.0.0",
+    "name" : "CPGOptionSelected",
+    "title" : "CPG Option Selected",
+    "status" : "active",
+    "date" : "2023-07-22T09:22:14+00:00",
+    "experimental": true,
+    "publisher" : "Smile Digital Health",
+    "description" : "A variable for tracking whether the recommendation option has been selected by the user, if the recommendation is rendered to the user.",
+    "jurisdiction" : [{
+      "coding" : [{
+        "system" : "http://unstats.un.org/unsd/methods/m49/m49.htm",
+        "code" : "001",
+        "display" : "World"
+      }]
+    }],
+    "fhirVersion" : "4.0.1",
+    "mapping" : [{
+      "identity" : "rim",
+      "uri" : "http://hl7.org/v3",
+      "name" : "RIM Mapping"
+    }],
+    "kind" : "complex-type",
+    "abstract" : false,
+    "context" : [{
+      "type" : "fhirpath",
+      "expression" : "PlanDefinition.action"
+    }],
+    "type" : "Extension",
+    "baseDefinition" : "http://hl7.org/fhir/StructureDefinition/Extension",
+    "derivation" : "constraint",
+    "differential" : {
+      "element" : [{
+        "id" : "Extension",
+        "path" : "Extension",
+        "short" : "CPG Recommendation Option Selected Extension",
+        "definition" : "A variable for tracking whether the recommendation option has been selected by the user, if the recommendation is rendered to the user.",
+        "min" : 0,
+        "max" : "1"
+      },
+      {
+        "id" : "Extension.extension",
+        "path" : "Extension.extension",
+        "max" : "0"
+      },
+      {
+        "id" : "Extension.url",
+        "path" : "Extension.url",
+        "fixedUri" : "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-option-selected"
+      },
+      {
+        "id" : "Extension.value[x]",
+        "path" : "Extension.value[x]",
+        "min" : 1,
+        "type" : [{
+          "code" : "boolean"
+        }]
+      }]
+    }
+  }

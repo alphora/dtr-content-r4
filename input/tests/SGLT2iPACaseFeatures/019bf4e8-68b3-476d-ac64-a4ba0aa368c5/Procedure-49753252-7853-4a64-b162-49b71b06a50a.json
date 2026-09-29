@@ -1,0 +1,16 @@
+{
+  "resourceType": "Procedure",
+  "id": "49753252-7853-4a64-b162-49b71b06a50a",
+  "status": "completed",
+  "code": {
+    "coding": [ {
+      "system": "http://snomed.info/sct",
+      "code": "11932001",
+      "display": "Stabilizing hemodialysis (procedure)"
+    } ]
+  },
+  "subject": {
+    "reference": "Patient/019bf4e8-68b3-476d-ac64-a4ba0aa368c5"
+  },
+  "performedDateTime": "2026-01-01T00:00:00.000+00:00"
+}

@@ -16,9 +16,9 @@ HELP_USAGE
 	exit 0
 }
 
-tooling_jar=tooling-cli-3.10.0.jar
+tooling_jar=tooling-cli-3.4.0.jar
 input_cache_path=./input-cache
-ig_resource_path=./input/dtr-content-r4.xml
+ig_resource_path=./input/demo-content-r4.xml
 unattended=false
 
 while getopts hds:u flag
@@ -48,25 +48,25 @@ tooling=$input_cache_path/$tooling_jar
 if test -f "$tooling"; then
 	echo "running: java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=... -bid=..."
 	# Individual resource bundles
-	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources/activitydefinition -bid=dtr-activitydefinition
-	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources/library -bid=dtr-library
-	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources/PlanDefinitions -bid=dtr-plandefinition
-	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources/structuredefinition -bid=dtr-structuredefinition
-	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/vocabulary/codesystem -bid=dtr-codesystem
-	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/vocabulary/valueset -bid=dtr-valueset
-	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources/organization -bid=dtr-organization
-	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources/documentresource -bid=dtr-documentresource
-	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources/binary -bid=dtr-binary
-	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/tests/library -bid=dtr-tests
+	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources/activitydefinition -bid=cc-cds-activitydefinition
+	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources/library -bid=cc-cds-library
+	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources/plandefinition -bid=cc-cds-plandefinition
+	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources/structuredefinition -bid=cc-cds-structuredefinition
+	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/vocabulary/codesystem -bid=cc-cds-codesystem
+	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/vocabulary/valueset -bid=cc-cds-valueset
+	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources/organization -bid=cc-cds-organization
+	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources/documentresource -bid=cc-cds-documentresource
+	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources/binary -bid=cc-cds-binary
 
 	# All resource bundle
-	java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources -bid=dtr-resources
-	# All profiles bundle
-	java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/profiles -bid=dtr-case-features
-	# All test-data bundle
-	java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/tests/library -bid=dtr-tests
+	java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources -bid=demo-resources
 	# All vocabulary bundle
-    java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/vocabulary -bid=dtr-vocabulary
+    java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/vocabulary -bid=demo-vocabulary
+	# All test-data bundle
+	java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/tests/SGLT2iPAFHIR -bid=SGLT2i-demo-patient-data
+	# SGLT2i test-data bundle
+	java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/tests/SGLT2iPAFHIR/hidden-control -bid=SGLT2i-control-patient-data
+
 else
 	tooling=../$tooling_jar
 	echo $tooling

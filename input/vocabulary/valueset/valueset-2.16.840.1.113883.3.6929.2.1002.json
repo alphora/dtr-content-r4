@@ -1,0 +1,108 @@
+{
+  "resourceType": "ValueSet",
+  "id": "2.16.840.1.113883.3.6929.2.1002",
+  "meta": {
+    "profile": [ "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-shareablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishablevalueset", "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-executablevalueset" ]
+  },
+  "extension": [ {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "shareable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "narrative"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "publishable"
+  }, {
+    "url": "http://fhir.org/guides/cdc/opioid-cds/StructureDefinition/cdc-valueset-inclusion",
+    "valueString": "Urine Albumin Creatinine Ratio"
+  }, {
+    "url": "http://fhir.org/guides/cdc/opioid-cds/StructureDefinition/cdc-valueset-exclusion",
+    "valueString": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.6929.2.1002"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+    "valueCode": "executable"
+  }, {
+    "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-usageWarning",
+    "valueString": "This value set contains a point-in-time expansion enumerating the codes that meet the value set intent. As new versions of the code systems used by the value set are released, the contents of this expansion will need to be updated to incorporate newly defined codes that meet the value set intent. Before, and periodically during production use, the value set expansion contents SHOULD be updated. The value set expansion specifies the timestamp when the expansion was produced, SHOULD contain the parameters used for the expansion, and SHALL contain the codes that are obtained by evaluating the value set definition. If this is ONLY an executable value set, a distributable definition of the value set must be obtained to compute the updated expansion."
+  } ],
+  "url": "http://cts.nlm.nih.gov/fhir/ValueSet/2.16.840.1.113883.3.6929.2.1002",
+  "version": "20250319",
+  "title": "Urine Albumin Creatinine Ratio",
+  "status": "active",
+  "experimental": false,
+  "publisher": "National Kidney Foundation",
+  "purpose": "UrineAlbuminCreatinineRatio",
+  "expansion": {
+    "timestamp": "2026-02-23T16:16:12-05:00",
+    "contains": [ {
+      "system": "http://loinc.org",
+      "version": "2.81",
+      "code": "13705-9",
+      "display": "Albumin/Creatinine [Mass Ratio] in 24 hour Urine"
+    }, {
+      "system": "http://loinc.org",
+      "version": "2.81",
+      "code": "14585-4",
+      "display": "Albumin/Creatinine [Molar ratio] in Urine"
+    }, {
+      "system": "http://loinc.org",
+      "version": "2.81",
+      "code": "14958-3",
+      "display": "Microalbumin/Creatinine [Mass Ratio] in 24 hour Urine"
+    }, {
+      "system": "http://loinc.org",
+      "version": "2.81",
+      "code": "14959-1",
+      "display": "Microalbumin/Creatinine [Mass Ratio] in Urine"
+    }, {
+      "system": "http://loinc.org",
+      "version": "2.81",
+      "code": "30000-4",
+      "display": "Microalbumin/Creatinine [Ratio] in Urine"
+    }, {
+      "system": "http://loinc.org",
+      "version": "2.81",
+      "code": "30001-2",
+      "display": "Microalbumin/Creatinine [Ratio] in Urine by Test strip"
+    }, {
+      "system": "http://loinc.org",
+      "version": "2.81",
+      "code": "32294-1",
+      "display": "Albumin/Creatinine [Ratio] in Urine"
+    }, {
+      "system": "http://loinc.org",
+      "version": "2.81",
+      "code": "44292-1",
+      "display": "Microalbumin/Creatinine [Mass Ratio] in 12 hour Urine"
+    }, {
+      "system": "http://loinc.org",
+      "version": "2.81",
+      "code": "59159-4",
+      "display": "Microalbumin/Creatinine [Ratio] in 24 hour Urine"
+    }, {
+      "system": "http://loinc.org",
+      "version": "2.81",
+      "code": "76401-9",
+      "display": "Albumin/Creatinine [Ratio] in 24 hour Urine"
+    }, {
+      "system": "http://loinc.org",
+      "version": "2.81",
+      "code": "77253-3",
+      "display": "Microalbumin/Creatinine [Ratio] in Urine by Detection limit <= 1.0 mg/L"
+    }, {
+      "system": "http://loinc.org",
+      "version": "2.81",
+      "code": "77254-1",
+      "display": "Microalbumin/Creatinine [Ratio] in 24 hour Urine by Detection limit <= 1.0 mg/L"
+    }, {
+      "system": "http://loinc.org",
+      "version": "2.81",
+      "code": "9318-7",
+      "display": "Albumin/Creatinine [Mass Ratio] in Urine"
+    } ]
+  }
+}

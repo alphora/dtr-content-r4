@@ -1,0 +1,24 @@
+{
+    "resourceType": "Observation",
+    "id": "eGFR-1",
+    "status": "final",
+    "code": {
+        "coding": [
+            {
+                "system": "http://loinc.org",
+                "code": "48642-3",
+                "display": "Glomerular filtration rate [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (MDRD)/1.73 sq M among non black population"
+            }
+        ]
+    },
+    "subject": {
+        "reference": "Patient/hidden-control"
+    },
+    "effectivePeriod": {
+        "start": "2025-03-05T00:00:00Z"
+    },
+    "valueQuantity": {
+        "value": 84,
+        "unit": "mL/min/{1.73_m2}"
+    }
+}

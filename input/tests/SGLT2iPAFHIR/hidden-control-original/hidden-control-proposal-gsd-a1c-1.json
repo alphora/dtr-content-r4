@@ -1,0 +1,46 @@
+{
+    "resourceType": "ServiceRequest",
+    "id": "hidden-control-proposal-gsd-a1c-1",
+    "meta": {
+        "profile": [
+        "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-servicerequest"
+        ]
+    },
+    "instantiatesCanonical": [
+        "http://hl7.org/fhir/uv/cpg/ActivityDefinition/activity-example-orderservice-ad"
+    ],
+    "status": "active",
+    "intent": "proposal",
+    "category": [
+        {
+            "coding": [
+                {
+                    "system": "http://snomed.info/sct",
+                    "code": "108252007",
+                    "display": "Laboratory procedure (procedure)"
+                }
+            ]
+        }
+    ],
+    "code": {
+        "coding": [
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "code": "83036",
+                "display": "Hemoglobin; glycosylated (A1C)"
+            }
+        ]
+    },
+    "subject": {
+        "reference": "Patient/hidden-control"
+    },
+    "requester": {
+        "reference": "Practitioner/ordering-md-1"
+    },
+    "occurrenceDateTime": "2024-08-07T01:01:01Z",
+    "note": [
+        {
+        "text": "2024-07-03 to 2024-12-31"
+        }
+    ]
+}

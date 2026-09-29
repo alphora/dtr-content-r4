@@ -1,0 +1,19 @@
+{
+  "resourceType": "ValueSet",
+  "id": "payer-prior-auth-codes-diabetes",
+  "url": "http://terminology.smilecdr.com/cs/diabetes",
+  "status": "active",
+  "compose": {
+      "include": [
+          {
+              "system": "http://www.ama-assn.org/go/cpt",
+              "concept": [
+                  {
+                      "code": "83036",
+                      "display": "Hemoglobin; glycosylated (A1C)"
+                  }
+              ]
+          }
+      ]
+  }
+}

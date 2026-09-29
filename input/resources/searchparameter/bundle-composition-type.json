@@ -1,0 +1,28 @@
+{
+    "resourceType": "SearchParameter",
+    "id": "Bundle-composition-type",
+    "url": "http://example.org/sdh/demo/SearchParameter/Bundle-composition-type",
+    "version": "0.0.1",
+    "name": "composition.type",
+    "status": "active",
+    "date": "2023-12-28T07:31:20+00:00",
+    "publisher": "Smile Digital Health",
+    "description": "This parameter, of type token, specifies the type of document.",
+    "jurisdiction": [
+      {
+        "coding": [
+          {
+            "system": "urn:iso:std:iso:3166",
+            "code": "US",
+            "display": "United States of America"
+          }
+        ]
+      }
+    ],
+    "code": "composition.type",
+    "base": [
+      "Bundle"
+    ],
+    "type": "token",
+    "expression": "Bundle.entry[0].resource.as(Composition).type"
+  }

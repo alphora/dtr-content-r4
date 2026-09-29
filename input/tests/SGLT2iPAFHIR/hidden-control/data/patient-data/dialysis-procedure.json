@@ -1,0 +1,17 @@
+{
+    "resourceType": "Procedure",
+    "id": "dialysis-procedure",
+    "code": {
+        "coding": [
+            {
+                "code": "233575001",
+                "system": "http://snomed.info/sct",
+                "display": "Intermittent hemodialysis (procedure)"
+            }
+        ]
+    },
+    "subject": {
+        "reference": "Patient/hidden-control"
+    },
+    "performedDateTime": "2024-10-11T11:30:00-07:00"
+}

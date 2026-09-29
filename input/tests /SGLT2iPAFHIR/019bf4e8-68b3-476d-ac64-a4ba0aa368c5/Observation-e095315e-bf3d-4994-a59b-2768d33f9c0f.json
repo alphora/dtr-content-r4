@@ -1,0 +1,29 @@
+{
+  "resourceType": "Observation",
+  "id": "e095315e-bf3d-4994-a59b-2768d33f9c0f",
+  "status": "final",
+  "category": [ {
+    "coding": [ {
+      "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+      "code": "laboratory",
+      "display": "Laboratory"
+    } ]
+  } ],
+  "code": {
+    "coding": [ {
+      "system": "http://loinc.org",
+      "code": "9318-7",
+      "display": "Albumin/Creatinine [Mass Ratio] in Urine"
+    } ]
+  },
+  "subject": {
+    "reference": "Patient/019bf4e8-68b3-476d-ac64-a4ba0aa368c5"
+  },
+  "effectiveDateTime": "2025-01-11T08:35:00.000+00:00",
+  "valueQuantity": {
+    "value": 42,
+    "unit": "mg/g",
+    "system": "http://unitsofmeasure.org",
+    "code": "mg/g"
+  }
+}

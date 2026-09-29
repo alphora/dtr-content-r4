@@ -1,0 +1,29 @@
+{
+    "resourceType": "SearchParameter",
+    "id": "Bundle-composition",
+    "url": "http://hl7.org/fhir/SearchParameter/Bundle-composition",
+    "version": "0.0.2",
+    "name": "composition",
+    "status": "active",
+    "date": "2023-12-28T07:31:20+00:00",
+    "publisher": "Smile Digital Health",
+    "description": "This parameter, of type reference, specifies the document composition.",
+    "jurisdiction": [
+      {
+        "coding": [
+          {
+            "system": "urn:iso:std:iso:3166",
+            "code": "US",
+            "display": "United States of America"
+          }
+        ]
+      }
+    ],
+    "code": "composition",
+    "base": [
+        "Bundle"
+    ],
+    "type": "reference",
+    "target": ["Composition"],
+    "expression": "Bundle.entry[0].resource.as(Composition)"
+}

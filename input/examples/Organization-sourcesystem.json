@@ -1,0 +1,53 @@
+{
+    "resourceType": "Organization",
+    "id": "sourcesystem",
+    "identifier": [
+        {
+            "use": "official",
+            "type": {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/v2-0203",
+                        "code": "TAX",
+                        "display": "Tax ID number"
+                    }
+                ]
+            },
+            "system": "urn:oid:2.16.840.1.113883.4.4",
+            "value": "123456798",
+            "assigner": {
+                "display": "www.irs.gov"
+            }
+        }
+    ],
+    "active": true,
+    "type": [
+        {
+            "coding": [
+                {
+                    "system": "http://terminology.hl7.org/CodeSystem/organization-type",
+                    "code": "prov",
+                    "display": "Healthcare Provider"
+                }
+            ]
+        }
+    ],
+    "name": "Some Healthcare Provider",
+    "telecom": [
+        {
+            "system": "phone",
+            "value": "(+1) 401-555-1212"
+        }
+    ],
+    "address": [
+        {
+            "line": [
+                "73489 Lakewood Street"
+            ],
+            "city": "Warwick",
+            "state": "RI",
+            "postalCode": "02886",
+            "country": "USA"
+        }
+    ]
+}

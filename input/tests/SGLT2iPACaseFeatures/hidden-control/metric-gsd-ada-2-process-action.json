@@ -1,0 +1,47 @@
+{
+    "resourceType": "Observation",
+    "meta": {
+        "profile": [
+        "http://example.org/cdosdh/demo/StructureDefinition/cpg-casefeature-gsd-ada-process-metric"
+        ]
+    },
+    "id": "metric-gsd-ada-2-process-action",
+    "status": "final",
+    "extension": [
+        {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-metric-measurement-type",
+            "valueCodeableConcept": {
+                "coding": [
+                    {
+                        "system": "http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-metric-measurement-type",
+                        "code": "process-event"
+                    }
+                ]
+            }
+        }
+    ],
+    "code": {
+        "coding": [
+            {
+                "system": "http://example.org/cdosdh/demo/CodeSystem/hedis-gap-demo",
+                "code": "gsd-ada-process-metric"
+            }
+        ]
+    },
+    "subject": {
+        "reference": "Patient/hidden-control"
+    },
+    "effectivePeriod": {
+        "start": "2024-07-07T01:01:01Z",
+        "end": "2024-09-30T23:59:59Z"
+    },
+    "valueCodeableConcept": {
+        "coding": [
+            {
+                "system": "http://example.org/cdosdh/CodeSystem/cpg-metric-compliance",
+                "code": "at-risk-non-compliant",
+                "display": "At Risk for Non-Compliant"
+            }
+        ]
+    }
+}

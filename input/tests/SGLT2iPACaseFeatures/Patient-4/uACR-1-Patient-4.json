@@ -1,0 +1,24 @@
+{
+    "resourceType": "Observation",
+    "id": "uACR-1-Patient-4",
+    "status": "final",
+    "code": {
+        "coding": [
+            {
+                "system": "http://loinc.org",
+                "code": "14585-4",
+                "display": "Albumin/Creatinine [Molar ratio] in Urine"
+            }
+        ]
+    },
+    "subject": {
+        "reference": "Patient/Patient-4"
+    },
+    "effectivePeriod": {
+        "start": "2025-03-05T00:00:00Z"
+    },
+    "valueQuantity": {
+        "value": 38,
+        "unit": "mg/g"
+    }
+}

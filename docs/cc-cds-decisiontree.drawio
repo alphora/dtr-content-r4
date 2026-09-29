@@ -1,0 +1,102 @@
+<mxfile host="65bd71144e">
+    <diagram name="Page-1" id="XA9hc8MMz1DfEF1g-krW">
+        <mxGraphModel dx="520" dy="530" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-20" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="pI5_RYD2TIJcwM_DrqKj-2" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="120" y="200" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-2" value="" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="50" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-6" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" target="pI5_RYD2TIJcwM_DrqKj-5" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="430" y="235" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-15" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="pI5_RYD2TIJcwM_DrqKj-3" target="pI5_RYD2TIJcwM_DrqKj-14" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-3" value="Sedation a Concern?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="200" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="pI5_RYD2TIJcwM_DrqKj-5" target="pI5_RYD2TIJcwM_DrqKj-8" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="740" y="325" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-9" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="pI5_RYD2TIJcwM_DrqKj-7" vertex="1" connectable="0">
+                    <mxGeometry x="0.2926" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-11" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="pI5_RYD2TIJcwM_DrqKj-5" target="pI5_RYD2TIJcwM_DrqKj-10" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-5" value="Invasive Procedure&lt;br&gt;Complications?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="580" y="195" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-8" value="CT Colonography" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+                    <mxGeometry x="690" y="505" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-10" value="Sigmoidoscopy" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+                    <mxGeometry x="580" y="505" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-16" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" target="pI5_RYD2TIJcwM_DrqKj-17" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="570" y="385" as="targetPoint"/>
+                        <mxPoint x="430" y="385" as="sourcePoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-19" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" parent="1" source="pI5_RYD2TIJcwM_DrqKj-14" target="pI5_RYD2TIJcwM_DrqKj-18" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-14" value="Invasive Procedure&lt;br&gt;Complications?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="345" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-17" value="CT Colonography" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+                    <mxGeometry x="470" y="505" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-18" value="Colonoscopy" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+                    <mxGeometry x="360" y="505" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-24" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="pI5_RYD2TIJcwM_DrqKj-22" target="pI5_RYD2TIJcwM_DrqKj-23" edge="1">
+                    <mxGeometry relative="1" as="geometry">
+                        <Array as="points">
+                            <mxPoint x="120" y="505"/>
+                        </Array>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-31" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="pI5_RYD2TIJcwM_DrqKj-22" target="pI5_RYD2TIJcwM_DrqKj-30" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-22" value="45 &amp;lt; age &amp;lt; 75?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="200" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-23" value="No Recommendation" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+                    <mxGeometry x="80" y="505" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-28" value="Fecal Immunochemical Test DNA" style="whiteSpace=wrap;html=1;aspect=fixed;" parent="1" vertex="1">
+                    <mxGeometry x="230" y="505" width="80" height="80" as="geometry"/>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-37" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="pI5_RYD2TIJcwM_DrqKj-30" target="pI5_RYD2TIJcwM_DrqKj-3" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-38" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;" parent="1" source="pI5_RYD2TIJcwM_DrqKj-30" target="pI5_RYD2TIJcwM_DrqKj-28" edge="1">
+                    <mxGeometry relative="1" as="geometry"/>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-39" value="Yes" style="edgeLabel;html=1;align=center;verticalAlign=middle;resizable=0;points=[];" parent="pI5_RYD2TIJcwM_DrqKj-38" vertex="1" connectable="0">
+                    <mxGeometry x="-0.1955" y="2" relative="1" as="geometry">
+                        <mxPoint as="offset"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="pI5_RYD2TIJcwM_DrqKj-30" value="Insurance concern?" style="rhombus;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+                    <mxGeometry x="230" y="200" width="80" height="80" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>

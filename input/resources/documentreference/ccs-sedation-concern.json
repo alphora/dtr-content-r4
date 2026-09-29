@@ -1,0 +1,29 @@
+{
+  "resourceType": "DocumentReference",
+  "id": "ccs-sedation-concern",
+  "text": {
+    "status": "additional",
+    "div": "<div xmlns=\"http://www.w3.org/1999/xhtml\"><p><h3>Colonoscopy</h3> <p>For this test, the doctor looks at the entire length of the colon and rectum with a colonoscope, a flexible tube about the width of a finger with a light and small video camera on the end. It's put in through the anus and into the rectum and colon. Special instruments can be passed through the colonoscope to biopsy (take a sample) or remove any suspicious-looking areas such as polyps, if needed.</p> <p>To see a visual animation of a colonoscopy as well as learn more details about how to prepare for the procedure, how the procedure is done, and potential side effects, see <a href=\"/cancer/diagnosis-staging/tests/endoscopy/colonoscopy.html\">Colonoscopy</a>.</p> <p>(<strong>Note:</strong> This test is different from a virtual colonoscopy (also known as <em>CT colonography</em>), which is a type of <a href=\"/cancer/diagnosis-staging/tests/imaging-tests/ct-scan-for-cancer.html\">CT scan</a>.)</p></p></div>"
+  },
+  "status": "current",
+  "date": "2023-12-06T09:43:41+11:00",
+  "description": "Colonoscopy - American Cancer Society Colorectal Cancer Guideline",
+  "content": [
+    {
+      "attachment": {
+        "contentType": "application/pdf",
+        "language": "en-US",
+        "url": "Binary/ccs-cancer-org-colorectal-cancer-guideline",
+        "title": "American Cancer Society Colorectal Cancer Guideline - FHIR Copy"
+      }
+    },
+    {
+      "attachment": {
+        "contentType": "application/pdf",
+        "language": "en-US",
+        "url": "https://www.cancer.org/content/dam/CRC/PDF/Public/8606.00.pdf",
+        "title": "American Cancer Society Colorectal Cancer Guideline"
+      }
+    }
+  ]
+}

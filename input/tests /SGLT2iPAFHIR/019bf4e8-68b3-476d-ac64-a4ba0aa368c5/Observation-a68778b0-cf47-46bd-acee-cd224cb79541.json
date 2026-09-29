@@ -1,0 +1,29 @@
+{
+  "resourceType": "Observation",
+  "id": "a68778b0-cf47-46bd-acee-cd224cb79541",
+  "status": "final",
+  "category": [ {
+    "coding": [ {
+      "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+      "code": "laboratory",
+      "display": "Laboratory"
+    } ]
+  } ],
+  "code": {
+    "coding": [ {
+      "system": "http://loinc.org",
+      "code": "48642-3",
+      "display": "Glomerular filtration rate/1.73 sq M.predicted among non-blacks [Volume Rate/Area] in Serum, Plasma or Blood by Creatinine-based formula (MDRD)"
+    } ]
+  },
+  "subject": {
+    "reference": "Patient/019bf4e8-68b3-476d-ac64-a4ba0aa368c5"
+  },
+  "effectiveDateTime": "2025-01-01T08:35:00.000+00:00",
+  "valueQuantity": {
+    "value": 55,
+    "unit": "mL/min/{1.73_m2}",
+    "system": "http://unitsofmeasure.org",
+    "code": "mL/min/{1.73_m2}"
+  }
+}

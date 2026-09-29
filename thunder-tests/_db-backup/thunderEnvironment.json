@@ -1,0 +1,20 @@
+[
+  {
+    "_id": "d3b23da8-9296-4479-8c1d-aafb4cb4ac3a",
+    "name": "Clinical Reasoning",
+    "default": true,
+    "sortNum": 10000,
+    "created": "2023-04-01T17:26:57.555Z",
+    "modified": "2023-04-01T17:26:57.555Z",
+    "data": [
+      {
+        "name": "crServer",
+        "value": "https://himssdqm.salessbx.smiledigitalhealth.com/fhir/"
+      },
+      {
+        "name": "tempServer",
+        "value": "http://localhost:8080/fhir"
+      }
+    ]
+  }
+]

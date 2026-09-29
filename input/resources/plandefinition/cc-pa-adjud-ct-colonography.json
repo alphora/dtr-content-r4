@@ -1,0 +1,313 @@
+{
+    "resourceType": "PlanDefinition",
+    "id": "cc-pa-adjud-ct-colonography",
+    "meta": {
+        "profile": [
+            "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-publishableplandefinition"
+        ]
+    },
+    "extension": [
+        {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+            "valueCode": "shareable"
+        },
+        {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+            "valueCode": "computable"
+        },
+        {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+            "valueCode": "executable"
+        },
+        {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+            "valueCode": "publishable"
+        },
+        {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+            "valueCode": "structured"
+        },
+        {
+            "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
+            "valueReference": {
+                "reference": "Device/cqf-tooling"
+            }
+        },
+        {
+            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-questionnaire-generate",
+            "valueBoolean": true
+        }
+    ],
+    "url": "http://example.org/sdh/demo/PlanDefinition/cc-pa-adjud-ct-colonography",
+    "identifier": [
+        {
+            "use": "official",
+            "value": "cc-pa-adjud-ct-colonography"
+        }
+    ],
+    "version": "0.0.1",
+    "name": "CTColonographyAdjudication",
+    "title": "CT Colonography Adjudication Definition",
+    "type": {
+        "coding": [
+            {
+                "system": "http://terminology.hl7.org/CodeSystem/plan-definition-type",
+                "code": "eca-rule",
+                "display": "ECA Rule"
+            }
+        ]
+    },
+    "status": "draft",
+    "experimental": true,
+    "publisher": "Smile Digital Health",
+    "description": "Prior Authorization Adjudication for CT Colonography",
+    "purpose": "Prior authorization adjudication for CT Colonography",
+    "library": [
+        "http://example.org/sdh/demo/Library/ColorectalCancerScreeningsPAAdjudication"
+    ],
+    "action": [
+        {
+            "title": "Qualifying Age Input",
+            "description": "Input for whether the patient is within qualifying age.",
+            "input": [
+                {
+                    "extension": [
+                        {
+                            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                            "valueString": "Is patient between 50 and 75 years old?"
+                        },
+                        {
+                            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                            "valueMarkdown": "The patient is between 50 and 75 years old."
+                        },
+                        {
+                            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                            "valueExpression": {
+                                "language": "text/cql-identifier",
+                                "expression": "Qualifying Patient Age",
+                                "reference": "http://example.org/sdh/demo/Library/ColorectalCancerScreeningsPAAdjudication"
+                            }
+                        }
+                    ],
+                    "type": "Observation",
+                    "profile": [
+                        "http://example.org/sdh/demo/StructureDefinition/ccs-qualifying-age-casefeature"
+                    ]
+                }
+            ],
+            "action": [
+                {
+                    "title": "Is Not Qualifying Patient Age",
+                    "description": "The patient is not within the qualifying age.",
+                    "condition": [
+                        {
+                            "kind": "applicability",
+                            "expression": {
+                                "language": "text/cql-identifier",
+                                "expression": "Not Within Qualifying Age Range"
+                            }
+                        }
+                    ],
+                    "definitionCanonical": "http://example.org/sdh/demo/PlanDefinition/cc-pa-adjud-not-approved-ct-colonography"
+                },
+                {
+                    "title": "Is Qualifying Patient Age",
+                    "description": "The patient is within the qualifying age.",
+                    "condition": [
+                        {
+                            "kind": "applicability",
+                            "expression": {
+                                "language": "text/cql-identifier",
+                                "expression": "Within Qualifying Age Range"
+                            }
+                        }
+                    ],
+                    "action": [
+                        {
+                            "title": "Total Colectomy Performed",
+                            "description": "Input for whether the patient has had a total colectomy performed.",
+                            "input": [
+                                {
+                                    "extension": [
+                                        {
+                                            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                            "valueString": "Total Colectomy Performed?"
+                                        },
+                                        {
+                                            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                            "valueMarkdown": "The patient has had a total colectomy performed."
+                                        },
+                                        {
+                                            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                            "valueExpression": {
+                                                "language": "text/cql-identifier",
+                                                "expression": "Total Colectomy Performed",
+                                                "reference": "http://example.org/sdh/demo/Library/ColorectalCancerScreeningsPAAdjudication"
+                                            }
+                                        }
+                                    ],
+                                    "type": "Observation",
+                                    "profile": [
+                                        "http://example.org/sdh/demo/StructureDefinition/total-colectomy-casefeature"
+                                    ]
+                                }
+                            ],
+                            "action": [
+                                {
+                                    "title": "Has Total Colectomy Performed",
+                                    "description": "The patient has had a total colectomy performed.",
+                                    "condition": [
+                                        {
+                                            "kind": "applicability",
+                                            "expression": {
+                                                "language": "text/cql-identifier",
+                                                "expression": "Has Total Colectomy Performed"
+                                            }
+                                        }
+                                    ],
+                                    "definitionCanonical": "http://example.org/sdh/demo/PlanDefinition/cc-pa-adjud-not-approved-ct-colonography"
+                                },
+                                {
+                                    "title": "Does Not Have Total Colectomy Performed",
+                                    "description": "The patient has not had a total colectomy performed.",
+                                    "condition": [
+                                        {
+                                            "kind": "applicability",
+                                            "expression": {
+                                                "language": "text/cql-identifier",
+                                                "expression": "Has Not Had Total Colectomy Performed"
+                                            }
+                                        }
+                                    ],
+                                    "action": [
+                                        {
+                                            "title": "Malignant Neoplasm",
+                                            "description": "Input for whether the patient has malignant neoplasm.",
+                                            "input": [
+                                                {
+                                                    "extension": [
+                                                        {
+                                                            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                                            "valueString": "Malignant Neoplasm?"
+                                                        },
+                                                        {
+                                                            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                                            "valueMarkdown": "The patient has a malignant neoplasm."
+                                                        },
+                                                        {
+                                                            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                                            "valueExpression": {
+                                                                "language": "text/cql-identifier",
+                                                                "expression": "Malignant Neoplasm",
+                                                                "reference": "http://example.org/sdh/demo/Library/ColorectalCancerScreeningsPAAdjudication"
+                                                            }
+                                                        }
+                                                    ],
+                                                    "type": "Observation",
+                                                    "profile": [
+                                                        "http://example.org/sdh/demo/StructureDefinition/malignant-neoplasm-casefeature"
+                                                    ]
+                                                }
+                                            ],
+                                            "action": [
+                                                {
+                                                    "title": "Has Malignant Neoplasm",
+                                                    "description": "The patient has malignant neoplasm.",
+                                                    "condition": [
+                                                        {
+                                                            "kind": "applicability",
+                                                            "expression": {
+                                                                "language": "text/cql-identifier",
+                                                                "expression": "Has Malignant Neoplasm"
+                                                            }
+                                                        }
+                                                    ],
+                                                    "definitionCanonical": "http://example.org/sdh/demo/PlanDefinition/cc-pa-adjud-not-approved-ct-colonography"
+                                                },
+                                                {
+                                                    "title": "Does Not Have Malignant Neoplasm",
+                                                    "description": "The patient does not have malignant neoplasm.",
+                                                    "condition": [
+                                                        {
+                                                            "kind": "applicability",
+                                                            "expression": {
+                                                                "language": "text/cql-identifier",
+                                                                "expression": "Does Not Have Malignant Neoplasm"
+                                                            }
+                                                        }
+                                                    ],
+                                                    "action": [
+                                                        {
+                                                            "title": "Qualifying Colorectal Screening",
+                                                            "description": "Input for whether the patient has a qualifying colorectal screening.",
+                                                            "input": [
+                                                                {
+                                                                    "extension": [
+                                                                        {
+                                                                            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-text",
+                                                                            "valueString": "Qualifying Colorectal Screening?"
+                                                                        },
+                                                                        {
+                                                                            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-input-description",
+                                                                            "valueMarkdown": "Does the patient currently have a qualifying colorectal screening?"
+                                                                        },
+                                                                        {
+                                                                            "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
+                                                                            "valueExpression": {
+                                                                                "language": "text/cql-identifier",
+                                                                                "expression": "Qualifying Colorectal Screening",
+                                                                                "reference": "http://example.org/sdh/demo/Library/ColorectalCancerScreeningsPAAdjudication"
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "type": "Observation",
+                                                                    "profile": [
+                                                                        "http://example.org/sdh/demo/StructureDefinition/cc-qualifying-screening-casefeature"
+                                                                    ]
+                                                                }
+                                                            ],
+                                                            "action": [
+                                                                {
+                                                                    "title": "Has Qualifying Colorectal Screening",
+                                                                    "description": "The patient has a qualifying colorectal screening.",
+                                                                    "condition": [
+                                                                        {
+                                                                            "kind": "applicability",
+                                                                            "expression": {
+                                                                                "language": "text/cql-identifier",
+                                                                                "expression": "Has Qualifying Colorectal Screening"
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "definitionCanonical": "http://example.org/sdh/demo/PlanDefinition/cc-pa-adjud-not-approved-ct-colonography"
+                                                                },
+                                                                {
+                                                                    "title": "Does Not Have Qualifying Colorectal Screening",
+                                                                    "description": "The patient does not have a qualifying colorectal screening.",
+                                                                    "condition": [
+                                                                        {
+                                                                            "kind": "applicability",
+                                                                            "expression": {
+                                                                                "language": "text/cql-identifier",
+                                                                                "expression": "Does Not Have Qualifying Colorectal Screening"
+                                                                            }
+                                                                        }
+                                                                    ],
+                                                                    "definitionCanonical": "http://example.org/sdh/demo/PlanDefinition/cc-pa-adjud-approved-ct-colonography"
+                                                                }
+                                                            ]
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

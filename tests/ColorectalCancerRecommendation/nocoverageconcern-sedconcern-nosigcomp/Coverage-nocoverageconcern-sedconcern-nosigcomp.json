@@ -1,0 +1,62 @@
+{
+    "resourceType": "Coverage",
+    "id": "nocoverageconcern-sedconcern-nosigcomp",
+    "identifier": [
+        {
+            "system": "http://example.com/fhir/NampingSystem/certificate",
+            "value": "12345"
+        }
+    ],
+    "status": "active",
+    "type": {
+        "coding": [
+            {
+                "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+                "code": "EHCPOL",
+                "display": "extended healthcare"
+            }
+        ]
+    },
+    "policyHolder": {
+        "reference": "http://example.org/FHIR/Organization/CBI35"
+    },
+    "subscriber": {
+        "reference": "Patient/nocoverageconcern-sedconcern-nosigcomp"
+    },
+    "beneficiary": {
+        "reference": "Patient/nocoverageconcern-sedconcern-nosigcomp"
+    },
+    "dependent": "0",
+    "relationship": {
+        "coding": [
+            {
+                "system": "http://terminology.hl7.org/CodeSystem/subscriber-relationship",
+                "code": "self"
+            }
+        ]
+    },
+    "period": {
+        "start": "2011-05-23",
+        "end": "2030-05-23"
+    },
+    "payor": [
+        {
+            "reference": "Organization/example-payer",
+            "display": "Payer XYZ"
+        }
+    ],
+    "class": [
+        {
+            "type": {
+                "coding": [
+                    {
+                        "system": "http://terminology.hl7.org/CodeSystem/coverage-class",
+                        "code": "group"
+                    }
+                ]
+            },
+            "value": "CB135",
+            "name": "Corporate Baker's Inc. Local #35"
+        }
+    ]
+}

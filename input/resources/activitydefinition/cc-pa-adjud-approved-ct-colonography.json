@@ -1,0 +1,84 @@
+{
+  "resourceType": "ActivityDefinition",
+  "id": "cc-pa-adjud-approved-ct-colonography",
+  "meta": {
+    "profile": [
+      "http://hl7.org/fhir/uv/cpg/ActivityDefinition/cpg-communicationrequest-activitydefinition"
+    ]
+  },
+  "extension": [
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+      "valueCode": "shareable"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+      "valueCode": "computable"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeCapability",
+      "valueCode": "publishable"
+    },
+    {
+      "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-knowledgeRepresentationLevel",
+      "valueCode": "structured"
+    }
+  ],
+  "url": "http://example.org/sdh/demo/ActivityDefinition/cc-pa-adjud-approved-ct-colonography",
+  "version": "0.0.1",
+  "name": "CCSAdjudApprovedCTColonographyActivityDefinition",
+  "title": "Colorectal Cancer Screening Prior Authorization Adjudication Approved CT Colonography",
+  "status": "draft",
+  "date": "2024-02-19",
+  "experimental": true,
+  "publisher": "Smile Digital Health",
+  "description": "Approve a CT Colonography Adjudication for Prior Authorization",
+  "kind": "CommunicationRequest",
+  "profile": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-communicationrequest",
+  "intent": "proposal",
+  "priority": "routine",
+  "doNotPerform": false,
+  "library": [
+    "http://example.org/sdh/demo/Library/ColorectalCancerScreeningsPAAdjudication"
+  ],
+  "dynamicValue": [
+    {
+      "path": "status",
+      "expression": {
+        "language": "text/cql",
+        "expression": "'draft'"
+      }
+    },
+    {
+      "path": "priority",
+      "expression": {
+        "language": "text/cql",
+        "expression": "'routine'"
+      }
+    },
+    {
+      "path": "subject",
+      "expression": {
+        "language": "text/cql-identifier",
+        "expression": "Patient Reference",
+        "reference": "http://example.org/sdh/demo/Library/ColorectalCancerScreeningsPAAdjudication"
+      }
+    },
+    {
+      "path": "recipient",
+      "expression": {
+        "language": "text/cql-identifier",
+        "expression": "Provider Reference",
+        "reference": "http://example.org/sdh/demo/Library/ColorectalCancerScreeningsPAAdjudication"
+      }
+    },
+    {
+      "path": "payload.contentString",
+      "expression": {
+        "language": "text/cql-identifier",
+        "expression": "Approved Detail",
+        "reference": "http://example.org/sdh/demo/Library/ColorectalCancerScreeningsPAAdjudication"
+      }
+    }
+  ]
+}

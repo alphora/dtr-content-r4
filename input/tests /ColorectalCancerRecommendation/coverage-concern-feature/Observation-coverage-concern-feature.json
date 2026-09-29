@@ -1,0 +1,27 @@
+{
+    "resourceType": "Observation",
+    "id": "coverage-concern-feature",
+    "meta": {
+        "profile": [
+            "http://example.org/sdh/demo/StructureDefinition/coverage-concern-casefeature-definition"
+        ]
+    },
+    "status": "final",
+    "code": {
+        "coding": [
+            {
+                "system": "http://example.org/sdh/demo/CodeSystem/cc-screening-codes",
+                "code": "coverage-concern",
+                "display": "Coverage Concern"
+            }
+        ]
+    },
+    "subject": {
+        "reference": "Patient/coverage-concern-feature"
+    },
+    "effectivePeriod": {
+        "start": "2024-01-01T10:00:00-06:00",
+        "end": "2024-01-01T12:00:00-06:00"
+    },
+    "valueBoolean": true
+}

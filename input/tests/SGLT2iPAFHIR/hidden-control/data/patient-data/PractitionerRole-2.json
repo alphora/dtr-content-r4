@@ -1,0 +1,24 @@
+{
+    "resourceType": "PractitionerRole",
+    "meta": {
+        "profile": [
+        "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-practitionerrole"
+        ]
+    },
+    "id": "PractitionerRole-2",
+    "active": true,
+    "practitioner": {
+        "reference": "Practitioner/Practitioner-2"
+    },
+    "code": [
+        {
+            "coding": [
+                {
+                    "system": "http://hl7.org/fhir/uv/cpg/CodeSystem/cpg-common-persona-cs",
+                    "code": "physician",
+                    "display": "Physician"
+                }
+            ]
+        }
+    ]
+}

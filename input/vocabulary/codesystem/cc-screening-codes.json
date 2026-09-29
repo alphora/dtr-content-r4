@@ -1,0 +1,98 @@
+{
+    "resourceType": "CodeSystem",
+    "id": "cc-screening-codes",
+    "url": "http://example.org/sdh/demo/CodeSystem/cc-screening-codes",
+    "name": "CCScreeningCodes",
+    "title": "CC Screening Codes",
+    "status": "draft",
+    "experimental": true,
+    "publisher": "SmileCDR",
+    "description": "Set of codes representing all concepts used in the implementation guide",
+    "caseSensitive": true,
+    "content": "complete",
+    "concept": [ {
+      "code": "CCS.COL.DE1",
+      "display": "Colonoscopy Procedure",
+      "definition": "Colonoscopy Procedure"
+    }, {
+      "code": "CCS.COL.DE2",
+      "display": "Colonoscopy Procedure Date",
+      "definition": "Colonoscopy Procedure Date"
+    },{
+      "code": "CCS.COL.DE3",
+      "display": "Colonoscopy Procedure Authored Date",
+      "definition": "Colonoscopy Procedure Authored Date"
+    },{
+      "code": "CCS.FDNA.DE1",
+      "display": "FIT-DNA Procedure",
+      "definition": "FIT-DNA Procedure"
+    }, {
+      "code": "CCS.FDNA.DE2",
+      "display": "FIT-DNA Procedure Date",
+      "definition": "FIT-DNA Procedure Date"
+    },{
+      "code": "CCS.FDNA.DE3",
+      "display": "FIT-DNA Procedure Authored Date",
+      "definition": "FIT-DNA Procedure Authored Date"
+    },{
+      "code": "CCS.FSIG.DE1",
+      "display": "Flexible Sigmoidoscopy Procedure",
+      "definition": "Flexible Sigmoidoscopy Procedure"
+    }, {
+      "code": "CCS.FSIG.DE2",
+      "display": "Flexible Sigmoidoscopy Procedure Date",
+      "definition": "Flexible Sigmoidoscopy Procedure Date"
+    },{
+      "code": "CCS.FSIG.DE3",
+      "display": "Flexible Sigmoidoscopy Procedure Authored Date",
+      "definition": "Flexible Sigmoidoscopy Procedure Authored Date"
+    },{
+      "code": "CCS.CTC.DE1",
+      "display": "CT Colonography Procedure",
+      "definition": "CT Colonography Procedure"
+    }, {
+      "code": "CCS.CTC.DE2",
+      "display": "CT Colonography Procedure Date",
+      "definition": "CT Colonography Procedure Date"
+    },{
+      "code": "CCS.CTC.DE3",
+      "display": "CT Colonography Procedure Authored Date",
+      "definition": "CT Colonography Procedure Authored Date"
+    },{
+      "code": "coverage-concern",
+      "display": "Coverage Concern",
+      "definition": "Coverage Concern"
+    }, {
+      "code": "sedation-concern",
+      "display": "Sedation Concern",
+      "definition": "Sedation Concern"
+    }, {
+      "code": "sigmoidoscopy-complication",
+      "display": "Sigmoidoscopy Complication",
+      "definition": "Sigmoidoscopy Complication"
+    }, {
+      "code": "colonoscopy-complication",
+      "display": "Colonoscopy Complication",
+      "definition": "Colonoscopy Complication"
+    }, {
+      "code": "patient-age",
+      "display": "Patient Age in Years",
+      "definition": "Patient Age in Years"
+    }, {
+      "code": "total-colectomy-performed",
+      "display": "Total Colectomy Performed",
+      "definition": "Total Colectomy Performed"
+    }, {
+      "code": "colorectal-screening-performed",
+      "display": "Qualifying Colorectal Screening Performed",
+      "definition": "Qualifying Colorectal Screening Performed"
+    }, {
+      "code": "has-malignant-neoplasm",
+      "display": "Has Malignant Neoplasm",
+      "definition": "Has Malignant Neoplasm"
+    }, {
+      "code": "ccs-qualifying-age",
+      "display": "CCS Qualifying Patient Age",
+      "definition": "CCS Qualifying Patient Age"
+    } ]
+  }

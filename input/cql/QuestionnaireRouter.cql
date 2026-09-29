@@ -1,25 +1,18 @@
-library QuestionnaireRouter version '0.1.0'
+library QuestionnaireRouter
 
-using USCore version '7.0.0'
 using FHIR version '4.0.1'
 
-include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
-
-valueset "Sleep Study Procedure": 'http://terminology.smilecdr.com/cs/sleepstudy'
-valueset "Other Example Procedure": 'http://terminology.smilecdr.com/cs/priorauth'
+//valueset "Diabetes Procedure": 'http://terminology.smilecdr.com/cs/diabetes'
 
 context Patient
 
-define "CanonicalBase": 'http://example.org/sdh/dtr/aslp'
+define "CanonicalBase": 'http://example.org/sdh/demo/sglt2i'
 
 define function GetAdaptiveQuestionnairePlanDefinition(procedureCode System.Code) 
 returns System.String:
-    if (procedureCode in "Sleep Study Procedure") then
-        "CanonicalBase" + '/PlanDefinition/Home-Monitor-Sleep-Testing-Questionnaire'
-    // else if (procedureCode in "Other Example Procedure") then
-    //     "CanonicalBase" + '/Questionnaire/ASLPA1'
-    else if (procedureCode in "Other Example Procedure") then
-        "CanonicalBase" + '/PlanDefinition/Home-Monitor-Sleep-Testing'
+    //if (procedureCode in "Diabetes Procedure") then
+    if (true) then
+        "CanonicalBase" + '/Questionnaire/SGLT2i-PA-PlanDefinition'
     else
         null as System.String
         //Message(null, true, 'QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition', 'Error', 'Error: Adapative Questionnaire PlanDefinition not found for code ' + procedureCode.code + '. (code=' + procedureCode.code + '; system=' + procedureCode.system + ')')

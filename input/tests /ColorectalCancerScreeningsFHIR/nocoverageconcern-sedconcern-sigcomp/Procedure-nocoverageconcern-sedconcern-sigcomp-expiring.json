@@ -1,0 +1,30 @@
+{
+    "resourceType": "Procedure",
+    "id": "nocoverageconcern-sedconcern-sigcomp-expiring",
+    "meta": {
+        "profile": [
+            "http://hl7.org/fhir/us/core/StructureDefinition/us-core-procedure"
+        ]
+    },
+    "status": "completed",
+    "code": {
+        "coding": [
+            {
+                "system": "http://www.ama-assn.org/go/cpt",
+                "version": "2021",
+                "code": "44388",
+                "display": "Colonoscopy through stoma; diagnostic, including collection of specimen(s) by brushing or washing, when performed (separate procedure)"
+              }
+        ]
+    },
+    "subject": {
+        "reference": "Patient/nocoverageconcern-sedconcern-sigcomp"
+    },
+    "encounter": {
+        "reference": "Encounter/nocoverageconcern-sedconcern-sigcomp-expiring"
+    },
+    "performedPeriod": {
+        "start": "2013-05-01T10:00:00-06:00",
+        "end": "2013-05-01T12:00:00-06:00"
+    }
+}

@@ -1,0 +1,48 @@
+{
+    "resourceType": "ExplanationOfBenefit",
+    "id": "eob-20250630",
+    "status": "active",
+    "type": {
+        "coding": [
+            {
+                "system": "http://terminology.hl7.org/CodeSystem/claim-type",
+                "code": "pharmacy"
+            }
+        ]
+    },
+    "use": "claim",
+    "patient": {
+        "reference": "Patient/Patient-3"
+    },
+    "created": "2024-11-11T11:30:00-07:00",
+    "insurer": {
+        "reference": "Organization/Organization-3"
+    },
+    "provider": {
+        "reference": "Practitioner/Practitioner-3"
+    },
+    "item": [
+        {
+            "productOrService": {
+                "coding": [
+                    {
+                        "system": "http://hl7.org/fhir/sid/ndc",
+                        "code": "6584180901",
+                        "display": "Metformin"
+                    }
+                ]
+            },
+            "servicedPeriod": {
+                "start": "2023-04-16T15:00:00Z"
+            }
+        }
+    ], 
+    "outcome": "complete", 
+    "insurance": [
+        {
+            "coverage": {
+                "reference": "Coverage/Coverage-3"
+            }
+        }
+    ]
+}
