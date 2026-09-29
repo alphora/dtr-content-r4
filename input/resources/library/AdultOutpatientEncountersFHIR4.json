@@ -1,12 +1,7 @@
 {
   "resourceType": "Library",
   "id": "AdultOutpatientEncountersFHIR4",
-  "extension": [ {
-    "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
-    "valueReference": {
-      "reference": "Device/cqf-tooling"
-    }
-  } ],
+  
   "url": "http://example.org/sdh/demo/Library/AdultOutpatientEncountersFHIR4",
   "version": "2.2.000",
   "name": "AdultOutpatientEncountersFHIR4",

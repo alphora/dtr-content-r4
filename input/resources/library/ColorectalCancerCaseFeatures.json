@@ -1,12 +1,7 @@
 {
   "resourceType": "Library",
   "id": "ColorectalCancerCaseFeatures",
-  "extension": [ {
-    "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
-    "valueReference": {
-      "reference": "Device/cqf-tooling"
-    }
-  } ],
+  
   "url": "http://example.org/sdh/demo/Library/ColorectalCancerCaseFeatures",
   "name": "ColorectalCancerCaseFeatures",
   "relatedArtifact": [ {

@@ -1,12 +1,7 @@
 {
   "resourceType": "Library",
   "id": "AdvancedIllnessandFrailtyExclusionECQMFHIR4",
-  "extension": [ {
-    "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
-    "valueReference": {
-      "reference": "Device/cqf-tooling"
-    }
-  } ],
+  
   "url": "http://example.org/sdh/demo/Library/AdvancedIllnessandFrailtyExclusionECQMFHIR4",
   "version": "5.17.000",
   "name": "AdvancedIllnessandFrailtyExclusionECQMFHIR4",

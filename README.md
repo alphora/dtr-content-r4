@@ -1,4 +1,4 @@
-# demo-content-r4
+# dtr-content-r4
 
 This repository contains knowledge content and instructions for demo environments for Clinical Reasoning.
 

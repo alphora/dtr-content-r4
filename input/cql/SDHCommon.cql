@@ -3,7 +3,7 @@ library SDHCommon version '0.1.0'
 using FHIR version '4.0.1'
 
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
-include hl7.fhir.uv.cql.FHIRCommon version '2.0.0'
+// include hl7.fhir.uv.cql.FHIRCommon version '2.0.0'
 
 context Patient
 
@@ -35,9 +35,9 @@ define function MostRecent(observations List<FHIR.Observation>):
   )
 
 define function MostRecent(conditions List<FHIR.Condition>):
-  Last(
-    conditions O
-      sort by recordedDate
+  First(
+    conditions Condition
+      sort by recordedDate descending
   )
 
 define function Lowest(observations List<FHIR.Observation>):

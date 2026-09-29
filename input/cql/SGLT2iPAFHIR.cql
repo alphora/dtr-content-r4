@@ -2,8 +2,7 @@ library SGLT2iPAFHIR version '1.0.0'
 
 using FHIR version '4.0.1'
 
-include FHIRHelpers version '4.0.1' called FHIRHelpers
-include FHIRCommon version '1.1.000' called FHIRCommon
+include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 include SupplementalDataElementsFHIR4 version '2.0.000' called SDE
 include MATGlobalCommonFunctionsFHIR4 version '6.1.000' called GF
 include CaseFeatureCommon version '1.1.000' called CFC
@@ -176,7 +175,7 @@ define "eGFR Observations < 90":
 define "Two eGFR < 90 With Dates 3 Months Apart":
   "eGFR Observations < 90" EGFR1
   with "eGFR Observations < 90" EGFR2
-  such that date from (start of FHIRCommon.ToInterval(EGFR2.effective)) > date from ((start of FHIRCommon.ToInterval(EGFR1.effective)) + 3 months)
+  such that date from (start of FHIRHelpers.ToInterval(EGFR2.effective)) > date from ((start of FHIRHelpers.ToInterval(EGFR1.effective)) + 3 months)
 
 define "Has Two eGFR < 90 With Dates 3 Months Apart":
   exists("Two eGFR < 90 With Dates 3 Months Apart")
@@ -202,7 +201,7 @@ define "uACR Observations > 30":
 define "Two uACR > 30 With Dates 3 Months Apart":
   "uACR Observations > 30" uACR1
     with "uACR Observations > 30" uACR2
-    such that date from start of FHIRCommon.ToInterval(uACR2.effective) > date from (start of FHIRCommon.ToInterval(uACR1.effective) + 3 months)
+    such that date from start of FHIRHelpers.ToInterval(uACR2.effective) > date from (start of FHIRHelpers.ToInterval(uACR1.effective) + 3 months)
 
 define "Has Two uACR > 30 With Dates 3 Months Apart":
   exists("Two uACR > 30 With Dates 3 Months Apart")

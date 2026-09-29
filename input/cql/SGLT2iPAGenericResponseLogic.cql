@@ -2,8 +2,8 @@ library SGLT2iPAGenericResponseLogic
 
 using FHIR version '4.0.1'
 
-include CrdExtendedCoverageInfo called ECI
-include FHIRHelpers version '4.0.1' called FHIRHelpers
+include CrdExtendedCoverageInfo version '0.1.0' called ECI
+include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 parameter "Request Id" System.String
 parameter "draftOrders" List<Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription>>

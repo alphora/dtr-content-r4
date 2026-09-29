@@ -1,12 +1,7 @@
 {
   "resourceType": "Library",
   "id": "ColorectalCancerScreeningsFHIR",
-  "extension": [ {
-    "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
-    "valueReference": {
-      "reference": "Device/cqf-tooling"
-    }
-  } ],
+  
   "url": "http://example.org/sdh/demo/Library/ColorectalCancerScreeningsFHIR",
   "version": "0.0.003",
   "name": "ColorectalCancerScreeningsFHIR",

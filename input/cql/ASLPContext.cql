@@ -3,7 +3,7 @@ library ASLPContext version '0.1.0'
 using USCore version '7.0.0'
 using FHIR version '4.0.1'
 
-include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1' called FHIRHelpers 
+include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1' called FHIRHelpers
 include CrdExtendedCoverageInfo version '0.1.0' called ECI
 include ASLPContextProvider version '0.1.0' called ContextProvider
 include ASLPContextPayor version '0.1.0' called ContextPayor

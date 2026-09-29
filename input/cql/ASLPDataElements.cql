@@ -4,11 +4,19 @@ using USCore version '7.0.0'
 using FHIR version '4.0.1'
 
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
-include hl7.fhir.uv.cql.FHIRCommon version '2.0.0'
+// include hl7.fhir.uv.cql.FHIRCommon version '2.0.0'
 include hl7.fhir.us.cql.USCoreElements called UCE
 
 include SDHCommon called SC
 include ASLPConcepts called Cs
+
+codesystem "Condition Clinical Status Codes": 'http://terminology.hl7.org/CodeSystem/condition-clinical'
+codesystem "Condition Verification Status Codes": 'http://terminology.hl7.org/CodeSystem/condition-ver-status'
+
+code "confirmed": 'confirmed' from "Condition Verification Status Codes" display 'Confirmed'
+code "active": 'active' from "Condition Clinical Status Codes" display 'Active'
+code "inactive": 'inactive' from "Condition Clinical Status Codes" display 'Inactive'
+code "resolved": 'resolved' from "Condition Clinical Status Codes" display 'Resolved'
 
 parameter "Coverage" FHIR.Coverage
 parameter "Request" Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Encounter>
@@ -28,11 +36,11 @@ define "BMI":
   ) to 'kg/m2' 
 
 define "Diagnosis of Obstructive Sleep Apnea":
-  (
+  SC.MostRecent(
   [FHIR."Condition": Cs."Diagnosis of Obstructive Sleep Apnea Codes"] C
     where C.isActive()
     and C.isConfirmed()
-  ).mostRecent().code
+  ).code
 
 define "Height":
   convert(
@@ -95,3 +103,9 @@ define "Weight":
         sort by effective
     ).value 
   ) to '[lb_av]'
+
+define fluent function isActive(condition FHIR.Condition):
+  condition.clinicalStatus ~ "active"
+
+define fluent function isConfirmed(condition FHIR.Condition):
+  condition.verificationStatus ~ "confirmed"

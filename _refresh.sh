@@ -16,9 +16,9 @@ HELP_USAGE
 	exit 0
 }
 
-tooling_jar=tooling-cli-3.4.0.jar
+tooling_jar=tooling-cli-3.10.0.jar
 input_cache_path=./input-cache
-ig_resource_path=./input/demo-content-r4.xml
+ig_resource_path=./input/dtr-content-r4.xml
 unattended=false
 
 while getopts hds:u flag
