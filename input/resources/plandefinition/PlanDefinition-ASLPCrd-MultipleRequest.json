@@ -916,7 +916,7 @@
       "valueString": "Detail Text-NotFound"
     }, {
       "url": "statement",
-      "valueString": "// CRD-6\ndefine \"Detail Text-NotFound\":\n  'Code Not Found'"
+      "valueString": "// CRD-6\ndefine \"Detail Text-NotFound\": \n  'Code Not Found'"
     }, {
       "url": "displaySequence",
       "valueInteger": 44
@@ -2416,7 +2416,7 @@
       "valueString": "Qualification-NotFound"
     }, {
       "url": "statement",
-      "valueString": "// CRD-6\ndefine function \"Qualification-NotFound\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  (Ctx.\"Service Request Item Code\"(requestItem)) c\n  return \n    if IsNull(c.display) or c.display = '' then 'The procedure code is not a recognized procedure electronically. Please contact the payer for further information.'\n    else c.display + ' is not a recognized procedure electronically. Please contact the payer for further information.'"
+      "valueString": "// CRD-6 \ndefine function \"Qualification-NotFound\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  (First((Ctx.GetCode(requestItem)).coding)) c\n  return\n    if IsNull(c.display) or c.display = '' then\n      'The procedure code is not a recognized procedure electronically. Please contact the payer for further information.'\n    else \n      FHIRHelpers.ToString(c.display) + ' is not a recognized procedure electronically. Please contact the payer for further information.'"
     }, {
       "url": "displaySequence",
       "valueInteger": 144
@@ -2697,7 +2697,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-09-23T12:47:03-06:00",
+  "date": "2026-09-30T11:45:39-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MultipleRequest",
   "useContext": [ {
