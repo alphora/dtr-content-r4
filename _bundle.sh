@@ -59,13 +59,11 @@ if test -f "$tooling"; then
 	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources/binary -bid=cc-cds-binary
 
 	# All resource bundle
-	java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources -bid=demo-resources
+	java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/resources -bid=dtr-resources
 	# All vocabulary bundle
-    java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/vocabulary -bid=demo-vocabulary
+    java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/vocabulary -bid=dtr-vocabulary
 	# All test-data bundle
-	java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/tests/SGLT2iPAFHIR -bid=SGLT2i-demo-patient-data
-	# SGLT2i test-data bundle
-	java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/tests/SGLT2iPAFHIR/hidden-control -bid=SGLT2i-control-patient-data
+	# java -jar $tooling -BundleResources -v=r4 -e=json -op=bundles -ptd=input/tests/SGLT2iPAFHIR -bid=SGLT2i-demo-patient-data
 
 else
 	tooling=../$tooling_jar

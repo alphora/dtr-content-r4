@@ -60,14 +60,14 @@ define function "CoveredExtension"(coveredValue System.String)
 returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'covered' },
-    "value": FHIR.code { "value": if IsNull(coveredValue) or coveredValue = '' then 'conditional' else coveredValue }
+    "value": FHIR.code { "value": 'conditional' }
   }
 
 define function "PriorAuthNeededExtension"(priorAuthRequiredValue System.String)
 returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'pa-needed' },
-    "value": FHIR.code { "value": if IsNull(priorAuthRequiredValue) or priorAuthRequiredValue = '' then 'conditional' else priorAuthRequiredValue }
+    "value": FHIR.code { "value": 'auth-needed' }
   }
 
 define function "CoverageAssertionIdExtension"(coverageAssertionId System.String)
@@ -126,11 +126,14 @@ returns FHIR.Extension:
 
       FHIR.Extension {
         "url": FHIR.uri { "value": 'value' },
-        "value": FHIR.string { "value": warningOrInfo }
+        // "value": FHIR.string { "value": warningOrInfo }
+        "value": FHIR.string { "value": 'Warning' }
       },
+
       FHIR.Extension {
         "url": FHIR.uri { "value": 'qualification' },
-        "value": FHIR.string { "value": qualification }
+        // "value": FHIR.string { "value": qualification }
+        "value": FHIR.string { "value": 'Prior authorization is required for this procedure or medication.' }
       }
     }
   }
