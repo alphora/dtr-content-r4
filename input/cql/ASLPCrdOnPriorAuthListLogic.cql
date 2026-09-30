@@ -50,7 +50,12 @@ define "Detail Text":
 
 // CRD-5
 define function "Qualification"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest,FHIR.Appointment, FHIR.Task>):
-  'Prior authorization is required for ' + Ctx."Service Request Item Code"(requestItem).display
+  (First((Ctx.GetCode(requestItem)).coding)) c
+  return
+    if IsNull(c.display) or c.display = '' then
+      'Prior authorization is required for this procedure or medication.'
+    else 
+      'Prior authorization is required for ' + FHIRHelpers.ToString(c.display)
 
 // CRD-5
 define "Detail Debugging":
