@@ -926,7 +926,7 @@
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
   } ],
-  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/ASLPCrd-MultipleRequest",
+  "url": "http://example.org/sdh/dtr/aslp/PlanDefinition/PlanDefinition-NCQA-CRD-Demo",
   "identifier": [ {
     "use": "official",
     "value": "generate-crd-example"
