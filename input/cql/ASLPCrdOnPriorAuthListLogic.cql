@@ -19,15 +19,17 @@ define "Title-NotFound":
 define "Description-NotFound":
   "Description"
 
-// CRD-6
+// CRD-6 
 define function "Qualification-NotFound"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
-  (Ctx."Service Request Item Code"(requestItem)) c
-  return 
-    if IsNull(c.display) or c.display = '' then 'The procedure code is not a recognized procedure electronically. Please contact the payer for further information.'
-    else c.display + ' is not a recognized procedure electronically. Please contact the payer for further information.'
+  First((Ctx.GetCode(requestItem)).coding) c
+  return
+    if IsNull(c.display) or c.display = '' then
+      'The procedure code is not a recognized procedure electronically. Please contact the payer for further information.'
+    else 
+      FHIRHelpers.ToString(c.display) + ' is not a recognized procedure electronically. Please contact the payer for further information.'
   
 // CRD-6
-define "Detail Text-NotFound":
+define "Detail Text-NotFound": 
   'Code Not Found'
 
 // CRD-6
@@ -65,7 +67,7 @@ define function "Is OnPriorAuthList"(requestItem Choice<FHIR.NutritionOrder, FHI
       or c in "Prior Auth Required for Procedure Grouper"
 
 define function "Not OnPriorAuthList"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
-  not (("Is OnPriorAuthList"(requestItem)))
+  not (("Is OnPriorAuthList"(requestItem))) 
 
 // define function "Prior Auth Required Service Requests"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
 //   requestItem R
