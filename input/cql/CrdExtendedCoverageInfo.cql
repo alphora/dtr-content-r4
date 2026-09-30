@@ -56,18 +56,18 @@ returns FHIR.Extension:
       }
     }
 
-define function "CoveredExtension"(covered System.String)
+define function "CoveredExtension"(coveredValue System.String)
 returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'covered' },
-    "value": FHIR.code { "value": covered }
+    "value": FHIR.code { "value": if IsNull(coveredValue) or coveredValue = '' then 'conditional' else coveredValue }
   }
 
-define function "PriorAuthNeededExtension"(priorAuthRequired System.String)
+define function "PriorAuthNeededExtension"(priorAuthRequiredValue System.String)
 returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'pa-needed' },
-    "value": FHIR.code { "value": priorAuthRequired }
+    "value": FHIR.code { "value": if IsNull(priorAuthRequiredValue) or priorAuthRequiredValue = '' then 'conditional' else priorAuthRequiredValue }
   }
 
 define function "CoverageAssertionIdExtension"(coverageAssertionId System.String)
