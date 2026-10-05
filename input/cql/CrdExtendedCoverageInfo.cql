@@ -61,7 +61,7 @@ returns FHIR.Extension:
       // requires a valueset per canonical questionnaire
       { "QuestionnaireExtension"(priorAuthRequiredValue, serviceRequestCode) }
 
-    }) Ext where not IsNull(Ext)
+    })
   }
 
 define function "CoverageExtension"(coverageIdValue System.String)
@@ -134,44 +134,53 @@ returns FHIR.Extension:
         "coding": {
           FHIR.Coding {
             system: FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp'},
-            code: FHIR.code { "value": "GetReasonCode"(qualificationValue) },
-            display: FHIR.string { "value": "GetReasonDisplay"(qualificationValue) }
+            code: "GetReasonCode"(qualificationValue),
+            display: "GetReasonDisplay"(qualificationValue)
           }
         },
-        "text": FHIR.string { "value": "GetReasonText"(qualificationValue, serviceRequestCode) }
+        "text": "GetReasonText"(qualificationValue, serviceRequestCode)
       }
     }
 
 define function "GetReasonCode"(qualificationValue System.String)
-returns System.String:
-  if qualificationValue = 'The member cannot be found. You can submit a PA request as an exception.' then 
-    'no-member-found'
-  else if qualificationValue = 'Provider is not in the network. You can submit a PA request as an exception.' then 
-    'auth-out-network'
-  else 
-    'coverage-not-found'
+returns FHIR.code:
+  FHIR.code {
+    value:
+      if qualificationValue = 'The member cannot be found. You can submit a PA request as an exception.' then 
+        'no-member-found'
+      else if qualificationValue = 'Provider is not in the network. You can submit a PA request as an exception.' then 
+        'auth-out-network'
+      else 
+        'coverage-not-found'
+  }
 
 define function "GetReasonDisplay"(qualificationValue System.String)
 returns FHIR.string:
-  if qualificationValue = 'The member cannot be found. You can submit a PA request as an exception.' then 
-    'Member not found'
-  else if qualificationValue = 'Provider is not in the network. You can submit a PA request as an exception.' then 
-    'Authorization needed out-of-network'
-  else 
-    'Coverage not found'
+  FHIR.string {
+    value:
+      if qualificationValue = 'The member cannot be found. You can submit a PA request as an exception.' then 
+        'Member not found'
+      else if qualificationValue = 'Provider is not in the network. You can submit a PA request as an exception.' then 
+        'Authorization needed out-of-network'
+      else 
+        'Coverage not found'
+  }
 
 define function "GetReasonText"(qualificationValue System.String, serviceRequestCode System.Code)
 returns FHIR.string:
-  if qualificationValue = 'The member cannot be found. You can submit a PA request as an exception.' then 
-    'Member Not Found. You can submit a PA request as an exception.'
-  else if qualificationValue = 'Provider is not in the network. You can submit a PA request as an exception.' then 
-    'Provider is not in the network. You can submit a PA request as an exception.'
-  else if qualificationValue = 'Line of Business MisMatch. Prior authorization submission is required.' then 
-    'Line of Business Mismatch. Prior authorization submission is required.'
-  else if qualificationValue = 'Unable to process due to incomplete/ambiguous information. Please submit a prior auth form.' then
-    'Unable to process due to incomplete/ambiguous information. Please submit a prior auth form.'
-  else 
-    ToFHIRstring(serviceRequestCode) + ' is not a recognized procedure.'
+  FHIR.string {
+    value:
+      if qualificationValue = 'The member cannot be found. You can submit a PA request as an exception.' then 
+        'Member Not Found. You can submit a PA request as an exception.'
+      else if qualificationValue = 'Provider is not in the network. You can submit a PA request as an exception.' then 
+        'Provider is not in the network. You can submit a PA request as an exception.'
+      else if qualificationValue = 'Line of Business MisMatch. Prior authorization submission is required.' then 
+        'Line of Business Mismatch. Prior authorization submission is required.'
+      else if qualificationValue = 'Unable to process due to incomplete/ambiguous information. Please submit a prior auth form.' then
+        'Unable to process due to incomplete/ambiguous information. Please submit a prior auth form.'
+      else 
+        ToFHIRstring(serviceRequestCode) + ' is not a recognized procedure.'
+  }
 
 define function ToFHIRstring(c System.Code)
 returns FHIR.string:
@@ -386,64 +395,63 @@ returns FHIR.Extension:
       "coding": {
         FHIR.Coding {
           system: FHIR.uri { "value": 'http://www.ama-assn.org/go/cpt'},
-          code: FHIR.code { 
-            "value": 
-              "GetOrderCode"(requestRefString)
-          }
+          code: "GetOrderCode"(requestRefString)
         }
       }
     }
   }
 
 define function "GetOrderCode"(requestRefString System.String)
-returns System.String:
-  if Split(requestRefString, '/')[0] = 'ServiceRequest' then
-    First(
-      from [ServiceRequest] SR
-        where SR.id = Split(requestRefString, '/')[1]
-      return SR.code.coding[0].code
-    ).value
-  else if Split(requestRefString, '/')[0] = 'MedicationRequest' then
-    First(
-      from [MedicationRequest] MR
-        where MR.id = Split(requestRefString, '/')[1]
-      return RH.GetCode(MR).coding[0].code
-    ).value
-  else if Split(requestRefString, '/')[0] = 'NutritionOrder' then
-    First(
-      from [NutritionOrder] NO
-        where NO.id = Split(requestRefString, '/')[1]
-      return RH.GetCode(NO).coding[0].code
-    ).value
-  else if Split(requestRefString, '/')[0] = 'DeviceRequest' then
-    First(
-      from [DeviceRequest] DR
-        where DR.id = Split(requestRefString, '/')[1]
-      return RH.GetCode(DR).coding[0].code
-    ).value
-  else if Split(requestRefString, '/')[0] = 'VisionPrescription' then
-    First(
-      from [VisionPrescription] VP
-        where VP.id = Split(requestRefString, '/')[1]
-      return RH.GetCode(VP).coding[0].code
-    ).value
-  else if Split(requestRefString, '/')[0] = 'CommunicationRequest' then
-    First(
-      from [CommunicationRequest] CR
-        where CR.id = Split(requestRefString, '/')[1]
-      return RH.GetCode(CR).coding[0].code
-    ).value
-  else if Split(requestRefString, '/')[0] = 'Task' then
-    First(
-      from [Task] T
-        where T.id = Split(requestRefString, '/')[1]
-      return RH.GetCode(T).coding[0].code
-    ).value
-  else if Split(requestRefString, '/')[0] = 'Appointment' then
-    First(
-      from [Appointment] A
-        where A.id = Split(requestRefString, '/')[1]
-      return RH.GetCode(A).coding[0].code
-    ).value
-  else 
-    null as System.String
+returns FHIR.code:
+  FHIR.code { "value": 
+    if Split(requestRefString, '/')[0] = 'ServiceRequest' then
+      First(
+        from [ServiceRequest] SR
+          where SR.id = Split(requestRefString, '/')[1]
+        return SR.code.coding[0].code
+      ).value
+    else if Split(requestRefString, '/')[0] = 'MedicationRequest' then
+      First(
+        from [MedicationRequest] MR
+          where MR.id = Split(requestRefString, '/')[1]
+        return RH.GetCode(MR).coding[0].code
+      ).value
+    else if Split(requestRefString, '/')[0] = 'NutritionOrder' then
+      First(
+        from [NutritionOrder] NO
+          where NO.id = Split(requestRefString, '/')[1]
+        return RH.GetCode(NO).coding[0].code
+      ).value
+    else if Split(requestRefString, '/')[0] = 'DeviceRequest' then
+      First(
+        from [DeviceRequest] DR
+          where DR.id = Split(requestRefString, '/')[1]
+        return RH.GetCode(DR).coding[0].code
+      ).value
+    else if Split(requestRefString, '/')[0] = 'VisionPrescription' then
+      First(
+        from [VisionPrescription] VP
+          where VP.id = Split(requestRefString, '/')[1]
+        return RH.GetCode(VP).coding[0].code
+      ).value
+    else if Split(requestRefString, '/')[0] = 'CommunicationRequest' then
+      First(
+        from [CommunicationRequest] CR
+          where CR.id = Split(requestRefString, '/')[1]
+        return RH.GetCode(CR).coding[0].code
+      ).value
+    else if Split(requestRefString, '/')[0] = 'Task' then
+      First(
+        from [Task] T
+          where T.id = Split(requestRefString, '/')[1]
+        return RH.GetCode(T).coding[0].code
+      ).value
+    else if Split(requestRefString, '/')[0] = 'Appointment' then
+      First(
+        from [Appointment] A
+          where A.id = Split(requestRefString, '/')[1]
+        return RH.GetCode(A).coding[0].code
+      ).value
+    else 
+      null as FHIR.code
+  }
