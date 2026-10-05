@@ -5,7 +5,7 @@ using FHIR version '4.0.1'
 
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 include QuestionnaireRouter version '0.1.0' called QuestionnaireRouter
-include ASLPContext version '0.1.0' called Ctx
+include ASLPResourceHelpers version '0.1.0' called RH
 
 context Patient
 
@@ -71,12 +71,7 @@ returns FHIR.Extension:
     FHIR.Extension {
       "url": FHIR.uri { "value": 'coverage' },
       "value": FHIR.Reference {
-          "reference": FHIR.string { 
-              "value": 
-                  if IsNull(coverageIdValue) or coverageIdValue = '' then 'Coverage not available'
-                  else 'Coverage/' + coverageIdValue
-          }
-        // "reference": FHIR.string { "value": 'Coverage/' + coverageIdValue }
+          "reference": FHIR.string { "value": 'Coverage/' + coverageIdValue }
       }
     }
 
@@ -148,7 +143,7 @@ returns FHIR.Extension:
     }
 
 define function "GetReasonCode"(qualificationValue System.String)
-returns FHIR.code:
+returns System.String:
   if qualificationValue = 'The member cannot be found. You can submit a PA request as an exception.' then 
     'no-member-found'
   else if qualificationValue = 'Provider is not in the network. You can submit a PA request as an exception.' then 
@@ -173,7 +168,7 @@ returns FHIR.string:
     'Provider is not in the network. You can submit a PA request as an exception.'
   else if qualificationValue = 'Line of Business MisMatch. Prior authorization submission is required.' then 
     'Line of Business Mismatch. Prior authorization submission is required.'
-  else if qualificationValue = 'Unable to process due to incomplete/information. Please submit a prior auth form.' then
+  else if qualificationValue = 'Unable to process due to incomplete/ambiguous information. Please submit a prior auth form.' then
     'Unable to process due to incomplete/ambiguous information. Please submit a prior auth form.'
   else 
     ToFHIRstring(serviceRequestCode) + ' is not a recognized procedure.'
@@ -412,43 +407,43 @@ returns System.String:
     First(
       from [MedicationRequest] MR
         where MR.id = Split(requestRefString, '/')[1]
-      return Ctx.GetCode(MR).coding[0].code
+      return RH.GetCode(MR).coding[0].code
     ).value
   else if Split(requestRefString, '/')[0] = 'NutritionOrder' then
     First(
       from [NutritionOrder] NO
         where NO.id = Split(requestRefString, '/')[1]
-      return Ctx.GetCode(NO).coding[0].code
+      return RH.GetCode(NO).coding[0].code
     ).value
   else if Split(requestRefString, '/')[0] = 'DeviceRequest' then
     First(
       from [DeviceRequest] DR
         where DR.id = Split(requestRefString, '/')[1]
-      return Ctx.GetCode(DR).coding[0].code
+      return RH.GetCode(DR).coding[0].code
     ).value
   else if Split(requestRefString, '/')[0] = 'VisionPrescription' then
     First(
       from [VisionPrescription] VP
         where VP.id = Split(requestRefString, '/')[1]
-      return Ctx.GetCode(VP).coding[0].code
+      return RH.GetCode(VP).coding[0].code
     ).value
   else if Split(requestRefString, '/')[0] = 'CommunicationRequest' then
     First(
       from [CommunicationRequest] CR
         where CR.id = Split(requestRefString, '/')[1]
-      return Ctx.GetCode(CR).coding[0].code
+      return RH.GetCode(CR).coding[0].code
     ).value
   else if Split(requestRefString, '/')[0] = 'Task' then
     First(
       from [Task] T
         where T.id = Split(requestRefString, '/')[1]
-      return Ctx.GetCode(T).coding[0].code
+      return RH.GetCode(T).coding[0].code
     ).value
   else if Split(requestRefString, '/')[0] = 'Appointment' then
     First(
       from [Appointment] A
         where A.id = Split(requestRefString, '/')[1]
-      return Ctx.GetCode(A).coding[0].code
+      return RH.GetCode(A).coding[0].code
     ).value
   else 
     null as System.String
