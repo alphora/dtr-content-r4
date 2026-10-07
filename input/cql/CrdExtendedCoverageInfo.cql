@@ -13,7 +13,7 @@ define function ExtensionPriorAuthNeeded(coverageIdValue System.String, coveredV
 returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-coverage-information' },
-    "extension": Flatten({ 
+    "extension": (Flatten({ 
       // payer coverage
       { "CoverageExtension"(coverageIdValue) },
 
@@ -61,7 +61,8 @@ returns FHIR.Extension:
       // requires a valueset per canonical questionnaire
       { "QuestionnaireExtension"(priorAuthRequiredValue, serviceRequestCode) }
 
-    })
+    })) Ext 
+      where Ext is not null
   }
 
 define function "CoverageExtension"(coverageIdValue System.String)
