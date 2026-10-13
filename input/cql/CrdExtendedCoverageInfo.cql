@@ -9,6 +9,42 @@ include ASLPResourceHelpers version '0.1.0' called RH
 
 context Patient
 
+define "PA Required Prefix":
+  'Prior authorization is required for'
+
+define "PA Required Detail Text":
+  'Prior Authorization Required'
+
+define "Submit PA Form Detail Text":
+  'Submit Prior Authorization Form'
+
+define "No PA Required Text":
+  'Order is covered. No prior auth is required for this request'
+
+define "Member Not Found Text":
+  'The member cannot be found. You can submit a PA request as an exception.'
+
+define "Member Not Found Detail Text":
+  'Provider Not in Network'
+
+define "Provider Not In Network Text":
+  'Provider is not in the network. You can submit a PA request as an exception.'
+
+define "Provider Not In Network Detail Text":
+  'Provider Not in Network'
+
+define "Line Of Business Mismatch Text":
+  'Line of Business Mismatch. Prior authorization submission is required.'
+
+define "Line Of Business Mismatch Detail Text":
+  'Line Of Business Mismatch'
+  
+define "Unable To Process Text":
+  'Unable to process due to incomplete/ambiguous information. Please submit a prior auth form.'
+
+define "Info Needed Text":
+  'info-needed'
+
 define function ExtensionPriorAuthNeeded(coverageIdValue System.String, coveredValue System.String, priorAuthRequiredValue System.String, coverageAssertionIdValue System.String, requestRefString System.String, serviceRequestCode System.Code, detailCodeValue System.String, detailTextValue System.String, qualificationValue System.String, warningOrInfoValue System.String)
 returns FHIR.Extension:
   FHIR.Extension {
@@ -125,8 +161,8 @@ returns FHIR.Extension:
 define function "ReasonExtension"(qualificationValue System.String, serviceRequestCode System.Code)
 returns FHIR.Extension:
   if IsNull(qualificationValue) 
-  or StartsWith(qualificationValue, 'Prior authorization is required for')
-  or qualificationValue = 'Order is covered. No prior auth is required for this request' then 
+  or StartsWith(qualificationValue, "PA Required Prefix")
+  or qualificationValue = "No PA Required Text" then 
     null as FHIR.Extension
   else
     FHIR.Extension {
@@ -147,9 +183,9 @@ define function "GetReasonCode"(qualificationValue System.String)
 returns FHIR.code:
   FHIR.code {
     value:
-      if qualificationValue = 'The member cannot be found. You can submit a PA request as an exception.' then 
+      if qualificationValue = "Member Not Found Text" then 
         'no-member-found'
-      else if qualificationValue = 'Provider is not in the network. You can submit a PA request as an exception.' then 
+      else if qualificationValue = "Provider Not In Network Text" then 
         'auth-out-network'
       else 
         'coverage-not-found'
@@ -159,9 +195,9 @@ define function "GetReasonDisplay"(qualificationValue System.String)
 returns FHIR.string:
   FHIR.string {
     value:
-      if qualificationValue = 'The member cannot be found. You can submit a PA request as an exception.' then 
+      if qualificationValue = "Member Not Found Text" then 
         'Member not found'
-      else if qualificationValue = 'Provider is not in the network. You can submit a PA request as an exception.' then 
+      else if qualificationValue = "Provider Not In Network Text" then 
         'Authorization needed out-of-network'
       else 
         'Coverage not found'
@@ -171,13 +207,13 @@ define function "GetReasonText"(qualificationValue System.String, serviceRequest
 returns FHIR.string:
   FHIR.string {
     value:
-      if qualificationValue = 'The member cannot be found. You can submit a PA request as an exception.' then 
+      if qualificationValue = "Member Not Found Text" then 
         'Member Not Found. You can submit a PA request as an exception.'
-      else if qualificationValue = 'Provider is not in the network. You can submit a PA request as an exception.' then 
+      else if qualificationValue = "Provider Not In Network Text" then 
         'Provider is not in the network. You can submit a PA request as an exception.'
-      else if qualificationValue = 'Line of Business MisMatch. Prior authorization submission is required.' then 
+      else if qualificationValue = "Line Of Business Mismatch Text" then 
         'Line of Business Mismatch. Prior authorization submission is required.'
-      else if qualificationValue = 'Unable to process due to incomplete/ambiguous information. Please submit a prior auth form.' then
+      else if qualificationValue = "Unable To Process Text" then
         'Unable to process due to incomplete/ambiguous information. Please submit a prior auth form.'
       else 
         ToFHIRstring(serviceRequestCode) + ' is not a recognized procedure.'
@@ -192,39 +228,39 @@ returns FHIR.string:
 
 define function "InfoNeeded"(detailTextValue System.String)
 returns List<FHIR.Extension>:
-  if detailTextValue = 'Member Not Found' then
+  if detailTextValue = "Member Not Found Detail Text" then
     {
       FHIR.Extension {
-        "url": FHIR.uri { "value": 'info-needed' },
+        "url": FHIR.uri { "value": "Info Needed Text" },
         "value": FHIR.string { "value": 'OTH' }
       }
     }
-  else if detailTextValue = 'Provider Not in Network' then
+  else if detailTextValue = "Provider Not In Network Detail Text" then
     {
       FHIR.Extension {
-        "url": FHIR.uri { "value": 'info-needed' },
+        "url": FHIR.uri { "value": "Info Needed Text" },
         "value": FHIR.string { "value": 'performer' }
       }
     }
-  else if detailTextValue = 'Line Of Business Mismatch' then
+  else if detailTextValue = "Line Of Business Mismatch Detail Text" then
     {
       FHIR.Extension {
-        "url": FHIR.uri { "value": 'info-needed' },
+        "url": FHIR.uri { "value": "Info Needed Text" },
         "value": FHIR.string { "value": 'OTH' }
       }
     }
-  else if detailTextValue = 'Prior Authorization Required' then
+  else if detailTextValue = "PA Required Detail Text" then
     "InfoNeededValues1" V
     return 
       FHIR.Extension {
-        "url": FHIR.uri { "value": 'info-needed' },
+        "url": FHIR.uri { "value": "Info Needed Text" },
         "value": FHIR.string { "value": V }
       }
-  else if detailTextValue = 'Submit Prior Authorization Form' then
+  else if detailTextValue = "Submit PA Form Detail Text" then
     "InfoNeededValues2" V
     return 
       FHIR.Extension {
-        "url": FHIR.uri { "value": 'info-needed' },
+        "url": FHIR.uri { "value": "Info Needed Text" },
         "value": FHIR.string { "value": V }
       }
   else
@@ -273,7 +309,7 @@ returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'detail' },
     "extension": {
-      if qualificationValue = 'Order is covered. No prior auth is required for this request' then 
+      if qualificationValue = "No PA Required Text" then 
         FHIR.Extension {
           "url": FHIR.uri { "value": 'category' },
           "value": FHIR.code { "value": 'cat-decisional' }
