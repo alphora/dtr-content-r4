@@ -163,7 +163,19 @@ returns FHIR.Extension:
   if IsNull(qualificationValue) 
   or StartsWith(qualificationValue, "PA Required Prefix")
   or qualificationValue = "No PA Required Text" then 
-    null as FHIR.Extension
+    FHIR.Extension {
+      "url": FHIR.uri { "value": 'reason' },
+      "value": FHIR.CodeableConcept { 
+        "coding": {
+          FHIR.Coding {
+            system: FHIR.uri { "value": 'http://hl7.org/fhir/us/davinci-crd/CodeSystem/temp'},
+            code: FHIR.code { "value": 'no-reason' },
+            display:   FHIR.string { value: 'No reason' }
+          }
+        },
+        "text": FHIR.string { value: 'No reason' }
+      }
+    }
   else
     FHIR.Extension {
       "url": FHIR.uri { "value": 'reason' },
@@ -264,13 +276,21 @@ returns List<FHIR.Extension>:
         "value": FHIR.string { "value": V }
       }
   else
-    {} as List<FHIR.Extension>
+    "InfoNeededNullValues" V
+    return 
+      FHIR.Extension {
+        "url": FHIR.uri { "value": "Info Needed Text" },
+        "value": FHIR.string { "value": V }
+      }
 
 define "InfoNeededValues1":
   {'performer', 'location', 'timeframe'}
 
 define "InfoNeededValues2":
   {'performer', 'location', 'timeframe', 'detail-code'}
+
+define "InfoNeededNullValues":
+  {'no-info-needed', 'no-info-needed'}
 
 define function "QuestionnaireExtension"(priorAuthRequiredValue System.String, procedureCode System.Code)
 returns FHIR.Extension:
@@ -402,7 +422,12 @@ returns FHIR.Extension:
 define function "DocNeeded"(priorAuthRequiredValue System.String)
 returns List<FHIR.Extension>:
   if ("PriorAuthNeededExtension"(priorAuthRequiredValue).value as FHIR.code).value in { 'no-auth', 'conditional' } then
-    {} as List<FHIR.Extension>
+    "Doc Needed Values Null" V
+    return 
+      FHIR.Extension {
+        "url": FHIR.uri { "value": 'doc-needed' },
+        "value": FHIR.code { "value": V }
+      }
   else
     "Doc Needed Values" V
     return 
@@ -414,6 +439,9 @@ returns List<FHIR.Extension>:
 define "Doc Needed Values":
   {'admin', 'clinical'}
 
+define "Doc Needed Values Null":
+  {'no-doc-needed', 'no-doc-needed'}
+
 define function "DocPurpose"(priorAuthRequiredValue System.String)
 returns FHIR.Extension:
   if ("PriorAuthNeededExtension"(priorAuthRequiredValue).value as FHIR.code).value = 'auth-needed' then
@@ -422,7 +450,10 @@ returns FHIR.Extension:
       "value": FHIR.code { "value": 'withpa' }
     }
   else 
-    null as FHIR.Extension
+    FHIR.Extension {
+      "url": FHIR.uri { "value": 'doc-purpose' },
+      "value": FHIR.code { "value": 'no-doc-purpose' }
+    }
 
 define function "BillingCode"(requestRefString System.String)
 returns FHIR.Extension:
