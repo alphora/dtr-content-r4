@@ -45,7 +45,7 @@ define "Detail Debugging":
   'Not yet implemented.'
 
 // CRD-8
-define function "Insufficient or Ambiguous High"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
+define function "Insufficient or Ambiguous High"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   "Too many provider or payor coverages"
     or "Request Patient does not match Context Patient"(requestItem)
 
@@ -53,16 +53,16 @@ define "Too many provider or payor coverages":
   Count(Ctx."Provider"."Coverages") > 1 or
     Count(Ctx."Payor"."Coverages") > 1
 
-define function "Request Patient does not match Context Patient"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
+define function "Request Patient does not match Context Patient"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   if requestItem is null then 
     false
   else
     Ctx.GetSubjectID(requestItem) !~ Ctx."Provider"."Patient".id.value
 
 // CRD-8.1
-define function "DomainResource is Empty"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
+define function "DomainResource is Empty"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   IsNull(requestItem)
 
 // CRD-8.3
-define function "Received Provider Data Cannot be Processed"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
+define function "Received Provider Data Cannot be Processed"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   Ctx.GetResourceType(requestItem) in Ctx."UnsupportedResourceTypes"

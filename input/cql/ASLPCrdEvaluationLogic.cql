@@ -24,6 +24,6 @@ define "Detail Debugging":
 
 define "Medication List":
     Combine(    
-        ([MedicationRequest]).medication.coding.display,
+        (([MedicationRequest]).medication).coding.display,
         ', '
     )
