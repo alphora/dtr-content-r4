@@ -248,11 +248,8 @@ returns FHIR.CodeableConcept:
       from ((item as FHIR.NutritionOrder).supplement) S
         where (S.type) is not null
       return S.type
-    else if exists ((item as FHIR.NutritionOrder).supplement) then
-      from ((item as FHIR.NutritionOrder).supplement) S
-        where (S.type) is not null
-      return S.type
-    else if ((item as FHIR.NutritionOrder).oralDiet) is not null then
+    else if ((item as FHIR.NutritionOrder).oralDiet) is not null 
+      and exists ((item as FHIR.NutritionOrder).oralDiet.type) then
       First((item as FHIR.NutritionOrder).oralDiet.type)
     else 
       null as FHIR.CodeableConcept
