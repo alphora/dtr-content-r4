@@ -123,7 +123,7 @@ returns FHIR.Extension:
         else  
           First(
             from [Coverage] C
-            where C.id = coverageIdValue
+            where C.id.value = coverageIdValue
             return date from FHIRHelpers.ToDateTime(C.period.end)
           )
       }
