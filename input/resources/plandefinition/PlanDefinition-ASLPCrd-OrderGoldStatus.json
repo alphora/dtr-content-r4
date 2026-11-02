@@ -124,7 +124,7 @@
     }, {
       "type": "Medication",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Medication" ],
-      "mustSupport": [ "id", "code", "code.coding" ]
+      "mustSupport": [ "id", "code" ]
     }, {
       "type": "VisionPrescription",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/VisionPrescription" ],
@@ -161,42 +161,6 @@
       "type": "Bundle",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Bundle" ],
       "mustSupport": [ "entry", "resource" ]
-    }, {
-      "type": "ServiceRequest",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/ServiceRequest" ],
-      "mustSupport": [ "code", "id" ]
-    }, {
-      "type": "DeviceRequest",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/DeviceRequest" ],
-      "mustSupport": [ "code" ]
-    }, {
-      "type": "Device",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/Device" ],
-      "mustSupport": [ "id", "type" ]
-    }, {
-      "type": "NutritionOrder",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/NutritionOrder" ],
-      "mustSupport": [ "enteralFormula", "enteralFormula.baseFormulaType" ]
-    }, {
-      "type": "MedicationRequest",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/MedicationRequest" ],
-      "mustSupport": [ "medication" ]
-    }, {
-      "type": "Medication",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/Medication" ],
-      "mustSupport": [ "id", "code" ]
-    }, {
-      "type": "VisionPrescription",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/VisionPrescription" ],
-      "mustSupport": [ "lensSpecification" ]
-    }, {
-      "type": "Appointment",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/Appointment" ],
-      "mustSupport": [ "basedOn", "serviceType" ]
-    }, {
-      "type": "Task",
-      "profile": [ "http://hl7.org/fhir/StructureDefinition/Task" ],
-      "mustSupport": [ "code" ]
     } ]
   } ],
   "extension": [ {
@@ -1305,21 +1269,6 @@
       "valueInteger": 72
     } ]
   }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPContext"
-    }, {
-      "url": "name",
-      "valueString": "GetMedicationDisplay"
-    }, {
-      "url": "statement",
-      "valueString": "define function GetMedicationDisplay(medicationRequest FHIR.MedicationRequest):\n  FHIRHelpers.ToString(\n    First(\n      (First (\n        [Medication] M\n          where FHIRHelpers.ToString((medicationRequest.medication as FHIR.Reference).reference) ='Medication/' + FHIRHelpers.ToString(M.id) \n      )).code.coding\n    ).display\n  )"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 73
-    } ]
-  }, {
     "id": "effective-data-requirements",
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
@@ -1340,7 +1289,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-11-02T12:27:51-06:00",
+  "date": "2026-11-02T13:15:34-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-OrderGoldStatus",
   "useContext": [ {

@@ -1264,21 +1264,6 @@
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
     "extension": [ {
       "url": "libraryName",
-      "valueString": "ASLPContext"
-    }, {
-      "url": "name",
-      "valueString": "GetMedicationDisplay"
-    }, {
-      "url": "statement",
-      "valueString": "define function GetMedicationDisplay(medicationRequest FHIR.MedicationRequest):\n  FHIRHelpers.ToString(\n    First(\n      (First (\n        [Medication] M\n          where FHIRHelpers.ToString((medicationRequest.medication as FHIR.Reference).reference) ='Medication/' + FHIRHelpers.ToString(M.id) \n      )).code.coding\n    ).display\n  )"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 73
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
       "valueString": "ASLPCrdRoutineLogic"
     }, {
       "url": "name",
@@ -1288,7 +1273,7 @@
       "valueString": "// CRD-7\ndefine function \"Qualification\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  'Order is covered. No prior auth is required for ' + Ctx.\"Service Request Item Code\"(requestItem).display"
     }, {
       "url": "displaySequence",
-      "valueInteger": 74
+      "valueInteger": 73
     } ]
   }, {
     "id": "effective-data-requirements",
@@ -1311,7 +1296,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-11-02T12:27:51-06:00",
+  "date": "2026-11-02T13:15:34-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-Routine",
   "useContext": [ {

@@ -1486,21 +1486,6 @@
       "valueInteger": 86
     } ]
   }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPContext"
-    }, {
-      "url": "name",
-      "valueString": "GetMedicationDisplay"
-    }, {
-      "url": "statement",
-      "valueString": "define function GetMedicationDisplay(medicationRequest FHIR.MedicationRequest):\n  FHIRHelpers.ToString(\n    First(\n      (First (\n        [Medication] M\n          where FHIRHelpers.ToString((medicationRequest.medication as FHIR.Reference).reference) ='Medication/' + FHIRHelpers.ToString(M.id) \n      )).code.coding\n    ).display\n  )"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 87
-    } ]
-  }, {
     "id": "effective-data-requirements",
     "url": "http://hl7.org/fhir/uv/crmi/StructureDefinition/crmi-effectiveDataRequirements",
     "valueCanonical": "#effective-data-requirements"
@@ -1521,7 +1506,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-11-02T12:27:51-06:00",
+  "date": "2026-11-02T13:15:34-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-OrderLOBMatch",
   "useContext": [ {
