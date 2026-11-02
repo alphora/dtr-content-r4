@@ -151,7 +151,7 @@
     }, {
       "type": "Medication",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Medication" ],
-      "mustSupport": [ "id", "code", "code.coding" ]
+      "mustSupport": [ "id", "code" ]
     }, {
       "type": "VisionPrescription",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/VisionPrescription" ],
@@ -1420,7 +1420,7 @@
       "valueString": "Service Request Item Code"
     }, {
       "url": "statement",
-      "valueString": "define function \"Service Request Item Code\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if (requestItem is FHIR.CommunicationRequest) then \n    FHIRHelpers.ToCode(singleton from GetCodeableConceptForCommunicationRequest(requestItem).coding)\n  else if (requestItem is FHIR.MedicationRequest) then\n    if (requestItem as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then\n      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)\n    else if (requestItem as FHIR.MedicationRequest).medication is FHIR.Reference then\n      System.Code { display: GetMedicationDisplay(requestItem as FHIR.MedicationRequest) }\n    else \n      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)\n  else \n    FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)"
+      "valueString": "define function \"Service Request Item Code\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if (requestItem is FHIR.CommunicationRequest) then \n    FHIRHelpers.ToCode(singleton from GetCodeableConceptForCommunicationRequest(requestItem).coding)\n  else if (requestItem is FHIR.MedicationRequest) then\n    FHIRHelpers.ToCode(First(GetCode(requestItem as FHIR.MedicationRequest).coding))\n  else \n    FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)"
     }, {
       "url": "displaySequence",
       "valueInteger": 82

@@ -161,6 +161,42 @@
       "type": "Bundle",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Bundle" ],
       "mustSupport": [ "entry", "resource" ]
+    }, {
+      "type": "ServiceRequest",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/ServiceRequest" ],
+      "mustSupport": [ "code", "id" ]
+    }, {
+      "type": "DeviceRequest",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/DeviceRequest" ],
+      "mustSupport": [ "code" ]
+    }, {
+      "type": "Device",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Device" ],
+      "mustSupport": [ "id", "type" ]
+    }, {
+      "type": "NutritionOrder",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/NutritionOrder" ],
+      "mustSupport": [ "enteralFormula", "enteralFormula.baseFormulaType" ]
+    }, {
+      "type": "MedicationRequest",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/MedicationRequest" ],
+      "mustSupport": [ "medication" ]
+    }, {
+      "type": "Medication",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Medication" ],
+      "mustSupport": [ "id", "code" ]
+    }, {
+      "type": "VisionPrescription",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/VisionPrescription" ],
+      "mustSupport": [ "lensSpecification" ]
+    }, {
+      "type": "Appointment",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Appointment" ],
+      "mustSupport": [ "basedOn", "serviceType" ]
+    }, {
+      "type": "Task",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Task" ],
+      "mustSupport": [ "code" ]
     } ]
   } ],
   "extension": [ {
@@ -1203,7 +1239,7 @@
       "valueString": "Service Request Item Code"
     }, {
       "url": "statement",
-      "valueString": "define function \"Service Request Item Code\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if (requestItem is FHIR.CommunicationRequest) then \n    FHIRHelpers.ToCode(singleton from GetCodeableConceptForCommunicationRequest(requestItem).coding)\n  else if (requestItem is FHIR.MedicationRequest) then\n    if (requestItem as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then\n      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)\n    else if (requestItem as FHIR.MedicationRequest).medication is FHIR.Reference then\n      System.Code { display: GetMedicationDisplay(requestItem as FHIR.MedicationRequest) }\n    else \n      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)\n  else \n    FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)"
+      "valueString": "define function \"Service Request Item Code\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if (requestItem is FHIR.CommunicationRequest) then \n    FHIRHelpers.ToCode(singleton from GetCodeableConceptForCommunicationRequest(requestItem).coding)\n  else if (requestItem is FHIR.MedicationRequest) then\n    FHIRHelpers.ToCode(First(GetCode(requestItem as FHIR.MedicationRequest).coding))\n  else \n    FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)"
     }, {
       "url": "displaySequence",
       "valueInteger": 68

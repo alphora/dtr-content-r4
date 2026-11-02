@@ -165,6 +165,42 @@
       "type": "Bundle",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Bundle" ],
       "mustSupport": [ "entry", "resource" ]
+    }, {
+      "type": "ServiceRequest",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/ServiceRequest" ],
+      "mustSupport": [ "code", "id" ]
+    }, {
+      "type": "DeviceRequest",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/DeviceRequest" ],
+      "mustSupport": [ "code" ]
+    }, {
+      "type": "Device",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Device" ],
+      "mustSupport": [ "id", "type" ]
+    }, {
+      "type": "NutritionOrder",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/NutritionOrder" ],
+      "mustSupport": [ "enteralFormula", "enteralFormula.baseFormulaType" ]
+    }, {
+      "type": "MedicationRequest",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/MedicationRequest" ],
+      "mustSupport": [ "medication" ]
+    }, {
+      "type": "Medication",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Medication" ],
+      "mustSupport": [ "id", "code" ]
+    }, {
+      "type": "VisionPrescription",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/VisionPrescription" ],
+      "mustSupport": [ "lensSpecification" ]
+    }, {
+      "type": "Appointment",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Appointment" ],
+      "mustSupport": [ "basedOn", "serviceType" ]
+    }, {
+      "type": "Task",
+      "profile": [ "http://hl7.org/fhir/StructureDefinition/Task" ],
+      "mustSupport": [ "code" ]
     } ]
   } ],
   "extension": [ {
@@ -562,7 +598,7 @@
       "valueString": "Detail Text-NotFound"
     }, {
       "url": "statement",
-      "valueString": "// CRD-6\ndefine \"Detail Text-NotFound\":\n  'Code Not Found'"
+      "valueString": "// CRD-6\ndefine \"Detail Text-NotFound\": \n  'Code Not Found'"
     }, {
       "url": "displaySequence",
       "valueInteger": 25
@@ -1207,7 +1243,7 @@
       "valueString": "Service Request Item Code"
     }, {
       "url": "statement",
-      "valueString": "define function \"Service Request Item Code\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if (requestItem is FHIR.CommunicationRequest) then \n    FHIRHelpers.ToCode(singleton from GetCodeableConceptForCommunicationRequest(requestItem).coding)\n  else if (requestItem is FHIR.MedicationRequest) then\n    if (requestItem as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then\n      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)\n    else if (requestItem as FHIR.MedicationRequest).medication is FHIR.Reference then\n      System.Code { display: GetMedicationDisplay(requestItem as FHIR.MedicationRequest) }\n    else \n      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)\n  else \n    FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)"
+      "valueString": "define function \"Service Request Item Code\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if (requestItem is FHIR.CommunicationRequest) then \n    FHIRHelpers.ToCode(singleton from GetCodeableConceptForCommunicationRequest(requestItem).coding)\n  else if (requestItem is FHIR.MedicationRequest) then\n    FHIRHelpers.ToCode(First(GetCode(requestItem as FHIR.MedicationRequest).coding))\n  else \n    FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)"
     }, {
       "url": "displaySequence",
       "valueInteger": 68
@@ -1297,7 +1333,7 @@
       "valueString": "Qualification-NotFound"
     }, {
       "url": "statement",
-      "valueString": "// CRD-6\ndefine function \"Qualification-NotFound\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"Service Request Item Code\"(requestItem).display + ' is not a recognized procedure electronically. Please contact the payer for further information.'"
+      "valueString": "// CRD-6 \ndefine function \"Qualification-NotFound\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  (First((Ctx.GetCode(requestItem)).coding)) c\n  return\n    if IsNull(c.display) or c.display = '' then\n      'The procedure code is not a recognized procedure electronically. Please contact the payer for further information.'\n    else \n      FHIRHelpers.ToString(c.display) + ' is not a recognized procedure electronically. Please contact the payer for further information.'"
     }, {
       "url": "displaySequence",
       "valueInteger": 74
@@ -1372,7 +1408,7 @@
       "valueString": "Qualification"
     }, {
       "url": "statement",
-      "valueString": "// CRD-5\ndefine function \"Qualification\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest,FHIR.Appointment, FHIR.Task>):\n  'Prior authorization is required for ' + Ctx.\"Service Request Item Code\"(requestItem).display"
+      "valueString": "// CRD-5\ndefine function \"Qualification\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest,FHIR.Appointment, FHIR.Task>):\n  (First((Ctx.GetCode(requestItem)).coding)) c\n  return\n    if IsNull(c.display) or c.display = '' then\n      'Prior authorization is required for this procedure or medication.'\n    else \n      'Prior authorization is required for ' + FHIRHelpers.ToString(c.display)"
     }, {
       "url": "displaySequence",
       "valueInteger": 79
