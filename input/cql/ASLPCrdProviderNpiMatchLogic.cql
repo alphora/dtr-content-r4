@@ -8,19 +8,19 @@ include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
  
 context Patient
 
-// CRD-3.1
+// CRD-3_1
 define "Title":
   'Prior Auth Evaluation'
 
-// CRD-3.1
+// CRD-3_1
 define "Description":
   'Information related to whether a service is covered, not covered or requires prior auth submission'
 
-// CRD-3.1
+// CRD-3_1
 define "Qualification":
   'Provider is not in the network. You can submit a PA request as an exception.'
 
-// CRD-3.1
+// CRD-3_1
 define function "Detail Debugging"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):
   '"Is LOBMatch"=' + ToString("Is LOBMatch"(requestItem))  + Ctx.NewLine +
   '  - "Requesting Organization Match"=' + ToString("Requesting Organization Match"(requestItem))  + Ctx.NewLine +
@@ -45,11 +45,11 @@ define function "Requesting Practitioners from Provider NPI included in Requesti
   ("Requesting Practitioners from Provider"(requestItem)).npi() // X
     included in ("Requesting Practitioners from Payor"(requestItem)).npi() // Y
 
-// CRD-3.1
+// CRD-3_1
 define "Detail Text":
   'Provider Not in Network'
 
-// CRD-3.1
+// CRD-3_1
 define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):
   Ctx."ExtensionPriorAuthNeeded"(requestItem, 'conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification", 'Warning')
 

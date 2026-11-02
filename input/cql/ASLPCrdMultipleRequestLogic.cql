@@ -43,8 +43,8 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailDebugging": if "DebuggingEnabled" then MemberEligible."Detail Debugging" else 'Debugging disabled',
       "DetailValue": 'Warning'
     },
-    "CRD-3.2": { 
-      "ID": 'CRD-3.2',
+    "CRD-3_2": { 
+      "ID": 'CRD-3_2',
       "Covered": 'conditional', 
       "PriorAuthNeeded": 'auth-needed', 
       "DetailCode": 'auth-needed', 
@@ -53,8 +53,8 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailDebugging": if "DebuggingEnabled" then OrderLOBMatch."Detail Debugging" else 'Debugging disabled',
       "DetailValue": 'Warning'
     },
-    "CRD-3.2b": { 
-      "ID": 'CRD-3.2b',
+    "CRD-3_2b": { 
+      "ID": 'CRD-3_2b',
       "Covered": 'conditional', 
       "PriorAuthNeeded": 'auth-needed', 
       "DetailCode": 'auth-needed', 
@@ -63,8 +63,8 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailDebugging": if "DebuggingEnabled" then OrderLOBMatch."Detail Debugging" else 'Debugging disabled',
       "DetailValue": 'Warning'
     },
-    "CRD-3.1": { 
-      "ID": 'CRD-3.1',
+    "CRD-3_1": { 
+      "ID": 'CRD-3_1',
       "Covered": 'conditional', 
       "PriorAuthNeeded": 'auth-needed', 
       "DetailCode": 'auth-needed', 
@@ -123,8 +123,8 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailDebugging": if "DebuggingEnabled" then ContextValidation."Detail Debugging" else 'Debugging disabled',
       "DetailValue": 'Warning'
     },
-    "CRD-8.1": { 
-      "ID": 'CRD-8.1',
+    "CRD-8_1": { 
+      "ID": 'CRD-8_1',
       "Covered": 'conditional', 
       "PriorAuthNeeded": 'conditional', 
       "DetailCode": 'coverage-info', 
@@ -133,8 +133,8 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailDebugging": if "DebuggingEnabled" then ContextValidation."Detail Debugging" else 'Debugging disabled',
       "DetailValue": 'Warning'
     },
-    "CRD-8.3": { 
-      "ID": 'CRD-8.3',
+    "CRD-8_3": { 
+      "ID": 'CRD-8_3',
       "Covered": 'conditional', 
       "PriorAuthNeeded": 'conditional', 
       "DetailCode": 'coverage-info', 
@@ -217,17 +217,17 @@ define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
   if (ContextValidation."Insufficient or Ambiguous High"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-8"
   else if (ContextValidation."DomainResource is Empty"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-8.1"
+    "CRD Matrix"(requestItem)."CRD-8_1"
   else if (ContextValidation."Received Provider Data Cannot be Processed"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-8.3"
+    "CRD Matrix"(requestItem)."CRD-8_3"
   else if (MemberEligible."Not MemberEligible") then
     "CRD Matrix"(requestItem)."CRD-2"
   else if (NpiMatch."Not ProviderNpiMatch"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-3.1"
+    "CRD Matrix"(requestItem)."CRD-3_1"
   else if (OrderLOBMatch."Not OrderLOBMatch") then
-    "CRD Matrix"(requestItem)."CRD-3.2"
+    "CRD Matrix"(requestItem)."CRD-3_2"
   else if (NpiMatch."Not LOBMatch"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-3.2b"
+    "CRD Matrix"(requestItem)."CRD-3_2b"
   else if (GoldCard."Is OrderGoldStatus") then
     "CRD Matrix"(requestItem)."CRD-4"
   else if (Routine."Is Routine"(requestItem)) then
@@ -296,7 +296,7 @@ define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionO
     ) then
         if not exists (OrderLOBMatch."Matching Organizations by Name") 
         or OrderLOBMatch."Matching Organizations by Name" is null then 
-          "CRD Matrix"(requestItem)."CRD-3.2"
+          "CRD Matrix"(requestItem)."CRD-3_2"
         else 
           "CRD Matrix"(requestItem)."CRD-5"
     else if (
@@ -308,7 +308,7 @@ define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionO
       "CRD Matrix"(requestItem)."CRD-6"
           // if not exists (OrderLOBMatch."Matching Organizations by Name") 
           // or OrderLOBMatch."Matching Organizations by Name" is null then 
-          //   "CRD Matrix"(requestItem)."CRD-3.2"
+          //   "CRD Matrix"(requestItem)."CRD-3_2"
           // else "CRD Matrix"(requestItem)."CRD-6"
     else if (Routine."Is Routine"(requestItem)) then 
       "CRD Matrix"(requestItem)."CRD-7"
@@ -361,7 +361,7 @@ define function GetCrdResultOther(requestItem Choice<FHIR.NutritionOrder, FHIR.S
   if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
     if not exists (OrderLOBMatch."Matching Organizations by Name") 
     or OrderLOBMatch."Matching Organizations by Name" is null then 
-      "CRD Matrix"(requestItem)."CRD-3.2"
+      "CRD Matrix"(requestItem)."CRD-3_2"
     else "CRD Matrix"(requestItem)."CRD-5"
   else if (PriorAuthList."Not OnPriorAuthList"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-6"

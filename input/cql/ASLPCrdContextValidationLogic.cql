@@ -24,19 +24,19 @@ define "Detail Text 8":
 define "Qualification 8":
   'Unable to process due to incomplete/information. Please submit a prior auth form.'
 
-// CRD-8.1 // detail.code.text
+// CRD-8_1 // detail.code.text
 define "Detail Text 8.1":
   'Error has occurred. No order found.'
 
-// CRD-8.1 // detail.qualification
+// CRD-8_1 // detail.qualification
 define "Qualification 8.1":
   'Error has occurred. No order found. Please contact your system administrator.'
 
-// CRD-8.3 // detail.code.text
+// CRD-8_3 // detail.code.text
 define "Detail Text 8.3":
   'Unable to Process Request electronically.'
 
-// CRD-8.3 // detail.qualification
+// CRD-8_3 // detail.qualification
 define "Qualification 8.3":
   'Unable to Process Request electronically. Please contact the payer.'
 
@@ -59,10 +59,10 @@ define function "Request Patient does not match Context Patient"(requestItem Cho
   else
     Ctx.GetSubjectID(requestItem) !~ Ctx."Provider"."Patient".id.value
 
-// CRD-8.1
+// CRD-8_1
 define function "DomainResource is Empty"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   IsNull(requestItem)
 
-// CRD-8.3
+// CRD-8_3
 define function "Received Provider Data Cannot be Processed"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   Ctx.GetResourceType(requestItem) in Ctx."UnsupportedResourceTypes"

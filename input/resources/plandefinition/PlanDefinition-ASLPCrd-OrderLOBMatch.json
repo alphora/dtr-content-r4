@@ -182,7 +182,7 @@
       "valueString": "Description"
     }, {
       "url": "statement",
-      "valueString": "// CRD-3.2\ndefine \"Description\":\n  'Information related to whether a service is covered, not covered or requires prior auth submission'"
+      "valueString": "// CRD-3_2\ndefine \"Description\":\n  'Information related to whether a service is covered, not covered or requires prior auth submission'"
     }, {
       "url": "displaySequence",
       "valueInteger": 0
@@ -512,7 +512,7 @@
       "valueString": "Title"
     }, {
       "url": "statement",
-      "valueString": "// CRD-3.2\ndefine \"Title\":\n  'Prior Auth Evaluation'"
+      "valueString": "// CRD-3_2\ndefine \"Title\":\n  'Prior Auth Evaluation'"
     }, {
       "url": "displaySequence",
       "valueInteger": 22
@@ -557,7 +557,7 @@
       "valueString": "Detail Text"
     }, {
       "url": "statement",
-      "valueString": "// CRD-3.2\ndefine \"Detail Text\":\n  'Line Of Business Mismatch'"
+      "valueString": "// CRD-3_2\ndefine \"Detail Text\":\n  'Line Of Business Mismatch'"
     }, {
       "url": "displaySequence",
       "valueInteger": 25
@@ -572,7 +572,7 @@
       "valueString": "Qualification"
     }, {
       "url": "statement",
-      "valueString": "// CRD-3.2\ndefine \"Qualification\":\n  'Line of Business MisMatch. Prior authorization submission is required.'"
+      "valueString": "// CRD-3_2\ndefine \"Qualification\":\n  'Line of Business MisMatch. Prior authorization submission is required.'"
     }, {
       "url": "displaySequence",
       "valueInteger": 26
@@ -647,7 +647,7 @@
       "valueString": "CoverageExtension"
     }, {
       "url": "statement",
-      "valueString": "// CRD-3.2\ndefine function \"CoverageExtension\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"ExtensionPriorAuthNeeded\"(requestItem, 'conditional', 'auth-needed', 'auth-needed', \"Detail Text\", \"Qualification\", 'Warning')"
+      "valueString": "// CRD-3_2\ndefine function \"CoverageExtension\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"ExtensionPriorAuthNeeded\"(requestItem, 'conditional', 'auth-needed', 'auth-needed', \"Detail Text\", \"Qualification\", 'Warning')"
     }, {
       "url": "displaySequence",
       "valueInteger": 31
@@ -1078,7 +1078,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-10-16T13:20:02-06:00",
+  "date": "2026-11-02T12:27:51-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-OrderLOBMatch",
   "useContext": [ {

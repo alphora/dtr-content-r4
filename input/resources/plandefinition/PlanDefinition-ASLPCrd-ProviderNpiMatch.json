@@ -399,7 +399,7 @@
       "valueString": "Description"
     }, {
       "url": "statement",
-      "valueString": "// CRD-3.1\ndefine \"Description\":\n  'Information related to whether a service is covered, not covered or requires prior auth submission'"
+      "valueString": "// CRD-3_1\ndefine \"Description\":\n  'Information related to whether a service is covered, not covered or requires prior auth submission'"
     }, {
       "url": "displaySequence",
       "valueInteger": 15
@@ -414,7 +414,7 @@
       "valueString": "Title"
     }, {
       "url": "statement",
-      "valueString": "// CRD-3.1\ndefine \"Title\":\n  'Prior Auth Evaluation'"
+      "valueString": "// CRD-3_1\ndefine \"Title\":\n  'Prior Auth Evaluation'"
     }, {
       "url": "displaySequence",
       "valueInteger": 16
@@ -459,7 +459,7 @@
       "valueString": "Detail Text"
     }, {
       "url": "statement",
-      "valueString": "// Y\n\n// CRD-3.1\ndefine \"Detail Text\":\n  'Provider Not in Network'"
+      "valueString": "// Y\n\n// CRD-3_1\ndefine \"Detail Text\":\n  'Provider Not in Network'"
     }, {
       "url": "displaySequence",
       "valueInteger": 19
@@ -474,7 +474,7 @@
       "valueString": "Qualification"
     }, {
       "url": "statement",
-      "valueString": "// CRD-3.1\ndefine \"Qualification\":\n  'Provider is not in the network. You can submit a PA request as an exception.'"
+      "valueString": "// CRD-3_1\ndefine \"Qualification\":\n  'Provider is not in the network. You can submit a PA request as an exception.'"
     }, {
       "url": "displaySequence",
       "valueInteger": 20
@@ -864,7 +864,7 @@
       "valueString": "CoverageExtension"
     }, {
       "url": "statement",
-      "valueString": "// CRD-3.1\ndefine function \"CoverageExtension\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"ExtensionPriorAuthNeeded\"(requestItem, 'conditional', 'auth-needed', 'auth-needed', \"Detail Text\", \"Qualification\", 'Warning')"
+      "valueString": "// CRD-3_1\ndefine function \"CoverageExtension\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"ExtensionPriorAuthNeeded\"(requestItem, 'conditional', 'auth-needed', 'auth-needed', \"Detail Text\", \"Qualification\", 'Warning')"
     }, {
       "url": "displaySequence",
       "valueInteger": 46
@@ -1325,7 +1325,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-10-16T13:20:01-06:00",
+  "date": "2026-11-02T12:27:51-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-ProviderNpiMatch",
   "useContext": [ {
