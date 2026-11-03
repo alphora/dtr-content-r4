@@ -958,7 +958,7 @@
       "valueString": "Requesting Practitioners from Payor"
     }, {
       "url": "statement",
-      "valueString": "define function \"Requesting Practitioners from Payor\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"Payor\".\"Practitioners\" Practitioner\n    with (\"Requesting Practitioners from Provider\"(requestItem)) PractitionerRequester\n    such that PractitionerRequester.getNpi() ~ Practitioner.getNpi()"
+      "valueString": "define function \"Requesting Practitioners from Payor\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"Payor\".\"Practitioners\" Practitioner\n    with (\"Requesting Practitioners from Provider\"(requestItem)) PractitionerRequester\n    such that PractitionerRequester.getNpi() is not null\n      and PractitionerRequester.getNpi() = Practitioner.getNpi()"
     }, {
       "url": "displaySequence",
       "valueInteger": 52
@@ -1033,7 +1033,7 @@
       "valueString": "Performing PractitionerRoles from ServiceRequest"
     }, {
       "url": "statement",
-      "valueString": "// or (RequestingOrganization.name ~ PayorOrg.name and RequestingOrganization.type ~ PayorOrg.type)\n        // or RequestingOrganization.getNpi() ~ PayorOrg.getNpi()\n\ndefine function \"Performing PractitionerRoles from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"Provider\".\"PractitionerRoles\" PR\n    with (Ctx.GetPerformer(requestItem)) PerformerPractitioner\n    such that PerformerPractitioner.reference.value ~ 'PractitionerRole/' + PR.id.value"
+      "valueString": "define function \"Performing PractitionerRoles from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"Provider\".\"PractitionerRoles\" PR\n    with (Ctx.GetPerformer(requestItem)) PerformerPractitioner\n    such that PerformerPractitioner.reference.value ~ 'PractitionerRole/' + PR.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 57
@@ -1108,7 +1108,7 @@
       "valueString": "Performing Practitioners from Payor"
     }, {
       "url": "statement",
-      "valueString": "define function \"Performing Practitioners from Payor\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"Payor\".\"Practitioners\" Practitioner\n    with (\"Performing Practitioners from Provider\"(requestItem)) PractitionerPerformer\n    such that PractitionerPerformer.getNpi() ~ Practitioner.getNpi()"
+      "valueString": "define function \"Performing Practitioners from Payor\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"Payor\".\"Practitioners\" Practitioner\n    with (\"Performing Practitioners from Provider\"(requestItem)) PractitionerPerformer\n    such that PractitionerPerformer.getNpi() is not null\n      and Practitioner.getNpi() is not null\n      and PractitionerPerformer.getNpi() = Practitioner.getNpi()"
     }, {
       "url": "displaySequence",
       "valueInteger": 62
@@ -1749,7 +1749,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-11-02T13:15:34-06:00",
+  "date": "2026-11-03T14:26:41-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-ProviderNpiMatch",
   "useContext": [ {

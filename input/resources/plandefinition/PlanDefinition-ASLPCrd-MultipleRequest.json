@@ -1055,7 +1055,7 @@
       "valueString": "Payor References by Coverage.payor"
     }, {
       "url": "statement",
-      "valueString": "// or (PerformingOrganization.name ~ PayorOrg.name and PerformingOrganization.type ~ PayorOrg.type)\n        // or PerformingOrganization.getNpi() ~ PayorOrg.getNpi()\n\ndefine \"Payor References by Coverage.payor\":\n  flatten(Ctx.\"Provider\".\"Coverages\" C return C.payor.reference.value)"
+      "valueString": "define \"Payor References by Coverage.payor\":\n  flatten(Ctx.\"Provider\".\"Coverages\" C return C.payor.reference.value)"
     }, {
       "url": "displaySequence",
       "valueInteger": 53
@@ -2240,7 +2240,7 @@
       "valueString": "GetCrdResult"
     }, {
       "url": "statement",
-      "valueString": "// CRD Logic tree\ndefine function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n// returns Tuple{\"ID\" System.String, \"Covered\" System.String, \"PriorAuthNeeded\" System.String, \"DetailCode\" System.String, \"DetailText\" System.String, \"DetailQualification\" System.String, \"DetailDebugging\" System.String, \"DetailValue\" System.String}:\n  if (ContextValidation.\"Insufficient or Ambiguous High\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-8\"\n  else if (ContextValidation.\"DomainResource is Empty\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-8_1\"\n  else if (ContextValidation.\"Received Provider Data Cannot be Processed\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-8_3\"\n  else if (MemberEligible.\"Not MemberEligible\") then\n    \"CRD Matrix\"(requestItem).\"CRD-2\"\n  else if (NpiMatch.\"Not ProviderNpiMatch\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-3_1\"\n  else if (OrderLOBMatch.\"Not OrderLOBMatch\") then\n    \"CRD Matrix\"(requestItem).\"CRD-3_2\"\n  else if (NpiMatch.\"Not LOBMatch\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-3_2b\"\n  else if (GoldCard.\"Is OrderGoldStatus\") then\n    \"CRD Matrix\"(requestItem).\"CRD-4\"\n  else if (Routine.\"Is Routine\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-7\"\n  else if (requestItem is FHIR.CommunicationRequest) then\n    GetCrdResultCommunicationRequest(requestItem)\n  else if (requestItem is FHIR.Appointment) then\n    GetCrdResultAppointment(requestItem)\n  else if (requestItem is FHIR.MedicationRequest) then\n    GetCrdResultMedicationRequest(requestItem)\n  else if (not requestItem is FHIR.CommunicationRequest) then\n    GetCrdResultOther(requestItem)\n  else\n    \"CRD Matrix\"(requestItem).\"CRD-UnexpectedError\""
+      "valueString": "// CRD Logic tree\ndefine function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n// returns Tuple{\"ID\" System.String, \"Covered\" System.String, \"PriorAuthNeeded\" System.String, \"DetailCode\" System.String, \"DetailText\" System.String, \"DetailQualification\" System.String, \"DetailDebugging\" System.String, \"DetailValue\" System.String}:\n  if (ContextValidation.\"Insufficient or Ambiguous High\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-8\"\n  else if (ContextValidation.\"DomainResource is Empty\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-8_1\"\n  else if (ContextValidation.\"Received Provider Data Cannot be Processed\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-8_3\"\n  else if (MemberEligible.\"Not MemberEligible\") then\n    \"CRD Matrix\"(requestItem).\"CRD-2\"\n  else if (OrderLOBMatch.\"Not OrderLOBMatch\") then\n    \"CRD Matrix\"(requestItem).\"CRD-3_2\"\n  else if (NpiMatch.\"Not ProviderNpiMatch\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-3_1\"\n  // else if (NpiMatch.\"Not LOBMatch\"(requestItem)) then\n  //   \"CRD Matrix\"(requestItem).\"CRD-3_2b\"\n  else if (GoldCard.\"Is OrderGoldStatus\") then\n    \"CRD Matrix\"(requestItem).\"CRD-4\"\n  else if (Routine.\"Is Routine\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-7\"\n  else if (requestItem is FHIR.CommunicationRequest) then\n    GetCrdResultCommunicationRequest(requestItem)\n  else if (requestItem is FHIR.Appointment) then\n    GetCrdResultAppointment(requestItem)\n  else if (requestItem is FHIR.MedicationRequest) then\n    GetCrdResultMedicationRequest(requestItem)\n  else if (not requestItem is FHIR.CommunicationRequest) then\n    GetCrdResultOther(requestItem)\n  else\n    \"CRD Matrix\"(requestItem).\"CRD-UnexpectedError\""
     }, {
       "url": "displaySequence",
       "valueInteger": 132
@@ -2390,7 +2390,7 @@
       "valueString": "Matching Requesting Organizations by Name & Type or NPI"
     }, {
       "url": "statement",
-      "valueString": "define function \"Matching Requesting Organizations by Name & Type or NPI\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n (\"Requesting Organizations\"(requestItem)) RequestingOrganization\n    with \"Payor Organization from Provider Coverage for Patient\" PayorOrg\n    such that (\n      RequestingOrganization.getNpi() ~ PayorOrg.getNpi()\n      or (\n        (RequestingOrganization.name ~ PayorOrg.name)\n        and (RequestingOrganization.type ~ PayorOrg.type)\n      )\n    )"
+      "valueString": "define function \"Matching Requesting Organizations by Name & Type or NPI\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n (\"Requesting Organizations\"(requestItem)) RequestingOrganization\n    with \"Payor Organization from Provider Coverage for Patient\" PayorOrg\n    such that (\n      (\n        RequestingOrganization.getNpi() is not null\n        and RequestingOrganization.getNpi() = PayorOrg.getNpi()\n      )\n      or (\n        RequestingOrganization.name is not null\n        and RequestingOrganization.name ~ PayorOrg.name\n        and RequestingOrganization.type is not null\n        and RequestingOrganization.type ~ PayorOrg.type\n      )\n    )"
     }, {
       "url": "displaySequence",
       "valueInteger": 142
@@ -2450,7 +2450,7 @@
       "valueString": "Requesting Practitioners from Payor"
     }, {
       "url": "statement",
-      "valueString": "define function \"Requesting Practitioners from Payor\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"Payor\".\"Practitioners\" Practitioner\n    with (\"Requesting Practitioners from Provider\"(requestItem)) PractitionerRequester\n    such that PractitionerRequester.getNpi() ~ Practitioner.getNpi()"
+      "valueString": "define function \"Requesting Practitioners from Payor\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"Payor\".\"Practitioners\" Practitioner\n    with (\"Requesting Practitioners from Provider\"(requestItem)) PractitionerRequester\n    such that PractitionerRequester.getNpi() is not null\n      and PractitionerRequester.getNpi() = Practitioner.getNpi()"
     }, {
       "url": "displaySequence",
       "valueInteger": 146
@@ -2570,7 +2570,7 @@
       "valueString": "Matching Performing Organizations by Name & Type or NPI"
     }, {
       "url": "statement",
-      "valueString": "define function \"Matching Performing Organizations by Name & Type or NPI\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  (\"Performing Organizations\"(requestItem)) PerformingOrganization\n    with \"Payor Organization from Provider Coverage for Patient\" PayorOrg\n    such that \n      PerformingOrganization.getNpi() ~ PayorOrg.getNpi()\n      or (\n        PerformingOrganization.name ~ PayorOrg.name \n        and PerformingOrganization.type ~ PayorOrg.type\n      )"
+      "valueString": "define function \"Matching Performing Organizations by Name & Type or NPI\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  (\"Performing Organizations\"(requestItem)) PerformingOrganization\n    with \"Payor Organization from Provider Coverage for Patient\" PayorOrg\n    such that (\n      (\n        PerformingOrganization.getNpi() is not null\n        and PerformingOrganization.getNpi() = PayorOrg.getNpi()\n      )\n      or (\n        PerformingOrganization.name is not null\n        and PerformingOrganization.name ~ PayorOrg.name\n        and PerformingOrganization.type is not null\n        and PerformingOrganization.type ~ PayorOrg.type\n      )\n    )"
     }, {
       "url": "displaySequence",
       "valueInteger": 154
@@ -2630,7 +2630,7 @@
       "valueString": "Performing Practitioners from Payor"
     }, {
       "url": "statement",
-      "valueString": "define function \"Performing Practitioners from Payor\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"Payor\".\"Practitioners\" Practitioner\n    with (\"Performing Practitioners from Provider\"(requestItem)) PractitionerPerformer\n    such that PractitionerPerformer.getNpi() ~ Practitioner.getNpi()"
+      "valueString": "define function \"Performing Practitioners from Payor\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"Payor\".\"Practitioners\" Practitioner\n    with (\"Performing Practitioners from Provider\"(requestItem)) PractitionerPerformer\n    such that PractitionerPerformer.getNpi() is not null\n      and Practitioner.getNpi() is not null\n      and PractitionerPerformer.getNpi() = Practitioner.getNpi()"
     }, {
       "url": "displaySequence",
       "valueInteger": 158
@@ -2705,7 +2705,7 @@
       "valueString": "Performing PractitionerRoles from ServiceRequest"
     }, {
       "url": "statement",
-      "valueString": "// or (RequestingOrganization.name ~ PayorOrg.name and RequestingOrganization.type ~ PayorOrg.type)\n        // or RequestingOrganization.getNpi() ~ PayorOrg.getNpi()\n\ndefine function \"Performing PractitionerRoles from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"Provider\".\"PractitionerRoles\" PR\n    with (Ctx.GetPerformer(requestItem)) PerformerPractitioner\n    such that PerformerPractitioner.reference.value ~ 'PractitionerRole/' + PR.id.value"
+      "valueString": "define function \"Performing PractitionerRoles from ServiceRequest\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  Ctx.\"Provider\".\"PractitionerRoles\" PR\n    with (Ctx.GetPerformer(requestItem)) PerformerPractitioner\n    such that PerformerPractitioner.reference.value ~ 'PractitionerRole/' + PR.id.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 163
@@ -2954,21 +2954,6 @@
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
     "extension": [ {
       "url": "libraryName",
-      "valueString": "ASLPCrdProviderNpiMatchLogic"
-    }, {
-      "url": "name",
-      "valueString": "Not LOBMatch"
-    }, {
-      "url": "statement",
-      "valueString": "define function \"Not LOBMatch\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):\n  not (\"Is LOBMatch\"(requestItem))"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 180
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
       "valueString": "ASLPCrdRoutineLogic"
     }, {
       "url": "name",
@@ -2978,7 +2963,7 @@
       "valueString": "define function \"Is Routine\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest,FHIR.Appointment, FHIR.Task>):\n  Ctx.GetCode(requestItem) is not null\n    and exists ((Ctx.GetCode(requestItem).coding) c \n      where c in \"Routine Procedure Valueset\"\n    )"
     }, {
       "url": "displaySequence",
-      "valueInteger": 181
+      "valueInteger": 180
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2993,7 +2978,7 @@
       "valueString": "define function GetCrdResultCommunicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n    \"CRD Matrix\"(requestItem).\"CRD-7\""
     }, {
       "url": "displaySequence",
-      "valueInteger": 182
+      "valueInteger": 181
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -3008,7 +2993,7 @@
       "valueString": "define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if exists (requestItem.basedOn) then \n    if (\n      PriorAuthList.\"Is OnPriorAuthList\"(requestItem)\n      or exists ((Ctx.GetCode(requestItem).coding) c\n        where c in \"Sleep Study Procedure\"\n      )\n    ) then \n      \"CRD Matrix\"(requestItem).\"CRD-5\"\n    else if Routine.\"Is Routine\"(requestItem) then \n      \"CRD Matrix\"(requestItem).\"CRD-7\"\n    else \n      \"CRD Matrix\"(requestItem).\"CRD-6\"  \n  // else if exists (requestItem.serviceType) then \n    // if (\n    //   PriorAuthList.\"Is OnPriorAuthList\"(requestItem)\n    //   or exists ((Ctx.GetCode(requestItem).coding) c\n    //     where c in \"Sleep Study Procedure\"\n    //   )\n    // ) then\n    //   \"CRD Matrix\"(requestItem).\"CRD-5\"\n    // else if Routine.\"Is Routine\"(requestItem) then \n    //   \"CRD Matrix\"(requestItem).\"CRD-7\"\n    // else \n    //   \"CRD Matrix\"(requestItem).\"CRD-6\"\n  else \n    // \"CRD Matrix\"(requestItem).\"CRD-9\"\n    // \"CRD Matrix\"(requestItem).\"CRD-UnexpectedError\"\n    \"CRD Matrix\"(requestItem).\"CRD-7\""
     }, {
       "url": "displaySequence",
-      "valueInteger": 183
+      "valueInteger": 182
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -3023,7 +3008,7 @@
       "valueString": "define function \"Is OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  Ctx.GetCode(requestItem) is not null\n    and exists (Ctx.GetCode(requestItem).coding) c \n      where c in \"Prior Auth Required for Procedure Valueset\"\n      or c in \"Prior Auth Required for Procedure Grouper\""
     }, {
       "url": "displaySequence",
-      "valueInteger": 184
+      "valueInteger": 183
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -3038,7 +3023,7 @@
       "valueString": "define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if BillingOptionExtensionPresent(requestItem) then \n    if (PriorAuthList.\"Is OnPriorAuthList\"(requestItem)\n      or exists ((Ctx.GetCode(requestItem).coding) c \n        where c in \"Sleep Study Procedure\"\n      )\n    ) then\n      \"CRD Matrix\"(requestItem).\"CRD-5\"\n    else if (Routine.\"Is Routine\"(requestItem)) then \n      \"CRD Matrix\"(requestItem).\"CRD-7\"\n    else \n      \"CRD Matrix\"(requestItem).\"CRD-6\"\n  else if (((requestItem.medication as FHIR.CodeableConcept) is not null) or ((requestItem.medication as FHIR.Reference) is not null)) then\n    if (PriorAuthList.\"Is OnPriorAuthList\"(requestItem)\n      or exists ((Ctx.GetCode(requestItem).coding) c \n        where c in \"Sleep Study Procedure\"\n      )\n    ) then\n        if not exists (OrderLOBMatch.\"Matching Organizations by Name\") \n        or OrderLOBMatch.\"Matching Organizations by Name\" is null then \n          \"CRD Matrix\"(requestItem).\"CRD-3_2\"\n        else \n          \"CRD Matrix\"(requestItem).\"CRD-5\"\n    else if (\n      PriorAuthList.\"Not OnPriorAuthList\"(requestItem)\n      or exists ((Ctx.GetCode(requestItem).coding) c \n        where not (c in \"Sleep Study Procedure\")\n      )\n    ) then \n      \"CRD Matrix\"(requestItem).\"CRD-6\"\n          // if not exists (OrderLOBMatch.\"Matching Organizations by Name\") \n          // or OrderLOBMatch.\"Matching Organizations by Name\" is null then \n          //   \"CRD Matrix\"(requestItem).\"CRD-3_2\"\n          // else \"CRD Matrix\"(requestItem).\"CRD-6\"\n    else if (Routine.\"Is Routine\"(requestItem)) then \n      \"CRD Matrix\"(requestItem).\"CRD-7\"\n    else \n      \"CRD Matrix\"(requestItem).\"CRD-6\"\n  else \n    \"CRD Matrix\"(requestItem).\"CRD-6\""
     }, {
       "url": "displaySequence",
-      "valueInteger": 185
+      "valueInteger": 184
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -3053,7 +3038,7 @@
       "valueString": "define function BillingOptionExtensionPresent(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if requestItem is FHIR.MedicationRequest then \n    ((requestItem as FHIR.MedicationRequest).medication) is FHIR.CodeableConcept\n    and hasBillingExtension(((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension)\n  else if requestItem is FHIR.VisionPrescription then \n    exists (((requestItem as FHIR.VisionPrescription).lensSpecification) LS \n      where hasBillingExtension(LS.extension)\n    )\n  else if requestItem is FHIR.ServiceRequest then \n    hasBillingExtension((requestItem as FHIR.ServiceRequest).extension)\n  else if requestItem is FHIR.NutritionOrder then \n    hasBillingExtension((requestItem as FHIR.NutritionOrder).oralDiet.extension)\n    or hasBillingExtension((requestItem as FHIR.NutritionOrder).enteralFormula.extension)\n    or exists (\n      ((requestItem as FHIR.NutritionOrder).supplement) S\n        where hasBillingExtension(S.extension)\n    )\n  else if requestItem is FHIR.DeviceRequest then\n    hasBillingExtension((requestItem as FHIR.DeviceRequest).extension)\n  else if requestItem is FHIR.CommunicationRequest then \n    hasBillingExtension((requestItem as FHIR.CommunicationRequest).extension)\n    or exists (((requestItem as FHIR.CommunicationRequest).payload) P\n      where hasBillingExtension(P.extension)\n    )\n  else if requestItem is FHIR.Appointment then \n    hasBillingExtension((requestItem as FHIR.Appointment).extension)\n  else if requestItem is FHIR.Task then \n    hasBillingExtension((requestItem as FHIR.Task).extension)\n    or exists (((requestItem as FHIR.Task).input) I\n      where hasBillingExtension(I.extension)\n    )\n  else null"
     }, {
       "url": "displaySequence",
-      "valueInteger": 186
+      "valueInteger": 185
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -3068,7 +3053,7 @@
       "valueString": "// \"CRD Matrix\"(requestItem).\"CRD-UnexpectedError\"\n\ndefine function hasBillingExtension(exts List<FHIR.Extension>) returns System.Boolean:\n  exists(\n    exts E \n      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n  )"
     }, {
       "url": "displaySequence",
-      "valueInteger": 187
+      "valueInteger": 186
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -3083,7 +3068,7 @@
       "valueString": "define function \"Not OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  not ((\"Is OnPriorAuthList\"(requestItem)))"
     }, {
       "url": "displaySequence",
-      "valueInteger": 188
+      "valueInteger": 187
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -3098,7 +3083,7 @@
       "valueString": "define function GetCrdResultOther(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if (PriorAuthList.\"Is OnPriorAuthList\"(requestItem)) then\n    if not exists (OrderLOBMatch.\"Matching Organizations by Name\") \n    or OrderLOBMatch.\"Matching Organizations by Name\" is null then \n      \"CRD Matrix\"(requestItem).\"CRD-3_2\"\n    else \"CRD Matrix\"(requestItem).\"CRD-5\"\n  else if (PriorAuthList.\"Not OnPriorAuthList\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-6\"\n  else\n    \"CRD Matrix\"(requestItem).\"CRD-UnexpectedError\""
     }, {
       "url": "displaySequence",
-      "valueInteger": 189
+      "valueInteger": 188
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -3113,7 +3098,7 @@
       "valueString": "define function TaskReferencesDispatchedOrder(T FHIR.Task):\n  exists ((\"dispatchedOrders\") D\n    where \n      (T.focus is not null \n        and Split(FHIRHelpers.ToString(T.focus.reference), '/').last() = Split(D, '/').last()\n      )\n      or exists ((T.basedOn) B \n        where Split(FHIRHelpers.ToString(B.reference), '/').last() = Split(D, '/').last()\n      )\n  )"
     }, {
       "url": "displaySequence",
-      "valueInteger": 190
+      "valueInteger": 189
     } ]
   }, {
     "id": "effective-data-requirements",
@@ -3136,7 +3121,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-11-02T13:15:34-06:00",
+  "date": "2026-11-03T14:26:41-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MultipleRequest",
   "useContext": [ {
