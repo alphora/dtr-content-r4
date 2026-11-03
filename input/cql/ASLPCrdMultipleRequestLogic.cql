@@ -226,8 +226,8 @@ define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
     "CRD Matrix"(requestItem)."CRD-3_2"
   else if (NpiMatch."Not ProviderNpiMatch"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-3_1"
-  else if (NpiMatch."Not LOBMatch"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-3_2b"
+  // else if (NpiMatch."Not LOBMatch"(requestItem)) then
+  //   "CRD Matrix"(requestItem)."CRD-3_2b"
   else if (GoldCard."Is OrderGoldStatus") then
     "CRD Matrix"(requestItem)."CRD-4"
   else if (Routine."Is Routine"(requestItem)) then

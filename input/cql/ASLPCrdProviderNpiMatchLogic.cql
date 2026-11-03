@@ -139,7 +139,8 @@ define function "Requesting Practitioners from Provider"(requestItem Choice<FHIR
 define function "Requesting Practitioners from Payor"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):
   Ctx."Payor"."Practitioners" Practitioner
     with ("Requesting Practitioners from Provider"(requestItem)) PractitionerRequester
-    such that PractitionerRequester.getNpi() ~ Practitioner.getNpi()
+    such that PractitionerRequester.getNpi() is not null
+      and PractitionerRequester.getNpi() = Practitioner.getNpi()
 
 define function "Requesting PractitionerRoles"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):
   Ctx."Payor"."PractitionerRoles" PractitionerRole
@@ -158,14 +159,17 @@ define function "Matching Requesting Organizations by Name & Type or NPI"(reques
  ("Requesting Organizations"(requestItem)) RequestingOrganization
     with "Payor Organization from Provider Coverage for Patient" PayorOrg
     such that (
-      RequestingOrganization.getNpi() ~ PayorOrg.getNpi()
+      (
+        RequestingOrganization.getNpi() is not null
+        and RequestingOrganization.getNpi() = PayorOrg.getNpi()
+      )
       or (
-        (RequestingOrganization.name ~ PayorOrg.name)
-        and (RequestingOrganization.type ~ PayorOrg.type)
+        RequestingOrganization.name is not null
+        and RequestingOrganization.name ~ PayorOrg.name
+        and RequestingOrganization.type is not null
+        and RequestingOrganization.type ~ PayorOrg.type
       )
     )
-        // or (RequestingOrganization.name ~ PayorOrg.name and RequestingOrganization.type ~ PayorOrg.type)
-        // or RequestingOrganization.getNpi() ~ PayorOrg.getNpi()
 
 define function "Performing PractitionerRoles from ServiceRequest"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):
   Ctx."Provider"."PractitionerRoles" PR
@@ -189,7 +193,9 @@ define function "Performing Practitioners from Provider"(requestItem Choice<FHIR
 define function "Performing Practitioners from Payor"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):
   Ctx."Payor"."Practitioners" Practitioner
     with ("Performing Practitioners from Provider"(requestItem)) PractitionerPerformer
-    such that PractitionerPerformer.getNpi() ~ Practitioner.getNpi()
+    such that PractitionerPerformer.getNpi() is not null
+      and Practitioner.getNpi() is not null
+      and PractitionerPerformer.getNpi() = Practitioner.getNpi()
 
 define function "Performing PractitionerRoles from Payor"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):
   Ctx."Payor"."PractitionerRoles" PractitionerRole
@@ -236,14 +242,18 @@ define function "Performing Organizations"(requestItem Choice<FHIR.NutritionOrde
 define function "Matching Performing Organizations by Name & Type or NPI"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):
   ("Performing Organizations"(requestItem)) PerformingOrganization
     with "Payor Organization from Provider Coverage for Patient" PayorOrg
-    such that 
-      PerformingOrganization.getNpi() ~ PayorOrg.getNpi()
+    such that (
+      (
+        PerformingOrganization.getNpi() is not null
+        and PerformingOrganization.getNpi() = PayorOrg.getNpi()
+      )
       or (
-        PerformingOrganization.name ~ PayorOrg.name 
+        PerformingOrganization.name is not null
+        and PerformingOrganization.name ~ PayorOrg.name
+        and PerformingOrganization.type is not null
         and PerformingOrganization.type ~ PayorOrg.type
       )
-        // or (PerformingOrganization.name ~ PayorOrg.name and PerformingOrganization.type ~ PayorOrg.type)
-        // or PerformingOrganization.getNpi() ~ PayorOrg.getNpi()
+    )
 
 define "Payor References by Coverage.payor":
   flatten(Ctx."Provider"."Coverages" C return C.payor.reference.value)
