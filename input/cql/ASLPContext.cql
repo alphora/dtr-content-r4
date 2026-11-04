@@ -44,11 +44,11 @@ define "Provider Coverage":
 
 define function "Service Request Item Code"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   if (requestItem is FHIR.CommunicationRequest) then 
-    FHIRHelpers.ToCode(singleton from GetCodeableConceptForCommunicationRequest(requestItem).coding)
+    FHIRHelpers.ToCode(First(GetCodeableConceptForCommunicationRequest(requestItem as FHIR.CommunicationRequest).coding))
   else if (requestItem is FHIR.MedicationRequest) then
     FHIRHelpers.ToCode(First(GetCode(requestItem as FHIR.MedicationRequest).coding))
   else 
-    FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)
+    FHIRHelpers.ToCode(First(GetCode(requestItem).coding))
 
 define function GetMedicationDisplay(medicationRequest FHIR.MedicationRequest):
   FHIRHelpers.ToString(
@@ -298,12 +298,28 @@ returns FHIR.CodeableConcept:
       null as FHIR.CodeableConcept
   else if (item is FHIR.Appointment) then 
     if exists ((item as FHIR.Appointment).basedOn) then 
-      if exists ([ServiceRequest]) then
-        First(
-          [ServiceRequest] SR
-            where 'ServiceRequest/' + FHIRHelpers.ToString(SR.id) = FHIRHelpers.ToString(First((item as FHIR.Appointment).basedOn).reference)
-            return SR.code
+      if exists (
+        ContextProvider."Provider"."ServiceRequests"
+        union ("draftOrders" O
+          where O is FHIR.ServiceRequest
+          return O as FHIR.ServiceRequest
         )
+        union [ServiceRequest] 
+      ) then
+        First(
+          (
+            ContextProvider."Provider"."ServiceRequests" 
+            union ("draftOrders" O
+              where O is FHIR.ServiceRequest
+              return O as FHIR.ServiceRequest
+            )
+            union [ServiceRequest]
+          ) SR
+            where exists (((item as FHIR.Appointment).basedOn) b
+              where b.reference is not null
+              and FHIRHelpers.ToString(b.reference) = 'ServiceRequest/' + FHIRHelpers.ToString(SR.id)
+            )
+        ).code
       else 
         null as FHIR.CodeableConcept 
     else if exists ((item as FHIR.Appointment).serviceType) then 
