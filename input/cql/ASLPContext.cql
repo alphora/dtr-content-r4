@@ -46,12 +46,7 @@ define function "Service Request Item Code"(requestItem Choice<FHIR.NutritionOrd
   if (requestItem is FHIR.CommunicationRequest) then 
     FHIRHelpers.ToCode(singleton from GetCodeableConceptForCommunicationRequest(requestItem).coding)
   else if (requestItem is FHIR.MedicationRequest) then
-    if (requestItem as FHIR.MedicationRequest).medication is FHIR.CodeableConcept then
-      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)
-    else if (requestItem as FHIR.MedicationRequest).medication is FHIR.Reference then
-      System.Code { display: GetMedicationDisplay(requestItem as FHIR.MedicationRequest) }
-    else 
-      FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)
+    FHIRHelpers.ToCode(First(GetCode(requestItem as FHIR.MedicationRequest).coding))
   else 
     FHIRHelpers.ToCode(singleton from GetCode(requestItem).coding)
 
@@ -244,6 +239,13 @@ returns FHIR.CodeableConcept:
   else if (item is FHIR.NutritionOrder) then
     if (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType is FHIR.CodeableConcept then 
       (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType as FHIR.CodeableConcept
+    else if exists ((item as FHIR.NutritionOrder).supplement) then
+      from ((item as FHIR.NutritionOrder).supplement) S
+        where (S.type) is not null
+      return S.type
+    else if ((item as FHIR.NutritionOrder).oralDiet) is not null 
+      and exists ((item as FHIR.NutritionOrder).oralDiet.type) then
+      First((item as FHIR.NutritionOrder).oralDiet.type)
     else 
       null as FHIR.CodeableConcept
   else if (item is FHIR.MedicationRequest) then 

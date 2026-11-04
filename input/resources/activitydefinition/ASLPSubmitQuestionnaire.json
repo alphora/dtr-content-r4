@@ -37,28 +37,21 @@
       "path": "businessStatus",
       "expression": {
         "language": "text/cql-identifier",
-        "expression": "AdjudicationOutcome"
+        "expression": "AdjudicationOutcomeForApprovedOrDenied"
       }
     },
     {
       "path": "statusReason",
       "expression": {
         "language": "text/cql-identifier",
-        "expression": "AdjudicationRationale"
+        "expression": "AdjudicationRationaleForApprovedOrDenied"
       }
     },
     {
       "path": "reasonCode",
       "expression": {
         "language": "text/cql-identifier",
-        "expression": "AdjudicationReasonCodes"
-      }
-    }, 
-    {
-      "path": "extension",
-      "expression": {
-        "language": "text/cql-identifier",
-        "expression": "QuestionnaireExtensionForTask"
+        "expression": "AdjudicationReasonCodeForDenied"
       }
     }
   ]

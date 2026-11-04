@@ -2116,7 +2116,7 @@
   "version": "1.0.0",
   "status": "draft",
   "experimental": true,
-  "date": "2026-08-24T14:57:56-06:00",
+  "date": "2026-11-03T14:52:36-06:00",
   "publisher": "Smile Digital Health",
   "useContext": [ {
     "code": {
@@ -2376,7 +2376,7 @@
                     "expression": "Unable To Have Physician Evaluate Results"
                   }
                 } ],
-                "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPCompleteQuestionnaire"
+                "definitionCanonical": "http://example.org/sdh/dtr/aslp/ActivityDefinition/ASLPSubmitQuestionnaire"
               } ]
             }, {
               "title": "Complete Questionnaire",
