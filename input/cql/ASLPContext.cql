@@ -301,7 +301,7 @@ returns FHIR.CodeableConcept:
       if exists ([ServiceRequest]) then
         First(
           [ServiceRequest] SR
-            where 'ServiceRequest/' + SR.id = First((item as FHIR.Appointment).basedOn).reference
+            where 'ServiceRequest/' + FHIRHelpers.ToString(SR.id) = FHIRHelpers.ToString(First((item as FHIR.Appointment).basedOn).reference)
             return SR.code
         )
       else 
