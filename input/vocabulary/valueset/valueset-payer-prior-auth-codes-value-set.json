@@ -199,11 +199,6 @@
             },
             {
                 "system": "http://www.ama-assn.org/go/cpt",
-                "code": "92015",
-                "display": "Refraction and basic ophthalmological exam"
-            },
-            {
-                "system": "http://www.ama-assn.org/go/cpt",
                 "code": "84591",
                 "display": "Pathology Test"
             },
