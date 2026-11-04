@@ -300,16 +300,12 @@ returns FHIR.CodeableConcept:
     if exists ((item as FHIR.Appointment).basedOn) then 
       if exists ([ServiceRequest]) then
         First(
-          from ([ServiceRequest]) SR
-            where exists (((item as FHIR.Appointment).basedOn) b 
-                where b.reference = 'ServiceRequest/' + SR.id 
-                or EndsWith(b.reference, '/' + SR.id)
-            )
-          return 
-            SR.code
+          [ServiceRequest] SR
+            where 'ServiceRequest/' + SR.id = First((item as FHIR.Appointment).basedOn).reference
+            return SR.code
         )
       else 
-        null as FHIR.CodeableConcept
+        null as FHIR.CodeableConcept 
     else if exists ((item as FHIR.Appointment).serviceType) then 
       First((item as FHIR.Appointment).serviceType)
     else 
