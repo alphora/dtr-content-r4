@@ -82,7 +82,7 @@ returns FHIR.Extension:
       { "DetailExtension"(detailCodeValue, detailTextValue, qualificationValue, warningOrInfoValue) },
 
       // Indicates the service or procedure code under evaluation
-      { "BillingCode"(requestRefString) },
+      { "BillingCode"(serviceRequestCode) },
 
       // Always 'admin' and 'clinical'
       // 'admin', 'clinical', 'both', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)
@@ -446,69 +446,26 @@ returns FHIR.Extension:
       "value": FHIR.code { "value": 'no-doc-purpose' }
     }
 
-define function "BillingCode"(requestRefString System.String)
+define function "BillingCode"(serviceRequestCode System.Code)
 returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'billingCode' },
     "value": FHIR.CodeableConcept { 
       "coding": {
         FHIR.Coding {
-          system: FHIR.uri { "value": 'http://www.ama-assn.org/go/cpt'},
-          code: FHIR.code { "value": "GetOrderCode"(requestRefString) }
+          system: FHIR.uri { "value": "BillingCodeSystem"(serviceRequestCode) },
+          code: FHIR.code { "value": serviceRequestCode.code },
+          display: FHIR.string { "value": serviceRequestCode.display }
         }
       }
     }
   }
 
-define function "GetOrderCode"(requestRefString System.String)
-returns FHIR.code:
-  if Split(requestRefString, '/')[0] = 'ServiceRequest' then
-    First(
-      from [ServiceRequest] SR
-        where SR.id = Split(requestRefString, '/')[1]
-      return SR.code.coding[0].code
-    )
-  else if Split(requestRefString, '/')[0] = 'MedicationRequest' then
-    First(
-      from [MedicationRequest] MR
-        where MR.id = Split(requestRefString, '/')[1]
-      return RH.GetCode(MR).coding[0].code
-    )
-  else if Split(requestRefString, '/')[0] = 'NutritionOrder' then
-    First(
-      from [NutritionOrder] NO
-        where NO.id = Split(requestRefString, '/')[1]
-      return RH.GetCode(NO).coding[0].code
-    )
-  else if Split(requestRefString, '/')[0] = 'DeviceRequest' then
-    First(
-      from [DeviceRequest] DR
-        where DR.id = Split(requestRefString, '/')[1]
-      return RH.GetCode(DR).coding[0].code
-    )
-  else if Split(requestRefString, '/')[0] = 'VisionPrescription' then
-    First(
-      from [VisionPrescription] VP
-        where VP.id = Split(requestRefString, '/')[1]
-      return RH.GetCode(VP).coding[0].code
-    )
-  else if Split(requestRefString, '/')[0] = 'CommunicationRequest' then
-    First(
-      from [CommunicationRequest] CR
-        where CR.id = Split(requestRefString, '/')[1]
-      return RH.GetCode(CR).coding[0].code
-    )
-  else if Split(requestRefString, '/')[0] = 'Task' then
-    First(
-      from [Task] T
-        where T.id = Split(requestRefString, '/')[1]
-      return RH.GetCode(T).coding[0].code
-    )
-  else if Split(requestRefString, '/')[0] = 'Appointment' then
-    First(
-      from [Appointment] A
-        where A.id = Split(requestRefString, '/')[1]
-      return RH.GetCode(A).coding[0].code
-    )
-  else 
-    null as FHIR.code
+define function "BillingCodeSystem"(c System.Code)
+returns System.String:
+  if IsNull(c) then null
+  else if c.system in { 'http://www.ama-assn.org/go/cpt', 'urn:oid:2.16.840.1.113883.6.12' } then
+    'http://www.ama-assn.org/go/cpt'
+  else if c.system in { 'http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets', 'https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets', 'urn:oid:2.16.840.1.113883.6.285' } then
+    'http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets'
+  else null
