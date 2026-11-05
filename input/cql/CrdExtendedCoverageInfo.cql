@@ -225,7 +225,10 @@ returns System.String:
     or StartsWith(qualificationValue, 'Unable to process due to incomplete') then
       'Unable to process due to incomplete/ambiguous information. Please submit a prior auth form.'
   else 
-    serviceRequestCode.display + ' is not a recognized procedure.'
+    Coalesce(
+      serviceRequestCode.display,
+      'The requested item'
+    ) + ' is not a recognized procedure.'
     
 // define function ToFHIRstring(c System.Code)
 // returns FHIR.string:
