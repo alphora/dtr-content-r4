@@ -693,7 +693,7 @@
       "valueString": "GetReasonText"
     }, {
       "url": "statement",
-      "valueString": "define function \"GetReasonText\"(qualificationValue System.String, serviceRequestCode System.Code)\nreturns System.String:\n  if qualificationValue = \"Member Not Found Text\" then \n    'Member Not Found. You can submit a PA request as an exception.'\n  else if qualificationValue = \"Provider Not In Network Text\" then \n    'Provider is not in the network. You can submit a PA request as an exception.'\n  else if qualificationValue = \"Line Of Business Mismatch Text\" then \n    'Line of Business Mismatch. Prior authorization submission is required.'\n  else if qualificationValue = \"Unable To Process Text\" \n    or StartsWith(qualificationValue, 'Unable to process due to incomplete') then\n      'Unable to process due to incomplete/ambiguous information. Please submit a prior auth form.'\n  else \n    serviceRequestCode.display + ' is not a recognized procedure.'"
+      "valueString": "define function \"GetReasonText\"(qualificationValue System.String, serviceRequestCode System.Code)\nreturns System.String:\n  if qualificationValue = \"Member Not Found Text\" then \n    'Member Not Found. You can submit a PA request as an exception.'\n  else if qualificationValue = \"Provider Not In Network Text\" then \n    'Provider is not in the network. You can submit a PA request as an exception.'\n  else if qualificationValue = \"Line Of Business Mismatch Text\" then \n    'Line of Business Mismatch. Prior authorization submission is required.'\n  else if qualificationValue = \"Unable To Process Text\" \n    or StartsWith(qualificationValue, 'Unable to process due to incomplete') then\n      'Unable to process due to incomplete/ambiguous information. Please submit a prior auth form.'\n  else \n    Coalesce(\n      serviceRequestCode.display,\n      'The requested item'\n    ) + ' is not a recognized procedure.'"
     }, {
       "url": "displaySequence",
       "valueInteger": 38
@@ -1094,7 +1094,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-11-05T12:21:14-06:00",
+  "date": "2026-11-05T16:07:43-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-GenericResponse",
   "useContext": [ {
