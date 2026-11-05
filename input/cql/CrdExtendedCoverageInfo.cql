@@ -221,17 +221,18 @@ returns System.String:
     'Provider is not in the network. You can submit a PA request as an exception.'
   else if qualificationValue = "Line Of Business Mismatch Text" then 
     'Line of Business Mismatch. Prior authorization submission is required.'
-  else if qualificationValue = "Unable To Process Text" then
-    'Unable to process due to incomplete/ambiguous information. Please submit a prior auth form.'
+  else if qualificationValue = "Unable To Process Text" 
+    or StartsWith(qualificationValue, 'Unable to process due to incomplete') then
+      'Unable to process due to incomplete/ambiguous information. Please submit a prior auth form.'
   else 
-    ToFHIRstring(serviceRequestCode) + ' is not a recognized procedure.'
-
-define function ToFHIRstring(c System.Code)
-returns FHIR.string:
-  if IsNull(c) then 
-    null as FHIR.string
-  else 
-    FHIR.string { value: c.display }
+    serviceRequestCode.display + ' is not a recognized procedure.'
+    
+// define function ToFHIRstring(c System.Code)
+// returns FHIR.string:
+//   if IsNull(c) then 
+//     null as FHIR.string
+//   else 
+//     FHIR.string { value: c.display }
 
 define "InfoNeededValues1":
   {'performer', 'location', 'timeframe'}
