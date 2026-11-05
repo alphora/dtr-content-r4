@@ -25,7 +25,7 @@ define "Member Not Found Text":
   'The member cannot be found. You can submit a PA request as an exception.'
 
 define "Member Not Found Detail Text":
-  'Provider Not in Network'
+  'Member Not Found'
 
 define "Provider Not In Network Text":
   'Provider is not in the network. You can submit a PA request as an exception.'
@@ -72,7 +72,7 @@ returns FHIR.Extension:
       { "ReasonExtension"(qualificationValue, serviceRequestCode) },
 
       // Required to be populated whenever one or more of covered, pa-needed, or doc-needed is set to conditional
-      "InfoNeeded"(detailTextValue),
+      "InfoNeeded"(detailTextValue, qualificationValue),
 
       // service request id
       { "DependencyExtension"(requestRefString) },
@@ -233,51 +233,6 @@ returns FHIR.string:
   else 
     FHIR.string { value: c.display }
 
-define function "InfoNeeded"(detailTextValue System.String)
-returns List<FHIR.Extension>:
-  if detailTextValue = "Member Not Found Detail Text" then
-    {
-      FHIR.Extension {
-        "url": FHIR.uri { "value": "Info Needed Text" },
-        "value": FHIR.string { "value": 'OTH' }
-      }
-    }
-  else if detailTextValue = "Provider Not In Network Detail Text" then
-    {
-      FHIR.Extension {
-        "url": FHIR.uri { "value": "Info Needed Text" },
-        "value": FHIR.string { "value": 'performer' }
-      }
-    }
-  else if detailTextValue = "Line Of Business Mismatch Detail Text" then
-    {
-      FHIR.Extension {
-        "url": FHIR.uri { "value": "Info Needed Text" },
-        "value": FHIR.string { "value": 'OTH' }
-      }
-    }
-  else if detailTextValue = "PA Required Detail Text" then
-    "InfoNeededValues1" V
-    return 
-      FHIR.Extension {
-        "url": FHIR.uri { "value": "Info Needed Text" },
-        "value": FHIR.string { "value": V }
-      }
-  else if detailTextValue = "Submit PA Form Detail Text" then
-    "InfoNeededValues2" V
-    return 
-      FHIR.Extension {
-        "url": FHIR.uri { "value": "Info Needed Text" },
-        "value": FHIR.string { "value": V }
-      }
-  else
-    "InfoNeededNullValues" V
-    return 
-      FHIR.Extension {
-        "url": FHIR.uri { "value": "Info Needed Text" },
-        "value": FHIR.string { "value": V }
-      }
-
 define "InfoNeededValues1":
   {'performer', 'location', 'timeframe'}
 
@@ -286,6 +241,33 @@ define "InfoNeededValues2":
 
 define "InfoNeededNullValues":
   {'no-info-needed', 'no-info-needed'}
+
+define function "InfoNeededExtension"(infoValue System.String)
+returns FHIR.Extension:
+  FHIR.Extension {
+    "url": FHIR.uri { "value": "Info Needed Text" },
+    "value": FHIR.code { "value": infoValue }
+  } 
+
+define function "InfoNeeded"(detailTextValue System.String, qualificationValue System.String)
+returns List<FHIR.Extension>:
+  if detailTextValue = "Member Not Found Detail Text"
+    or qualificationValue = "Member Not Found Text" then
+    { "InfoNeededExtension"('OTH') }
+  else if detailTextValue = "Provider Not In Network Detail Text"
+     or qualificationValue = "Provider Not In Network Text" then
+    { "InfoNeededExtension"('performer') }
+  else if detailTextValue = "Line Of Business Mismatch Detail Text" then
+    { "InfoNeededExtension"('OTH') }
+  else if detailTextValue = "PA Required Detail Text" then
+    "InfoNeededValues1" V 
+    return "InfoNeededExtension"(V)
+  else if detailTextValue = "Submit PA Form Detail Text" then
+    "InfoNeededValues2" V 
+    return "InfoNeededExtension"(V)
+  else
+    "InfoNeededNullValues" V 
+    return "InfoNeededExtension"(V)
 
 define function "QuestionnaireExtension"(priorAuthRequiredValue System.String, procedureCode System.Code)
 returns FHIR.Extension:
