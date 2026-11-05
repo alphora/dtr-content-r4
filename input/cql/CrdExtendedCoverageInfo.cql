@@ -95,7 +95,7 @@ returns FHIR.Extension:
 
       // questionnaire canonical extension based on the service request code
       // requires a valueset per canonical questionnaire
-      { "QuestionnaireExtension"(priorAuthRequiredValue, serviceRequestCode) }
+      { "QuestionnaireExtension"(priorAuthRequiredValue, serviceRequestCode, requestRefString) }
 
     })) Ext 
       where Ext is not null
@@ -270,7 +270,7 @@ returns List<FHIR.Extension>:
     "InfoNeededNullValues" V 
     return "InfoNeededExtension"(V)
 
-define function "QuestionnaireExtension"(priorAuthRequiredValue System.String, procedureCode System.Code)
+define function "QuestionnaireExtension"(priorAuthRequiredValue System.String, procedureCode System.Code, requestRefString System.String)
 returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'questionnaire' },
@@ -279,6 +279,8 @@ returns FHIR.Extension:
         case
           when priorAuthRequiredValue in { 'auth-needed', 'conditional' } then
             Coalesce(
+              if StartsWith(requestRefString, 'CommunicationRequest/') then
+                'http://example.org/sdh/dtr/aslp/PlanDefinition/Home-Monitor-Sleep-Testing' else null,
               QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode),
               'http://example.org/fhir/PlanDefinition/questionnaire-not-found'
             )
@@ -287,19 +289,6 @@ returns FHIR.Extension:
         end
     }
   }
-  // if priorAuthRequired = 'no-auth' then
-  //   null as FHIR.Extension
-  // else if priorAuthRequired in { 'auth-needed', 'conditional' }
-  //   and not IsNull(QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode)) then 
-  //     FHIR.Extension {
-  //       "url": FHIR.uri { "value": 'questionnaire' },
-  //       "value": FHIR.canonical { "value": QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode) } 
-  //     }
-  // else 
-  //   FHIR.Extension {
-  //       "url": FHIR.uri { "value": 'questionnaire' },
-  //       "value": FHIR.string { "value": 'service codes not applicable to questionnaire' } 
-  //     }
 
 // code = auth-needed|no-auth|gold-card|not-covered, warningOrInfo = Warning|info, qualification = {open text entry}
 define function "DetailExtension"(detailCodeValue System.String, detailTextValue System.String, qualificationValue System.String, warningOrInfoValue System.String)
