@@ -13,11 +13,11 @@ flowchart TD
     CRD8 -->|yes| OUT8[auth-needed\nSubmit Prior Authorization Form]
     CRD8 -->|no| CRD81
 
-    CRD81{CRD-8.1\nRequest item is null?}
+    CRD81{CRD-8_1\nRequest item is null?}
     CRD81 -->|yes| OUT81[conditional\nError — No order found]
     CRD81 -->|no| CRD83
 
-    CRD83{CRD-8.3\nUnsupported resource type?\ne.g. VisionPrescription}
+    CRD83{CRD-8_3\nUnsupported resource type?\ne.g. VisionPrescription}
     CRD83 -->|yes| OUT83[conditional\nUnable to Process Request]
     CRD83 -->|no| CRD2
 
@@ -25,15 +25,15 @@ flowchart TD
     CRD2 -->|yes| OUT2[auth-needed\nMember Not Found]
     CRD2 -->|no| CRD31
 
-    CRD31{CRD-3.1\nProvider NPI not in payer network?\nrequester or performer NPI missing}
+    CRD31{CRD-3_1\nProvider NPI not in payer network?\nrequester or performer NPI missing}
     CRD31 -->|yes| OUT31[auth-needed\nProvider Not in Network]
     CRD31 -->|no| CRD32
 
-    CRD32{CRD-3.2\nLOB Mismatch?\nPayor org name mismatch\nvia Coverage.payor}
+    CRD32{CRD-3_2\nLOB Mismatch?\nPayor org name mismatch\nvia Coverage.payor}
     CRD32 -->|yes| OUT32[auth-needed\nLine Of Business Mismatch]
     CRD32 -->|no| CRD32B
 
-    CRD32B{CRD-3.2b\nLOB NPI Chain Mismatch?\nOrg name/NPI mismatch\nvia PractitionerRole}
+    CRD32B{CRD-3_2b\nLOB NPI Chain Mismatch?\nOrg name/NPI mismatch\nvia PractitionerRole}
     CRD32B -->|yes| OUT32B[auth-needed\nLine Of Business Mismatch]
     CRD32B -->|no| CRD4
 
@@ -61,12 +61,12 @@ flowchart TD
 | Order | CRD | Name | Condition Message | Provider Field | Payer Field | Comparison | pa-needed | covered |
 |-------|-----|------|-------------------|---------------|-------------|------------|-----------|---------|
 | 1 | **CRD-8** | Subject / Context Validation | "Insufficient or ambiguous data — too many coverages or SR subject does not match Provider Patient" | `SR.subject.reference` → `"Patient/provider-patient-1"` | `Provider Context Bundle: Patient.id.value` → `"provider-patient-1"` | `GetSubjectID(SR) !~ Provider.Patient.id` ⚠️ broken: `Patient/` prefix mismatch | `auth-needed` | `conditional` |
-| 2 | **CRD-8.1** | Empty Request | "No order found" | `requestItem is null` | — | null check | `conditional` | `conditional` |
-| 3 | **CRD-8.3** | Unsupported Resource Type | "Unable to process request electronically" | `GetResourceType(SR)` | `UnsupportedResourceTypes = {'VisionPrescription'}` | `resourceType in list` | `conditional` | `conditional` |
+| 2 | **CRD-8_1** | Empty Request | "No order found" | `requestItem is null` | — | null check | `conditional` | `conditional` |
+| 3 | **CRD-8_3** | Unsupported Resource Type | "Unable to process request electronically" | `GetResourceType(SR)` | `UnsupportedResourceTypes = {'VisionPrescription'}` | `resourceType in list` | `conditional` | `conditional` |
 | 4 | **CRD-2** | Member Eligibility | "Member not found — name or DOB mismatch" | `Provider.Patient.name.family`<br>`Provider.Patient.birthDate` | `Payor.Patient.name.family`<br>`Payor.Patient.birthDate` | family name lists **intersect** AND `days between DOB = 0` | `auth-needed` | `conditional` |
-| 5 | **CRD-3.1** | Provider NPI Match | "Provider is not in the network" | SR → `Provider.Practitioners`<br>→ `identifier[system=us-npi].value` | `Payor.Practitioners`<br>→ `identifier[system=us-npi].value` | provider NPIs **included in** payer NPIs (requester AND performer) | `auth-needed` | `conditional` |
-| 6 | **CRD-3.2** | LOB Match (org-level) | "Line of business mismatch" | `Provider.Coverage.payor.reference`<br>→ `Provider.Organization.name` | `Payor.Coverage.payor.reference`<br>→ `Payor.Organization.name` | `ProviderOrg.name ~ PayorOrg.name` ⚠️ broken: `R = O.id.value` missing `Organization/` prefix | `auth-needed` | `conditional` |
-| 7 | **CRD-3.2b** | LOB Match (NPI chain) | "Line of business mismatch via PractitionerRole" | SR requester/performer → `Provider.PractitionerRole`<br>→ `organization.reference` → org name/NPI | `Payor.Organization` via provider Coverage | `org.name ~` or `org.getNpi() ~` ⚠️ broken: `PractitionerRole.practitioner.reference` vs `Practitioner.id` prefix | `auth-needed` | `conditional` |
+| 5 | **CRD-3_1** | Provider NPI Match | "Provider is not in the network" | SR → `Provider.Practitioners`<br>→ `identifier[system=us-npi].value` | `Payor.Practitioners`<br>→ `identifier[system=us-npi].value` | provider NPIs **included in** payer NPIs (requester AND performer) | `auth-needed` | `conditional` |
+| 6 | **CRD-3_2** | LOB Match (org-level) | "Line of business mismatch" | `Provider.Coverage.payor.reference`<br>→ `Provider.Organization.name` | `Payor.Coverage.payor.reference`<br>→ `Payor.Organization.name` | `ProviderOrg.name ~ PayorOrg.name` ⚠️ broken: `R = O.id.value` missing `Organization/` prefix | `auth-needed` | `conditional` |
+| 7 | **CRD-3_2b** | LOB Match (NPI chain) | "Line of business mismatch via PractitionerRole" | SR requester/performer → `Provider.PractitionerRole`<br>→ `organization.reference` → org name/NPI | `Payor.Organization` via provider Coverage | `org.name ~` or `org.getNpi() ~` ⚠️ broken: `PractitionerRole.practitioner.reference` vs `Practitioner.id` prefix | `auth-needed` | `conditional` |
 | 8 | **CRD-4** | Gold Card Status | "Provider has gold card — no auth needed" | — | — | hardcoded `false` — never fires | `no-auth` | `covered` |
 | 9 | **CRD-7** | Routine Procedure | "No prior auth required — routine procedure" | `SR.code` | valueset `http://terminology.smilecdr.com/cs/routine` | `SR.code in "Routine Procedure Valueset"` | `no-auth` | `covered` |
 | 10 | **CRD-5** | On Prior Auth List | "Prior authorization required" | `SR.code` | valueset `http://terminology.smilecdr.com/cs/priorauth-grouper` | `SR.code in "Prior Auth Required for Procedure Grouper"` | `auth-needed` | `conditional` |
