@@ -321,7 +321,9 @@ returns FHIR.CodeableConcept:
               and FHIRHelpers.ToString(b.reference) = 'ServiceRequest/' + FHIRHelpers.ToString(SR.id)
             )
         ).code
-      else 
+      else if exists ((item as FHIR.Appointment).serviceType) then 
+        First((item as FHIR.Appointment).serviceType)
+      else
         null as FHIR.CodeableConcept 
     else if exists ((item as FHIR.Appointment).serviceType) then 
       First((item as FHIR.Appointment).serviceType)
