@@ -114,20 +114,24 @@ returns FHIR.Extension:
 
 define function "ExpiryDateExtension"(coverageIdValue System.String)
 returns FHIR.Extension:
-  FHIR.Extension {
-    "url": FHIR.uri { "value": 'expiry-date' },
-    "value": FHIR.date { 
-      "value": 
-        if IsNull(coverageIdValue) or coverageIdValue = '' then 
-          null 
-        else  
-          First(
-            from [Coverage] C
-            where C.id.value = coverageIdValue
-            return date from FHIRHelpers.ToDateTime(C.period.end)
-          )
-      }
-  }
+   if IsNull("ExpiryDate"(coverageIdValue)) then
+    null as FHIR.Extension
+  else
+    FHIR.Extension {
+      "url": FHIR.uri { "value": 'expiry-date' },
+      "value": FHIR.date { "value": "ExpiryDate"(coverageIdValue) }
+    }
+
+define function "ExpiryDate"(coverageIdValue System.String)
+returns System.Date:
+  if IsNull(coverageIdValue) or coverageIdValue = '' then null
+  else 
+    First(
+      from [Coverage] C
+        where C.id.value = coverageIdValue
+          and C.period.end is not null
+        return date from FHIRHelpers.ToDateTime(C.period.end)
+    )
 
 define function "CoveredExtension"(coveredValue System.String)
 returns FHIR.Extension:
