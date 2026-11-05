@@ -21,12 +21,7 @@ define "Description-NotFound":
 
 // CRD-6 
 define function "Qualification-NotFound"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
-  Coalesce(
-    Ctx."Service Request Item Code"(requestItem).display, 
-    FHIRHelpers.ToString(First((Ctx.GetCode(requestItem)).coding).display), 
-    'The requested service'
-  )
-    + ' is not a recognized procedure electronically. Please contact the payer for further information.'
+  FHIRHelpers.ToString(First((Ctx.GetCode(requestItem)).coding).display) + ' is not a recognized procedure electronically. Please contact the payer for further information.'
 
 // CRD-6
 define "Detail Text-NotFound": 
