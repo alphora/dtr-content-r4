@@ -41,7 +41,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailText": MemberEligible."Detail Text", 
       "DetailQualification": MemberEligible."Qualification",
       "DetailDebugging": if "DebuggingEnabled" then MemberEligible."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
     "CRD-3_2": { 
       "ID": 'CRD-3_2',
@@ -51,7 +51,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailText": OrderLOBMatch."Detail Text", 
       "DetailQualification": OrderLOBMatch."Qualification",
       "DetailDebugging": if "DebuggingEnabled" then OrderLOBMatch."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
     "CRD-3_2b": { 
       "ID": 'CRD-3_2b',
@@ -61,7 +61,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailText": OrderLOBMatch."Detail Text", 
       "DetailQualification": OrderLOBMatch."Qualification",
       "DetailDebugging": if "DebuggingEnabled" then OrderLOBMatch."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
     "CRD-3_1": { 
       "ID": 'CRD-3_1',
@@ -71,7 +71,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailText": NpiMatch."Detail Text", 
       "DetailQualification": NpiMatch."Qualification",
       "DetailDebugging": if "DebuggingEnabled" then NpiMatch."Detail Debugging"(requestItem) else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
     "CRD-4": { 
       "ID": 'CRD-4',
@@ -101,7 +101,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailText": PriorAuthList."Detail Text-NotFound", 
       "DetailQualification": PriorAuthList."Qualification-NotFound"(requestItem),
       "DetailDebugging": if "DebuggingEnabled" then PriorAuthList."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
     "CRD-5": { 
       "ID": 'CRD-5',
@@ -111,7 +111,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailText": PriorAuthList."Detail Text", 
       "DetailQualification": PriorAuthList."Qualification"(requestItem),
       "DetailDebugging": if "DebuggingEnabled" then PriorAuthList."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
     "CRD-8": { 
       "ID": 'CRD-8',
@@ -121,7 +121,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailText": ContextValidation."Detail Text 8", 
       "DetailQualification": ContextValidation."Qualification 8",
       "DetailDebugging": if "DebuggingEnabled" then ContextValidation."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
     "CRD-8_1": { 
       "ID": 'CRD-8_1',
@@ -131,7 +131,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailText": ContextValidation."Detail Text 8.1", 
       "DetailQualification": ContextValidation."Qualification 8.1",
       "DetailDebugging": if "DebuggingEnabled" then ContextValidation."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
     "CRD-8_3": { 
       "ID": 'CRD-8_3',
@@ -141,7 +141,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailText": ContextValidation."Detail Text 8.3", 
       "DetailQualification": ContextValidation."Qualification 8.3",
       "DetailDebugging": if "DebuggingEnabled" then ContextValidation."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
     "CRD-9": { 
       "ID": 'CRD-9',
@@ -151,7 +151,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailText": Evaluation."Detail Text 9", 
       "DetailQualification": Evaluation."Qualification 9",
       "DetailDebugging": if "DebuggingEnabled" then Evaluation."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     }, 
     "CRD-UnexpectedError": { 
       "ID": 'CRD-UnexpectedError',

@@ -3198,6 +3198,60 @@
       }
     } ]
   }, {
+    "id": "timing-interval-violation",
+    "title": "Timing Interval Violation",
+    "priority": "urgent",
+    "condition": [ {
+      "kind": "applicability",
+      "expression": { 
+        "language": "text/cql-identifier", 
+        "expression": "Timing Interval Violation Exists" 
+      }
+    } ],
+    "dynamicValue": [ {
+      "path": "description",
+      "expression": { 
+        "language": "text/cql-identifier", 
+        "expression": "Timing Interval Violation Description" 
+      }
+    } ]
+  }, {
+    "id": "out-of-network-location",
+    "title": "Out-of-Network Location",
+    "priority": "urgent",
+    "condition": [ {
+      "kind": "applicability",
+      "expression": { 
+        "language": "text/cql-identifier", 
+        "expression": "Out Of Network Location Exists" 
+      }
+    } ],
+    "dynamicValue": [ {
+      "path": "description",
+      "expression": { 
+        "language": "text/cql-identifier", 
+        "expression": "Out Of Network Location Description" 
+      }
+    } ]
+  }, {
+    "id": "missing-required-practitioner",
+    "title": "Missing Required Practitioner",
+    "priority": "urgent",
+    "condition": [ {
+      "kind": "applicability",
+      "expression": { 
+        "language": "text/cql-identifier", 
+        "expression": "Missing Required Practitioner Exists" 
+      }
+    } ],
+    "dynamicValue": [ {
+      "path": "description",
+      "expression": { 
+        "language": "text/cql-identifier", 
+        "expression": "Missing Required Practitioner Description" 
+      }
+    } ]
+  }, {
     "title": "Submit Prior Authorization Questionnaire",
     "description": "Submit a questionnaire for prior authorization",
     "condition": [ {
