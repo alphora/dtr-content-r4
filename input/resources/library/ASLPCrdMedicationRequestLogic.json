@@ -59,11 +59,6 @@
     "valueReference": {
       "reference": "#options"
     }
-  }, {
-    "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
-    "valueReference": {
-      "reference": "Device/cqf-tooling"
-    }
   } ],
   "url": "http://example.org/sdh/dtr/aslp/Library/ASLPCrdMedicationRequestLogic",
   "name": "ASLPCrdMedicationRequestLogic",

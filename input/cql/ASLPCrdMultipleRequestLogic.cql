@@ -13,7 +13,18 @@ include ASLPCrdOnPriorAuthListLogic version '0.1.0' called PriorAuthList
 include ASLPCrdContextValidationLogic version '0.1.0' called ContextValidation
 include ASLPCrdEvaluationLogic version '0.1.0' called Evaluation
 include QuestionnaireRouter version '0.1.0' called Router
+include ASLPCrdAppointmentWarningsLogic version '0.1.0' called AppointmentWarnings
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
+
+codesystem "AdjudicationOutcomes": 'https://codesystem.x12.org/005010/306' 
+
+valueset "Prior Auth Required for Procedure Valueset": 'http://terminology.smilecdr.com/cs/priorauth'
+valueset "Sleep Study Procedure": 'http://terminology.smilecdr.com/cs/sleepstudy'
+valueset "Routine Procedure Valueset": 'http://terminology.smilecdr.com/cs/routine'
+
+code "Approved": 'A1' from "AdjudicationOutcomes" display 'Approved'
+code "Denied": 'A3' from "AdjudicationOutcomes" display 'Denied'
+code "Pended": 'A4' from "AdjudicationOutcomes" display 'Pended'
 
 context Patient
 
@@ -21,7 +32,7 @@ define "DebuggingEnabled":
   false
         
 // CRD Matrix of values
-define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
+define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):
   {
     "CRD-2": {
       "ID": 'CRD-2',
@@ -31,37 +42,37 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailText": MemberEligible."Detail Text", 
       "DetailQualification": MemberEligible."Qualification",
       "DetailDebugging": if "DebuggingEnabled" then MemberEligible."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
-    "CRD-3.2": { 
-      "ID": 'CRD-3.2',
+    "CRD-3_2": { 
+      "ID": 'CRD-3_2',
       "Covered": 'conditional', 
       "PriorAuthNeeded": 'auth-needed', 
       "DetailCode": 'auth-needed', 
       "DetailText": OrderLOBMatch."Detail Text", 
       "DetailQualification": OrderLOBMatch."Qualification",
       "DetailDebugging": if "DebuggingEnabled" then OrderLOBMatch."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
-    "CRD-3.2b": { 
-      "ID": 'CRD-3.2b',
+    "CRD-3_2b": { 
+      "ID": 'CRD-3_2b',
       "Covered": 'conditional', 
       "PriorAuthNeeded": 'auth-needed', 
       "DetailCode": 'auth-needed', 
       "DetailText": OrderLOBMatch."Detail Text", 
       "DetailQualification": OrderLOBMatch."Qualification",
       "DetailDebugging": if "DebuggingEnabled" then OrderLOBMatch."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
-    "CRD-3.1": { 
-      "ID": 'CRD-3.1',
+    "CRD-3_1": { 
+      "ID": 'CRD-3_1',
       "Covered": 'conditional', 
       "PriorAuthNeeded": 'auth-needed', 
       "DetailCode": 'auth-needed', 
       "DetailText": NpiMatch."Detail Text", 
       "DetailQualification": NpiMatch."Qualification",
       "DetailDebugging": if "DebuggingEnabled" then NpiMatch."Detail Debugging"(requestItem) else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
     "CRD-4": { 
       "ID": 'CRD-4',
@@ -91,7 +102,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailText": PriorAuthList."Detail Text-NotFound", 
       "DetailQualification": PriorAuthList."Qualification-NotFound"(requestItem),
       "DetailDebugging": if "DebuggingEnabled" then PriorAuthList."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
     "CRD-5": { 
       "ID": 'CRD-5',
@@ -101,7 +112,7 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailText": PriorAuthList."Detail Text", 
       "DetailQualification": PriorAuthList."Qualification"(requestItem),
       "DetailDebugging": if "DebuggingEnabled" then PriorAuthList."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
     "CRD-8": { 
       "ID": 'CRD-8',
@@ -111,27 +122,27 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailText": ContextValidation."Detail Text 8", 
       "DetailQualification": ContextValidation."Qualification 8",
       "DetailDebugging": if "DebuggingEnabled" then ContextValidation."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
-    "CRD-8.1": { 
-      "ID": 'CRD-8.1',
+    "CRD-8_1": { 
+      "ID": 'CRD-8_1',
       "Covered": 'conditional', 
       "PriorAuthNeeded": 'conditional', 
       "DetailCode": 'coverage-info', 
       "DetailText": ContextValidation."Detail Text 8.1", 
       "DetailQualification": ContextValidation."Qualification 8.1",
       "DetailDebugging": if "DebuggingEnabled" then ContextValidation."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
-    "CRD-8.3": { 
-      "ID": 'CRD-8.3',
+    "CRD-8_3": { 
+      "ID": 'CRD-8_3',
       "Covered": 'conditional', 
       "PriorAuthNeeded": 'conditional', 
       "DetailCode": 'coverage-info', 
       "DetailText": ContextValidation."Detail Text 8.3", 
       "DetailQualification": ContextValidation."Qualification 8.3",
       "DetailDebugging": if "DebuggingEnabled" then ContextValidation."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
     },
     "CRD-9": { 
       "ID": 'CRD-9',
@@ -141,7 +152,17 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailText": Evaluation."Detail Text 9", 
       "DetailQualification": Evaluation."Qualification 9",
       "DetailDebugging": if "DebuggingEnabled" then Evaluation."Detail Debugging" else 'Debugging disabled',
-      "DetailValue": 'Warning'
+      "DetailValue": 'warning'
+    }, 
+    "CRD-10": { 
+      "ID": 'CRD-10',
+      "Covered": 'conditional', 
+      "PriorAuthNeeded": 'conditional', 
+      "DetailCode": 'coverage-info', 
+      "DetailText": 'Appointment request does not pass one or more of the following checks: timing interval, network location, or required practitioner.', 
+      "DetailQualification": 'Timing interval violation, out-of-network location, and/or missing required practitioner.',
+      "DetailDebugging": if "DebuggingEnabled" then 'Not yet implemented.' else 'Debugging disabled',
+      "DetailValue": 'warning'
     }, 
     "CRD-UnexpectedError": { 
       "ID": 'CRD-UnexpectedError',
@@ -164,49 +185,60 @@ define "Description":
   'Information related to whether a service is covered, not covered or requires prior auth submission'
 
 define "null Service Request Item":
-  null as Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>
+  null as Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>
 
 // CRD Coverage Extensions
 define "CoverageExtensionList":
-  if ((Ctx."Service Request Item List" is null 
-    or not exists (Ctx."Service Request Item List"))
-      and (Ctx."Appointments List" is null 
-      or not exists (Ctx."Appointments List"))) then
-        { 
-          "GetCoverageExtension"(
-            "null Service Request Item", 
-            GetCrdResult("null Service Request Item")
-          ) 
-        }
-  else if exists (Ctx."Service Request Item List") then
-     Ctx."Service Request Item List" request
+  if exists (Ctx."Selections Orders List") then
+    Ctx."Selections Orders List" request
       return all
         "GetCoverageExtension"(request, GetCrdResult(request))
         // TESTING OUTPUT
         //(GetCrdResult(RequestItem)).ID + Ctx.NewLine +
         //(GetCrdResult(RequestItem)).DetailDebugging
-  else 
-     Ctx."Appointments List" appointment
+  else if exists (Ctx."Dispatched Orders List") then
+    if exists Ctx."Fulfillment Tasks For Dispatched Orders" then
+      Ctx."Fulfillment Tasks For Dispatched Orders" request
+        return all
+          "GetCoverageExtension"(request, GetCrdResult(request))
+          // TESTING OUTPUT
+          //(GetCrdResult(RequestItem)).ID + Ctx.NewLine +
+          //(GetCrdResult(RequestItem)).DetailDebugging
+    else 
+      Ctx."Dispatched Orders List" request 
+        return all
+          "GetCoverageExtension"(request, GetCrdResult(request))
+  else if exists (Ctx."Appointments List") then
+    Ctx."Appointments List" appointment
       return all 
         "GetCoverageExtension"(appointment, GetCrdResult(appointment))
-
+  else if exists Ctx."Service Request Item List" then 
+    Ctx."Service Request Item List" request 
+      return all 
+        "GetCoverageExtension"(request, GetCrdResult(request))
+  else
+    "GetCoverageExtension"(
+      "null Service Request Item", 
+      GetCrdResult("null Service Request Item")
+    ) 
+    
 // CRD Logic tree
-define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
+define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
 // returns Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String}:
   if (ContextValidation."Insufficient or Ambiguous High"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-8"
   else if (ContextValidation."DomainResource is Empty"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-8.1"
+    "CRD Matrix"(requestItem)."CRD-8_1"
   else if (ContextValidation."Received Provider Data Cannot be Processed"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-8.3"
+    "CRD Matrix"(requestItem)."CRD-8_3"
   else if (MemberEligible."Not MemberEligible") then
     "CRD Matrix"(requestItem)."CRD-2"
-  else if (NpiMatch."Not ProviderNpiMatch"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-3.1"
   else if (OrderLOBMatch."Not OrderLOBMatch") then
-    "CRD Matrix"(requestItem)."CRD-3.2"
-  else if (NpiMatch."Not LOBMatch"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-3.2b"
+    "CRD Matrix"(requestItem)."CRD-3_2"
+  else if (NpiMatch."Not ProviderNpiMatch"(requestItem)) then
+    "CRD Matrix"(requestItem)."CRD-3_1"
+  // else if (NpiMatch."Not LOBMatch"(requestItem)) then
+  //   "CRD Matrix"(requestItem)."CRD-3_2b"
   else if (GoldCard."Is OrderGoldStatus") then
     "CRD Matrix"(requestItem)."CRD-4"
   else if (Routine."Is Routine"(requestItem)) then
@@ -222,41 +254,135 @@ define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
   else
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
-define function GetCrdResultCommunicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
+define function GetCrdResultCommunicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
     "CRD Matrix"(requestItem)."CRD-7"
 
-define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
-  if (not exists (requestItem.basedOn)) then 
+define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
+  if not "Passes Coverage Checks for appointment-book" then
+    "CRD Matrix"(requestItem)."CRD-10"
+  else if "Passes Coverage Checks for appointment-book"
+    and exists (requestItem.basedOn) then 
+      if (
+        PriorAuthList."Is OnPriorAuthList"(requestItem)
+        or exists ((Ctx.GetCode(requestItem).coding) c
+          where c in "Sleep Study Procedure"
+        )
+      ) then 
+        "CRD Matrix"(requestItem)."CRD-5"
+      else if Routine."Is Routine"(requestItem) then 
+        "CRD Matrix"(requestItem)."CRD-7"
+      else 
+        "CRD Matrix"(requestItem)."CRD-6"  
+    // else if exists (requestItem.serviceType) then 
+      // if (
+      //   PriorAuthList."Is OnPriorAuthList"(requestItem)
+      //   or exists ((Ctx.GetCode(requestItem).coding) c
+      //     where c in "Sleep Study Procedure"
+      //   )
+      // ) then
+      //   "CRD Matrix"(requestItem)."CRD-5"
+      // else if Routine."Is Routine"(requestItem) then 
+      //   "CRD Matrix"(requestItem)."CRD-7"
+      // else 
+      //   "CRD Matrix"(requestItem)."CRD-6"
+  else 
+    // "CRD Matrix"(requestItem)."CRD-9"
+    // "CRD Matrix"(requestItem)."CRD-UnexpectedError"
     "CRD Matrix"(requestItem)."CRD-7"
-  else if (exists (requestItem.basedOn)) then 
-    "CRD Matrix"(requestItem)."CRD-9"
-  else
-    "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
-define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
-  if (requestItem.medication in PriorAuthList."Prior Auth Required for Procedure Valueset"
-      or requestItem.medication in Router."Sleep Study Procedure") then 
+define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
+  if BillingOptionExtensionPresent(requestItem) then 
+    if (PriorAuthList."Is OnPriorAuthList"(requestItem)
+      or exists ((Ctx.GetCode(requestItem).coding) c 
+        where c in "Sleep Study Procedure"
+      )
+    ) then
+      "CRD Matrix"(requestItem)."CRD-5"
+    else if (Routine."Is Routine"(requestItem)) then 
+      "CRD Matrix"(requestItem)."CRD-7"
+    else 
+      "CRD Matrix"(requestItem)."CRD-6"
+  else if (((requestItem.medication as FHIR.CodeableConcept) is not null) or ((requestItem.medication as FHIR.Reference) is not null)) then
+    if (PriorAuthList."Is OnPriorAuthList"(requestItem)
+      or exists ((Ctx.GetCode(requestItem).coding) c 
+        where c in "Sleep Study Procedure"
+      )
+    ) then
         if not exists (OrderLOBMatch."Matching Organizations by Name") 
         or OrderLOBMatch."Matching Organizations by Name" is null then 
-          "CRD Matrix"(requestItem)."CRD-3.2"
-      else "CRD Matrix"(requestItem)."CRD-5"
-  else if (requestItem.medication in Routine."Routine Procedure Valueset") then 
-    "CRD Matrix"(requestItem)."CRD-7"
-  else
-    "CRD Matrix"(requestItem)."CRD-UnexpectedError"
+          "CRD Matrix"(requestItem)."CRD-3_2"
+        else 
+          "CRD Matrix"(requestItem)."CRD-5"
+    else if (
+      PriorAuthList."Not OnPriorAuthList"(requestItem)
+      or exists ((Ctx.GetCode(requestItem).coding) c 
+        where not (c in "Sleep Study Procedure")
+      )
+    ) then 
+      "CRD Matrix"(requestItem)."CRD-6"
+          // if not exists (OrderLOBMatch."Matching Organizations by Name") 
+          // or OrderLOBMatch."Matching Organizations by Name" is null then 
+          //   "CRD Matrix"(requestItem)."CRD-3_2"
+          // else "CRD Matrix"(requestItem)."CRD-6"
+    else if (Routine."Is Routine"(requestItem)) then 
+      "CRD Matrix"(requestItem)."CRD-7"
+    else 
+      "CRD Matrix"(requestItem)."CRD-6"
+  else 
+    "CRD Matrix"(requestItem)."CRD-6"
+    // "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
-define function GetCrdResultOther(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>):
+define function hasBillingExtension(exts List<FHIR.Extension>) returns System.Boolean:
+  exists(
+    exts E 
+      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+  )
+
+define function BillingOptionExtensionPresent(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
+  if requestItem is FHIR.MedicationRequest then 
+    ((requestItem as FHIR.MedicationRequest).medication) is FHIR.CodeableConcept
+    and hasBillingExtension(((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension)
+  else if requestItem is FHIR.VisionPrescription then 
+    exists (((requestItem as FHIR.VisionPrescription).lensSpecification) LS 
+      where hasBillingExtension(LS.extension)
+    )
+  else if requestItem is FHIR.ServiceRequest then 
+    hasBillingExtension((requestItem as FHIR.ServiceRequest).extension)
+  else if requestItem is FHIR.NutritionOrder then 
+    hasBillingExtension((requestItem as FHIR.NutritionOrder).oralDiet.extension)
+    or hasBillingExtension((requestItem as FHIR.NutritionOrder).enteralFormula.extension)
+    or exists (
+      ((requestItem as FHIR.NutritionOrder).supplement) S
+        where hasBillingExtension(S.extension)
+    )
+  else if requestItem is FHIR.DeviceRequest then
+    hasBillingExtension((requestItem as FHIR.DeviceRequest).extension)
+  else if requestItem is FHIR.CommunicationRequest then 
+    hasBillingExtension((requestItem as FHIR.CommunicationRequest).extension)
+    or exists (((requestItem as FHIR.CommunicationRequest).payload) P
+      where hasBillingExtension(P.extension)
+    )
+  else if requestItem is FHIR.Appointment then 
+    hasBillingExtension((requestItem as FHIR.Appointment).extension)
+  else if requestItem is FHIR.Task then 
+    hasBillingExtension((requestItem as FHIR.Task).extension)
+    or exists (((requestItem as FHIR.Task).input) I
+      where hasBillingExtension(I.extension)
+    )
+  else null
+
+define function GetCrdResultOther(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
     if not exists (OrderLOBMatch."Matching Organizations by Name") 
     or OrderLOBMatch."Matching Organizations by Name" is null then 
-      "CRD Matrix"(requestItem)."CRD-3.2"
+      "CRD Matrix"(requestItem)."CRD-3_2"
     else "CRD Matrix"(requestItem)."CRD-5"
   else if (PriorAuthList."Not OnPriorAuthList"(requestItem)) then
     "CRD Matrix"(requestItem)."CRD-6"
   else
     "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
-define function "GetCoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment>, item Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String})
+define function "GetCoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>, item Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String})
 returns FHIR.Extension:
   Ctx."ExtensionPriorAuthNeeded"(
     requestItem,
@@ -267,3 +393,273 @@ returns FHIR.Extension:
     if "DebuggingEnabled" then item."DetailQualification" + Ctx.NewLine + '--- DEBUGGING ---' + Ctx.NewLine + item."DetailDebugging" else item."DetailQualification",
     item."DetailValue"
   )
+
+//appointment-book coverage checks (timing interval, out of network location, and required practitioner)
+define "Passes Coverage Checks for appointment-book":
+  not "Timing Interval Violation Exists"
+    and not "Out Of Network Location Exists"
+    and not "Missing Required Practitioner Exists"
+
+define "Timing Interval Violation Exists":
+  AppointmentWarnings."Timing Interval Violation Exists"
+
+define "Timing Interval Violation Description":
+  AppointmentWarnings."Timing Interval Violation Description"
+
+define "Out Of Network Location Exists":
+  AppointmentWarnings."Out Of Network Location Exists"
+
+define "Out Of Network Location Description":
+  AppointmentWarnings."Out Of Network Location Description"
+
+define "Missing Required Practitioner Exists":
+  AppointmentWarnings."Missing Required Practitioner Exists"
+
+define "Missing Required Practitioner Description":
+  AppointmentWarnings."Missing Required Practitioner Description"
+
+
+//Questionnaire elements
+define "PriorAuthSubmissionRequisite":
+  exists (
+    "CoverageExtensionList" ExtList
+      where exists (ExtList.extension E
+          where E.url.value = 'pa-needed'
+            and (
+              E.value.value = 'auth-needed' 
+              or E.value.value = 'conditional'
+            )
+      )
+  )
+
+//Approved and denied adjudication outcomes and rationales
+define "AdjudicationOutcomeForApprovedOrDenied":
+  if "Denied Case" then 
+    FHIR.CodeableConcept {
+      coding: {
+        FHIR.Coding {
+          system: FHIR.uri { value: 'http://example.com/CodeSystem/adjudication-outcomes' },
+          code: FHIR.code { value: 'A3' },
+          display: FHIR.string { value: 'Denied' }
+        }
+      }
+    }
+  else
+    FHIR.CodeableConcept {
+      coding: { 
+        FHIR.Coding {
+          system: FHIR.uri { value: 'http://example.com/CodeSystem/adjudication-outcomes' },
+          code: FHIR.code { value: 'A1' },
+          display: FHIR.string { value: 'Approved' }
+        }
+      }
+    }
+
+define "AdjudicationRationaleForApprovedOrDenied":
+  if "Denied Case" then
+    FHIR.CodeableConcept {
+      text: FHIR.string { value: 'Service is not covered under the current benefit plan' }
+    }
+  else 
+    FHIR.CodeableConcept {
+      text: FHIR.string { value: 'Service has been approved for coverage' }
+    }
+
+define "AdjudicationReasonCodeForDenied":
+  if "Denied Case" then
+    FHIR.CodeableConcept {
+      coding: {
+        FHIR.Coding {
+          system: FHIR.uri { value: 'http://example.com/CodeSystem/reason-codes' },
+          code: FHIR.code { value: '0M' },
+          display: FHIR.string { value: 'Non-covered Service' }
+        }
+      }
+    }
+  else 
+    null as FHIR.CodeableConcept
+
+define "Denied Case":
+  exists ([QuestionnaireResponse] QR
+    where exists (QR.item I
+      where (
+        (
+          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-patientage-casefeature-definition'
+          and exists (I.item i 
+            where exists (i.answer A
+              where A.value = false
+            )
+          )
+        )
+        or (
+          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-eds-screening-casefeature'
+          and exists (I.item i 
+            where exists (i.answer A
+              where A.value = false
+            )
+          )
+        )
+        or (
+          (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-ess-screening-casefeature'
+            and exists (I.item i 
+              where exists (i.answer A
+                where A.value = false
+              )
+            )
+          )
+          and (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-sleepydriving-screening-casefeature'
+            and exists (I.item i 
+              where exists (i.answer A
+                where A.value = false
+              )
+            )
+          )
+          and (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-loudsnoring-screening-casefeature'
+            and exists (I.item i 
+              where exists (i.answer A
+                where A.value = false
+              )
+            )
+          )
+          and (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-apnea-screening-casefeature'
+            and exists (I.item i 
+              where exists (i.answer A
+                where A.value = false
+              )
+            )
+          )
+        )
+        or (
+          (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-moderatetoseverepulmonarydisease-screening-casefeature'
+            and exists (I.item i 
+              where exists (i.answer A
+                where A.value = true
+              )
+            )
+          )
+          or (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-neuromuscularwithpulmonary-screening-casefeature'
+            and exists (I.item i 
+              where exists (i.answer A
+                where A.value = true
+              )
+            )
+          )
+          or (
+            I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-cardiacdisease-screening-casefeature'
+            and exists (I.item i 
+              where exists (i.answer A
+                where A.value = true
+              )
+            )
+          )
+        )
+        or (
+          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-qualifieddevice-screening-casefeature'
+          and exists (I.item i 
+            where exists (i.answer A
+              where A.value = false
+            )
+          )
+        )
+        or (
+          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-safehomeuse-screening-casefeature'
+          and exists (I.item i 
+            where exists (i.answer A
+              where A.value = false
+            )
+          )
+        )
+        or (
+          I.definition = 'http://example.org/sdh/dtr/aslp/StructureDefinition/aslp-paa-physicianevaluated-screening-casefeature'
+          and exists (I.item i 
+            where exists (i.answer A
+              where A.value = false
+            )
+          )
+        )
+      )
+    )
+  )
+
+//Pended adjudication outcome and rationale
+define "AdjudicationOutcomeForPended":
+  FHIR.CodeableConcept {
+    coding: {
+      FHIR.Coding {
+        system: FHIR.uri { value: 'http://example.com/CodeSystem/adjudication-outcomes' },
+        code: FHIR.code { value: 'A4' },
+        display: FHIR.string { value: 'Pended' }
+      }
+    }
+  }
+
+define "AdjudicationRationaleForPended":
+  FHIR.CodeableConcept {
+    text: FHIR.string { value: 'Additional patient clinical information is required to complete prior authorization review' }
+  }
+
+define "AdjudicationReasonCodesForPended":
+  FHIR.CodeableConcept {
+    coding: {
+      FHIR.Coding {
+        system: FHIR.uri { value: 'http://example.com/CodeSystem/reason-codes' },
+        code: FHIR.code { value: '0U' },
+        display: FHIR.string { value: 'Additional Patient Information Required' }
+      }
+    }
+  }
+
+define "QuestionnaireExtensionForTaskForPended":
+  FHIR.Extension {
+    "url": FHIR.uri { "value": 'http://hl7.org/fhir/StructureDefinition/task-input-type' },
+    "extension": ( {
+      FHIR.Extension {
+        "url": FHIR.uri { "value": 'questionnaire-documentation' },
+        "extension": ( {
+          FHIR.Extension {
+            "url": FHIR.uri { "value": 'code' },
+            "value": FHIR.CodeableConcept {
+                "coding": {
+                  FHIR.Coding {
+                    "system": FHIR.uri { "value": 'http://loinc.org' },
+                    "code": FHIR.code { "value": '102089-0' },
+                    "display": FHIR.string { 
+                      "value": 'Documentation request from payers and providers' 
+                    }
+                  }
+                }
+            }
+          },
+          FHIR.Extension {
+            "url": FHIR.uri { "value": 'questionnaire' },
+            "value": FHIR.canonical { "value": 'http://example.org/sdh/dtr/aslp/Questionnaire/ASLPCrd-MultipleRequest' }
+          }
+        } )
+      },
+      FHIR.Extension {
+        "url": FHIR.uri { "value": 'attachment-documentation' },
+        "extension": ( {
+          FHIR.Extension {
+            "url": FHIR.uri { "value": 'code' },
+            "value": FHIR.CodeableConcept {
+                "coding": {
+                  FHIR.Coding {
+                    "system": FHIR.uri { "value": 'http://loinc.org' },
+                    "code": FHIR.code { "value": '11506-3' },
+                    "display": FHIR.string { 
+                      "value": 'Progress notes' 
+                    }
+                  }
+                }
+            }
+          }
+        } )
+      }
+    } )
+  }
