@@ -3178,6 +3178,13 @@
   "action": [ {
     "title": "Prior Auth Evaluation",
     "description": "Information related to whether a service is covered, not covered or requires prior auth submission",
+    "condition": [ {
+      "kind": "applicability",
+      "expression": { 
+        "language": "text/cql-identifier", 
+        "expression": "Passes Coverage Checks for appointment-book" 
+      }
+    } ],
     "dynamicValue": [ {
       "path": "title",
       "expression": {
@@ -3209,12 +3216,19 @@
       }
     } ],
     "dynamicValue": [ {
-      "path": "description",
-      "expression": { 
-        "language": "text/cql-identifier", 
-        "expression": "Timing Interval Violation Description" 
-      }
-    } ]
+        "path": "description",
+        "expression": { 
+          "language": "text/cql-identifier", 
+          "expression": "Timing Interval Violation Description" 
+        }
+      }, {
+        "path": "extension",
+        "expression": {
+          "language": "text/cql-identifier",
+          "expression": "CoverageExtensionList"
+        }
+      } 
+    ]
   }, {
     "id": "out-of-network-location",
     "title": "Out-of-Network Location",
@@ -3227,12 +3241,19 @@
       }
     } ],
     "dynamicValue": [ {
-      "path": "description",
-      "expression": { 
-        "language": "text/cql-identifier", 
-        "expression": "Out Of Network Location Description" 
-      }
-    } ]
+        "path": "description",
+        "expression": { 
+          "language": "text/cql-identifier", 
+          "expression": "Out Of Network Location Description" 
+        }
+      }, {
+        "path": "extension",
+        "expression": {
+          "language": "text/cql-identifier",
+          "expression": "CoverageExtensionList"
+        }
+      } 
+    ]
   }, {
     "id": "missing-required-practitioner",
     "title": "Missing Required Practitioner",
@@ -3245,12 +3266,19 @@
       }
     } ],
     "dynamicValue": [ {
-      "path": "description",
-      "expression": { 
-        "language": "text/cql-identifier", 
-        "expression": "Missing Required Practitioner Description" 
-      }
-    } ]
+        "path": "description",
+        "expression": { 
+          "language": "text/cql-identifier", 
+          "expression": "Missing Required Practitioner Description" 
+        }
+      }, {
+        "path": "extension",
+        "expression": {
+          "language": "text/cql-identifier",
+          "expression": "CoverageExtensionList"
+        }
+      } 
+    ]
   }, {
     "title": "Submit Prior Authorization Questionnaire",
     "description": "Submit a questionnaire for prior authorization",

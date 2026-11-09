@@ -13,6 +13,7 @@ include ASLPCrdOnPriorAuthListLogic version '0.1.0' called PriorAuthList
 include ASLPCrdContextValidationLogic version '0.1.0' called ContextValidation
 include ASLPCrdEvaluationLogic version '0.1.0' called Evaluation
 include QuestionnaireRouter version '0.1.0' called Router
+include ASLPCrdAppointmentWarningsLogic version '0.1.0' called AppointmentWarnings
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 codesystem "AdjudicationOutcomes": 'https://codesystem.x12.org/005010/306' 
@@ -153,6 +154,16 @@ define function "CRD Matrix"(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
       "DetailDebugging": if "DebuggingEnabled" then Evaluation."Detail Debugging" else 'Debugging disabled',
       "DetailValue": 'warning'
     }, 
+    "CRD-10": { 
+      "ID": 'CRD-10',
+      "Covered": 'conditional', 
+      "PriorAuthNeeded": 'conditional', 
+      "DetailCode": 'coverage-info', 
+      "DetailText": 'Appointment request does not pass one or more of the following checks: timing interval, network location, or required practitioner.', 
+      "DetailQualification": 'Timing interval violation, out-of-network location, and/or missing required practitioner.',
+      "DetailDebugging": if "DebuggingEnabled" then 'Not yet implemented.' else 'Debugging disabled',
+      "DetailValue": 'warning'
+    }, 
     "CRD-UnexpectedError": { 
       "ID": 'CRD-UnexpectedError',
       "Covered": 'conditional', 
@@ -247,30 +258,33 @@ define function GetCrdResultCommunicationRequest(requestItem Choice<FHIR.Nutriti
     "CRD Matrix"(requestItem)."CRD-7"
 
 define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
-  if exists (requestItem.basedOn) then 
-    if (
-      PriorAuthList."Is OnPriorAuthList"(requestItem)
-      or exists ((Ctx.GetCode(requestItem).coding) c
-        where c in "Sleep Study Procedure"
-      )
-    ) then 
-      "CRD Matrix"(requestItem)."CRD-5"
-    else if Routine."Is Routine"(requestItem) then 
-      "CRD Matrix"(requestItem)."CRD-7"
-    else 
-      "CRD Matrix"(requestItem)."CRD-6"  
-  // else if exists (requestItem.serviceType) then 
-    // if (
-    //   PriorAuthList."Is OnPriorAuthList"(requestItem)
-    //   or exists ((Ctx.GetCode(requestItem).coding) c
-    //     where c in "Sleep Study Procedure"
-    //   )
-    // ) then
-    //   "CRD Matrix"(requestItem)."CRD-5"
-    // else if Routine."Is Routine"(requestItem) then 
-    //   "CRD Matrix"(requestItem)."CRD-7"
-    // else 
-    //   "CRD Matrix"(requestItem)."CRD-6"
+  if not "Passes Coverage Checks for appointment-book" then
+    "CRD Matrix"(requestItem)."CRD-10"
+  else if "Passes Coverage Checks for appointment-book"
+    and exists (requestItem.basedOn) then 
+      if (
+        PriorAuthList."Is OnPriorAuthList"(requestItem)
+        or exists ((Ctx.GetCode(requestItem).coding) c
+          where c in "Sleep Study Procedure"
+        )
+      ) then 
+        "CRD Matrix"(requestItem)."CRD-5"
+      else if Routine."Is Routine"(requestItem) then 
+        "CRD Matrix"(requestItem)."CRD-7"
+      else 
+        "CRD Matrix"(requestItem)."CRD-6"  
+    // else if exists (requestItem.serviceType) then 
+      // if (
+      //   PriorAuthList."Is OnPriorAuthList"(requestItem)
+      //   or exists ((Ctx.GetCode(requestItem).coding) c
+      //     where c in "Sleep Study Procedure"
+      //   )
+      // ) then
+      //   "CRD Matrix"(requestItem)."CRD-5"
+      // else if Routine."Is Routine"(requestItem) then 
+      //   "CRD Matrix"(requestItem)."CRD-7"
+      // else 
+      //   "CRD Matrix"(requestItem)."CRD-6"
   else 
     // "CRD Matrix"(requestItem)."CRD-9"
     // "CRD Matrix"(requestItem)."CRD-UnexpectedError"
@@ -379,6 +393,31 @@ returns FHIR.Extension:
     if "DebuggingEnabled" then item."DetailQualification" + Ctx.NewLine + '--- DEBUGGING ---' + Ctx.NewLine + item."DetailDebugging" else item."DetailQualification",
     item."DetailValue"
   )
+
+//appointment-book coverage checks (timing interval, out of network location, and required practitioner)
+define "Passes Coverage Checks for appointment-book":
+  not "Timing Interval Violation Exists"
+    and not "Out Of Network Location Exists"
+    and not "Missing Required Practitioner Exists"
+
+define "Timing Interval Violation Exists":
+  AppointmentWarnings."Timing Interval Violation Exists"
+
+define "Timing Interval Violation Description":
+  AppointmentWarnings."Timing Interval Violation Description"
+
+define "Out Of Network Location Exists":
+  AppointmentWarnings."Out Of Network Location Exists"
+
+define "Out Of Network Location Description":
+  AppointmentWarnings."Out Of Network Location Description"
+
+define "Missing Required Practitioner Exists":
+  AppointmentWarnings."Missing Required Practitioner Exists"
+
+define "Missing Required Practitioner Description":
+  AppointmentWarnings."Missing Required Practitioner Description"
+
 
 //Questionnaire elements
 define "PriorAuthSubmissionRequisite":
