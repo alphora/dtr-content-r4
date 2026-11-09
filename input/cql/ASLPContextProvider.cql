@@ -65,7 +65,8 @@ define "Provider":
       "PractitionerRoles": ("Provider Context".entry.resource PayorResource return if (PayorResource is PractitionerRole) then PayorResource as FHIR.PractitionerRole else null as FHIR.PractitionerRole) I where I is not null,
       "Organizations": ("Provider Context".entry.resource PayorResource return if (PayorResource is Organization) then PayorResource as FHIR.Organization else null as FHIR.Organization) I where I is not null,
       "ServiceRequests": ("Provider Context".entry.resource R return if (R is ServiceRequest) then R as FHIR.ServiceRequest else null as FHIR.ServiceRequest) I where I is not null,
-      "Medications": ("Provider Context".entry.resource R return if (R is Medication) then R as FHIR.Medication else null as FHIR.Medication) I where I is not null
+      "Medications": ("Provider Context".entry.resource R return if (R is Medication) then R as FHIR.Medication else null as FHIR.Medication) I where I is not null,
+      "Locations": ("Provider Context".entry.resource R return if (R is Location) then R as FHIR.Location else null as FHIR.Location) I where I is not null
     }
   // This section is only for local CQL vs code plugin testing
   else
@@ -76,7 +77,8 @@ define "Provider":
       "PractitionerRoles": "All Provider PractitionerRoles",
       "Organizations": "All Provider Organizations",
       "ServiceRequests": "All Provider ServiceRequests",
-      "Medications": "All Provider Medications"
+      "Medications": "All Provider Medications",
+      "Locations": "All Provider Locations"
     }
 
 define "Provider Patient":
@@ -100,3 +102,6 @@ define "All Provider ServiceRequests":
 
 define "All Provider Medications":
   [Medication] item where IsPayorResource(item) = false
+
+define "All Provider Locations":
+  [Location] item where IsPayorResource(item) = false
