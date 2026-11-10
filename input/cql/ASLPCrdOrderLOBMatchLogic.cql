@@ -18,7 +18,7 @@ define "Description":
 
 // CRD-3_2
 define "Qualification":
-  'Line of Business MisMatch. Prior authorization submission is required.'
+  'Line of Business Mismatch. Prior authorization submission is required.'
 
 // CRD-3_2
 define "Detail Debugging":
