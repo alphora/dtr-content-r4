@@ -428,16 +428,12 @@ returns FHIR.Extension:
 define function "BillingCode"(serviceRequestCode System.Code)
 returns FHIR.Extension:
   FHIR.Extension {
-    "url": FHIR.uri { "value": 'billingCode' },
-    "value": FHIR.CodeableConcept { 
-      "coding": {
-        FHIR.Coding {
-          system: FHIR.uri { "value": "BillingCodeSystem"(serviceRequestCode) },
-          code: FHIR.code { "value": serviceRequestCode.code },
-          display: FHIR.string { "value": serviceRequestCode.display }
-        }
+    url: FHIR.uri { "value": 'billingCode' },
+    value: FHIR.Coding {
+        system: FHIR.uri { value: "BillingCodeSystem"(serviceRequestCode) },
+        code: FHIR.code { value: serviceRequestCode.code },
+        display: FHIR.string { value: serviceRequestCode.display }
       }
-    }
   }
 
 define function "BillingCodeSystem"(c System.Code)
