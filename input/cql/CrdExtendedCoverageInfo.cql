@@ -282,12 +282,12 @@ returns FHIR.Extension:
         case
           when priorAuthRequiredValue in { 'auth-needed', 'conditional' } then
             Coalesce(
-              if StartsWith(requestRefString, 'CommunicationRequest/') then
-                'http://example.org/sdh/dtr/aslp/PlanDefinition/Home-Monitor-Sleep-Testing' else null,
               QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode),
               'http://example.org/fhir/PlanDefinition/questionnaire-not-found'
             )
-          else
+          else if StartsWith(requestRefString, 'CommunicationRequest/') then
+            'http://example.org/fhir/PlanDefinition/not-applicable' 
+          else 
             'http://example.org/fhir/PlanDefinition/not-applicable'
         end
     }
