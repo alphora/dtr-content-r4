@@ -6,7 +6,6 @@ using FHIR version '4.0.1'
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 include QuestionnaireRouter version '0.1.0' called QuestionnaireRouter
 include ASLPResourceHelpers version '0.1.0' called RH
-include ASLPCrdMultipleRequestLogic version '0.1.0' called MultipleRequestLogic
 
 context Patient
 
@@ -432,14 +431,14 @@ returns FHIR.Extension:
     First(
       [CommunicationRequest] CR
         where CR.id.value = Last(Split(requestRefString, '/'))
-          and MultipleRequestLogic."ReturnBillingExtensionValueFor"(CR) is not null
+          and RH."ReturnBillingExtensionValueFor"(CR) is not null
         return 
           FHIR.Extension {
             url: FHIR.uri { value: 'billingCode' },
             value: FHIR.Coding {
               system: FHIR.uri { value: "BillingCodeSystem"(serviceRequestCode) },
-              code: FHIR.code { value: MultipleRequestLogic."ReturnBillingExtensionValueFor"(CR).coding[0].code.value },
-              display: FHIR.string { value: MultipleRequestLogic."ReturnBillingExtensionValueFor"(CR).coding[0].display.value }
+              code: FHIR.code { value: RH."ReturnBillingExtensionValueFor"(CR).coding[0].code.value },
+              display: FHIR.string { value: RH."ReturnBillingExtensionValueFor"(CR).coding[0].display.value }
             }
           }
     )

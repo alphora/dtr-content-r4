@@ -100,3 +100,129 @@ returns FHIR.CodeableConcept:
   else if (item is FHIR.Task) then 
     (item as FHIR.Task).code
   else null as FHIR.CodeableConcept
+
+define function hasBillingExtension(exts List<FHIR.Extension>) returns System.Boolean:
+  exists(
+    exts E 
+      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+  )
+
+define function BillingOptionExtensionPresent(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
+  if requestItem is FHIR.MedicationRequest then 
+    ((requestItem as FHIR.MedicationRequest).medication) is FHIR.CodeableConcept
+    and hasBillingExtension(((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension)
+  else if requestItem is FHIR.VisionPrescription then 
+    exists (((requestItem as FHIR.VisionPrescription).lensSpecification) LS 
+      where hasBillingExtension(LS.extension)
+    )
+  else if requestItem is FHIR.ServiceRequest then 
+    hasBillingExtension((requestItem as FHIR.ServiceRequest).extension)
+  else if requestItem is FHIR.NutritionOrder then 
+    hasBillingExtension((requestItem as FHIR.NutritionOrder).oralDiet.extension)
+    or hasBillingExtension((requestItem as FHIR.NutritionOrder).enteralFormula.extension)
+    or exists (
+      ((requestItem as FHIR.NutritionOrder).supplement) S
+        where hasBillingExtension(S.extension)
+    )
+  else if requestItem is FHIR.DeviceRequest then
+    hasBillingExtension((requestItem as FHIR.DeviceRequest).extension)
+  else if requestItem is FHIR.CommunicationRequest then 
+    hasBillingExtension((requestItem as FHIR.CommunicationRequest).extension)
+    or exists (((requestItem as FHIR.CommunicationRequest).payload) P
+      where hasBillingExtension(P.extension)
+    )
+  else if requestItem is FHIR.Appointment then 
+    hasBillingExtension((requestItem as FHIR.Appointment).extension)
+  else if requestItem is FHIR.Task then 
+    hasBillingExtension((requestItem as FHIR.Task).extension)
+    or exists (((requestItem as FHIR.Task).input) I
+      where hasBillingExtension(I.extension)
+    )
+  else null
+
+define function "ReturnBillingExtensionValueFor"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>)
+returns FHIR.CodeableConcept:
+  if requestItem is FHIR.NutritionOrder then
+    Coalesce(
+      (
+        First(
+          from (requestItem as FHIR.NutritionOrder).oralDiet.extension E
+            where hasBillingExtension((requestItem as FHIR.NutritionOrder).oralDiet.extension)
+          return E.value as FHIR.CodeableConcept
+        )
+      ),
+      (
+        First(
+          from (requestItem as FHIR.NutritionOrder).enteralFormula.extension E
+            where hasBillingExtension((requestItem as FHIR.NutritionOrder).enteralFormula.extension)
+          return E.value as FHIR.CodeableConcept
+        )
+      ),
+      (
+        First(
+          flatten (
+            (requestItem as FHIR.NutritionOrder).supplement S
+              return S.extension
+          ) E
+            where hasBillingExtension(E)
+            return E.value as FHIR.CodeableConcept
+        )
+      )
+    )
+  else if requestItem is FHIR.ServiceRequest then
+    (
+      First(
+        from (requestItem as FHIR.ServiceRequest).extension E
+          where hasBillingExtension((requestItem as FHIR.ServiceRequest).extension)
+        return E.value as FHIR.CodeableConcept
+      )
+    )
+  else if requestItem is FHIR.DeviceRequest then
+    (
+      First(
+        from (requestItem as FHIR.DeviceRequest).extension E
+          where hasBillingExtension((requestItem as FHIR.DeviceRequest).extension)
+        return E.value as FHIR.CodeableConcept
+      )
+    )
+  else if requestItem is FHIR.MedicationRequest then
+    (
+      First(
+        from ((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension E
+          where hasBillingExtension(((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension)
+        return E.value as FHIR.CodeableConcept
+      )
+    )
+  else if requestItem is FHIR.VisionPrescription then
+    (
+      First(
+        from (requestItem as FHIR.VisionPrescription).lensSpecification L
+          where hasBillingExtension(L.extension)
+        return L.extension.value as FHIR.CodeableConcept
+      )
+    )
+  else if requestItem is FHIR.CommunicationRequest then 
+    (
+      First(
+        from (requestItem as FHIR.CommunicationRequest).payload P
+          where hasBillingExtension(P.extension)
+        return P.extension.value as FHIR.CodeableConcept
+      )
+    )
+  else if requestItem is FHIR.Appointment then 
+    (
+      First(
+        from (requestItem as FHIR.Appointment).extension E
+          where hasBillingExtension((requestItem as FHIR.Appointment).extension)
+        return E.value as FHIR.CodeableConcept
+      )
+    )
+  else if requestItem is FHIR.Task then
+    (
+      First(
+        from (requestItem as FHIR.Task).input I
+          where hasBillingExtension(I.extension)
+        return I.extension.value as FHIR.CodeableConcept
+      )
+    )
+  else null as FHIR.CodeableConcept
