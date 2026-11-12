@@ -6,6 +6,7 @@ using FHIR version '4.0.1'
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 include QuestionnaireRouter version '0.1.0' called QuestionnaireRouter
 include ASLPResourceHelpers version '0.1.0' called RH
+include ASLPCrdMultipleRequestLogic version '0.1.0' called MultipleRequestLogic
 
 context Patient
 
@@ -19,7 +20,7 @@ define "Submit PA Form Detail Text":
   'Submit Prior Authorization Form'
 
 define "No PA Required Text":
-  'Order is covered. No prior auth is required for this request'
+  'Order is covered. No prior auth is required for: '
 
 define "Member Not Found Text":
   'The member cannot be found. You can submit a PA request as an exception.'
@@ -82,7 +83,7 @@ returns FHIR.Extension:
       { "DetailExtension"(detailCodeValue, detailTextValue, qualificationValue, warningOrInfoValue) },
 
       // Indicates the service or procedure code under evaluation
-      { "BillingCode"(serviceRequestCode) },
+      { "BillingCode"(serviceRequestCode, requestRefString) },
 
       // Always 'admin' and 'clinical'
       // 'admin', 'clinical', 'both', or 'conditional' (https://hl7.org/fhir/us/davinci-crd/ValueSet-AdditionalDocumentation.html)
@@ -166,7 +167,7 @@ define function "ReasonExtension"(qualificationValue System.String, serviceReque
 returns FHIR.Extension:
   if IsNull(qualificationValue) 
   or StartsWith(qualificationValue, "PA Required Prefix")
-  or qualificationValue = "No PA Required Text" then 
+  or StartsWith(qualificationValue, "No PA Required Text") then
     FHIR.Extension {
       "url": FHIR.uri { "value": 'reason' },
       "value": FHIR.CodeableConcept { 
@@ -299,7 +300,7 @@ returns FHIR.Extension:
   FHIR.Extension {
     "url": FHIR.uri { "value": 'detail' },
     "extension": {
-      if qualificationValue = "No PA Required Text" then 
+      if StartsWith(qualificationValue, "No PA Required Text") then
         FHIR.Extension {
           "url": FHIR.uri { "value": 'category' },
           "value": FHIR.code { "value": 'cat-decisional' }
@@ -425,16 +426,37 @@ returns FHIR.Extension:
       "value": FHIR.code { "value": 'no-doc-purpose' }
     }
 
-define function "BillingCode"(serviceRequestCode System.Code)
+define function "BillingCode"(serviceRequestCode System.Code, requestRefString System.String)
 returns FHIR.Extension:
-  FHIR.Extension {
-    url: FHIR.uri { "value": 'billingCode' },
-    value: FHIR.Coding {
-        system: FHIR.uri { value: "BillingCodeSystem"(serviceRequestCode) },
-        code: FHIR.code { value: serviceRequestCode.code },
-        display: FHIR.string { value: serviceRequestCode.display }
+  if StartsWith(requestRefString, 'CommunicationRequest/') then
+    if exists (
+      [CommunicationRequest] CR
+        where CR.id.value = Last(Split(requestRefString, '/'))
+          and MultipleRequestLogic.BillingOptionExtensionPresent(CR)
+    ) then
+      FHIR.Extension {
+        url: FHIR.uri { value: 'billingCode' },
+        value: FHIR.Coding {
+          system: FHIR.uri { value: 'http://example.org/fhir/PlanDefinition/not-applicable' }
+        }
       }
-  }
+    else null
+    
+    FHIR.Extension {
+      url: FHIR.uri { "value": 'billingCode' },
+      value: FHIR.Coding {
+          system: FHIR.uri { value: 'http://example.org/fhir/PlanDefinition/not-applicable' }
+        }
+    }
+  else 
+    FHIR.Extension {
+      url: FHIR.uri { "value": 'billingCode' },
+      value: FHIR.Coding {
+          system: FHIR.uri { value: "BillingCodeSystem"(serviceRequestCode) },
+          code: FHIR.code { value: serviceRequestCode.code },
+          display: FHIR.string { value: serviceRequestCode.display }
+        }
+    }
 
 define function "BillingCodeSystem"(c System.Code)
 returns System.String:

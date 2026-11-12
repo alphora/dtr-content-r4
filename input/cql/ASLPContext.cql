@@ -226,11 +226,11 @@ returns FHIR.CodeableConcept:
       (item as FHIR.DeviceRequest).code as FHIR.CodeableConcept
     else if (item as FHIR.DeviceRequest).code is FHIR.Reference then
       if exists ([Device]) then
-        from [Device] D
-            where ((item as FHIR.DeviceRequest).code as FHIR.Reference).reference = 'Device/' + D.id
-            or ((item as FHIR.DeviceRequest).code as FHIR.Reference).reference = 'Device/' + FHIRHelpers.ToString(D.id)
-            // or D.id in ref.reference
-        return D.type
+        First(
+          [Device] D
+            where FHIRHelpers.ToString(((item as FHIR.DeviceRequest).code as FHIR.Reference).reference) = 'Device/' + FHIRHelpers.ToString(D.id)
+            return D.type
+        )
       else
         null as FHIR.CodeableConcept
       // ([Device: id ~ ((item as FHIR.DeviceRequest).code as FHIR.Reference).reference]).type
@@ -240,9 +240,11 @@ returns FHIR.CodeableConcept:
     if (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType is FHIR.CodeableConcept then 
       (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType as FHIR.CodeableConcept
     else if exists ((item as FHIR.NutritionOrder).supplement) then
-      from ((item as FHIR.NutritionOrder).supplement) S
-        where (S.type) is not null
-      return S.type
+      First(
+        from (item as FHIR.NutritionOrder).supplement S
+          where S.type is not null
+        return S.type
+      )
     else if ((item as FHIR.NutritionOrder).oralDiet) is not null 
       and exists ((item as FHIR.NutritionOrder).oralDiet.type) then
       First((item as FHIR.NutritionOrder).oralDiet.type)
@@ -267,9 +269,11 @@ returns FHIR.CodeableConcept:
     else 
       null as FHIR.CodeableConcept
   else if (item is FHIR.VisionPrescription) then 
-    if (exists ((item as FHIR.VisionPrescription).lensSpecification) LS 
-      where exists ((LS.extension) E 
-        where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+    if (exists (
+      (item as FHIR.VisionPrescription).lensSpecification LS
+        where exists (LS.extension E 
+          where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+        )
       )
     ) then 
         First(
@@ -281,20 +285,23 @@ returns FHIR.CodeableConcept:
           )
             where billingExt is not null
           return billingExt.value as FHIR.CodeableConcept
-        )         
-    else if exists ((item as FHIR.VisionPrescription).lensSpecification) LS
-      where not exists ((LS.extension) E 
-        where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
-      ) then
-          First(
-            from ((item as FHIR.VisionPrescription).lensSpecification) LS 
-              where exists ((LS.extension) E 
-                where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
-              )
-              and LS.product is not null
-            return 
-              LS.product
+        )  
+    else if exists (
+      (item as FHIR.VisionPrescription).lensSpecification LS
+        where not exists (
+          LS.extension E
+            where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+        )
+    ) then
+      First(
+        from (item as FHIR.VisionPrescription).lensSpecification LS
+          where not exists (
+            LS.extension E
+              where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
           )
+          and LS.product is not null
+        return LS.product
+      )       
     else
       null as FHIR.CodeableConcept
   else if (item is FHIR.Appointment) then 
