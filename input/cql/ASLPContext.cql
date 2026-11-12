@@ -142,11 +142,12 @@ define function GetResourceType(r Choice<FHIR.NutritionOrder, FHIR.ServiceReques
 
 define function "System Generated Id"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   Coalesce(
-    (First(
-      requestItem.extension E
-        where E.url = 'https://smiledigitalhealth.com/priorauth/smile-crd-assertion-id'
-        return E
-    )).value as FHIR.string,
+    FHIRHelpers.ToString(
+      (First(
+        requestItem.extension E
+          where E.url = 'https://smiledigitalhealth.com/priorauth/smile-crd-assertion-id'
+      ).value as FHIR.string)
+    ),
     "Request Id"
   )
 
@@ -241,7 +242,7 @@ returns FHIR.CodeableConcept:
       (item as FHIR.NutritionOrder).enteralFormula.baseFormulaType as FHIR.CodeableConcept
     else if exists ((item as FHIR.NutritionOrder).supplement) then
       First(
-        from (item as FHIR.NutritionOrder).supplement S
+        from ((item as FHIR.NutritionOrder).supplement) S
           where S.type is not null
         return S.type
       )
@@ -270,7 +271,7 @@ returns FHIR.CodeableConcept:
       null as FHIR.CodeableConcept
   else if (item is FHIR.VisionPrescription) then 
     if (exists (
-      (item as FHIR.VisionPrescription).lensSpecification LS
+      ((item as FHIR.VisionPrescription).lensSpecification) LS
         where exists (LS.extension E 
           where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
         )
@@ -287,14 +288,14 @@ returns FHIR.CodeableConcept:
           return billingExt.value as FHIR.CodeableConcept
         )  
     else if exists (
-      (item as FHIR.VisionPrescription).lensSpecification LS
+      ((item as FHIR.VisionPrescription).lensSpecification) LS
         where not exists (
           LS.extension E
             where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
         )
     ) then
       First(
-        from (item as FHIR.VisionPrescription).lensSpecification LS
+        from ((item as FHIR.VisionPrescription).lensSpecification) LS
           where not exists (
             LS.extension E
               where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
@@ -425,17 +426,17 @@ define function ToRefString(r Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, F
 define function GetOrdersFromDraftOrders(list List<System.String>):
   "Service Request Item List" S 
     where exists ((list) L
-      where Split(L, '/').last() = S.id.value
+      where Last(Split(L, '/')) = S.id.value
     )
 
 define function TaskReferencesDispatchedOrder(T FHIR.Task):
   exists (("dispatchedOrders") D
     where 
       (T.focus is not null 
-        and Split(FHIRHelpers.ToString(T.focus.reference), '/').last() = Split(D, '/').last()
+        and Last(Split(FHIRHelpers.ToString(T.focus.reference), '/')) = Last(Split(D, '/'))
       )
       or exists ((T.basedOn) B 
-        where Split(FHIRHelpers.ToString(B.reference), '/').last() = Split(D, '/').last()
+        where Last(Split(FHIRHelpers.ToString(B.reference), '/')) = Last(Split(D, '/'))
       )
   )
 

@@ -13,6 +13,7 @@ include ASLPCrdOnPriorAuthListLogic version '0.1.0' called PriorAuthList
 include ASLPCrdContextValidationLogic version '0.1.0' called ContextValidation
 include ASLPCrdEvaluationLogic version '0.1.0' called Evaluation
 include QuestionnaireRouter version '0.1.0' called Router
+include ASLPResourceHelpers version '0.1.0' called RH
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 codesystem "AdjudicationOutcomes": 'https://codesystem.x12.org/005010/306' 
@@ -277,7 +278,7 @@ define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, 
     "CRD Matrix"(requestItem)."CRD-7"
 
 define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
-  if BillingOptionExtensionPresent(requestItem) then 
+  if RH.BillingOptionExtensionPresent(requestItem) then 
     if (PriorAuthList."Is OnPriorAuthList"(requestItem)
       or exists ((Ctx.GetCode(requestItem).coding) c 
         where c in "Sleep Study Procedure"

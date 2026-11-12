@@ -48,12 +48,10 @@ define "Detail Text":
 
 // CRD-5
 define function "Qualification"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest,FHIR.Appointment, FHIR.Task>):
-  (First((Ctx.GetCode(requestItem)).coding)) c
-  return
-    if IsNull(c.display) or c.display = '' then
-      'Prior authorization is required for this procedure or medication.'
-    else 
-      'Prior authorization is required for ' + FHIRHelpers.ToString(c.display)
+  Coalesce(
+    'Prior authorization is required for ' + FHIRHelpers.ToString(First((Ctx.GetCode(requestItem)).coding).display),
+    'Prior authorization is required for this procedure or medication.'
+  )
 
 // CRD-5
 define "Detail Debugging":
@@ -65,9 +63,10 @@ define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR
 
 define function "Is OnPriorAuthList"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   Ctx.GetCode(requestItem) is not null
-    and exists (Ctx.GetCode(requestItem).coding) c 
+    and exists ((Ctx.GetCode(requestItem).coding) c 
       where c in "Prior Auth Required for Procedure Valueset"
       or c in "Prior Auth Required for Procedure Grouper"
+    )
 
 define function "Not OnPriorAuthList"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
   not (("Is OnPriorAuthList"(requestItem))) 
