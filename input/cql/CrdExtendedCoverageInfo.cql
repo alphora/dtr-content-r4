@@ -429,25 +429,20 @@ returns FHIR.Extension:
 define function "BillingCode"(serviceRequestCode System.Code, requestRefString System.String)
 returns FHIR.Extension:
   if StartsWith(requestRefString, 'CommunicationRequest/') then
-    if exists (
+    First(
       [CommunicationRequest] CR
         where CR.id.value = Last(Split(requestRefString, '/'))
-          and MultipleRequestLogic.BillingOptionExtensionPresent(CR)
-    ) then
-      FHIR.Extension {
-        url: FHIR.uri { value: 'billingCode' },
-        value: FHIR.Coding {
-          system: FHIR.uri { value: 'http://example.org/fhir/PlanDefinition/not-applicable' }
-        }
-      }
-    else null
-    
-    FHIR.Extension {
-      url: FHIR.uri { "value": 'billingCode' },
-      value: FHIR.Coding {
-          system: FHIR.uri { value: 'http://example.org/fhir/PlanDefinition/not-applicable' }
-        }
-    }
+          and MultipleRequestLogic."ReturnBillingExtensionValueFor"(CR) is not null
+        return 
+          FHIR.Extension {
+            url: FHIR.uri { value: 'billingCode' },
+            value: FHIR.Coding {
+              system: FHIR.uri { value: "BillingCodeSystem"(serviceRequestCode) },
+              code: FHIR.code { value: MultipleRequestLogic."ReturnBillingExtensionValueFor"(CR).coding[0].code.value },
+              display: FHIR.string { value: MultipleRequestLogic."ReturnBillingExtensionValueFor"(CR).coding[0].display.value }
+            }
+          }
+    )
   else 
     FHIR.Extension {
       url: FHIR.uri { "value": 'billingCode' },

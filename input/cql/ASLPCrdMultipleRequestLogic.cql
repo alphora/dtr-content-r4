@@ -318,6 +318,29 @@ define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionO
     "CRD Matrix"(requestItem)."CRD-6"
     // "CRD Matrix"(requestItem)."CRD-UnexpectedError"
 
+define function GetCrdResultOther(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
+  if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
+    if not exists (OrderLOBMatch."Matching Organizations by Name") 
+    or OrderLOBMatch."Matching Organizations by Name" is null then 
+      "CRD Matrix"(requestItem)."CRD-3_2"
+    else "CRD Matrix"(requestItem)."CRD-5"
+  else if (PriorAuthList."Not OnPriorAuthList"(requestItem)) then
+    "CRD Matrix"(requestItem)."CRD-6"
+  else
+    "CRD Matrix"(requestItem)."CRD-UnexpectedError"
+
+define function "GetCoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>, item Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String})
+returns FHIR.Extension:
+  Ctx."ExtensionPriorAuthNeeded"(
+    requestItem,
+    item."Covered", 
+    item."PriorAuthNeeded", 
+    item."DetailCode", 
+    item."DetailText", 
+    if "DebuggingEnabled" then item."DetailQualification" + Ctx.NewLine + '--- DEBUGGING ---' + Ctx.NewLine + item."DetailDebugging" else item."DetailQualification",
+    item."DetailValue"
+  )
+
 define function hasBillingExtension(exts List<FHIR.Extension>) returns System.Boolean:
   exists(
     exts E 
@@ -357,28 +380,92 @@ define function BillingOptionExtensionPresent(requestItem Choice<FHIR.NutritionO
     )
   else null
 
-define function GetCrdResultOther(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
-  if (PriorAuthList."Is OnPriorAuthList"(requestItem)) then
-    if not exists (OrderLOBMatch."Matching Organizations by Name") 
-    or OrderLOBMatch."Matching Organizations by Name" is null then 
-      "CRD Matrix"(requestItem)."CRD-3_2"
-    else "CRD Matrix"(requestItem)."CRD-5"
-  else if (PriorAuthList."Not OnPriorAuthList"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-6"
-  else
-    "CRD Matrix"(requestItem)."CRD-UnexpectedError"
-
-define function "GetCoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>, item Tuple{"ID" System.String, "Covered" System.String, "PriorAuthNeeded" System.String, "DetailCode" System.String, "DetailText" System.String, "DetailQualification" System.String, "DetailDebugging" System.String, "DetailValue" System.String})
-returns FHIR.Extension:
-  Ctx."ExtensionPriorAuthNeeded"(
-    requestItem,
-    item."Covered", 
-    item."PriorAuthNeeded", 
-    item."DetailCode", 
-    item."DetailText", 
-    if "DebuggingEnabled" then item."DetailQualification" + Ctx.NewLine + '--- DEBUGGING ---' + Ctx.NewLine + item."DetailDebugging" else item."DetailQualification",
-    item."DetailValue"
-  )
+define function "ReturnBillingExtensionValueFor"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>)
+returns FHIR.CodeableConcept:
+  if requestItem is FHIR.NutritionOrder then
+    Coalesce(
+      (
+        First(
+          from (requestItem as FHIR.NutritionOrder).oralDiet.extension E
+            where hasBillingExtension((requestItem as FHIR.NutritionOrder).oralDiet.extension)
+          return E.value as FHIR.CodeableConcept
+        )
+      ),
+      (
+        First(
+          from (requestItem as FHIR.NutritionOrder).enteralFormula.extension E
+            where hasBillingExtension((requestItem as FHIR.NutritionOrder).enteralFormula.extension)
+          return E.value as FHIR.CodeableConcept
+        )
+      ),
+      (
+        First(
+          flatten (
+            (requestItem as FHIR.NutritionOrder).supplement S
+              return S.extension
+          ) E
+            where hasBillingExtension(E)
+            return E.value as FHIR.CodeableConcept
+        )
+      )
+    )
+  else if requestItem is FHIR.ServiceRequest then
+    (
+      First(
+        from (requestItem as FHIR.ServiceRequest).extension E
+          where hasBillingExtension((requestItem as FHIR.ServiceRequest).extension)
+        return E.value as FHIR.CodeableConcept
+      )
+    )
+  else if requestItem is FHIR.DeviceRequest then
+    (
+      First(
+        from (requestItem as FHIR.DeviceRequest).extension E
+          where hasBillingExtension((requestItem as FHIR.DeviceRequest).extension)
+        return E.value as FHIR.CodeableConcept
+      )
+    )
+  else if requestItem is FHIR.MedicationRequest then
+    (
+      First(
+        from ((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension E
+          where hasBillingExtension(((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension)
+        return E.value as FHIR.CodeableConcept
+      )
+    )
+  else if requestItem is FHIR.VisionPrescription then
+    (
+      First(
+        from (requestItem as FHIR.VisionPrescription).lensSpecification L
+          where hasBillingExtension(L.extension)
+        return L.extension.value as FHIR.CodeableConcept
+      )
+    )
+  else if requestItem is FHIR.CommunicationRequest then 
+    (
+      First(
+        from (requestItem as FHIR.CommunicationRequest).payload P
+          where hasBillingExtension(P.extension)
+        return P.extension.value as FHIR.CodeableConcept
+      )
+    )
+  else if requestItem is FHIR.Appointment then 
+    (
+      First(
+        from (requestItem as FHIR.Appointment).extension E
+          where hasBillingExtension((requestItem as FHIR.Appointment).extension)
+        return E.value as FHIR.CodeableConcept
+      )
+    )
+  else if requestItem is FHIR.Task then
+    (
+      First(
+        from (requestItem as FHIR.Task).input I
+          where hasBillingExtension(I.extension)
+        return I.extension.value as FHIR.CodeableConcept
+      )
+    )
+  else null as FHIR.CodeableConcept
 
 //Questionnaire elements
 define "PriorAuthSubmissionRequisite":
