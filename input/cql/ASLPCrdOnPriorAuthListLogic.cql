@@ -24,7 +24,7 @@ define function "Qualification-NotFound"(requestItem Choice<FHIR.NutritionOrder,
   Coalesce(
     FHIRHelpers.ToString(First((Ctx.GetCode(requestItem)).coding).display),
     'The requested item'
-  ) + ' is not a recognized procedure electronically. Please contact the payer for further information.'
+  ) + ' is not a recognized procedure electronically. Please contact the payer.'
 
 // CRD-6
 define "Detail Text-NotFound": 

@@ -1310,7 +1310,7 @@
       "valueString": "Qualification-NotFound"
     }, {
       "url": "statement",
-      "valueString": "// CRD-6 \ndefine function \"Qualification-NotFound\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  Coalesce(\n    FHIRHelpers.ToString(First((Ctx.GetCode(requestItem)).coding).display),\n    'The requested item'\n  ) + ' is not a recognized procedure electronically. Please contact the payer for further information.'"
+      "valueString": "// CRD-6 \ndefine function \"Qualification-NotFound\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  Coalesce(\n    FHIRHelpers.ToString(First((Ctx.GetCode(requestItem)).coding).display),\n    'The requested item'\n  ) + ' is not a recognized procedure electronically. Please contact the payer.'"
     }, {
       "url": "displaySequence",
       "valueInteger": 75
