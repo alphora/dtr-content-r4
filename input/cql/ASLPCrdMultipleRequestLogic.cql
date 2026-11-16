@@ -231,10 +231,10 @@ define function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.Servic
   //   "CRD Matrix"(requestItem)."CRD-3_2b"
   else if (GoldCard."Is OrderGoldStatus") then
     "CRD Matrix"(requestItem)."CRD-4"
-  else if (Routine."Is Routine"(requestItem)) then
-    "CRD Matrix"(requestItem)."CRD-7"
   else if (requestItem is FHIR.CommunicationRequest) then
     GetCrdResultCommunicationRequest(requestItem)
+  else if (Routine."Is Routine"(requestItem)) then
+    "CRD Matrix"(requestItem)."CRD-7"
   else if (requestItem is FHIR.Appointment) then
     GetCrdResultAppointment(requestItem)
   else if (requestItem is FHIR.MedicationRequest) then

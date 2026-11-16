@@ -97,12 +97,12 @@
       "resource": "http://terminology.smilecdr.com/cs/priorauth"
     }, {
       "type": "depends-on",
-      "display": "Value set Routine Procedure Valueset",
-      "resource": "http://terminology.smilecdr.com/cs/routine"
-    }, {
-      "type": "depends-on",
       "display": "Value set Prior Auth Required for Procedure Grouper",
       "resource": "http://terminology.smilecdr.com/cs/priorauth-grouper"
+    }, {
+      "type": "depends-on",
+      "display": "Value set Routine Procedure Valueset",
+      "resource": "http://terminology.smilecdr.com/cs/routine"
     } ],
     "parameter": [ {
       "name": "selections",
@@ -2285,7 +2285,7 @@
       "valueString": "GetCrdResult"
     }, {
       "url": "statement",
-      "valueString": "// CRD Logic tree\ndefine function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n// returns Tuple{\"ID\" System.String, \"Covered\" System.String, \"PriorAuthNeeded\" System.String, \"DetailCode\" System.String, \"DetailText\" System.String, \"DetailQualification\" System.String, \"DetailDebugging\" System.String, \"DetailValue\" System.String}:\n  if (ContextValidation.\"Insufficient or Ambiguous High\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-8\"\n  else if (ContextValidation.\"DomainResource is Empty\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-8_1\"\n  else if (ContextValidation.\"Received Provider Data Cannot be Processed\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-8_3\"\n  else if (MemberEligible.\"Not MemberEligible\") then\n    \"CRD Matrix\"(requestItem).\"CRD-2\"\n  else if (OrderLOBMatch.\"Not OrderLOBMatch\") then\n    \"CRD Matrix\"(requestItem).\"CRD-3_2\"\n  else if (NpiMatch.\"Not ProviderNpiMatch\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-3_1\"\n  // else if (NpiMatch.\"Not LOBMatch\"(requestItem)) then\n  //   \"CRD Matrix\"(requestItem).\"CRD-3_2b\"\n  else if (GoldCard.\"Is OrderGoldStatus\") then\n    \"CRD Matrix\"(requestItem).\"CRD-4\"\n  else if (Routine.\"Is Routine\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-7\"\n  else if (requestItem is FHIR.CommunicationRequest) then\n    GetCrdResultCommunicationRequest(requestItem)\n  else if (requestItem is FHIR.Appointment) then\n    GetCrdResultAppointment(requestItem)\n  else if (requestItem is FHIR.MedicationRequest) then\n    GetCrdResultMedicationRequest(requestItem)\n  else if (not requestItem is FHIR.CommunicationRequest) then\n    GetCrdResultOther(requestItem)\n  else\n    \"CRD Matrix\"(requestItem).\"CRD-UnexpectedError\""
+      "valueString": "// CRD Logic tree\ndefine function GetCrdResult(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n// returns Tuple{\"ID\" System.String, \"Covered\" System.String, \"PriorAuthNeeded\" System.String, \"DetailCode\" System.String, \"DetailText\" System.String, \"DetailQualification\" System.String, \"DetailDebugging\" System.String, \"DetailValue\" System.String}:\n  if (ContextValidation.\"Insufficient or Ambiguous High\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-8\"\n  else if (ContextValidation.\"DomainResource is Empty\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-8_1\"\n  else if (ContextValidation.\"Received Provider Data Cannot be Processed\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-8_3\"\n  else if (MemberEligible.\"Not MemberEligible\") then\n    \"CRD Matrix\"(requestItem).\"CRD-2\"\n  else if (OrderLOBMatch.\"Not OrderLOBMatch\") then\n    \"CRD Matrix\"(requestItem).\"CRD-3_2\"\n  else if (NpiMatch.\"Not ProviderNpiMatch\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-3_1\"\n  // else if (NpiMatch.\"Not LOBMatch\"(requestItem)) then\n  //   \"CRD Matrix\"(requestItem).\"CRD-3_2b\"\n  else if (GoldCard.\"Is OrderGoldStatus\") then\n    \"CRD Matrix\"(requestItem).\"CRD-4\"\n  else if (requestItem is FHIR.CommunicationRequest) then\n    GetCrdResultCommunicationRequest(requestItem)\n  else if (Routine.\"Is Routine\"(requestItem)) then\n    \"CRD Matrix\"(requestItem).\"CRD-7\"\n  else if (requestItem is FHIR.Appointment) then\n    GetCrdResultAppointment(requestItem)\n  else if (requestItem is FHIR.MedicationRequest) then\n    GetCrdResultMedicationRequest(requestItem)\n  else if (not requestItem is FHIR.CommunicationRequest) then\n    GetCrdResultOther(requestItem)\n  else\n    \"CRD Matrix\"(requestItem).\"CRD-UnexpectedError\""
     }, {
       "url": "displaySequence",
       "valueInteger": 135
@@ -3014,21 +3014,6 @@
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
     "extension": [ {
       "url": "libraryName",
-      "valueString": "ASLPCrdRoutineLogic"
-    }, {
-      "url": "name",
-      "valueString": "Is Routine"
-    }, {
-      "url": "statement",
-      "valueString": "define function \"Is Routine\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest,FHIR.Appointment, FHIR.Task>):\n  Ctx.GetCode(requestItem) is not null\n    and exists ((Ctx.GetCode(requestItem).coding) c \n      where c in \"Routine Procedure Valueset\"\n    )"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 184
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
       "valueString": "ASLPCrdMultipleRequestLogic"
     }, {
       "url": "name",
@@ -3038,7 +3023,7 @@
       "valueString": "define function GetCrdResultCommunicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if PriorAuthList.\"Is OnPriorAuthList\"(requestItem) then\n    \"CRD Matrix\"(requestItem).\"CRD-5\"\n  else if PriorAuthList.\"Not OnPriorAuthList\"(requestItem) \n    and Routine.\"Is Routine\"(requestItem) then\n      \"CRD Matrix\"(requestItem).\"CRD-7\"\n  else \n    \"CRD Matrix\"(requestItem).\"CRD-6\""
     }, {
       "url": "displaySequence",
-      "valueInteger": 185
+      "valueInteger": 184
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -3053,7 +3038,7 @@
       "valueString": "define function \"Is OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  Ctx.GetCode(requestItem) is not null\n    and exists ((Ctx.GetCode(requestItem).coding) c \n      where c in \"Prior Auth Required for Procedure Valueset\"\n      or c in \"Prior Auth Required for Procedure Grouper\"\n    )"
     }, {
       "url": "displaySequence",
-      "valueInteger": 186
+      "valueInteger": 185
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -3066,6 +3051,21 @@
     }, {
       "url": "statement",
       "valueString": "define function \"Not OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  not ((\"Is OnPriorAuthList\"(requestItem)))"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 186
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPCrdRoutineLogic"
+    }, {
+      "url": "name",
+      "valueString": "Is Routine"
+    }, {
+      "url": "statement",
+      "valueString": "define function \"Is Routine\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest,FHIR.Appointment, FHIR.Task>):\n  Ctx.GetCode(requestItem) is not null\n    and exists ((Ctx.GetCode(requestItem).coding) c \n      where c in \"Routine Procedure Valueset\"\n    )"
     }, {
       "url": "displaySequence",
       "valueInteger": 187
@@ -3181,7 +3181,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-11-16T10:32:35-06:00",
+  "date": "2026-11-16T10:52:55-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MultipleRequest",
   "useContext": [ {
