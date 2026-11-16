@@ -1348,7 +1348,7 @@
       "valueString": "Qualification-NotFound"
     }, {
       "url": "statement",
-      "valueString": "// CRD-6 \ndefine function \"Qualification-NotFound\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if requestItem is FHIR.CommunicationRequest then \n    FHIRHelpers.ToString(First((Ctx.GetCode(requestItem)).coding).display) + ' is not a recognized procedure electronically. Please contact the payer.'\n  else \n    Coalesce(\n      'Provider code ' + FHIRHelpers.ToString(First((Ctx.GetCode(requestItem)).coding).display),\n      'The requested item'\n    ) + ' is not a recognized procedure electronically. Please contact the payer.'"
+      "valueString": "// CRD-6 \ndefine function \"Qualification-NotFound\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  Coalesce(\n    FHIRHelpers.ToString(First((Ctx.GetCode(requestItem)).coding).display),\n    'The requested item'\n  ) + ' is not a recognized procedure electronically. Please contact the payer.'"
     }, {
       "url": "displaySequence",
       "valueInteger": 77
@@ -1449,7 +1449,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-11-16T10:52:56-06:00",
+  "date": "2026-11-16T11:21:51-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-OnPriorAuthList",
   "useContext": [ {
