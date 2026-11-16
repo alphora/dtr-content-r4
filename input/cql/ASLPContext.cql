@@ -339,6 +339,8 @@ returns FHIR.CodeableConcept:
       null as FHIR.CodeableConcept
   else if (item is FHIR.Task) then 
     (item as FHIR.Task).code
+  else if (item is FHIR.CommunicationRequest) then
+    GetCodeableConceptForCommunicationRequest(item as FHIR.CommunicationRequest)
   else null as FHIR.CodeableConcept
 
 define function GetRequester(item Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>)
