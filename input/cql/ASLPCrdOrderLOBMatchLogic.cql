@@ -8,19 +8,19 @@ include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 context Patient
 
-// CRD-3.2
+// CRD-3_2
 define "Title":
   'Prior Auth Evaluation'
 
-// CRD-3.2
+// CRD-3_2
 define "Description":
   'Information related to whether a service is covered, not covered or requires prior auth submission'
 
-// CRD-3.2
+// CRD-3_2
 define "Qualification":
-  'Line of Business MisMatch. Prior authorization submission is required.'
+  'Line of Business Mismatch. Prior authorization submission is required.'
 
-// CRD-3.2
+// CRD-3_2
 define "Detail Debugging":
   '"Is OrderLOBMatch"=' + Ctx.NewLine + ToString("Is OrderLOBMatch")  + Ctx.NewLine +
   '  - "Matching Organizations by Name".npi()=' + Ctx.NewLine + Combine("Matching Organizations by Name".npi(), ',')  + Ctx.NewLine +
@@ -28,12 +28,12 @@ define "Detail Debugging":
   '  - "Provider Organizations by Coverage.payor".npi()=' + Ctx.NewLine + Combine("Provider Organizations by Coverage.payor".npi(), ',')  + Ctx.NewLine +
   '  - "Payor Organizations by Coverage.payor".npi()=' + Ctx.NewLine + Combine("Payor Organizations by Coverage.payor".npi(), ',')  + Ctx.NewLine
 
-// CRD-3.2
+// CRD-3_2
 define "Detail Text":
   'Line Of Business Mismatch'
 
-// CRD-3.2
-define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment>):
+// CRD-3_2
+define function "CoverageExtension"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.CommunicationRequest, FHIR.VisionPrescription, FHIR.Appointment, FHIR.Task>):
   Ctx."ExtensionPriorAuthNeeded"(requestItem, 'conditional', 'auth-needed', 'auth-needed', "Detail Text", "Qualification", 'Warning')
 
 define "Is OrderLOBMatch":

@@ -1,0 +1,25 @@
+{
+  "resourceType": "CodeSystem",
+  "id": "AdjudicationOutcomes",
+  "url": "https://codesystem.x12.org/005010/306",
+  "name": "AdjudicationOutcomes",
+  "status": "active",
+  "content": "complete",
+  "concept": [
+    {
+      "code": "A1",
+      "display": "Approved",
+      "definition": "Prior authorization request has been approved"
+    },
+    {
+      "code": "A3",
+      "display": "Denied",
+      "definition": "Prior authorization request has been denied"
+    },
+    {
+      "code": "A4",
+      "display": "Pended",
+      "definition": "Prior authorization request is pending additional information"
+    }
+  ]
+}

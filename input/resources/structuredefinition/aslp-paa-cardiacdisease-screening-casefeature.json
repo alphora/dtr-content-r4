@@ -28,12 +28,6 @@
       "valueCode" : "structured"
     },
     {
-      "url": "http://hl7.org/fhir/us/cqfmeasures/StructureDefinition/cqfm-softwaresystem",
-      "valueReference": {
-        "reference": "Device/cqf-tooling"
-      }
-    },
-    {
       "url": "http://hl7.org/fhir/uv/cpg/StructureDefinition/cpg-featureExpression",
       "valueExpression": {
         "language": "text/cql-identifier",
