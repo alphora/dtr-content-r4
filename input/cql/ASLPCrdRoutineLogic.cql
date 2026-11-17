@@ -4,6 +4,7 @@ using USCore version '7.0.0'
 using FHIR version '4.0.1'
 
 include ASLPContext version '0.1.0' called Ctx
+include ASLPResourceHelpers version '0.1.0' called RH
 include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 valueset "Routine Procedure Valueset": 'http://terminology.smilecdr.com/cs/routine'
@@ -23,7 +24,13 @@ define function "Qualification"(requestItem Choice<FHIR.NutritionOrder, FHIR.Ser
   'Order is covered. No prior auth is required for ' + Ctx."Service Request Item Code"(requestItem).display
 
 define function "Detail Qualification"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):
-  'Order is covered. No prior auth is required for: ' + FHIRHelpers.ToString((First(Ctx.GetCode(requestItem).coding)).display)
+  if requestItem is FHIR.CommunicationRequest then 
+    if RH."ReturnBillingExtensionValueFor"(requestItem) is not null then
+      'Order is covered. No prior auth is required for: ' + FHIRHelpers.ToString(First((RH."ReturnBillingExtensionValueFor"(requestItem)).coding).display)
+    else 
+      'Order is covered. No prior auth is required for: ' + FHIRHelpers.ToString((First(Ctx.GetCode(requestItem).coding)).display)
+  else
+    'Order is covered. No prior auth is required for: ' + FHIRHelpers.ToString((First(Ctx.GetCode(requestItem).coding)).display)
 
 // CRD-7
 define "Detail Text":
