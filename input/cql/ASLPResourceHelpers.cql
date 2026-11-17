@@ -4,14 +4,6 @@ include hl7.fhir.uv.cql.FHIRHelpers version '4.0.1'
 
 using FHIR version '4.0.1'
 
-define function BillingExtensionValue(exts List<FHIR.Extension>)
-returns FHIR.CodeableConcept:
-  First(
-    from exts E
-      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
-      return E.value as FHIR.CodeableConcept
-  )
-
 define function hasBillingExtension(exts List<FHIR.Extension>) 
 returns System.Boolean:
   BillingExtensionValue(exts) is not null
@@ -48,7 +40,19 @@ returns System.Boolean:
     or exists (((requestItem as FHIR.Task).input) I
       where hasBillingExtension(I.extension)
     )
+  else if requestItem is FHIR.CommunicationRequest then 
+    exists (((requestItem as FHIR.CommunicationRequest).payload) P
+      where hasBillingExtension(P.extension)
+    )
   else false
+
+define function BillingExtensionValue(exts List<FHIR.Extension>)
+returns FHIR.CodeableConcept:
+  First(
+    from exts E
+      where E.url.value = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'
+      return E.value as FHIR.CodeableConcept
+  )
 
 define function "ReturnBillingExtensionValueFor"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>)
 returns FHIR.CodeableConcept:
@@ -77,15 +81,16 @@ returns FHIR.CodeableConcept:
         return v
     )
   else if requestItem is FHIR.CommunicationRequest then
-    Coalesce(
-      BillingExtensionValue((requestItem as FHIR.CommunicationRequest).extension),
-      First(
-        from ((requestItem as FHIR.CommunicationRequest).payload) P
-          let v: BillingExtensionValue(P.extension)
-          where v is not null
-          return v
-      )
-    )
+    from ((requestItem as FHIR.CommunicationRequest).payload) P 
+    return
+      from (P.extension) OuterExt 
+        where OuterExt.url is not null
+        and exists (OuterExt.extension as List<FHIR.Extension>)
+      return 
+        from (OuterExt.extension as List<FHIR.Extension>) InnerExt
+          where (InnerExt as FHIR.Extension).url.value = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options' 
+        return 
+          (InnerExt as FHIR.Extension).value as FHIR.CodeableConcept
   else if requestItem is FHIR.Appointment then
     BillingExtensionValue((requestItem as FHIR.Appointment).extension)
   else if requestItem is FHIR.Task then
