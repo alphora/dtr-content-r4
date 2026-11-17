@@ -97,12 +97,12 @@
       "resource": "http://terminology.smilecdr.com/cs/priorauth"
     }, {
       "type": "depends-on",
-      "display": "Value set Prior Auth Required for Procedure Grouper",
-      "resource": "http://terminology.smilecdr.com/cs/priorauth-grouper"
-    }, {
-      "type": "depends-on",
       "display": "Value set Routine Procedure Valueset",
       "resource": "http://terminology.smilecdr.com/cs/routine"
+    }, {
+      "type": "depends-on",
+      "display": "Value set Prior Auth Required for Procedure Grouper",
+      "resource": "http://terminology.smilecdr.com/cs/priorauth-grouper"
     } ],
     "parameter": [ {
       "name": "selections",
@@ -198,7 +198,7 @@
     }, {
       "type": "CommunicationRequest",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/CommunicationRequest" ],
-      "mustSupport": [ "extension", "content", "payload", "id", "id.value", "requester", "sender" ]
+      "mustSupport": [ "payload", "content", "id", "id.value", "requester", "sender", "extension" ]
     }, {
       "type": "Appointment",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/Appointment" ],
@@ -2015,7 +2015,7 @@
       "valueString": "ReturnBillingExtensionValueFor"
     }, {
       "url": "statement",
-      "valueString": "define function \"ReturnBillingExtensionValueFor\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>)\nreturns FHIR.CodeableConcept:\n  if requestItem is FHIR.NutritionOrder then\n    Coalesce(\n      BillingExtensionValue((requestItem as FHIR.NutritionOrder).oralDiet.extension),\n      BillingExtensionValue((requestItem as FHIR.NutritionOrder).enteralFormula.extension),\n      First(\n        from ((requestItem as FHIR.NutritionOrder).supplement) S\n          let v: BillingExtensionValue(S.extension)\n          where v is not null\n          return v\n      )\n    )\n  else if requestItem is FHIR.ServiceRequest then\n    BillingExtensionValue((requestItem as FHIR.ServiceRequest).extension)\n  else if requestItem is FHIR.DeviceRequest then\n    BillingExtensionValue((requestItem as FHIR.DeviceRequest).extension)\n  else if requestItem is FHIR.MedicationRequest then\n    BillingExtensionValue(((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension)\n  else if requestItem is FHIR.VisionPrescription then\n    First(\n      from ((requestItem as FHIR.VisionPrescription).lensSpecification) L\n        let v: BillingExtensionValue(L.extension)\n        where v is not null\n        return v\n    )\n  else if requestItem is FHIR.CommunicationRequest then\n    Coalesce(\n      BillingExtensionValue((requestItem as FHIR.CommunicationRequest).extension),\n      First(\n        from ((requestItem as FHIR.CommunicationRequest).payload) P\n          let v: BillingExtensionValue(P.extension)\n          where v is not null\n          return v\n      )\n    )\n  else if requestItem is FHIR.Appointment then\n    BillingExtensionValue((requestItem as FHIR.Appointment).extension)\n  else if requestItem is FHIR.Task then\n    First(\n      from ((requestItem as FHIR.Task).input) I\n        let v: BillingExtensionValue(I.extension)\n        where v is not null\n        return v\n    )\n  else null as FHIR.CodeableConcept"
+      "valueString": "define function \"ReturnBillingExtensionValueFor\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>)\nreturns FHIR.CodeableConcept:\n  if requestItem is FHIR.NutritionOrder then\n    Coalesce(\n      BillingExtensionValue((requestItem as FHIR.NutritionOrder).oralDiet.extension),\n      BillingExtensionValue((requestItem as FHIR.NutritionOrder).enteralFormula.extension),\n      First(\n        from ((requestItem as FHIR.NutritionOrder).supplement) S\n          let v: BillingExtensionValue(S.extension)\n          where v is not null\n          return v\n      )\n    )\n  else if requestItem is FHIR.ServiceRequest then\n    BillingExtensionValue((requestItem as FHIR.ServiceRequest).extension)\n  else if requestItem is FHIR.DeviceRequest then\n    BillingExtensionValue((requestItem as FHIR.DeviceRequest).extension)\n  else if requestItem is FHIR.MedicationRequest then\n    BillingExtensionValue(((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension)\n  else if requestItem is FHIR.VisionPrescription then\n    First(\n      from ((requestItem as FHIR.VisionPrescription).lensSpecification) L\n        let v: BillingExtensionValue(L.extension)\n        where v is not null\n        return v\n    )\n  else if requestItem is FHIR.CommunicationRequest then\n    from ((requestItem as FHIR.CommunicationRequest).payload) P \n    return\n      from (P.extension) OuterExt \n        where OuterExt.url is not null\n        and exists (OuterExt.extension as List<FHIR.Extension>)\n      return \n        from (OuterExt.extension as List<FHIR.Extension>) InnerExt\n          where (InnerExt as FHIR.Extension).url.value = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options' \n        return \n          (InnerExt as FHIR.Extension).value as FHIR.CodeableConcept\n  else if requestItem is FHIR.Appointment then\n    BillingExtensionValue((requestItem as FHIR.Appointment).extension)\n  else if requestItem is FHIR.Task then\n    First(\n      from ((requestItem as FHIR.Task).input) I\n        let v: BillingExtensionValue(I.extension)\n        where v is not null\n        return v\n    )\n  else null as FHIR.CodeableConcept"
     }, {
       "url": "displaySequence",
       "valueInteger": 117
@@ -2030,25 +2030,10 @@
       "valueString": "BillingExtensionValue"
     }, {
       "url": "statement",
-      "valueString": "define function BillingExtensionValue(exts List<FHIR.Extension>)\nreturns FHIR.CodeableConcept:\n  First(\n    from exts E\n      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n      return E.value as FHIR.CodeableConcept\n  )"
+      "valueString": "define function BillingExtensionValue(exts List<FHIR.Extension>)\nreturns FHIR.CodeableConcept:\n  First(\n    from exts E\n      where E.url.value = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n      return E.value as FHIR.CodeableConcept\n  )"
     }, {
       "url": "displaySequence",
       "valueInteger": 118
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "FHIRHelpers"
-    }, {
-      "url": "name",
-      "valueString": "ToString"
-    }, {
-      "url": "statement",
-      "valueString": "define function ToString(value uri): value.value"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 119
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2063,7 +2048,7 @@
       "valueString": "define function \"BillingCodeSystem\"(c System.Code)\nreturns System.String:\n  if IsNull(c) then null\n  else if c.system in { 'http://www.ama-assn.org/go/cpt', 'urn:oid:2.16.840.1.113883.6.12' } then\n    'http://www.ama-assn.org/go/cpt'\n  else if c.system in { 'http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets', 'https://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets', 'urn:oid:2.16.840.1.113883.6.285' } then\n    'http://www.cms.gov/Medicare/Coding/HCPCSReleaseCodeSets'\n  else null"
     }, {
       "url": "displaySequence",
-      "valueInteger": 120
+      "valueInteger": 119
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2078,7 +2063,7 @@
       "valueString": "define function \"DocNeeded\"(priorAuthRequiredValue System.String)\nreturns List<FHIR.Extension>:\n  if (\"PriorAuthNeededExtension\"(priorAuthRequiredValue).value as FHIR.code).value in { 'no-auth', 'conditional' } then\n    \"Doc Needed Values Null\" V\n    return \n      FHIR.Extension {\n        \"url\": FHIR.uri { \"value\": 'doc-needed' },\n        \"value\": FHIR.code { \"value\": V }\n      }\n  else\n    \"Doc Needed Values\" V\n    return \n      FHIR.Extension {\n        \"url\": FHIR.uri { \"value\": 'doc-needed' },\n        \"value\": FHIR.code { \"value\": V }\n      }"
     }, {
       "url": "displaySequence",
-      "valueInteger": 121
+      "valueInteger": 120
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2093,7 +2078,7 @@
       "valueString": "define function \"DocPurpose\"(priorAuthRequiredValue System.String)\nreturns FHIR.Extension:\n  if (\"PriorAuthNeededExtension\"(priorAuthRequiredValue).value as FHIR.code).value = 'auth-needed' then\n    FHIR.Extension {\n      \"url\": FHIR.uri { \"value\": 'doc-purpose' },\n      \"value\": FHIR.code { \"value\": 'withpa' }\n    }\n  else \n    FHIR.Extension {\n      \"url\": FHIR.uri { \"value\": 'doc-purpose' },\n      \"value\": FHIR.code { \"value\": 'no-doc-purpose' }\n    }"
     }, {
       "url": "displaySequence",
-      "valueInteger": 122
+      "valueInteger": 121
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2108,7 +2093,7 @@
       "valueString": "define function \"QuestionnaireExtension\"(priorAuthRequiredValue System.String, procedureCode System.Code, requestRefString System.String)\nreturns FHIR.Extension:\n  FHIR.Extension {\n    \"url\": FHIR.uri { \"value\": 'questionnaire' },\n    \"value\": FHIR.canonical {\n      \"value\":\n        case\n          when priorAuthRequiredValue in { 'auth-needed', 'conditional' } then\n            Coalesce(\n              QuestionnaireRouter.GetAdaptiveQuestionnairePlanDefinition(procedureCode),\n              'http://example.org/fhir/PlanDefinition/questionnaire-not-found'\n            )\n          else if StartsWith(requestRefString, 'CommunicationRequest/') then\n            'http://example.org/fhir/PlanDefinition/not-applicable' \n          else \n            'http://example.org/fhir/PlanDefinition/not-applicable'\n        end\n    }\n  }"
     }, {
       "url": "displaySequence",
-      "valueInteger": 123
+      "valueInteger": 122
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2123,7 +2108,7 @@
       "valueString": "define function GetAdaptiveQuestionnairePlanDefinition(procedureCode System.Code) \nreturns System.String:\n    if (procedureCode in \"Sleep Study Procedure\") then\n        \"CanonicalBase\" + '/PlanDefinition/Home-Monitor-Sleep-Testing-Questionnaire'\n    // else if (procedureCode in \"Other Example Procedure\") then\n    //     \"CanonicalBase\" + '/Questionnaire/ASLPA1'\n    else if (procedureCode in \"Other Example Procedure\") then\n        \"CanonicalBase\" + '/PlanDefinition/Home-Monitor-Sleep-Testing'\n    else\n        null as System.String"
     }, {
       "url": "displaySequence",
-      "valueInteger": 124
+      "valueInteger": 123
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2138,7 +2123,7 @@
       "valueString": "define function IsPayorResource(resource Resource)\nreturns System.Boolean:\n  TagExists(resource, \"Payor Code\")"
     }, {
       "url": "displaySequence",
-      "valueInteger": 125
+      "valueInteger": 124
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2153,7 +2138,7 @@
       "valueString": "define function TagExists(resource Resource, value System.Code)\nreturns System.Boolean:\n  if (exists(resource.meta.tag.system)) then\n    AnyTrue(\n      resource.meta.tag Tag\n        return \n          if Tag.system.value ~ value.system and Tag.code.value ~ value.code then \n            true \n          else \n            false\n    )\n  else false"
     }, {
       "url": "displaySequence",
-      "valueInteger": 126
+      "valueInteger": 125
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2168,7 +2153,7 @@
       "valueString": "define function \"System Generated Id\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  Coalesce(\n    FHIRHelpers.ToString(\n      (First(\n        requestItem.extension E\n          where E.url = 'https://smiledigitalhealth.com/priorauth/smile-crd-assertion-id'\n      ).value as FHIR.string)\n    ),\n    \"Request Id\"\n  )"
     }, {
       "url": "displaySequence",
-      "valueInteger": 127
+      "valueInteger": 126
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -2181,6 +2166,21 @@
     }, {
       "url": "statement",
       "valueString": "define function ToString(value string): value.value"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 127
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "FHIRHelpers"
+    }, {
+      "url": "name",
+      "valueString": "ToString"
+    }, {
+      "url": "statement",
+      "valueString": "define function ToString(value uri): value.value"
     }, {
       "url": "displaySequence",
       "valueInteger": 128
@@ -2900,7 +2900,7 @@
       "valueString": "Detail Qualification"
     }, {
       "url": "statement",
-      "valueString": "define function \"Detail Qualification\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  'Order is covered. No prior auth is required for: ' + FHIRHelpers.ToString((First(Ctx.GetCode(requestItem).coding)).display)"
+      "valueString": "define function \"Detail Qualification\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if requestItem is FHIR.CommunicationRequest then \n    if RH.\"ReturnBillingExtensionValueFor\"(requestItem) is not null then\n      'Order is covered. No prior auth is required for: ' + FHIRHelpers.ToString(First((RH.\"ReturnBillingExtensionValueFor\"(requestItem)).coding).display)\n    else \n      'Order is covered. No prior auth is required for: ' + FHIRHelpers.ToString((First(Ctx.GetCode(requestItem).coding)).display)\n  else\n    'Order is covered. No prior auth is required for: ' + FHIRHelpers.ToString((First(Ctx.GetCode(requestItem).coding)).display)"
     }, {
       "url": "displaySequence",
       "valueInteger": 176
@@ -3020,40 +3020,10 @@
       "valueString": "GetCrdResultCommunicationRequest"
     }, {
       "url": "statement",
-      "valueString": "define function GetCrdResultCommunicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if PriorAuthList.\"Is OnPriorAuthList\"(requestItem) then\n    \"CRD Matrix\"(requestItem).\"CRD-5\"\n  else if PriorAuthList.\"Not OnPriorAuthList\"(requestItem) \n    and Routine.\"Is Routine\"(requestItem) then\n      \"CRD Matrix\"(requestItem).\"CRD-7\"\n  else \n    \"CRD Matrix\"(requestItem).\"CRD-6\""
+      "valueString": "define function GetCrdResultCommunicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  \"CRD Matrix\"(requestItem).\"CRD-7\""
     }, {
       "url": "displaySequence",
       "valueInteger": 184
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPCrdOnPriorAuthListLogic"
-    }, {
-      "url": "name",
-      "valueString": "Is OnPriorAuthList"
-    }, {
-      "url": "statement",
-      "valueString": "define function \"Is OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  Ctx.GetCode(requestItem) is not null\n    and exists ((Ctx.GetCode(requestItem).coding) c \n      where c in \"Prior Auth Required for Procedure Valueset\"\n      or c in \"Prior Auth Required for Procedure Grouper\"\n    )"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 185
-    } ]
-  }, {
-    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
-    "extension": [ {
-      "url": "libraryName",
-      "valueString": "ASLPCrdOnPriorAuthListLogic"
-    }, {
-      "url": "name",
-      "valueString": "Not OnPriorAuthList"
-    }, {
-      "url": "statement",
-      "valueString": "define function \"Not OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  not ((\"Is OnPriorAuthList\"(requestItem)))"
-    }, {
-      "url": "displaySequence",
-      "valueInteger": 186
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -3068,7 +3038,7 @@
       "valueString": "define function \"Is Routine\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest,FHIR.Appointment, FHIR.Task>):\n  Ctx.GetCode(requestItem) is not null\n    and exists ((Ctx.GetCode(requestItem).coding) c \n      where c in \"Routine Procedure Valueset\"\n    )"
     }, {
       "url": "displaySequence",
-      "valueInteger": 187
+      "valueInteger": 185
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -3083,7 +3053,22 @@
       "valueString": "define function GetCrdResultAppointment(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if exists (requestItem.basedOn) then \n    if (\n      PriorAuthList.\"Is OnPriorAuthList\"(requestItem)\n      or exists ((Ctx.GetCode(requestItem).coding) c\n        where c in \"Sleep Study Procedure\"\n      )\n    ) then \n      \"CRD Matrix\"(requestItem).\"CRD-5\"\n    else if Routine.\"Is Routine\"(requestItem) then \n      \"CRD Matrix\"(requestItem).\"CRD-7\"\n    else \n      \"CRD Matrix\"(requestItem).\"CRD-6\"  \n  // else if exists (requestItem.serviceType) then \n    // if (\n    //   PriorAuthList.\"Is OnPriorAuthList\"(requestItem)\n    //   or exists ((Ctx.GetCode(requestItem).coding) c\n    //     where c in \"Sleep Study Procedure\"\n    //   )\n    // ) then\n    //   \"CRD Matrix\"(requestItem).\"CRD-5\"\n    // else if Routine.\"Is Routine\"(requestItem) then \n    //   \"CRD Matrix\"(requestItem).\"CRD-7\"\n    // else \n    //   \"CRD Matrix\"(requestItem).\"CRD-6\"\n  else \n    // \"CRD Matrix\"(requestItem).\"CRD-9\"\n    // \"CRD Matrix\"(requestItem).\"CRD-UnexpectedError\"\n    \"CRD Matrix\"(requestItem).\"CRD-7\""
     }, {
       "url": "displaySequence",
-      "valueInteger": 188
+      "valueInteger": 186
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPCrdOnPriorAuthListLogic"
+    }, {
+      "url": "name",
+      "valueString": "Is OnPriorAuthList"
+    }, {
+      "url": "statement",
+      "valueString": "define function \"Is OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  Ctx.GetCode(requestItem) is not null\n    and exists ((Ctx.GetCode(requestItem).coding) c \n      where c in \"Prior Auth Required for Procedure Valueset\"\n      or c in \"Prior Auth Required for Procedure Grouper\"\n    )"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 187
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -3098,7 +3083,7 @@
       "valueString": "define function GetCrdResultMedicationRequest(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  if RH.BillingOptionExtensionPresent(requestItem) then \n    if (PriorAuthList.\"Is OnPriorAuthList\"(requestItem)\n      or exists ((Ctx.GetCode(requestItem).coding) c \n        where c in \"Sleep Study Procedure\"\n      )\n    ) then\n      \"CRD Matrix\"(requestItem).\"CRD-5\"\n    else if (Routine.\"Is Routine\"(requestItem)) then \n      \"CRD Matrix\"(requestItem).\"CRD-7\"\n    else \n      \"CRD Matrix\"(requestItem).\"CRD-6\"\n  else if (((requestItem.medication as FHIR.CodeableConcept) is not null) or ((requestItem.medication as FHIR.Reference) is not null)) then\n    if (PriorAuthList.\"Is OnPriorAuthList\"(requestItem)\n      or exists ((Ctx.GetCode(requestItem).coding) c \n        where c in \"Sleep Study Procedure\"\n      )\n    ) then\n        if not exists (OrderLOBMatch.\"Matching Organizations by Name\") \n        or OrderLOBMatch.\"Matching Organizations by Name\" is null then \n          \"CRD Matrix\"(requestItem).\"CRD-3_2\"\n        else \n          \"CRD Matrix\"(requestItem).\"CRD-5\"\n    else if (\n      PriorAuthList.\"Not OnPriorAuthList\"(requestItem)\n      or exists ((Ctx.GetCode(requestItem).coding) c \n        where not (c in \"Sleep Study Procedure\")\n      )\n    ) then \n      \"CRD Matrix\"(requestItem).\"CRD-6\"\n          // if not exists (OrderLOBMatch.\"Matching Organizations by Name\") \n          // or OrderLOBMatch.\"Matching Organizations by Name\" is null then \n          //   \"CRD Matrix\"(requestItem).\"CRD-3_2\"\n          // else \"CRD Matrix\"(requestItem).\"CRD-6\"\n    else if (Routine.\"Is Routine\"(requestItem)) then \n      \"CRD Matrix\"(requestItem).\"CRD-7\"\n    else \n      \"CRD Matrix\"(requestItem).\"CRD-6\"\n  else \n    \"CRD Matrix\"(requestItem).\"CRD-6\""
     }, {
       "url": "displaySequence",
-      "valueInteger": 189
+      "valueInteger": 188
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -3110,10 +3095,10 @@
       "valueString": "BillingOptionExtensionPresent"
     }, {
       "url": "statement",
-      "valueString": "define function BillingOptionExtensionPresent(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>)\nreturns System.Boolean:\n  if requestItem is FHIR.MedicationRequest then \n    ((requestItem as FHIR.MedicationRequest).medication) is FHIR.CodeableConcept\n    and hasBillingExtension(((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension)\n  else if requestItem is FHIR.VisionPrescription then \n    exists (((requestItem as FHIR.VisionPrescription).lensSpecification) LS \n      where hasBillingExtension(LS.extension)\n    )\n  else if requestItem is FHIR.ServiceRequest then \n    hasBillingExtension((requestItem as FHIR.ServiceRequest).extension)\n  else if requestItem is FHIR.NutritionOrder then \n    hasBillingExtension((requestItem as FHIR.NutritionOrder).oralDiet.extension)\n    or hasBillingExtension((requestItem as FHIR.NutritionOrder).enteralFormula.extension)\n    or exists (\n      ((requestItem as FHIR.NutritionOrder).supplement) S\n        where hasBillingExtension(S.extension)\n    )\n  else if requestItem is FHIR.DeviceRequest then\n    hasBillingExtension((requestItem as FHIR.DeviceRequest).extension)\n  else if requestItem is FHIR.CommunicationRequest then \n    hasBillingExtension((requestItem as FHIR.CommunicationRequest).extension)\n    or exists (((requestItem as FHIR.CommunicationRequest).payload) P\n      where hasBillingExtension(P.extension)\n    )\n  else if requestItem is FHIR.Appointment then \n    hasBillingExtension((requestItem as FHIR.Appointment).extension)\n  else if requestItem is FHIR.Task then \n    hasBillingExtension((requestItem as FHIR.Task).extension)\n    or exists (((requestItem as FHIR.Task).input) I\n      where hasBillingExtension(I.extension)\n    )\n  else false"
+      "valueString": "define function BillingOptionExtensionPresent(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>)\nreturns System.Boolean:\n  if requestItem is FHIR.MedicationRequest then \n    ((requestItem as FHIR.MedicationRequest).medication) is FHIR.CodeableConcept\n    and hasBillingExtension(((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension)\n  else if requestItem is FHIR.VisionPrescription then \n    exists (((requestItem as FHIR.VisionPrescription).lensSpecification) LS \n      where hasBillingExtension(LS.extension)\n    )\n  else if requestItem is FHIR.ServiceRequest then \n    hasBillingExtension((requestItem as FHIR.ServiceRequest).extension)\n  else if requestItem is FHIR.NutritionOrder then \n    hasBillingExtension((requestItem as FHIR.NutritionOrder).oralDiet.extension)\n    or hasBillingExtension((requestItem as FHIR.NutritionOrder).enteralFormula.extension)\n    or exists (\n      ((requestItem as FHIR.NutritionOrder).supplement) S\n        where hasBillingExtension(S.extension)\n    )\n  else if requestItem is FHIR.DeviceRequest then\n    hasBillingExtension((requestItem as FHIR.DeviceRequest).extension)\n  else if requestItem is FHIR.CommunicationRequest then \n    hasBillingExtension((requestItem as FHIR.CommunicationRequest).extension)\n    or exists (((requestItem as FHIR.CommunicationRequest).payload) P\n      where hasBillingExtension(P.extension)\n    )\n  else if requestItem is FHIR.Appointment then \n    hasBillingExtension((requestItem as FHIR.Appointment).extension)\n  else if requestItem is FHIR.Task then \n    hasBillingExtension((requestItem as FHIR.Task).extension)\n    or exists (((requestItem as FHIR.Task).input) I\n      where hasBillingExtension(I.extension)\n    )\n  else if requestItem is FHIR.CommunicationRequest then \n    exists (((requestItem as FHIR.CommunicationRequest).payload) P\n      where hasBillingExtension(P.extension)\n    )\n  else false"
     }, {
       "url": "displaySequence",
-      "valueInteger": 190
+      "valueInteger": 189
     } ]
   }, {
     "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
@@ -3126,6 +3111,21 @@
     }, {
       "url": "statement",
       "valueString": "define function hasBillingExtension(exts List<FHIR.Extension>) \nreturns System.Boolean:\n  BillingExtensionValue(exts) is not null"
+    }, {
+      "url": "displaySequence",
+      "valueInteger": 190
+    } ]
+  }, {
+    "url": "http://hl7.org/fhir/StructureDefinition/cqf-logicDefinition",
+    "extension": [ {
+      "url": "libraryName",
+      "valueString": "ASLPCrdOnPriorAuthListLogic"
+    }, {
+      "url": "name",
+      "valueString": "Not OnPriorAuthList"
+    }, {
+      "url": "statement",
+      "valueString": "define function \"Not OnPriorAuthList\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>):\n  not ((\"Is OnPriorAuthList\"(requestItem)))"
     }, {
       "url": "displaySequence",
       "valueInteger": 191
@@ -3181,7 +3181,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-11-16T11:21:51-06:00",
+  "date": "2026-11-17T14:03:02-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-MultipleRequest",
   "useContext": [ {

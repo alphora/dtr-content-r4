@@ -158,7 +158,7 @@
     }, {
       "type": "CommunicationRequest",
       "profile": [ "http://hl7.org/fhir/StructureDefinition/CommunicationRequest" ],
-      "mustSupport": [ "extension", "content", "payload", "id", "id.value" ]
+      "mustSupport": [ "payload", "content", "id", "id.value" ]
     } ]
   } ],
   "extension": [ {
@@ -1186,7 +1186,7 @@
       "valueString": "ReturnBillingExtensionValueFor"
     }, {
       "url": "statement",
-      "valueString": "define function \"ReturnBillingExtensionValueFor\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>)\nreturns FHIR.CodeableConcept:\n  if requestItem is FHIR.NutritionOrder then\n    Coalesce(\n      BillingExtensionValue((requestItem as FHIR.NutritionOrder).oralDiet.extension),\n      BillingExtensionValue((requestItem as FHIR.NutritionOrder).enteralFormula.extension),\n      First(\n        from ((requestItem as FHIR.NutritionOrder).supplement) S\n          let v: BillingExtensionValue(S.extension)\n          where v is not null\n          return v\n      )\n    )\n  else if requestItem is FHIR.ServiceRequest then\n    BillingExtensionValue((requestItem as FHIR.ServiceRequest).extension)\n  else if requestItem is FHIR.DeviceRequest then\n    BillingExtensionValue((requestItem as FHIR.DeviceRequest).extension)\n  else if requestItem is FHIR.MedicationRequest then\n    BillingExtensionValue(((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension)\n  else if requestItem is FHIR.VisionPrescription then\n    First(\n      from ((requestItem as FHIR.VisionPrescription).lensSpecification) L\n        let v: BillingExtensionValue(L.extension)\n        where v is not null\n        return v\n    )\n  else if requestItem is FHIR.CommunicationRequest then\n    Coalesce(\n      BillingExtensionValue((requestItem as FHIR.CommunicationRequest).extension),\n      First(\n        from ((requestItem as FHIR.CommunicationRequest).payload) P\n          let v: BillingExtensionValue(P.extension)\n          where v is not null\n          return v\n      )\n    )\n  else if requestItem is FHIR.Appointment then\n    BillingExtensionValue((requestItem as FHIR.Appointment).extension)\n  else if requestItem is FHIR.Task then\n    First(\n      from ((requestItem as FHIR.Task).input) I\n        let v: BillingExtensionValue(I.extension)\n        where v is not null\n        return v\n    )\n  else null as FHIR.CodeableConcept"
+      "valueString": "define function \"ReturnBillingExtensionValueFor\"(requestItem Choice<FHIR.NutritionOrder, FHIR.ServiceRequest, FHIR.DeviceRequest, FHIR.MedicationRequest, FHIR.VisionPrescription, FHIR.CommunicationRequest, FHIR.Appointment, FHIR.Task>)\nreturns FHIR.CodeableConcept:\n  if requestItem is FHIR.NutritionOrder then\n    Coalesce(\n      BillingExtensionValue((requestItem as FHIR.NutritionOrder).oralDiet.extension),\n      BillingExtensionValue((requestItem as FHIR.NutritionOrder).enteralFormula.extension),\n      First(\n        from ((requestItem as FHIR.NutritionOrder).supplement) S\n          let v: BillingExtensionValue(S.extension)\n          where v is not null\n          return v\n      )\n    )\n  else if requestItem is FHIR.ServiceRequest then\n    BillingExtensionValue((requestItem as FHIR.ServiceRequest).extension)\n  else if requestItem is FHIR.DeviceRequest then\n    BillingExtensionValue((requestItem as FHIR.DeviceRequest).extension)\n  else if requestItem is FHIR.MedicationRequest then\n    BillingExtensionValue(((requestItem as FHIR.MedicationRequest).medication as FHIR.CodeableConcept).extension)\n  else if requestItem is FHIR.VisionPrescription then\n    First(\n      from ((requestItem as FHIR.VisionPrescription).lensSpecification) L\n        let v: BillingExtensionValue(L.extension)\n        where v is not null\n        return v\n    )\n  else if requestItem is FHIR.CommunicationRequest then\n    from ((requestItem as FHIR.CommunicationRequest).payload) P \n    return\n      from (P.extension) OuterExt \n        where OuterExt.url is not null\n        and exists (OuterExt.extension as List<FHIR.Extension>)\n      return \n        from (OuterExt.extension as List<FHIR.Extension>) InnerExt\n          where (InnerExt as FHIR.Extension).url.value = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options' \n        return \n          (InnerExt as FHIR.Extension).value as FHIR.CodeableConcept\n  else if requestItem is FHIR.Appointment then\n    BillingExtensionValue((requestItem as FHIR.Appointment).extension)\n  else if requestItem is FHIR.Task then\n    First(\n      from ((requestItem as FHIR.Task).input) I\n        let v: BillingExtensionValue(I.extension)\n        where v is not null\n        return v\n    )\n  else null as FHIR.CodeableConcept"
     }, {
       "url": "displaySequence",
       "valueInteger": 67
@@ -1201,7 +1201,7 @@
       "valueString": "BillingExtensionValue"
     }, {
       "url": "statement",
-      "valueString": "define function BillingExtensionValue(exts List<FHIR.Extension>)\nreturns FHIR.CodeableConcept:\n  First(\n    from exts E\n      where E.url = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n      return E.value as FHIR.CodeableConcept\n  )"
+      "valueString": "define function BillingExtensionValue(exts List<FHIR.Extension>)\nreturns FHIR.CodeableConcept:\n  First(\n    from exts E\n      where E.url.value = 'http://hl7.org/fhir/us/davinci-crd/StructureDefinition/ext-billing-options'\n      return E.value as FHIR.CodeableConcept\n  )"
     }, {
       "url": "displaySequence",
       "valueInteger": 68
@@ -1362,7 +1362,7 @@
   },
   "status": "draft",
   "experimental": true,
-  "date": "2026-11-16T11:21:51-06:00",
+  "date": "2026-11-17T14:03:02-06:00",
   "publisher": "Smile Digital Health",
   "description": "Description for ASLPCrd-Routine",
   "useContext": [ {
